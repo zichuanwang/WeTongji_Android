@@ -1,5 +1,3 @@
-wetongji2_android
-=================
 # WeTongji Android
 
 WeTongji是为同济大学师生所使用的一款校园智能移动信息服务。目前支持iOS和Android两大平台，此为Android 3.x版项目主页
