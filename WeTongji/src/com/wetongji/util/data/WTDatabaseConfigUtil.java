@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.wetongji.util;
+package com.wetongji.util.data;
 
 
 

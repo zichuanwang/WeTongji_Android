@@ -49,7 +49,8 @@ public class WTClient
 	private Map<String, String> params;
 
 	
-	private static String API_DOMAIN = "http://we.tongji.edu.cn/api/call";
+	//private static String API_DOMAIN = "http://we.tongji.edu.cn/api/call";
+	private static String API_DOMAIN="http://leiz.name:8080/api/call";// test server
 	private static String SORTTYPE_BEGIN = "`begin`";
 	private static String SORTTYPE_LIKEDESC = "`like`";
 	private static String SORTTYPE_PUBLISHDESC="`id`";
@@ -133,7 +134,7 @@ public class WTClient
 	//形成新的URL值
 	public String buildURL()
 	{
-		params.put("D", "android1.2.1");
+		params.put("D", "android1.0.0");
 		params.put("V", "1.2");
 		String queryStr = queryString();
 		String hashStr = hashQueryString(queryStr);
