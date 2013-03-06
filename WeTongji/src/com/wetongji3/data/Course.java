@@ -1,9 +1,9 @@
-package com.wetongji.data;
+package com.wetongji3.data;
 
 import com.j256.ormlite.field.DatabaseField;
 
-public class Exam extends Event {
-	@DatabaseField(id=true)
+public class Course extends Event {
+	@DatabaseField
 	private String NO;
 	@DatabaseField
 	private int Hours;
@@ -14,11 +14,11 @@ public class Exam extends Event {
 	@DatabaseField
 	private boolean Required;
 	
-	public Exam() {
+	public Course() {
 		super();
 	}
 
-	public Exam(String nO, int hours, float point, String teacher,
+	public Course(String nO, int hours, float point, String teacher,
 			boolean required) {
 		super();
 		NO = nO;

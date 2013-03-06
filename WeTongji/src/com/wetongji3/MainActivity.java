@@ -1,4 +1,6 @@
-package com.wetongji;
+package com.wetongji3;
+
+import com.wetongji.R;
 
 import android.os.Bundle;
 import android.app.Activity;

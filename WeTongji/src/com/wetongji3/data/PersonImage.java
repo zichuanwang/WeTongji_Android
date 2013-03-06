@@ -1,4 +1,4 @@
-package com.wetongji.data;
+package com.wetongji3.data;
 
 import com.j256.ormlite.field.DatabaseField;
 

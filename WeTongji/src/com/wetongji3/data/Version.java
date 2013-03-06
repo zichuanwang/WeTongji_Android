@@ -1,10 +1,21 @@
-package com.wetongji.data;
+package com.wetongji3.data;
 
 public class Version {
 	private String Url;
 	private String Latest;
 	private String Current;
 	
+	public Version() {
+		super();
+	}
+
+	public Version(String url, String latest, String current) {
+		super();
+		Url = url;
+		Latest = latest;
+		Current = current;
+	}
+
 	public String getCurrent() {
 		return Current;
 	}
@@ -34,6 +45,11 @@ public class Version {
 			return Current.compareTo(Latest)<0;
 		}
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return super.toString()+"Latest:"+Latest;
 	}
 	
 }

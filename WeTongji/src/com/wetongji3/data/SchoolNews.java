@@ -1,4 +1,4 @@
-package com.wetongji.data;
+package com.wetongji3.data;
 
 public class SchoolNews extends News {
 

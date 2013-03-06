@@ -4,5 +4,8 @@
     <string name="app_name">WeTongji</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="ask_for_update">New update found. Update now?</string>
+    <string name="yes">Yes</string>
+    <string name="not_now">Not now</string>
 
 </resources>
