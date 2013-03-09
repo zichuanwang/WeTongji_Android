@@ -1,4 +1,4 @@
-package com.wetongji3.data;
+package com.wetongji_android.data;
 
 public class Version {
 	private String Url;

@@ -4,8 +4,10 @@
     <string name="app_name">WeTongji</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="ask_for_update">New update found. Update now?</string>
-    <string name="yes">Yes</string>
-    <string name="not_now">Not now</string>
+    <string name="title_dialog_update_found">Found new update</string>
+    <string name="text_btn_update">Update</string>
+    <string name="text_btn_not_now">Not now</string>
+    <string name="action_settings">Settings</string>
+    <string name="msg_dialog_update_found">New version %1$s found.\n%2$s</string>
 
 </resources>

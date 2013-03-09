@@ -1,4 +1,4 @@
-package com.wetongji3.net;
+package com.wetongji_android.net;
 
 import java.io.File;
 import java.net.URI;
@@ -26,7 +26,7 @@ import org.json.JSONObject;
 
 import android.util.Log;
 
-import com.wetongji3.data.User;
+import com.wetongji_android.data.User;
 
 /**
  * @author hezibo
@@ -108,7 +108,7 @@ public class WTClient
 		} 
 	}
 	
-	//形成排序后的参数�?
+	//形成排序后的参数�?
 	public String queryString()
 	{
 		String str = "?";
@@ -132,7 +132,7 @@ public class WTClient
 		return subStr;
 	}
 	
-	//形成新的URL�?
+	//形成新的URL�?
 	public String buildURL()
 	{
 		params.put("D", "android1.0.0");
@@ -204,7 +204,7 @@ public class WTClient
 		this.params.clear();//每次执行完请求之后都清空参数map
 	}
 	
-	//�?��用户账号
+	//�?��用户账号
 	public void activeUser(String num, String name, String password) throws Exception
 	{
 	    name = URLEncoder.encode(name, "UTF-8");
@@ -361,7 +361,7 @@ public class WTClient
 	}
 	
 	//济人部分
-	//获取�?��济人,这里有个sort参数，这里就不要了，默认排序就好
+	//获取�?��济人,这里有个sort参数，这里就不要了，默认排序就好
 	public void getPerson(int page) throws Exception
 	{
 		params.put("M", "People.Get");
@@ -372,7 +372,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//获取�?���?��济人
+	//获取�?���?��济人
 	public void getLatestPerson(String session, String uid) throws Exception
 	{
 		params.put("M", "People.GetLatest");
@@ -452,7 +452,7 @@ public class WTClient
 	}
 	
 	//countdown部分
-	//获取�?��倒计�?
+	//获取�?��倒计�?
 	public void getAllCountDown() throws Exception
 	{
 		params.put("M", "CountDowns.Get");
@@ -461,7 +461,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//获取某个倒计�?
+	//获取某个倒计�?
 	public void getCountDown(int id) throws Exception
 	{
 		params.put("M", "CountDown.Get");
@@ -472,7 +472,7 @@ public class WTClient
 	}
 
 	//版本更新部分
-	//�?��版本
+	//�?��版本
 	public void checkVersion() throws Exception
 	{
 		params.put("M", "System.Version");
@@ -481,7 +481,7 @@ public class WTClient
 	
 	
 	//济事部分
-	//获取�?��济事
+	//获取�?��济事
 	public void getAllAchievement() throws Exception
 	{
 		params.put("M", "Achievements.Get");
@@ -521,7 +521,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//获取某个频道的活动列�?
+	//获取某个频道的活动列�?
 	public void getActivitiesWithChannelIds(String channelId, int sortType, int page, 
 			String session, String uid, int expire) throws Exception
 	{
@@ -576,7 +576,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//添加活动到日程列�?
+	//添加活动到日程列�?
 	public void scheduleActivity(String activityId, String session, String uid) throws Exception
 	{
 		params.put("M", "Activity.Schedule");
@@ -606,7 +606,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//从日程删除某个活�?
+	//从日程删除某个活�?
 	public void unscheduleActivity(String activityId, String session, String uid) throws Exception
 	{
 		params.put("M", "Activity.UnSchedule");
@@ -626,7 +626,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//获取日程�?
+	//获取日程�?
 	public void getSchedule(String session, String uid, String begin, String end) throws Exception
 	{
 		params.put("M", "Schedule.Get");
@@ -637,7 +637,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//获取课程�?
+	//获取课程�?
 	public void getCourse(String session, String uid) throws Exception
 	{
 		params.put("M", "TimeTable.Get");
@@ -666,7 +666,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//获取收藏夹内�?
+	//获取收藏夹内�?
 	public void getFavoriteList(String session, String uid) throws Exception
 	{
 		params.put("M", "Favorite.Get");
@@ -675,7 +675,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//阅读某一条新�?
+	//阅读某一条新�?
 	public void readNews(String newsId) throws Exception
 	{
 		params.put("M", "News.Read");

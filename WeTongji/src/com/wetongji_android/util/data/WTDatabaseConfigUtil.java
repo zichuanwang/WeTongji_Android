@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.wetongji3.util.data;
+package com.wetongji_android.util.data;
 
 
 

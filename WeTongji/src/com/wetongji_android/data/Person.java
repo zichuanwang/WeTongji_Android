@@ -1,4 +1,4 @@
-package com.wetongji3.data;
+package com.wetongji_android.data;
 
 import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
