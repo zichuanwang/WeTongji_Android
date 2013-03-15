@@ -1,4 +1,9 @@
-package com.wetongji;
+package com.wetongji.ui.main;
+
+import com.wetongji.R;
+import com.wetongji.R.layout;
+import com.wetongji.R.menu;
+import com.wetongji.service.WTUpdateService;
 
 import android.os.Bundle;
 import android.app.Activity;
