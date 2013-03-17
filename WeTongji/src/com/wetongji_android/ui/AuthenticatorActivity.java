@@ -3,6 +3,7 @@ package com.wetongji_android.ui;
 import com.wetongji_android.Constants;
 import com.wetongji_android.R;
 import com.wetongji_android.net.WTClient;
+import com.wetongji_android.util.auth.RSAEncrypter;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -202,7 +203,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		protected String doInBackground(Void... params) {
 			client=WTClient.getInstance();
 			try {
-				client.login(mUsername, mPassword);
+				String encryptedPass=RSAEncrypter.encrypt(mPassword, AuthenticatorActivity.this);
+				client.login(mUsername, encryptedPass);
 				return client.getSession();
 			} catch (Exception e) {
 				Log.e(TAG, "UserLoginTask.doInBackground: failed to authenticate");

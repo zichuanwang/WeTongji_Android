@@ -136,10 +136,11 @@ public class WTClient
 	public String buildURL()
 	{
 		params.put("D", "android1.0.0");
-		params.put("V", "1.2");
+		params.put("V", "2.0");
 		String queryStr = queryString();
 		String hashStr = hashQueryString(queryStr);
 		String url = API_DOMAIN + "?" + queryStr + "&H=" + hashStr;
+		
 		Log.i("queryURL", url);
 		
 		return url;

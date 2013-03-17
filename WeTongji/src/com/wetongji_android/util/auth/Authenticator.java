@@ -68,7 +68,8 @@ public class Authenticator extends AbstractAccountAuthenticator {
 		if(password!=null){
 			WTClient client=WTClient.getInstance();
 			try {
-				client.login(account.name, password);
+				String encryptedPass=RSAEncrypter.encrypt(password, mContext);
+				client.login(account.name, encryptedPass);
 				if(!client.isHasError()){
 					final String authToken=client.getSession();
 					if(!TextUtils.isEmpty(authToken)){
