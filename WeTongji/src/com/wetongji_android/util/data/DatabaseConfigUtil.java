@@ -14,7 +14,7 @@ import com.j256.ormlite.android.apptools.OrmLiteConfigUtil;
  * @author John
  *
  */
-public class WTDatabaseConfigUtil extends OrmLiteConfigUtil {
+public class DatabaseConfigUtil extends OrmLiteConfigUtil {
 
 	/**
 	 * @param args

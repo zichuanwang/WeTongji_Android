@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.wetongji_android.data.Version;
 
-public class WTVersionFactory{
+public class VersionFactory{
 
 	public static Version create(String resultStr) throws JSONException {
 		Version version=new Version();

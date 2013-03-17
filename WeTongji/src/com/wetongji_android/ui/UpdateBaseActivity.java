@@ -2,7 +2,7 @@ package com.wetongji_android.ui;
 
 import com.wetongji_android.R;
 import com.wetongji_android.data.Version;
-import com.wetongji_android.factory.WTVersionFactory;
+import com.wetongji_android.factory.VersionFactory;
 import com.wetongji_android.net.WTClient;
 import com.wetongji_android.util.net.WTAsyncTask;
 
@@ -44,7 +44,7 @@ public class UpdateBaseActivity extends Activity {
 			try {
 				client.checkVersion();
 				if(!client.isHasError()){
-					return WTVersionFactory.create(client.getResponseStr());
+					return VersionFactory.create(client.getResponseStr());
 				}
 			} catch (Exception e) {
 				Log.w(TAG, "unknown error");
