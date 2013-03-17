@@ -3,9 +3,9 @@ package com.wetongji.ui.main;
 import com.actionbarsherlock.view.MenuItem;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.wetongji.R;
 import com.wetongji.service.WTUpdateService;
 import com.wetongji.ui.today.TodayFragment;
+import com.wetongji_android.R;
 
 import android.os.Bundle;
 import android.content.Intent;
