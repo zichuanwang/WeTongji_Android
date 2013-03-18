@@ -45,8 +45,7 @@
 
         <activity
             android:name="com.wetongji_android.ui.AuthenticatorActivity"
-            android:label="@string/title_activity_authenticator"
-            android:parentActivityName="android.accounts.AccountAuthenticatorActivity" >
+            android:label="@string/title_activity_authenticator">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.accounts.AccountAuthenticatorActivity" />
