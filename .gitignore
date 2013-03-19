@@ -194,3 +194,6 @@ project.properties
 *.ipr
 *.iws
 .idea/
+
+# Custom configuration
+WeTongji/project.properties

@@ -56,7 +56,7 @@ public class WTClient
 	private static String SORTTYPE_LIKEDESC = "`like`";
 	private static String SORTTYPE_PUBLISHDESC="`id`";
 
-	//鐎癸拷锟斤拷锟斤拷濡�锟�
+	//����烽��ゆ�����锋俊��拷��拷
 	private WTClient()
 	{
 		httpClient = new DefaultHttpClient();
@@ -69,7 +69,7 @@ public class WTClient
 		params = new HashMap<String, String>();
 	}
 	
-	//鐎癸拷锟斤拷锟斤拷濡�锟�
+	//����烽��ゆ�����锋俊��拷��拷
 	private static class WTClientContainer
 	{
 		private static WTClient client = new WTClient();
@@ -87,7 +87,7 @@ public class WTClient
 				'a', 'b', 'c', 'd', 'e', 'f' };   
 		try {   
 			byte[] strTemp = s.getBytes();   
-			//浣块敓鏂ゆ嫹MD5閿熸枻鎷烽敓鏂ゆ嫹MessageDigest閿熸枻鎷烽敓鏂ゆ嫹   
+			//娴ｅ�������MD5�跨��婚��芥����瀚�essageDigest�跨��婚��芥����瀚�  
 			MessageDigest mdTemp = MessageDigest.getInstance("MD5");   
 			mdTemp.update(strTemp);   
 			byte[] md = mdTemp.digest();   
@@ -97,7 +97,7 @@ public class WTClient
 			for (int i = 0; i < j; i++) {   
 				byte b = md[i];   
 				//System.out.println((int)b);   
-				//閿熸枻鎷锋病閿熸枻鎷烽敓鏂ゆ嫹(int)b閿熸枻鎷烽敓鏂ゆ嫹鍙岄敓琛楄妭纭锋嫹閿熸枻鎷�  
+				//�跨��婚�����跨��婚��芥����瀚�int)b�跨��婚��芥����瀚归�宀�����濡�涵����跨��婚�锟� 
 				str[k++] = hexDigits[b >> 4 & 0xf];   
 				str[k++] = hexDigits[b & 0xf];   
 			}   
@@ -108,7 +108,7 @@ public class WTClient
 		} 
 	}
 	
-	//瑜般垺锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷閿�
+	//����洪��ゆ�����烽��ゆ�����烽��ゆ��匡拷
 	public String queryString()
 	{
 		String str = "?";
@@ -132,7 +132,7 @@ public class WTClient
 		return subStr;
 	}
 	
-	//瑜般垺锟斤拷鎵拷URL閿�
+	//����洪��ゆ��殿���RL�匡拷
 	public String buildURL()
 	{
 		params.put("D", "android1.0.0");
@@ -146,7 +146,7 @@ public class WTClient
 		return url;
 	}
 
-	//锟窖嗭拷request
+	//������request
 	public void executeRequest() throws Exception
 	{
 		URI finalURI = new URI(this.buildURL());
@@ -164,7 +164,7 @@ public class WTClient
 				break;
 			default:
 			{
-				//锟借櫣锟界純锟斤拷锟斤拷锟�
+				//���娅ｉ��������烽��ゆ���拷
 				this.setHasError(true);
 				this.setResponseStatusCode(response.getStatusLine().getStatusCode());
 				this.setErrorDesc(response.getStatusLine().getReasonPhrase());
@@ -172,22 +172,22 @@ public class WTClient
 		}
 	}
 	
-	//request锟窖嗭拷鐎癸拷锟�
+	//request����������烽�锟�	
 	public void requestFinished(HttpResponse response) throws RuntimeException, Exception
 	{
 		responseStr = EntityUtils.toString(response.getEntity());
 		
 		JSONObject json = new JSONObject(responseStr);
 		JSONObject data = json.getJSONObject("Data");
-		JSONObject status = json.getJSONObject("Status");  //娣囷拷锟斤拷璁规嫹?娣団剝锟斤拷锟絪on object
+		JSONObject status = json.getJSONObject("Status");  //濞ｅ��烽��ゆ����瀚�濞ｅ�����ゆ���氮on object
 		
 		String id = status.getString("Id");
 		String memo = status.getString("Memo");
 		
 		if(Integer.valueOf(id) == 0)
 		{
-			this.setResponseStr(data.toString());//responseStr鐎涳拷锟斤拷锟斤拷锟界繝閲渄ata鏉╋拷閲渏son
-			this.setHasError(false);  //濞屸剝锟斤拷锟斤拷鐏忚京鐤嗘稉锟絘lse
+			this.setResponseStr(data.toString());//responseStr��冻�烽��ゆ�����烽�����叉�ata����烽�娓�on
+			this.setHasError(false);  //婵�备����ゆ�����烽�蹇�含�ゅ�绋��绲�se
 			if(params.get("M").equals("User.LogOn")) 
 			{
 			    String session = data.getString("Session");			    
@@ -202,10 +202,10 @@ public class WTClient
 			this.setErrorDesc(memo);
 		}
 		
-		this.params.clear();//濮ｏ拷锟斤拷褑锟界�锟斤拷濮癸拷锟斤拷锟斤拷濞擄拷鈹栵拷锟斤拷map
+		this.params.clear();//婵���烽��ゆ�瑜����拷����锋慨�告�����烽��ゆ�婵���烽��垫������ap
 	}
 	
-	//閿�閿熸枻鎷凤拷銊︼拷鐠愶拷锟�
+	//�匡拷�跨��婚��ゆ���讣�烽��舵���拷
 	public void activeUser(String num, String name, String password) throws Exception
 	{
 	    name = URLEncoder.encode(name, "UTF-8");
@@ -217,7 +217,7 @@ public class WTClient
 		
 	}
 	
-	//妤狅拷锟斤拷銊︼拷锟借锟�
+	//濡ょ��烽��ゆ���讣�烽������拷
 	public void login(String name, String password) throws Exception
 	{
 		params.put("M", "User.LogOn");
@@ -226,7 +226,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//娣囷拷锟斤拷銊︼拷鐎碉拷锟�
+	//濞ｅ��烽��ゆ���讣�烽�纰����拷
 	public void updatePassword(String oldPassword, String newPassword, String session, String uid) throws Exception
 	{
 		params.put("M", "User.Update.Password");
@@ -238,7 +238,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟姐劍锟斤拷锟界枂鐎碉拷锟�
+	//�������ゆ�������纰����拷
 	public void resetPasswordWithUserName(String name, String number) throws Exception
 	{
 		name = URLEncoder.encode(name, "UTF-8");
@@ -249,14 +249,14 @@ public class WTClient
 		
 		this.executeRequest();
 	}
-	//锟姐劍锟斤拷璇诧拷
+	//�������ゆ������
 	public void logout() throws Exception
 	{
 		params.put("M", "User.LogOut");
 		this.executeRequest();
 	}
 	
-	//锟藉瓨锟斤拷銊︼拷婢舵潙锟�
+	//����ㄩ��ゆ���讣�峰��垫���拷
 	public void updateUserAvatar(String bitmapSrc, String session, String uid)
 	{
 		params.put("M", "User.Update.Avatar");
@@ -284,7 +284,7 @@ public class WTClient
 					break;
 				default:
 				{
-					//锟借櫣锟界純锟斤拷锟斤拷锟�
+					//���娅ｉ��������烽��ゆ���拷
 					this.setHasError(true);
 					this.setResponseStatusCode(response.getStatusLine().getStatusCode());
 					this.setErrorDesc(response.getStatusLine().getReasonPhrase());
@@ -296,7 +296,7 @@ public class WTClient
 		}
 	}
 	
-    //锟藉瓨锟斤拷銊︼拷鐠э拷锟�
+    //����ㄩ��ゆ���讣�烽���烽�锟�	
 	public void updateUser(User user, String session) throws Exception
 	{
 		params.put("M", "User.Update");
@@ -333,7 +333,7 @@ public class WTClient
 				break;
 			default:
 			{
-				//锟借櫣锟界純锟斤拷锟斤拷锟�
+				//���娅ｉ��������烽��ゆ���拷
 				this.setHasError(true);
 				this.setResponseStatusCode(response.getStatusLine().getStatusCode());
 				this.setErrorDesc(response.getStatusLine().getReasonPhrase());
@@ -341,7 +341,7 @@ public class WTClient
 		}
 	}
 	
-	//锟藉嘲锟斤拷銊︼拷娣団剝锟�
+	//����查��ゆ���讣�峰ǎ�ｅ���拷
 	public void getUser(String session, String uid) throws Exception
 	{
 		params.put("M", "User.Get");
@@ -350,7 +350,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟姐儲锟斤拷锟斤拷锟姐劍锟�
+	//����查��ゆ�����烽�濮����拷
 	public void findUser(String name, String num) throws Exception
 	{
 		params.put("M", "User.Find");
@@ -361,8 +361,8 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//濞达拷姹夛拷銊ワ拷
-	//锟藉嘲锟介敓?閿熸枻鎷峰ù锟芥眽,鏉╋拷锟斤拷锟介嚋sort锟斤拷锟介敍锟斤拷锟斤拷姘ㄦ稉锟斤拷娴滐拷锟芥锟斤拷锟斤拷锟界亸鍗炪偨
+	//婵�揪�峰Ч澶�������
+	//����查�浠��?�跨��婚�宄懊归��ョ�,����烽��ゆ������ort����烽�浠������烽��ゆ�濮��绋���ゆ�濞存��烽��ヮ�����烽��ゆ����浜搁����
 	public void getPerson(int page) throws Exception
 	{
 		params.put("M", "People.Get");
@@ -373,7 +373,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟藉嘲锟介敓?閿熸枻鎷烽敓?閿熸枻鎷峰ù锟芥眽
+	//����查�浠��?�跨��婚��芥�?�跨��婚�宄懊归��ョ�
 	public void getLatestPerson(String session, String uid) throws Exception
 	{
 		params.put("M", "People.GetLatest");
@@ -390,7 +390,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟姐儳锟藉ù锟芥眽
+	//����抽���归��ョ�
 	public void readPerson(int id, String session, String uid) throws Exception
 	{
 		params.put("M", "People.Read");
@@ -408,7 +408,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟芥儼锟藉ù锟芥眽
+	//����奸���归��ョ�
 	public void favoritePerson(int id, String session, String uid) throws Exception
 	{
 		params.put("M", "People.Favorite");
@@ -419,7 +419,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟斤拷锟斤拷鎯帮拷
+	//����烽��ゆ���府��
 	public void unFavoritePerson(int id, String session, String uid) throws Exception
 	{
 		params.put("M", "People.UnFavorite");
@@ -430,7 +430,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟斤拷锟藉ù锟芥眽
+	//����烽���归��ョ�
 	public void likePerson(int id, String session, String uid) throws Exception
 	{
 		params.put("M", "People.Like");
@@ -441,7 +441,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟斤拷锟斤拷锟斤拷
+	//����烽��ゆ������
 	public void unLikePerson(int id, String session, String uid) throws Exception
 	{
 		params.put("M", "People.UnLike");
@@ -452,8 +452,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//countdown锟姐劌锟�
-	//锟藉嘲锟介敓?閿熸枻鎷凤拷锟斤拷閿�
+	//countdown������锟�	//����查�浠��?�跨��婚��ゆ�����烽�锟�
 	public void getAllCountDown() throws Exception
 	{
 		params.put("M", "CountDowns.Get");
@@ -462,7 +461,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟藉嘲锟斤拷锟介嚋锟斤拷锟介敓?
+	//����查��ゆ��������ゆ������
 	public void getCountDown(int id) throws Exception
 	{
 		params.put("M", "CountDown.Get");
@@ -472,8 +471,8 @@ public class WTClient
 		this.executeRequest();
 	}
 
-	//锟斤拷锟斤拷瀛橈拷锟姐劌锟�
-	//閿�閿熸枻鎷凤拷锟斤拷
+	//����烽��ゆ�����烽�濮����拷
+	//�匡拷�跨��婚��ゆ������
 	public void checkVersion() throws Exception
 	{
 		params.put("M", "System.Version");
@@ -481,8 +480,8 @@ public class WTClient
 	}
 	
 	
-	//濞达拷锟斤拷銊ワ拷
-	//锟藉嘲锟介敓?閿熸枻鎷峰ù锟斤拷
+	//婵�揪�烽��ゆ������
+	//����查�浠��?�跨��婚�宄懊归��ゆ�
 	public void getAllAchievement() throws Exception
 	{
 		params.put("M", "Achievements.Get");
@@ -491,7 +490,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟斤拷锟芥稉鍝勫嚒鐎癸拷锟�
+	//����烽��ョ��������告���拷
 	public void recordAchievement(int id) throws Exception
 	{
 		params.put("M", "Achievement.Record");
@@ -501,7 +500,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟斤拷锟芥稉鐑橈拷鐎癸拷锟�
+	//����烽��ョ�����烽��告���拷
 	public void unRecordAchievement(int id) throws Exception
 	{
 		params.put("M", "Achievement.UnRecord");
@@ -511,7 +510,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟藉嘲锟斤拷鈥筹拷锟戒即锟斤拷锟姐�
+	//����查��ゆ��ョ��烽��������烽�濮�拷
 	public void getNewsList(int page) throws Exception
 	{
 		params.put("M", "News.GetList");
@@ -522,7 +521,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟藉嘲锟斤拷锟介嚋妫帮拷锟斤拷锟芥た锟姐劌锟介敓?
+	//����查��ゆ������Λ甯������烽��ャ�������浠��?
 	public void getActivitiesWithChannelIds(String channelId, int sortType, int page, 
 			String session, String uid, int expire) throws Exception
 	{
@@ -567,7 +566,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟斤拷锟斤拷锟介嚋濞茶锟�
+	//����烽��ゆ��������额���拷
 	public void likeActivity(String activityId, String session, String uid) throws Exception
 	{
 		params.put("M", "Activity.Like");
@@ -577,7 +576,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//濞ｈ锟藉ú璇诧拷锟界増锟界粙锟斤拷閿�
+	//婵���ч���虹�璇ф����澧���������烽�锟�
 	public void scheduleActivity(String activityId, String session, String uid) throws Exception
 	{
 		params.put("M", "Activity.Schedule");
@@ -587,7 +586,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟借櫕鏁烇拷锟介嚋濞茶锟�
+	//���娅������������额���拷
 	public void favoriteActivity(String activityId, String session, String uid) throws Exception
 	{
 		params.put("M", "Activity.Favorite");
@@ -597,7 +596,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟斤拷锟斤拷锟斤拷锟斤拷閲滃ú璇诧拷
+	//����烽��ゆ�����烽��ゆ��叉�煤�����
 	public void unlikeActivity(String activityId, String session, String uid) throws Exception
 	{
 		params.put("M", "Activity.UnLike");
@@ -607,7 +606,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//娴狅拷锟界粙锟斤拷锟姐倖锟芥稉锟芥た閿�
+	//濞寸��烽��������烽�濮�����绋���ャ��匡拷
 	public void unscheduleActivity(String activityId, String session, String uid) throws Exception
 	{
 		params.put("M", "Activity.UnSchedule");
@@ -617,7 +616,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟斤拷锟斤拷铏暈锟斤拷閲滃ú璇诧拷
+	//����烽��ゆ��������ゆ��叉�煤�����
 	public void unfavoriteActivity(String activityId, String session, String uid) throws Exception
 	{
 		params.put("M", "Activity.UnFavorite");
@@ -627,7 +626,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟藉嘲锟斤拷銉э拷閿�
+	//����查��ゆ������匡拷
 	public void getSchedule(String session, String uid, String begin, String end) throws Exception
 	{
 		params.put("M", "Schedule.Get");
@@ -638,7 +637,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟藉嘲锟界拠鍓э拷閿�
+	//����查���������匡拷
 	public void getCourse(String session, String uid) throws Exception
 	{
 		params.put("M", "TimeTable.Get");
@@ -647,7 +646,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟斤拷锟斤拷锟介嚋鐠囧墽锟�
+	//����烽��ゆ��������у⒔��拷
 	public void likeCourse(String courseId, String session, String uid) throws Exception
 	{
 		params.put("M", "Course.Like");
@@ -657,7 +656,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟斤拷锟斤拷锟斤拷锟斤拷閲滅拠鍓э拷
+	//����烽��ゆ�����烽��ゆ��叉�������
 	public void unlikeCourse(String courseId, String session, String uid) throws Exception
 	{
 		params.put("M", "Course.UnLike");
@@ -667,7 +666,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟藉嘲锟斤拷鎯帮拷婢剁懓锟介敓?
+	//����查��ゆ���府�峰���������
 	public void getFavoriteList(String session, String uid) throws Exception
 	{
 		params.put("M", "Favorite.Get");
@@ -676,7 +675,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟斤拷锟斤拷锟斤拷锟解剝锟介敓?
+	//����烽��ゆ�����烽�瑙ｅ������
 	public void readNews(String newsId) throws Exception
 	{
 		params.put("M", "News.Read");
@@ -684,8 +683,8 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//鐠э拷锟斤拷銊ワ拷
-	//锟藉嘲锟界挧锟斤拷锟斤拷銆�
+	//��������烽����
+	//����查��������烽��ゆ���拷
 	public void getInformationsList(int sortType, String session, String uid) throws Exception
 	{
 		params.put("M", "Information.GetList");
@@ -708,7 +707,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟藉嘲锟界挧锟斤拷锟斤拷锟�
+	//����查��������烽��ゆ���拷
 	public void getInformation(String informationId, String session, String uid) throws Exception
 	{
 		params.put("M", "Information.Get");
@@ -728,7 +727,7 @@ public class WTClient
 		this.executeRequest();
 	}
 	
-	//锟斤拷锟界挧锟斤拷
+	//����烽���������
 	public void readInformation(String informationId, String session, String uid) throws Exception
 	{
 		params.put("M", "Information.Read");
