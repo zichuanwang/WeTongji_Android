@@ -3,14 +3,19 @@
  */
 package com.wetongji_android.http;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URL;
 import java.util.Map;
+import java.util.zip.GZIPInputStream;
 
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.exception.WTException;
 import com.wetongji_android.util.net.WTHttpUtil;
 
@@ -74,7 +79,7 @@ public class WTHttpClient
 			urlConnection.setConnectTimeout(CONNECT_TIMEOUT);
 			urlConnection.setReadTimeout(READ_TIMEOUT);
 			urlConnection.setRequestProperty("Connection", "Keep-Alive");
-            urlConnection.setRequestProperty("Charset", "UTF-8");
+            urlConnection.setRequestProperty("Accept-Charset", "UTF-8");
             urlConnection.setRequestProperty("Accept-Encoding", "gzip, deflate");
             
             urlConnection.connect();
@@ -109,7 +114,7 @@ public class WTHttpClient
 			urlConnection.setConnectTimeout(CONNECT_TIMEOUT);
 			urlConnection.setReadTimeout(READ_TIMEOUT);
 			urlConnection.setRequestProperty("Connection", "Keep-Alive");
-            urlConnection.setRequestProperty("Charset", "UTF-8");
+            urlConnection.setRequestProperty("Accept-Charset", "UTF-8");
             urlConnection.setRequestProperty("Accept-Encoding", "gzip, deflate");
             urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             
@@ -142,22 +147,93 @@ public class WTHttpClient
 			throw new WTException("", e);
 		}
 		
+		//The connection is not successful
 		if(iStatus != HttpURLConnection.HTTP_OK)
 		{
 			return handleError(urlConnection);
 		}
 		
-		return null;
+		return handleResult(urlConnection);
 	}
 	
 	private String handleResult(HttpURLConnection urlConnection) throws WTException
 	{
-		return null;
+		InputStream is = null;
+		BufferedReader bfReader = null;
+		
+		try
+		{
+			is = urlConnection.getInputStream();
+			String strConEncode = urlConnection.getContentEncoding();
+			
+			if(strConEncode != null && !strConEncode.equals("") && strConEncode.equals("gzip"))
+			{
+				is = new GZIPInputStream(is);
+			}
+			
+			bfReader = new BufferedReader(new InputStreamReader(is));
+			StringBuilder sbResult = new StringBuilder();
+			String strLine;
+			
+			while((strLine = bfReader.readLine()) != null)
+			{
+				sbResult.append(strLine);
+			}
+			
+			return sbResult.toString();
+		}catch(IOException e)
+		{
+			e.printStackTrace();
+			throw new WTException("", e);
+		}finally
+		{
+			WTUtility.closeResource(is);
+			WTUtility.closeResource(bfReader);
+			urlConnection.disconnect();
+		}
 	}
 	
 	private String handleError(HttpURLConnection urlConnection) throws WTException
 	{
-		return null;
+		String strError = readError(urlConnection);
+		return strError;
+	}
+	
+	private String readError(HttpURLConnection urlConnection) throws WTException
+	{
+		InputStream is = null;
+		BufferedReader bfReader = null;
+		
+		try
+		{
+			is = urlConnection.getInputStream();
+			String strConEncode = urlConnection.getContentEncoding();
+			
+			if(strConEncode != null && !strConEncode.equals("") && strConEncode.equals("gzip"))
+			{
+				is = new GZIPInputStream(is);
+			}
+			
+			bfReader = new BufferedReader(new InputStreamReader(is));
+			StringBuilder sbError = new StringBuilder();
+			String strLine;
+			
+			while((strLine = bfReader.readLine()) != null)
+			{
+				sbError.append(strLine);
+			}
+			
+			return sbError.toString();
+		}catch(IOException e)
+		{
+			e.printStackTrace();
+			throw new WTException("", e);
+		}finally
+		{
+			WTUtility.closeResource(is);
+			WTUtility.closeResource(bfReader);
+			urlConnection.disconnect();
+		}
 	}
 	
 }
