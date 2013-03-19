@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item type="id" name="main_memu_list">false</item>
+    <item name="img_main_menu" type="id">false</item>
+    <item name="tv_main_menu" type="id">false</item>
     
 </resources>

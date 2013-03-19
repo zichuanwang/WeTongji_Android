@@ -1,4 +1,4 @@
-package com.wetongji.ui.today;
+package com.wetongji_android.ui.today;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

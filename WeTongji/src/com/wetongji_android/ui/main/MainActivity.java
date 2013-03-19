@@ -1,11 +1,11 @@
-package com.wetongji.ui.main;
+package com.wetongji_android.ui.main;
 
 import com.actionbarsherlock.view.MenuItem;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.wetongji.service.WTUpdateService;
-import com.wetongji.ui.today.TodayFragment;
 import com.wetongji_android.R;
+import com.wetongji_android.ui.today.TodayFragment;
 
 import android.os.Bundle;
 import android.content.Intent;
@@ -33,10 +33,10 @@ public class MainActivity extends SlidingFragmentActivity {
 		.commit();
 		
 		// …Ë÷√≤‡±ﬂ¿∏
-		setBehindContentView(R.layout.content_frame);
+		setBehindContentView(R.layout.menu_frame);
 		getSupportFragmentManager()
 		.beginTransaction()
-		.replace(R.id.content_frame, new MainMenuFragment())
+		.replace(R.id.menu_frame, new MainMenuFragment())
 		.commit();
 		
 		//setTitle();
