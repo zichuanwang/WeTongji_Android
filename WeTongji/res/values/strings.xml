@@ -17,5 +17,6 @@
     <string name="title_mainmenu_search">Search</string>
     <string name="title_mainmenu_billboard">Billboard</string>
     <string name="title_mainmenu_profile">Profile</string>
-
+	<string name="test">TestLogin</string>
+	
 </resources>
