@@ -1,15 +1,13 @@
 package com.wetongji_android.ui.main;
 
 import com.actionbarsherlock.view.MenuItem;
+import com.androidquery.service.MarketService;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.wetongji.service.WTUpdateService;
 import com.wetongji_android.R;
-import com.wetongji_android.ui.test.TestFragment;
 import com.wetongji_android.ui.today.TodayFragment;
 
 import android.os.Bundle;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 public class MainActivity extends SlidingFragmentActivity {
@@ -24,16 +22,35 @@ public class MainActivity extends SlidingFragmentActivity {
 		if (savedInstanceState != null)
 			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 		if (mContent == null)
-			//mContent = new TodayFragment(android.R.color.darker_gray);
-			mContent = new TestFragment();
+			mContent = new TodayFragment(android.R.color.darker_gray);
 		
 		setContentView(R.layout.activity_main);
 		setContentView(R.layout.content_frame);
 		getSupportFragmentManager()
-		.beginTransaction()
-		.replace(R.id.content_frame, mContent)
-		.commit();
+			.beginTransaction()
+			.replace(R.id.content_frame, mContent)
+			.commit();
 		
+		setSlidingMenu();
+	}
+
+
+
+	/**
+	 * check if there's a new version of the app.
+	 * Update info comes from Google Play.
+	 */
+	private void checkAppUpdate() {
+		MarketService marketService=new MarketService(this);
+		marketService.level(MarketService.REVISION).checkVersion();
+	}
+
+
+
+	/**
+	 * set attributes of the sliding menu
+	 */
+	private void setSlidingMenu() {
 		// …Ë÷√≤‡±ﬂ¿∏
 		setBehindContentView(R.layout.menu_frame);
 		getSupportFragmentManager()
@@ -55,6 +72,8 @@ public class MainActivity extends SlidingFragmentActivity {
 		// ≥ı ºªØSlidingMenu
 		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 	}
+	
+	
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
@@ -76,7 +95,8 @@ public class MainActivity extends SlidingFragmentActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		startService(new Intent(this, WTUpdateService.class));
+		//startService(new Intent(this, WTUpdateService.class));
+		checkAppUpdate();
 	}
 
 }

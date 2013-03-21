@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.wetongji_android.http;
+package com.wetongji_android.net.http;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -12,28 +12,28 @@ import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URL;
-import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.exception.WTException;
-import com.wetongji_android.util.net.WTHttpUtil;
+import com.wetongji_android.util.net.HttpUtil;
 
+import android.os.Bundle;
 import android.text.TextUtils;
 
 /**
  * @author nankonami
  *
  */
-public class WTHttpClient 
+public class HttpClient 
 {
 	//Constant values
 	private static final int CONNECT_TIMEOUT = 10*1000;
 	private static final int READ_TIMEOUT = 10*1000;
-	private static final String API_DOMAIN = "http://we.tongji.edu.cn/api/call";
+	//private static final String API_DOMAIN = "http://we.tongji.edu.cn/api/call";
+	private static final String API_DOMAIN="http://leiz.name:8080/api/call";
 	
-	
-	public String execute(WTHttpMethod httpMethod, Map<String, String> params) throws WTException
+	public String execute(HttpMethod httpMethod, Bundle params) throws WTException
 	{
 		switch(httpMethod)
 		{
@@ -59,12 +59,12 @@ public class WTHttpClient
 	}
 	
 	//implement http get request
-	public String doGet(Map<String, String> params) throws WTException
+	public String doGet(Bundle params) throws WTException
 	{
 		try
 		{
 			StringBuilder sb = new StringBuilder(API_DOMAIN);
-			sb.append("?").append(WTHttpUtil.encodeUrl(params));
+			sb.append("?").append(HttpUtil.encodeUrl(params));
 			Proxy proxy = getProxy();
 			URL url = new URL(sb.toString());
 			HttpURLConnection urlConnection;
@@ -93,7 +93,7 @@ public class WTHttpClient
 	}
 	
 	//implement http post request
-	public String doPost(Map<String, String> params) throws WTException
+	public String doPost(Bundle params) throws WTException
 	{
 		try
 		{
@@ -121,7 +121,7 @@ public class WTHttpClient
             urlConnection.connect();
             
             DataOutputStream outStream = new DataOutputStream(urlConnection.getOutputStream());
-            outStream.write(WTHttpUtil.encodeUrl(params).getBytes());
+            outStream.write(HttpUtil.encodeUrl(params).getBytes());
             outStream.flush();
             outStream.close();
             

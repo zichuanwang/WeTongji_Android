@@ -1,13 +1,8 @@
-package com.wetongji.service;
-
-import org.json.JSONObject;
+package com.wetongji_android.old;
 
 import com.wetongji_android.data.Version;
-import com.wetongji_android.net.WTClient;
 import com.wetongji_android.factory.VersionFactory;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.DownloadManager;
 import android.app.IntentService;
 import android.content.Intent;
@@ -27,7 +22,7 @@ public class WTUpdateService extends IntentService {
 		try {
 			client.checkVersion();
 			if(!client.isHasError()){
-				//JSONObject result=new JSONObject(client.getResponseStr());
+				//JSONObject result=new JSONObject(mClient.getResponseStr());
 				Version version=VersionFactory.create(client.getResponseStr());
 				if(version.hasUpdate()){
 					showStartUpdateDialog();

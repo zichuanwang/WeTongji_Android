@@ -3,7 +3,7 @@ package com.wetongji_android.ui;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Version;
 import com.wetongji_android.factory.VersionFactory;
-import com.wetongji_android.net.WTClient;
+import com.wetongji_android.old.WTClient;
 import com.wetongji_android.util.net.WTAsyncTask;
 
 import android.net.Uri;

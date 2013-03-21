@@ -5,21 +5,22 @@ package com.wetongji_android.util.net;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Map;
 import java.util.Set;
+
+import android.os.Bundle;
 
 /**
  * @author nankonami
  *
  */
-public class WTHttpUtil 
+public class HttpUtil 
 {
-	private WTHttpUtil()
+	private HttpUtil()
 	{
 		//Forbidden being instantiated.
 	}
 	
-	public static String encodeUrl(Map<String, String> params)
+	public static String encodeUrl(Bundle params)
 	{
 		if(params == null)
 			return "";
@@ -38,7 +39,9 @@ public class WTHttpUtil
 			
 			try 
 			{
-				sb.append(URLEncoder.encode(strKey, "UTF-8")).append("=").append(URLEncoder.encode(params.get(strKey), "UTF-8"));
+				sb.append(URLEncoder.encode(strKey, "UTF-8"))
+					.append("=")
+					.append(URLEncoder.encode(params.getString(strKey), "UTF-8"));
 			} catch (UnsupportedEncodingException e) 
 			{
 				// TODO Auto-generated catch block

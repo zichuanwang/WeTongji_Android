@@ -1,30 +1,31 @@
 package com.wetongji_android.ui;
 
-import com.wetongji_android.Constants;
-import com.wetongji_android.R;
-import com.wetongji_android.net.WTClient;
-import com.wetongji_android.util.auth.RSAEncrypter;
-
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
 import android.accounts.Account;
-import android.accounts.AccountAuthenticatorActivity;
+import android.accounts.AccountAuthenticatorResponse;
 import android.accounts.AccountManager;
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.app.NavUtils;
+import android.support.v4.content.Loader;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.support.v4.app.NavUtils;
 
-public class AuthenticatorActivity extends AccountAuthenticatorActivity {
+import com.wetongji_android.Constants;
+import com.wetongji_android.R;
+import com.wetongji_android.net.NetworkLoader;
+import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.util.auth.RSAEncrypter;
+import com.wetongji_android.util.common.WTApplication;
+
+public class AuthenticatorActivity extends FragmentActivity
+implements LoaderCallbacks<String>{
 	
 	public static final String PARAM_CONFIRM_CREDENTIALS="confirmCredentials";
 	public static final String PARAM_PASSWORD="password";
@@ -32,21 +33,32 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 	public static final String PARAM_AUTHTOKEN_TYPE="authTokenType";
 	
 	private static final String TAG=AuthenticatorActivity.class.getSimpleName();
+	private AccountAuthenticatorResponse mAccountAuthenticatorResponse = null;
+    private Bundle mResultBundle = null;
 	private AccountManager mAm;
-	private UserLoginTask mAuthTask=null;
 	private ProgressDialog mPd=null;
 	private boolean mConfirmCredentials=false;
-	private final Handler handler=new Handler();
 	private String mPassword;
 	private EditText mEtPassword;
 	private boolean mRequestNewAccount=false;
 	private String mUsername;
 	private EditText mEtUsername;
+	
+	public final void setAccountAuthenticatorResult(Bundle result) {
+        mResultBundle = result;
+    }
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.i(TAG, "onCreate("+savedInstanceState+")");
 		super.onCreate(savedInstanceState);
+		mAccountAuthenticatorResponse =
+                getIntent().getParcelableExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE);
+
+        if (mAccountAuthenticatorResponse != null) {
+            mAccountAuthenticatorResponse.onRequestContinued();
+        }
+		
 		mAm=AccountManager.get(this);
 		Log.i(TAG, "loading data from intent");
 		final Intent intent=getIntent();
@@ -64,6 +76,20 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 			mEtUsername.setText(mUsername);
 		}
 	}
+	
+	public void finish() {
+        if (mAccountAuthenticatorResponse != null) {
+            // send the result bundle back if set, otherwise send an error.
+            if (mResultBundle != null) {
+                mAccountAuthenticatorResponse.onResult(mResultBundle);
+            } else {
+                mAccountAuthenticatorResponse.onError(AccountManager.ERROR_CODE_CANCELED,
+                        "canceled");
+            }
+            mAccountAuthenticatorResponse = null;
+        }
+        super.finish();
+    }
 
 	/**
 	 * Set up the {@link android.app.ActionBar}.
@@ -97,28 +123,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-	@Override
-	@Deprecated
-	protected Dialog onCreateDialog(int id, Bundle args) {
-		super.onCreateDialog(id, args);
-		final ProgressDialog dialog=new ProgressDialog(this);
-		dialog.setMessage(getText(R.string.title_activity_authenticator));
-		dialog.setIndeterminate(true);
-		dialog.setCancelable(true);
-		dialog.setOnCancelListener(new OnCancelListener() {
-			
-			@Override
-			public void onCancel(DialogInterface dialog) {
-				Log.i(TAG, "user cancelling authentication");
-				if(mAuthTask!=null){
-					mAuthTask.cancel(true);
-				}
-			}
-		});
-		mPd=dialog;
-		return dialog;
-	}
 	
 	public void handleLogin(View view){
 		if(mRequestNewAccount){
@@ -127,8 +131,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		mPassword=mEtPassword.getText().toString();
 		if(!TextUtils.isEmpty(mUsername)&&!TextUtils.isEmpty(mPassword)){
 			showProgress();
-			mAuthTask=new UserLoginTask();
-			mAuthTask.execute();
+			//mAuthTask=new UserLoginTask();
+			//mAuthTask.execute();
+			Bundle args=new Bundle();
+			args.putString(WTApplication.API_ARGS_METHOD, WTApplication.API_METHOD_USER_LOGON);
+			args.putString(WTApplication.API_METHOD_ARGS_NO, mUsername);
+			args.putString(WTApplication.API_METHOD_ARGS_PASSWORD, RSAEncrypter.encrypt(mPassword, this));
+			getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
 		}
 	}
 	
@@ -148,7 +157,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		final Account account=new Account(mUsername, Constants.ACCOUNT_TYPE);
 		if(mRequestNewAccount){
 			mAm.addAccountExplicitly(account, mPassword, null);
-			//ContentResolver.setSyncAutomatically(account, ContactsContract.AUTHORITY, false);
 		}
 		else{
 			mAm.setPassword(account, mPassword);
@@ -164,7 +172,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 	public void onAuthenticationResult(String authToken){
 		boolean success=((authToken!=null)&&(authToken.length()>0));
 		Log.i(TAG, "onAuthenticationResult("+success+")");
-		mAuthTask=null;
 		hideProgress();
 		if(success){
 			if(!mConfirmCredentials){
@@ -181,12 +188,16 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 	
 	public void onAuthenticationCancel(){
 		Log.i(TAG, "onAuthenticationCancel");
-		mAuthTask=null;
 		hideProgress();
 	}
 	
 	private void showProgress(){
-		showDialog(0);
+		if(mPd==null){
+			mPd=new ProgressDialog(this);
+			mPd.setIndeterminate(true);
+			mPd.setTitle(R.string.title_activity_authenticator);
+		}
+		mPd.show();
 	}
 	
 	private void hideProgress(){
@@ -196,36 +207,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		}
 	}
 
-	public class UserLoginTask extends AsyncTask<Void, Void, String>{
-		WTClient client;
-		
-		@Override
-		protected String doInBackground(Void... params) {
-			client=WTClient.getInstance();
-			try {
-				String encryptedPass=RSAEncrypter.encrypt(mPassword, AuthenticatorActivity.this);
-				client.login(mUsername, encryptedPass);
-				return client.getSession();
-			} catch (Exception e) {
-				Log.e(TAG, "UserLoginTask.doInBackground: failed to authenticate");
-				Log.i(TAG, e.toString());
-				e.printStackTrace();
-			}
-			return null;
-		}
+	@Override
+	public Loader<String> onCreateLoader(int id, Bundle args) {
+		return new NetworkLoader(this, HttpMethod.Get, args);
+	}
 
-		@Override
-		protected void onCancelled() {
-			super.onCancelled();
-			onAuthenticationCancel();
-		}
+	@Override
+	public void onLoadFinished(Loader<String> arg0, String result) {
+		onAuthenticationResult(result);
+	}
 
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			onAuthenticationResult(result);
-		}
-		
+	@Override
+	public void onLoaderReset(Loader<String> arg0) {
 	}
 	
 }
