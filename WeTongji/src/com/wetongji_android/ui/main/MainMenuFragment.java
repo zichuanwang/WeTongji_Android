@@ -65,26 +65,9 @@ public class MainMenuFragment extends Fragment {
 		ListView lstViewMenu = (ListView) getActivity().findViewById(R.id.main_memu_list);
 		
 		mMenuListAdapter = new MainMenuListAdapter(getActivity());
-		lstViewMenu.setAdapter(new SimpleAdapter(getActivity(), 
-				getData(), R.layout.row_main_menu, new String[] {KEY_MAIN_MENU_ICON, KEY_MAIN_MENU_TEXT}, 
-				new int[] {R.id.img_main_menu, R.id.tv_main_menu}));
 		
 		lstViewMenu.setAdapter(mMenuListAdapter);
 		lstViewMenu.setOnItemClickListener(new MainMenuListItemClickListener());
-	}
-	
-	private List<Map<String, Object>> getData() {
-		List<Map<String, Object>> lst = new ArrayList<Map<String, Object>>();
-		Map<String, Object> map;
-		
-		for(int i = 0; i < MAIN_MENU_ICON_RES.length; i++) {
-			map = new HashMap<String, Object>();
-			map.put(KEY_MAIN_MENU_ICON, MAIN_MENU_ICON_RES[i]);
-			map.put(KEY_MAIN_MENU_TEXT, getResources().getString(MAIN_MENU_TEXT_RES[i]));
-			lst.add(map);
-		}
-		
-		return lst;
 	}
 	
 	
