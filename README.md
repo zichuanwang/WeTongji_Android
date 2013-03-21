@@ -27,7 +27,7 @@
 * 其他变量
 
 > 长度控制下，不用太长
-> 建议参考这个网页上的规范(http://www.cnblogs.com/qq78292959/archive/2011/03/17/2076948.html)
+> 建议参考这个网页上的规范(http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html)
 
 ------------------------------------
 
