@@ -161,6 +161,7 @@ pip-log.txt
 
 # Mac crap
 .DS_Store
+._.DS_Store
 
 # built application files
 *.apk
@@ -197,3 +198,5 @@ project.properties
 
 # Custom configuration
 WeTongji/project.properties
+library/ABS/project.properties
+library/SlidingMenu/project.properties
