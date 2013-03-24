@@ -5,6 +5,7 @@ import com.androidquery.service.MarketService;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.wetongji_android.R;
+import com.wetongji_android.ui.test.TestFragment;
 import com.wetongji_android.ui.today.TodayFragment;
 
 import android.os.Bundle;
@@ -22,7 +23,8 @@ public class MainActivity extends SlidingFragmentActivity {
 		if (savedInstanceState != null)
 			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 		if (mContent == null)
-			mContent = new TodayFragment(android.R.color.darker_gray);
+			//mContent = new TodayFragment(android.R.color.darker_gray);
+			mContent = new TestFragment();
 		
 		setContentView(R.layout.activity_main);
 		setContentView(R.layout.content_frame);
