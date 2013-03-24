@@ -29,13 +29,13 @@ public class MainMenuFragment extends Fragment {
 	public static final String KEY_MAIN_MENU_ICON = "icon";
 	public static final String KEY_MAIN_MENU_TEXT = "text";
 	private static final int MAIN_MENU_ICON_RES[] = {
-		R.drawable.ic_launcher,
-		R.drawable.ic_launcher,
-		R.drawable.ic_launcher,
-		R.drawable.ic_launcher,
-		R.drawable.ic_launcher,
-		R.drawable.ic_launcher,
-		R.drawable.ic_launcher,
+		R.drawable.ic_main_today,
+		R.drawable.ic_main_news,
+		R.drawable.ic_main_events,
+		R.drawable.ic_main_now,
+		R.drawable.ic_main_search,
+		R.drawable.ic_main_bboard,
+		R.drawable.ic_main_profile,
 	};
 	
 	private static final int MAIN_MENU_TEXT_RES[] = {

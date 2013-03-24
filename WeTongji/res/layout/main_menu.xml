@@ -13,15 +13,16 @@
         android:background="@color/main_menu_bg" >
     </ListView>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/main_menu_bg"
         >
-        <ImageButton 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher" />   
-    </RelativeLayout>
+        <Button
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/bg_main_menu_setting" />   
+    </LinearLayout>
 </RelativeLayout>
