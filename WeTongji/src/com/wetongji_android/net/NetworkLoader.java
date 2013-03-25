@@ -7,17 +7,20 @@ import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
 import com.wetongji_android.util.exception.WTException;
 
-public class NetworkLoader extends AsyncTaskLoader<String> {
+public class NetworkLoader extends AsyncTaskLoader<String> 
+{
 	Bundle mArgs;
 	HttpMethod mMethod;
 	WTClient mClient;
 
-	public NetworkLoader(Context context) {
+	public NetworkLoader(Context context) 
+	{
 		super(context);
 		mClient=WTClient.getInstance();
 	}
 	
-	public NetworkLoader(Context context, HttpMethod method, Bundle args){
+	public NetworkLoader(Context context, HttpMethod method, Bundle args)
+	{
 		super(context);
 		mMethod=method;
 		mArgs=args;
@@ -25,10 +28,13 @@ public class NetworkLoader extends AsyncTaskLoader<String> {
 	}
 
 	@Override
-	public String loadInBackground() {
-		try {
+	public String loadInBackground() 
+	{
+		try 
+		{
 			return mClient.execute(mMethod, mArgs);
-		} catch (WTException e) {
+		} catch (WTException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

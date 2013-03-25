@@ -7,6 +7,8 @@ import com.wetongji_android.R;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,7 +21,7 @@ import android.widget.Toast;
  * @author nankonami
  *
  */
-public class TestFragment extends Fragment 
+public class TestFragment extends Fragment implements LoaderCallbacks<String>
 {
 	public TestFragment()
 	{
@@ -53,5 +55,26 @@ public class TestFragment extends Fragment
 				Toast.makeText(getActivity(), "nihaoa", Toast.LENGTH_SHORT).show();
 			}	
 		});
+	}
+
+	@Override
+	public Loader<String> onCreateLoader(int arg0, Bundle arg1) 
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void onLoadFinished(Loader<String> arg0, String arg1) 
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onLoaderReset(Loader<String> arg0) 
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

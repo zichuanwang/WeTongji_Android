@@ -24,8 +24,6 @@
         android:layout_below="@+id/tv_username"
         android:ems="10"
         android:inputType="number" >
-
-        <requestFocus />
     </EditText>
 
     <TextView
