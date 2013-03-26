@@ -4,16 +4,18 @@ public class Version {
 	private String Url;
 	private String Latest;
 	private String Current;
+	private String Description;
 	
 	public Version() {
 		super();
 	}
 
-	public Version(String url, String latest, String current) {
+	public Version(String url, String latest, String current, String description) {
 		super();
 		Url = url;
 		Latest = latest;
 		Current = current;
+		Description = description;
 	}
 
 	public String getCurrent() {
@@ -45,6 +47,14 @@ public class Version {
 			return Current.compareTo(Latest)<0;
 		}
 		return false;
+	}
+
+	public String getDescription() {
+		return Description;
+	}
+
+	public void setDescription(String description) {
+		Description = description;
 	}
 
 	@Override

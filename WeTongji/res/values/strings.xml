@@ -18,5 +18,8 @@
     <string name="title_mainmenu_billboard">Billboard</string>
     <string name="title_mainmenu_profile">Profile</string>
 	<string name="test">TestLogin</string>
+	<string name="text_username">Username</string>
+	<string name="text_password">Password</string>
+	<string name="text_login">Login</string>
 	
 </resources>

@@ -1,7 +1,7 @@
 package com.wetongji_android.util.auth;
 
 import com.wetongji_android.old.WTClient;
-import com.wetongji_android.ui.AuthenticatorActivity;
+import com.wetongji_android.ui.auth.AuthenticatorActivity;
 import com.wetongji_android.util.common.WTApplication;
 
 import android.accounts.AbstractAccountAuthenticator;

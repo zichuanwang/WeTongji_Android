@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="username" />
+        android:text="@string/text_username" />
 
     <EditText
         android:id="@+id/et_username"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/et_username"
-        android:text="Password" />
+        android:text="@string/text_password" />
 
     <EditText
         android:id="@+id/et_password"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/et_password"
-        android:text="OK"
+        android:text="@string/text_login"
         android:onClick="handleLogin" />
 
 </RelativeLayout>

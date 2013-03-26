@@ -31,6 +31,7 @@ public class WTApplication extends Application
 	public static final String API_ARGS_SESSION="S";
 	// api methods
 	public static final String API_METHOD_USER_LOGON="User.LogOn";
+	public static final String API_METHOD_SYSTEM_VERSION="System.Version";
 	// api arguments used in methods
 	public static final String API_METHOD_ARGS_NO="NO";
 	public static final String API_METHOD_ARGS_PASSWORD="Password";

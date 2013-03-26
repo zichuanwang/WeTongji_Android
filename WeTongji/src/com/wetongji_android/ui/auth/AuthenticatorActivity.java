@@ -1,4 +1,4 @@
-package com.wetongji_android.ui;
+package com.wetongji_android.ui.auth;
 
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorResponse;
