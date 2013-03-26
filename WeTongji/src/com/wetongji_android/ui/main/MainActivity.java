@@ -11,12 +11,13 @@ import com.wetongji_android.ui.today.TodayFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-public class MainActivity extends SlidingFragmentActivity {
-	
+public class MainActivity extends SlidingFragmentActivity 
+{
 	private Fragment mContent;
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 		
 		// Ö÷ÊÓÍ¼
@@ -34,6 +35,8 @@ public class MainActivity extends SlidingFragmentActivity {
 			.commit();
 		
 		setSlidingMenu();
+		
+		//getSupportLoaderManager().initLoader(0, savedInstanceState, null);
 	}
 
 
@@ -42,7 +45,8 @@ public class MainActivity extends SlidingFragmentActivity {
 	 * check if there's a new version of the app.
 	 * Update info comes from Google Play.
 	 */
-	private void checkAppUpdate() {
+	private void checkAppUpdate() 
+	{
 		MarketService marketService=new MarketService(this);
 		marketService.level(MarketService.REVISION).checkVersion();
 	}

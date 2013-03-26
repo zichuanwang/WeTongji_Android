@@ -8,6 +8,7 @@ import java.net.URLEncoder;
 import java.util.Set;
 
 import android.os.Bundle;
+import android.util.Log;
 
 /**
  * @author nankonami
@@ -49,6 +50,7 @@ public class HttpUtil
 			}
 		}
 		
+		Log.v("The param string is: ", sb.toString());
 		return sb.toString();
 	}
 }
