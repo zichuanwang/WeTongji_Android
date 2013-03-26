@@ -1,8 +1,8 @@
 package com.wetongji_android.util.auth;
 
-import com.wetongji_android.Constants;
 import com.wetongji_android.old.WTClient;
 import com.wetongji_android.ui.AuthenticatorActivity;
+import com.wetongji_android.util.common.WTApplication;
 
 import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;
@@ -57,7 +57,7 @@ public class Authenticator extends AbstractAccountAuthenticator {
 			throws NetworkErrorException {
 		Log.v(TAG, "getAuthToken");
 		
-		if(!authTokenType.equals(Constants.AUTHTOKEN_TYPE)){
+		if(!authTokenType.equals(WTApplication.AUTHTOKEN_TYPE)){
 			final Bundle result=new Bundle();
 			result.putString(AccountManager.KEY_ERROR_MESSAGE, "invalid authTokenType");
 			return result;
@@ -75,7 +75,7 @@ public class Authenticator extends AbstractAccountAuthenticator {
 					if(!TextUtils.isEmpty(authToken)){
 						final Bundle result=new Bundle();
 						result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
-						result.putString(AccountManager.KEY_ACCOUNT_TYPE, Constants.ACCOUNT_TYPE);
+						result.putString(AccountManager.KEY_ACCOUNT_TYPE, WTApplication.ACCOUNT_TYPE);
 						result.putString(AccountManager.KEY_AUTHTOKEN, authToken);
 						return result;
 					}

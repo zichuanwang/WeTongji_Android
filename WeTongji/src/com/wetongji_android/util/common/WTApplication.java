@@ -19,6 +19,9 @@ public class WTApplication extends Application
 	// account type
 	public static final String ACCOUNT_TYPE="com.wetongji";
 	public static final String AUTHTOKEN_TYPE="com.wetongji";
+	// api_constrants
+	public static final String API_DEVICE="android";
+	public static final String API_VERSION="1.2";
 	// api arguments
 	public static final String API_ARGS_DEVICE="D";
 	public static final String API_ARGS_METHOD="M";

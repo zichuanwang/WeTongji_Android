@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import com.wetongji_android.Constants;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -131,8 +130,6 @@ implements LoaderCallbacks<String>{
 		mPassword=mEtPassword.getText().toString();
 		if(!TextUtils.isEmpty(mUsername)&&!TextUtils.isEmpty(mPassword)){
 			showProgress();
-			//mAuthTask=new UserLoginTask();
-			//mAuthTask.execute();
 			Bundle args=new Bundle();
 			args.putString(WTApplication.API_ARGS_METHOD, WTApplication.API_METHOD_USER_LOGON);
 			args.putString(WTApplication.API_METHOD_ARGS_NO, mUsername);
@@ -143,7 +140,7 @@ implements LoaderCallbacks<String>{
 	
 	private void finishConfirmCredentials(boolean result){
 		Log.i(TAG, "finishConfirmCredentials");
-		final Account account=new Account(mUsername, Constants.ACCOUNT_TYPE);
+		final Account account=new Account(mUsername, WTApplication.ACCOUNT_TYPE);
 		mAm.setPassword(account, mPassword);
 		final Intent intent=new Intent();
 		intent.putExtra(AccountManager.KEY_BOOLEAN_RESULT, result);
@@ -154,7 +151,7 @@ implements LoaderCallbacks<String>{
 	
 	private void finishLogin(String authToken){
 		Log.i(TAG, "finishLogin");
-		final Account account=new Account(mUsername, Constants.ACCOUNT_TYPE);
+		final Account account=new Account(mUsername, WTApplication.ACCOUNT_TYPE);
 		if(mRequestNewAccount){
 			mAm.addAccountExplicitly(account, mPassword, null);
 		}
@@ -163,7 +160,7 @@ implements LoaderCallbacks<String>{
 		}
 		final Intent intent=new Intent();
 		intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mUsername);
-		intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, Constants.ACCOUNT_TYPE);
+		intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, WTApplication.ACCOUNT_TYPE);
 		setAccountAuthenticatorResult(intent.getExtras());
 		setResult(RESULT_OK, intent);
 		finish();

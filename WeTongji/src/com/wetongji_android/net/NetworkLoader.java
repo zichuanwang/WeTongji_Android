@@ -5,6 +5,8 @@ import com.wetongji_android.net.http.HttpMethod;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
+
+import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.exception.WTException;
 
 public class NetworkLoader extends AsyncTaskLoader<String> 
@@ -24,6 +26,7 @@ public class NetworkLoader extends AsyncTaskLoader<String>
 		super(context);
 		mMethod=method;
 		mArgs=args;
+		completeArgs();
 		mClient=WTClient.getInstance();
 	}
 
@@ -39,6 +42,17 @@ public class NetworkLoader extends AsyncTaskLoader<String>
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	protected void onStartLoading() {
+		super.onStartLoading();
+		forceLoad();
+	}
+	
+	private void completeArgs(){
+		mArgs.putString(WTApplication.API_ARGS_DEVICE, WTApplication.API_DEVICE);
+		mArgs.putString(WTApplication.API_ARGS_VERSION, WTApplication.API_VERSION);
 	}
 	
 	
