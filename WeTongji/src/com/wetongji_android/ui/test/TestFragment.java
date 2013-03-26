@@ -73,7 +73,7 @@ public class TestFragment extends Fragment implements LoaderCallbacks<String>
 		String strName = mEdtName.getText().toString();
 		String strPwd = mEdtPwd.getText().toString();
 		
-		Log.i("name", strName);
+		//Log.i("name", strName);
 		Log.i("pwd", strPwd);
 		
 		if(!TextUtils.isEmpty(strName) && !TextUtils.isEmpty(strPwd))
