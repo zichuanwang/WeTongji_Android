@@ -18,6 +18,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 
 public class UpdateBaseActivity extends SlidingFragmentActivity implements LoaderCallbacks<String>{
 	
@@ -65,6 +66,7 @@ public class UpdateBaseActivity extends SlidingFragmentActivity implements Loade
 
 	@Override
 	public void onLoadFinished(Loader<String> arg0, String result) {
+		Log.v("The result is : ", result);
 		try {
 			Version version=VersionFactory.create(result);
 			showUpdateInfo(version);

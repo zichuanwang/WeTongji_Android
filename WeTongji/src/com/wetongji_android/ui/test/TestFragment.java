@@ -82,8 +82,6 @@ public class TestFragment extends Fragment implements LoaderCallbacks<String>
 			params.putString(WTApplication.API_ARGS_METHOD, WTApplication.API_METHOD_USER_LOGON);
 			params.putString(WTApplication.API_METHOD_ARGS_NO, strName);
 			params.putString(WTApplication.API_METHOD_ARGS_PASSWORD, RSAEncrypter.encrypt(strPwd, getActivity()));
-			params.putString(WTApplication.API_ARGS_DEVICE, "android");
-			params.putString(WTApplication.API_ARGS_VERSION, "2.0");
 			
 			getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, params, this);
 		}

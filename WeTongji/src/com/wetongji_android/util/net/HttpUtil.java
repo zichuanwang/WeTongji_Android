@@ -7,6 +7,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Set;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -52,5 +55,40 @@ public class HttpUtil
 		
 		Log.v("The param string is: ", sb.toString());
 		return sb.toString();
+	}
+	
+	public static int getNetType(Context context)
+	{
+		ConnectivityManager conManager = (ConnectivityManager)context.getSystemService(
+				Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = conManager.getActiveNetworkInfo();
+		if(netInfo != null && netInfo.isConnected())
+		{
+			return netInfo.getType();
+		}
+		return -1;
+	}
+	
+	public static boolean isWifi(Context context)
+	{
+		ConnectivityManager conManager = (ConnectivityManager)context.getSystemService(
+				Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = conManager.getActiveNetworkInfo();
+		if(netInfo != null && netInfo.isConnected())
+		{
+			if(netInfo.getType() == ConnectivityManager.TYPE_WIFI)
+				return true;
+		}
+		
+		return false;
+	}
+	
+	public static boolean isConnected(Context context)
+	{
+		ConnectivityManager conManager = (ConnectivityManager)context.getSystemService(
+				Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = conManager.getActiveNetworkInfo();
+		
+		return netInfo != null && netInfo.isConnected();
 	}
 }
