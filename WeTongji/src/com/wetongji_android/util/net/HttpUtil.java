@@ -24,6 +24,11 @@ public class HttpUtil
 		//Forbidden being instantiated.
 	}
 	
+	/**
+	 * Build the url query string according to the params bundle
+	 * @param params
+	 * @return
+	 */
 	public static String encodeUrl(Bundle params)
 	{
 		if(params == null)
@@ -57,6 +62,11 @@ public class HttpUtil
 		return sb.toString();
 	}
 	
+	/**
+	 * Get Net Type
+	 * @param context
+	 * @return
+	 */
 	public static int getNetType(Context context)
 	{
 		ConnectivityManager conManager = (ConnectivityManager)context.getSystemService(
@@ -69,6 +79,11 @@ public class HttpUtil
 		return -1;
 	}
 	
+	/**
+	 * If the net is wifi, return true, otherwise false
+	 * @param context
+	 * @return
+	 */
 	public static boolean isWifi(Context context)
 	{
 		ConnectivityManager conManager = (ConnectivityManager)context.getSystemService(
@@ -83,6 +98,11 @@ public class HttpUtil
 		return false;
 	}
 	
+	/**
+	 * If the net is connected return true, otherwise false
+	 * @param context
+	 * @return
+	 */
 	public static boolean isConnected(Context context)
 	{
 		ConnectivityManager conManager = (ConnectivityManager)context.getSystemService(
