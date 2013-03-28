@@ -105,10 +105,17 @@ public class HttpUtil
 	 */
 	public static boolean isConnected(Context context)
 	{
+		boolean bConnected = false;
+		
 		ConnectivityManager conManager = (ConnectivityManager)context.getSystemService(
 				Context.CONNECTIVITY_SERVICE);
-		NetworkInfo netInfo = conManager.getActiveNetworkInfo();
+		if(conManager != null)
+		{
+			NetworkInfo netInfo = conManager.getActiveNetworkInfo();
+			if(netInfo != null && netInfo.isConnected())
+				bConnected = true;
+		}
 		
-		return netInfo != null && netInfo.isConnected();
+		return bConnected;
 	}
 }

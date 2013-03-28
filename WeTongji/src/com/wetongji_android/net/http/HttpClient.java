@@ -180,6 +180,9 @@ public class HttpClient
 				sbResult.append(strLine);
 			}
 			
+			//Even the http response status code is 200
+			//There are still problems, but we still return 
+			//a complete string
 			return sbResult.toString();
 		}catch(IOException e)
 		{
@@ -235,6 +238,5 @@ public class HttpClient
 			urlConnection.disconnect();
 		}
 	}
-	
 }
 
