@@ -16,8 +16,10 @@ public class WTException extends Exception
 	 */
 	private static final long serialVersionUID = 1L;
 
-	//Original http response error
-	private String oriStrError;
+	//Specific http method
+	private String strHttpMethod;
+	//Specific api that leads exception
+	private String strApi;
 	//Web Server specific response error
 	private String strError;
 	//Response status code include the original http status
@@ -37,6 +39,21 @@ public class WTException extends Exception
 		this.strError = strError;
 	}
 
+	public WTException(String strHttpMethod, String strApi, String strError, Throwable th)
+	{
+		this.setStrHttpMethod(strHttpMethod);
+		this.setStrApi(strApi);
+		this.setStrError(strError);
+	}
+	
+	public WTException(String strHttpMethod, String strApi, String strError, int iErrorCode, Throwable th)
+	{
+		this.setStrHttpMethod(strHttpMethod);
+		this.setStrApi(strApi);
+		this.setStrError(strError);
+		this.setErrorCode(iErrorCode);
+	}
+	
 	@Override
 	public String getMessage() 
 	{
@@ -46,23 +63,49 @@ public class WTException extends Exception
 	
 	private String getError()
 	{
-		String strResult;
+		if(!TextUtils.isEmpty(strError) && !TextUtils.isEmpty(strApi))
+			return strApi + strError;
 		
-		if(!TextUtils.isEmpty(this.strError))
-			strResult =  this.strError;
-		else
-			strResult = "";
-		
-		return strResult;
+		return strError;
 	}
 
-	public int getiErrorCode() 
+	public String getStrHttpMethod() 
+	{
+		return strHttpMethod;
+	}
+
+	public void setStrHttpMethod(String strHttpMethod) 
+	{
+		this.strHttpMethod = strHttpMethod;
+	}
+
+	public String getStrApi() 
+	{
+		return strApi;
+	}
+
+	public void setStrApi(String strApi) 
+	{
+		this.strApi = strApi;
+	}
+
+	public int getErrorCode() 
 	{
 		return iErrorCode;
 	}
 
-	public void setiErrorCode(int iErrorCode) 
+	public void setErrorCode(int iErrorCode) 
 	{
 		this.iErrorCode = iErrorCode;
+	}
+	
+	public String getStrError() 
+	{
+		return strError;
+	}
+
+	public void setStrError(String strError) 
+	{
+		this.strError = strError;
 	}
 }
