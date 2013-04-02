@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.wetongji_android.net.http.HttpClient;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.exception.WTException;
+import com.wetongji_android.util.net.HttpRequestResult;
 
 
 /**
@@ -32,7 +33,7 @@ public class WTClient
 		return WTClientContainer.client;
 	}
 	
-	public String execute(HttpMethod httpMethod, Bundle params) throws WTException
+	public HttpRequestResult execute(HttpMethod httpMethod, Bundle params) throws WTException
 	{
 		return new HttpClient().execute(httpMethod, params);
 	}

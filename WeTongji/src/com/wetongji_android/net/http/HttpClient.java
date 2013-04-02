@@ -14,8 +14,13 @@ import java.net.Proxy;
 import java.net.URL;
 import java.util.zip.GZIPInputStream;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.exception.WTException;
+import com.wetongji_android.util.net.HttpRequestResult;
 import com.wetongji_android.util.net.HttpUtil;
 
 import android.os.Bundle;
@@ -33,7 +38,11 @@ public class HttpClient
 	//private static final String API_DOMAIN = "http://we.tongji.edu.cn/api/call";
 	private static final String API_DOMAIN="http://leiz.name:8080/api/call";
 	
-	public String execute(HttpMethod httpMethod, Bundle params) throws WTException
+	private static final String HTTP_TIMEOUT = "HttpTimeout";
+	
+	private String strCurrentMethod;
+	
+	public HttpRequestResult execute(HttpMethod httpMethod, Bundle params) throws WTException
 	{
 		switch(httpMethod)
 		{
@@ -43,7 +52,7 @@ public class HttpClient
 			return doGet(params);
 		}
 		
-		return "";
+		return null;
 	}
 	
 	//Implement custom proxy in case proxy server
@@ -58,9 +67,21 @@ public class HttpClient
 			return null;
 	}
 	
-	//implement http get request
-	public String doGet(Bundle params) throws WTException
+	//Set common http property
+	private void setRequestProperty(HttpURLConnection htpURLConnection)
 	{
+		htpURLConnection.setConnectTimeout(CONNECT_TIMEOUT);
+		htpURLConnection.setReadTimeout(READ_TIMEOUT);
+		htpURLConnection.setRequestProperty("Connection", "Keep-Alive");
+		htpURLConnection.setRequestProperty("Accept-Charset", "UTF-8");
+		htpURLConnection.setRequestProperty("Accept-Encoding", "gzip, deflate");
+	}
+	
+	//Implement http get request
+	public HttpRequestResult doGet(Bundle params) throws WTException
+	{
+		strCurrentMethod = params.getString(WTApplication.API_ARGS_METHOD);
+		
 		try
 		{
 			StringBuilder sb = new StringBuilder(API_DOMAIN);
@@ -76,11 +97,8 @@ public class HttpClient
 			
 			urlConnection.setRequestMethod("GET");
 			urlConnection.setDoOutput(false);
-			urlConnection.setConnectTimeout(CONNECT_TIMEOUT);
-			urlConnection.setReadTimeout(READ_TIMEOUT);
-			urlConnection.setRequestProperty("Connection", "Keep-Alive");
-            urlConnection.setRequestProperty("Accept-Charset", "UTF-8");
-            urlConnection.setRequestProperty("Accept-Encoding", "gzip, deflate");
+			
+			setRequestProperty(urlConnection);
             
             urlConnection.connect();
             
@@ -88,12 +106,12 @@ public class HttpClient
 		}catch(IOException e)
 		{
 			e.printStackTrace();
-			throw new WTException("", e);
+			throw new WTException("GET", params.getString(WTApplication.API_ARGS_METHOD), HTTP_TIMEOUT, e);
 		}
 	}
 	
-	//implement http post request
-	public String doPost(Bundle params) throws WTException
+	//Implement http post request
+	public HttpRequestResult doPost(Bundle params) throws WTException
 	{
 		try
 		{
@@ -111,12 +129,9 @@ public class HttpClient
 			urlConnection.setDoInput(true);
 			urlConnection.setUseCaches(false);
 			urlConnection.setInstanceFollowRedirects(false);
-			urlConnection.setConnectTimeout(CONNECT_TIMEOUT);
-			urlConnection.setReadTimeout(READ_TIMEOUT);
-			urlConnection.setRequestProperty("Connection", "Keep-Alive");
-            urlConnection.setRequestProperty("Accept-Charset", "UTF-8");
-            urlConnection.setRequestProperty("Accept-Encoding", "gzip, deflate");
             urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            
+            setRequestProperty(urlConnection);
             
             urlConnection.connect();
             
@@ -129,22 +144,23 @@ public class HttpClient
 		}catch(IOException e)
 		{
 			e.printStackTrace();
-			throw new WTException("", e);
+			throw new WTException("POST", params.getString(WTApplication.API_ARGS_METHOD), HTTP_TIMEOUT, e);
 		}
 	}
 	
-	private String handleResponse(HttpURLConnection urlConnection) throws WTException
+	private HttpRequestResult handleResponse(HttpURLConnection urlConnection) throws WTException
 	{
-		int iStatus;
+		int iStatus = 200;
 		
 		try
 		{
 			iStatus = urlConnection.getResponseCode();
 		}catch(IOException e)
 		{
-			e.printStackTrace();
 			urlConnection.disconnect();
-			throw new WTException("", e);
+			e.printStackTrace();
+			throw new WTException(urlConnection.getRequestMethod(), strCurrentMethod, 
+								HTTP_TIMEOUT, iStatus, e);
 		}
 		
 		//The connection is not successful
@@ -156,53 +172,47 @@ public class HttpClient
 		return handleResult(urlConnection);
 	}
 	
-	private String handleResult(HttpURLConnection urlConnection) throws WTException
+	private HttpRequestResult handleResult(HttpURLConnection urlConnection) throws WTException
 	{
-		InputStream is = null;
-		BufferedReader bfReader = null;
+		String strResponse = readResponse(urlConnection);
 		
-		try
+		try 
 		{
-			is = urlConnection.getInputStream();
-			String strConEncode = urlConnection.getContentEncoding();
+			JSONObject json = new JSONObject(strResponse);
+			JSONObject status = json.getJSONObject("Status");
+			int id = Integer.valueOf(status.getString("Id"));
+			String memo = status.getString("Memo");
 			
-			if(strConEncode != null && !strConEncode.equals("") && strConEncode.equals("gzip"))
+			if(id != 0)
 			{
-				is = new GZIPInputStream(is);
+				return new HttpRequestResult(id, memo);
 			}
 			
-			bfReader = new BufferedReader(new InputStreamReader(is));
-			StringBuilder sbResult = new StringBuilder();
-			String strLine;
-			
-			while((strLine = bfReader.readLine()) != null)
-			{
-				sbResult.append(strLine);
-			}
-			
-			//Even the http response status code is 200
-			//There are still problems, but we still return 
-			//a complete string
-			return sbResult.toString();
-		}catch(IOException e)
+			return new HttpRequestResult(id, json.getJSONObject("Data").toString());
+		} catch (JSONException e) 
 		{
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			throw new WTException("", e);
-		}finally
-		{
-			WTUtility.closeResource(is);
-			WTUtility.closeResource(bfReader);
-			urlConnection.disconnect();
+			throw new WTException();
 		}
 	}
 	
-	private String handleError(HttpURLConnection urlConnection) throws WTException
+	private HttpRequestResult handleError(HttpURLConnection urlConnection) throws WTException
 	{
-		String strError = readError(urlConnection);
-		return strError;
+		String strError = readResponse(urlConnection);
+		
+		try 
+		{
+			return new HttpRequestResult(urlConnection.getResponseCode(), strError);
+		} catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new WTException(strError, e);
+		}
 	}
 	
-	private String readError(HttpURLConnection urlConnection) throws WTException
+	private String readResponse(HttpURLConnection urlConnection) throws WTException
 	{
 		InputStream is = null;
 		BufferedReader bfReader = null;
@@ -230,7 +240,7 @@ public class HttpClient
 		}catch(IOException e)
 		{
 			e.printStackTrace();
-			throw new WTException("", e);
+			throw new WTException(HTTP_TIMEOUT, e);
 		}finally
 		{
 			WTUtility.closeResource(is);

@@ -35,7 +35,7 @@ public class NetworkLoader extends AsyncTaskLoader<String>
 	{
 		try 
 		{
-			return mClient.execute(mMethod, mArgs);
+			return mClient.execute(mMethod, mArgs).getStrResponseCon();
 		} catch (WTException e) 
 		{
 			// TODO Auto-generated catch block
