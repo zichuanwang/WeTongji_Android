@@ -20,8 +20,8 @@ import android.widget.EditText;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
-import com.wetongji_android.util.auth.RSAEncrypter;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.net.ApiMethods;
 
 public class AuthenticatorActivity extends FragmentActivity
 implements LoaderCallbacks<String>{
@@ -130,10 +130,7 @@ implements LoaderCallbacks<String>{
 		mPassword=mEtPassword.getText().toString();
 		if(!TextUtils.isEmpty(mUsername)&&!TextUtils.isEmpty(mPassword)){
 			showProgress();
-			Bundle args=new Bundle();
-			args.putString(WTApplication.API_ARGS_METHOD, WTApplication.API_METHOD_USER_LOGON);
-			args.putString(WTApplication.API_METHOD_ARGS_NO, mUsername);
-			args.putString(WTApplication.API_METHOD_ARGS_PASSWORD, RSAEncrypter.encrypt(mPassword, this));
+			Bundle args=ApiMethods.getUserLogOn(mUsername, mPassword, this);
 			getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
 		}
 	}

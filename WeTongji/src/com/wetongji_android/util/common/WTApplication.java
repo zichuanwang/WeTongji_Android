@@ -22,19 +22,6 @@ public class WTApplication extends Application
 	// api_constrants
 	public static final String API_DEVICE="android";
 	public static final String API_VERSION="1.2";
-	// api arguments
-	public static final String API_ARGS_DEVICE="D";
-	public static final String API_ARGS_METHOD="M";
-	public static final String API_ARGS_VERSION="V";
-	public static final String API_ARGS_UID="U";
-	public static final String API_ARGS_PAGE="P";
-	public static final String API_ARGS_SESSION="S";
-	// api methods
-	public static final String API_METHOD_USER_LOGON="User.LogOn";
-	public static final String API_METHOD_SYSTEM_VERSION="System.Version";
-	// api arguments used in methods
-	public static final String API_METHOD_ARGS_NO="NO";
-	public static final String API_METHOD_ARGS_PASSWORD="Password";
 	// loader ids
 	public static final int NETWORK_LOADER=1;
 	
@@ -54,7 +41,6 @@ public class WTApplication extends Application
 	@Override
 	public void onCreate() 
 	{
-		// TODO Auto-generated method stub
 		super.onCreate();
 		application = this;
 	}

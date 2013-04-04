@@ -9,6 +9,8 @@ import com.wetongji_android.factory.VersionFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.net.ApiMethods;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.AlertDialog;
@@ -29,9 +31,8 @@ public class UpdateBaseActivity extends SlidingFragmentActivity implements Loade
 	}
 	
 	private void checkUpdate(){
-		Bundle params=new Bundle();
-		params.putString(WTApplication.API_ARGS_METHOD, WTApplication.API_METHOD_SYSTEM_VERSION);
-		getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER, params, this);
+		Bundle args=ApiMethods.getSystemVersion();
+		getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
 	}
 	
 	private void showUpdateInfo(Version version){
@@ -71,7 +72,6 @@ public class UpdateBaseActivity extends SlidingFragmentActivity implements Loade
 			Version version=VersionFactory.create(result);
 			showUpdateInfo(version);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

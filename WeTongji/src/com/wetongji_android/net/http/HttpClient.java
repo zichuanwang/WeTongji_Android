@@ -17,9 +17,9 @@ import java.util.zip.GZIPInputStream;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.exception.WTException;
+import com.wetongji_android.util.net.ApiMethods;
 import com.wetongji_android.util.net.HttpRequestResult;
 import com.wetongji_android.util.net.HttpUtil;
 
@@ -80,7 +80,7 @@ public class HttpClient
 	//Implement http get request
 	public HttpRequestResult doGet(Bundle params) throws WTException
 	{
-		strCurrentMethod = params.getString(WTApplication.API_ARGS_METHOD);
+		strCurrentMethod = params.getString(ApiMethods.API_ARGS_METHOD);
 		
 		try
 		{
@@ -106,7 +106,7 @@ public class HttpClient
 		}catch(IOException e)
 		{
 			e.printStackTrace();
-			throw new WTException("GET", params.getString(WTApplication.API_ARGS_METHOD), HTTP_TIMEOUT, e);
+			throw new WTException("GET", params.getString(ApiMethods.API_ARGS_METHOD), HTTP_TIMEOUT, e);
 		}
 	}
 	
@@ -144,7 +144,7 @@ public class HttpClient
 		}catch(IOException e)
 		{
 			e.printStackTrace();
-			throw new WTException("POST", params.getString(WTApplication.API_ARGS_METHOD), HTTP_TIMEOUT, e);
+			throw new WTException("POST", params.getString(ApiMethods.API_ARGS_METHOD), HTTP_TIMEOUT, e);
 		}
 	}
 	
@@ -191,7 +191,6 @@ public class HttpClient
 			return new HttpRequestResult(id, json.getJSONObject("Data").toString());
 		} catch (JSONException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new WTException();
 		}
@@ -206,7 +205,6 @@ public class HttpClient
 			return new HttpRequestResult(urlConnection.getResponseCode(), strError);
 		} catch (IOException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			throw new WTException(strError, e);
 		}
