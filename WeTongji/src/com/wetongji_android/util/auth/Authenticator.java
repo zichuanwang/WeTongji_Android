@@ -1,8 +1,13 @@
 package com.wetongji_android.util.auth;
 
-import com.wetongji_android.old.WTClient;
+import org.json.JSONObject;
+
+import com.wetongji_android.net.WTClient;
+import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.auth.AuthenticatorActivity;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.net.ApiMethods;
+import com.wetongji_android.util.net.HttpRequestResult;
 
 import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;
@@ -68,10 +73,11 @@ public class Authenticator extends AbstractAccountAuthenticator {
 		if(password!=null){
 			WTClient client=WTClient.getInstance();
 			try {
-				String encryptedPass=RSAEncrypter.encrypt(password, mContext);
-				client.login(account.name, encryptedPass);
-				if(!client.isHasError()){
-					final String authToken=client.getSession();
+				Bundle args=ApiMethods.getUserLogOn(account.name, password, mContext);
+				HttpRequestResult httpResult=client.execute(HttpMethod.Get, args);
+				if(httpResult.getResponseCode()==0){
+					JSONObject json=new JSONObject(httpResult.getStrResponseCon());
+					String authToken=json.getString("Session");
 					if(!TextUtils.isEmpty(authToken)){
 						final Bundle result=new Bundle();
 						result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
