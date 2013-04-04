@@ -155,6 +155,7 @@ implements LoaderCallbacks<String>{
 		else{
 			mAm.setPassword(account, mPassword);
 		}
+		mAm.setAuthToken(account, WTApplication.AUTHTOKEN_TYPE, authToken);
 		final Intent intent=new Intent();
 		intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mUsername);
 		intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, WTApplication.ACCOUNT_TYPE);

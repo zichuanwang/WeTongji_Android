@@ -67,27 +67,30 @@ public class Authenticator extends AbstractAccountAuthenticator {
 			result.putString(AccountManager.KEY_ERROR_MESSAGE, "invalid authTokenType");
 			return result;
 		}
-		
+
 		final AccountManager am=AccountManager.get(mContext);
+		String authToken=am.peekAuthToken(account, WTApplication.AUTHTOKEN_TYPE);
 		final String password=am.getPassword(account);
 		if(password!=null){
-			WTClient client=WTClient.getInstance();
-			try {
-				Bundle args=ApiMethods.getUserLogOn(account.name, password, mContext);
-				HttpRequestResult httpResult=client.execute(HttpMethod.Get, args);
-				if(httpResult.getResponseCode()==0){
-					JSONObject json=new JSONObject(httpResult.getStrResponseCon());
-					String authToken=json.getString("Session");
-					if(!TextUtils.isEmpty(authToken)){
-						final Bundle result=new Bundle();
-						result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
-						result.putString(AccountManager.KEY_ACCOUNT_TYPE, WTApplication.ACCOUNT_TYPE);
-						result.putString(AccountManager.KEY_AUTHTOKEN, authToken);
-						return result;
+			if(TextUtils.isEmpty(authToken)){
+				WTClient client=WTClient.getInstance();
+				try {
+					Bundle args=ApiMethods.getUserLogOn(account.name, password, mContext);
+					HttpRequestResult httpResult=client.execute(HttpMethod.Get, args);
+					if(httpResult.getResponseCode()==0){
+						JSONObject json=new JSONObject(httpResult.getStrResponseCon());
+						authToken=json.getString("Session");
 					}
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			}
+			if(!TextUtils.isEmpty(authToken)){
+				final Bundle result=new Bundle();
+				result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
+				result.putString(AccountManager.KEY_ACCOUNT_TYPE, WTApplication.ACCOUNT_TYPE);
+				result.putString(AccountManager.KEY_AUTHTOKEN, authToken);
+				return result;
 			}
 		}
 		

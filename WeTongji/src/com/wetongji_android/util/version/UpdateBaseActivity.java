@@ -18,6 +18,7 @@ import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.util.Log;
@@ -35,24 +36,28 @@ public class UpdateBaseActivity extends SlidingFragmentActivity implements Loade
 		getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
 	}
 	
-	private void showUpdateInfo(Version version){
-		AlertDialog.Builder builder=new Builder(this);
-		builder.setTitle(R.string.title_dialog_update_found);
-		String latest=version.getLatest().substring(7);
-		String updateInfo=String.format(getString(R.string.msg_dialog_update_found), latest, "");
-		builder.setMessage(updateInfo);
-		final String url=version.getUrl();
-		builder.setPositiveButton(R.string.text_btn_update, new OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				startDownloadUpdate(url);
-			}
-		});
-		builder.setNegativeButton(R.string.text_btn_not_now, null);
-		AlertDialog dialog=builder.create();
-		dialog.setCanceledOnTouchOutside(false);
-		dialog.show();
+	private void showUpdateInfo(Version version) throws NameNotFoundException{
+		String current=getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+		String latest=version.getLatest();
+		if(current.compareTo(latest)<0){
+			AlertDialog.Builder builder=new Builder(this);
+			builder.setTitle(R.string.title_dialog_update_found);
+			String description=version.getDescription();
+			String updateInfo=String.format(getString(R.string.msg_dialog_update_found), latest, description);
+			builder.setMessage(updateInfo);
+			final String url=version.getUrl();
+			builder.setPositiveButton(R.string.text_btn_update, new OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					startDownloadUpdate(url);
+				}
+			});
+			builder.setNegativeButton(R.string.text_btn_not_now, null);
+			AlertDialog dialog=builder.create();
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+		}
 	}
 	
 	private void startDownloadUpdate(String url){
@@ -72,6 +77,8 @@ public class UpdateBaseActivity extends SlidingFragmentActivity implements Loade
 			Version version=VersionFactory.create(result);
 			showUpdateInfo(version);
 		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}
 	}

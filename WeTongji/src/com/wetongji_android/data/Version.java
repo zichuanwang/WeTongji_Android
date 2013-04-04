@@ -42,13 +42,6 @@ public class Version {
 		Url = url;
 	}
 	
-	public boolean hasUpdate(){
-		if((Latest!=null)&&(!Latest.equals(""))){
-			return Current.compareTo(Latest)<0;
-		}
-		return false;
-	}
-
 	public String getDescription() {
 		return Description;
 	}

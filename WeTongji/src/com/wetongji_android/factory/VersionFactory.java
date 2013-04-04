@@ -11,9 +11,8 @@ public class VersionFactory{
 	public static Version create(String resultStr) throws JSONException {
 		Version version=new Version();
 		JSONObject result=new JSONObject(resultStr);
-		JSONObject object=result.getJSONObject("Version");
 		Gson gson=new Gson();
-		version=gson.fromJson(object.toString(), Version.class);
+		version=gson.fromJson(result.toString(), Version.class);
 		return version;
 	}
 
