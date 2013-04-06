@@ -25,6 +25,7 @@ import com.wetongji_android.util.net.HttpUtil;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 /**
  * @author nankonami
@@ -86,6 +87,7 @@ public class HttpClient
 		{
 			StringBuilder sb = new StringBuilder(API_DOMAIN);
 			sb.append("?").append(HttpUtil.encodeUrl(params));
+			Log.d("HttpClient", "URL="+sb.toString());
 			Proxy proxy = getProxy();
 			URL url = new URL(sb.toString());
 			HttpURLConnection urlConnection;
