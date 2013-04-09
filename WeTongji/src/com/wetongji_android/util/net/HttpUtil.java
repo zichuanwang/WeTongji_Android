@@ -7,6 +7,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Set;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -60,6 +63,18 @@ public class HttpUtil
 		
 		Log.v("The param string is: ", sb.toString());
 		return sb.toString();
+	}
+	
+	public static String getPostBody(Bundle params) throws JSONException
+	{
+		JSONObject json = new JSONObject();
+	
+		json.put("DisplayName", params.get(""));
+	    json.put("Email", params.get(""));
+	    json.put("SinaWeibo", params.get(""));
+		json.put("QQ", params.get(""));
+        
+		return "";
 	}
 	
 	/**
