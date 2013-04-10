@@ -14,10 +14,8 @@ import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Around;
 import com.wetongji_android.data.ClubNews;
 import com.wetongji_android.data.Course;
-import com.wetongji_android.data.Event;
 import com.wetongji_android.data.Exam;
 import com.wetongji_android.data.ForStaff;
-import com.wetongji_android.data.News;
 import com.wetongji_android.data.Person;
 import com.wetongji_android.data.PersonImage;
 import com.wetongji_android.data.SchoolNews;
@@ -27,11 +25,9 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DB_NAME="wetongji.db";
 	private static final int DB_VERSION=2;
 	
-	private AndroidBaseDaoImpl<Event, Integer> eventDao;
 	private AndroidBaseDaoImpl<Activity, Integer> actDao;
 	private AndroidBaseDaoImpl<Course, Integer> courseDao;
 	private AndroidBaseDaoImpl<Exam, Integer> examDao;
-	private AndroidBaseDaoImpl<News, Integer> newsDao;
 	private AndroidBaseDaoImpl<Around, Integer> aroundDao;
 	private AndroidBaseDaoImpl<ClubNews, Integer> clubDao;
 	private AndroidBaseDaoImpl<ForStaff, Integer> staffDao;
@@ -47,11 +43,9 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db, ConnectionSource connSource) {
 		try {
-			TableUtils.createTableIfNotExists(connSource, Event.class);
 			TableUtils.createTableIfNotExists(connSource, Activity.class);
 			TableUtils.createTableIfNotExists(connSource, Course.class);
 			TableUtils.createTableIfNotExists(connSource, Exam.class);
-			TableUtils.createTableIfNotExists(connSource, News.class);
 			TableUtils.createTableIfNotExists(connSource, Around.class);
 			TableUtils.createTableIfNotExists(connSource, ClubNews.class);
 			TableUtils.createTableIfNotExists(connSource, ForStaff.class);
@@ -68,11 +62,9 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource connSource, int oldVersion,
 			int newVersion) {
 		try {
-			TableUtils.dropTable(connSource, Event.class, false);
 			TableUtils.dropTable(connSource, Activity.class, false);
 			TableUtils.dropTable(connSource, Course.class, false);
 			TableUtils.dropTable(connSource, Exam.class, false);
-			TableUtils.dropTable(connSource, News.class, false);
 			TableUtils.dropTable(connSource, Around.class, false);
 			TableUtils.dropTable(connSource, ClubNews.class, false);
 			TableUtils.dropTable(connSource, ForStaff.class, false);
@@ -88,11 +80,9 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 	
 	public void close(){
 		super.close();
-		eventDao=null;
 		actDao=null;
 		courseDao=null;
 		examDao=null;
-		newsDao=null;
 		aroundDao=null;
 		clubDao=null;
 		staffDao=null;
@@ -100,13 +90,6 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 		personDao=null;
 		imageDao=null;
 		userDao=null;
-	}
-
-	public AndroidBaseDaoImpl<Event, Integer> getEventDao() throws SQLException {
-		if(eventDao==null){
-			eventDao=getDao(Event.class);
-		}
-		return eventDao;
 	}
 
 	public AndroidBaseDaoImpl<Activity, Integer> getActDao() throws SQLException {
@@ -128,13 +111,6 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 			examDao=getDao(Exam.class);
 		}
 		return examDao;
-	}
-
-	public AndroidBaseDaoImpl<News, Integer> getNewsDao() throws SQLException {
-		if(newsDao==null){
-			newsDao=getDao(News.class);
-		}
-		return newsDao;
 	}
 
 	public AndroidBaseDaoImpl<Around, Integer> getAroundDao() throws SQLException {
