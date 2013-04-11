@@ -7,6 +7,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Set;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -60,6 +63,32 @@ public class HttpUtil
 		
 		Log.v("The param string is: ", sb.toString());
 		return sb.toString();
+	}
+	
+	/**
+	 * Update user profile
+	 * @param name
+	 * @param email
+	 * @param qq
+	 * @param phone
+	 * @param weibo
+	 * @return
+	 */
+	public static String getUserUpdateBody(String name, String email, String qq, String 
+			phone, String weibo) throws JSONException
+	{
+		JSONObject json = new JSONObject();
+		
+		json.put("DisplayName", name);
+		json.put("Email", email);
+		json.put("SinaWeibo", weibo);
+		json.put("Phone", phone);
+		json.put("QQ", qq);
+		
+		JSONObject user = new JSONObject();
+		user.put("User", json.toString());
+		
+		return user.toString();
 	}
 	
 	/**

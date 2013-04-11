@@ -98,12 +98,12 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle postUserUpdate(Context context){
+	public static Bundle postUserUpdate(Context context, String updateContent){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Update");
 		//TODO object User need to be submitted
-		bundle.putString(API_ARGS_USER, "");
+		bundle.putString(API_ARGS_USER, updateContent);
 		bundle.putString(API_ARGS_SESSION, getSession(context));
 		return bundle;
 	}
