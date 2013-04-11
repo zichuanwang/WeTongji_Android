@@ -25,6 +25,7 @@ import com.wetongji_android.util.net.HttpUtil;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 /**
  * @author nankonami
@@ -68,13 +69,14 @@ public class HttpClient
 	}
 	
 	//Set common http property
-	private void setRequestProperty(HttpURLConnection htpURLConnection)
+	private void setRequestProperty(HttpURLConnection httpURLConnection)
 	{
-		htpURLConnection.setConnectTimeout(CONNECT_TIMEOUT);
-		htpURLConnection.setReadTimeout(READ_TIMEOUT);
-		htpURLConnection.setRequestProperty("Connection", "Keep-Alive");
-		htpURLConnection.setRequestProperty("Accept-Charset", "UTF-8");
-		htpURLConnection.setRequestProperty("Accept-Encoding", "gzip, deflate");
+		httpURLConnection.setConnectTimeout(CONNECT_TIMEOUT);
+		httpURLConnection.setReadTimeout(READ_TIMEOUT);
+		httpURLConnection.setRequestProperty("Connection", "Keep-Alive");
+		httpURLConnection.setRequestProperty("Charset", "UTF-8");
+		httpURLConnection.setRequestProperty("Accept-Charset", "UTF-8");
+		httpURLConnection.setRequestProperty("Accept-Encoding", "gzip, deflate");
 	}
 	
 	//Implement http get request
@@ -86,6 +88,7 @@ public class HttpClient
 		{
 			StringBuilder sb = new StringBuilder(API_DOMAIN);
 			sb.append("?").append(HttpUtil.encodeUrl(params));
+			Log.d("HttpClient", "URL="+sb.toString());
 			Proxy proxy = getProxy();
 			URL url = new URL(sb.toString());
 			HttpURLConnection urlConnection;
@@ -129,7 +132,7 @@ public class HttpClient
 			urlConnection.setDoInput(true);
 			urlConnection.setUseCaches(false);
 			urlConnection.setInstanceFollowRedirects(false);
-            urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
             
             setRequestProperty(urlConnection);
             

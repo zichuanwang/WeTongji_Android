@@ -65,6 +65,18 @@ public class HttpUtil
 		return sb.toString();
 	}
 	
+	public static String getPostBody(Bundle params) throws JSONException
+	{
+		JSONObject json = new JSONObject();
+	
+		json.put("DisplayName", params.get(""));
+	    json.put("Email", params.get(""));
+	    json.put("SinaWeibo", params.get(""));
+		json.put("QQ", params.get(""));
+        
+		return "";
+	}
+	
 	/**
 	 * Update user profile
 	 * @param name
