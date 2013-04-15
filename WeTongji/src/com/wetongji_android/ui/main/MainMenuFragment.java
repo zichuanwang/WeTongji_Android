@@ -2,6 +2,7 @@ package com.wetongji_android.ui.main;
 
 
 import com.wetongji_android.R;
+import com.wetongji_android.ui.event.EventsFragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -121,17 +122,41 @@ public class MainMenuFragment extends Fragment {
 	public class MainMenuListItemClickListener implements OnItemClickListener {
 
 		@Override
-		public void onItemClick(AdapterView<?> arg0, View view, int positioin,
+		public void onItemClick(AdapterView<?> arg0, View view, int position,
 				long arg3) {
+			Fragment newContent = null;
 			
 			//Change item background
-			mCurrentItemNu = positioin;
+			mCurrentItemNu = position;
 			mMenuListAdapter.notifyDataSetChanged();
 			
 			//TODO Change the fragment
-			Toast.makeText(getActivity(), "" + positioin, Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "" + position, Toast.LENGTH_SHORT).show();
+			switch(position) {
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				newContent = new EventsFragment();
+				break;
+			default:
+				break;
+			}
+			
+			if (newContent != null) {
+				switchFragment(newContent);
+			}
 		}
 		
+	}
+	
+	private void switchFragment(Fragment fragment) {
+		if (getActivity() == null)
+			return;
+		
+		MainActivity ma = (MainActivity) getActivity();
+		ma.switchContent(fragment);
 	}
 	
 

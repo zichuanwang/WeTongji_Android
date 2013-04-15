@@ -78,5 +78,14 @@ public class MainActivity extends UpdateBaseActivity
 		return super.onOptionsItemSelected(item);
 		
 	}
+	
+	public void switchContent(Fragment fragment) {
+		mContent = fragment;
+		getSupportFragmentManager()
+		.beginTransaction()
+		.replace(R.id.content_frame, fragment)
+		.commit();
+		getSlidingMenu().showContent();
+	}
 
 }

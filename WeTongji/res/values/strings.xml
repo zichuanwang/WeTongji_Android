@@ -21,5 +21,8 @@
 	<string name="text_username">Username</string>
 	<string name="text_password">Password</string>
 	<string name="text_login">Login</string>
+	<string name="xlistview_footer_hint_ready">Pull to refresh</string>
+	<string name="xlistview_footer_hint_loading">Loading more...</string>
+	<string name="xlistview_footer_hint_normal">Press to load more</string>
 	
 </resources>

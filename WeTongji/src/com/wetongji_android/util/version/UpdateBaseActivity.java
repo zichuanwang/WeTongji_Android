@@ -28,7 +28,7 @@ public class UpdateBaseActivity extends SlidingFragmentActivity implements Loade
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		checkUpdate();
+		//checkUpdate();
 	}
 	
 	private void checkUpdate(){
