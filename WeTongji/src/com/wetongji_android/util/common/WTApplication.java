@@ -25,6 +25,8 @@ public class WTApplication extends Application
 	// loader ids
 	public static final int NETWORK_LOADER=1;
 	
+	public static final String CACHE_DIR="WeTongji/cache";
+	
 	//singleton
 	private static WTApplication application = null;
 	

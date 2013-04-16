@@ -8,11 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
-        <com.wetongji_android.ui.widgets.WTXListView
-            android:id="@id/lst_activity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-           />
+
+		<com.handmark.pulltorefresh.library.PullToRefreshListView       
+		    android:id="@id/lv_events" 
+		    android:layout_height="match_parent"
+		    android:layout_width="match_parent"/>
         
     </RelativeLayout>
 

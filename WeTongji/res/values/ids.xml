@@ -3,12 +3,11 @@
     <item type="id" name="main_memu_list">false</item>
     <item name="img_main_menu" type="id">false</item>
     <item name="tv_main_menu" type="id">false</item>
-    <item name="xlistview_footer_content" type="id">false</item>
-    <item name="xlistview_footer_hint_textview" type="id">false</item>
     <item name="lst_activity" type="id">false</item>
     <item name="img_event_thumbnails" type="id">false</item>
     <item name="tv_event_title" type="id">false</item>
     <item name="tv_event_time" type="id">false</item>
     <item name="tv_event_location" type="id">false</item>
+    <item type="id" name="lv_events">false</item>
     
 </resources>

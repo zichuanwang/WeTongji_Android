@@ -2,13 +2,8 @@ package com.wetongji_android.util.common;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
-import com.wetongji_android.data.Course;
-
 import android.text.format.DateUtils;
 
 /**
@@ -16,7 +11,7 @@ import android.text.format.DateUtils;
  * @author John
  *
  */
-public class WTDateParser {
+public class DateParser {
 	
 	private static SimpleDateFormat format=new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss");
