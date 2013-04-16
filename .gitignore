@@ -200,3 +200,6 @@ project.properties
 WeTongji/project.properties
 library/ABS/project.properties
 library/SlidingMenu/project.properties
+
+#test folder
+WeTongji/src/com/wetongji_android/test

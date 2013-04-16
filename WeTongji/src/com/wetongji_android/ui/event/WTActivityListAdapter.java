@@ -5,6 +5,7 @@ import java.util.List;
 import com.androidquery.AQuery;
 import com.androidquery.util.AQUtility;
 import com.wetongji_android.R;
+import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Event;
 import com.wetongji_android.util.common.WTDateParser;
 
@@ -19,14 +20,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class WTActivityListAdapter extends ArrayAdapter<Event> {
+public class WTActivityListAdapter extends ArrayAdapter<Activity> {
 	
 	private LayoutInflater mInflater;
 	private Context mContext;
 	private AQuery listAq;
 	
 	public WTActivityListAdapter(Context context, int resource,
-			int textViewResourceId, List<Event> objects) {
+			int textViewResourceId, List<Activity> objects) {
 		super(context, resource, textViewResourceId, objects);
 		mInflater=LayoutInflater.from(context);
 		mContext=context;
