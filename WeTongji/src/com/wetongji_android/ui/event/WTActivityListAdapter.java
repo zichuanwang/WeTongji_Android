@@ -6,8 +6,7 @@ import com.androidquery.AQuery;
 import com.androidquery.util.AQUtility;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Event;
-import com.wetongji_android.util.common.DateParser;
-import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTDateParser;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,13 +19,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class EventListAdapter extends ArrayAdapter<Event> {
+public class WTActivityListAdapter extends ArrayAdapter<Event> {
 	
 	private LayoutInflater mInflater;
 	private Context mContext;
 	private AQuery listAq;
 	
-	public EventListAdapter(Context context, int resource,
+	public WTActivityListAdapter(Context context, int resource,
 			int textViewResourceId, List<Event> objects) {
 		super(context, resource, textViewResourceId, objects);
 		mInflater=LayoutInflater.from(context);
@@ -59,12 +58,12 @@ public class EventListAdapter extends ArrayAdapter<Event> {
 		
 		holder.tv_event_title.setText(event.getTitle());
 		holder.tv_event_time.setText(
-				DateParser.parseBeginAndEndTime(event.getBegin(), event.getEnd()));
+				WTDateParser.parseBeginAndEndTime(event.getBegin(), event.getEnd()));
 		
 		String strUrl=event.getDescription();
 		AQuery aq = listAq.recycle(convertView);
 		File ext=Environment.getExternalStorageDirectory();
-        File cacheDir=new File(ext, WTApplication.CACHE_DIR);
+        File cacheDir=new File(ext, "WeTongji/cache");
         AQUtility.setCacheDir(cacheDir);
         int imageId = holder.img_event_thumbnails.getId();
         Bitmap resetAvatar = BitmapFactory.decodeResource(mContext.getResources(),
