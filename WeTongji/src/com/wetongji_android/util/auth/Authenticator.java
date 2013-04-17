@@ -2,6 +2,7 @@ package com.wetongji_android.util.auth;
 
 import org.json.JSONObject;
 
+import com.wetongji_android.R;
 import com.wetongji_android.net.WTClient;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.auth.AuthenticatorActivity;
@@ -17,8 +18,10 @@ import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 public class Authenticator extends AbstractAccountAuthenticator {
 	
@@ -35,11 +38,26 @@ public class Authenticator extends AbstractAccountAuthenticator {
 			String authTokenType, String[] requiredFeatures, Bundle options)
 			throws NetworkErrorException {
 		Log.v(TAG, "addAccount");
-		final Intent intent=new Intent(mContext, AuthenticatorActivity.class);
-		intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
-		final Bundle bundle=new Bundle();
-		bundle.putParcelable(AccountManager.KEY_INTENT, intent);
-		return bundle;
+		final AccountManager am=AccountManager.get(mContext);
+		if(am.getAccountsByType(WTApplication.ACCOUNT_TYPE).length==0){
+			final Intent intent=new Intent(mContext, AuthenticatorActivity.class);
+			intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
+			final Bundle bundle=new Bundle();
+			bundle.putParcelable(AccountManager.KEY_INTENT, intent);
+			return bundle;
+		}
+		else{
+			new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					Looper.prepare();
+					Toast.makeText(mContext, R.string.text_only_one_account, Toast.LENGTH_LONG).show();
+					Looper.loop();
+				}
+			}).start();
+			return null;
+		}
 	}
 
 	@Override

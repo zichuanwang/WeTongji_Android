@@ -24,5 +24,6 @@
 	<string name="xlistview_footer_hint_ready">Pull to refresh</string>
 	<string name="xlistview_footer_hint_loading">Loading more...</string>
 	<string name="xlistview_footer_hint_normal">Press to load more</string>
+	<string name="text_only_one_account">Only one WeTongji account can be supported.</string>
 	
 </resources>
