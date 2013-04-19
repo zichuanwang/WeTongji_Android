@@ -10,6 +10,7 @@ import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.net.ApiMethods;
+import com.wetongji_android.util.net.HttpRequestResult;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,7 +24,8 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.util.Log;
 
-public class UpdateBaseActivity extends SlidingFragmentActivity implements LoaderCallbacks<String>{
+public class UpdateBaseActivity extends SlidingFragmentActivity 
+implements LoaderCallbacks<HttpRequestResult>{
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,25 +68,27 @@ public class UpdateBaseActivity extends SlidingFragmentActivity implements Loade
 	}
 
 	@Override
-	public Loader<String> onCreateLoader(int arg0, Bundle bundle) {
+	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle bundle) {
 		return new NetworkLoader(this, HttpMethod.Get, bundle);
 	}
 
 	@Override
-	public void onLoadFinished(Loader<String> arg0, String result) {
-		Log.v("The result is : ", result);
-		try {
-			Version version=VersionFactory.create(result);
-			showUpdateInfo(version);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (NameNotFoundException e) {
-			e.printStackTrace();
+	public void onLoadFinished(Loader<HttpRequestResult> arg0, HttpRequestResult result) {
+		Log.v("The result is : ", result.toString());
+		if(result.getResponseCode()==0){
+			try {
+				Version version=VersionFactory.create(result.getStrResponseCon());
+				showUpdateInfo(version);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (NameNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	@Override
-	public void onLoaderReset(Loader<String> arg0) {
+	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 	}
 	
 }

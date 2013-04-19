@@ -17,13 +17,27 @@
     <string name="title_mainmenu_search">Search</string>
     <string name="title_mainmenu_billboard">Billboard</string>
     <string name="title_mainmenu_profile">Profile</string>
-	<string name="test">TestLogin</string>
-	<string name="text_username">Username</string>
-	<string name="text_password">Password</string>
-	<string name="text_login">Login</string>
-	<string name="xlistview_footer_hint_ready">Pull to refresh</string>
-	<string name="xlistview_footer_hint_loading">Loading more...</string>
-	<string name="xlistview_footer_hint_normal">Press to load more</string>
-	<string name="text_only_one_account">Only one WeTongji account can be supported.</string>
-	
+    <string name="test">TestLogin</string>
+    <string name="text_student_no">Student No.</string>
+    <string name="text_password">Password</string>
+    <string name="text_login">Log In</string>
+    <string name="xlistview_footer_hint_ready">Pull to refresh</string>
+    <string name="xlistview_footer_hint_loading">Loading more…</string>
+    <string name="xlistview_footer_hint_normal">Press to load more</string>
+    <string name="text_only_one_account">Only one WeTongji account can be supported.</string>
+    <string name="text_error_service_down">Service down</string>
+    <string name="text_error_request_login_again">Please login again</string>
+    <string name="text_error_request_login">Please login</string>
+    <string name="text_error_already_registried">Already registried</string>
+    <string name="text_error_student_no_and_name_not_match">Student no and name not match</string>
+    <string name="text_error_password_not_meet_specifications">Password doesn\'t meet specifications</string>
+    <string name="text_error_account_not_actived">Account needs to be actived</string>
+    <string name="text_error_student_no_not_exist">Student no doesn\'t exist</string>
+    <string name="text_error_wrong_username_password">Wrong username/password</string>
+    <string name="text_error_student_no_not_registried">Student no hasn\'t registried</string>
+    <string name="text_error_friends_not_allowed_due_to_privacy">Can\'t add friend due to his\/her privacy settings</string>
+    <string name="text_create_account">Create Your Account</string>
+    <string name="text_not_now">Not Now</string>
+    <string name="text_sign_up_log_in">Sign Up / Log In</string>
+
 </resources>

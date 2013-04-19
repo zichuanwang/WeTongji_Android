@@ -2,5 +2,12 @@
 <resources>
     <color name="main_menu_bg">#323232</color>
     <color name="main_menu_selected">#212121</color>
+    <color name="btn_text">#ffffff</color>
+    <color name="btn_text_cab_done_pressed">#ffffff</color>
+    <color name="btn_text_cab_done_focused">#ffffff</color>
+    <color name="btn_text_cab_done_default">#797979</color>
+    <color name="btn_text_cab_done_shadow">#000000</color>
+    <color name="et_text">#333333</color>
+    <color name="et_text_hint">#8f8f8f</color>
     
 </resources>

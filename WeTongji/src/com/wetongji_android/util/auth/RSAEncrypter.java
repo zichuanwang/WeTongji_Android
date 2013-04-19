@@ -16,7 +16,6 @@ import javax.crypto.NoSuchPaddingException;
 import com.wetongji_android.R;
 
 import android.content.Context;
-import android.net.Uri;
 import android.util.Base64;
 
 public class RSAEncrypter {
@@ -31,7 +30,7 @@ public class RSAEncrypter {
 			Cipher pkCipher=Cipher.getInstance("RSA/ECB/PKCS1PADDING");
 			pkCipher.init(Cipher.ENCRYPT_MODE, pkPublic);
 			byte[] encryptedInByte=pkCipher.doFinal(origin.getBytes());
-			return Uri.encode(Base64.encodeToString(encryptedInByte, Base64.NO_WRAP));
+			return Base64.encodeToString(encryptedInByte, Base64.NO_WRAP);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (NoSuchAlgorithmException e) {
