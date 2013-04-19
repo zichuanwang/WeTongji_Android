@@ -25,6 +25,8 @@ public class WTApplication extends Application
 	// loader ids
 	public static final int NETWORK_LOADER=1;
 	
+	public static final String FLURRY_API_KEY="GN5KJMW6XWCSD5DTCWRW";
+	
 	//singleton
 	private static WTApplication application = null;
 	

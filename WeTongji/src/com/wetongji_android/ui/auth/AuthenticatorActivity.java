@@ -24,6 +24,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ToggleButton;
 
+import com.flurry.android.FlurryAgent;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -84,6 +85,18 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 		}
 	}
 	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		FlurryAgent.onStartSession(this, WTApplication.FLURRY_API_KEY);
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		FlurryAgent.onEndSession(this);
+	}
+
 	public void finish() {
         if (mAccountAuthenticatorResponse != null) {
             // send the result bundle back if set, otherwise send an error.
