@@ -17,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.ViewSwitcher.ViewFactory;
 
 /**
@@ -93,6 +94,7 @@ public class IntroFragment extends Fragment implements ViewFactory {
 	public View makeView() {
 		ImageView image=new ImageView(getActivity());
 		image.setLayoutParams(new ImageSwitcher.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+		image.setScaleType(ScaleType.FIT_XY);
 		return image;
 	}
 
