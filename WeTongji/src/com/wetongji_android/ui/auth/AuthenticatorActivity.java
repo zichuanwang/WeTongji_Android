@@ -155,7 +155,7 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 			transaction.replace(R.id.auth_content_container, LoginFragment.newInstance(mUsername));
 		}
 		else{
-			//TODO
+			transaction.replace(R.id.auth_content_container, IntroFragment.newInstance());
 		}
 		transaction.commit();
 	}

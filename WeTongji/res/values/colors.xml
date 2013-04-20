@@ -9,5 +9,8 @@
     <color name="btn_text_cab_done_shadow">#000000</color>
     <color name="et_text">#333333</color>
     <color name="et_text_hint">#8f8f8f</color>
+    <color name="vp_indicator_selected">#ffffff</color>
+    <color name="vp_indicator_bg">#4cffffff</color>
+    <color name="text_slogan">#6a6a6a</color>
     
 </resources>

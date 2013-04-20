@@ -39,5 +39,8 @@
     <string name="text_create_account">Create Your Account</string>
     <string name="text_not_now">Not Now</string>
     <string name="text_sign_up_log_in">Sign Up / Log In</string>
+    <string name="content_description_all">Image</string>
+    <string name="text_wt_slogan">Campus In Your Pocket</string>
+    <string name="text_guide">Guide</string>
 
 </resources>
