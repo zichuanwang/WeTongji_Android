@@ -6,17 +6,14 @@ import org.json.JSONObject;
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorResponse;
 import android.accounts.AccountManager;
-import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -24,16 +21,19 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ToggleButton;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.flurry.android.FlurryAgent;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiMethods;
 import com.wetongji_android.util.net.HttpRequestResult;
 
-public class AuthenticatorActivity extends FragmentActivity
+public class AuthenticatorActivity extends SherlockFragmentActivity
 implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeListener {
 	
 	public static final String PARAM_CONFIRM_CREDENTIALS="confirmCredentials";
@@ -76,13 +76,8 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 		mConfirmCredentials=intent.getBooleanExtra(PARAM_CONFIRM_CREDENTIALS, false);
 		Log.i(TAG, "   request new:"+mRequestNewAccount);
 		setContentView(R.layout.activity_authenticator);
-		// Show the Up button in the action bar.
-		if(intent.getBooleanExtra(PARAM_INITIAL_LOGIN, false)){
-			setupActionBar(false);
-		}
-		else{
-			setupActionBar(true);
-		}
+		
+		setupActionBar(!intent.getBooleanExtra(PARAM_INITIAL_LOGIN, false));
 	}
 	
 	@Override
@@ -115,7 +110,7 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 	 * Set up the {@link android.app.ActionBar}.
 	 */
 	private void setupActionBar(boolean isOnAuth) {
-		ActionBar ab=getActionBar();
+		ActionBar ab=getSupportActionBar();
 		ab.setDisplayHomeAsUpEnabled(false);
 		ab.setDisplayShowCustomEnabled(true);
 		ab.setDisplayShowTitleEnabled(false);
@@ -124,32 +119,30 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 		ab.setCustomView(v);
 		btnOnLogin=(ToggleButton) v.findViewById(R.id.btn_on_login);
 		btnOnLogin.setOnCheckedChangeListener(this);
-		btnOnLogin.setChecked(true);
+		btnOnLogin.setChecked(isOnAuth);
+		if(!isOnAuth){
+			onCheckedChanged(btnOnLogin, false);
+		}
 		Button btnNotNow=(Button) v.findViewById(R.id.btn_not_now);
 		btnNotNow.setOnClickListener(this);
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_authenticator, menu);
-		return true;
-	}
-
-	@Override
 	public void onClick(View v) {
-		FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
 		switch (v.getId()) {
 		case R.id.btn_not_now:
-			//TODO
+			Intent intent=new Intent(this, MainActivity.class);
+			intent.putExtra(MainActivity.PARAM_PREVIEW_WITHOUT_lOGIN, true);
+			startActivity(intent);
+			finish();
 			break;
 		}
-		transaction.commit();
 	}
 	
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		Log.i(TAG, "isChecked"+isChecked);
 		FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
 		if(btnOnLogin.isChecked()){
 			transaction.replace(R.id.auth_content_container, LoginFragment.newInstance(mUsername));
