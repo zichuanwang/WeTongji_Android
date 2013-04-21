@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.text.TextUtils;
 import android.util.Log;
 
 public class UpdateBaseActivity extends SlidingFragmentActivity 
@@ -30,7 +31,7 @@ implements LoaderCallbacks<HttpRequestResult>{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//checkUpdate();
+		checkUpdate();
 	}
 	
 	private void checkUpdate(){
@@ -41,7 +42,7 @@ implements LoaderCallbacks<HttpRequestResult>{
 	private void showUpdateInfo(Version version) throws NameNotFoundException{
 		String current=getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
 		String latest=version.getLatest();
-		if(current.compareTo(latest)<0){
+		if(!TextUtils.isEmpty(latest)&&current.compareTo(latest)<0){
 			AlertDialog.Builder builder=new Builder(this);
 			builder.setTitle(R.string.title_dialog_update_found);
 			String description=version.getDescription();
@@ -74,7 +75,7 @@ implements LoaderCallbacks<HttpRequestResult>{
 
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0, HttpRequestResult result) {
-		Log.v("The result is : ", result.toString());
+		Log.v("The result is : ", result.getStrResponseCon());
 		if(result.getResponseCode()==0){
 			try {
 				Version version=VersionFactory.create(result.getStrResponseCon());
