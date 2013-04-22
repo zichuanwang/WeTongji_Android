@@ -10,5 +10,6 @@
     <item name="tv_event_title" type="id">false</item>
     <item name="tv_event_time" type="id">false</item>
     <item name="tv_event_location" type="id">false</item>
+    <item name="lst_notification" type="id">false</item>
     
 </resources>
