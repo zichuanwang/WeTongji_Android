@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="WTTheme" parent="android:Theme.Light">
+
+    <item name="android:editTextStyle">@style/EditTextWTTheme</item>
+
+    <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewWTTheme</item>
+
+    <item name="android:checkboxStyle">@style/CheckBoxWTTheme</item>
+
+    <item name="android:radioButtonStyle">@style/RadioButtonWTTheme</item>
+
+    <item name="android:buttonStyle">@style/ButtonWTTheme</item>
+
+    <item name="android:imageButtonStyle">@style/ImageButtonWTTheme</item>
+
+    <item name="android:spinnerStyle">@style/SpinnerWTTheme</item>
+
+    <item name="android:dropDownSpinnerStyle">@style/SpinnerWTTheme.DropDown</item>
+
+    <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemWTTheme</item>
+
+    <item name="android:progressBarStyleHorizontal">@style/ProgressBarWTTheme</item>
+
+    <item name="android:seekBarStyle">@style/SeekBarWTTheme</item>
+
+    <item name="android:buttonStyleToggle">@style/ToggleWTTheme</item>
+
+    <item name="android:listViewStyle">@style/ListViewWTTheme</item>
+
+    <item name="android:listViewWhiteStyle">@style/ListViewWTTheme.White</item>
+
+    <item name="android:spinnerItemStyle">@style/SpinnerItemWTTheme</item>
+    
+    <item name="actionBarItemBackground">@drawable/selectable_background_wttheme</item>
+    <item name="popupMenuStyle">@style/PopupMenu.Wttheme</item>
+    <item name="dropDownListViewStyle">@style/DropDownListView.Wttheme</item>
+    <item name="actionBarTabStyle">@style/ActionBarTabStyle.Wttheme</item>
+    <item name="actionDropDownStyle">@style/DropDownNav.Wttheme</item>
+    <item name="actionBarStyle">@style/ActionBar.Solid.Wttheme</item>
+    <item name="actionModeBackground">@drawable/cab_background_top_wttheme</item>
+    <item name="actionModeSplitBackground">@drawable/cab_background_bottom_wttheme</item>
+    <item name="actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Wttheme</item>
+    
+  </style>
+
+</resources>

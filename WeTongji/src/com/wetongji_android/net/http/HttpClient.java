@@ -36,8 +36,8 @@ public class HttpClient
 	//Constant values
 	private static final int CONNECT_TIMEOUT = 10*1000;
 	private static final int READ_TIMEOUT = 10*1000;
-	//private static final String API_DOMAIN = "http://we.tongji.edu.cn/api/call";
-	private static final String API_DOMAIN="http://leiz.name:8080/api/call";
+	private static final String API_DOMAIN = "http://we.tongji.edu.cn/api/call";
+	//private static final String API_DOMAIN="http://leiz.name:8080/api/call";
 	
 	private static final String HTTP_TIMEOUT = "HttpTimeout";
 	

@@ -2,13 +2,8 @@ package com.wetongji_android.util.date;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-
-import com.wetongji_android.data.Course;
-
 import android.text.format.DateUtils;
 
 /**

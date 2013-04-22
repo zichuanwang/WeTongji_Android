@@ -7,12 +7,13 @@ import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
 
 import com.wetongji_android.util.exception.WTException;
+import com.wetongji_android.util.net.HttpRequestResult;
 
-public class NetworkLoader extends AsyncTaskLoader<String> 
+public class NetworkLoader extends AsyncTaskLoader<HttpRequestResult> 
 {
-	Bundle mArgs;
-	HttpMethod mMethod;
-	WTClient mClient;
+	private Bundle mArgs;
+	private HttpMethod mMethod;
+	private WTClient mClient;
 
 	public NetworkLoader(Context context) 
 	{
@@ -29,16 +30,14 @@ public class NetworkLoader extends AsyncTaskLoader<String>
 	}
 
 	@Override
-	public String loadInBackground() 
+	public HttpRequestResult loadInBackground() 
 	{
-		try 
-		{
-			return mClient.execute(mMethod, mArgs).getStrResponseCon();
-		} catch (WTException e) 
-		{
+		try {
+			return mClient.execute(mMethod, mArgs);
+		} catch (WTException e) {
 			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 
 	@Override

@@ -21,9 +21,11 @@ public class WTApplication extends Application
 	public static final String AUTHTOKEN_TYPE="com.wetongji";
 	// api_constrants
 	public static final String API_DEVICE="android";
-	public static final String API_VERSION="1.2";
+	public static final String API_VERSION="3.0";
 	// loader ids
 	public static final int NETWORK_LOADER=1;
+	
+	public static final String FLURRY_API_KEY="GN5KJMW6XWCSD5DTCWRW";
 	
 	//singleton
 	private static WTApplication application = null;

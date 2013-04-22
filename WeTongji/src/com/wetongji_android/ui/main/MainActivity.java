@@ -1,17 +1,24 @@
 package com.wetongji_android.ui.main;
 
 import com.actionbarsherlock.view.MenuItem;
+import com.flurry.android.FlurryAgent;
 import com.slidingmenu.lib.SlidingMenu;
 import com.wetongji_android.R;
+import com.wetongji_android.ui.auth.AuthenticatorActivity;
 import com.wetongji_android.ui.today.TodayFragment;
+import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.version.UpdateBaseActivity;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 public class MainActivity extends UpdateBaseActivity 
 {
 	private Fragment mContent;
+	public static final String PARAM_PREVIEW_WITHOUT_lOGIN="previewWithoutLogin";
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -24,7 +31,10 @@ public class MainActivity extends UpdateBaseActivity
 		if (mContent == null)
 			mContent = new TodayFragment(android.R.color.darker_gray);
 		
-		setContentView(R.layout.activity_main);
+		if(!getIntent().getBooleanExtra(PARAM_PREVIEW_WITHOUT_lOGIN, false)){
+			checkAccount();
+		}
+		
 		setContentView(R.layout.content_frame);
 		getSupportFragmentManager()
 			.beginTransaction()
@@ -32,6 +42,18 @@ public class MainActivity extends UpdateBaseActivity
 			.commit();
 		
 		setSlidingMenu();
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		FlurryAgent.onStartSession(this, WTApplication.FLURRY_API_KEY);
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		FlurryAgent.onEndSession(this);
 	}
 
 	/**
@@ -60,8 +82,6 @@ public class MainActivity extends UpdateBaseActivity
 		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 	}
 	
-	
-
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -86,6 +106,17 @@ public class MainActivity extends UpdateBaseActivity
 		.replace(R.id.content_frame, fragment)
 		.commit();
 		getSlidingMenu().showContent();
+	}
+	
+	private void checkAccount(){
+		AccountManager am=AccountManager.get(this);
+		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
+		if(accounts.length==0){
+			Intent intent=new Intent(this, AuthenticatorActivity.class);
+			intent.putExtra(AuthenticatorActivity.PARAM_INITIAL_LOGIN, true);
+			startActivity(intent);
+			finish();
+		}
 	}
 
 }
