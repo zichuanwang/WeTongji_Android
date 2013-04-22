@@ -4,15 +4,20 @@ import java.io.File;
 import java.util.List;
 import com.androidquery.AQuery;
 import com.androidquery.util.AQUtility;
+import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Event;
+import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.date.DateParser;
+import com.wetongji_android.util.net.ApiMethods;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,23 +25,61 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class EventsListAdapter extends ArrayAdapter<Activity> {
+public class EventsListAdapter extends AmazingAdapter  {
 	
 	private LayoutInflater mInflater;
 	private Context mContext;
-	private AQuery listAq;
+	private AQuery mListAq;
+	private List<Activity> mLstEvent;
+	private Fragment mFragment;
 	
-	public EventsListAdapter(Context context, int resource,
-			int textViewResourceId, List<Activity> objects) {
-		super(context, resource, textViewResourceId, objects);
-		mInflater=LayoutInflater.from(context);
-		mContext=context;
-		listAq=new AQuery(mContext);
+	public EventsListAdapter(Fragment fragment) {
+		mInflater = LayoutInflater.from(fragment.getActivity());
+		mContext = fragment.getActivity();
+		mListAq = new AQuery(mContext);
+		mLstEvent = ((EventsFragment) fragment).getEvents();
+		mFragment = fragment;
+	}
+
+	static class ViewHolder {
+		TextView tv_event_title;
+		TextView tv_event_time;
+		TextView tv_event_location;
+		ImageView img_event_thumbnails;
+		
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public int getCount() {
+		return mLstEvent.size();
+	}
+
+	@Override
+	public Activity getItem(int arg0) {
+		return mLstEvent.get(arg0);
+	}
+
+	@Override
+	public long getItemId(int arg0) {
+		return arg0;
+	}
+
+	@Override
+	protected void onNextPageRequested(int page) {
+		Bundle args = ApiMethods.getActivities(page, "", "", false, mContext);
+		mFragment.getLoaderManager()
+			.initLoader(WTApplication.NETWORK_LOADER, args, (EventsFragment)mFragment);
 		
+	}
+
+	@Override
+	protected void bindSectionHeader(View view, int position,
+			boolean displaySectionHeader) {
+		
+	}
+
+	@Override
+	public View getAmazingView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 		
 		if(convertView==null){
@@ -63,7 +106,7 @@ public class EventsListAdapter extends ArrayAdapter<Activity> {
 		holder.tv_event_location.setText(event.getLocation());
 		
 		String strUrl=event.getDescription();
-		AQuery aq = listAq.recycle(convertView);
+		AQuery aq = mListAq.recycle(convertView);
 		File ext=Environment.getExternalStorageDirectory();
         File cacheDir=new File(ext, "WeTongji/cache");
         AQUtility.setCacheDir(cacheDir);
@@ -79,12 +122,28 @@ public class EventsListAdapter extends ArrayAdapter<Activity> {
 		return convertView;
 	}
 
-	static class ViewHolder {
-		TextView tv_event_title;
-		TextView tv_event_time;
-		TextView tv_event_location;
-		ImageView img_event_thumbnails;
+	@Override
+	public void configurePinnedHeader(View header, int position, int alpha) {
 		
+	}
+
+	@Override
+	public int getPositionForSection(int section) {
+		return 0;
+	}
+
+	@Override
+	public int getSectionForPosition(int position) {
+		return 0;
+	}
+
+	@Override
+	public Object[] getSections() {
+		return null;
+	}
+	
+	public void resetEventLst() {
+		mLstEvent = ((EventsFragment) mFragment).getEvents();
 	}
 	
 	

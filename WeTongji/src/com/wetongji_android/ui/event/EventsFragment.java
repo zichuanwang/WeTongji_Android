@@ -3,6 +3,7 @@ package com.wetongji_android.ui.event;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.foound.widget.AmazingListView;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.ui.widgets.WTXListView;
@@ -17,7 +18,7 @@ import android.view.ViewGroup;
 
 public class EventsFragment extends Fragment implements LoaderCallbacks<String>{
 	
-	private WTXListView listActivity;
+	private AmazingListView listActivity;
 	private EventsListAdapter adapter;
 	private List<Activity> eventsList;
 	
@@ -39,9 +40,8 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<String>{
 		
 		
 		createEventList(12);
-		listActivity = (WTXListView)getActivity().findViewById(R.id.lst_events);
-		adapter = new EventsListAdapter(getActivity(), R.layout.row_event,
-				R.id.tv_event_title, eventsList);
+		listActivity = (AmazingListView)getActivity().findViewById(R.id.lst_events);
+		adapter = new EventsListAdapter(this);
 		listActivity.setAdapter(adapter);
 		
 	}
@@ -56,12 +56,19 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<String>{
 	public void onLoadFinished(Loader<String> arg0, String arg1) {
 		// TODO Auto-generated method stub
 		
+		
+		adapter.resetEventLst();
+		adapter.nextPage();
 	}
 
 	@Override
 	public void onLoaderReset(Loader<String> arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public List<Activity> getEvents() {
+		return eventsList;
 	}
 	
 	private void createEventList(int count) {

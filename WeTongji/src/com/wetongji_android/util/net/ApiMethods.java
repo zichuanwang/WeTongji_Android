@@ -10,7 +10,10 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 /**
@@ -48,12 +51,14 @@ public class ApiMethods {
 		bundle.putString(API_ARGS_VERSION, WTApplication.API_VERSION);
 	}
 	
+	//@SuppressLint("NewApi")
 	private static String getSession(Context context){
 		AccountManager am=AccountManager.get(context);
 		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
 		if(accounts.length!=0){
 			Account wtAccount=accounts[0];
-			AccountManagerFuture<Bundle> amf=am.getAuthToken(wtAccount, WTApplication.AUTHTOKEN_TYPE, null,true, null, null);
+			return am.getUserData(wtAccount, AccountManager.KEY_AUTHTOKEN);
+			/*AccountManagerFuture<Bundle> amf=am.getAuthToken(wtAccount, WTApplication.AUTHTOKEN_TYPE, null,true, null, null);			
 			try {
 				return amf.getResult().getString(AccountManager.KEY_AUTHTOKEN);
 			} catch (OperationCanceledException e) {
@@ -62,7 +67,7 @@ public class ApiMethods {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
+			}*/
 		}
 		return null;
 	}
@@ -175,9 +180,13 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle getActivities(String ids, String sort, boolean expire, Context context) {
+	public static Bundle getActivities(int page, String ids, String sort, boolean expire, Context context) {
 		bundle.clear();
 		putBasicArgs();
+		if(page < 1) {
+			page = 1;
+		}
+		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
 		bundle.putString(API_ARGS_METHOD, "Activities.Get");
 		if(!ids.equals("")) {
 			bundle.putString(API_ARGS_CHANNEL_IDS, ids);

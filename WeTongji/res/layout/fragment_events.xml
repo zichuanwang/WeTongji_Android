@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
-        <com.wetongji_android.ui.widgets.WTXListView
+        <com.foound.widget.AmazingListView
             android:id="@id/lst_events"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
