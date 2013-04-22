@@ -36,6 +36,10 @@ public class ApiMethods {
 	private static final String API_ARGS_IMAGE="Image";
 	private static final String API_ARGS_OLD="Old";
 	private static final String API_ARGS_NEW="New";
+	private static final String API_ARGS_CHANNEL_IDS="Channel_Ids";
+	private static final String API_ARGS_SORT="Sort";
+	private static final String API_ARGS_EXPIRE="Expire";
+
 	
 	private static Bundle bundle=new Bundle();
 	
@@ -168,6 +172,21 @@ public class ApiMethods {
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "System.Version");
+		return bundle;
+	}
+	
+	public static Bundle getActivities(String ids, String sort, boolean expire, Context context) {
+		bundle.clear();
+		putBasicArgs();
+		bundle.putString(API_ARGS_METHOD, "Activities.Get");
+		if(!ids.equals("")) {
+			bundle.putString(API_ARGS_CHANNEL_IDS, ids);
+		}
+		if(!sort.equals("")) {
+			bundle.putString(API_ARGS_SORT, sort);
+		}
+		bundle.putString(API_ARGS_EXPIRE, String.valueOf(expire));
+		bundle.putString(API_ARGS_SESSION, getSession(context));
 		return bundle;
 	}
 	
