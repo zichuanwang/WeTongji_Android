@@ -42,5 +42,6 @@
     <string name="content_description_all">Image</string>
     <string name="text_wt_slogan">Campus In Your Pocket</string>
     <string name="text_guide">Guide</string>
-
+	<!-- imageview content description -->
+	<string name="img_content_description">ImageView</string>
 </resources>

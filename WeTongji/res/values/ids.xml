@@ -11,5 +11,9 @@
     <item name="tv_event_time" type="id">false</item>
     <item name="tv_event_location" type="id">false</item>
     <item name="lst_notification" type="id">false</item>
+    <item name="tv_notification_user" type="id">false</item>
+    <item name="tv_notification_content" type="id">false</item>
+    <item name="tv_notification_time" type="id">false</item>
+    <item name="img_notification_thumbnails" type="id">false</item>
     
 </resources>
