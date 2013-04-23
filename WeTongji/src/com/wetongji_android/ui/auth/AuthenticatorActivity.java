@@ -186,6 +186,7 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 		else{
 			mAm.setPassword(account, mPassword);
 		}
+		//mAm.setUserData(account, AccountManager.KEY_AUTHTOKEN, authToken);
 		mAm.setAuthToken(account, WTApplication.AUTHTOKEN_TYPE, authToken);
 		final Intent intent=new Intent();
 		intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mUsername);
