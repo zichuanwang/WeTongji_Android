@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NowFragment" >
+    
+    <RelativeLayout 
+        android:id="@+id/rl_now_tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+        
+        <Button 
+            android:id="@+id/btn_now_previous"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"/>
+        
+        <TextView 
+            android:id="@+id/tv_now_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textIsSelectable="false"/>
+        
+        <TextView 
+            android:id="@+id/tv_now_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/tv_now_time"
+            android:textIsSelectable="false"/>
+        
+        <Button 
+            android:id="@+id/btn_now_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"/>
+        
+    </RelativeLayout>
+    
+    <android.support.v4.view.ViewPager 
+        android:id="@+id/vp_weeks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_now_tab"/>
+    
+</RelativeLayout>

@@ -1,5 +1,7 @@
 package com.wetongji_android.ui.main;
 
+import java.io.IOException;
+
 import com.actionbarsherlock.view.MenuItem;
 import com.flurry.android.FlurryAgent;
 import com.slidingmenu.lib.SlidingMenu;
@@ -11,14 +13,19 @@ import com.wetongji_android.util.version.UpdateBaseActivity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-public class MainActivity extends UpdateBaseActivity 
+public class MainActivity extends UpdateBaseActivity implements AccountManagerCallback<Bundle>
 {
 	private Fragment mContent;
 	public static final String PARAM_PREVIEW_WITHOUT_lOGIN="previewWithoutLogin";
+	private String session;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -116,6 +123,38 @@ public class MainActivity extends UpdateBaseActivity
 			intent.putExtra(AuthenticatorActivity.PARAM_INITIAL_LOGIN, true);
 			startActivity(intent);
 			finish();
+		}
+	}
+	
+	/**
+	 * used old apis for capability
+	 */
+	@SuppressWarnings("deprecation")
+	private void getSessionFromAccountManager(){
+		AccountManager am=AccountManager.get(this);
+		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
+		if(accounts.length!=0){
+			Account wtAccount=accounts[0];
+			//session=am.getUserData(wtAccount, AccountManager.KEY_AUTHTOKEN);
+			am.getAuthToken(wtAccount, WTApplication.AUTHTOKEN_TYPE, true, this, null);			
+		}
+	}
+	
+	public String getSession() {
+		getSessionFromAccountManager();
+		return session;
+	}
+
+	@Override
+	public void run(AccountManagerFuture<Bundle> amf) {
+		try {
+			session=amf.getResult().getString(AccountManager.KEY_AUTHTOKEN);
+		} catch (OperationCanceledException e) {
+			e.printStackTrace();
+		} catch (AuthenticatorException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

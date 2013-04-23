@@ -8,6 +8,7 @@ import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Event;
+import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.net.ApiMethods;
@@ -66,7 +67,8 @@ public class EventsListAdapter extends AmazingAdapter  {
 
 	@Override
 	protected void onNextPageRequested(int page) {
-		Bundle args = ApiMethods.getActivities(page, "", "", false, mContext);
+		String session=((MainActivity)mContext).getSession();
+		Bundle args = ApiMethods.getActivities(page, "", "", false, session);
 		mFragment.getLoaderManager()
 			.initLoader(WTApplication.NETWORK_LOADER, args, (EventsFragment)mFragment);
 		

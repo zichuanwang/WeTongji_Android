@@ -1,19 +1,9 @@
 package com.wetongji_android.util.net;
 
-import java.io.IOException;
-
 import com.wetongji_android.util.auth.RSAEncrypter;
 import com.wetongji_android.util.common.WTApplication;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.accounts.AccountManagerFuture;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 
 /**
@@ -52,25 +42,25 @@ public class ApiMethods {
 	}
 	
 	//@SuppressLint("NewApi")
-	private static String getSession(Context context){
-		AccountManager am=AccountManager.get(context);
-		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
-		if(accounts.length!=0){
-			Account wtAccount=accounts[0];
-			return am.getUserData(wtAccount, AccountManager.KEY_AUTHTOKEN);
-			/*AccountManagerFuture<Bundle> amf=am.getAuthToken(wtAccount, WTApplication.AUTHTOKEN_TYPE, null,true, null, null);			
-			try {
-				return amf.getResult().getString(AccountManager.KEY_AUTHTOKEN);
-			} catch (OperationCanceledException e) {
-				e.printStackTrace();
-			} catch (AuthenticatorException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}*/
-		}
-		return null;
-	}
+	//private static String getSession(Context context){
+	//	AccountManager am=AccountManager.get(context);
+	//	Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
+	//	if(accounts.length!=0){
+	//		Account wtAccount=accounts[0];
+	//		return am.getUserData(wtAccount, AccountManager.KEY_AUTHTOKEN);
+	//		/*AccountManagerFuture<Bundle> amf=am.getAuthToken(wtAccount, WTApplication.AUTHTOKEN_TYPE, null,true, null, null);			
+	//		try {
+	//			return amf.getResult().getString(AccountManager.KEY_AUTHTOKEN);
+	//		} catch (OperationCanceledException e) {
+	//			e.printStackTrace();
+	//		} catch (AuthenticatorException e) {
+	//			e.printStackTrace();
+	//		} catch (IOException e) {
+	//			e.printStackTrace();
+	//		}*/
+	//	}
+	//	return null;
+	//}
 	
 	public static Bundle getUserActive(String no,String password,String name,Context context){
 		bundle.clear();
@@ -91,49 +81,49 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle getUserLogOff(Context context){
+	public static Bundle getUserLogOff(String session){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.LogOff");
-		bundle.putString(API_ARGS_SESSION, getSession(context));
+		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
-	public static Bundle getUserGet(Context context){
+	public static Bundle getUserGet(String session){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Get");
-		bundle.putString(API_ARGS_SESSION, getSession(context));
+		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
-	public static Bundle postUserUpdate(Context context, String updateContent){
+	public static Bundle postUserUpdate(String session, String updateContent){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Update");
 		//TODO object User need to be submitted
 		bundle.putString(API_ARGS_USER, updateContent);
-		bundle.putString(API_ARGS_SESSION, getSession(context));
+		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
-	public static Bundle postUserUpdateAvatar(Context context){
+	public static Bundle postUserUpdateAvatar(String session){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Update.Avatar");
 		//TODO object User need to be submitted
 		bundle.putString(API_ARGS_IMAGE, "");
-		bundle.putString(API_ARGS_SESSION, getSession(context));
+		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
-	public static Bundle getUserUpdatePassword(String pwOld,String pwNew,Context context){
+	public static Bundle getUserUpdatePassword(String pwOld,String pwNew,String session,Context context){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Update.Password");
 		bundle.putString(API_ARGS_OLD, RSAEncrypter.encrypt(pwOld, context));
 		bundle.putString(API_ARGS_NEW, RSAEncrypter.encrypt(pwNew, context));
-		bundle.putString(API_ARGS_SESSION, getSession(context));
+		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
@@ -146,30 +136,30 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle getUserFind(String no,String name,Context context){
+	public static Bundle getUserFind(String no,String name,String session){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Find");
 		bundle.putString(API_ARGS_NO, no);
 		bundle.putString(API_ARGS_NAME, name);
-		bundle.putString(API_ARGS_SESSION, getSession(context));
+		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
-	public static Bundle getUserProfile(Context context){
+	public static Bundle getUserProfile(String session){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Profile");
-		bundle.putString(API_ARGS_SESSION, getSession(context));
+		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
-	public static Bundle postUserUpdateProfile(Context context){
+	public static Bundle postUserUpdateProfile(String session){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Update.Profile");
 		//TODO object UserProfile need to be submitted
-		bundle.putString(API_ARGS_SESSION, getSession(context));
+		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
@@ -180,7 +170,7 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle getActivities(int page, String ids, String sort, boolean expire, Context context) {
+	public static Bundle getActivities(int page, String ids, String sort, boolean expire, String session) {
 		bundle.clear();
 		putBasicArgs();
 		if(page < 1) {
@@ -195,7 +185,7 @@ public class ApiMethods {
 			bundle.putString(API_ARGS_SORT, sort);
 		}
 		bundle.putString(API_ARGS_EXPIRE, String.valueOf(expire));
-		bundle.putString(API_ARGS_SESSION, getSession(context));
+		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
