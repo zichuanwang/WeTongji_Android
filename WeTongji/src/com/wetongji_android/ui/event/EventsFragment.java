@@ -6,8 +6,6 @@ import java.util.List;
 import com.foound.widget.AmazingListView;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
-import com.wetongji_android.ui.widgets.WTXListView;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -63,8 +61,6 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<String>{
 
 	@Override
 	public void onLoaderReset(Loader<String> arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	public List<Activity> getEvents() {

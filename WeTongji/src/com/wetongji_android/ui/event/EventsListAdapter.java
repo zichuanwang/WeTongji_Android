@@ -8,10 +8,8 @@ import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Event;
-import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.date.DateParser;
-import com.wetongji_android.util.net.ApiMethods;
+import com.wetongji_android.util.net.ApiHelper;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -22,7 +20,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +30,7 @@ public class EventsListAdapter extends AmazingAdapter  {
 	private AQuery mListAq;
 	private List<Activity> mLstEvent;
 	private Fragment mFragment;
+	private ApiHelper apiHelper;
 	
 	public EventsListAdapter(Fragment fragment) {
 		mInflater = LayoutInflater.from(fragment.getActivity());
@@ -40,6 +38,7 @@ public class EventsListAdapter extends AmazingAdapter  {
 		mListAq = new AQuery(mContext);
 		mLstEvent = ((EventsFragment) fragment).getEvents();
 		mFragment = fragment;
+		apiHelper=ApiHelper.getInstance(mContext);
 	}
 
 	static class ViewHolder {
@@ -67,8 +66,7 @@ public class EventsListAdapter extends AmazingAdapter  {
 
 	@Override
 	protected void onNextPageRequested(int page) {
-		String session=((MainActivity)mContext).getSession();
-		Bundle args = ApiMethods.getActivities(page, "", "", false, session);
+		Bundle args = apiHelper.getActivities(page, "", "", false);
 		mFragment.getLoaderManager()
 			.initLoader(WTApplication.NETWORK_LOADER, args, (EventsFragment)mFragment);
 		

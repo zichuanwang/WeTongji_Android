@@ -1,8 +1,16 @@
 package com.wetongji_android.util.net;
 
+import java.io.IOException;
+
 import com.wetongji_android.util.auth.RSAEncrypter;
 import com.wetongji_android.util.common.WTApplication;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -14,7 +22,27 @@ import android.os.Bundle;
  * @author John
  *
  */
-public class ApiMethods {
+public class ApiHelper {
+	
+	private String session;
+	private Context context;
+	
+	static class SinglentonHolder{
+		static ApiHelper instance;
+	}
+	
+	private ApiHelper(Context context){
+		this.context=context;
+		getSession(context);
+	}
+	
+	public static ApiHelper getInstance(Context context){
+		if(SinglentonHolder.instance==null){
+			SinglentonHolder.instance=new ApiHelper(context);
+		}
+		return SinglentonHolder.instance;
+	}
+	
 	// api arguments
 	private static final String API_ARGS_DEVICE="D";
 	public static final String API_ARGS_METHOD="M";
@@ -41,28 +69,32 @@ public class ApiMethods {
 		bundle.putString(API_ARGS_VERSION, WTApplication.API_VERSION);
 	}
 	
-	//@SuppressLint("NewApi")
-	//private static String getSession(Context context){
-	//	AccountManager am=AccountManager.get(context);
-	//	Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
-	//	if(accounts.length!=0){
-	//		Account wtAccount=accounts[0];
-	//		return am.getUserData(wtAccount, AccountManager.KEY_AUTHTOKEN);
-	//		/*AccountManagerFuture<Bundle> amf=am.getAuthToken(wtAccount, WTApplication.AUTHTOKEN_TYPE, null,true, null, null);			
-	//		try {
-	//			return amf.getResult().getString(AccountManager.KEY_AUTHTOKEN);
-	//		} catch (OperationCanceledException e) {
-	//			e.printStackTrace();
-	//		} catch (AuthenticatorException e) {
-	//			e.printStackTrace();
-	//		} catch (IOException e) {
-	//			e.printStackTrace();
-	//		}*/
-	//	}
-	//	return null;
-	//}
+	@SuppressWarnings("deprecation")
+	private void getSession(Context context){
+		AccountManager am=AccountManager.get(context);
+		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
+		if(accounts.length!=0){
+			Account wtAccount=accounts[0];
+			//return am.getUserData(wtAccount, AccountManager.KEY_AUTHTOKEN);
+			am.getAuthToken(wtAccount, WTApplication.AUTHTOKEN_TYPE, true, new AccountManagerCallback<Bundle>() {
+				
+				@Override
+				public void run(AccountManagerFuture<Bundle> amf) {
+					try {
+						ApiHelper.this.session=amf.getResult().getString(AccountManager.KEY_AUTHTOKEN);
+					} catch (OperationCanceledException e) {
+						e.printStackTrace();
+					} catch (AuthenticatorException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					};
+				}
+			}, null);
+		}
+	}
 	
-	public static Bundle getUserActive(String no,String password,String name,Context context){
+	public Bundle getUserActive(String no,String password,String name){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Active");
@@ -72,7 +104,7 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle getUserLogOn(String no,String password,Context context){
+	public Bundle getUserLogOn(String no,String password){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.LogOn");
@@ -81,7 +113,7 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle getUserLogOff(String session){
+	public Bundle getUserLogOff(){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.LogOff");
@@ -89,7 +121,7 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle getUserGet(String session){
+	public Bundle getUserGet(){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Get");
@@ -97,7 +129,7 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle postUserUpdate(String session, String updateContent){
+	public Bundle postUserUpdate(String updateContent){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Update");
@@ -107,7 +139,7 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle postUserUpdateAvatar(String session){
+	public Bundle postUserUpdateAvatar(){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Update.Avatar");
@@ -117,7 +149,7 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle getUserUpdatePassword(String pwOld,String pwNew,String session,Context context){
+	public Bundle getUserUpdatePassword(String pwOld,String pwNew){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Update.Password");
@@ -127,7 +159,7 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle getUserResetPassword(String no,String name){
+	public Bundle getUserResetPassword(String no,String name){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Reset.Password");
@@ -136,7 +168,7 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle getUserFind(String no,String name,String session){
+	public Bundle getUserFind(String no,String name){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Find");
@@ -146,7 +178,7 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle getUserProfile(String session){
+	public Bundle getUserProfile(){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Profile");
@@ -154,7 +186,7 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle postUserUpdateProfile(String session){
+	public Bundle postUserUpdateProfile(){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Update.Profile");
@@ -163,14 +195,14 @@ public class ApiMethods {
 		return bundle;
 	}
 	
-	public static Bundle getSystemVersion(){
+	public Bundle getSystemVersion(){
 		bundle.clear();
 		putBasicArgs();
 		bundle.putString(API_ARGS_METHOD, "System.Version");
 		return bundle;
 	}
 	
-	public static Bundle getActivities(int page, String ids, String sort, boolean expire, String session) {
+	public Bundle getActivities(int page, String ids, String sort, boolean expire) {
 		bundle.clear();
 		putBasicArgs();
 		if(page < 1) {

@@ -30,7 +30,7 @@ import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.exception.ExceptionToast;
-import com.wetongji_android.util.net.ApiMethods;
+import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 public class AuthenticatorActivity extends SherlockFragmentActivity
@@ -52,6 +52,7 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 	private boolean mRequestNewAccount=false;
 	private String mUsername;
 	private ToggleButton btnOnLogin;
+	private ApiHelper apiHelper;
 	
 	public final void setAccountAuthenticatorResult(Bundle result) {
         mResultBundle = result;
@@ -61,6 +62,8 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 	protected void onCreate(Bundle savedInstanceState) {
 		Log.i(TAG, "onCreate("+savedInstanceState+")");
 		super.onCreate(savedInstanceState);
+		
+		apiHelper=ApiHelper.getInstance(this);
 		mAccountAuthenticatorResponse =
                 getIntent().getParcelableExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE);
 
@@ -161,7 +164,7 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 		mPassword=password;
 		if(!TextUtils.isEmpty(mUsername)&&!TextUtils.isEmpty(mPassword)){
 			showProgress();
-			Bundle args=ApiMethods.getUserLogOn(mUsername, mPassword, this);
+			Bundle args=apiHelper.getUserLogOn(mUsername, mPassword);
 			getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
 		}
 	}

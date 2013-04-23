@@ -7,7 +7,7 @@ import com.wetongji_android.net.WTClient;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.auth.AuthenticatorActivity;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.net.ApiMethods;
+import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 import android.accounts.AbstractAccountAuthenticator;
@@ -27,10 +27,12 @@ public class Authenticator extends AbstractAccountAuthenticator {
 	
 	private static final String TAG=Authenticator.class.getSimpleName();
 	private final Context mContext;
+	private ApiHelper apiHelper;
 
 	public Authenticator(Context context) {
 		super(context);
 		mContext=context;
+		apiHelper=ApiHelper.getInstance(mContext);
 	}
 
 	@Override
@@ -93,7 +95,7 @@ public class Authenticator extends AbstractAccountAuthenticator {
 			if(TextUtils.isEmpty(authToken)){
 				WTClient client=WTClient.getInstance();
 				try {
-					Bundle args=ApiMethods.getUserLogOn(account.name, password, mContext);
+					Bundle args=apiHelper.getUserLogOn(account.name, password);
 					HttpRequestResult httpResult=client.execute(HttpMethod.Get, args);
 					if(httpResult.getResponseCode()==0){
 						JSONObject json=new JSONObject(httpResult.getStrResponseCon());

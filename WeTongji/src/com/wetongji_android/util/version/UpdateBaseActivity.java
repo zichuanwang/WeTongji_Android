@@ -9,7 +9,7 @@ import com.wetongji_android.factory.VersionFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.net.ApiMethods;
+import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 import android.net.Uri;
@@ -28,14 +28,17 @@ import android.util.Log;
 public class UpdateBaseActivity extends SlidingFragmentActivity 
 implements LoaderCallbacks<HttpRequestResult>{
 	
+	private ApiHelper apiHelper;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		apiHelper=ApiHelper.getInstance(this);
 		checkUpdate();
 	}
 	
 	private void checkUpdate(){
-		Bundle args=ApiMethods.getSystemVersion();
+		Bundle args=apiHelper.getSystemVersion();
 		getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
 	}
 	

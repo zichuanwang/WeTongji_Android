@@ -1,10 +1,12 @@
 package com.wetongji_android.ui.now;
 
 import com.wetongji_android.R;
-import com.wetongji_android.R.layout;
+import com.wetongji_android.util.net.HttpRequestResult;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,7 @@ import android.view.ViewGroup;
  * fragment.
  * 
  */
-public class NowFragment extends Fragment {
+public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>{
 	
 	private View view;
 	
@@ -45,6 +47,25 @@ public class NowFragment extends Fragment {
 		// Inflate the layout for this fragment
 		view=inflater.inflate(R.layout.fragment_now, container, false);
 		return view;
+	}
+
+	@Override
+	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void onLoadFinished(Loader<HttpRequestResult> arg0,
+			HttpRequestResult arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
