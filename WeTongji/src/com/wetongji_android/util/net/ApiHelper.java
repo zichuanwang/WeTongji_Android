@@ -221,4 +221,13 @@ public class ApiHelper {
 		return bundle;
 	}
 	
+	public Bundle getTimetable(){
+		bundle.clear();
+		putBasicArgs();
+		bundle.putString(API_ARGS_METHOD, "Timetable.Get");
+		bundle.putString(API_ARGS_SESSION, session);
+		bundle.putString(API_ARGS_UID, "201207110952505");
+		return bundle;
+	}
+	
 }

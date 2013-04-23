@@ -1,12 +1,18 @@
 package com.wetongji_android.ui.now;
 
 import com.wetongji_android.R;
+import com.wetongji_android.net.NetworkLoader;
+import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.exception.ExceptionToast;
+import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +26,7 @@ import android.view.ViewGroup;
 public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>{
 	
 	private View view;
+	private ApiHelper apiHelper;
 	
 	/**
 	 * Use this factory method to create a new instance of this fragment using
@@ -39,6 +46,10 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		apiHelper=ApiHelper.getInstance(getActivity());
+		Bundle args=apiHelper.getTimetable();
+		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
 	}
 
 	@Override
@@ -50,22 +61,24 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 	}
 
 	@Override
-	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
-		// TODO Auto-generated method stub
-		return null;
+	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle args) {
+		return new NetworkLoader(getActivity(), HttpMethod.Get, args);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
-			HttpRequestResult arg1) {
-		// TODO Auto-generated method stub
-		
+			HttpRequestResult result) {
+		if(result.getResponseCode()==0){
+			Log.i("NowFragment", result.getStrResponseCon());
+		}
+		else{
+			Log.i("NowFragment", "code="+result.getResponseCode()+"string="+result.getStrResponseCon());
+			ExceptionToast.show(getActivity(), result.getResponseCode());
+		}
 	}
 
 	@Override
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
