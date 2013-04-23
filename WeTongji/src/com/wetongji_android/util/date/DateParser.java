@@ -507,13 +507,8 @@ public class DateParser {
             e.printStackTrace();
         }
 	    
-        Calendar calendar=Calendar.getInstance();
-        calendar.setTime(date);
-        
-        Calendar CalendarNow=Calendar.getInstance();
-        
-        long start = calendar.getTimeInMillis();
-        long now = CalendarNow.getTimeInMillis();
+        long start = date.getTime();
+        long now = System.currentTimeMillis();
         
         if(start > now)
             return 0;

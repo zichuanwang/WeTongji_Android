@@ -13,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginTop="8dp"
         android:textColor="@color/et_text"
-        android:hint="@string/text_student_no"
+        android:hint="@string/text_student_id"
         android:textColorHint="@color/et_text_hint"
         android:inputType="number" />
     
