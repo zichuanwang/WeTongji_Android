@@ -40,7 +40,8 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 	public static final String PARAM_PASSWORD="password";
 	public static final String PARAM_USERNAME="username";
 	public static final String PARAM_AUTHTOKEN_TYPE="authTokenType";
-	public static final String PARAM_INITIAL_LOGIN="initialLogin";
+	public static final String PARAM_SHOW_INTRO="showIntro";
+	private boolean isShowIntro;
 	
 	private static final String TAG=AuthenticatorActivity.class.getSimpleName();
 	private AccountAuthenticatorResponse mAccountAuthenticatorResponse = null;
@@ -80,7 +81,8 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 		Log.i(TAG, "   request new:"+mRequestNewAccount);
 		setContentView(R.layout.activity_authenticator);
 		
-		setupActionBar(!intent.getBooleanExtra(PARAM_INITIAL_LOGIN, false));
+		isShowIntro=intent.getBooleanExtra(PARAM_SHOW_INTRO, false);
+		setupActionBar(!isShowIntro);
 	}
 	
 	@Override
@@ -180,7 +182,7 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 		finish();
 	}
 	
-	private void finishLogin(String authToken){
+	private void finishLogin(String result){
 		Log.i(TAG, "finishLogin");
 		final Account account=new Account(mUsername, WTApplication.ACCOUNT_TYPE);
 		if(mRequestNewAccount){
@@ -189,24 +191,33 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 		else{
 			mAm.setPassword(account, mPassword);
 		}
-		//mAm.setUserData(account, AccountManager.KEY_AUTHTOKEN, authToken);
-		mAm.setAuthToken(account, WTApplication.AUTHTOKEN_TYPE, authToken);
-		final Intent intent=new Intent();
-		intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mUsername);
-		intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, WTApplication.ACCOUNT_TYPE);
-		setAccountAuthenticatorResult(intent.getExtras());
-		setResult(RESULT_OK, intent);
-		finish();
+		try {
+			JSONObject data=new JSONObject(result);
+			JSONObject user=data.getJSONObject("User");
+			String uid=user.getString("UID");
+			String session=data.getString("Session");
+			Log.i(TAG, "uid="+uid+" session="+session);
+
+			mAm.setUserData(account, AccountManager.KEY_USERDATA, uid);
+			mAm.setAuthToken(account, WTApplication.AUTHTOKEN_TYPE, session);
+			final Intent intent=new Intent();
+			intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mUsername);
+			intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, WTApplication.ACCOUNT_TYPE);
+			setAccountAuthenticatorResult(intent.getExtras());
+			setResult(RESULT_OK, intent);
+			finish();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public void onAuthenticationResult(String authToken){
-		boolean success=((authToken!=null)&&(authToken.length()>0));
+	public void onAuthenticationResult(String result){
+		boolean success=((result!=null)&&(result.length()>0));
 		Log.i(TAG, "onAuthenticationResult("+success+")");
-		Log.i(TAG, "auth token="+authToken);
 		hideProgress();
 		if(success){
 			if(!mConfirmCredentials){
-				finishLogin(authToken);
+				finishLogin(result);
 			}
 			else{
 				finishConfirmCredentials(success);
@@ -246,12 +257,7 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0, HttpRequestResult result) {
 		if(result.getResponseCode()==0){
-			try {
-				JSONObject json=new JSONObject(result.getStrResponseCon());
-				onAuthenticationResult(json.getString("Session"));
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
+			onAuthenticationResult(result.getStrResponseCon());
 		}
 		else{
 			hideProgress();

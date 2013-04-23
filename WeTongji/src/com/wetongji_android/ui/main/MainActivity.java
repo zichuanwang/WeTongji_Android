@@ -120,14 +120,13 @@ public class MainActivity extends UpdateBaseActivity implements AccountManagerCa
 		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
 		if(accounts.length==0){
 			Intent intent=new Intent(this, AuthenticatorActivity.class);
-			intent.putExtra(AuthenticatorActivity.PARAM_INITIAL_LOGIN, true);
+			intent.putExtra(AuthenticatorActivity.PARAM_SHOW_INTRO, true);
 			startActivity(intent);
-			finish();
 		}
 	}
 	
 	/**
-	 * used old apis for capability
+	 * use old apis for capability
 	 */
 	@SuppressWarnings("deprecation")
 	private void getSessionFromAccountManager(){

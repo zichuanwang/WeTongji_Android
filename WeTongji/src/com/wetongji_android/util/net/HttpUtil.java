@@ -14,7 +14,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 
 /**
  * @author nankonami
@@ -61,7 +60,6 @@ public class HttpUtil
 			}
 		}
 		
-		Log.v("The param string is: ", sb.toString());
 		return sb.toString();
 	}
 	

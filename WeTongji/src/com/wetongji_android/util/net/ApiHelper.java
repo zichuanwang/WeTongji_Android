@@ -25,6 +25,7 @@ import android.os.Bundle;
 public class ApiHelper {
 	
 	private String session;
+	private String uid;
 	private Context context;
 	
 	static class SinglentonHolder{
@@ -33,7 +34,8 @@ public class ApiHelper {
 	
 	private ApiHelper(Context context){
 		this.context=context;
-		getSession(context);
+		getSession();
+		getUid();
 	}
 	
 	public static ApiHelper getInstance(Context context){
@@ -62,20 +64,19 @@ public class ApiHelper {
 	private static final String API_ARGS_EXPIRE="Expire";
 
 	
-	private static Bundle bundle=new Bundle();
+	private Bundle bundle=new Bundle();
 	
-	private static void putBasicArgs(){
+	private void putBasicArgs(){
 		bundle.putString(API_ARGS_DEVICE, WTApplication.API_DEVICE);
 		bundle.putString(API_ARGS_VERSION, WTApplication.API_VERSION);
 	}
 	
 	@SuppressWarnings("deprecation")
-	private void getSession(Context context){
+	private void getSession(){
 		AccountManager am=AccountManager.get(context);
 		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
 		if(accounts.length!=0){
 			Account wtAccount=accounts[0];
-			//return am.getUserData(wtAccount, AccountManager.KEY_AUTHTOKEN);
 			am.getAuthToken(wtAccount, WTApplication.AUTHTOKEN_TYPE, true, new AccountManagerCallback<Bundle>() {
 				
 				@Override
@@ -92,6 +93,20 @@ public class ApiHelper {
 				}
 			}, null);
 		}
+	}
+	
+	private void getUid(){
+		AccountManager am=AccountManager.get(context);
+		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
+		if(accounts.length!=0){
+			Account wtAccount=accounts[0];
+			uid=am.getUserData(wtAccount, AccountManager.KEY_USERDATA);
+		}
+	}
+	
+	private void putLoginArgs(){
+		bundle.putString(API_ARGS_SESSION, session);
+		bundle.putString(API_ARGS_UID, uid);
 	}
 	
 	public Bundle getUserActive(String no,String password,String name){
@@ -116,46 +131,46 @@ public class ApiHelper {
 	public Bundle getUserLogOff(){
 		bundle.clear();
 		putBasicArgs();
+		putLoginArgs();
 		bundle.putString(API_ARGS_METHOD, "User.LogOff");
-		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
 	public Bundle getUserGet(){
 		bundle.clear();
 		putBasicArgs();
+		putLoginArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Get");
-		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
 	public Bundle postUserUpdate(String updateContent){
 		bundle.clear();
 		putBasicArgs();
+		putLoginArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Update");
 		//TODO object User need to be submitted
 		bundle.putString(API_ARGS_USER, updateContent);
-		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
 	public Bundle postUserUpdateAvatar(){
 		bundle.clear();
 		putBasicArgs();
+		putLoginArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Update.Avatar");
 		//TODO object User need to be submitted
 		bundle.putString(API_ARGS_IMAGE, "");
-		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
 	public Bundle getUserUpdatePassword(String pwOld,String pwNew){
 		bundle.clear();
 		putBasicArgs();
+		putLoginArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Update.Password");
 		bundle.putString(API_ARGS_OLD, RSAEncrypter.encrypt(pwOld, context));
 		bundle.putString(API_ARGS_NEW, RSAEncrypter.encrypt(pwNew, context));
-		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
@@ -171,27 +186,27 @@ public class ApiHelper {
 	public Bundle getUserFind(String no,String name){
 		bundle.clear();
 		putBasicArgs();
+		putLoginArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Find");
 		bundle.putString(API_ARGS_NO, no);
 		bundle.putString(API_ARGS_NAME, name);
-		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
 	public Bundle getUserProfile(){
 		bundle.clear();
 		putBasicArgs();
+		putLoginArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Profile");
-		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
 	public Bundle postUserUpdateProfile(){
 		bundle.clear();
 		putBasicArgs();
+		putLoginArgs();
 		bundle.putString(API_ARGS_METHOD, "User.Update.Profile");
 		//TODO object UserProfile need to be submitted
-		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
@@ -205,6 +220,8 @@ public class ApiHelper {
 	public Bundle getActivities(int page, String ids, String sort, boolean expire) {
 		bundle.clear();
 		putBasicArgs();
+		putLoginArgs();
+		
 		if(page < 1) {
 			page = 1;
 		}
@@ -217,16 +234,14 @@ public class ApiHelper {
 			bundle.putString(API_ARGS_SORT, sort);
 		}
 		bundle.putString(API_ARGS_EXPIRE, String.valueOf(expire));
-		bundle.putString(API_ARGS_SESSION, session);
 		return bundle;
 	}
 	
 	public Bundle getTimetable(){
 		bundle.clear();
 		putBasicArgs();
+		putLoginArgs();
 		bundle.putString(API_ARGS_METHOD, "Timetable.Get");
-		bundle.putString(API_ARGS_SESSION, session);
-		bundle.putString(API_ARGS_UID, "201207110952505");
 		return bundle;
 	}
 	
