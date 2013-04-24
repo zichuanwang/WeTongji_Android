@@ -213,8 +213,15 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 		Activity activity;
 		for(int i = 0; i < count; i++) {
 			activity = new Activity();
-			activity.setTitle("Test Event " + count);
-			activity.setLocation("Jiading campus");
+			
+			if(i % 2 == 0) {
+				activity.setTitle("Carmeq & Volkswagen Design Workshop " + count);
+			}else {
+				activity.setTitle("PSA Day " + count);
+			}
+			activity.setBegin("10:00");
+			activity.setEnd("12:00");
+			activity.setLocation("Center of Digital Innovation");
 			mEventsList.add(activity);
 		}
 		

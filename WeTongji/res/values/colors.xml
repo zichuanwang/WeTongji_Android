@@ -12,5 +12,9 @@
     <color name="vp_indicator_selected">#ffffff</color>
     <color name="vp_indicator_bg">#4cffffff</color>
     <color name="text_slogan">#6a6a6a</color>
+    <color name="tv_eventlst_title">#454545</color>
+    <color name="tv_eventlst_time">#b1b1b1</color>
+    <color name="tv_eventlst_location">#0cc2cb</color>
+    <color name="eventlst_divider">#b1b1b1</color>
     
 </resources>

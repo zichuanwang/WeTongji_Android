@@ -103,9 +103,13 @@ public class EventsListAdapter extends AmazingAdapter  {
 		holder.tv_event_title.setText(event.getTitle());
 		//holder.tv_event_time.setText(
 		//		DateParser.parseBeginAndEndTime(event.getBegin(), event.getEnd()));
+		
+		holder.tv_event_time.setText("10:00-12:00");
+		
 		holder.tv_event_location.setText(event.getLocation());
 		
-		String strUrl=event.getDescription();
+		// Set thumbnails
+		/*String strUrl=event.getDescription();
 		AQuery aq = mListAq.recycle(convertView);
 		File ext=Environment.getExternalStorageDirectory();
         File cacheDir=new File(ext, "WeTongji/cache");
@@ -117,7 +121,7 @@ public class EventsListAdapter extends AmazingAdapter  {
         	aq.image(resetAvatar);
         else
         	aq.id(imageId).image(strUrl, true, true, 0, R.drawable.default_avatar, resetAvatar,
-        			AQuery.FADE_IN_NETWORK, 1.0f);
+        			AQuery.FADE_IN_NETWORK, 1.0f);*/
 		
 		return convertView;
 	}

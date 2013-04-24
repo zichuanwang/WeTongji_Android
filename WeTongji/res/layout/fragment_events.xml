@@ -12,6 +12,8 @@
             android:id="@id/lst_events"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:divider="@color/eventlst_divider"
+            android:dividerHeight="1dp"
            />
         
     </RelativeLayout>
