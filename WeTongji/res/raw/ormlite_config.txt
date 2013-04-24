@@ -1,8 +1,8 @@
 #
-# generated on 2013/03/04 11:45:18
+# generated on 2013/04/24 10:21:44
 #
 # --table-start--
-dataClass=com.wetongji.data.Activity
+dataClass=com.wetongji_android.data.Activity
 tableName=activity
 # --table-fields-start--
 # --field-start--
@@ -52,7 +52,7 @@ fieldName=CanLike
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.wetongji.data.Around
+dataClass=com.wetongji_android.data.Around
 tableName=around
 # --table-fields-start--
 # --field-start--
@@ -99,7 +99,7 @@ fieldName=Source
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.wetongji.data.ClubNews
+dataClass=com.wetongji_android.data.ClubNews
 tableName=clubnews
 # --table-fields-start--
 # --field-start--
@@ -143,7 +143,7 @@ fieldName=Source
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.wetongji.data.Course
+dataClass=com.wetongji_android.data.Course
 tableName=course
 # --table-fields-start--
 # --field-start--
@@ -190,7 +190,7 @@ fieldName=CanLike
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.wetongji.data.Event
+dataClass=com.wetongji_android.data.Event
 tableName=event
 # --table-fields-start--
 # --field-start--
@@ -222,7 +222,7 @@ fieldName=CanLike
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.wetongji.data.Exam
+dataClass=com.wetongji_android.data.Exam
 tableName=exam
 # --table-fields-start--
 # --field-start--
@@ -270,7 +270,7 @@ fieldName=CanLike
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.wetongji.data.ForStaff
+dataClass=com.wetongji_android.data.ForStaff
 tableName=forstaff
 # --table-fields-start--
 # --field-start--
@@ -308,7 +308,7 @@ fieldName=Source
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.wetongji.data.News
+dataClass=com.wetongji_android.data.News
 tableName=news
 # --table-fields-start--
 # --field-start--
@@ -346,7 +346,20 @@ fieldName=Source
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.wetongji.data.Person
+dataClass=com.wetongji_android.data.Notification
+tableName=notification
+# --table-fields-start--
+# --field-start--
+fieldName=id
+# --field-end--
+# --field-start--
+fieldName=type
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.wetongji_android.data.Person
 tableName=person
 # --table-fields-start--
 # --field-start--
@@ -392,7 +405,7 @@ foreignCollectionEager=true
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.wetongji.data.PersonImage
+dataClass=com.wetongji_android.data.PersonImage
 tableName=personimage
 # --table-fields-start--
 # --field-start--
@@ -411,7 +424,7 @@ foreign=true
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.wetongji.data.SchoolNews
+dataClass=com.wetongji_android.data.SchoolNews
 tableName=schoolnews
 # --table-fields-start--
 # --field-start--
@@ -449,7 +462,7 @@ fieldName=Source
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.wetongji.data.User
+dataClass=com.wetongji_android.data.User
 tableName=user
 # --table-fields-start--
 # --field-start--
