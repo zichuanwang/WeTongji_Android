@@ -17,5 +17,9 @@
     <color name="tv_text_week_number">#0cc2cb</color>
     <color name="tv_text_now_time">#ffffff</color>
     <color name="btn_bg_now_tab_navi_default">#00ffffff</color>
+    <color name="tv_eventlst_title">#454545</color>
+    <color name="tv_eventlst_time">#b1b1b1</color>
+    <color name="tv_eventlst_location">#0cc2cb</color>
+    <color name="eventlst_divider">#b1b1b1</color>
     
 </resources>
