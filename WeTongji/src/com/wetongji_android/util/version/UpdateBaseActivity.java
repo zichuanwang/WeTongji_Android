@@ -1,7 +1,5 @@
 package com.wetongji_android.util.version;
 
-import org.json.JSONException;
-
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Version;
@@ -78,13 +76,12 @@ implements LoaderCallbacks<HttpRequestResult>{
 
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0, HttpRequestResult result) {
-		Log.v("The result is : ", result.getStrResponseCon());
-		if(result.getResponseCode()==0){
+		if(result!=null&&result.getResponseCode()==0){
+			Log.v("The result is : ", result.getStrResponseCon());
+			VersionFactory factory=new VersionFactory();
 			try {
-				Version version=VersionFactory.create(result.getStrResponseCon());
+				Version version=factory.createObject(result.getStrResponseCon());
 				showUpdateInfo(version);
-			} catch (JSONException e) {
-				e.printStackTrace();
 			} catch (NameNotFoundException e) {
 				e.printStackTrace();
 			}

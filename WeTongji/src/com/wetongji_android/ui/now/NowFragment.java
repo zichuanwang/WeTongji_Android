@@ -1,9 +1,12 @@
 package com.wetongji_android.ui.now;
 
+import java.util.Calendar;
+
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
@@ -12,10 +15,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass. Use the
@@ -26,6 +31,8 @@ import android.view.ViewGroup;
 public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>{
 	
 	private View view;
+	private TextView tvWeekNumber;
+	private TextView tvNowTime;
 	private ApiHelper apiHelper;
 	
 	/**
@@ -57,7 +64,19 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		view=inflater.inflate(R.layout.fragment_now, container, false);
+		tvWeekNumber=(TextView) view.findViewById(R.id.tv_now_week_number);
 		return view;
+	}
+	
+	public void setNowTime(String dateFromServer){
+		if(tvNowTime==null){
+			tvNowTime=(TextView) view.findViewById(R.id.tv_now_time);
+		}
+		Calendar cal=DateParser.parseDateAndTime(dateFromServer);
+		@SuppressWarnings("deprecation")
+		String time=DateUtils.formatDateTime(getActivity(), cal.getTimeInMillis(),
+				DateUtils.FORMAT_24HOUR|DateUtils.FORMAT_SHOW_TIME);
+		tvNowTime.setText(time);
 	}
 
 	@Override

@@ -8,35 +8,75 @@
         android:id="@+id/rl_now_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:background="@color/bg_now_tab">
         
-        <Button 
+        <ImageButton 
             android:id="@+id/btn_now_previous"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"/>
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="36dp"
+            android:paddingRight="36dp"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/btn_bg_now_tab_navi"
+            android:src="@drawable/btn_ic_now_tab_pre"
+            android:contentDescription="@string/content_description_all"/>
         
-        <TextView 
-            android:id="@+id/tv_now_time"
+        <RelativeLayout 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:textIsSelectable="false"/>
+            android:layout_centerInParent="true"
+        	android:paddingTop="14dp"
+        	android:paddingBottom="14dp">
         
-        <TextView 
-            android:id="@+id/tv_now_week"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_toRightOf="@+id/tv_now_time"
-            android:textIsSelectable="false"/>
+	        <TextView 
+	            android:id="@+id/tv_now_time"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textIsSelectable="false"
+	            android:textColor="@color/tv_text_now_time"
+	            android:textSize="22sp"
+	            android:textStyle="bold" 
+	            android:text="10:00"/>
+	        
+	        <TextView 
+	            android:id="@+id/tv_now_week"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="10dp"
+	            android:layout_toRightOf="@+id/tv_now_time"
+	            android:layout_alignBaseline="@+id/tv_now_time"
+	            android:textIsSelectable="false"
+	            android:textColor="@color/tv_text_week"
+	            android:textSize="14sp"
+	            android:text="WEEK"/>
+	        
+	        <TextView 
+	            android:id="@+id/tv_now_week_number"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_toRightOf="@+id/tv_now_week"
+	            android:layout_alignBaseline="@+id/tv_now_time"
+	            android:textIsSelectable="false"
+	            android:textColor="@color/tv_text_week_number"
+	            android:textSize="14sp"
+	            android:text="8"/>
         
-        <Button 
+        </RelativeLayout>
+        
+        <ImageButton 
             android:id="@+id/btn_now_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"/>
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="36dp"
+            android:paddingRight="36dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/btn_bg_now_tab_navi"
+            android:src="@drawable/btn_ic_now_tab_next"
+            android:contentDescription="@string/content_description_all"/>
         
     </RelativeLayout>
     

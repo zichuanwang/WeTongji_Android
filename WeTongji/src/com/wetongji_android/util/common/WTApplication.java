@@ -3,8 +3,6 @@
  */
 package com.wetongji_android.util.common;
 
-import com.wetongji_android.data.User;
-
 import android.app.Application;
 
 /**
@@ -29,9 +27,6 @@ public class WTApplication extends Application
 	
 	//singleton
 	private static WTApplication application = null;
-	
-	//current user info
-	private User currentUser = null;
 	
 	public boolean bStarted = false;
 	

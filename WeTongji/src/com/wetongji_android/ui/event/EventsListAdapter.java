@@ -1,14 +1,18 @@
 package com.wetongji_android.ui.event;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.List;
 import com.androidquery.AQuery;
 import com.androidquery.util.AQUtility;
 import com.foound.widget.AmazingAdapter;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Event;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.data.ActivitiesLoader;
+import com.wetongji_android.util.data.DbHelper;
 import com.wetongji_android.util.net.ApiHelper;
 
 import android.content.Context;
@@ -17,13 +21,15 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class EventsListAdapter extends AmazingAdapter  {
+public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks<List<Activity>>{
 	
 	private LayoutInflater mInflater;
 	private Context mContext;
@@ -31,22 +37,28 @@ public class EventsListAdapter extends AmazingAdapter  {
 	private List<Activity> mLstEvent;
 	private Fragment mFragment;
 	private ApiHelper apiHelper;
+	private DbHelper dbHelper;
 	
 	public EventsListAdapter(Fragment fragment) {
 		mInflater = LayoutInflater.from(fragment.getActivity());
 		mContext = fragment.getActivity();
 		mListAq = new AQuery(mContext);
-		mLstEvent = ((EventsFragment) fragment).getEvents();
+		//TODO
+		//mLstEvent = ((EventsFragment) fragment).getEvents();
 		mFragment = fragment;
 		apiHelper=ApiHelper.getInstance(mContext);
+		dbHelper=OpenHelperManager.getHelper(mContext, DbHelper.class);
+	}
+
+	public void setContentList(List<Activity> mLstEvent) {
+		this.mLstEvent = mLstEvent;
 	}
 
 	static class ViewHolder {
 		TextView tv_event_title;
 		TextView tv_event_time;
 		TextView tv_event_location;
-		ImageView img_event_thumbnails;
-		
+		ImageView img_event_thumbnails;	
 	}
 
 	@Override
@@ -69,7 +81,6 @@ public class EventsListAdapter extends AmazingAdapter  {
 		Bundle args = apiHelper.getActivities(page, "", "", false);
 		mFragment.getLoaderManager()
 			.initLoader(WTApplication.NETWORK_LOADER, args, (EventsFragment)mFragment);
-		
 	}
 
 	@Override
@@ -142,8 +153,23 @@ public class EventsListAdapter extends AmazingAdapter  {
 		return null;
 	}
 	
-	public void resetEventLst() {
-		mLstEvent = ((EventsFragment) mFragment).getEvents();
+	@Override
+	public Loader<List<Activity>> onCreateLoader(int arg0, Bundle args) {
+		try {
+			return new ActivitiesLoader(mContext, dbHelper.getActDao(), null);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public void onLoadFinished(Loader<List<Activity>> arg0, List<Activity> activities) {
+		mLstEvent=activities;
+	}
+
+	@Override
+	public void onLoaderReset(Loader<List<Activity>> arg0) {
 	}
 	
 	
