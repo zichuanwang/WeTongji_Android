@@ -1,25 +1,21 @@
 package com.wetongji_android.ui.event;
 
-import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import com.androidquery.AQuery;
-import com.androidquery.util.AQUtility;
 import com.foound.widget.AmazingAdapter;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Event;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.data.ActivitiesLoader;
 import com.wetongji_android.util.data.DbHelper;
+import com.wetongji_android.util.data.activity.ActivitiesLoader;
 import com.wetongji_android.util.net.ApiHelper;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -43,11 +39,11 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		mInflater = LayoutInflater.from(fragment.getActivity());
 		mContext = fragment.getActivity();
 		mListAq = new AQuery(mContext);
-		//TODO
-		//mLstEvent = ((EventsFragment) fragment).getEvents();
 		mFragment = fragment;
+		mLstEvent=new ArrayList<Activity>();
 		apiHelper=ApiHelper.getInstance(mContext);
 		dbHelper=OpenHelperManager.getHelper(mContext, DbHelper.class);
+		mFragment.getLoaderManager().initLoader(WTApplication.ACTIVITY_LOADER, null, this);
 	}
 
 	public void setContentList(List<Activity> mLstEvent) {

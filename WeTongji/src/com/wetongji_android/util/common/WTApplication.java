@@ -22,6 +22,9 @@ public class WTApplication extends Application
 	public static final String API_VERSION="3.0";
 	// loader ids
 	public static final int NETWORK_LOADER=1;
+	public static final int DB_LOADER=2;
+	public static final int DB_SAVER=3;
+	public static final int ACTIVITY_LOADER=4;
 	
 	public static final String FLURRY_API_KEY="GN5KJMW6XWCSD5DTCWRW";
 	

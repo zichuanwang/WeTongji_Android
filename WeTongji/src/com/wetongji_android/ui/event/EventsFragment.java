@@ -12,7 +12,6 @@ import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -26,10 +25,21 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 	private AmazingListView mListActivity;
 	private EventsListAdapter mAdapter;
 	private ActivityFactory mFactory;
+	private View view;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_events, null);		
+		view=inflater.inflate(R.layout.fragment_events, null);
+
+		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		Bundle args = apiHelper.getActivities(1, "", "", false);
+		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
+		
+		mListActivity = (AmazingListView) view.findViewById(R.id.lst_events);
+		mAdapter = new EventsListAdapter(this);
+		mListActivity.setAdapter(mAdapter);
+		
+		return view;
 	}
 	
 	@Override
@@ -37,18 +47,6 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 		super.onSaveInstanceState(outState);
 	}
 	
-	@Override
-	public void onAttach(Activity activty) {
-		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle args = apiHelper.getActivities(1, "", "", false);
-		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
-		
-		mListActivity = (AmazingListView)getActivity().findViewById(R.id.lst_events);
-		mAdapter = new EventsListAdapter(this);
-		mListActivity.setAdapter(mAdapter);
-		
-	}
-
 	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
 		return new NetworkLoader(getActivity(), HttpMethod.Get, arg1);
@@ -58,6 +56,9 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
 			HttpRequestResult result) {		
 		if(result.getResponseCode()==0){
+			if(mFactory==null){
+				mFactory=new ActivityFactory(this);
+			}
 			List<com.wetongji_android.data.Activity> list=mFactory.createObjects(result.getStrResponseCon());
 			mAdapter.setContentList(list);
 			mAdapter.notifyDataSetChanged();

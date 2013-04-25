@@ -1,4 +1,4 @@
-package com.wetongji_android.util.data;
+package com.wetongji_android.util.data.activity;
 
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -12,7 +12,7 @@ import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import com.wetongji_android.data.Activity;
-import com.wetongji_android.util.data.activity.QueryHelper;
+import com.wetongji_android.util.data.DbLoader;
 import com.wetongji_android.util.date.DateParser;
 
 public class ActivitiesLoader extends DbLoader<Activity, Integer> {
