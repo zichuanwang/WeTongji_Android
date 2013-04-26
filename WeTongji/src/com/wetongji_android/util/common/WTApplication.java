@@ -3,7 +3,12 @@
  */
 package com.wetongji_android.util.common;
 
+import com.androidquery.AQuery;
+import com.androidquery.util.AQUtility;
+import java.io.File;
+
 import android.app.Application;
+import android.os.Environment;
 
 /**
  * @author zihe
@@ -33,6 +38,8 @@ public class WTApplication extends Application
 	
 	public boolean bStarted = false;
 	
+	public static AQuery aq;
+	
 	public static WTApplication getInstance()
 	{
 		return application;
@@ -43,5 +50,12 @@ public class WTApplication extends Application
 	{
 		super.onCreate();
 		application = this;
+		
+		
+		// Instantiate AQuery and configure cache directory
+		aq = new AQuery(this);
+		File ext = Environment.getExternalStorageDirectory();
+        File cacheDir = new File(ext, "WeTongji/cache");
+        AQUtility.setCacheDir(cacheDir);
 	}
 }

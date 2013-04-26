@@ -15,10 +15,13 @@ import com.wetongji_android.util.data.activity.ActivitiesLoader;
 import com.wetongji_android.util.net.ApiHelper;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +41,7 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 	public EventsListAdapter(Fragment fragment) {
 		mInflater = LayoutInflater.from(fragment.getActivity());
 		mContext = fragment.getActivity();
-		mListAq = new AQuery(mContext);
+		mListAq = WTApplication.aq;
 		mFragment = fragment;
 		mLstEvent=new ArrayList<Activity>();
 		apiHelper=ApiHelper.getInstance(mContext);
@@ -46,9 +49,18 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		mFragment.getLoaderManager().initLoader(WTApplication.ACTIVITY_LOADER, null, this);
 	}
 
-	public void setContentList(List<Activity> mLstEvent) {
-		this.mLstEvent = mLstEvent;
+	public void setContentList(List<Activity> lstEvent) {
+		mLstEvent.clear();
+		mLstEvent.addAll(lstEvent);
 	}
+	
+	/**
+	 * reload data from database
+	 */
+	public void reloadData() {
+		mFragment.getLoaderManager().initLoader(WTApplication.ACTIVITY_LOADER, null, this);
+	}
+	
 
 	static class ViewHolder {
 		TextView tv_event_title;
@@ -74,6 +86,8 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 
 	@Override
 	protected void onNextPageRequested(int page) {
+		Log.d("EventListAdapter", "onNextPagerRequest...");
+		
 		Bundle args = apiHelper.getActivities(page, "", "", false);
 		mFragment.getLoaderManager()
 			.initLoader(WTApplication.NETWORK_LOADER, args, (EventsFragment)mFragment);
@@ -102,10 +116,11 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 					(ImageView)convertView.findViewById(R.id.img_event_thumbnails);
 			convertView.setTag(holder);
 		}
-		else
+		else {
 			holder=(ViewHolder)convertView.getTag();
+		}
 		
-		Event event=getItem(position);
+		Activity event=getItem(position);
 		
 		holder.tv_event_title.setText(event.getTitle());
 		//holder.tv_event_time.setText(
@@ -116,19 +131,17 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		holder.tv_event_location.setText(event.getLocation());
 		
 		// Set thumbnails
-		/*String strUrl=event.getDescription();
+		String strUrl = event.getImage();
 		AQuery aq = mListAq.recycle(convertView);
-		File ext=Environment.getExternalStorageDirectory();
-        File cacheDir=new File(ext, "WeTongji/cache");
-        AQUtility.setCacheDir(cacheDir);
+		
         int imageId = holder.img_event_thumbnails.getId();
-        Bitmap resetAvatar = BitmapFactory.decodeResource(mContext.getResources(),
+        Bitmap bmThumbnails = BitmapFactory.decodeResource(mContext.getResources(),
                 R.drawable.default_avatar);
         if(aq.shouldDelay(position, convertView, parent, strUrl))
-        	aq.image(resetAvatar);
+        	aq.image(bmThumbnails);
         else
-        	aq.id(imageId).image(strUrl, true, true, 0, R.drawable.default_avatar, resetAvatar,
-        			AQuery.FADE_IN_NETWORK, 1.0f);*/
+        	aq.id(imageId).image(strUrl, false, true, 0, R.drawable.default_avatar, bmThumbnails,
+        			AQuery.FADE_IN_NETWORK, 1.0f);
 		
 		return convertView;
 	}
@@ -156,7 +169,7 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 	@Override
 	public Loader<List<Activity>> onCreateLoader(int arg0, Bundle args) {
 		try {
-			return new ActivitiesLoader(mContext, dbHelper.getActDao(), null);
+			return new ActivitiesLoader(mContext, dbHelper.getActDao(), args);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -165,7 +178,14 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 
 	@Override
 	public void onLoadFinished(Loader<List<Activity>> arg0, List<Activity> activities) {
-		mLstEvent=activities;
+		((EventsFragment)mFragment).mListActivity.setVisibility(View.GONE);
+		setContentList(activities);
+		nextPage();
+		notifyDataSetChanged();
+		((EventsFragment)mFragment).mListActivity.setVisibility(View.VISIBLE);
+
+		notifyMayHaveMorePages();
+
 	}
 
 	@Override
