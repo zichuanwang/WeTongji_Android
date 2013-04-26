@@ -1,7 +1,7 @@
 package com.wetongji_android.ui.now.week;
 
 import com.wetongji_android.R;
-import com.wetongji_android.ui.event.OnEventClickedListener;
+import com.wetongji_android.ui.main.OnWTListClickedListener;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass. Activities that
  * contain this fragment must implement the
- * {@link NowWeekFragment.OnEventClickedListener} interface to handle
+ * {@link NowWeekFragment.OnWTListClickedListener} interface to handle
  * interaction events. Use the {@link NowWeekFragment#newInstance} factory
  * method to create an instance of this fragment.
  * 
@@ -23,7 +23,7 @@ public class NowWeekFragment extends Fragment {
 
 	private String weekStartTime;
 
-	private OnEventClickedListener eventClickListener;
+	private OnWTListClickedListener listClickedListener;
 	private OnNowWeekListScrolledListener weekListScrollListener;
 
 	/**
@@ -65,10 +65,10 @@ public class NowWeekFragment extends Fragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		try {
-			eventClickListener = (OnEventClickedListener) activity;
+			listClickedListener = (OnWTListClickedListener) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString()
-					+ " must implement OnEventClickedListener");
+					+ " must implement OnWTListClickedListener");
 		}
 		try{
 			weekListScrollListener=(OnNowWeekListScrolledListener) activity;
@@ -81,7 +81,7 @@ public class NowWeekFragment extends Fragment {
 	@Override
 	public void onDetach() {
 		super.onDetach();
-		eventClickListener = null;
+		listClickedListener = null;
 		weekListScrollListener=null;
 	}
 

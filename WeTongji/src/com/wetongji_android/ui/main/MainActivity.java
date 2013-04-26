@@ -6,6 +6,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.flurry.android.FlurryAgent;
 import com.slidingmenu.lib.SlidingMenu;
 import com.wetongji_android.R;
+import com.wetongji_android.data.Event;
 import com.wetongji_android.ui.auth.AuthenticatorActivity;
 import com.wetongji_android.ui.today.TodayFragment;
 import com.wetongji_android.util.common.WTApplication;
@@ -21,7 +22,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-public class MainActivity extends UpdateBaseActivity implements AccountManagerCallback<Bundle>
+public class MainActivity extends UpdateBaseActivity 
+implements AccountManagerCallback<Bundle>, OnWTListClickedListener
 {
 	private Fragment mContent;
 	public static final String PARAM_PREVIEW_WITHOUT_lOGIN="previewWithoutLogin";
@@ -155,6 +157,12 @@ public class MainActivity extends UpdateBaseActivity implements AccountManagerCa
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void onEventClicked(Event event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

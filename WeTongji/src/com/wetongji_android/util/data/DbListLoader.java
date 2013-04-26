@@ -4,33 +4,39 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
 
-public class DbLoader<T, ID> extends AsyncTaskLoader<List<T>> {
+public class DbListLoader<T, ID> extends AsyncTaskLoader<List<T>> {
 
 	protected Dao<T, ID> mDao = null;
+	protected DbHelper dbHelper=null;
     private List<T> mData = null;
+    protected Class<T> clazz=null;
+    protected Context context;
 
-    public DbLoader(Context context, Dao<T, ID> dao, Bundle args)
+    public DbListLoader(Context context, Class<T> clazz, Bundle args)
     {
         super(context);
-        mDao = dao;
+        this.clazz=clazz;
+        this.context=context;
     }
 
     @Override
     public List<T> loadInBackground()
     {
-        List<T> result;
-		try {
+    	dbHelper=OpenHelperManager.getHelper(context, DbHelper.class);
+        List<T> result=new ArrayList<T>();
+    	try {
+			mDao=dbHelper.getDao(clazz);
 			result = mDao.queryForAll();
-			return result;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return new ArrayList<T>();
 		}
+		return result;
     }
 
     @Override
@@ -122,6 +128,7 @@ public class DbLoader<T, ID> extends AsyncTaskLoader<List<T>> {
     {
         // For a simple List<> there is nothing to do. For something
         // like a Cursor, we would close it here.
+    	OpenHelperManager.releaseHelper();
     }
     
 }

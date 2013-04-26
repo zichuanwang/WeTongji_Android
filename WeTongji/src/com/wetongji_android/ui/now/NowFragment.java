@@ -56,7 +56,7 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 		
 		apiHelper=ApiHelper.getInstance(getActivity());
 		Bundle args=apiHelper.getTimetable();
-		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
+		//getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
 	}
 
 	@Override

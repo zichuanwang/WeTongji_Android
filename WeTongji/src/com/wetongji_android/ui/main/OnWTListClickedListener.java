@@ -1,4 +1,4 @@
-package com.wetongji_android.ui.event;
+package com.wetongji_android.ui.main;
 
 import com.wetongji_android.data.Event;
 
@@ -11,6 +11,6 @@ import com.wetongji_android.data.Event;
  * "http://developer.android.com/training/basics/fragments/communicating.html"
  * >Communicating with Other Fragments</a> for more information.
  */
-public interface OnEventClickedListener {
+public interface OnWTListClickedListener {
 	abstract public void onEventClicked(Event event);
 }

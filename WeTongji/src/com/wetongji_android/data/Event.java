@@ -2,7 +2,7 @@ package com.wetongji_android.data;
 
 import com.j256.ormlite.field.DatabaseField;
 
-public abstract class Event {
+public abstract class Event implements Comparable<Event> {
 	@DatabaseField(id=true)
 	int Id;
 	@DatabaseField
@@ -99,6 +99,11 @@ public abstract class Event {
 
 	public void setCanLike(boolean canLike) {
 		CanLike = canLike;
+	}
+
+	@Override
+	public int compareTo(Event another) {
+		return this.Begin.compareTo(another.Begin);
 	}
 	
 }

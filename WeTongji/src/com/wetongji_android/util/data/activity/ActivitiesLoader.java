@@ -7,28 +7,32 @@ import java.util.List;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import com.wetongji_android.data.Activity;
-import com.wetongji_android.util.data.DbLoader;
+import com.wetongji_android.util.data.DbHelper;
+import com.wetongji_android.util.data.DbListLoader;
 import com.wetongji_android.util.date.DateParser;
 
-public class ActivitiesLoader extends DbLoader<Activity, Integer> {
+public class ActivitiesLoader extends DbListLoader<Activity, Integer> {
 	
 	private PreparedQuery<Activity> query=null;
 
 	public ActivitiesLoader(Context context, Dao<Activity, Integer> dao,
 			Bundle args) {
-		super(context, dao, args);
+		super(context, Activity.class, args);
 		query=getActivityQuery(args);
 	}
 	
 
     @Override
 	public List<Activity> loadInBackground() {
+    	dbHelper=OpenHelperManager.getHelper(context, DbHelper.class);
     	try{
+    		mDao=dbHelper.getDao(clazz);
 	    	if(query!=null){
 	    		return mDao.query(query);
 	    	}
