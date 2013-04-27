@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
 public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks<List<Activity>>{
@@ -128,18 +129,22 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		
 		// Set thumbnails
 		String strUrl = event.getImage();
+		//String strUrl = event.getOrganizerAvatar();
+
 		AQuery aq = mListAq.recycle(convertView);
 		
-        int imageId = holder.img_event_thumbnails.getId();
-        Bitmap bmThumbnails=aq.getCachedImage(R.drawable.default_avatar);
-        //Bitmap bmThumbnails = BitmapFactory.decodeResource(mContext.getResources(),
-        //        R.drawable.default_avatar);
-        if(aq.shouldDelay(position, convertView, parent, strUrl))
-        	aq.image(bmThumbnails);
-        else
-        	aq.id(imageId).image(strUrl, false, true, 50, R.drawable.default_avatar, bmThumbnails,
-        			AQuery.FADE_IN_NETWORK, AQuery.RATIO_PRESERVE);
-		
+        Bitmap bmThumbnails=aq.getCachedImage(R.drawable.ic_launcher);
+        
+        if(aq.shouldDelay(position, convertView, parent, strUrl)) {
+        	aq.id(holder.img_event_thumbnails).image(bmThumbnails);
+        }
+        else {
+        aq.id(holder.img_event_thumbnails).image(strUrl, false, true, 0, R.drawable.default_avatar, bmThumbnails,
+        		AQuery.FADE_IN_NETWORK, 1.33f);
+        }
+        
+        holder.img_event_thumbnails.setScaleType(ScaleType.CENTER_CROP);
+        
 		return convertView;
 	}
 
