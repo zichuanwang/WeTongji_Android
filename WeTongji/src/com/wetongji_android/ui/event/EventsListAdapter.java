@@ -12,7 +12,6 @@ import com.wetongji_android.util.net.ApiHelper;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -121,17 +120,18 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		holder.tv_event_location.setText(event.getLocation());
 		
 		// Set thumbnails
-		//String strUrl = event.getImage();
-		//AQuery aq = mListAq.recycle(convertView);
+		String strUrl = event.getImage();
+		AQuery aq = mListAq.recycle(convertView);
 		
-        //int imageId = holder.img_event_thumbnails.getId();
+        int imageId = holder.img_event_thumbnails.getId();
+        Bitmap bmThumbnails=aq.getCachedImage(R.drawable.default_avatar);
         //Bitmap bmThumbnails = BitmapFactory.decodeResource(mContext.getResources(),
         //        R.drawable.default_avatar);
-        //if(aq.shouldDelay(position, convertView, parent, strUrl))
-        //	aq.image(bmThumbnails);
-        //else
-        //	aq.id(imageId).image(strUrl, false, true, 0, R.drawable.default_avatar, bmThumbnails,
-        //			AQuery.FADE_IN_NETWORK, 1.0f);
+        if(aq.shouldDelay(position, convertView, parent, strUrl))
+        	aq.image(bmThumbnails);
+        else
+        	aq.id(imageId).image(strUrl, false, true, 50, R.drawable.default_avatar, bmThumbnails,
+        			AQuery.FADE_IN_NETWORK, AQuery.RATIO_PRESERVE);
 		
 		return convertView;
 	}

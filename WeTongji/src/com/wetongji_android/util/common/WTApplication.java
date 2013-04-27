@@ -53,7 +53,7 @@ public class WTApplication extends Application
 	{
 		super.onCreate();
 		application = this;
-		
+		dbHelper=OpenHelperManager.getHelper(this, DbHelper.class);
 		// Instantiate AQuery and configure cache directory
 		aq = new AQuery(this);
 		File ext = Environment.getExternalStorageDirectory();
@@ -62,9 +62,6 @@ public class WTApplication extends Application
 	}
 
 	public DbHelper getDbHelper() {
-		if(dbHelper==null){
-			dbHelper=OpenHelperManager.getHelper(this, DbHelper.class);
-		}
 		return dbHelper;
 	}
 
