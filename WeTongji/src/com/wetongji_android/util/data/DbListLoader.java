@@ -22,12 +22,6 @@ public class DbListLoader<T, ID> extends AsyncTaskLoader<List<T>> {
         super(context);
         this.clazz=clazz;
         this.context=context;
-        dbHelper=OpenHelperManager.getHelper(context, DbHelper.class);
-		try {
-			mDao=dbHelper.getDao(clazz);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
     }
 
     @Override
@@ -35,6 +29,8 @@ public class DbListLoader<T, ID> extends AsyncTaskLoader<List<T>> {
     {
         List<T> result=new ArrayList<T>();
     	try {
+            dbHelper=OpenHelperManager.getHelper(context, DbHelper.class);
+            mDao=dbHelper.getDao(clazz);
 			result = mDao.queryForAll();
 		} catch (SQLException e) {
 			e.printStackTrace();

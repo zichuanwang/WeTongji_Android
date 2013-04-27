@@ -10,7 +10,7 @@
     <ImageView 
         android:id="@id/img_event_thumbnails"
         android:layout_width="48dip"
-        android:layout_height="60dip"
+        android:layout_height="64dip"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="10dp"

@@ -7,10 +7,12 @@ import java.util.List;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import com.wetongji_android.data.Event;
+import com.wetongji_android.util.data.DbHelper;
 import com.wetongji_android.util.data.DbListLoader;
 import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.date.DateParser;
@@ -18,15 +20,19 @@ import com.wetongji_android.util.date.DateParser;
 public class EventsLoader extends DbListLoader<Event, Integer> {
 
 	private PreparedQuery<Event> query=null;
+	private Bundle args;
 	
 	public EventsLoader(Context context, Bundle args) {
 		super(context, Event.class);
-		query=getEventsQuery(args) ;
+		this.args=args;
 	}
 	
 	@Override
 	public List<Event> loadInBackground() {
     	try{
+    		dbHelper=OpenHelperManager.getHelper(context, DbHelper.class);
+    		mDao=dbHelper.getDao(clazz);
+    		query=getEventsQuery(args);
 	    	if(query!=null){
 	    		return mDao.query(query);
 	    	}

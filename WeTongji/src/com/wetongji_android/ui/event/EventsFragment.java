@@ -7,7 +7,6 @@ import com.wetongji_android.R;
 import com.wetongji_android.factory.ActivityFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
-import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
@@ -19,10 +18,11 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>{
 	
-	private AmazingListView mListActivity;
+	public AmazingListView mListActivity;
 	private EventsListAdapter mAdapter;
 	private ActivityFactory mFactory;
 	private View view;
@@ -33,11 +33,16 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
 		Bundle args = apiHelper.getActivities(1, "", "", false);
-		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
+		//getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
 		
 		mListActivity = (AmazingListView) view.findViewById(R.id.lst_events);
 		mAdapter = new EventsListAdapter(this);
 		mListActivity.setAdapter(mAdapter);
+		//mListActivity.setLoadingView(inflater.inflate(R.layout.amazing_lst_view_loading_view, null));
+		TextView text = new TextView(getActivity());
+		text.setText("ÔØÈë");
+		mListActivity.setLoadingView(text);
+		mAdapter.notifyMayHaveMorePages();
 		
 		return view;
 	}
@@ -48,8 +53,8 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 	}
 	
 	@Override
-	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
-		return new NetworkLoader(getActivity(), HttpMethod.Get, arg1);
+	public Loader<HttpRequestResult> onCreateLoader(int id, Bundle args) {
+		return new NetworkLoader(getActivity(), HttpMethod.Get, args);
 	}
 	
 	@Override
@@ -59,9 +64,17 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 			if(mFactory==null){
 				mFactory=new ActivityFactory(this);
 			}
-			List<com.wetongji_android.data.Activity> list=mFactory.createObjects(result.getStrResponseCon());
-			mAdapter.setContentList(list);
-			mAdapter.notifyDataSetChanged();
+			final List<com.wetongji_android.data.Activity> list = mFactory.createObjects(result.getStrResponseCon());
+			
+			/*getActivity().runOnUiThread(new Runnable() {
+				  public void run() {
+					  mAdapter.setContentList(list);
+					  mAdapter.nextPage();
+					  mAdapter.notifyDataSetChanged();
+				  }
+			});*/
+			mAdapter.reloadData();
+			
 		}
 		else{
 			ExceptionToast.show(getActivity(), result.getResponseCode());
