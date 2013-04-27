@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.foound.widget.AmazingListView;
 import com.wetongji_android.R;
+import com.wetongji_android.data.Activity;
 import com.wetongji_android.factory.ActivityFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +39,7 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
 		
 		mListActivity = (AmazingListView) view.findViewById(R.id.lst_events);
+		mListActivity.noMorePages();
 		mAdapter = new EventsListAdapter(this);
 		mListActivity.setAdapter(mAdapter);
 		//mListActivity.setLoadingView(inflater.inflate(R.layout.amazing_lst_view_loading_view, null));
@@ -65,17 +68,23 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 			if(mFactory==null){
 				mFactory=new ActivityFactory(this);
 			}
-			final List<com.wetongji_android.data.Activity> list = mFactory.createObjects(result.getStrResponseCon());
-			
-			/*getActivity().runOnUiThread(new Runnable() {
-				  public void run() {
-					  mAdapter.setContentList(list);
-					  mAdapter.nextPage();
-					  mAdapter.notifyDataSetChanged();
-				  }
-			});*/
-			mAdapter.reloadData();
-			
+			int currentPage=mAdapter.getPage();
+			Pair<Integer, List<Activity>> pair=
+					mFactory.createObjects(result.getStrResponseCon(), currentPage);
+			List<Activity> activities=pair.second;
+			mAdapter.nextPage();
+			if(currentPage==1){
+				mListActivity.mayHaveMorePages();
+				mAdapter.setContentList(activities);
+			}
+			if(pair.first==0){
+				mListActivity.noMorePages();
+			}
+			else{
+				mListActivity.mayHaveMorePages();
+				mAdapter.addData(activities);
+			}
+			mAdapter.notifyDataSetChanged();
 		}
 		else{
 			ExceptionToast.show(getActivity(), result.getResponseCode());

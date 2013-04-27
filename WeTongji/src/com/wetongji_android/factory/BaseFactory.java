@@ -12,7 +12,6 @@ import android.support.v4.content.Loader;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.table.TableUtils;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.util.common.WTApplication;
@@ -52,7 +51,7 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 
 	@Override
 	public Loader<Void> onCreateLoader(int arg0, Bundle args) {
-		DbHelper dbHelper=OpenHelperManager.getHelper(context, DbHelper.class);
+		DbHelper dbHelper=WTApplication.getInstance().getDbHelper();
 		try {
 			if(args!=null&&args.getBoolean(ARG_NEED_TO_REFRESH)){
 				TableUtils.clearTable(dbHelper.getConnectionSource(), clazz);
@@ -66,7 +65,6 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 
 	@Override
 	public void onLoadFinished(Loader<Void> arg0, Void arg1) {
-		OpenHelperManager.releaseHelper();
 	}
 
 	@Override

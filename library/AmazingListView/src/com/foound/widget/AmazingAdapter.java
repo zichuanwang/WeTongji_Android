@@ -84,6 +84,10 @@ public abstract class AmazingAdapter extends BaseAdapter implements SectionIndex
     	this.page++;
     }
     
+    public int getPage(){
+    	return this.page;
+    }
+    
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 		if (view instanceof AmazingListView) {

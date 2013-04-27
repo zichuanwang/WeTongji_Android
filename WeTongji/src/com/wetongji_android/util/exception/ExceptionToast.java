@@ -17,6 +17,9 @@ public class ExceptionToast {
 		case 999:
 			Toast.makeText(context, R.string.text_error_service_down, Toast.LENGTH_LONG).show();
 			break;
+		case 200:
+			Toast.makeText(context, R.string.text_error_check_network, Toast.LENGTH_LONG).show();
+			break;
 		case 5:
 			Toast.makeText(context, R.string.text_error_request_login, Toast.LENGTH_LONG).show();
 			break;
