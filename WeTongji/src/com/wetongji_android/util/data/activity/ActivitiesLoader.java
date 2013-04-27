@@ -7,32 +7,26 @@ import java.util.List;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
-import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import com.wetongji_android.data.Activity;
-import com.wetongji_android.util.data.DbHelper;
 import com.wetongji_android.util.data.DbListLoader;
+import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.date.DateParser;
 
 public class ActivitiesLoader extends DbListLoader<Activity, Integer> {
 	
 	private PreparedQuery<Activity> query=null;
 
-	public ActivitiesLoader(Context context, Dao<Activity, Integer> dao,
-			Bundle args) {
-		super(context, Activity.class, args);
-		query=getActivityQuery(args);
+	public ActivitiesLoader(Context context, Bundle args) {
+		super(context, Activity.class);
+		query=getActivitiesQuery(args);
 	}
 	
-
     @Override
 	public List<Activity> loadInBackground() {
-    	dbHelper=OpenHelperManager.getHelper(context, DbHelper.class);
     	try{
-    		mDao=dbHelper.getDao(clazz);
 	    	if(query!=null){
 	    		return mDao.query(query);
 	    	}
@@ -46,36 +40,35 @@ public class ActivitiesLoader extends DbListLoader<Activity, Integer> {
     	}
 	}
 
-
-	private PreparedQuery<Activity> getActivityQuery(Bundle args){
+	private PreparedQuery<Activity> getActivitiesQuery(Bundle args){
 		if(args==null){
 			return null;
 		}
-    	QueryBuilder<Activity, Integer> qb=(QueryBuilder<Activity, Integer>) mDao.queryBuilder();
-		qb.orderBy(args.getString(QueryHelper.ARG_ORDER_BY), args.getBoolean(QueryHelper.ARG_ASCENDING));
+    	QueryBuilder<Activity, Integer> qb=mDao.queryBuilder();
+		qb.orderBy(args.getString(QueryHelper.ARGS_ORDER_BY), args.getBoolean(QueryHelper.ARGS_ASCENDING));
 		Where<Activity, Integer> where=qb.where();
 		int count=0;
 		try{
-			if(args.getBoolean(QueryHelper.ARG_HAS_CHANNEL_1)){
+			if(args.getBoolean(QueryHelper.ARGS_HAS_CHANNEL_1)){
 				where.eq("Channel_Id", 1);
 				count++;
 			}
-			if(args.getBoolean(QueryHelper.ARG_HAS_CHANNEL_2)){
+			if(args.getBoolean(QueryHelper.ARGS_HAS_CHANNEL_2)){
 				where.eq("Channel_Id", 2);
 				count++;
 			}
-			if(args.getBoolean(QueryHelper.ARG_HAS_CHANNEL_3)){
+			if(args.getBoolean(QueryHelper.ARGS_HAS_CHANNEL_3)){
 				where.eq("Channel_Id", 3);
 				count++;
 			}
-			if(args.getBoolean(QueryHelper.ARG_HAS_CHANNEL_4)){
+			if(args.getBoolean(QueryHelper.ARGS_HAS_CHANNEL_4)){
 				where.eq("Channel_Id", 4);
 				count++;
 			}
 			if(count>1){
 				where.or(count);
 			}
-			if(!args.getBoolean(QueryHelper.ARG_HAS_EXPIRED)){
+			if(!args.getBoolean(QueryHelper.ARGS_HAS_EXPIRED)){
 				where.ge("End", DateParser.buildDateAndTime(Calendar.getInstance()));
 				where.and(2);
 			}

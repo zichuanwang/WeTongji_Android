@@ -46,7 +46,7 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 		
 		Bundle args=new Bundle();
 		args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
-		fragment.getLoaderManager().initLoader(WTApplication.DB_SAVER, args, this);
+		fragment.getLoaderManager().initLoader(WTApplication.DB_LIST_SAVER, args, this);
 		return list;
 	}
 

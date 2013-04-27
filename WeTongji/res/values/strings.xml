@@ -42,7 +42,7 @@
     <string name="content_description_all">Image</string>
     <string name="text_wt_slogan">Campus In Your Pocket</string>
     <string name="text_guide">Guide</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-	<!-- imageview content description -->
 	<string name="img_content_description">ImageView</string>
+	<string name="text_now_indicator">Now</string>
+	<string name="text_friends_counter">%1$d Friends</string>
 </resources>

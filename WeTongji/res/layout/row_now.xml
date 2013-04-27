@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="148dp"
+    android:layout_margin="4dp"
+    android:background="@drawable/bg_row_now_default"
+    android:padding="12dp" >
+
+    <RelativeLayout
+        android:id="@+id/rl_now_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_alignParentTop="true" >
+
+        <ImageView
+            android:id="@+id/iv_now_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="12dp"
+            android:contentDescription="@string/content_description_all"
+            android:src="@drawable/ic_row_now_indicator"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_now_indicator" >
+
+            <TextView
+                android:id="@+id/tv_now_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/iv_now_indicator"
+                android:shadowColor="@color/tv_now_text_shadow"
+                android:shadowDx="0"
+                android:shadowDy="3"
+                android:shadowRadius="0"
+                android:text="@string/text_now_indicator"
+                android:textColor="@color/tv_text_now_indicator"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_now_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_now_indicator"
+                android:layout_below="@+id/tv_now_indicator"
+                android:shadowColor="@color/tv_now_text_shadow"
+                android:shadowDx="0"
+                android:shadowDy="3"
+                android:shadowRadius="0"
+                android:textColor="@color/tv_text_now_time"
+            	android:textStyle="bold"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_now_friends_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/tv_text_now_time"
+            android:textStyle="bold"
+            android:textIsSelectable="false" />
+        
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_now_thumb"
+        style="@style/EventLstThumbnails"
+        android:layout_width="48dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/rl_now_indicator"
+        android:contentDescription="@string/content_description_all"
+        android:src="@drawable/img_intro_1" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/rl_now_indicator"
+        android:layout_toRightOf="@+id/iv_now_thumb" >
+
+        <TextView
+            android:id="@+id/tv_now_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:shadowColor="@color/tv_now_text_shadow"
+            android:shadowDx="0"
+            android:shadowDy="3"
+            android:shadowRadius="0"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/tv_text_now_title"
+            android:textIsSelectable="false"  />
+        
+        <TextView
+	        android:id="@+id/tv_now_location"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:shadowColor="@color/tv_now_text_shadow"
+	        android:shadowDx="0"
+	        android:shadowDy="3"
+	        android:shadowRadius="0"
+            android:textStyle="bold"
+	        android:textColor="@color/tv_text_now_location"
+            android:textIsSelectable="false"  />
+        
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,5 +1,7 @@
 package com.wetongji_android.ui.now.week;
 
+import java.util.Calendar;
+
 import com.wetongji_android.R;
 import com.wetongji_android.ui.main.OnWTListClickedListener;
 
@@ -19,9 +21,9 @@ import android.view.ViewGroup;
  * 
  */
 public class NowWeekFragment extends Fragment {
-	private static final String ARG_WEEK_START_TIME = "weekStartTime";
+	private static final String ARG_BEGIN = "begin";
 
-	private String weekStartTime;
+	private Calendar begin;
 
 	private OnWTListClickedListener listClickedListener;
 	private OnNowWeekListScrolledListener weekListScrollListener;
@@ -34,10 +36,10 @@ public class NowWeekFragment extends Fragment {
 	 *            The start time of the week
 	 * @return A new instance of fragment NowWeekFragment.
 	 */
-	public static NowWeekFragment newInstance(String weekStartTime) {
+	public static NowWeekFragment newInstance(Calendar begin) {
 		NowWeekFragment fragment = new NowWeekFragment();
 		Bundle args = new Bundle();
-		args.putString(ARG_WEEK_START_TIME, weekStartTime);
+		args.putSerializable(ARG_BEGIN, begin);
 		fragment.setArguments(args);
 		return fragment;
 	}
@@ -50,7 +52,7 @@ public class NowWeekFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		if (getArguments() != null) {
-			weekStartTime = getArguments().getString(ARG_WEEK_START_TIME);
+			begin = (Calendar) getArguments().getSerializable(ARG_BEGIN);
 		}
 	}
 

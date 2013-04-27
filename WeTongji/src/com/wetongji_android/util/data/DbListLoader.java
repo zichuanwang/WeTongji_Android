@@ -7,7 +7,6 @@ import java.util.List;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
 
 public class DbListLoader<T, ID> extends AsyncTaskLoader<List<T>> {
@@ -18,20 +17,24 @@ public class DbListLoader<T, ID> extends AsyncTaskLoader<List<T>> {
     protected Class<T> clazz=null;
     protected Context context;
 
-    public DbListLoader(Context context, Class<T> clazz, Bundle args)
+    public DbListLoader(Context context, Class<T> clazz)
     {
         super(context);
         this.clazz=clazz;
         this.context=context;
+        dbHelper=OpenHelperManager.getHelper(context, DbHelper.class);
+		try {
+			mDao=dbHelper.getDao(clazz);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     }
 
     @Override
     public List<T> loadInBackground()
     {
-    	dbHelper=OpenHelperManager.getHelper(context, DbHelper.class);
         List<T> result=new ArrayList<T>();
     	try {
-			mDao=dbHelper.getDao(clazz);
 			result = mDao.queryForAll();
 		} catch (SQLException e) {
 			e.printStackTrace();

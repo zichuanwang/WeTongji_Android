@@ -34,7 +34,7 @@ public class EventFactory extends BaseFactory<Event, Integer>{
 		list.addAll(courses);
 		list.addAll(exams);
 		
-		fragment.getLoaderManager().initLoader(WTApplication.DB_SAVER, null, this);
+		fragment.getLoaderManager().initLoader(WTApplication.DB_LIST_SAVER, null, this);
 		
 		return list;
 	}

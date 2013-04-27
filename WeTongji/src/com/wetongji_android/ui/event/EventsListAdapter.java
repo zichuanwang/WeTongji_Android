@@ -1,16 +1,13 @@
 package com.wetongji_android.ui.event;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import com.androidquery.AQuery;
 import com.foound.widget.AmazingAdapter;
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Event;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.data.DbHelper;
 import com.wetongji_android.util.data.activity.ActivitiesLoader;
 import com.wetongji_android.util.net.ApiHelper;
 
@@ -33,7 +30,6 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 	private List<Activity> mLstEvent;
 	private Fragment mFragment;
 	private ApiHelper apiHelper;
-	private DbHelper dbHelper;
 	
 	public EventsListAdapter(Fragment fragment) {
 		mInflater = LayoutInflater.from(fragment.getActivity());
@@ -42,8 +38,7 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		mFragment = fragment;
 		mLstEvent=new ArrayList<Activity>();
 		apiHelper=ApiHelper.getInstance(mContext);
-		dbHelper=OpenHelperManager.getHelper(mContext, DbHelper.class);
-		mFragment.getLoaderManager().initLoader(WTApplication.ACTIVITY_LOADER, null, this);
+		mFragment.getLoaderManager().initLoader(WTApplication.ACTIVITIES_LOADER, null, this);
 	}
 
 	public void setContentList(List<Activity> mLstEvent) {
@@ -155,12 +150,7 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 	
 	@Override
 	public Loader<List<Activity>> onCreateLoader(int arg0, Bundle args) {
-		try {
-			return new ActivitiesLoader(mContext, dbHelper.getActDao(), null);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return new ActivitiesLoader(mContext, null);
 	}
 
 	@Override

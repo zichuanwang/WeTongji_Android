@@ -1,9 +1,11 @@
 package com.wetongji_android.util.net;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import com.wetongji_android.util.auth.RSAEncrypter;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.date.DateParser;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -62,7 +64,8 @@ public class ApiHelper {
 	private static final String API_ARGS_CHANNEL_IDS="Channel_Ids";
 	private static final String API_ARGS_SORT="Sort";
 	private static final String API_ARGS_EXPIRE="Expire";
-
+	private static final String API_ARGS_BEGIN="Begin";
+	private static final String API_ARGS_END="End";
 	
 	private Bundle bundle=new Bundle();
 	
@@ -242,6 +245,16 @@ public class ApiHelper {
 		putBasicArgs();
 		putLoginArgs();
 		bundle.putString(API_ARGS_METHOD, "Timetable.Get");
+		return bundle;
+	}
+	
+	public Bundle getSchedule(Calendar begin, Calendar end){
+		bundle.clear();
+		putBasicArgs();
+		putLoginArgs();
+		bundle.putString(API_ARGS_METHOD, "Schedule.Get");
+		bundle.putString(API_ARGS_BEGIN, DateParser.buildDateAndTime(begin));
+		bundle.putString(API_ARGS_END, DateParser.buildDateAndTime(end));
 		return bundle;
 	}
 	
