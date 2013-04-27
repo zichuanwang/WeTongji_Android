@@ -6,6 +6,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import com.wetongji_android.R;
+
+import android.content.Context;
+import android.text.format.DateUtils;
+
 /**
  * 解析服务器返回日期和时间的工具类
  * @author John
@@ -67,6 +72,60 @@ public class DateParser {
 		Calendar cal=Calendar.getInstance();
 		cal.set(Calendar.DAY_OF_WEEK, 7);
 		return cal;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static String getEventTime(Context context, String begin, String end) {
+		Calendar calBegin = parseDateAndTime(begin);
+		Calendar calEnd = parseDateAndTime(end);
+		Calendar calNow = Calendar.getInstance();
+		
+		//Now
+		if(calNow.after(calBegin) && calNow.before(calEnd)) {
+			return context.getResources().getString(R.string.text_now_indicator);
+		}
+		
+		//Today
+		if(calNow.get(Calendar.DAY_OF_YEAR) - calBegin.get(Calendar.DAY_OF_YEAR) == 0) {
+			String timeBegin = DateUtils.formatDateTime(context, calBegin.getTimeInMillis(),
+					DateUtils.FORMAT_24HOUR|DateUtils.FORMAT_SHOW_TIME);
+			String timeEnd = DateUtils.formatDateTime(context, calEnd.getTimeInMillis(),
+					DateUtils.FORMAT_24HOUR|DateUtils.FORMAT_SHOW_TIME);
+			
+			StringBuilder sb = new StringBuilder(timeBegin);
+			sb.append(" - ").append(timeEnd);
+			return sb.toString();
+		}
+		
+		//Tomorrow
+		if(calBegin.get(Calendar.DAY_OF_YEAR) - calNow.get(Calendar.DAY_OF_YEAR) == 1) {
+			StringBuilder sb = 
+					new StringBuilder(context.getResources().getString(R.string.text_tomorrow));
+			
+			String timeBegin = DateUtils.formatDateTime(context, calBegin.getTimeInMillis(),
+					DateUtils.FORMAT_24HOUR|DateUtils.FORMAT_SHOW_TIME);
+			
+			sb.append(" ").append(timeBegin);
+			return  sb.toString();
+		}
+		
+		// Other conditions
+		String timeBegin = DateUtils.formatDateTime(context, calBegin.getTimeInMillis(),
+				DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_SHOW_TIME|DateUtils.FORMAT_24HOUR);
+		String timeEnd = DateUtils.formatDateTime(context, calEnd.getTimeInMillis(),
+				DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_SHOW_TIME|DateUtils.FORMAT_24HOUR);
+		
+		StringBuilder sb = new StringBuilder(timeBegin);
+		sb.append(" - ").append(timeEnd);
+		return sb.toString();
+	}
+	
+	public static boolean isNow(String begin, String end) {
+		Calendar calBegin = parseDateAndTime(begin);
+		Calendar calEnd = parseDateAndTime(end);
+		Calendar calNow = Calendar.getInstance();
+		
+		return (calNow.after(calBegin) && calNow.before(calEnd));
 	}
 	
 }

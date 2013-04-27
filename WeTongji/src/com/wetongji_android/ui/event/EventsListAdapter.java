@@ -8,6 +8,7 @@ import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.activity.ActivitiesLoader;
+import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.net.ApiHelper;
 
 import android.content.Context;
@@ -112,10 +113,16 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		Activity event=getItem(position);
 		
 		holder.tv_event_title.setText(event.getTitle());
-		//holder.tv_event_time.setText(
-		//		DateParser.parseBeginAndEndTime(event.getBegin(), event.getEnd()));
+		holder.tv_event_time.setText(
+				DateParser.getEventTime(mContext, event.getBegin(), event.getEnd()));
 		
-		holder.tv_event_time.setText("10:00-12:00");
+		if(DateParser.isNow(event.getBegin(), event.getEnd())) {
+			int timeColor = mContext.getResources().getColor(R.color.tv_eventlst_time_now);
+			holder.tv_event_time.setTextColor(timeColor);
+		}else {
+			int timeColor = mContext.getResources().getColor(R.color.tv_eventlst_time);
+			holder.tv_event_time.setTextColor(timeColor);
+		}
 		
 		holder.tv_event_location.setText(event.getLocation());
 		

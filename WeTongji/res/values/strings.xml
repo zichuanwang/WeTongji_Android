@@ -46,4 +46,5 @@
 	<string name="img_content_description">ImageView</string>
 	<string name="text_now_indicator">Now</string>
 	<string name="text_friends_counter">%1$d Friends</string>
+	<string name="text_tomorrow">Tomorrow</string>
 </resources>
