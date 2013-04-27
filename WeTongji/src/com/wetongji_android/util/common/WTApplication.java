@@ -5,6 +5,9 @@ package com.wetongji_android.util.common;
 
 import com.androidquery.AQuery;
 import com.androidquery.util.AQUtility;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.wetongji_android.util.data.DbHelper;
+
 import java.io.File;
 
 import android.app.Application;
@@ -37,8 +40,7 @@ public class WTApplication extends Application
 	//singleton
 	private static WTApplication application = null;
 	
-	public boolean bStarted = false;
-	
+	private DbHelper dbHelper;
 	public static AQuery aq;
 	
 	public static WTApplication getInstance()
@@ -52,11 +54,24 @@ public class WTApplication extends Application
 		super.onCreate();
 		application = this;
 		
-		
 		// Instantiate AQuery and configure cache directory
 		aq = new AQuery(this);
 		File ext = Environment.getExternalStorageDirectory();
         File cacheDir = new File(ext, "WeTongji/cache");
         AQUtility.setCacheDir(cacheDir);
 	}
+
+	public DbHelper getDbHelper() {
+		if(dbHelper==null){
+			dbHelper=OpenHelperManager.getHelper(this, DbHelper.class);
+		}
+		return dbHelper;
+	}
+
+	@Override
+	public void onTerminate() {
+		super.onTerminate();
+		OpenHelperManager.releaseHelper();
+	}
+	
 }

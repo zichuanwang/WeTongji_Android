@@ -26,6 +26,7 @@
     <string name="xlistview_footer_hint_normal">Press to load more</string>
     <string name="text_only_one_account">Only one WeTongji account can be supported.</string>
     <string name="text_error_service_down">Service down</string>
+    <string name="text_error_check_network">Network error</string>
     <string name="text_error_request_login_again">Please login again</string>
     <string name="text_error_request_login">Please login</string>
     <string name="text_error_already_registried">Already registried</string>

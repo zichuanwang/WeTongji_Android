@@ -4,8 +4,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
+import com.wetongji_android.util.common.WTApplication;
+
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
@@ -13,23 +14,23 @@ public class DbListSaver<T, ID> extends AsyncTaskLoader<Void> implements Callabl
 
 	private Dao<T, ID> mDao = null;
     private List<T> mData = null;
-    private Context context;
     private DbHelper dbHelper;
-    private Class<T> clazz;
 
     public DbListSaver(Context context, Class<T> clazz, List<T> data)
     {
         super(context);
-        this.context=context;
-        this.clazz=clazz;
         this.mData=data;
+        dbHelper=WTApplication.getInstance().getDbHelper();
+        try {
+			mDao=dbHelper.getDao(clazz);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     }
 
 	@Override
 	public Void loadInBackground() {
-		dbHelper=OpenHelperManager.getHelper(context, DbHelper.class);
 		try {
-			mDao=dbHelper.getDao(clazz);
 			mDao.callBatchTasks(this);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -87,9 +88,9 @@ public class DbListSaver<T, ID> extends AsyncTaskLoader<Void> implements Callabl
     protected void onReleaseResources(Void data)
     {
         // For a simple List<> there is nothing to do. For something
-        // like a Cursor, we would close it here.
-    	OpenHelperManager.releaseHelper();
+        // like a Cursor, we would close it here.;
     }
+    
 	@Override
 	public Void call() throws Exception {
 		for(T t:mData){

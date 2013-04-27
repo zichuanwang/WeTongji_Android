@@ -76,7 +76,7 @@ implements LoaderCallbacks<HttpRequestResult>{
 
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0, HttpRequestResult result) {
-		if(result!=null&&result.getResponseCode()==0){
+		if(result.getResponseCode()==0){
 			Log.v("The result is : ", result.getStrResponseCon());
 			VersionFactory factory=new VersionFactory();
 			try {

@@ -36,7 +36,7 @@ public class NetworkLoader extends AsyncTaskLoader<HttpRequestResult>
 			return mClient.execute(mMethod, mArgs);
 		} catch (WTException e) {
 			e.printStackTrace();
-			return null;
+			return new HttpRequestResult(200, "");
 		}
 	}
 

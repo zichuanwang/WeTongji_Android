@@ -14,7 +14,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 
 /**
  * @author nankonami
@@ -56,7 +55,6 @@ public class HttpUtil
 					.append(URLEncoder.encode(params.getString(strKey), "UTF-8"));
 			} catch (UnsupportedEncodingException e) 
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

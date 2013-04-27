@@ -33,7 +33,7 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 	private Fragment mFragment;
 	private ApiHelper apiHelper;
 	
-	public EventsListAdapter(Fragment fragment) {
+	public EventsListAdapter(Fragment fragment) { 
 		mInflater = LayoutInflater.from(fragment.getActivity());
 		mContext = fragment.getActivity();
 		mListAq = WTApplication.aq;
@@ -46,16 +46,13 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 	public void setContentList(List<Activity> lstEvent) {
 		mLstEvent.clear();
 		mLstEvent.addAll(lstEvent);
+		notifyDataSetChanged();
 	}
 	
-	/**
-	 * reload data from database
-	 */
-	public void reloadData() {
-		mFragment.getLoaderManager().initLoader(WTApplication.ACTIVITIES_LOADER, null, this);
+	public void addData(List<Activity> nextPageData){
+		mLstEvent.addAll(nextPageData);
 	}
 	
-
 	static class ViewHolder {
 		TextView tv_event_title;
 		TextView tv_event_time;
@@ -90,7 +87,6 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 	@Override
 	protected void bindSectionHeader(View view, int position,
 			boolean displaySectionHeader) {
-		
 	}
 
 	@Override
@@ -125,24 +121,23 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		holder.tv_event_location.setText(event.getLocation());
 		
 		// Set thumbnails
-		String strUrl = event.getImage();
-		AQuery aq = mListAq.recycle(convertView);
+		//String strUrl = event.getImage();
+		//AQuery aq = mListAq.recycle(convertView);
 		
-        int imageId = holder.img_event_thumbnails.getId();
-        Bitmap bmThumbnails = BitmapFactory.decodeResource(mContext.getResources(),
-                R.drawable.default_avatar);
-        if(aq.shouldDelay(position, convertView, parent, strUrl))
-        	aq.image(bmThumbnails);
-        else
-        	aq.id(imageId).image(strUrl, false, true, 0, R.drawable.default_avatar, bmThumbnails,
-        			AQuery.FADE_IN_NETWORK, 1.0f);
+        //int imageId = holder.img_event_thumbnails.getId();
+        //Bitmap bmThumbnails = BitmapFactory.decodeResource(mContext.getResources(),
+        //        R.drawable.default_avatar);
+        //if(aq.shouldDelay(position, convertView, parent, strUrl))
+        //	aq.image(bmThumbnails);
+        //else
+        //	aq.id(imageId).image(strUrl, false, true, 0, R.drawable.default_avatar, bmThumbnails,
+        //			AQuery.FADE_IN_NETWORK, 1.0f);
 		
 		return convertView;
 	}
 
 	@Override
 	public void configurePinnedHeader(View header, int position, int alpha) {
-		
 	}
 
 	@Override
@@ -167,14 +162,7 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 
 	@Override
 	public void onLoadFinished(Loader<List<Activity>> arg0, List<Activity> activities) {
-		((EventsFragment)mFragment).mListActivity.setVisibility(View.GONE);
 		setContentList(activities);
-		nextPage();
-		notifyDataSetChanged();
-		((EventsFragment)mFragment).mListActivity.setVisibility(View.VISIBLE);
-
-		notifyMayHaveMorePages();
-
 	}
 
 	@Override

@@ -4,24 +4,27 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
+import com.wetongji_android.util.common.WTApplication;
+
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 
 public class DbListLoader<T, ID> extends AsyncTaskLoader<List<T>> {
 
 	protected Dao<T, ID> mDao = null;
-	protected DbHelper dbHelper=null;
+	private DbHelper dbHelper=null;
     private List<T> mData = null;
-    protected Class<T> clazz=null;
-    protected Context context;
 
     public DbListLoader(Context context, Class<T> clazz)
     {
         super(context);
-        this.clazz=clazz;
-        this.context=context;
+        dbHelper=WTApplication.getInstance().getDbHelper();
+        try {
+			mDao=dbHelper.getDao(clazz);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     }
 
     @Override
@@ -29,8 +32,6 @@ public class DbListLoader<T, ID> extends AsyncTaskLoader<List<T>> {
     {
         List<T> result=new ArrayList<T>();
     	try {
-            dbHelper=OpenHelperManager.getHelper(context, DbHelper.class);
-            mDao=dbHelper.getDao(clazz);
 			result = mDao.queryForAll();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -127,7 +128,6 @@ public class DbListLoader<T, ID> extends AsyncTaskLoader<List<T>> {
     {
         // For a simple List<> there is nothing to do. For something
         // like a Cursor, we would close it here.
-    	OpenHelperManager.releaseHelper();
     }
     
 }
