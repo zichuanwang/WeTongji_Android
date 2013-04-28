@@ -4,20 +4,69 @@
     android:layout_height="match_parent" >
     
     
-    <LinearLayout 
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         >
         
         <!-- actionbar container -->
 	    <LinearLayout 
 	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
+	        android:layout_height="48dp"
+	        android:background="@drawable/ab_solid_wttheme"
 	        style="?attr/actionBarStyle"
 	        >
 	    </LinearLayout>
+	    
+		<FrameLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content">
+		    
+		    <!-- main content -->
+		    <LinearLayout 
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+			>
+		    </LinearLayout>
+		    
+		    <!-- actionbar shadow -->
+		    <LinearLayout 
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:background="@drawable/action_bar_shadow"
+		        >
+		    </LinearLayout>
+		    
+		</FrameLayout>	    
         
         
     </LinearLayout>
 
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <LinearLayout 
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_alignParentRight="true"
+        	android:layout_marginRight="16dp"
+        	android:orientation="vertical"
+        	android:background="@drawable/bg_event_like"
+        	>
+          <CheckBox 
+              android:id="@id/cb_event_like"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="4dp"
+              android:layout_marginLeft="4dp"
+              style="@style/EventLikeCheckbox"/>
+          
+          <TextView 
+              android:id="@id/tv_event_like_number"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </RelativeLayout>
 </FrameLayout>

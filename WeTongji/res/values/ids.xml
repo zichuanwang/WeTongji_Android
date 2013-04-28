@@ -28,5 +28,7 @@
     <item name="img_today_arrow" type="id">false</item>
     <item name="relativelayout_today" type="id">false</item>
     <item name="gridview_today" type="id">false</item>
+    <item type="id" name="cb_event_like">false</item>
+    <item type="id" name="tv_event_like_number">false</item>
     
 </resources>
