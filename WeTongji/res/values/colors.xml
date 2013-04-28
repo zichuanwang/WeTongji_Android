@@ -22,6 +22,7 @@
     <color name="tv_today_now">#373737</color>
     <color name="tv_today_classroom">#0CC2CB</color>
     <color name="tv_today_course">#454545</color>
+    <color name="img_today_arrow">#D6D6D6</color>
     <color name="bg_now_tab">#333333</color>
     <color name="tv_text_week">#6a6a6a</color>
     <color name="tv_text_week_number">#0cc2cb</color>
