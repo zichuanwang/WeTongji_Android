@@ -14,7 +14,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="10dp"
-        android:src="@drawable/img_intro_1"
+        android:padding="2dp"
         style="@style/EventLstThumbnails"
         />
    

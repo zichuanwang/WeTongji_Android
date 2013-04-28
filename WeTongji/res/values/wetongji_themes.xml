@@ -3,7 +3,7 @@
 <!-- Generated with http://android-holo-colors.com -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <style name="WTTheme" parent="android:Theme.Light">
+  <style name="WTTheme" parent="Theme.Sherlock.Light">
 
     <item name="android:editTextStyle">@style/EditTextWTTheme</item>
 
@@ -18,8 +18,6 @@
     <item name="android:imageButtonStyle">@style/ImageButtonWTTheme</item>
 
     <item name="android:spinnerStyle">@style/SpinnerWTTheme</item>
-
-    <item name="android:dropDownSpinnerStyle">@style/SpinnerWTTheme.DropDown</item>
 
     <item name="android:spinnerDropDownItemStyle">@style/SpinnerDropDownItemWTTheme</item>
 

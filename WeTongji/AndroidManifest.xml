@@ -59,6 +59,11 @@
             </intent-filter>
         </activity>
         
+        <activity
+            android:name="com.wetongji_android.ui.event.EventDetailActivity"
+            android:label="@string/title_mainmenu_events">
+        </activity>
+        
     </application>
 
 </manifest>

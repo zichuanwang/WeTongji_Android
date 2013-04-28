@@ -13,6 +13,7 @@ import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -21,6 +22,8 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
 public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>{
@@ -42,6 +45,7 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 		mListActivity.noMorePages();
 		mAdapter = new EventsListAdapter(this);
 		mListActivity.setAdapter(mAdapter);
+		mListActivity.setOnItemClickListener(onItemClickListener);
 		//mListActivity.setLoadingView(inflater.inflate(R.layout.amazing_lst_view_loading_view, null));
 		TextView text = new TextView(getActivity());
 		text.setText("ÔØÈë");
@@ -94,5 +98,15 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 	@Override
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 	}
+	
+	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			startActivity(new Intent(getActivity(), EventDetailActivity.class));
+		}
+		
+	};
 	
 }
