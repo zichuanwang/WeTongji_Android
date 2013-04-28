@@ -44,4 +44,8 @@
         
     </style>
 
+    <style name="TodayNow">
+        <item name="android:background">@drawable/today_now_cover</item>
+    </style>
+    
 </resources>

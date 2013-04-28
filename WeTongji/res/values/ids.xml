@@ -23,6 +23,8 @@
     <item name="tv_today_friends" type="id">false</item>
     <item name="tv_now_course" type="id">false</item>
     <item name="tv_now_classroom" type="id">false</item>
+    <item name="view_today_divideline" type="id">false</item>
+    <item name="linearlayout_today" type="id">false</item>
     <item name="img_today_arrow" type="id">false</item>
     <item name="relativelayout_today" type="id">false</item>
     <item name="gridview_today" type="id">false</item>
