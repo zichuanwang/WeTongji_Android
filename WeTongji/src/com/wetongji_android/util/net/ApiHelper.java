@@ -68,6 +68,15 @@ public class ApiHelper {
 	private static final String API_ARGS_BEGIN="Begin";
 	private static final String API_ARGS_END="End";
 	
+	public static final int API_ARGS_SORT_BY_ID_DESC = 1; 
+	public static final int API_ARGS_SORT_BY_LIKE_DESC = 2; 
+	public static final int API_ARGS_SORT_BY_ID = 3; 
+	
+	public static final int API_ARGS_CHANNEL_ACADEMIC_MASK = 1;
+	public static final int API_ARGS_CHANNEL_COMPETITION_MASK = 2;
+	public static final int API_ARGS_CHANNEL_EMPLOYMENT_MASK = 4;
+	public static final int API_ARGS_CHANNEL_ENTERTAINMENT_MASK = 8;
+	
 	private Bundle bundle=new Bundle();
 	
 	private void putBasicArgs(){
@@ -223,7 +232,7 @@ public class ApiHelper {
 		return bundle;
 	}
 	
-	public Bundle getActivities(int page, String ids, String sort, boolean expire) {
+	public Bundle getActivities(int page, int channelIdsMask, int sortType, boolean expire) {
 		bundle.clear();
 		putBasicArgs();
 		putLoginArgs();
@@ -233,12 +242,41 @@ public class ApiHelper {
 		}
 		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
 		bundle.putString(API_ARGS_METHOD, "Activities.Get");
-		if(!ids.equals("")) {
-			bundle.putString(API_ARGS_CHANNEL_IDS, ids);
+		
+		StringBuilder sbChannelId = new StringBuilder();
+		if((channelIdsMask & API_ARGS_CHANNEL_ACADEMIC_MASK) != 0) {
+			sbChannelId.append("1 ");
+		}
+		if((channelIdsMask & API_ARGS_CHANNEL_COMPETITION_MASK) != 0) {
+			sbChannelId.append("2 ");
+		}
+		if((channelIdsMask & API_ARGS_CHANNEL_EMPLOYMENT_MASK) != 0) {
+			sbChannelId.append("3 ");
+		}
+		if((channelIdsMask & API_ARGS_CHANNEL_ENTERTAINMENT_MASK) != 0) {
+			sbChannelId.append("4 ");
+		}
+		if(channelIdsMask != 0) {
+			bundle.putString(API_ARGS_CHANNEL_IDS,
+					sbChannelId.toString().trim().replace(" ", ","));
+		}
+		
+		String sort = "";
+		switch(sortType) {
+		case API_ARGS_SORT_BY_ID:
+			sort = "`id`";
+			break;
+		case API_ARGS_SORT_BY_LIKE_DESC:
+			sort = "`like` DESC";
+			break;
+		case API_ARGS_SORT_BY_ID_DESC:
+			sort = "`id` DESC";
+			break;
 		}
 		if(!sort.equals("")) {
 			bundle.putString(API_ARGS_SORT, sort);
 		}
+		
 		bundle.putString(API_ARGS_EXPIRE, String.valueOf(expire));
 		return bundle;
 	}

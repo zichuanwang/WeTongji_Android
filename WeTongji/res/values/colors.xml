@@ -26,5 +26,6 @@
     <color name="tv_text_now_time">#b1b1b1</color>
     <color name="tv_text_now_title">#454545</color>
     <color name="tv_text_now_location">#0cc2cb</color>
+    <color name="tv_eventlst_time_now">#e75150</color>
     
 </resources>

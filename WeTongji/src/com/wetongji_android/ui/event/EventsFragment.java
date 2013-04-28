@@ -35,7 +35,7 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 		view=inflater.inflate(R.layout.fragment_events, null);
 
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle args = apiHelper.getActivities(1, "", "", false);
+		Bundle args = apiHelper.getActivities(1, 15, ApiHelper.API_ARGS_SORT_BY_LIKE_DESC, false);
 		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
 		
 		mListActivity = (AmazingListView) view.findViewById(R.id.lst_events);

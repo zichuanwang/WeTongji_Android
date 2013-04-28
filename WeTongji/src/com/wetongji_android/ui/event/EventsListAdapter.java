@@ -8,6 +8,7 @@ import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.activity.ActivitiesLoader;
+import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.net.ApiHelper;
 
 import android.content.Context;
@@ -21,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
 public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks<List<Activity>>{
@@ -78,7 +80,7 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 	protected void onNextPageRequested(int page) {
 		Log.d("EventListAdapter", "onNextPagerRequest...");
 		
-		Bundle args = apiHelper.getActivities(page, "", "", false);
+		Bundle args = apiHelper.getActivities(page, 15, ApiHelper.API_ARGS_SORT_BY_ID_DESC, false);
 		mFragment.getLoaderManager()
 			.initLoader(WTApplication.NETWORK_LOADER, args, (EventsFragment)mFragment);
 	}
@@ -112,25 +114,37 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		Activity event=getItem(position);
 		
 		holder.tvEventTitle.setText(event.getTitle());
-		//holder.tv_event_time.setText(
-		//		DateParser.parseBeginAndEndTime(event.getBegin(), event.getEnd()));
+		holder.tvEventTime.setText(
+				DateParser.getEventTime(mContext, event.getBegin(), event.getEnd()));
 		
-		holder.tvEventTime.setText("10:00-12:00");
+		if(DateParser.isNow(event.getBegin(), event.getEnd())) {
+			int timeColor = mContext.getResources().getColor(R.color.tv_eventlst_time_now);
+			holder.tvEventTime.setTextColor(timeColor);
+		}else {
+			int timeColor = mContext.getResources().getColor(R.color.tv_eventlst_time);
+			holder.tvEventTime.setTextColor(timeColor);
+		}
 		
 		holder.tvEventLocation.setText(event.getLocation());
 		
 		// Set thumbnails
 		String strUrl = event.getImage();
+		//String strUrl = event.getOrganizerAvatar();
+
 		AQuery aq = mListAq.recycle(convertView);
 		
-        int imageId = holder.ivEventThumb.getId();
-        Bitmap bmThumbnails=aq.getCachedImage(R.drawable.default_avatar);
-        if(aq.shouldDelay(position, convertView, parent, strUrl))
-        	aq.image(bmThumbnails);
-        else
-        	aq.id(imageId).image(strUrl, false, true, 50, R.drawable.default_avatar, bmThumbnails,
-        			AQuery.FADE_IN_NETWORK, AQuery.RATIO_PRESERVE);
-		
+        Bitmap bmThumbnails=aq.getCachedImage(R.drawable.ic_launcher);
+        
+        if(aq.shouldDelay(position, convertView, parent, strUrl)) {
+        	aq.id(holder.ivEventThumb).image(bmThumbnails);
+        }
+        else {
+        aq.id(holder.ivEventThumb).image(strUrl, false, true, 0, R.drawable.default_avatar, bmThumbnails,
+        		AQuery.FADE_IN_NETWORK, 1.33f);
+        }
+        
+        holder.ivEventThumb.setScaleType(ScaleType.CENTER_CROP);
+        
 		return convertView;
 	}
 
