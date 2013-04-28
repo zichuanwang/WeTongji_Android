@@ -36,6 +36,5 @@
     <item type="id" name="cb_event_like">false</item>
     <item type="id" name="tv_event_like_number">false</item>
     <item name="view_today_grid_divideline" type="id">false</item>
->>>>>>> c10aafce8c73f526998c85db6c3cf0f71e9fbcee
     
 </resources>
