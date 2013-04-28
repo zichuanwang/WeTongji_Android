@@ -3,7 +3,7 @@ package com.wetongji_android.data;
 import com.j256.ormlite.field.DatabaseField;
 
 public class Exam extends Event {
-	@DatabaseField(id=true)
+	@DatabaseField
 	private String NO;
 	@DatabaseField
 	private int Hours;

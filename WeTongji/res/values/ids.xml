@@ -18,11 +18,16 @@
     <item name="vp_indicator_today" type="id">false</item>
     <item name="framelayout_today" type="id">false</item>
     <item name="img_today_now" type="id">false</item>
+    <item name="tv_today" type="id">false</item>
     <item name="tv_today_now" type="id">false</item>
     <item name="tv_today_time" type="id">false</item>
     <item name="tv_today_friends" type="id">false</item>
     <item name="tv_now_course" type="id">false</item>
     <item name="tv_now_classroom" type="id">false</item>
+    <item name="tv_today_grid_title" type="id">false</item>
+    <item name="img_today_grid_pic" type="id">false</item>
+    <item name="tv_today_grid_divideline" type="id">false</item>
+    <item name="tv_today_grid_content" type="id">false</item>
     <item name="view_today_divideline" type="id">false</item>
     <item name="linearlayout_today" type="id">false</item>
     <item name="img_today_arrow" type="id">false</item>
@@ -30,5 +35,7 @@
     <item name="gridview_today" type="id">false</item>
     <item type="id" name="cb_event_like">false</item>
     <item type="id" name="tv_event_like_number">false</item>
+    <item name="view_today_grid_divideline" type="id">false</item>
+>>>>>>> c10aafce8c73f526998c85db6c3cf0f71e9fbcee
     
 </resources>

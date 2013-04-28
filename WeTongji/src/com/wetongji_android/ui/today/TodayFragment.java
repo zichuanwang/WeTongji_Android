@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.viewpagerindicator.UnderlinePageIndicator;
 import com.wetongji_android.R;
+import com.wetongji_android.util.adapter.GridViewAdapter;
 import com.wetongji_android.util.adapter.ViewPagerAdapter;
 
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 public class TodayFragment extends Fragment 
@@ -63,6 +65,9 @@ public class TodayFragment extends Fragment
 		UnderlinePageIndicator indicator = (UnderlinePageIndicator)getActivity().findViewById(R.id.vp_indicator_today);
 		indicator.setViewPager(vp);
 		indicator.setFades(false);
+		
+		GridView gv = (GridView)getActivity().findViewById(R.id.gridview_today);
+		gv.setAdapter(new GridViewAdapter(getActivity()));
 	}
 
 	@Override

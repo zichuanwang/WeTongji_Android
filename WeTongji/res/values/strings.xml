@@ -49,6 +49,10 @@
     <string name="text_now_classroom">A206</string>
     <string name="text_today_friends">3 Friends</string>
     <string name="text_today">Today</string>
+    <string name="text_today_campus">Campus Updates</string>
+    <string name="text_today_news">Association News</string>
+    <string name="text_today_people">People</string>
+    <string name="text_today_place">Place</string>
 	<!-- imageview content description -->
 	<string name="img_content_description">ImageView</string>
 	<string name="text_now_indicator">Now</string>

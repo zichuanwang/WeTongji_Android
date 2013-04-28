@@ -78,11 +78,6 @@ public class NowWeekFragment extends Fragment implements LoaderCallbacks<HttpReq
 		// Inflate the layout for this fragment
 		view=inflater.inflate(R.layout.fragment_now_week, container, false);
 
-		Calendar end=Calendar.getInstance();
-		end.setTimeInMillis(begin.getTimeInMillis());
-		end.add(Calendar.DAY_OF_YEAR, 7);
-		Bundle args=ApiHelper.getInstance(getActivity()).getSchedule(begin, end);
-		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
 		
 		lvEvent=(AmazingListView) view.findViewById(R.id.lv_now_week);
 		lvEvent.setAdapter(adapter);
