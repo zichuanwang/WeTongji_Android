@@ -5,6 +5,7 @@ import com.wetongji_android.net.http.HttpMethod;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.Log;
 
 import com.wetongji_android.util.exception.WTException;
 import com.wetongji_android.util.net.HttpRequestResult;
@@ -33,10 +34,12 @@ public class NetworkLoader extends AsyncTaskLoader<HttpRequestResult>
 	public HttpRequestResult loadInBackground() 
 	{
 		try {
-			return mClient.execute(mMethod, mArgs);
+			HttpRequestResult result=mClient.execute(mMethod, mArgs);
+			Log.v("Network result", result.getStrResponseCon());
+			return result;
 		} catch (WTException e) {
 			e.printStackTrace();
-			return null;
+			return new HttpRequestResult(200, "");
 		}
 	}
 

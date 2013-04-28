@@ -5,7 +5,6 @@
     <item name="tv_main_menu" type="id">false</item>
     <item name="xlistview_footer_content" type="id">false</item>
     <item name="xlistview_footer_hint_textview" type="id">false</item>
-    <item name="lst_events" type="id">false</item>
     <item name="img_event_thumbnails" type="id">false</item>
     <item name="tv_event_title" type="id">false</item>
     <item name="tv_event_time" type="id">false</item>

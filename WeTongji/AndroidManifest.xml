@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wetongji_android"
     android:versionCode="1"
-    android:versionName="1.0.0" >
+    android:versionName="3.0.0" >
 
     <uses-sdk
         android:minSdkVersion="9"
@@ -24,6 +24,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:name="com.wetongji_android.util.common.WTApplication"
         android:theme="@style/WTTheme" >
         
         <activity

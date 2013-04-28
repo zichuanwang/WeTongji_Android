@@ -4,6 +4,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.flurry.android.FlurryAgent;
 import com.slidingmenu.lib.SlidingMenu;
 import com.wetongji_android.R;
+import com.wetongji_android.data.Event;
 import com.wetongji_android.ui.auth.AuthenticatorActivity;
 import com.wetongji_android.ui.today.TodayFragment;
 import com.wetongji_android.util.common.WTApplication;
@@ -11,11 +12,14 @@ import com.wetongji_android.util.version.UpdateBaseActivity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 public class MainActivity extends UpdateBaseActivity 
+implements AccountManagerCallback<Bundle>, OnWTListClickedListener
 {
 	private Fragment mContent;
 	public static final String PARAM_PREVIEW_WITHOUT_lOGIN="previewWithoutLogin";
@@ -113,10 +117,35 @@ public class MainActivity extends UpdateBaseActivity
 		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
 		if(accounts.length==0){
 			Intent intent=new Intent(this, AuthenticatorActivity.class);
-			intent.putExtra(AuthenticatorActivity.PARAM_INITIAL_LOGIN, true);
+			intent.putExtra(AuthenticatorActivity.PARAM_SHOW_INTRO, true);
 			startActivity(intent);
-			finish();
 		}
+	}
+	
+	/**
+	 * use old apis for capability
+	 */
+	@SuppressWarnings("deprecation")
+	void getSessionFromAccountManager(){
+		AccountManager am=AccountManager.get(this);
+		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
+		if(accounts.length!=0){
+			Account wtAccount=accounts[0];
+			//session=am.getUserData(wtAccount, AccountManager.KEY_AUTHTOKEN);
+			am.getAuthToken(wtAccount, WTApplication.AUTHTOKEN_TYPE, true, this, null);			
+		}
+	}
+	
+	@Override
+	public void onEventClicked(Event event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void run(AccountManagerFuture<Bundle> arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

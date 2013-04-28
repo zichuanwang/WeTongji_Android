@@ -1,7 +1,5 @@
 package com.wetongji_android.util.version;
 
-import org.json.JSONException;
-
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Version;
@@ -9,7 +7,7 @@ import com.wetongji_android.factory.VersionFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.net.ApiMethods;
+import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 import android.net.Uri;
@@ -23,19 +21,21 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
-import android.util.Log;
 
 public class UpdateBaseActivity extends SlidingFragmentActivity 
 implements LoaderCallbacks<HttpRequestResult>{
 	
+	private ApiHelper apiHelper;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		apiHelper=ApiHelper.getInstance(this);
 		checkUpdate();
 	}
 	
 	private void checkUpdate(){
-		Bundle args=ApiMethods.getSystemVersion();
+		Bundle args=apiHelper.getSystemVersion();
 		getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
 	}
 	
@@ -75,13 +75,11 @@ implements LoaderCallbacks<HttpRequestResult>{
 
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0, HttpRequestResult result) {
-		Log.v("The result is : ", result.getStrResponseCon());
 		if(result.getResponseCode()==0){
+			VersionFactory factory=new VersionFactory();
 			try {
-				Version version=VersionFactory.create(result.getStrResponseCon());
+				Version version=factory.createObject(result.getStrResponseCon());
 				showUpdateInfo(version);
-			} catch (JSONException e) {
-				e.printStackTrace();
 			} catch (NameNotFoundException e) {
 				e.printStackTrace();
 			}

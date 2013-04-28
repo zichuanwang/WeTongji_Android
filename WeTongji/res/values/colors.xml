@@ -22,5 +22,19 @@
     <color name="tv_today_now">#373737</color>
     <color name="tv_today_classroom">#0CC2CB</color>
     <color name="tv_today_course">#454545</color>
+    <color name="bg_now_tab">#333333</color>
+    <color name="tv_text_week">#6a6a6a</color>
+    <color name="tv_text_week_number">#0cc2cb</color>
+    <color name="btn_bg_now_tab_navi_default">#00ffffff</color>
+    <color name="tv_eventlst_title">#454545</color>
+    <color name="tv_eventlst_time">#b1b1b1</color>
+    <color name="tv_eventlst_location">#0cc2cb</color>
+    <color name="eventlst_divider">#b1b1b1</color>
+    <color name="tv_text_now_indicator">#ea5251</color>
+    <color name="tv_now_text_shadow">#4cffffff</color>
+    <color name="tv_text_now_time">#b1b1b1</color>
+    <color name="tv_text_now_title">#454545</color>
+    <color name="tv_text_now_location">#0cc2cb</color>
+    <color name="tv_eventlst_time_now">#e75150</color>
     
 </resources>

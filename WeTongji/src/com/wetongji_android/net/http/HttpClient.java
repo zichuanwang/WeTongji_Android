@@ -19,7 +19,7 @@ import org.json.JSONObject;
 
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.exception.WTException;
-import com.wetongji_android.util.net.ApiMethods;
+import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 import com.wetongji_android.util.net.HttpUtil;
 
@@ -82,7 +82,7 @@ public class HttpClient
 	//Implement http get request
 	public HttpRequestResult doGet(Bundle params) throws WTException
 	{
-		strCurrentMethod = params.getString(ApiMethods.API_ARGS_METHOD);
+		strCurrentMethod = params.getString(ApiHelper.API_ARGS_METHOD);
 		
 		try
 		{
@@ -109,7 +109,7 @@ public class HttpClient
 		}catch(IOException e)
 		{
 			e.printStackTrace();
-			throw new WTException("GET", params.getString(ApiMethods.API_ARGS_METHOD), HTTP_TIMEOUT, e);
+			throw new WTException("GET", params.getString(ApiHelper.API_ARGS_METHOD), HTTP_TIMEOUT, e);
 		}
 	}
 	
@@ -147,7 +147,7 @@ public class HttpClient
 		}catch(IOException e)
 		{
 			e.printStackTrace();
-			throw new WTException("POST", params.getString(ApiMethods.API_ARGS_METHOD), HTTP_TIMEOUT, e);
+			throw new WTException("POST", params.getString(ApiHelper.API_ARGS_METHOD), HTTP_TIMEOUT, e);
 		}
 	}
 	
