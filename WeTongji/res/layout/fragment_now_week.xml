@@ -3,5 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NowWeekFragment" >
+    
+    <com.foound.widget.AmazingListView
+        android:id="@+id/lv_now_week"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/eventlst_divider"
+        android:dividerHeight="1dp"/>
 
 </RelativeLayout>

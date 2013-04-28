@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -24,7 +25,6 @@ import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.DbListLoader;
 import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.data.event.EventUtil;
-import com.wetongji_android.util.net.ApiHelper;
 
 public class NowWeekListAdapter extends AmazingAdapter implements
 		LoaderCallbacks<List<Event>> {
@@ -34,8 +34,6 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 	private AQuery listAq;
 	private List<Pair<String, List<Event>>> events;
 	private Fragment fragment;
-	private ApiHelper apiHelper;
-	private Calendar begin;
 	
 	public NowWeekListAdapter(Fragment fragment, Calendar begin) {
 		this.fragment = fragment;
@@ -43,8 +41,6 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		inflater=LayoutInflater.from(context);
 		listAq=new AQuery(context);
 		events=new ArrayList<Pair<String,List<Event>>>();
-		apiHelper=ApiHelper.getInstance(context);
-		this.begin=begin;
 		this.fragment.getLoaderManager().initLoader(
 				WTApplication.EVENTS_LOADER, QueryHelper.getEventQueryArgs(begin), this);	
 	}
@@ -137,20 +133,16 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		
 		if(event instanceof Activity){
 			// Set thumbnails
-			/*String strUrl=event.getDescription();
+			String strUrl = ((Activity)event).getImage();
 			AQuery aq = listAq.recycle(convertView);
-			File ext=Environment.getExternalStorageDirectory();
-	        File cacheDir=new File(ext, "WeTongji/cache");
-	        AQUtility.setCacheDir(cacheDir);
+			
 	        int imageId = holder.ivNowThumb.getId();
-	        Bitmap resetAvatar = BitmapFactory.decodeResource(context.getResources(),
-	                R.drawable.default_avatar);
+	        Bitmap bmThumbnails=aq.getCachedImage(R.drawable.default_avatar);
 	        if(aq.shouldDelay(position, convertView, parent, strUrl))
-	        	aq.image(resetAvatar);
+	        	aq.image(bmThumbnails);
 	        else
-	        	aq.id(imageId).image(strUrl, true, true, 0, R.drawable.default_avatar, resetAvatar,
-	        			AQuery.FADE_IN_NETWORK, 1.0f);
-	        */
+	        	aq.id(imageId).image(strUrl, false, true, 50, R.drawable.default_avatar, bmThumbnails,
+	        			AQuery.FADE_IN_NETWORK, AQuery.RATIO_PRESERVE);
 		}
 		else{
 			holder.ivNowThumb.setVisibility(View.GONE);
@@ -181,6 +173,11 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 	public Object[] getSections() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public void setData(List<Event> events){
+		this.events.clear();
+		this.events=EventUtil.getSectionedEventList(events);
 	}
 
 	@Override

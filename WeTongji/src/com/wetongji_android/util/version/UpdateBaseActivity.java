@@ -21,7 +21,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
-import android.util.Log;
 
 public class UpdateBaseActivity extends SlidingFragmentActivity 
 implements LoaderCallbacks<HttpRequestResult>{
@@ -77,7 +76,6 @@ implements LoaderCallbacks<HttpRequestResult>{
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0, HttpRequestResult result) {
 		if(result.getResponseCode()==0){
-			Log.v("The result is : ", result.getStrResponseCon());
 			VersionFactory factory=new VersionFactory();
 			try {
 				Version version=factory.createObject(result.getStrResponseCon());

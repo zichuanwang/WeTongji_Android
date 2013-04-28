@@ -46,9 +46,12 @@ public class EventUtil {
 	}
 	
 	public static List<Pair<String, List<Event>>> getSectionedEventList(List<Event> list){
+		List<Pair<String, List<Event>>> result=new ArrayList<Pair<String,List<Event>>>();
+		if(list.isEmpty()){
+			return result;
+		}
 		int current=0;
 		int start=0;
-		List<Pair<String, List<Event>>> result=new ArrayList<Pair<String,List<Event>>>();
 		for(;current!=list.size();current++){
 			if(areEventsBeginInSameDay(list.get(start), list.get(current))){
 				continue;

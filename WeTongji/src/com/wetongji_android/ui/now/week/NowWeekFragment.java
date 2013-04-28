@@ -1,16 +1,26 @@
 package com.wetongji_android.ui.now.week;
 
 import java.util.Calendar;
+import java.util.List;
 
-import com.wetongji_android.R;
-import com.wetongji_android.ui.main.OnWTListClickedListener;
-
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.foound.widget.AmazingListView;
+import com.wetongji_android.R;
+import com.wetongji_android.data.Event;
+import com.wetongji_android.factory.EventFactory;
+import com.wetongji_android.net.NetworkLoader;
+import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.exception.ExceptionToast;
+import com.wetongji_android.util.net.ApiHelper;
+import com.wetongji_android.util.net.HttpRequestResult;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass. Activities that
@@ -20,13 +30,17 @@ import android.view.ViewGroup;
  * method to create an instance of this fragment.
  * 
  */
-public class NowWeekFragment extends Fragment {
+public class NowWeekFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>{
+	
 	private static final String ARG_BEGIN = "begin";
 
 	private Calendar begin;
-
-	private OnWTListClickedListener listClickedListener;
-	private OnNowWeekListScrolledListener weekListScrollListener;
+	private NowWeekListAdapter adapter;
+	private EventFactory factory;
+	private View view;
+	private AmazingListView lvEvent; 
+	//private OnWTListClickedListener listClickedListener;
+	//private OnNowWeekListScrolledListener weekListScrollListener;
 
 	/**
 	 * Use this factory method to create a new instance of this fragment using
@@ -54,15 +68,52 @@ public class NowWeekFragment extends Fragment {
 		if (getArguments() != null) {
 			begin = (Calendar) getArguments().getSerializable(ARG_BEGIN);
 		}
+		adapter=new NowWeekListAdapter(this, begin);
+		factory=new EventFactory(this);
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_now_week, container, false);
+		view=inflater.inflate(R.layout.fragment_now_week, container, false);
+
+		Calendar end=Calendar.getInstance();
+		end.setTimeInMillis(begin.getTimeInMillis());
+		end.add(Calendar.DAY_OF_YEAR, 7);
+		Bundle args=ApiHelper.getInstance(getActivity()).getSchedule(begin, end);
+		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
+		
+		lvEvent=(AmazingListView) view.findViewById(R.id.lv_now_week);
+		lvEvent.setAdapter(adapter);
+		adapter.notifyNoMorePages();
+		
+		return view;
 	}
 
+	
+	@Override
+	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle args) {
+		return new NetworkLoader(getActivity(), HttpMethod.Get, args);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<HttpRequestResult> arg0, HttpRequestResult result) {
+		if(result.getResponseCode()==0){
+			List<Event> events=factory.createObjects(result.getStrResponseCon());
+			adapter.setData(events);
+			adapter.notifyDataSetChanged();
+		}
+		else{
+			ExceptionToast.show(getActivity(), result.getResponseCode());
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
+	}
+
+	/*
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -86,5 +137,6 @@ public class NowWeekFragment extends Fragment {
 		listClickedListener = null;
 		weekListScrollListener=null;
 	}
+	*/
 
 }

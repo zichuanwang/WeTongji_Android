@@ -53,10 +53,10 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 	}
 	
 	static class ViewHolder {
-		TextView tv_event_title;
-		TextView tv_event_time;
-		TextView tv_event_location;
-		ImageView img_event_thumbnails;	
+		TextView tvEventTitle;
+		TextView tvEventTime;
+		TextView tvEventLocation;
+		ImageView ivEventThumb;	
 	}
 
 	@Override
@@ -95,13 +95,13 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		if(convertView==null){
 			holder=new ViewHolder();
 			convertView=mInflater.inflate(R.layout.row_event, parent, false);
-			holder.tv_event_title=
+			holder.tvEventTitle=
 					(TextView)convertView.findViewById(R.id.tv_event_title);
-			holder.tv_event_time=
+			holder.tvEventTime=
 					(TextView)convertView.findViewById(R.id.tv_event_time);
-			holder.tv_event_location = 
+			holder.tvEventLocation = 
 					(TextView)convertView.findViewById(R.id.tv_event_location);
-			holder.img_event_thumbnails=
+			holder.ivEventThumb=
 					(ImageView)convertView.findViewById(R.id.img_event_thumbnails);
 			convertView.setTag(holder);
 		}
@@ -111,22 +111,20 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		
 		Activity event=getItem(position);
 		
-		holder.tv_event_title.setText(event.getTitle());
+		holder.tvEventTitle.setText(event.getTitle());
 		//holder.tv_event_time.setText(
 		//		DateParser.parseBeginAndEndTime(event.getBegin(), event.getEnd()));
 		
-		holder.tv_event_time.setText("10:00-12:00");
+		holder.tvEventTime.setText("10:00-12:00");
 		
-		holder.tv_event_location.setText(event.getLocation());
+		holder.tvEventLocation.setText(event.getLocation());
 		
 		// Set thumbnails
 		String strUrl = event.getImage();
 		AQuery aq = mListAq.recycle(convertView);
 		
-        int imageId = holder.img_event_thumbnails.getId();
+        int imageId = holder.ivEventThumb.getId();
         Bitmap bmThumbnails=aq.getCachedImage(R.drawable.default_avatar);
-        //Bitmap bmThumbnails = BitmapFactory.decodeResource(mContext.getResources(),
-        //        R.drawable.default_avatar);
         if(aq.shouldDelay(position, convertView, parent, strUrl))
         	aq.image(bmThumbnails);
         else

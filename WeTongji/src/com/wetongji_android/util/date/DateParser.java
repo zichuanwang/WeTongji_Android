@@ -63,10 +63,4 @@ public class DateParser {
 		return cal;
 	}
 	
-	public static Calendar getLastDayOfWeek(){
-		Calendar cal=Calendar.getInstance();
-		cal.set(Calendar.DAY_OF_WEEK, 7);
-		return cal;
-	}
-	
 }
