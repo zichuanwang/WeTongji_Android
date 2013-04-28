@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/today_bg"
+    tools:context=".ui.today.TodayFragment" >
+
+    <FrameLayout
+        android:id="@id/framelayout_today"
+        android:layout_width="match_parent"
+        android:layout_height="120dp" >
+
+        <android.support.v4.view.ViewPager
+            android:id="@id/vp_today"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:contentDescription="@string/content_description_all"
+            android:src="@drawable/img_today_tint" />
+
+        <com.viewpagerindicator.UnderlinePageIndicator
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@id/vp_indicator_today"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_gravity="bottom"
+            android:background="@color/vp_indicator_today_bg"
+            app:selectedColor="@color/vp_indicator_today" />
+        
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@id/relativelayout_today"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_below="@id/framelayout_today"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:background="@color/today_now_bg">
+
+        <ImageView
+            android:id="@id/img_today_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:contentDescription="@string/content_description_all"
+            android:src="@drawable/img_today_now" />
+
+        <TextView
+            android:id="@id/tv_today_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/img_today_now"
+            android:layout_alignTop="@id/img_today_now"
+            android:layout_marginLeft="5dp"
+            android:text="@string/text_today_now" 
+            android:textColor="@color/tv_today_now" />
+
+        <TextView
+            android:id="@id/tv_today_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_today_now"
+            android:layout_below="@id/tv_today_now"
+            android:text="@string/text_today_time" 
+            android:textColor="@color/tv_today_time" />
+
+        <TextView
+            android:id="@id/tv_today_friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/img_today_arrow"
+            android:layout_alignTop="@id/img_today_now"
+            android:layout_marginRight="8dp"
+            android:text="@string/text_today_friends" 
+            android:textColor="@color/tv_today_friends" />
+
+        <TextView
+            android:id="@id/tv_now_course"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/img_today_now"
+            android:layout_below="@id/tv_today_time"
+            android:text="@string/text_now_course" 
+            android:textColor="@color/tv_today_course" />
+
+        <TextView
+            android:id="@id/tv_now_classroom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_now_course"
+            android:layout_alignLeft="@id/img_today_now"
+            android:text="@string/text_now_classroom" 
+            android:textColor="@color/tv_today_classroom" />
+        
+        <View 
+            android:layout_width="1.5dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/img_today_divideline"
+            android:orientation="horizontal" 
+            android:layout_toLeftOf="@id/img_today_arrow"/>
+        
+        <ImageView
+            android:id="@id/img_today_arrow" 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/img_today_arrow"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/content_description_all"/>
+        
+    </RelativeLayout>
+
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativelayout_today"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/text_today"
+        android:textColor="@color/tv_today_now"/>
+    
+    <GridView 
+        android:id="@id/gridview_today"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="15dp"
+        android:horizontalSpacing="15dp"
+        android:columnWidth="100dp"
+        >
+	</GridView>
+	
+</RelativeLayout>

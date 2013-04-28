@@ -42,6 +42,12 @@
     <string name="content_description_all">Image</string>
     <string name="text_wt_slogan">Campus In Your Pocket</string>
     <string name="text_guide">Guide</string>
+    <string name="text_today_now">Now</string>
+    <string name="text_today_time">10:0012:00</string>
+    <string name="text_now_course">ObjectOrientedPrograming</string>
+    <string name="text_now_classroom">A206</string>
+    <string name="text_today_friends">3 Friends</string>
+    <string name="text_today">Today</string>
 	<!-- imageview content description -->
 	<string name="img_content_description">ImageView</string>
 </resources>

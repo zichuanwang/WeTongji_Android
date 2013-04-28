@@ -1,5 +1,7 @@
 package com.wetongji_android.ui.notification;
 
+import com.wetongji_android.R;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,7 +30,10 @@ public class NotificationFragment extends Fragment
 			Bundle savedInstanceState) 
 	{
 		// TODO Auto-generated method stub
-		return super.onCreateView(inflater, container, savedInstanceState);
+		if(container == null)
+			return null;
+		
+		return inflater.inflate(R.layout.notification_frame, container, false);
 	}
 
 	@Override

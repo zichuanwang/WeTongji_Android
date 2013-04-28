@@ -29,7 +29,7 @@ public class MainActivity extends UpdateBaseActivity
 		if (savedInstanceState != null)
 			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 		if (mContent == null)
-			mContent = new TodayFragment(android.R.color.darker_gray);
+			mContent = new TodayFragment();
 		
 		if(!getIntent().getBooleanExtra(PARAM_PREVIEW_WITHOUT_lOGIN, false)){
 			checkAccount();
