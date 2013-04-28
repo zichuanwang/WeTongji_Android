@@ -93,8 +93,8 @@ public class DbListSaver<T, ID> extends AsyncTaskLoader<Void> implements Callabl
     
 	@Override
 	public Void call() throws Exception {
-		for(T t:mData){
-			mDao.createOrUpdate(t);
+		for(T data:mData){
+			mDao.createOrUpdate(data);
 		}
 		return null;
 	}

@@ -15,6 +15,7 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 /**
  * @author John
@@ -117,8 +118,10 @@ public class ApiHelper {
 	}
 	
 	private void putLoginArgs(){
-		bundle.putString(API_ARGS_SESSION, session);
-		bundle.putString(API_ARGS_UID, uid);
+		if(!TextUtils.isEmpty(session)){
+			bundle.putString(API_ARGS_SESSION, session);
+			bundle.putString(API_ARGS_UID, uid);
+		}
 	}
 	
 	public Bundle getUserActive(String no,String password,String name){

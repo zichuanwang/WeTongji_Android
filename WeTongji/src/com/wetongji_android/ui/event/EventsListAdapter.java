@@ -55,10 +55,10 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 	}
 	
 	static class ViewHolder {
-		TextView tv_event_title;
-		TextView tv_event_time;
-		TextView tv_event_location;
-		ImageView img_event_thumbnails;	
+		TextView tvEventTitle;
+		TextView tvEventTime;
+		TextView tvEventLocation;
+		ImageView ivEventThumb;	
 	}
 
 	@Override
@@ -97,13 +97,13 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		if(convertView==null){
 			holder=new ViewHolder();
 			convertView=mInflater.inflate(R.layout.row_event, parent, false);
-			holder.tv_event_title=
+			holder.tvEventTitle=
 					(TextView)convertView.findViewById(R.id.tv_event_title);
-			holder.tv_event_time=
+			holder.tvEventTime=
 					(TextView)convertView.findViewById(R.id.tv_event_time);
-			holder.tv_event_location = 
+			holder.tvEventLocation = 
 					(TextView)convertView.findViewById(R.id.tv_event_location);
-			holder.img_event_thumbnails=
+			holder.ivEventThumb=
 					(ImageView)convertView.findViewById(R.id.img_event_thumbnails);
 			convertView.setTag(holder);
 		}
@@ -113,19 +113,19 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		
 		Activity event=getItem(position);
 		
-		holder.tv_event_title.setText(event.getTitle());
-		holder.tv_event_time.setText(
+		holder.tvEventTitle.setText(event.getTitle());
+		holder.tvEventTime.setText(
 				DateParser.getEventTime(mContext, event.getBegin(), event.getEnd()));
 		
 		if(DateParser.isNow(event.getBegin(), event.getEnd())) {
 			int timeColor = mContext.getResources().getColor(R.color.tv_eventlst_time_now);
-			holder.tv_event_time.setTextColor(timeColor);
+			holder.tvEventTime.setTextColor(timeColor);
 		}else {
 			int timeColor = mContext.getResources().getColor(R.color.tv_eventlst_time);
-			holder.tv_event_time.setTextColor(timeColor);
+			holder.tvEventTime.setTextColor(timeColor);
 		}
 		
-		holder.tv_event_location.setText(event.getLocation());
+		holder.tvEventLocation.setText(event.getLocation());
 		
 		// Set thumbnails
 		String strUrl = event.getImage();
@@ -136,14 +136,14 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
         Bitmap bmThumbnails=aq.getCachedImage(R.drawable.ic_launcher);
         
         if(aq.shouldDelay(position, convertView, parent, strUrl)) {
-        	aq.id(holder.img_event_thumbnails).image(bmThumbnails);
+        	aq.id(holder.ivEventThumb).image(bmThumbnails);
         }
         else {
-        aq.id(holder.img_event_thumbnails).image(strUrl, false, true, 0, R.drawable.default_avatar, bmThumbnails,
+        aq.id(holder.ivEventThumb).image(strUrl, false, true, 0, R.drawable.default_avatar, bmThumbnails,
         		AQuery.FADE_IN_NETWORK, 1.33f);
         }
         
-        holder.img_event_thumbnails.setScaleType(ScaleType.CENTER_CROP);
+        holder.ivEventThumb.setScaleType(ScaleType.CENTER_CROP);
         
 		return convertView;
 	}

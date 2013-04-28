@@ -5,18 +5,18 @@ import java.util.Calendar;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
-import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.ui.now.week.NowWeekFragment;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.exception.ExceptionToast;
-import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +28,16 @@ import android.widget.TextView;
  * fragment.
  * 
  */
-public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>{
+public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>, 
+OnPageChangeListener{
 	
 	private View view;
-	private TextView tvWeekNumber;
+	//private TextView tvWeekNumber;
 	private TextView tvNowTime;
-	private ApiHelper apiHelper;
+	private ViewPager vpWeeks;
+	private NowPagerAdapter adapter;
+	private Calendar weekBegin;
+	//private ApiHelper apiHelper;
 	
 	/**
 	 * Use this factory method to create a new instance of this fragment using
@@ -54,8 +58,10 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		apiHelper=ApiHelper.getInstance(getActivity());
-		Bundle args=apiHelper.getTimetable();
+		adapter=new NowPagerAdapter(getFragmentManager());
+		weekBegin=DateParser.getFirstDayOfWeek();
+		//apiHelper=ApiHelper.getInstance(getActivity());
+		//Bundle args=apiHelper.getTimetable();
 		//getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
 	}
 
@@ -64,7 +70,11 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		view=inflater.inflate(R.layout.fragment_now, container, false);
-		tvWeekNumber=(TextView) view.findViewById(R.id.tv_now_week_number);
+		//tvWeekNumber=(TextView) view.findViewById(R.id.tv_now_week_number);
+		vpWeeks=(ViewPager) view.findViewById(R.id.vp_weeks);
+		vpWeeks.setAdapter(adapter);
+		NowWeekFragment fragment=NowWeekFragment.newInstance(weekBegin);
+		adapter.addPage(fragment, true);
 		return view;
 	}
 	
@@ -88,16 +98,37 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
 			HttpRequestResult result) {
 		if(result.getResponseCode()==0){
-			Log.i("NowFragment", result.getStrResponseCon());
 		}
 		else{
-			Log.i("NowFragment", "code="+result.getResponseCode()+"string="+result.getStrResponseCon());
 			ExceptionToast.show(getActivity(), result.getResponseCode());
 		}
 	}
 
 	@Override
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
+	}
+
+	@Override
+	public void onPageScrollStateChanged(int arg0) {
+	}
+
+	@Override
+	public void onPageScrolled(int arg0, float arg1, int arg2) {
+	}
+
+	@Override
+	public void onPageSelected(int page) {
+		if(page==adapter.getCount()-1){
+			weekBegin.add(Calendar.DAY_OF_YEAR, 7);
+			NowWeekFragment fragment=NowWeekFragment.newInstance(weekBegin);
+			adapter.addPage(fragment, true);
+		}
+		else if(page==0){
+			weekBegin.add(Calendar.DAY_OF_YEAR, -7);
+			NowWeekFragment fragment=NowWeekFragment.newInstance(weekBegin);
+			adapter.addPage(fragment, false);
+		}
+		vpWeeks.setCurrentItem(page, false);
 	}
 
 }

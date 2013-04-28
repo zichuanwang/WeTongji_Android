@@ -127,5 +127,5 @@ public class DateParser {
 		
 		return (calNow.after(calBegin) && calNow.before(calEnd));
 	}
-	
+
 }

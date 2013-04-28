@@ -2,17 +2,6 @@ package com.wetongji_android.ui.event;
 
 import java.util.List;
 
-import com.foound.widget.AmazingListView;
-import com.wetongji_android.R;
-import com.wetongji_android.data.Activity;
-import com.wetongji_android.factory.ActivityFactory;
-import com.wetongji_android.net.NetworkLoader;
-import com.wetongji_android.net.http.HttpMethod;
-import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.exception.ExceptionToast;
-import com.wetongji_android.util.net.ApiHelper;
-import com.wetongji_android.util.net.HttpRequestResult;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,6 +14,18 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
+
+import com.foound.widget.AmazingListView;
+import com.wetongji_android.R;
+import com.wetongji_android.data.Activity;
+import com.wetongji_android.factory.ActivityFactory;
+import com.wetongji_android.net.NetworkLoader;
+import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.exception.ExceptionToast;
+import com.wetongji_android.util.net.ApiHelper;
+import com.wetongji_android.util.net.HttpRequestResult;
+
 
 public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>{
 	

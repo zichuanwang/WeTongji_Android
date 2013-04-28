@@ -1,7 +1,5 @@
 package com.wetongji_android.ui.main;
 
-import java.io.IOException;
-
 import com.actionbarsherlock.view.MenuItem;
 import com.flurry.android.FlurryAgent;
 import com.slidingmenu.lib.SlidingMenu;
@@ -16,8 +14,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
-import android.accounts.AuthenticatorException;
-import android.accounts.OperationCanceledException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,7 +23,6 @@ implements AccountManagerCallback<Bundle>, OnWTListClickedListener
 {
 	private Fragment mContent;
 	public static final String PARAM_PREVIEW_WITHOUT_lOGIN="previewWithoutLogin";
-	private String session;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -38,7 +33,7 @@ implements AccountManagerCallback<Bundle>, OnWTListClickedListener
 		if (savedInstanceState != null)
 			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 		if (mContent == null)
-			mContent = new TodayFragment(android.R.color.darker_gray);
+			mContent = new TodayFragment();
 		
 		if(!getIntent().getBooleanExtra(PARAM_PREVIEW_WITHOUT_lOGIN, false)){
 			checkAccount();
@@ -131,7 +126,7 @@ implements AccountManagerCallback<Bundle>, OnWTListClickedListener
 	 * use old apis for capability
 	 */
 	@SuppressWarnings("deprecation")
-	private void getSessionFromAccountManager(){
+	void getSessionFromAccountManager(){
 		AccountManager am=AccountManager.get(this);
 		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
 		if(accounts.length!=0){
@@ -141,26 +136,14 @@ implements AccountManagerCallback<Bundle>, OnWTListClickedListener
 		}
 	}
 	
-	public String getSession() {
-		getSessionFromAccountManager();
-		return session;
-	}
-
-	@Override
-	public void run(AccountManagerFuture<Bundle> amf) {
-		try {
-			session=amf.getResult().getString(AccountManager.KEY_AUTHTOKEN);
-		} catch (OperationCanceledException e) {
-			e.printStackTrace();
-		} catch (AuthenticatorException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	@Override
 	public void onEventClicked(Event event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void run(AccountManagerFuture<Bundle> arg0) {
 		// TODO Auto-generated method stub
 		
 	}
