@@ -45,7 +45,6 @@ public class NetworkLoader extends AsyncTaskLoader<HttpRequestResult>
 
 	@Override
 	protected void onStartLoading() {
-		super.onStartLoading();
 		forceLoad();
 	}
 	
