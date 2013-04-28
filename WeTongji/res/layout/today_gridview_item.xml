@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+	<TextView 
+	    android:id="@id/tv_today_grid_title"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true"
+	    android:textIsSelectable="true"/>
+	
+	<ImageView 
+	    android:id="@id/img_today_grid_pic"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"
+	    android:contentDescription="@string/content_description_all"/>
+	
+	<View
+	    android:id="@id/view_today_grid_divideline" 
+	    android:layout_height="2dp"
+	    android:layout_width="match_parent"
+	    android:layout_below="@id/tv_today_grid_title"
+	    android:background="@drawable/img_today_grid_divideline"/>
+	
+	<TextView 
+	    android:id="@id/tv_today_grid_content"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/view_today_grid_divideline"
+	    android:layout_alignParentBottom="true"
+	    android:textIsSelectable="true"/>
+	
+</RelativeLayout>
