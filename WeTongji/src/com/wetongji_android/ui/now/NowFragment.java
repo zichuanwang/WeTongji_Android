@@ -5,11 +5,8 @@ import java.util.Calendar;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
-import com.wetongji_android.ui.now.week.NowWeekFragment;
-import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.exception.ExceptionToast;
-import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 import android.os.Bundle;
@@ -38,8 +35,6 @@ OnPageChangeListener{
 	private TextView tvNowTime;
 	private ViewPager vpWeeks;
 	private NowPagerAdapter adapter;
-	private Calendar weekBegin;
-	private Calendar weekEnd;
 	//private ApiHelper apiHelper;
 	
 	/**
@@ -61,12 +56,10 @@ OnPageChangeListener{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		adapter=new NowPagerAdapter(getFragmentManager());
-		weekBegin=DateParser.getFirstDayOfWeek();
-		weekEnd=DateParser.getLastDayOfWeek();
+		adapter=new NowPagerAdapter(this);
 		//apiHelper=ApiHelper.getInstance(getActivity());
 		//Bundle args=apiHelper.getTimetable();
-		//getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
+		//getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 
 	@Override
@@ -77,10 +70,6 @@ OnPageChangeListener{
 		//tvWeekNumber=(TextView) view.findViewById(R.id.tv_now_week_number);
 		vpWeeks=(ViewPager) view.findViewById(R.id.vp_weeks);
 		vpWeeks.setAdapter(adapter);
-		NowWeekFragment fragment=NowWeekFragment.newInstance(weekBegin);
-		Bundle args=ApiHelper.getInstance(getActivity()).getSchedule(weekBegin, weekEnd);
-		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, fragment);
-		adapter.addPage(fragment, true);
 		return view;
 	}
 	
@@ -124,22 +113,6 @@ OnPageChangeListener{
 
 	@Override
 	public void onPageSelected(int page) {
-		NowWeekFragment fragment=null;
-		if(page==adapter.getCount()-1){
-			weekBegin.add(Calendar.DAY_OF_YEAR, 7);
-			weekEnd.add(Calendar.DAY_OF_YEAR, 7);
-			fragment=NowWeekFragment.newInstance(weekBegin);
-			adapter.addPage(fragment, true);
-		}
-		else if(page==0){
-			weekBegin.add(Calendar.DAY_OF_YEAR, -7);
-			weekEnd.add(Calendar.DAY_OF_YEAR, -7);
-			fragment=NowWeekFragment.newInstance(weekBegin);
-			adapter.addPage(fragment, false);
-		}
-		Bundle args=ApiHelper.getInstance(getActivity()).getSchedule(weekBegin, weekEnd);
-		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, fragment);
-		vpWeeks.setCurrentItem(page, false);
 	}
 	
 }

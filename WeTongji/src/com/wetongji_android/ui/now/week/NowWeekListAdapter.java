@@ -35,14 +35,14 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 	private List<Pair<String, List<Event>>> events;
 	private Fragment fragment;
 	
-	public NowWeekListAdapter(Fragment fragment, Calendar begin) {
+	public NowWeekListAdapter(Fragment fragment, Calendar begin, Calendar end) {
 		this.fragment = fragment;
 		context=fragment.getActivity();
 		inflater=LayoutInflater.from(context);
 		listAq=new AQuery(context);
 		events=new ArrayList<Pair<String,List<Event>>>();
 		this.fragment.getLoaderManager().initLoader(
-				WTApplication.EVENTS_LOADER, QueryHelper.getEventQueryArgs(begin), this);	
+				WTApplication.EVENTS_LOADER, QueryHelper.getEventQueryArgs(begin, end), this);	
 	}
 	
 	static class ViewHolder {
@@ -98,7 +98,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		
 		if(convertView==null){
 			holder=new ViewHolder();
-			convertView=inflater.inflate(R.layout.row_event, parent, false);
+			convertView=inflater.inflate(R.layout.row_now, parent, false);
 			holder.tvNowIndicator=(TextView) convertView.findViewById(R.id.tv_now_indicator);
 			holder.ivNowIndicator=(ImageView) convertView.findViewById(R.id.iv_now_indicator);
 			holder.tvNowFriendsCounter=(TextView) convertView.findViewById(R.id.tv_now_friends_counter);
@@ -175,9 +175,19 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		return null;
 	}
 	
-	public void setData(List<Event> events){
+	public void setRawData(List<Event> events){
 		this.events.clear();
 		this.events=EventUtil.getSectionedEventList(events);
+		notifyDataSetChanged();
+	}
+	
+	public void setData(List<Pair<String, List<Event>>> events){
+		this.events=events;
+		notifyDataSetChanged();
+	}
+	
+	public List<Pair<String, List<Event>>> getData(){
+		return events;
 	}
 
 	@Override
@@ -188,6 +198,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 	@Override
 	public void onLoadFinished(Loader<List<Event>> arg0, List<Event> events) {
 		this.events=EventUtil.getSectionedEventList(events);
+		notifyDataSetChanged();
 	}
 
 	@Override

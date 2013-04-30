@@ -31,15 +31,12 @@ public class QueryHelper {
 		return bundle;
 	}
 	
-	public static Bundle getEventQueryArgs(Calendar begin){
+	public static Bundle getEventQueryArgs(Calendar begin, Calendar end){
 		Bundle bundle=new Bundle();
 		begin.set(Calendar.HOUR_OF_DAY, 0);
 		begin.set(Calendar.MINUTE, 0);
 		begin.set(Calendar.SECOND, 0);
 		bundle.putSerializable(ARGS_BEGIN, begin);
-		Calendar end=Calendar.getInstance();
-		end=begin;
-		end.add(Calendar.DAY_OF_YEAR, 7);
 		end.set(Calendar.HOUR_OF_DAY, 23);
 		end.set(Calendar.MINUTE, 59);
 		end.set(Calendar.SECOND, 59);
