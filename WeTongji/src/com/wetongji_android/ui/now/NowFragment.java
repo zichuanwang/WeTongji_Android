@@ -28,8 +28,8 @@ import android.widget.TextView;
  * fragment.
  * 
  */
-public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>, 
-OnPageChangeListener{
+public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequestResult> 
+{
 	
 	private View view;
 	private int selectedPage;
@@ -59,7 +59,6 @@ OnPageChangeListener{
 		super.onCreate(savedInstanceState);
 		
 		selectedPage=0;
-		adapter=new NowPagerAdapter(this);
 		//apiHelper=ApiHelper.getInstance(getActivity());
 		//Bundle args=apiHelper.getTimetable();
 		//getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
@@ -72,8 +71,9 @@ OnPageChangeListener{
 		view=inflater.inflate(R.layout.fragment_now, container, false);
 		//tvWeekNumber=(TextView) view.findViewById(R.id.tv_now_week_number);
 		vpWeeks=(ViewPager) view.findViewById(R.id.vp_weeks);
+		adapter=new NowPagerAdapter(this, vpWeeks);
 		vpWeeks.setAdapter(adapter);
-		vpWeeks.setOnPageChangeListener(this);
+		vpWeeks.setOnPageChangeListener(new pageChangeListener());
 		vpWeeks.setCurrentItem(NowPagerAdapter.PAGE_MIDDILE, false);
 		return view;
 	}
@@ -108,22 +108,24 @@ OnPageChangeListener{
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 	}
 
-	@Override
-	public void onPageScrollStateChanged(int state) {
-		if(state==ViewPager.SCROLL_STATE_IDLE){
-			adapter.setContent(selectedPage);
-			vpWeeks.setCurrentItem(NowPagerAdapter.PAGE_MIDDILE, false);
+	private class pageChangeListener implements OnPageChangeListener{
+		
+		@Override
+		public void onPageScrollStateChanged(int state) {
+			if(state==ViewPager.SCROLL_STATE_IDLE){
+				adapter.setContent(selectedPage);
+			}
 		}
-	}
-
-	@Override
-	public void onPageScrolled(int arg0, float arg1, int arg2) {
-	}
-
-	@Override
-	public void onPageSelected(int position) {
-		selectedPage=position;
-		Log.v("viewpager", "selecte page="+selectedPage);
-	}
 	
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+		}
+	
+		@Override
+		public void onPageSelected(int position) {
+			selectedPage=position;
+			Log.v("viewpager", "selecte page="+selectedPage);
+		}
+	
+	}
 }

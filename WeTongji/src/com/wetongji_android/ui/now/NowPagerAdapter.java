@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,16 +35,18 @@ public class NowPagerAdapter extends PagerAdapter {
 	
 	private LayoutInflater inflater;
 	private Fragment fragment;
+	private ViewPager viewPager;
 	private NowWeekListAdapter listAdapter;
 	private PageNetworkLoaderCallbacks callbacks;
 	private Calendar begin, end;
 	private Context context;
 	
-	public NowPagerAdapter(Fragment fragment) {
+	public NowPagerAdapter(Fragment fragment, ViewPager viewPager) {
 		super();
 		this.fragment=fragment;
 		context=fragment.getActivity();
 		this.inflater=fragment.getActivity().getLayoutInflater();
+		this.viewPager=viewPager;
 		initCalendars();
 		initAdapters();
 		
@@ -147,6 +150,7 @@ public class NowPagerAdapter extends PagerAdapter {
 			else{
 				ExceptionToast.show(context, result.getResponseCode());
 			}
+			viewPager.setCurrentItem(PAGE_MIDDILE, false);
 		}
 
 		@Override

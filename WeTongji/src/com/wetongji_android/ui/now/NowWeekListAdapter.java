@@ -121,10 +121,25 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 			convertView.setBackgroundResource(R.drawable.bg_row_now_current);
 			holder.ivNowIndicator.setVisibility(View.VISIBLE);
 			holder.tvNowIndicator.setVisibility(View.VISIBLE);
+			holder.tvNowLocation.setTextColor(context.getResources().getColor(R.color.tv_text_now_location));
+			holder.tvNowTitle.setTextColor(context.getResources().getColor(R.color.tv_text_now_title));
 		}
 		else if(EventUtil.isPastEvent(event)){
 			convertView.setBackgroundResource(R.drawable.bg_row_now_passed);
+			holder.ivNowIndicator.setVisibility(View.GONE);
+			holder.tvNowIndicator.setVisibility(View.GONE);
+			holder.tvNowLocation.setTextColor(context.getResources().getColor(R.color.tv_text_now_time));
+			holder.tvNowTitle.setTextColor(context.getResources().getColor(R.color.tv_text_now_time));
 		}
+		else{
+			convertView.setBackgroundResource(R.drawable.bg_row_now_default);
+			holder.ivNowIndicator.setVisibility(View.GONE);
+			holder.tvNowIndicator.setVisibility(View.GONE);
+			holder.tvNowLocation.setTextColor(context.getResources().getColor(R.color.tv_text_now_location));
+			holder.tvNowTitle.setTextColor(context.getResources().getColor(R.color.tv_text_now_title));
+		}
+		int padding=convertView.getPaddingLeft();
+		convertView.setPadding(padding, padding, padding, padding);
 			
 		holder.tvNowTitle.setText(event.getTitle());
 		holder.tvNowTime.setText(EventUtil.getEventDisplayTime(event, context));
@@ -192,12 +207,12 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 
 	@Override
 	public Loader<List<Event>> onCreateLoader(int arg0, Bundle arg1) {
-		Log.v("listAdapter", "createdLoader");
 		return new DbListLoader<Event, Integer>(context, Event.class);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<List<Event>> arg0, List<Event> events) {
+		Log.v("listLoader", "finished");
 		this.events=EventUtil.getSectionedEventList(events);
 		notifyDataSetChanged();
 	}

@@ -1,7 +1,10 @@
 <com.foound.widget.AmazingListView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/lv_now_week"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_app_base"
-        android:divider="@color/eventlst_divider"
-        android:dividerHeight="1dp"/>
+    android:id="@+id/lv_now_week"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
+    android:paddingLeft="6dp"
+    android:paddingRight="4dp"
+    android:divider="@null"
+    android:dividerHeight="4dp"/>

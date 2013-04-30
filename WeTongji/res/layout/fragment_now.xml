@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_app_base"
     tools:context=".NowFragment" >
     
     <RelativeLayout 
@@ -50,7 +51,7 @@
 	            android:textIsSelectable="false"
 	            android:textColor="@color/tv_text_week"
 	            android:textSize="14sp"
-	            android:text="WEEK"/>
+	            android:text="@string/text_week"/>
 	        
 	        <TextView 
 	            android:id="@+id/tv_now_week_number"

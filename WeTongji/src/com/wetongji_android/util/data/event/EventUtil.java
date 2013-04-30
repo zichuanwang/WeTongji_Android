@@ -59,7 +59,7 @@ public class EventUtil {
 			else{
 				Pair<String, List<Event>> pair=
 						new Pair<String, List<Event>>(list.get(start).getBegin(),
-								list.subList(start, current-1));
+								list.subList(start, current));
 				result.add(pair);
 				start=current;
 			}
