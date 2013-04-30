@@ -29,11 +29,14 @@ public class WTApplication extends Application
 	public static final String API_DEVICE="android";
 	public static final String API_VERSION="3.0";
 	// loader ids
-	public static final int NETWORK_LOADER=1;
-	public static final int DB_LIST_LOADER=2;
-	public static final int DB_LIST_SAVER=3;
-	public static final int ACTIVITIES_LOADER=4;
-	public static final int EVENTS_LOADER=5;
+	public static final int NETWORK_LOADER_DEFAULT=1;
+	public static final int NETWORK_LOADER_1=2;
+	public static final int NETWORK_LOADER_2=3;
+	public static final int NETWORK_LOADER_3=4;
+	public static final int DB_LIST_LOADER=5;
+	public static final int DB_LIST_SAVER=6;
+	public static final int ACTIVITIES_LOADER=7;
+	public static final int EVENTS_LOADER=8;
 	
 	public static final String FLURRY_API_KEY="GN5KJMW6XWCSD5DTCWRW";
 	

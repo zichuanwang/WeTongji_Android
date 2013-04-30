@@ -167,7 +167,7 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 		if(!TextUtils.isEmpty(mUsername)&&!TextUtils.isEmpty(mPassword)){
 			showProgress();
 			Bundle args=apiHelper.getUserLogOn(mUsername, mPassword);
-			getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
+			getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 		}
 	}
 	

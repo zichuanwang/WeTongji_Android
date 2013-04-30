@@ -77,9 +77,7 @@ public class ApiHelper {
 	public static final int API_ARGS_CHANNEL_EMPLOYMENT_MASK = 4;
 	public static final int API_ARGS_CHANNEL_ENTERTAINMENT_MASK = 8;
 	
-	private Bundle bundle=new Bundle();
-	
-	private void putBasicArgs(){
+	private void putBasicArgs(Bundle bundle){
 		bundle.putString(API_ARGS_DEVICE, WTApplication.API_DEVICE);
 		bundle.putString(API_ARGS_VERSION, WTApplication.API_VERSION);
 	}
@@ -108,6 +106,10 @@ public class ApiHelper {
 		}
 	}
 	
+	public void setSession(String session){
+		this.session=session;
+	}
+	
 	private void getUid(){
 		AccountManager am=AccountManager.get(context);
 		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
@@ -117,7 +119,7 @@ public class ApiHelper {
 		}
 	}
 	
-	private void putLoginArgs(){
+	private void putLoginArgs(Bundle bundle){
 		if(!TextUtils.isEmpty(session)){
 			bundle.putString(API_ARGS_SESSION, session);
 			bundle.putString(API_ARGS_UID, uid);
@@ -125,8 +127,8 @@ public class ApiHelper {
 	}
 	
 	public Bundle getUserActive(String no,String password,String name){
-		bundle.clear();
-		putBasicArgs();
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "User.Active");
 		bundle.putString(API_ARGS_NO, no);
 		bundle.putString(API_ARGS_PASSWORD, RSAEncrypter.encrypt(password, context));
@@ -135,8 +137,8 @@ public class ApiHelper {
 	}
 	
 	public Bundle getUserLogOn(String no,String password){
-		bundle.clear();
-		putBasicArgs();
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "User.LogOn");
 		bundle.putString(API_ARGS_NO, no);
 		bundle.putString(API_ARGS_PASSWORD, RSAEncrypter.encrypt(password, context));
@@ -144,25 +146,25 @@ public class ApiHelper {
 	}
 	
 	public Bundle getUserLogOff(){
-		bundle.clear();
-		putBasicArgs();
-		putLoginArgs();
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "User.LogOff");
 		return bundle;
 	}
 	
 	public Bundle getUserGet(){
-		bundle.clear();
-		putBasicArgs();
-		putLoginArgs();
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "User.Get");
 		return bundle;
 	}
 	
 	public Bundle postUserUpdate(String updateContent){
-		bundle.clear();
-		putBasicArgs();
-		putLoginArgs();
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "User.Update");
 		//TODO object User need to be submitted
 		bundle.putString(API_ARGS_USER, updateContent);
@@ -170,9 +172,9 @@ public class ApiHelper {
 	}
 	
 	public Bundle postUserUpdateAvatar(){
-		bundle.clear();
-		putBasicArgs();
-		putLoginArgs();
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "User.Update.Avatar");
 		//TODO object User need to be submitted
 		bundle.putString(API_ARGS_IMAGE, "");
@@ -180,9 +182,9 @@ public class ApiHelper {
 	}
 	
 	public Bundle getUserUpdatePassword(String pwOld,String pwNew){
-		bundle.clear();
-		putBasicArgs();
-		putLoginArgs();
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "User.Update.Password");
 		bundle.putString(API_ARGS_OLD, RSAEncrypter.encrypt(pwOld, context));
 		bundle.putString(API_ARGS_NEW, RSAEncrypter.encrypt(pwNew, context));
@@ -190,8 +192,8 @@ public class ApiHelper {
 	}
 	
 	public Bundle getUserResetPassword(String no,String name){
-		bundle.clear();
-		putBasicArgs();
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "User.Reset.Password");
 		bundle.putString(API_ARGS_NO, no);
 		bundle.putString(API_ARGS_NAME, name);
@@ -199,9 +201,9 @@ public class ApiHelper {
 	}
 	
 	public Bundle getUserFind(String no,String name){
-		bundle.clear();
-		putBasicArgs();
-		putLoginArgs();
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "User.Find");
 		bundle.putString(API_ARGS_NO, no);
 		bundle.putString(API_ARGS_NAME, name);
@@ -209,33 +211,33 @@ public class ApiHelper {
 	}
 	
 	public Bundle getUserProfile(){
-		bundle.clear();
-		putBasicArgs();
-		putLoginArgs();
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "User.Profile");
 		return bundle;
 	}
 	
 	public Bundle postUserUpdateProfile(){
-		bundle.clear();
-		putBasicArgs();
-		putLoginArgs();
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "User.Update.Profile");
 		//TODO object UserProfile need to be submitted
 		return bundle;
 	}
 	
 	public Bundle getSystemVersion(){
-		bundle.clear();
-		putBasicArgs();
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "System.Version");
 		return bundle;
 	}
 	
 	public Bundle getActivities(int page, int channelIdsMask, int sortType, boolean expire) {
-		bundle.clear();
-		putBasicArgs();
-		putLoginArgs();
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
 		
 		if(page < 1) {
 			page = 1;
@@ -282,17 +284,17 @@ public class ApiHelper {
 	}
 	
 	public Bundle getTimetable(){
-		bundle.clear();
-		putBasicArgs();
-		putLoginArgs();
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "Timetable.Get");
 		return bundle;
 	}
 	
 	public Bundle getSchedule(Calendar begin, Calendar end){
-		bundle.clear();
-		putBasicArgs();
-		putLoginArgs();
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "Schedule.Get");
 		bundle.putString(API_ARGS_BEGIN, DateParser.buildDateAndTime(begin));
 		bundle.putString(API_ARGS_END, DateParser.buildDateAndTime(end));

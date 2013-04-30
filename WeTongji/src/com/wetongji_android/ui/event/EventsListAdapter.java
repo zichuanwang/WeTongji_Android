@@ -82,7 +82,7 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		
 		Bundle args = apiHelper.getActivities(page, 15, ApiHelper.API_ARGS_SORT_BY_ID_DESC, false);
 		mFragment.getLoaderManager()
-			.initLoader(WTApplication.NETWORK_LOADER, args, (EventsFragment)mFragment);
+			.initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, (EventsFragment)mFragment);
 	}
 
 	@Override
