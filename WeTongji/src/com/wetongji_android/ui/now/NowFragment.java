@@ -16,6 +16,7 @@ import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 OnPageChangeListener{
 	
 	private View view;
+	private int selectedPage;
 	//private TextView tvWeekNumber;
 	private TextView tvNowTime;
 	private ViewPager vpWeeks;
@@ -56,6 +58,7 @@ OnPageChangeListener{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		selectedPage=0;
 		adapter=new NowPagerAdapter(this);
 		//apiHelper=ApiHelper.getInstance(getActivity());
 		//Bundle args=apiHelper.getTimetable();
@@ -70,6 +73,8 @@ OnPageChangeListener{
 		//tvWeekNumber=(TextView) view.findViewById(R.id.tv_now_week_number);
 		vpWeeks=(ViewPager) view.findViewById(R.id.vp_weeks);
 		vpWeeks.setAdapter(adapter);
+		vpWeeks.setOnPageChangeListener(this);
+		vpWeeks.setCurrentItem(NowPagerAdapter.PAGE_MIDDILE, false);
 		return view;
 	}
 	
@@ -104,7 +109,11 @@ OnPageChangeListener{
 	}
 
 	@Override
-	public void onPageScrollStateChanged(int arg0) {
+	public void onPageScrollStateChanged(int state) {
+		if(state==ViewPager.SCROLL_STATE_IDLE){
+			adapter.setContent(selectedPage);
+			vpWeeks.setCurrentItem(NowPagerAdapter.PAGE_MIDDILE, false);
+		}
 	}
 
 	@Override
@@ -112,7 +121,9 @@ OnPageChangeListener{
 	}
 
 	@Override
-	public void onPageSelected(int page) {
+	public void onPageSelected(int position) {
+		selectedPage=position;
+		Log.v("viewpager", "selecte page="+selectedPage);
 	}
 	
 }

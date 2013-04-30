@@ -16,6 +16,7 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 /**
  * @author John
@@ -296,6 +297,7 @@ public class ApiHelper {
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "Schedule.Get");
+		Log.v("apiHelper.getSchedule()", "begin="+DateParser.buildDateAndTime(begin));
 		bundle.putString(API_ARGS_BEGIN, DateParser.buildDateAndTime(begin));
 		bundle.putString(API_ARGS_END, DateParser.buildDateAndTime(end));
 		return bundle;

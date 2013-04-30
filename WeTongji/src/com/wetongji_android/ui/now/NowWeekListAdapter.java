@@ -1,4 +1,4 @@
-package com.wetongji_android.ui.now.week;
+package com.wetongji_android.ui.now;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -176,7 +177,6 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 	}
 	
 	public void setRawData(List<Event> events){
-		this.events.clear();
 		this.events=EventUtil.getSectionedEventList(events);
 		notifyDataSetChanged();
 	}
@@ -192,6 +192,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 
 	@Override
 	public Loader<List<Event>> onCreateLoader(int arg0, Bundle arg1) {
+		Log.v("listAdapter", "createdLoader");
 		return new DbListLoader<Event, Integer>(context, Event.class);
 	}
 

@@ -2,5 +2,6 @@
         android:id="@+id/lv_now_week"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_app_base"
         android:divider="@color/eventlst_divider"
         android:dividerHeight="1dp"/>
