@@ -38,5 +38,6 @@
     <color name="tv_text_now_title">#454545</color>
     <color name="tv_text_now_location">#0cc2cb</color>
     <color name="tv_eventlst_time_now">#e75150</color>
+    <color name="tv_text_now_section_bar_default">#737373</color>
     
 </resources>

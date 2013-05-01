@@ -74,6 +74,7 @@ public class NowPagerAdapter extends PagerAdapter {
 			AmazingListView nowWeekList=(AmazingListView) inflater.inflate(R.layout.page_now_week, null);
 			Bundle args=null;
 			nowWeekList.setAdapter(listAdapter);
+			nowWeekList.setPinnedHeaderView(LayoutInflater.from(context).inflate(R.layout.section_bar_now, nowWeekList, false));
 			args=ApiHelper.getInstance(context).getSchedule(begin, end);
 			fragment.getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_1, args, callbacks).forceLoad();
 			container.addView(nowWeekList);

@@ -1,5 +1,7 @@
 package com.wetongji_android.data;
 
+import java.util.Date;
+
 import com.j256.ormlite.field.DatabaseField;
 
 public class Course extends Event {
@@ -12,15 +14,15 @@ public class Course extends Event {
 	@DatabaseField
 	private String Teacher;
 	@DatabaseField
-	private boolean Required;
+	private String Required;
 	
 	public Course() {
 		super();
 	}
 
-	public Course(String nO, int hours, float point, String teacher,
-			boolean required) {
-		super();
+	public Course(int id, Date begin, Date end, String title, String location, 
+			String nO, int hours, float point, String teacher, String required) {
+		super(id, begin, end, title, location);
 		NO = nO;
 		Hours = hours;
 		Point = point;
@@ -60,11 +62,11 @@ public class Course extends Event {
 		Teacher = teacher;
 	}
 
-	public boolean isRequired() {
+	public String isRequired() {
 		return Required;
 	}
 
-	public void setRequired(boolean required) {
+	public void setRequired(String required) {
 		Required = required;
 	}
 	

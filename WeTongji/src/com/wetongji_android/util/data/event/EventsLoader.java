@@ -6,8 +6,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
@@ -28,7 +26,6 @@ public class EventsLoader extends DbListLoader<Event, Integer> {
 	@Override
 	public List<Event> loadInBackground() {
     	try{
-    		Log.v("Event Db", "count="+mDao.countOf());
     		query=getEventsQuery(args);
 	    	if(query!=null){
 	    		return mDao.query(query);
