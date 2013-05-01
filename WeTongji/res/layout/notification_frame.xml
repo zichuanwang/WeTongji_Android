@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
-	<ListView 
-	    android:id="@id/lst_notification"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:background="@color/main_menu_bg">
-	</ListView>
+	<com.foound.widget.AmazingListView
+        android:id="@id/lst_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/eventlst_divider"
+        android:dividerHeight="1dp"/>
 	
 </RelativeLayout>
