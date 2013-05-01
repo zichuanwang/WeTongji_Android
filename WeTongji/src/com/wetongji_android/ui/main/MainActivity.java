@@ -104,7 +104,6 @@ implements OnWTListClickedListener
 		.beginTransaction()
 		.replace(R.id.content_frame, fragment)
 		.commit();
-		getSlidingMenu().showContent();
 	}
 	
 	private void checkAccount(){

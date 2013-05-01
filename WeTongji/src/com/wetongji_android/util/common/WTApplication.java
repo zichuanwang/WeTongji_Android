@@ -79,9 +79,13 @@ public class WTApplication extends Application
 	public AQuery getAq(Activity activity) {
 		aq = new AQuery(activity);
 		// Instantiate AQuery and configure cache directory
-		File ext = Environment.getExternalStorageDirectory();
-		File cacheDir = new File(ext, "WeTongji/cache");
-		AQUtility.setCacheDir(cacheDir);
+		if(Environment.getExternalStorageState().compareTo(Environment.MEDIA_MOUNTED)== 0) {
+			File ext = Environment.getExternalStorageDirectory();
+			File downloadCacheDir = getExternalFilesDir("imgCache");
+			
+			File cacheDir = new File(ext, downloadCacheDir.getPath());
+			AQUtility.setCacheDir(cacheDir);
+		}
 		return aq ;
 	}
 	
