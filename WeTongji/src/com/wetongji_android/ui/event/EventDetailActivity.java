@@ -1,26 +1,33 @@
 package com.wetongji_android.ui.event;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import android.app.Activity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
+
 import android.view.Window;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
 import com.wetongji_android.R;
+import com.wetongji_android.data.Activity;
 
-public class EventDetailActivity extends Activity{
+public class EventDetailActivity extends android.app.Activity{
+	
+	private Activity mActivity;
+	
+	private CheckBox mCbLike;
+	private TextView mTvLikeNum;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		recieveActivity();
 		setUpUI();
+		
 		
 	}
 	
@@ -28,30 +35,20 @@ public class EventDetailActivity extends Activity{
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_event);
 		
-		View layoutLike = LayoutInflater.from(this).inflate(R.layout.ab_event_like_layout, null);
+		mCbLike = (CheckBox)findViewById(R.id.cb_event_like);
+		mTvLikeNum = (TextView)findViewById(R.id.tv_event_like_number);
+		mCbLike.setChecked(!mActivity.isCanLike());
+		mTvLikeNum.setText(String.valueOf(mActivity.getLike()));
 		
-		ViewGroup.LayoutParams layoutParams = 
-				new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100);
 		
-//		setContentView(layoutLike, layoutParams);
-//		getSupportActionBar().setCustomView(layoutLike);
-//      getSupportActionBar().setDisplayShowCustomEnabled(true);
 		
-		ViewGroup mDecor = (ViewGroup)this.getWindow().getDecorView().findViewById(android.R.id.content);
-		
-		List<View> views = null;
-        if (mDecor.getChildCount() > 0) {
-            views = new ArrayList<View>(1); //Usually there's only one child
-            for (int i = 0, children = mDecor.getChildCount(); i < children; i++) {
-                View child = mDecor.getChildAt(0);
-                mDecor.removeView(child);
-                Log.d("removeView", "" + i);
-                views.add(child);
-            }
-        }
-		setContentView(views.get(0));
 	}
-
+	
+	private void recieveActivity() {
+		Intent intent = this.getIntent();
+		Bundle bundle = intent.getExtras();
+		mActivity = (Activity)bundle.getSerializable(EventsFragment.BUNDLE_KEY_ACTIVITY);
+	}
 	
 	
 	

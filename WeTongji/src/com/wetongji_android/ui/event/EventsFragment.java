@@ -29,10 +29,14 @@ import com.wetongji_android.util.net.HttpRequestResult;
 
 public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>{
 	
+	public static final String BUNDLE_KEY_ACTIVITY = "bundle_key_activity";
+	
 	public AmazingListView mListActivity;
 	private EventsListAdapter mAdapter;
 	private ActivityFactory mFactory;
 	private View view;
+	
+	private int mScrollPos;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -103,9 +107,17 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 	private OnItemClickListener onItemClickListener = new OnItemClickListener() {
 
 		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-				long arg3) {
-			startActivity(new Intent(getActivity(), EventDetailActivity.class));
+		public void onItemClick(AdapterView<?> arg0, View view, int position,
+				long id) {
+			
+			mScrollPos = mListActivity.getScrollY();
+			
+			Intent intent = new Intent(getActivity(), EventDetailActivity.class);
+			Activity activity = mAdapter.getItem(position);
+			Bundle bundle = new Bundle();
+			bundle.putSerializable(BUNDLE_KEY_ACTIVITY, activity);
+			intent.putExtras(bundle);
+			startActivity(intent);
 		}
 		
 	};

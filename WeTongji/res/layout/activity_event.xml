@@ -24,11 +24,77 @@
 		    android:layout_height="wrap_content">
 		    
 		    <!-- main content -->
-		    <LinearLayout 
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-			>
-		    </LinearLayout>
+		    <ScrollView android:layout_width="match_parent"
+		        android:layout_height="match_parent">
+		        
+		        <LinearLayout 
+			        android:layout_width="match_parent"
+			        android:layout_height="match_parent"
+			        android:orientation="vertical"
+					>
+				
+			        <LinearLayout
+			            android:layout_width="match_parent"
+			            android:layout_height="wrap_content"
+			            android:orientation="vertical">
+			            
+			            <TextView android:id="@id/tv_event_detail_title"
+			                android:layout_width="match_parent"
+			                android:layout_height="wrap_content"/>
+			            
+			            <TextView android:id="@id/tv_event_detail_time"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"/>
+			            
+			            <TextView android:id="@id/tv_event_detail_location"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"/>
+			            
+			        </LinearLayout>
+			        
+			        <ImageView android:id="@id/iv_event_detail_image"
+			            android:layout_width="match_parent"
+			            android:layout_height="144dp"
+			            />
+			        
+			        <!-- organization -->
+		            <TextView
+		                android:layout_width="wrap_content"
+		            	android:layout_height="wrap_content"
+		            	android:text="@string/text_evnet_detail_organization"/>
+			        <LinearLayout
+			            android:layout_width="match_parent"
+			            android:layout_height="wrap_content">
+			            
+			            <ImageView 
+			                android:id="@id/img_event_detail_org_avatar"
+			                android:layout_width="36dp"
+			                android:layout_height="36dp"/>
+			            
+			            <TextView android:id="@id/text_event_detail_org_name"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:textIsSelectable="true"/>
+			            
+			        </LinearLayout>
+			       	<!-- END-organization-END -->
+			       	
+			       	<LinearLayout 
+			       	    android:layout_width="match_parent"
+			       	    android:layout_height="wrap_content"
+			       	    android:orientation="vertical">
+			       	    
+			       	    <TextView android:layout_width="wrap_content"
+			       	        android:layout_height="wrap_content"
+			       	        android:text="@string/text_event_about"/>
+			       	    <TextView android:layout_width="match_parent" 
+			       	        android:layout_height="wrap_content"
+			       	        android:textIsSelectable="true"/>
+			       	</LinearLayout>
+			    </LinearLayout>
+		        
+		    </ScrollView>
+		    
 		    
 		    <!-- actionbar shadow -->
 		    <LinearLayout 
@@ -43,6 +109,7 @@
         
     </LinearLayout>
 
+    <!-- Like CheckBox and like number -->
     <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -53,13 +120,14 @@
         	android:layout_alignParentRight="true"
         	android:layout_marginRight="16dp"
         	android:orientation="vertical"
+        	android:gravity="center"
         	android:background="@drawable/bg_event_like"
         	>
           <CheckBox 
               android:id="@id/cb_event_like"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginTop="4dp"
+              android:layout_marginTop="1dp"
               android:layout_marginLeft="4dp"
               style="@style/EventLikeCheckbox"/>
           
