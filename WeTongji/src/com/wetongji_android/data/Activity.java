@@ -1,6 +1,7 @@
 package com.wetongji_android.data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.j256.ormlite.field.DatabaseField;
 
@@ -20,15 +21,16 @@ public class Activity extends Event implements Serializable{
 	@DatabaseField
 	private String Image;
 	@DatabaseField
-	private String CreatedAt;
+	private Date CreatedAt;
 	
 	public Activity() {
-		super();
 	}
 	
-	public Activity(int channel_Id, String organizer, String organizerAvatar,
-			String status, String image, String createdAt) {
-		super();
+	public Activity(int id, Date begin, Date end, String title, String location, 
+			String description, int like, boolean canLike, int channel_Id, 
+			String organizer, String organizerAvatar, String status, String image, 
+			Date createdAt) {
+		super(id, begin, end, title, location, description, like, canLike);
 		Channel_Id = channel_Id;
 		Organizer = organizer;
 		OrganizerAvatar = organizerAvatar;
@@ -67,10 +69,10 @@ public class Activity extends Event implements Serializable{
 	public void setImage(String image) {
 		Image = image;
 	}
-	public String getCreatedAt() {
+	public Date getCreatedAt() {
 		return CreatedAt;
 	}
-	public void setCreatedAt(String createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		CreatedAt = createdAt;
 	}
 	

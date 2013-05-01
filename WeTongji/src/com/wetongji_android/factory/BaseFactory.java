@@ -20,7 +20,7 @@ import com.wetongji_android.util.data.DbListSaver;
 
 public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 	
-	private static final String ARG_NEED_TO_REFRESH="needToRefresh";
+	protected static final String ARG_NEED_TO_REFRESH="needToRefresh";
 	
 	protected Fragment fragment;
 	private Context context;
@@ -37,6 +37,13 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 	public List<T> createObjects(String jsonStr){
 		return createObjects(jsonStr, false);
 	}
+	
+	protected List<T> createObjectsWithoutWriteToDb(String jsonStr){
+		list.clear();
+		Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+		list=gson.fromJson(jsonStr, new TypeToken<List<Activity>>(){}.getType());
+		return list;
+	}
 
 	protected List<T> createObjects(String jsonStr, boolean needToRefresh) {
 		list.clear();
@@ -45,7 +52,7 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 		
 		Bundle args=new Bundle();
 		args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
-		fragment.getLoaderManager().initLoader(WTApplication.DB_LIST_SAVER, args, this);
+		fragment.getLoaderManager().initLoader(WTApplication.DB_LIST_SAVER, args, this).forceLoad();
 		return list;
 	}
 

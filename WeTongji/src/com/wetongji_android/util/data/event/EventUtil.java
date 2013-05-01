@@ -48,7 +48,7 @@ public class EventUtil {
 	
 	public static List<Pair<Date, List<Event>>> getSectionedEventList(List<Event> list){
 		List<Pair<Date, List<Event>>> result=new ArrayList<Pair<Date,List<Event>>>();
-		if(list.isEmpty()){
+		if(list==null||list.isEmpty()){
 			return result;
 		}
 		int current=0;

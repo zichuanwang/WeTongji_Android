@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -13,7 +14,6 @@ import com.j256.ormlite.stmt.Where;
 import com.wetongji_android.data.Event;
 import com.wetongji_android.util.data.DbListLoader;
 import com.wetongji_android.util.data.QueryHelper;
-import com.wetongji_android.util.date.DateParser;
 
 public class EventsLoader extends DbListLoader<Event, Integer> {
 
@@ -28,6 +28,7 @@ public class EventsLoader extends DbListLoader<Event, Integer> {
 	@Override
 	public List<Event> loadInBackground() {
     	try{
+    		Log.v("Event Db", "count="+mDao.countOf());
     		query=getEventsQuery(args);
 	    	if(query!=null){
 	    		return mDao.query(query);
@@ -48,8 +49,9 @@ public class EventsLoader extends DbListLoader<Event, Integer> {
 		QueryBuilder<Event, Integer> qb=mDao.queryBuilder();
 		Where<Event, Integer> where=qb.where();
 		try {
-			where.ge("Begin", DateParser.buildDateAndTime(begin));
-			where.le("End", DateParser.buildDateAndTime(end));
+			where.ge("Begin", begin.getTime());
+			where.le("End", end.getTime());
+			where.and(2);
 			return qb.prepare();
 		} catch (SQLException e) {
 			e.printStackTrace();

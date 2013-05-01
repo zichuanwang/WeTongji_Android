@@ -4,8 +4,8 @@ import java.util.Date;
 
 import com.j256.ormlite.field.DatabaseField;
 
-public abstract class Event implements Comparable<Event> {
-	@DatabaseField(id=true)
+public class Event implements Comparable<Event> {
+	@DatabaseField(generatedId=true)
 	int Id;
 	@DatabaseField
 	Date Begin;
@@ -23,12 +23,10 @@ public abstract class Event implements Comparable<Event> {
 	boolean CanLike;
 	
 	public Event() {
-		super();
 	}
 
 	public Event(int id, Date begin, Date end, String title,
 			String location, String description, int like, boolean canLike) {
-		super();
 		Id = id;
 		Begin = begin;
 		End = end;

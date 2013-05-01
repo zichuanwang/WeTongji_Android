@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +23,9 @@ import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Event;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.data.DbListLoader;
 import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.data.event.EventUtil;
+import com.wetongji_android.util.data.event.EventsLoader;
 
 public class NowWeekListAdapter extends AmazingAdapter implements
 		LoaderCallbacks<List<Event>> {
@@ -207,13 +206,12 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 	}
 
 	@Override
-	public Loader<List<Event>> onCreateLoader(int arg0, Bundle arg1) {
-		return new DbListLoader<Event, Integer>(context, Event.class);
+	public Loader<List<Event>> onCreateLoader(int arg0, Bundle args) {
+		return new EventsLoader(context, args);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<List<Event>> arg0, List<Event> events) {
-		Log.v("listLoader", "finished");
 		this.events=EventUtil.getSectionedEventList(events);
 		notifyDataSetChanged();
 	}

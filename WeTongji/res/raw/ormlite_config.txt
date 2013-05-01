@@ -1,5 +1,5 @@
 #
-# generated on 2013/05/01 01:08:07
+# generated on 2013/05/01 03:39:41
 #
 # --table-start--
 dataClass=com.wetongji_android.data.Activity
@@ -25,7 +25,7 @@ fieldName=CreatedAt
 # --field-end--
 # --field-start--
 fieldName=Id
-id=true
+generatedId=true
 # --field-end--
 # --field-start--
 fieldName=Begin
@@ -163,7 +163,7 @@ fieldName=Required
 # --field-end--
 # --field-start--
 fieldName=Id
-id=true
+generatedId=true
 # --field-end--
 # --field-start--
 fieldName=Begin
@@ -195,7 +195,7 @@ tableName=event
 # --table-fields-start--
 # --field-start--
 fieldName=Id
-id=true
+generatedId=true
 # --field-end--
 # --field-start--
 fieldName=Begin
@@ -242,7 +242,7 @@ fieldName=Required
 # --field-end--
 # --field-start--
 fieldName=Id
-id=true
+generatedId=true
 # --field-end--
 # --field-start--
 fieldName=Begin
