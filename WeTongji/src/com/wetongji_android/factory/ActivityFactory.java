@@ -27,7 +27,7 @@ public class ActivityFactory extends BaseFactory<Activity, Integer>{
 				result=super.createObjects(outer.getString("Activities"),false);
 			}
 			else{
-				result=super.createObjects(outer.getString("Activities"), true);
+				result=super.createObjects(outer.getString("Activities"),true);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -46,4 +46,15 @@ public class ActivityFactory extends BaseFactory<Activity, Integer>{
 		}
 	}
 	
+	public List<Activity> createObjectsWithoutWriteToDb(String jsonSrt){
+		JSONObject outer;
+		try {
+			outer = new JSONObject(jsonSrt);
+			return super.createObjectsWithoutWriteToDb(outer.getString("Activities"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return new ArrayList<Activity>();
+		}
+	}
+
 }

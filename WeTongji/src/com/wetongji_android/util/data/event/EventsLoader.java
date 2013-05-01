@@ -6,14 +6,12 @@ import java.util.List;
 
 import android.content.Context;
 import android.os.Bundle;
-
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import com.wetongji_android.data.Event;
 import com.wetongji_android.util.data.DbListLoader;
 import com.wetongji_android.util.data.QueryHelper;
-import com.wetongji_android.util.date.DateParser;
 
 public class EventsLoader extends DbListLoader<Event, Integer> {
 
@@ -48,8 +46,9 @@ public class EventsLoader extends DbListLoader<Event, Integer> {
 		QueryBuilder<Event, Integer> qb=mDao.queryBuilder();
 		Where<Event, Integer> where=qb.where();
 		try {
-			where.ge("Begin", DateParser.buildDateAndTime(begin));
-			where.le("End", DateParser.buildDateAndTime(end));
+			where.ge("Begin", begin.getTime());
+			where.le("End", end.getTime());
+			where.and(2);
 			return qb.prepare();
 		} catch (SQLException e) {
 			e.printStackTrace();

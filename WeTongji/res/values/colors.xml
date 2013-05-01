@@ -47,5 +47,6 @@
     <color name="tv_event_detail_org_name">#373737</color>
     <color name="tv_event_detail_content">#6a6a6a</color>
     <color name="bg_event_detail_content">#f9f9f9</color>
+    <color name="tv_text_now_section_bar_default">#737373</color>
     
 </resources>

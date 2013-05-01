@@ -1,40 +1,31 @@
 package com.wetongji_android.data;
 
+import java.util.Date;
+
 import com.j256.ormlite.field.DatabaseField;
 
-public abstract class Event implements Comparable<Event> {
-	@DatabaseField(id=true)
+public class Event implements Comparable<Event> {
+	@DatabaseField(generatedId=true)
 	int Id;
 	@DatabaseField
-	String Begin;
+	Date Begin;
 	@DatabaseField
-	String End;
+	Date End;
 	@DatabaseField
 	String Title;
 	@DatabaseField
 	String Location;
-	@DatabaseField
-	String Description;
-	@DatabaseField
-	int Like;
-	@DatabaseField
-	boolean CanLike;
 	
 	public Event() {
-		super();
 	}
 
-	public Event(int id, String begin, String end, String title,
-			String location, String description, int like, boolean canLike) {
-		super();
+	public Event(int id, Date begin, Date end, String title,
+			String location) {
 		Id = id;
 		Begin = begin;
 		End = end;
 		Title = title;
 		Location = location;
-		Description = description;
-		Like = like;
-		CanLike = canLike;
 	}
 
 	public int getId() {
@@ -45,19 +36,19 @@ public abstract class Event implements Comparable<Event> {
 		Id = id;
 	}
 
-	public String getBegin() {
+	public Date getBegin() {
 		return Begin;
 	}
 
-	public void setBegin(String begin) {
+	public void setBegin(Date begin) {
 		Begin = begin;
 	}
 
-	public String getEnd() {
+	public Date getEnd() {
 		return End;
 	}
 
-	public void setEnd(String end) {
+	public void setEnd(Date end) {
 		End = end;
 	}
 
@@ -75,30 +66,6 @@ public abstract class Event implements Comparable<Event> {
 
 	public void setLocation(String location) {
 		Location = location;
-	}
-
-	public String getDescription() {
-		return Description;
-	}
-
-	public void setDescription(String description) {
-		Description = description;
-	}
-
-	public int getLike() {
-		return Like;
-	}
-
-	public void setLike(int like) {
-		Like = like;
-	}
-
-	public boolean isCanLike() {
-		return CanLike;
-	}
-
-	public void setCanLike(boolean canLike) {
-		CanLike = canLike;
 	}
 
 	@Override

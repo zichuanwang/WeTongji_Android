@@ -1,7 +1,7 @@
 package com.wetongji_android.util.data.activity;
 
 import java.sql.SQLException;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
@@ -13,7 +13,6 @@ import com.j256.ormlite.stmt.Where;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.util.data.DbListLoader;
 import com.wetongji_android.util.data.QueryHelper;
-import com.wetongji_android.util.date.DateParser;
 
 public class ActivitiesLoader extends DbListLoader<Activity, Integer> {
 	
@@ -71,7 +70,7 @@ public class ActivitiesLoader extends DbListLoader<Activity, Integer> {
 				where.or(count);
 			}
 			if(!args.getBoolean(QueryHelper.ARGS_HAS_EXPIRED)){
-				where.ge("End", DateParser.buildDateAndTime(Calendar.getInstance()));
+				where.ge("End", new Date());
 				where.and(2);
 			}
 			return qb.prepare();
