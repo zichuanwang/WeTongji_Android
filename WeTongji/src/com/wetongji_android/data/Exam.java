@@ -1,5 +1,7 @@
 package com.wetongji_android.data;
 
+import java.util.Date;
+
 import com.j256.ormlite.field.DatabaseField;
 
 public class Exam extends Event {
@@ -18,9 +20,9 @@ public class Exam extends Event {
 		super();
 	}
 
-	public Exam(String nO, int hours, float point, String teacher,
-			boolean required) {
-		super();
+	public Exam(int id, Date begin, Date end, String title, String location, 
+			String nO, int hours, float point, String teacher, boolean required) {
+		super(id, begin, end, title, location);
 		NO = nO;
 		Hours = hours;
 		Point = point;

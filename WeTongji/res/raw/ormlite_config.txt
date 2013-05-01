@@ -1,5 +1,5 @@
 #
-# generated on 2013/05/01 03:39:41
+# generated on 2013/05/01 08:45:19
 #
 # --table-start--
 dataClass=com.wetongji_android.data.Activity
@@ -24,6 +24,15 @@ fieldName=Image
 fieldName=CreatedAt
 # --field-end--
 # --field-start--
+fieldName=Description
+# --field-end--
+# --field-start--
+fieldName=Like
+# --field-end--
+# --field-start--
+fieldName=CanLike
+# --field-end--
+# --field-start--
 fieldName=Id
 generatedId=true
 # --field-end--
@@ -38,15 +47,6 @@ fieldName=Title
 # --field-end--
 # --field-start--
 fieldName=Location
-# --field-end--
-# --field-start--
-fieldName=Description
-# --field-end--
-# --field-start--
-fieldName=Like
-# --field-end--
-# --field-start--
-fieldName=CanLike
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -177,15 +177,6 @@ fieldName=Title
 # --field-start--
 fieldName=Location
 # --field-end--
-# --field-start--
-fieldName=Description
-# --field-end--
-# --field-start--
-fieldName=Like
-# --field-end--
-# --field-start--
-fieldName=CanLike
-# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
@@ -208,15 +199,6 @@ fieldName=Title
 # --field-end--
 # --field-start--
 fieldName=Location
-# --field-end--
-# --field-start--
-fieldName=Description
-# --field-end--
-# --field-start--
-fieldName=Like
-# --field-end--
-# --field-start--
-fieldName=CanLike
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -255,15 +237,6 @@ fieldName=Title
 # --field-end--
 # --field-start--
 fieldName=Location
-# --field-end--
-# --field-start--
-fieldName=Description
-# --field-end--
-# --field-start--
-fieldName=Like
-# --field-end--
-# --field-start--
-fieldName=CanLike
 # --field-end--
 # --table-fields-end--
 # --table-end--
