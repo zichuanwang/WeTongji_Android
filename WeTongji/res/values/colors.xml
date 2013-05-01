@@ -38,5 +38,14 @@
     <color name="tv_text_now_title">#454545</color>
     <color name="tv_text_now_location">#0cc2cb</color>
     <color name="tv_eventlst_time_now">#e75150</color>
+    <color name="tv_event_detail_like_number">#969696</color>
+    <color name="tv_event_detail_title">#454545</color>
+    <color name="tv_event_detail_time_normal">#b1b1b1</color>
+    <color name="tv_event_detail_location">#0cc2cb</color>
+    <color name="bg_event_deatil_brief">#eeeeee</color>
+    <color name="tv_event_detail_organiztion">#6a6a6a</color>
+    <color name="tv_event_detail_org_name">#373737</color>
+    <color name="tv_event_detail_content">#6a6a6a</color>
+    <color name="bg_event_detail_content">#f9f9f9</color>
     
 </resources>

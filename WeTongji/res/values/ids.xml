@@ -42,5 +42,6 @@
     <item name="iv_event_detail_image" type="id">false</item>
     <item name="img_event_detail_org_avatar" type="id">false</item>
     <item name="text_event_detail_org_name" type="id">false</item>
+    <item name="tv_event_detail_content" type="id">false</item>
     
 </resources>

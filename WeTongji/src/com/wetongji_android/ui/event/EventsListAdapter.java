@@ -37,7 +37,7 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 	public EventsListAdapter(Fragment fragment) { 
 		mInflater = LayoutInflater.from(fragment.getActivity());
 		mContext = fragment.getActivity();
-		mListAq = WTApplication.aq;
+		mListAq = WTApplication.getInstance().getAq(fragment.getActivity());
 		mFragment = fragment;
 		mLstEvent=new ArrayList<Activity>();
 		apiHelper=ApiHelper.getInstance(mContext);

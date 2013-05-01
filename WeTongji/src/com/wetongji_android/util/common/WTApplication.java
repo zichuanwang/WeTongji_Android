@@ -10,8 +10,11 @@ import com.wetongji_android.util.data.DbHelper;
 
 import java.io.File;
 
+import android.app.Activity;
 import android.app.Application;
 import android.os.Environment;
+import android.util.DisplayMetrics;
+import android.view.Display;
 
 /**
  * @author zihe
@@ -44,7 +47,11 @@ public class WTApplication extends Application
 	private static WTApplication application = null;
 	
 	private DbHelper dbHelper;
-	public static AQuery aq;
+	
+	private AQuery aq;
+	
+	private Activity activity = null;
+	private DisplayMetrics displayMetrics = null;
 	
 	public static WTApplication getInstance()
 	{
@@ -57,11 +64,6 @@ public class WTApplication extends Application
 		super.onCreate();
 		application = this;
 		dbHelper=OpenHelperManager.getHelper(this, DbHelper.class);
-		// Instantiate AQuery and configure cache directory
-		aq = new AQuery(this);
-		File ext = Environment.getExternalStorageDirectory();
-        File cacheDir = new File(ext, "WeTongji/cache");
-        AQUtility.setCacheDir(cacheDir);
 	}
 
 	public DbHelper getDbHelper() {
@@ -73,5 +75,48 @@ public class WTApplication extends Application
 		super.onTerminate();
 		OpenHelperManager.releaseHelper();
 	}
+
+	public AQuery getAq(Activity activity) {
+		aq = new AQuery(activity);
+		// Instantiate AQuery and configure cache directory
+		File ext = Environment.getExternalStorageDirectory();
+		File cacheDir = new File(ext, "WeTongji/cache");
+		AQUtility.setCacheDir(cacheDir);
+		return aq ;
+	}
+	
+	public DisplayMetrics getDisplayMetrics() {
+        if (displayMetrics != null) {
+            return displayMetrics;
+        } else {
+            Activity a = getActivity();
+            if (a != null) {
+                Display display = getActivity().getWindowManager().getDefaultDisplay();
+                DisplayMetrics metrics = new DisplayMetrics();
+                display.getMetrics(metrics);
+                this.displayMetrics = metrics;
+                return metrics;
+            } else {
+                //default screen is 800x480
+                DisplayMetrics metrics = new DisplayMetrics();
+                metrics.widthPixels = 480;
+                metrics.heightPixels = 800;
+                return metrics;
+            }
+        }
+    }
+
+	public Activity getActivity() {
+		return activity;
+	}
+
+	public void setActivity(Activity activity) {
+		this.activity = activity;
+	}
+	
+	
+	
+	
+	
 	
 }

@@ -29,28 +29,60 @@
 		        
 		        <LinearLayout 
 			        android:layout_width="match_parent"
-			        android:layout_height="match_parent"
+			        android:layout_height="wrap_content"
 			        android:orientation="vertical"
+			        android:background="@drawable/bg_app_base"
 					>
 				
 			        <LinearLayout
 			            android:layout_width="match_parent"
 			            android:layout_height="wrap_content"
-			            android:orientation="vertical">
+			            android:orientation="vertical"
+			            android:background="@color/bg_event_deatil_brief">
 			            
 			            <TextView android:id="@id/tv_event_detail_title"
 			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"/>
+			                android:layout_height="wrap_content"
+			                android:layout_marginRight="64dp"
+			                android:layout_marginLeft="10dp"
+			                android:layout_marginTop="10dp"
+			                android:layout_marginBottom="6dp"
+			                style="@style/EventDetailTitle"/>
 			            
 			            <TextView android:id="@id/tv_event_detail_time"
 			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"/>
+			                android:layout_height="wrap_content"
+			                android:layout_marginLeft="10dp"
+			                android:layout_marginBottom="12dp"
+			                style="@style/EventDetailTime"/>
 			            
-			            <TextView android:id="@id/tv_event_detail_location"
-			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"/>
+			            <LinearLayout android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:layout_marginRight="7dp"
+			                android:layout_marginBottom="10dp"
+			                android:layout_gravity="right"
+			                android:background="@color/bg_event_deatil_brief">
+			                
+				            <TextView android:id="@id/tv_event_detail_location"
+				                android:layout_width="wrap_content"
+				                android:layout_height="wrap_content"
+				                android:layout_marginRight="3dp"
+				                style="@style/EventDetailLocation"/>
+				            
+				            <ImageView android:layout_width="wrap_content"
+				                android:layout_height="wrap_content"
+				                android:layout_gravity="center_vertical"
+				                android:src="@drawable/event_detail_arrow"/>
+			                
+			            </LinearLayout>
+			            
 			            
 			        </LinearLayout>
+			        
+			        <LinearLayout android:layout_width="match_parent"
+			            android:layout_height="1.5dp"
+			            android:paddingBottom="-0.5dp"
+			            android:background="@drawable/event_detail_shadow"></LinearLayout>
 			        
 			        <ImageView android:id="@id/iv_event_detail_image"
 			            android:layout_width="match_parent"
@@ -61,20 +93,30 @@
 		            <TextView
 		                android:layout_width="wrap_content"
 		            	android:layout_height="wrap_content"
-		            	android:text="@string/text_evnet_detail_organization"/>
+		            	android:layout_marginLeft="10dp"
+		            	android:layout_marginTop="10dp"
+		            	android:text="@string/text_evnet_detail_organization"
+		            	style="@style/EventDetailOrganization"/>
 			        <LinearLayout
 			            android:layout_width="match_parent"
-			            android:layout_height="wrap_content">
+			            android:layout_height="wrap_content"
+			            android:layout_marginLeft="10dp">
 			            
 			            <ImageView 
 			                android:id="@id/img_event_detail_org_avatar"
-			                android:layout_width="36dp"
-			                android:layout_height="36dp"/>
+			                android:layout_width="34dp"
+			                android:layout_height="34dp"
+			                android:layout_marginRight="7dp"
+			                android:layout_marginTop="7dp"
+			                android:layout_marginBottom="7dp"
+			                android:layout_marginLeft="1dp"/>
 			            
 			            <TextView android:id="@id/text_event_detail_org_name"
 			                android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
-			                android:textIsSelectable="true"/>
+			                android:layout_gravity="center_vertical"
+			                android:textIsSelectable="true"
+			                style="@style/EventDetailOrgName"/>
 			            
 			        </LinearLayout>
 			       	<!-- END-organization-END -->
@@ -82,14 +124,22 @@
 			       	<LinearLayout 
 			       	    android:layout_width="match_parent"
 			       	    android:layout_height="wrap_content"
-			       	    android:orientation="vertical">
+			       	    android:layout_margin="4dp"
+			       	    android:orientation="vertical"
+			       	    android:background="@drawable/event_detail_content_bg">
 			       	    
 			       	    <TextView android:layout_width="wrap_content"
 			       	        android:layout_height="wrap_content"
-			       	        android:text="@string/text_event_about"/>
-			       	    <TextView android:layout_width="match_parent" 
+			       	        android:text="@string/text_event_about"
+			       	        android:layout_margin="6dp"
+			       	        style="@style/EventDetailAbout"/>
+			       	    <TextView 
+			       	        android:id="@id/tv_event_detail_content"
+			       	        android:layout_width="match_parent" 
 			       	        android:layout_height="wrap_content"
-			       	        android:textIsSelectable="true"/>
+			       	        android:textIsSelectable="true"
+			       	       	android:layout_margin="14dp"
+			       	        style="@style/EventDetailContent"/>
 			       	</LinearLayout>
 			    </LinearLayout>
 		        
@@ -126,15 +176,18 @@
           <CheckBox 
               android:id="@id/cb_event_like"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
+              android:layout_height="26dp"
               android:layout_marginTop="1dp"
               android:layout_marginLeft="4dp"
+              android:layout_marginBottom="0dp"
+              android:paddingBottom="-2dp"
               style="@style/EventLikeCheckbox"/>
           
           <TextView 
               android:id="@id/tv_event_like_number"
               android:layout_width="wrap_content"
-              android:layout_height="wrap_content"/>
+              android:layout_height="wrap_content"
+              style="@style/EventLikeNumber"/>
         </LinearLayout>
     </RelativeLayout>
 </FrameLayout>

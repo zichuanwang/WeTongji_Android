@@ -61,4 +61,57 @@
         <item name="android:button">@drawable/cb_event_like</item>
     </style>
     
+    <style name="EventDetailText">
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0.5</item>
+        <item name="android:shadowColor">#ff000000</item>
+    </style>
+    <style name="EventLikeNumber">
+       <item name="android:textSize">12sp</item>
+       <item name="android:textStyle">bold</item>
+       <item name="android:textColor">@color/tv_event_detail_like_number</item>
+   	</style>
+   	
+    <style name="EventDetailTitle" parent="@style/EventDetailText">
+       <item name="android:textSize">24sp</item>
+       <item name="android:textStyle">bold</item>
+       <item name="android:textColor">@color/tv_event_detail_title</item>
+       <item name="android:maxLines">2</item>
+   	</style>
+   	
+    <style name="EventDetailTime" parent="@style/EventDetailText">
+       <item name="android:textSize">12sp</item>
+       <item name="android:textStyle">bold</item>
+       <item name="android:textColor">@color/tv_event_detail_time_normal</item>
+   	</style>
+   	
+    <style name="EventDetailLocation">
+       <item name="android:textSize">13sp</item>
+       <item name="android:textStyle">bold</item>
+       <item name="android:textColor">@color/tv_event_detail_location</item>
+   	</style>
+   	
+    <style name="EventDetailOrganization" parent="@style/EventDetailText">
+       <item name="android:textSize">11sp</item>
+       <item name="android:textStyle">bold</item>
+       <item name="android:textColor">@color/tv_event_detail_organiztion</item>
+   	</style>
+   	
+   	<style name="EventDetailOrgName">
+       <item name="android:textSize">18sp</item>
+       <item name="android:textColor">@color/tv_event_detail_org_name</item>
+       <item name="android:textStyle">normal</item>
+   	</style>
+   	
+   	<style name="EventDetailAbout" parent="@style/EventDetailOrganization">
+   	</style>
+   	
+ 	<style name="EventDetailContent">
+       <item name="android:textSize">17sp</item>
+       <item name="android:textColor">@color/tv_event_detail_content</item>
+       <item name="android:shadowRadius">1</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0.5</item>
+   	</style>
 </resources>

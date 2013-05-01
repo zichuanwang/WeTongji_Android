@@ -1,14 +1,8 @@
 package com.wetongji_android.data;
 
-import java.io.Serializable;
-
 import com.j256.ormlite.field.DatabaseField;
 
-public class Activity extends Event implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6721263581635107704L;
+public class Activity extends Event{
 	@DatabaseField
 	private int Channel_Id;
 	@DatabaseField
