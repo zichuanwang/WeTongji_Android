@@ -2,6 +2,7 @@ package com.wetongji_android.util.data.event;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
@@ -14,10 +15,10 @@ import com.wetongji_android.util.date.DateParser;
 public class EventUtil {
 	
 	public static boolean isNextEvent(Event event){
-		Calendar now=Calendar.getInstance();
-		Calendar eventBegin=DateParser.parseDateAndTime(event.getBegin());
-		Calendar eventEnd=DateParser.parseDateAndTime(event.getEnd());
-		if(now.before(eventEnd)&&now.after(eventBegin)){
+		Date now=new Date();
+		Date begin=event.getBegin();
+		Date end=event.getEnd();
+		if(now.before(end)&&now.after(begin)){
 			return true;
 		}
 		else{
@@ -26,9 +27,9 @@ public class EventUtil {
 	}
 	
 	public static boolean isPastEvent(Event event){
-		Calendar now=Calendar.getInstance();
-		Calendar eventEnd=DateParser.parseDateAndTime(event.getEnd());
-		if(now.after(eventEnd)){
+		Date now=new Date();
+		Date end=event.getEnd();
+		if(now.after(end)){
 			return true;
 		}
 		else{
@@ -45,8 +46,8 @@ public class EventUtil {
 				DateUtils.FORMAT_SHOW_TIME|DateUtils.FORMAT_24HOUR);
 	}
 	
-	public static List<Pair<String, List<Event>>> getSectionedEventList(List<Event> list){
-		List<Pair<String, List<Event>>> result=new ArrayList<Pair<String,List<Event>>>();
+	public static List<Pair<Date, List<Event>>> getSectionedEventList(List<Event> list){
+		List<Pair<Date, List<Event>>> result=new ArrayList<Pair<Date,List<Event>>>();
 		if(list.isEmpty()){
 			return result;
 		}
@@ -57,15 +58,15 @@ public class EventUtil {
 				continue;
 			}
 			else{
-				Pair<String, List<Event>> pair=
-						new Pair<String, List<Event>>(list.get(start).getBegin(),
+				Pair<Date, List<Event>> pair=
+						new Pair<Date, List<Event>>(list.get(start).getBegin(),
 								list.subList(start, current));
 				result.add(pair);
 				start=current;
 			}
 		}
-		Pair<String, List<Event>> pair=
-				new Pair<String, List<Event>>(list.get(start).getBegin(),
+		Pair<Date, List<Event>> pair=
+				new Pair<Date, List<Event>>(list.get(start).getBegin(),
 						list.subList(start, current));
 		result.add(pair);
 		return result;

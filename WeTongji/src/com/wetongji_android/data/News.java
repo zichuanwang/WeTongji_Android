@@ -1,5 +1,7 @@
 package com.wetongji_android.data;
 
+import java.util.Date;
+
 import com.j256.ormlite.field.DatabaseField;
 
 public abstract class News {
@@ -14,7 +16,7 @@ public abstract class News {
 	@DatabaseField
 	String Image;
 	@DatabaseField
-	String CreatedAt;
+	Date CreatedAt;
 	@DatabaseField
 	int Like;
 	@DatabaseField
@@ -29,7 +31,7 @@ public abstract class News {
 	}
 	
 	public News(int id, String title, String context, int read, String image,
-			String createdAt, int like, boolean canLike, String summary,
+			Date createdAt, int like, boolean canLike, String summary,
 			String source) {
 		super();
 		Id = id;
@@ -84,11 +86,11 @@ public abstract class News {
 		Image = image;
 	}
 	
-	public String getCreatedAt() {
+	public Date getCreatedAt() {
 		return CreatedAt;
 	}
 	
-	public void setCreatedAt(String createdAt) {
+	public void setCreatedAt(Date createdAt) {
 		CreatedAt = createdAt;
 	}
 	

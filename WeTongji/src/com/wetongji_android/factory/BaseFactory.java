@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.j256.ormlite.table.TableUtils;
 import com.wetongji_android.data.Activity;
@@ -40,7 +40,7 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 
 	protected List<T> createObjects(String jsonStr, boolean needToRefresh) {
 		list.clear();
-		Gson gson=new Gson();
+		Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 		list=gson.fromJson(jsonStr, new TypeToken<List<Activity>>(){}.getType());
 		
 		Bundle args=new Bundle();

@@ -2,6 +2,7 @@ package com.wetongji_android.ui.now;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -33,7 +34,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 	private LayoutInflater inflater;
 	private Context context;
 	private AQuery listAq;
-	private List<Pair<String, List<Event>>> events;
+	private List<Pair<Date, List<Event>>> events;
 	private Fragment fragment;
 	
 	public NowWeekListAdapter(Fragment fragment, Calendar begin, Calendar end) {
@@ -41,7 +42,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		context=fragment.getActivity();
 		inflater=LayoutInflater.from(context);
 		listAq=new AQuery(context);
-		events=new ArrayList<Pair<String,List<Event>>>();
+		events=new ArrayList<Pair<Date,List<Event>>>();
 		this.fragment.getLoaderManager().initLoader(
 				WTApplication.EVENTS_LOADER, QueryHelper.getEventQueryArgs(begin, end), this);	
 	}
@@ -196,12 +197,12 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		notifyDataSetChanged();
 	}
 	
-	public void setData(List<Pair<String, List<Event>>> events){
+	public void setData(List<Pair<Date, List<Event>>> events){
 		this.events=events;
 		notifyDataSetChanged();
 	}
 	
-	public List<Pair<String, List<Event>>> getData(){
+	public List<Pair<Date, List<Event>>> getData(){
 		return events;
 	}
 

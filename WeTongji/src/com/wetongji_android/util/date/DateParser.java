@@ -21,7 +21,7 @@ public class DateParser {
 	private static SimpleDateFormat serverSourse=new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
 	private static SimpleDateFormat serverTarget=new SimpleDateFormat(
-			"yyyy-MM-dd'%'", Locale.US);
+			"yyyy-MM-dd", Locale.US);
 	
 	public static int getWeekNumber(String schoolYearStartAt) {
 	    int weekCount = 0;
@@ -46,16 +46,10 @@ public class DateParser {
 	    return weekCount;
 	}
 	
-	public static Calendar parseDateAndTime(String dateFromServer){
-		try {
-			Date date=serverSourse.parse(dateFromServer);
-			Calendar cal=Calendar.getInstance();
-			cal.setTime(date);
-			return cal;
-		} catch (ParseException e) {
-			e.printStackTrace();
-			return Calendar.getInstance();
-		}
+	public static Calendar parseDateAndTime(Date dateFromServer){
+		Calendar cal=Calendar.getInstance();
+		cal.setTime(dateFromServer);
+		return cal;
 	}
 	
 	public static String buildDateAndTime(Calendar cal){
@@ -75,7 +69,7 @@ public class DateParser {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static String getEventTime(Context context, String begin, String end) {
+	public static String getEventTime(Context context, Date begin, Date end) {
 		Calendar calBegin = parseDateAndTime(begin);
 		Calendar calEnd = parseDateAndTime(end);
 		Calendar calNow = Calendar.getInstance();
@@ -120,12 +114,10 @@ public class DateParser {
 		return sb.toString();
 	}
 	
-	public static boolean isNow(String begin, String end) {
-		Calendar calBegin = parseDateAndTime(begin);
-		Calendar calEnd = parseDateAndTime(end);
-		Calendar calNow = Calendar.getInstance();
+	public static boolean isNow(Date begin, Date end) {
 		
-		return (calNow.after(calBegin) && calNow.before(calEnd));
+		Date now=new Date();
+		return (now.after(begin) && now.before(end));
 	}
 
 }

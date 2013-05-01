@@ -1,14 +1,16 @@
 package com.wetongji_android.data;
 
+import java.util.Date;
+
 import com.j256.ormlite.field.DatabaseField;
 
 public abstract class Event implements Comparable<Event> {
 	@DatabaseField(id=true)
 	int Id;
 	@DatabaseField
-	String Begin;
+	Date Begin;
 	@DatabaseField
-	String End;
+	Date End;
 	@DatabaseField
 	String Title;
 	@DatabaseField
@@ -24,7 +26,7 @@ public abstract class Event implements Comparable<Event> {
 		super();
 	}
 
-	public Event(int id, String begin, String end, String title,
+	public Event(int id, Date begin, Date end, String title,
 			String location, String description, int like, boolean canLike) {
 		super();
 		Id = id;
@@ -45,19 +47,19 @@ public abstract class Event implements Comparable<Event> {
 		Id = id;
 	}
 
-	public String getBegin() {
+	public Date getBegin() {
 		return Begin;
 	}
 
-	public void setBegin(String begin) {
+	public void setBegin(Date begin) {
 		Begin = begin;
 	}
 
-	public String getEnd() {
+	public Date getEnd() {
 		return End;
 	}
 
-	public void setEnd(String end) {
+	public void setEnd(Date end) {
 		End = end;
 	}
 

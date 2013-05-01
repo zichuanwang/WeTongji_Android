@@ -1,6 +1,7 @@
 package com.wetongji_android.ui.now;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
@@ -78,7 +79,7 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 		return view;
 	}
 	
-	public void setNowTime(String dateFromServer){
+	public void setNowTime(Date dateFromServer){
 		if(tvNowTime==null){
 			tvNowTime=(TextView) view.findViewById(R.id.tv_now_time);
 		}
