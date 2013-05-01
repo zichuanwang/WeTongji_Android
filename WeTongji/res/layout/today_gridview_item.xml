@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@drawable/today_gridview_shape">
     
 	<TextView 
 	    android:id="@id/tv_today_grid_title"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentTop="true"
+	    android:layout_marginTop="10dp"
+	    android:layout_marginLeft="10dp"
 	    android:textIsSelectable="true"/>
 	
 	<ImageView 
@@ -15,13 +18,14 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentRight="true"
+	    android:layout_below="@id/tv_today_grid_title"
 	    android:contentDescription="@string/content_description_all"/>
 	
 	<View
 	    android:id="@id/view_today_grid_divideline" 
 	    android:layout_height="2dp"
 	    android:layout_width="match_parent"
-	    android:layout_below="@id/tv_today_grid_title"
+	    android:layout_below="@id/img_today_grid_pic"
 	    android:background="@drawable/img_today_grid_divideline"/>
 	
 	<TextView 
@@ -30,6 +34,9 @@
 	    android:layout_height="wrap_content"
 	    android:layout_below="@id/view_today_grid_divideline"
 	    android:layout_alignParentBottom="true"
+	    android:layout_marginTop="50dp"
+	    android:paddingBottom="15dp"
+	    android:layout_alignLeft="@id/tv_today_grid_title"
 	    android:textIsSelectable="true"/>
 	
 </RelativeLayout>

@@ -35,5 +35,15 @@ public class ActivityFactory extends BaseFactory<Activity, Integer>{
 		return new Pair<Integer, List<Activity>>(nextPager, result);
 	}
 	
+	public List<Activity> createObjects(String jsonSrt){
+		JSONObject outer;
+		try {
+			outer = new JSONObject(jsonSrt);
+			return super.createObjects(outer.getString("Activities"), false);
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return new ArrayList<Activity>();
+		}
+	}
 	
 }

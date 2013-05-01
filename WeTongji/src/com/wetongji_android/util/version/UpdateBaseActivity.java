@@ -31,12 +31,11 @@ implements LoaderCallbacks<HttpRequestResult>{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		apiHelper=ApiHelper.getInstance(this);
-		checkUpdate();
 	}
 	
-	private void checkUpdate(){
+	protected void checkUpdate(){
 		Bundle args=apiHelper.getSystemVersion();
-		getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER, args, this);
+		getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	
 	private void showUpdateInfo(Version version) throws NameNotFoundException{

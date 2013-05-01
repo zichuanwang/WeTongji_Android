@@ -48,6 +48,15 @@
         <item name="android:background">@drawable/today_now_cover</item>
     </style>
     
+    <style name="TodayTitle">
+        <item name="android:textColor">@color/tv_today_now</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:shadowColor">@color/today_tv_shadow</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">2</item>
+    </style>
+    
     <style name="EventLikeCheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/cb_event_like</item>
     </style>

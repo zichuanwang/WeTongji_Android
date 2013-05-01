@@ -5,6 +5,7 @@ package com.wetongji_android.util.net;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.json.JSONException;
@@ -39,7 +40,7 @@ public class HttpUtil
 		StringBuilder sb = new StringBuilder();
 		boolean bFirst = true;
 		
-		Set<String> setKeys = params.keySet();
+		Set<String> setKeys = new HashSet<String>(params.keySet());
 		
 		for(String strKey : setKeys)
 		{

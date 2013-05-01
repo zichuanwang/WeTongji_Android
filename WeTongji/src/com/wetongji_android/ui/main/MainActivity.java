@@ -12,14 +12,12 @@ import com.wetongji_android.util.version.UpdateBaseActivity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AccountManagerCallback;
-import android.accounts.AccountManagerFuture;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 public class MainActivity extends UpdateBaseActivity 
-implements AccountManagerCallback<Bundle>, OnWTListClickedListener
+implements OnWTListClickedListener
 {
 	private Fragment mContent;
 	public static final String PARAM_PREVIEW_WITHOUT_lOGIN="previewWithoutLogin";
@@ -80,10 +78,7 @@ implements AccountManagerCallback<Bundle>, OnWTListClickedListener
 		sm.setShadowDrawable(R.drawable.shadow);
 		sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 		sm.setFadeDegree(0.35f);
-		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-
-		// ≥ı ºªØSlidingMenu
-		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 	}
 	
 	@Override
@@ -120,30 +115,13 @@ implements AccountManagerCallback<Bundle>, OnWTListClickedListener
 			intent.putExtra(AuthenticatorActivity.PARAM_SHOW_INTRO, true);
 			startActivity(intent);
 		}
-	}
-	
-	/**
-	 * use old apis for capability
-	 */
-	@SuppressWarnings("deprecation")
-	void getSessionFromAccountManager(){
-		AccountManager am=AccountManager.get(this);
-		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
-		if(accounts.length!=0){
-			Account wtAccount=accounts[0];
-			//session=am.getUserData(wtAccount, AccountManager.KEY_AUTHTOKEN);
-			am.getAuthToken(wtAccount, WTApplication.AUTHTOKEN_TYPE, true, this, null);			
+		else{
+			checkUpdate();
 		}
 	}
 	
 	@Override
 	public void onEventClicked(Event event) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void run(AccountManagerFuture<Bundle> arg0) {
 		// TODO Auto-generated method stub
 		
 	}

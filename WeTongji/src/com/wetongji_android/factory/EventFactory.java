@@ -26,7 +26,8 @@ public class EventFactory extends BaseFactory<Event, Integer>{
 	@Override
 	public List<Event> createObjects(String jsonStr) {
 		list.clear();
-		List<Activity> acts=actFactory.createObjects(jsonStr,false);
+		
+		List<Activity> acts=actFactory.createObjects(jsonStr);
 		//List<Course> courses=courseFactory.createObjects(jsonStr,false);
 		//List<Exam> exams=examFactory.createObjects(jsonStr,false);
 		
