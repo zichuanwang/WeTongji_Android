@@ -58,5 +58,7 @@
 	<string name="text_now_indicator">Now</string>
 	<string name="text_friends_counter">%1$d Friends</string>
 	<string name="text_tomorrow">Tomorrow</string>
+	<string name="text_evnet_detail_organization">ORGANIZATION</string>
+	<string name="text_event_about">ABOUT</string>
 	<string name="text_week">WEEK</string>
 </resources>
