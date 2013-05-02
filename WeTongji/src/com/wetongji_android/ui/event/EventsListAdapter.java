@@ -23,7 +23,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
 public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks<List<Activity>>{
@@ -146,15 +145,20 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		String strUrl = event.getImage();
 		//String strUrl = event.getOrganizerAvatar();
 
-		AQuery aq = mListAq.recycle(convertView);
-		
-        if(aq.shouldDelay(position, convertView, parent, strUrl)) {
-        	aq.id(holder.ivEventThumb).image(mBmDefaultThumbnails);
-        }
-        else {
-        aq.id(holder.ivEventThumb).image(strUrl, true, true, LIST_THUMBNAILS_TARGET_WIDTH, R.drawable.default_avatar,
-        		null, AQuery.FADE_IN_NETWORK, 1.33f);
-        }
+		if(!strUrl.equals(WTApplication.MISSING_IMAGE_URL)){
+			AQuery aq = mListAq.recycle(convertView);
+			
+	        if(aq.shouldDelay(position, convertView, parent, strUrl)) {
+	        	aq.id(holder.ivEventThumb).image(mBmDefaultThumbnails);
+	        }
+	        else {
+	        	aq.id(holder.ivEventThumb).image(strUrl, true, true, LIST_THUMBNAILS_TARGET_WIDTH, R.drawable.default_avatar,
+	        			null, AQuery.FADE_IN_NETWORK, 1.33f);
+	        }
+		}
+		else{
+			holder.ivEventThumb.setVisibility(View.GONE);
+		}
         
 		return convertView;
 	}

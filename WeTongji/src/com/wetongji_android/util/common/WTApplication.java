@@ -42,6 +42,7 @@ public class WTApplication extends Application
 	public static final int EVENTS_LOADER=8;
 	
 	public static final String FLURRY_API_KEY="GN5KJMW6XWCSD5DTCWRW";
+	public static final String MISSING_IMAGE_URL="http://we.tongji.edu.cn/images/original/missing.png";
 	
 	//singleton
 	private static WTApplication application = null;

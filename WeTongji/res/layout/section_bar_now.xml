@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_now_section_bar"
-    android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
     android:padding="4dp" >
     
@@ -15,7 +14,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="10dp"
         android:textColor="@color/tv_text_now_section_bar_default"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textIsSelectable="false" />
     
     <TextView 
@@ -25,7 +24,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:textColor="@color/tv_text_now_section_bar_default"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textIsSelectable="false" />
 
 </RelativeLayout>

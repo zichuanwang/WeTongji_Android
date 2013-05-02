@@ -38,8 +38,7 @@
 	            android:textIsSelectable="false"
 	            android:textColor="@color/tv_text_now_time"
 	            android:textSize="22sp"
-	            android:textStyle="bold" 
-	            android:text="10:00"/>
+	            android:textStyle="bold"/>
 	        
 	        <TextView 
 	            android:id="@+id/tv_now_week"
@@ -61,8 +60,7 @@
 	            android:layout_alignBaseline="@+id/tv_now_time"
 	            android:textIsSelectable="false"
 	            android:textColor="@color/tv_text_week_number"
-	            android:textSize="14sp"
-	            android:text="8"/>
+	            android:textSize="14sp"/>
         
         </RelativeLayout>
         
