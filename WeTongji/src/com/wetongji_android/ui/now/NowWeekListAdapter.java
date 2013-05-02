@@ -164,7 +164,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 			if(!strUrl.equals(WTApplication.MISSING_IMAGE_URL)){
 				AQuery aq = listAq.recycle(convertView);
 				
-		        if(!aq.shouldDelay(position, convertView, parent, strUrl))
+		        //if(!aq.shouldDelay(position, convertView, parent, strUrl))
 		        	aq.id(holder.ivNowThumb).image(strUrl, true, true, 300, R.drawable.default_avatar,
 		        			null, AQuery.FADE_IN_NETWORK, 1.33f);
 			}

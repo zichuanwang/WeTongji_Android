@@ -1,12 +1,10 @@
 package com.wetongji_android.util.exception;
 
 import com.wetongji_android.R;
-import com.wetongji_android.ui.auth.AuthenticatorActivity;
 import com.wetongji_android.util.common.WTApplication;
 
 import android.accounts.AccountManager;
 import android.content.Context;
-import android.content.Intent;
 import android.widget.Toast;
 
 public class ExceptionToast {
@@ -63,9 +61,6 @@ public class ExceptionToast {
 	private static void invalidAuthToken(Context context){
 		AccountManager am=AccountManager.get(context);
 		am.invalidateAuthToken(WTApplication.ACCOUNT_TYPE, null);
-		Intent intent=new Intent(context, AuthenticatorActivity.class);
-		intent.putExtra(AuthenticatorActivity.PARAM_SHOW_INTRO, false);
-		context.startActivity(intent);
 	}
 
 }

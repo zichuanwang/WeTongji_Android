@@ -135,6 +135,13 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 		@Override
 		public void onPageSelected(int position) {
 			selectedPage=position;
+			if(position==NowPagerAdapter.PAGE_LEFT){
+				weekNumber--;
+			}
+			else if(position==NowPagerAdapter.PAGE_RIGHT){
+				weekNumber++;
+			}
+			tvWeekNumber.setText(weekNumber+"");
 			Log.v("viewpager", "selecte page="+selectedPage);
 		}
 	
@@ -147,13 +154,9 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 			switch (v.getId()) {
 			case R.id.btn_now_next:
 				vpWeeks.setCurrentItem(NowPagerAdapter.PAGE_RIGHT, true);
-				weekNumber++;
-				tvWeekNumber.setText(weekNumber+"");
 				break;
 			case R.id.btn_now_previous:
 				vpWeeks.setCurrentItem(NowPagerAdapter.PAGE_LEFT, true);
-				weekNumber--;
-				tvWeekNumber.setText(weekNumber+"");
 			default:
 				break;
 			}
