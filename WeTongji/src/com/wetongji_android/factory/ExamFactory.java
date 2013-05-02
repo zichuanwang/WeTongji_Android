@@ -17,7 +17,7 @@ import com.wetongji_android.util.data.exam.ExamUtil;
 public class ExamFactory extends BaseFactory<Exam, Integer> {
 
 	public ExamFactory(Fragment fragment) {
-		super(fragment, Exam.class);
+		super(fragment, Exam.class, WTApplication.EVENTS_SAVER);
 	}
 
 	@Override
@@ -43,7 +43,7 @@ public class ExamFactory extends BaseFactory<Exam, Integer> {
 
 			Bundle args=new Bundle();
 			args.putBoolean(ARG_NEED_TO_REFRESH, true);
-			fragment.getLoaderManager().initLoader(WTApplication.DB_LIST_SAVER, args, this).forceLoad();
+			fragment.getLoaderManager().initLoader(WTApplication.EVENTS_SAVER, args, this).forceLoad();
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

@@ -260,7 +260,6 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		super.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
 		if(events!=null&&!events.isEmpty())
 			(((NowFragment) fragment)).setNowTime(getItem(firstVisibleItem).getBegin());
-		Log.v("weekList", "onScrolled");
 	}
 
 	@Override
@@ -272,6 +271,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 	public void onLoadFinished(Loader<List<Event>> arg0, List<Event> events) {
 		this.events=EventUtil.getSectionedEventList(events);
 		notifyDataSetChanged();
+		Log.v("weekAdapter", "DBLoadFinished"+"count="+events.size());
 	}
 
 	@Override

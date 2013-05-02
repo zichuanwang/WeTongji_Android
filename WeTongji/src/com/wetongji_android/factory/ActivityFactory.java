@@ -10,11 +10,12 @@ import android.support.v4.app.Fragment;
 import android.util.Pair;
 
 import com.wetongji_android.data.Activity;
+import com.wetongji_android.util.common.WTApplication;
 
 public class ActivityFactory extends BaseFactory<Activity, Integer>{
 
 	public ActivityFactory(Fragment fragment) {
-		super(fragment, Activity.class);
+		super(fragment, Activity.class, WTApplication.ACTIVITIES_SAVER);
 	}
 
 	public Pair<Integer, List<Activity>> createObjects(String jsonStr, int currentPage) {
@@ -39,22 +40,11 @@ public class ActivityFactory extends BaseFactory<Activity, Integer>{
 		JSONObject outer;
 		try {
 			outer = new JSONObject(jsonSrt);
-			return super.createObjects(outer.getString("Activities"), false);
+			return super.createObjects(outer.getString("Activities"), true);
 		} catch (JSONException e) {
 			e.printStackTrace();
 			return new ArrayList<Activity>();
 		}
 	}
 	
-	public List<Activity> createObjectsWithoutWriteToDb(String jsonSrt){
-		JSONObject outer;
-		try {
-			outer = new JSONObject(jsonSrt);
-			return super.createObjectsWithoutWriteToDb(outer.getString("Activities"));
-		} catch (JSONException e) {
-			e.printStackTrace();
-			return new ArrayList<Activity>();
-		}
-	}
-
 }

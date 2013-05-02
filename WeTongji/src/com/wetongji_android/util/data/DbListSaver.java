@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.table.TableUtils;
+import com.wetongji_android.factory.BaseFactory;
 import com.wetongji_android.util.common.WTApplication;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
 
 public class DbListSaver<T, ID> extends AsyncTaskLoader<Void> implements Callable<Void>{
@@ -15,11 +18,15 @@ public class DbListSaver<T, ID> extends AsyncTaskLoader<Void> implements Callabl
 	private Dao<T, ID> mDao = null;
     private List<T> mData = null;
     private DbHelper dbHelper;
+    private Bundle args;
+    private Class<T> clazz;
 
-    public DbListSaver(Context context, Class<T> clazz, List<T> data)
+    public DbListSaver(Context context, Class<T> clazz, List<T> data, Bundle args)
     {
         super(context);
         this.mData=data;
+        this.args=args;
+        this.clazz=clazz;
         dbHelper=WTApplication.getInstance().getDbHelper();
         try {
 			mDao=dbHelper.getDao(clazz);
@@ -31,6 +38,9 @@ public class DbListSaver<T, ID> extends AsyncTaskLoader<Void> implements Callabl
 	@Override
 	public Void loadInBackground() {
 		try {
+			if(args!=null&&args.getBoolean(BaseFactory.ARG_NEED_TO_REFRESH)){
+				TableUtils.clearTable(dbHelper.getConnectionSource(), clazz);
+			}
 			mDao.callBatchTasks(this);
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -14,13 +15,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.foound.widget.AmazingListView;
 import com.wetongji_android.R;
+import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Event;
 import com.wetongji_android.factory.EventFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.event.EventDetailActivity;
+import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.exception.ExceptionToast;
@@ -75,6 +81,7 @@ public class NowPagerAdapter extends PagerAdapter {
 			Bundle args=null;
 			nowWeekList.setAdapter(listAdapter);
 			nowWeekList.setPinnedHeaderView(LayoutInflater.from(context).inflate(R.layout.section_bar_now, nowWeekList, false));
+			nowWeekList.setOnItemClickListener(new ListItemClickListener());
 			args=ApiHelper.getInstance(context).getSchedule(begin, end);
 			fragment.getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_1, args, callbacks).forceLoad();
 			container.addView(nowWeekList);
@@ -157,6 +164,24 @@ public class NowPagerAdapter extends PagerAdapter {
 		@Override
 		public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 			Log.v("pagerAdapter", "restartedLoader");
+		}
+		
+	}
+	
+	private class ListItemClickListener implements OnItemClickListener {
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View view, int position,
+				long id) {
+			Event event = listAdapter.getItem(position);
+			Bundle bundle = new Bundle();
+			bundle.putInt(EventsFragment.BUNDLE_KEY_ACTIVITY, event.getId());
+			Intent intent=null;
+			if(event instanceof Activity){
+				intent = new Intent(context, EventDetailActivity.class);
+				intent.putExtras(bundle);
+			}
+			context.startActivity(intent);
 		}
 		
 	}

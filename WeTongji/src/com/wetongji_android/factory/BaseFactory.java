@@ -1,6 +1,5 @@
 package com.wetongji_android.factory;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,39 +11,37 @@ import android.support.v4.content.Loader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.j256.ormlite.table.TableUtils;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.data.DbHelper;
 import com.wetongji_android.util.data.DbListSaver;
 
 public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 	
-	protected static final String ARG_NEED_TO_REFRESH="needToRefresh";
+	public static final String ARG_NEED_TO_REFRESH="needToRefresh";
 	
 	protected Fragment fragment;
 	private Context context;
 	protected List<T> list;
 	private Class<T> clazz;
+	private int loaderId;
 	
-	public BaseFactory(Fragment fragment, Class<T> clazz){
+	public BaseFactory(Fragment fragment, Class<T> clazz, int loaderId){
 		this.fragment=fragment;
 		this.context=this.fragment.getActivity();
 		list=new ArrayList<T>();
 		this.clazz=clazz;
+		if(loaderId>0){
+			this.loaderId=loaderId;
+		}
+		else{
+			this.loaderId=WTApplication.DB_LIST_SAVER;
+		}
 	}
 	
 	public List<T> createObjects(String jsonStr){
 		return createObjects(jsonStr, false);
 	}
 	
-	protected List<T> createObjectsWithoutWriteToDb(String jsonStr){
-		list.clear();
-		Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
-		list=gson.fromJson(jsonStr, new TypeToken<List<Activity>>(){}.getType());
-		return list;
-	}
-
 	protected List<T> createObjects(String jsonStr, boolean needToRefresh) {
 		list.clear();
 		Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
@@ -52,22 +49,13 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 		
 		Bundle args=new Bundle();
 		args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
-		fragment.getLoaderManager().initLoader(WTApplication.DB_LIST_SAVER, args, this).forceLoad();
+		fragment.getLoaderManager().initLoader(loaderId, args, this).forceLoad();
 		return list;
 	}
-
+	
 	@Override
 	public Loader<Void> onCreateLoader(int arg0, Bundle args) {
-		DbHelper dbHelper=WTApplication.getInstance().getDbHelper();
-		try {
-			if(args!=null&&args.getBoolean(ARG_NEED_TO_REFRESH)){
-				TableUtils.clearTable(dbHelper.getConnectionSource(), clazz);
-			}
-			return new DbListSaver<T, ID>(context, clazz, list);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
+		return new DbListSaver<T, ID>(context, clazz, list, args);
 	}
 
 	@Override

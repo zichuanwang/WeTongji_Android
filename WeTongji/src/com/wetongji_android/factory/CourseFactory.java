@@ -17,7 +17,7 @@ import com.wetongji_android.util.data.course.CourseUtil;
 public class CourseFactory extends BaseFactory<Course, Integer> {
 
 	public CourseFactory(Fragment fragment) {
-		super(fragment, Course.class);
+		super(fragment, Course.class, WTApplication.COURSES_SAVER);
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class CourseFactory extends BaseFactory<Course, Integer> {
 
 			Bundle args=new Bundle();
 			args.putBoolean(ARG_NEED_TO_REFRESH, true);
-			fragment.getLoaderManager().initLoader(WTApplication.DB_LIST_SAVER, args, this).forceLoad();
+			fragment.getLoaderManager().initLoader(WTApplication.COURSES_SAVER, args, this).forceLoad();
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

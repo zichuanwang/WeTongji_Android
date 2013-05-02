@@ -19,7 +19,7 @@ public class EventFactory extends BaseFactory<Event, Integer>{
 	private ExamFactory examFactory;
 
 	public EventFactory(Fragment fragment) {
-		super(fragment, Event.class);
+		super(fragment, Event.class, WTApplication.EVENTS_SAVER);
 		actFactory=new ActivityFactory(fragment);
 		courseFactory=new CourseFactory(fragment);
 		examFactory=new ExamFactory(fragment);
@@ -29,7 +29,7 @@ public class EventFactory extends BaseFactory<Event, Integer>{
 	public List<Event> createObjects(String jsonStr) {
 		list.clear();
 		
-		List<Activity> acts=actFactory.createObjectsWithoutWriteToDb(jsonStr);
+		List<Activity> acts=actFactory.createObjects(jsonStr);
 		List<Course> courses=courseFactory.createObjects(jsonStr);
 		List<Exam> exams=examFactory.createObjects(jsonStr);
 		
@@ -41,7 +41,7 @@ public class EventFactory extends BaseFactory<Event, Integer>{
 
 		Bundle args=new Bundle();
 		args.putBoolean(ARG_NEED_TO_REFRESH, true);
-		fragment.getLoaderManager().initLoader(WTApplication.DB_LIST_SAVER, args, this).forceLoad();
+		fragment.getLoaderManager().initLoader(WTApplication.EVENTS_SAVER, args, this).forceLoad();
 		
 		return list;
 	}
