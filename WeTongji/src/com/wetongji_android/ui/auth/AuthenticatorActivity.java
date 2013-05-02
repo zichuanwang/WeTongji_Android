@@ -27,7 +27,6 @@ import com.flurry.android.FlurryAgent;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
-import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
@@ -136,9 +135,6 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btn_not_now:
-			Intent intent=new Intent(this, MainActivity.class);
-			intent.putExtra(MainActivity.PARAM_PREVIEW_WITHOUT_lOGIN, true);
-			startActivity(intent);
 			finish();
 			break;
 		}
@@ -167,7 +163,7 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 		if(!TextUtils.isEmpty(mUsername)&&!TextUtils.isEmpty(mPassword)){
 			showProgress();
 			Bundle args=apiHelper.getUserLogOn(mUsername, mPassword);
-			getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
+			getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this).forceLoad();
 		}
 	}
 	
@@ -200,6 +196,7 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 
 			mAm.setUserData(account, AccountManager.KEY_USERDATA, uid);
 			mAm.setAuthToken(account, WTApplication.AUTHTOKEN_TYPE, session);
+			apiHelper.setSession(session);
 			final Intent intent=new Intent();
 			intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mUsername);
 			intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, WTApplication.ACCOUNT_TYPE);

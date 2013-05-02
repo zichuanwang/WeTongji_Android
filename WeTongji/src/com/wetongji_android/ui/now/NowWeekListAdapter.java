@@ -237,17 +237,20 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 	
 	private void configureHeader(View view, int position){
 		TextView tvWeekDay=(TextView) view.findViewById(R.id.tv_now_section_bar_week_day);
-		Date date=dates[getSectionForPosition(position)];
-		tvWeekDay.setText(DateUtils.formatDateTime(context, date.getTime(),
-				DateUtils.FORMAT_SHOW_WEEKDAY));
-		TextView tvDate=(TextView) view.findViewById(R.id.tv_now_section_bar_date);
-		tvDate.setText(DateUtils.formatDateTime(context, date.getTime(),
-				DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_SHOW_YEAR));
-		if(DateUtils.isToday(date.getTime())){
-			tvWeekDay.setTextColor(context.getResources().getColor(R.color.tv_text_week_number));
-		}
-		else{
-			tvWeekDay.setTextColor(context.getResources().getColor(R.color.tv_text_now_section_bar_default));
+		Date date=new Date();
+		if(dates!=null){
+			date=dates[getSectionForPosition(position)];
+			tvWeekDay.setText(DateUtils.formatDateTime(context, date.getTime(),
+					DateUtils.FORMAT_SHOW_WEEKDAY));
+			TextView tvDate=(TextView) view.findViewById(R.id.tv_now_section_bar_date);
+			tvDate.setText(DateUtils.formatDateTime(context, date.getTime(),
+					DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_SHOW_YEAR));
+			if(DateUtils.isToday(date.getTime())){
+				tvWeekDay.setTextColor(context.getResources().getColor(R.color.tv_text_week_number));
+			}
+			else{
+				tvWeekDay.setTextColor(context.getResources().getColor(R.color.tv_text_now_section_bar_default));
+			}
 		}
 	}
 

@@ -1,8 +1,12 @@
 package com.wetongji_android.util.exception;
 
 import com.wetongji_android.R;
+import com.wetongji_android.ui.auth.AuthenticatorActivity;
+import com.wetongji_android.util.common.WTApplication;
 
+import android.accounts.AccountManager;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 public class ExceptionToast {
@@ -22,9 +26,11 @@ public class ExceptionToast {
 			break;
 		case 5:
 			Toast.makeText(context, R.string.text_error_request_login, Toast.LENGTH_LONG).show();
+			invalidAuthToken(context);
 			break;
 		case 6:
 			Toast.makeText(context, R.string.text_error_request_login_again, Toast.LENGTH_LONG).show();
+			invalidAuthToken(context);
 			break;
 		case 8:
 			Toast.makeText(context, R.string.text_error_already_registried, Toast.LENGTH_LONG).show();
@@ -52,6 +58,14 @@ public class ExceptionToast {
 			break;
 		}
 		
+	}
+	
+	private static void invalidAuthToken(Context context){
+		AccountManager am=AccountManager.get(context);
+		am.invalidateAuthToken(WTApplication.ACCOUNT_TYPE, null);
+		Intent intent=new Intent(context, AuthenticatorActivity.class);
+		intent.putExtra(AuthenticatorActivity.PARAM_SHOW_INTRO, false);
+		context.startActivity(intent);
 	}
 
 }
