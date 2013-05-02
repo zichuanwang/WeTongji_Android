@@ -7,13 +7,25 @@ public class Notification
 	@DatabaseField
 	private int id;
 	@DatabaseField
+	private String title;
+	@DatabaseField
+	private String description;
+	@DatabaseField
 	private int type;
-	
-	public Notification(int id, int type) 
-	{
+	@DatabaseField
+	private int status;
+	@DatabaseField
+	private int sourceId;
+
+	public Notification(int id, String title, String description, int type,
+			int status, int sourceId) {
 		super();
-		this.setId(id);
-		this.setType(type);
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.type = type;
+		this.status = status;
+		this.sourceId = sourceId;
 	}
 
 	public int getId() {
@@ -30,5 +42,37 @@ public class Notification
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public int getSourceId() {
+		return sourceId;
+	}
+
+	public void setSourceId(int sourceId) {
+		this.sourceId = sourceId;
 	}
 }

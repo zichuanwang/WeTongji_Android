@@ -38,6 +38,7 @@
 			            android:layout_width="match_parent"
 			            android:layout_height="wrap_content"
 			            android:orientation="vertical"
+			            android:paddingBottom="0dp"
 			            android:background="@color/bg_event_deatil_brief">
 			            
 			            <TextView android:id="@id/tv_event_detail_title"
@@ -79,14 +80,17 @@
 			            
 			        </LinearLayout>
 			        
-			        <LinearLayout android:layout_width="match_parent"
+			        <!-- LinearLayout android:layout_width="match_parent"
 			            android:layout_height="1.5dp"
 			            android:paddingBottom="-0.5dp"
-			            android:background="@drawable/event_detail_shadow"></LinearLayout>
+			            android:background="@drawable/event_detail_shadow"></LinearLayout -->
 			        
 			        <ImageView android:id="@id/iv_event_detail_image"
 			            android:layout_width="match_parent"
 			            android:layout_height="144dp"
+			            android:paddingTop="1dp"
+			            android:paddingBottom="1dp"
+			            android:background="@drawable/image_cover"
 			            />
 			        
 			        <!-- organization -->
@@ -109,7 +113,9 @@
 			                android:layout_marginRight="7dp"
 			                android:layout_marginTop="7dp"
 			                android:layout_marginBottom="7dp"
-			                android:layout_marginLeft="1dp"/>
+			                android:layout_marginLeft="1dp"
+			                android:padding="1dp"
+			                android:background="@drawable/image_cover"/>
 			            
 			            <TextView android:id="@id/text_event_detail_org_name"
 			                android:layout_width="wrap_content"
