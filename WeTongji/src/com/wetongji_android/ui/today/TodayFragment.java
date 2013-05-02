@@ -26,6 +26,9 @@ public class TodayFragment extends Fragment
 	};
 	
 	private List<View> views = new ArrayList<View>();
+	private View mView;
+	private ViewPager mViewPager;
+	private GridView mGridView;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -40,17 +43,22 @@ public class TodayFragment extends Fragment
 	{
 		// TODO Auto-generated method stub
 		if(container == null)
-			return null;
-		
-		for(int i = 0; i < pics.length; i++)
 		{
-			ImageView image = new ImageView(getActivity());
-			image = (ImageView)inflater.inflate(R.layout.view_page_intro, null);
-			image.setBackgroundResource(pics[i]);
-			views.add(image);
+			return null;
+		}else
+		{
+			mView = inflater.inflate(R.layout.today_frame, container, false);
+			
+			for(int i = 0; i < pics.length; i++)
+			{
+				ImageView image = new ImageView(getActivity());
+				image = (ImageView)inflater.inflate(R.layout.view_page_intro, null);
+				image.setBackgroundResource(pics[i]);
+				views.add(image);
+			}
 		}
 		
-		return inflater.inflate(R.layout.today_frame, container, false);
+		return mView;
 	}
 
 	@Override
@@ -59,15 +67,16 @@ public class TodayFragment extends Fragment
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		
-		ViewPager vp = (ViewPager)getActivity().findViewById(R.id.vp_today);
-		vp.setAdapter(new ViewPagerAdapter(views));
+		//set viewpager adapter
+		mViewPager = (ViewPager)mView.findViewById(R.id.vp_today);
+		mViewPager.setAdapter(new ViewPagerAdapter(views));
 		
 		UnderlinePageIndicator indicator = (UnderlinePageIndicator)getActivity().findViewById(R.id.vp_indicator_today);
-		indicator.setViewPager(vp);
+		indicator.setViewPager(mViewPager);
 		indicator.setFades(false);
 		
-		GridView gv = (GridView)getActivity().findViewById(R.id.gridview_today);
-		gv.setAdapter(new GridViewAdapter(getActivity()));
+		mGridView = (GridView)mView.findViewById(R.id.gridview_today);
+		mGridView.setAdapter(new GridViewAdapter(getActivity()));
 	}
 
 	@Override

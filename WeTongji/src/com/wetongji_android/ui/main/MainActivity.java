@@ -6,6 +6,7 @@ import com.slidingmenu.lib.SlidingMenu;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Event;
 import com.wetongji_android.ui.auth.AuthenticatorActivity;
+import com.wetongji_android.ui.notification.NotificationFragment;
 import com.wetongji_android.ui.today.TodayFragment;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.version.UpdateBaseActivity;
@@ -27,7 +28,6 @@ implements OnWTListClickedListener
 	{
 		super.onCreate(savedInstanceState);
 		
-		// 主视图
 		if (savedInstanceState != null)
 			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
 		if (mContent == null)
@@ -37,6 +37,7 @@ implements OnWTListClickedListener
 			checkAccount();
 		}
 		
+		//set the above view
 		setContentView(R.layout.content_frame);
 		getSupportFragmentManager()
 			.beginTransaction()
@@ -61,24 +62,34 @@ implements OnWTListClickedListener
 	/**
 	 * set attributes of the sliding menu
 	 */
-	private void setSlidingMenu() {
-		// 设置侧边栏
+	private void setSlidingMenu() 
+	{
+		// set slidingmenu properties
+		SlidingMenu sm = getSlidingMenu();
+		//sm.setMode(SlidingMenu.LEFT_RIGHT);
+		sm.setShadowWidthRes(R.dimen.shadow_width);
+		sm.setShadowDrawable(R.drawable.shadow);
+		sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		sm.setFadeDegree(0.35f);
+		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+		
+		// set left menu
 		setBehindContentView(R.layout.menu_frame);
 		getSupportFragmentManager()
 		.beginTransaction()
 		.replace(R.id.menu_frame, new MainMenuFragment())
 		.commit();
 		
+		//set right menu
+		/*sm.setSecondaryMenu(R.layout.right_menu);
+		sm.setSecondaryShadowDrawable(R.drawable.shadow);
+		getSupportFragmentManager()
+		.beginTransaction()
+		.replace(R.id.right_menu, new NotificationFragment())
+		.commit();*/
+		
 		//setTitle();
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-		// 定制SlidingMenu样式
-		SlidingMenu sm = getSlidingMenu();
-		sm.setShadowWidthRes(R.dimen.shadow_width);
-		sm.setShadowDrawable(R.drawable.shadow);
-		sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		sm.setFadeDegree(0.35f);
-		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 	}
 	
 	@Override
