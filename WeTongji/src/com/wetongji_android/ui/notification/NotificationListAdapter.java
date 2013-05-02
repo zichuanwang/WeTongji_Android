@@ -1,10 +1,14 @@
 package com.wetongji_android.ui.notification;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.data.Notification;
+import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.data.notification.NotificationsLoader;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -17,59 +21,59 @@ import android.widget.TextView;
 
 public class NotificationListAdapter extends AmazingAdapter implements LoaderCallbacks<List<Notification>>
 {
-	private List<Notification> mLstNotifications;
+	private List<Notification> mListNotifications;
 	private Fragment mFragment;
+	private Context mContext;
+	
+	public NotificationListAdapter(Fragment fragment)
+	{
+		this.mFragment = fragment;
+		this.mContext = fragment.getActivity();
+		this.mListNotifications = new ArrayList<Notification>();
+		this.mFragment.getLoaderManager().initLoader(WTApplication.NOTIFICATIONS_LOADER, null, this);
+	}
+	
+	public void setContentList(List<Notification> notifications)
+	{
+		this.mListNotifications.clear();
+		this.mListNotifications.addAll(notifications);
+		notifyDataSetChanged();
+	}
 	
 	@Override
 	public int getCount() 
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		return this.mListNotifications.size();
 	}
 
 	@Override
 	public Object getItem(int position) 
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return this.mListNotifications.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) 
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		return position;
 	}
 
 	@Override
 	public Loader<List<Notification>> onCreateLoader(int arg0, Bundle arg1) 
 	{
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	static class InformViewHolder
-	{
-		TextView tv_notification_time;
-		TextView tv_notification_content;
-		ImageView img_notification_thumbnails;
-	}
-	
-	static class ConsultViewHolder
-	{
-		TextView tv_notification_time;
-		TextView tv_notification_content;
-		ImageView img_notification_thumbnails;
-		Button btn_notification_ignore;
-		Button btn_notification_accept;
+		return new NotificationsLoader(mContext, null);
 	}
 	
 	@Override
 	public void onLoadFinished(Loader<List<Notification>> arg0,
-			List<Notification> arg1) 
+			List<Notification> notifications) 
 	{
 		// TODO Auto-generated method stub
-		
+		setContentList(notifications);
 	}
 
 	@Override
@@ -94,6 +98,22 @@ public class NotificationListAdapter extends AmazingAdapter implements LoaderCal
 		
 	}
 
+	static class InformViewHolder
+	{
+		TextView tv_notification_time;
+		TextView tv_notification_content;
+		ImageView img_notification_thumbnails;
+	}
+	
+	static class ConsultViewHolder
+	{
+		TextView tv_notification_time;
+		TextView tv_notification_content;
+		ImageView img_notification_thumbnails;
+		Button btn_notification_ignore;
+		Button btn_notification_accept;
+	}
+	
 	@Override
 	public View getAmazingView(int position, View convertView, ViewGroup parent) 
 	{

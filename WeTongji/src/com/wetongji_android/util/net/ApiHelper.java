@@ -284,6 +284,12 @@ public class ApiHelper {
 		return bundle;
 	}
 	
+	public Bundle getNotifications()
+	{
+		Bundle bundle = new Bundle();
+		return bundle;
+	}
+	
 	public Bundle getTimetable(){
 		Bundle bundle=new Bundle();
 		putBasicArgs(bundle);
