@@ -52,10 +52,7 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 		mAdapter = new EventsListAdapter(this);
 		mListActivity.setAdapter(mAdapter);
 		mListActivity.setOnItemClickListener(onItemClickListener);
-		//mListActivity.setLoadingView(inflater.inflate(R.layout.amazing_lst_view_loading_view, null));
-		TextView text = new TextView(getActivity());
-		text.setText("ÔØÈë");
-		mListActivity.setLoadingView(text);
+		mListActivity.setLoadingView(inflater.inflate(R.layout.amazing_lst_view_loading_view, null));
 		mAdapter.notifyMayHaveMorePages();
 		
 		return view;

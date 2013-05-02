@@ -47,7 +47,7 @@ public class EventDetailActivity extends android.app.Activity{
 	
 	private void setUpUI() {
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_event);
+		setContentView(R.layout.activity_event_detail);
 		
 		mAq = WTApplication.getInstance().getAq(this);
 		mAq.id(R.id.img_event_detail_org_avatar).image(mEvent.getOrganizerAvatar(), false, true, 0,
