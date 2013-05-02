@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -115,7 +116,7 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 			Intent intent = new Intent(getActivity(), EventDetailActivity.class);
 			Activity activity = mAdapter.getItem(position);
 			Bundle bundle = new Bundle();
-			bundle.putSerializable(BUNDLE_KEY_ACTIVITY, activity);
+			bundle.putInt(BUNDLE_KEY_ACTIVITY, activity.getId());
 			intent.putExtras(bundle);
 			startActivity(intent);
 		}

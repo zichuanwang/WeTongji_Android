@@ -20,7 +20,9 @@ import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 /**
@@ -34,7 +36,8 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 	
 	private View view;
 	private int selectedPage;
-	//private TextView tvWeekNumber;
+	private int weekNumber;
+	private TextView tvWeekNumber;
 	private TextView tvNowTime;
 	private ViewPager vpWeeks;
 	private NowPagerAdapter adapter;
@@ -60,6 +63,7 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 		super.onCreate(savedInstanceState);
 		
 		selectedPage=0;
+		weekNumber=8;
 		//apiHelper=ApiHelper.getInstance(getActivity());
 		//Bundle args=apiHelper.getTimetable();
 		//getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
@@ -70,12 +74,18 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		view=inflater.inflate(R.layout.fragment_now, container, false);
-		//tvWeekNumber=(TextView) view.findViewById(R.id.tv_now_week_number);
+		tvWeekNumber=(TextView) view.findViewById(R.id.tv_now_week_number);
+		tvWeekNumber.setText(weekNumber+"");
 		vpWeeks=(ViewPager) view.findViewById(R.id.vp_weeks);
 		adapter=new NowPagerAdapter(this, vpWeeks);
 		vpWeeks.setAdapter(adapter);
-		vpWeeks.setOnPageChangeListener(new pageChangeListener());
+		vpWeeks.setOnPageChangeListener(new PageChangeListener());
 		vpWeeks.setCurrentItem(NowPagerAdapter.PAGE_MIDDILE, false);
+		ImageButton btnNowNext=(ImageButton) view.findViewById(R.id.btn_now_next);
+		ImageButton btnNowPre=(ImageButton) view.findViewById(R.id.btn_now_previous);
+		ButtonClickListener btnListener=new ButtonClickListener();
+		btnNowNext.setOnClickListener(btnListener);
+		btnNowPre.setOnClickListener(btnListener);
 		return view;
 	}
 	
@@ -109,7 +119,7 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 	}
 
-	private class pageChangeListener implements OnPageChangeListener{
+	private class PageChangeListener implements OnPageChangeListener{
 		
 		@Override
 		public void onPageScrollStateChanged(int state) {
@@ -129,4 +139,26 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 		}
 	
 	}
+	
+	private class ButtonClickListener implements OnClickListener{
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.btn_now_next:
+				vpWeeks.setCurrentItem(NowPagerAdapter.PAGE_RIGHT, true);
+				weekNumber++;
+				tvWeekNumber.setText(weekNumber+"");
+				break;
+			case R.id.btn_now_previous:
+				vpWeeks.setCurrentItem(NowPagerAdapter.PAGE_LEFT, true);
+				weekNumber--;
+				tvWeekNumber.setText(weekNumber+"");
+			default:
+				break;
+			}
+		}
+		
+	}
+	
 }

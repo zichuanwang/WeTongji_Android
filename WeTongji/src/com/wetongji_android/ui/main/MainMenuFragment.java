@@ -125,6 +125,11 @@ public class MainMenuFragment extends Fragment {
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View view, int position,
 				long arg3) {
+			if (getActivity() == null)
+				return;
+			
+			((MainActivity)getActivity()).getSlidingMenu().showContent();
+			
 			Fragment newContent = null;
 			
 			//Change item background
@@ -132,7 +137,6 @@ public class MainMenuFragment extends Fragment {
 			mMenuListAdapter.notifyDataSetChanged();
 			
 			//TODO Change the fragment
-			Toast.makeText(getActivity(), "" + position, Toast.LENGTH_SHORT).show();
 			switch(position) {
 			case 0:
 				break;
@@ -157,7 +161,6 @@ public class MainMenuFragment extends Fragment {
 	private void switchFragment(Fragment fragment) {
 		if (getActivity() == null)
 			return;
-		
 		MainActivity ma = (MainActivity) getActivity();
 		ma.switchContent(fragment);
 	}

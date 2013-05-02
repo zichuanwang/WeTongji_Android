@@ -12,20 +12,22 @@ import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.net.ApiHelper;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
 public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks<List<Activity>>{
+	private static final float LIST_THUMBNAILS_TARGET_WIDTH_FACTOR = 3;
+	private static int LIST_THUMBNAILS_TARGET_WIDTH = 300;
 	
 	private LayoutInflater mInflater;
 	private Context mContext;
@@ -34,14 +36,26 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 	private Fragment mFragment;
 	private ApiHelper apiHelper;
 	
+	private BitmapDrawable mBmDefaultThumbnails;
+
 	public EventsListAdapter(Fragment fragment) { 
 		mInflater = LayoutInflater.from(fragment.getActivity());
 		mContext = fragment.getActivity();
-		mListAq = WTApplication.aq;
+		mListAq = WTApplication.getInstance().getAq(fragment.getActivity());
 		mFragment = fragment;
 		mLstEvent=new ArrayList<Activity>();
 		apiHelper=ApiHelper.getInstance(mContext);
 		mFragment.getLoaderManager().initLoader(WTApplication.ACTIVITIES_LOADER, null, this);
+		
+		mBmDefaultThumbnails = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.default_avatar);
+		
+		WTApplication app = WTApplication.getInstance();
+		app.setActivity(fragment.getActivity());
+		DisplayMetrics dm = app.getDisplayMetrics();
+		if(dm.widthPixels <= 1080) {
+			LIST_THUMBNAILS_TARGET_WIDTH = (int)(dm.widthPixels / LIST_THUMBNAILS_TARGET_WIDTH_FACTOR);
+		}
+		Log.d("target", String.valueOf(LIST_THUMBNAILS_TARGET_WIDTH));
 	}
 
 	public void setContentList(List<Activity> lstEvent) {
@@ -131,19 +145,20 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		String strUrl = event.getImage();
 		//String strUrl = event.getOrganizerAvatar();
 
-		AQuery aq = mListAq.recycle(convertView);
-		
-        Bitmap bmThumbnails=aq.getCachedImage(R.drawable.ic_launcher);
-        
-        if(aq.shouldDelay(position, convertView, parent, strUrl)) {
-        	aq.id(holder.ivEventThumb).image(bmThumbnails);
-        }
-        else {
-        aq.id(holder.ivEventThumb).image(strUrl, false, true, 0, R.drawable.default_avatar, bmThumbnails,
-        		AQuery.FADE_IN_NETWORK, 1.33f);
-        }
-        
-        holder.ivEventThumb.setScaleType(ScaleType.CENTER_CROP);
+		if(!strUrl.equals(WTApplication.MISSING_IMAGE_URL)){
+			AQuery aq = mListAq.recycle(convertView);
+			
+	        if(aq.shouldDelay(position, convertView, parent, strUrl)) {
+	        	aq.id(holder.ivEventThumb).image(mBmDefaultThumbnails);
+	        }
+	        else {
+	        	aq.id(holder.ivEventThumb).image(strUrl, true, true, LIST_THUMBNAILS_TARGET_WIDTH, R.drawable.default_avatar,
+	        			null, AQuery.FADE_IN_NETWORK, 1.33f);
+	        }
+		}
+		else{
+			holder.ivEventThumb.setVisibility(View.GONE);
+		}
         
 		return convertView;
 	}
