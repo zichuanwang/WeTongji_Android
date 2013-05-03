@@ -1,10 +1,15 @@
 package com.wetongji_android.data;
 
-import com.j256.ormlite.dao.ForeignCollection;
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
+import java.util.HashMap;
 
-public class Person {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+
+public class Person implements Parcelable{
+	
 	@DatabaseField(id=true)
 	private int Id;
 	@DatabaseField
@@ -27,8 +32,8 @@ public class Person {
 	private int Like;
 	@DatabaseField
 	private boolean CanLike;
-	@ForeignCollectionField(eager=true)
-	ForeignCollection<PersonImage> Images;
+	@DatabaseField(dataType=DataType.SERIALIZABLE)
+	private HashMap<String, String> Images;
 	
 	public Person() {
 		super();
@@ -36,8 +41,7 @@ public class Person {
 
 	public Person(int id, String name, String jobTitle, String words,
 			String nO, String avatar, String title, String description,
-			int read, int like, boolean canLike,
-			ForeignCollection<PersonImage> images) {
+			int read, int like, boolean canLike, HashMap<String, String> images) {
 		super();
 		Id = id;
 		Name = name;
@@ -141,12 +145,62 @@ public class Person {
 		CanLike = canLike;
 	}
 
-	public ForeignCollection<PersonImage> getImages() {
+	public HashMap<String, String> getImages() {
 		return Images;
 	}
 
-	public void setImages(ForeignCollection<PersonImage> images) {
+	public void setImages(HashMap<String, String> images) {
 		Images = images;
 	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(Id);
+		dest.writeString(Name);
+		dest.writeString(JobTitle);
+		dest.writeString(Words);
+		dest.writeString(NO);
+		dest.writeString(Avatar);
+		dest.writeString(Title);
+		dest.writeString(Description);
+		dest.writeInt(Read);
+		dest.writeInt(Like);
+		dest.writeByte((byte)(CanLike?1:0));
+		dest.writeMap(Images);
+	}
 	
+	@SuppressWarnings("unchecked")
+	private Person(Parcel source){
+		Id=source.readInt();
+		Name=source.readString();
+		JobTitle=source.readString();
+		Words=source.readString();
+		NO=source.readString();
+		Avatar=source.readString();
+		Title=source.readString();
+		Description=source.readString();
+		Read=source.readInt();
+		Like=source.readInt();
+		CanLike=source.readByte()==1;
+		Images=source.readHashMap(HashMap.class.getClassLoader());
+	}
+	
+	public static final Creator<Person> CREATOR=new Creator<Person>() {
+		
+		@Override
+		public Person[] newArray(int size) {
+			return new Person[size];
+		}
+		
+		@Override
+		public Person createFromParcel(Parcel source) {
+			return new Person(source);
+		}
+	};
+
 }

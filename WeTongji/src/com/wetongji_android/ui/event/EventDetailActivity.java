@@ -2,8 +2,6 @@ package com.wetongji_android.ui.event;
 
 
 
-import java.sql.SQLException;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -16,11 +14,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
-import com.j256.ormlite.dao.Dao;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.data.DbHelper;
 import com.wetongji_android.util.date.DateParser;
 
 public class EventDetailActivity extends android.app.Activity{
@@ -30,8 +26,6 @@ public class EventDetailActivity extends android.app.Activity{
 	private CheckBox mCbLike;
 	private TextView mTvLikeNum;
 	
-	private DbHelper mDbHelper;
-	private Dao<Activity, Integer> mEventDao = null;
 	private AQuery mAq;
 	
 
@@ -88,24 +82,8 @@ public class EventDetailActivity extends android.app.Activity{
 	}
 	
 	private void recieveActivity() {
-		mDbHelper = WTApplication.getInstance().getDbHelper();
-		try {
-			mEventDao = mDbHelper.getActDao();
-		} catch (SQLException e) {
-			throw new RuntimeException("Error for get Dao");
-		}
-		
 		Intent intent = this.getIntent();
-		int eventId = intent.getIntExtra(EventsFragment.BUNDLE_KEY_ACTIVITY, 0);
-		try {
-			mEvent = mEventDao.queryForId(eventId);
-		} catch (SQLException e) {
-			throw new RuntimeException("Did not get Activity with " + eventId);
-		}
+		mEvent = intent.getParcelableExtra(EventsFragment.BUNDLE_KEY_ACTIVITY);
 	}
-	
-	
-	
-	
 	
 }

@@ -5,74 +5,74 @@ import com.j256.ormlite.field.DatabaseField;
 public class Notification 
 {
 	@DatabaseField
-	private int id;
+	private int Id;
 	@DatabaseField
-	private String title;
+	private String Title;
 	@DatabaseField
-	private String description;
+	private String Description;
 	@DatabaseField
-	private int type;
+	private int Type;
 	@DatabaseField
-	private int status;
+	private int Status;
 	@DatabaseField
-	private int sourceId;
+	private int SourceId;
 
 	public Notification(int id, String title, String description, int type,
 			int status, int sourceId) {
 		super();
-		this.id = id;
-		this.title = title;
-		this.description = description;
-		this.type = type;
-		this.status = status;
-		this.sourceId = sourceId;
+		this.Id = id;
+		this.Title = title;
+		this.Description = description;
+		this.Type = type;
+		this.Status = status;
+		this.SourceId = sourceId;
 	}
 
 	public int getId() {
-		return id;
+		return Id;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.Id = id;
 	}
 
 	public int getType() {
-		return type;
+		return Type;
 	}
 
 	public void setType(int type) {
-		this.type = type;
+		this.Type = type;
 	}
 
 	public String getTitle() {
-		return title;
+		return Title;
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		this.Title = title;
 	}
 
 	public String getDescription() {
-		return description;
+		return Description;
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.Description = description;
 	}
 
 	public int getStatus() {
-		return status;
+		return Status;
 	}
 
 	public void setStatus(int status) {
-		this.status = status;
+		this.Status = status;
 	}
 
 	public int getSourceId() {
-		return sourceId;
+		return SourceId;
 	}
 
 	public void setSourceId(int sourceId) {
-		this.sourceId = sourceId;
+		this.SourceId = sourceId;
 	}
 }

@@ -2,6 +2,7 @@ package com.wetongji_android.data;
 
 import java.util.Date;
 
+import android.os.Parcel;
 import com.j256.ormlite.field.DatabaseField;
 
 public class Course extends Event {
@@ -69,5 +70,37 @@ public class Course extends Event {
 	public void setRequired(String required) {
 		Required = required;
 	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		super.writeToParcel(dest, flags);
+		dest.writeString(NO);
+		dest.writeInt(Hours);
+		dest.writeFloat(Point);
+		dest.writeString(Teacher);
+		dest.writeString(Required);
+	}
+	
+	protected Course(Parcel source){
+		super(source);
+		NO=source.readString();
+		Hours=source.readInt();
+		Point=source.readFloat();
+		Teacher=source.readString();
+		Required=source.readString();
+	}
+	
+	public static final Creator<Course> CREATOR=new Creator<Course>() {
+		
+		@Override
+		public Course[] newArray(int size) {
+			return new Course[size];
+		}
+		
+		@Override
+		public Course createFromParcel(Parcel source) {
+			return new Course(source);
+		}
+	};
 	
 }

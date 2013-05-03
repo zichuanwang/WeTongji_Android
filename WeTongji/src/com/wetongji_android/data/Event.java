@@ -2,19 +2,22 @@ package com.wetongji_android.data;
 
 import java.util.Date;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.j256.ormlite.field.DatabaseField;
 
-public class Event implements Comparable<Event> {
+public class Event implements Comparable<Event>, Parcelable{
 	@DatabaseField(generatedId=true)
-	int Id;
+	private int Id;
 	@DatabaseField
-	Date Begin;
+	private Date Begin;
 	@DatabaseField
-	Date End;
+	private Date End;
 	@DatabaseField
-	String Title;
+	private String Title;
 	@DatabaseField
-	String Location;
+	private String Location;
 	
 	public Event() {
 	}
@@ -71,6 +74,28 @@ public class Event implements Comparable<Event> {
 	@Override
 	public int compareTo(Event another) {
 		return this.Begin.compareTo(another.Begin);
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(Id);
+		dest.writeLong(Begin.getTime());
+		dest.writeLong(End.getTime());
+		dest.writeString(Title);
+		dest.writeString(Location);
+	}
+	
+	protected Event(Parcel source){
+		Id=source.readInt();
+		Begin=new Date(source.readLong());
+		End=new Date(source.readLong());
+		Title=source.readString();
+		Location=source.readString();
 	}
 	
 }

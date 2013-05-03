@@ -113,7 +113,7 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 			Intent intent = new Intent(getActivity(), EventDetailActivity.class);
 			Activity activity = mAdapter.getItem(position);
 			Bundle bundle = new Bundle();
-			bundle.putInt(BUNDLE_KEY_ACTIVITY, activity.getId());
+			bundle.putParcelable(BUNDLE_KEY_ACTIVITY, activity);
 			intent.putExtras(bundle);
 			startActivity(intent);
 		}

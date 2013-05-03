@@ -3,6 +3,9 @@ package com.wetongji_android.factory;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,8 +13,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import com.wetongji_android.data.Activity;
+import com.google.gson.JsonSyntaxException;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.DbListSaver;
 
@@ -45,8 +47,18 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 	protected List<T> createObjects(String jsonStr, boolean needToRefresh) {
 		list.clear();
 		Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
-		list=gson.fromJson(jsonStr, new TypeToken<List<Activity>>(){}.getType());
-		
+		JSONArray array;
+		try {
+			array = new JSONArray(jsonStr);
+			for(int i=0;i!=array.length();i++){
+				T t=gson.fromJson(array.getJSONObject(i).toString(), clazz);
+				list.add(t);
+			}
+		} catch (JsonSyntaxException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		Bundle args=new Bundle();
 		args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
 		fragment.getLoaderManager().initLoader(loaderId, args, this).forceLoad();

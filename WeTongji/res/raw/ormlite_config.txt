@@ -1,5 +1,5 @@
 #
-# generated on 2013/05/01 08:45:19
+# generated on 2013/05/03 03:23:48
 #
 # --table-start--
 dataClass=com.wetongji_android.data.Activity
@@ -33,6 +33,12 @@ fieldName=Like
 fieldName=CanLike
 # --field-end--
 # --field-start--
+fieldName=Schedule
+# --field-end--
+# --field-start--
+fieldName=CanSchedule
+# --field-end--
+# --field-start--
 fieldName=Id
 generatedId=true
 # --field-end--
@@ -47,97 +53,6 @@ fieldName=Title
 # --field-end--
 # --field-start--
 fieldName=Location
-# --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
-dataClass=com.wetongji_android.data.Around
-tableName=around
-# --table-fields-start--
-# --field-start--
-fieldName=Location
-# --field-end--
-# --field-start--
-fieldName=Contact
-# --field-end--
-# --field-start--
-fieldName=TicketService
-# --field-end--
-# --field-start--
-fieldName=Id
-id=true
-# --field-end--
-# --field-start--
-fieldName=Title
-# --field-end--
-# --field-start--
-fieldName=Context
-# --field-end--
-# --field-start--
-fieldName=Read
-# --field-end--
-# --field-start--
-fieldName=Image
-# --field-end--
-# --field-start--
-fieldName=CreatedAt
-# --field-end--
-# --field-start--
-fieldName=Like
-# --field-end--
-# --field-start--
-fieldName=CanLike
-# --field-end--
-# --field-start--
-fieldName=Summary
-# --field-end--
-# --field-start--
-fieldName=Source
-# --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
-dataClass=com.wetongji_android.data.ClubNews
-tableName=clubnews
-# --table-fields-start--
-# --field-start--
-fieldName=Organizer
-# --field-end--
-# --field-start--
-fieldName=OrganizerAvatar
-# --field-end--
-# --field-start--
-fieldName=Id
-id=true
-# --field-end--
-# --field-start--
-fieldName=Title
-# --field-end--
-# --field-start--
-fieldName=Context
-# --field-end--
-# --field-start--
-fieldName=Read
-# --field-end--
-# --field-start--
-fieldName=Image
-# --field-end--
-# --field-start--
-fieldName=CreatedAt
-# --field-end--
-# --field-start--
-fieldName=Like
-# --field-end--
-# --field-start--
-fieldName=CanLike
-# --field-end--
-# --field-start--
-fieldName=Summary
-# --field-end--
-# --field-start--
-fieldName=Source
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -242,8 +157,8 @@ fieldName=Location
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.wetongji_android.data.ForStaff
-tableName=forstaff
+dataClass=com.wetongji_android.data.Information
+tableName=information
 # --table-fields-start--
 # --field-start--
 fieldName=Id
@@ -256,13 +171,31 @@ fieldName=Title
 fieldName=Context
 # --field-end--
 # --field-start--
+fieldName=Source
+# --field-end--
+# --field-start--
+fieldName=Summary
+# --field-end--
+# --field-start--
+fieldName=Contact
+# --field-end--
+# --field-start--
+fieldName=Location
+# --field-end--
+# --field-start--
+fieldName=HasTicket
+# --field-end--
+# --field-start--
+fieldName=TicketService
+# --field-end--
+# --field-start--
 fieldName=Read
 # --field-end--
 # --field-start--
-fieldName=Image
+fieldName=CreatedAt
 # --field-end--
 # --field-start--
-fieldName=CreatedAt
+fieldName=Category
 # --field-end--
 # --field-start--
 fieldName=Like
@@ -271,48 +204,14 @@ fieldName=Like
 fieldName=CanLike
 # --field-end--
 # --field-start--
-fieldName=Summary
+fieldName=Organizer
 # --field-end--
 # --field-start--
-fieldName=Source
-# --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
-dataClass=com.wetongji_android.data.News
-tableName=news
-# --table-fields-start--
-# --field-start--
-fieldName=Id
-id=true
+fieldName=OrganizerAvatar
 # --field-end--
 # --field-start--
-fieldName=Title
-# --field-end--
-# --field-start--
-fieldName=Context
-# --field-end--
-# --field-start--
-fieldName=Read
-# --field-end--
-# --field-start--
-fieldName=Image
-# --field-end--
-# --field-start--
-fieldName=CreatedAt
-# --field-end--
-# --field-start--
-fieldName=Like
-# --field-end--
-# --field-start--
-fieldName=CanLike
-# --field-end--
-# --field-start--
-fieldName=Summary
-# --field-end--
-# --field-start--
-fieldName=Source
+fieldName=Images
+dataPersister=SERIALIZABLE
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -322,10 +221,22 @@ dataClass=com.wetongji_android.data.Notification
 tableName=notification
 # --table-fields-start--
 # --field-start--
-fieldName=id
+fieldName=Id
 # --field-end--
 # --field-start--
-fieldName=type
+fieldName=Title
+# --field-end--
+# --field-start--
+fieldName=Description
+# --field-end--
+# --field-start--
+fieldName=Type
+# --field-end--
+# --field-start--
+fieldName=Status
+# --field-end--
+# --field-start--
+fieldName=SourceId
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -370,65 +281,7 @@ fieldName=CanLike
 # --field-end--
 # --field-start--
 fieldName=Images
-foreignCollection=true
-foreignCollectionEager=true
-# --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
-dataClass=com.wetongji_android.data.PersonImage
-tableName=personimage
-# --table-fields-start--
-# --field-start--
-fieldName=Url
-id=true
-# --field-end--
-# --field-start--
-fieldName=Describtion
-# --field-end--
-# --field-start--
-fieldName=person
-canBeNull=false
-foreign=true
-# --field-end--
-# --table-fields-end--
-# --table-end--
-#################################
-# --table-start--
-dataClass=com.wetongji_android.data.SchoolNews
-tableName=schoolnews
-# --table-fields-start--
-# --field-start--
-fieldName=Id
-id=true
-# --field-end--
-# --field-start--
-fieldName=Title
-# --field-end--
-# --field-start--
-fieldName=Context
-# --field-end--
-# --field-start--
-fieldName=Read
-# --field-end--
-# --field-start--
-fieldName=Image
-# --field-end--
-# --field-start--
-fieldName=CreatedAt
-# --field-end--
-# --field-start--
-fieldName=Like
-# --field-end--
-# --field-start--
-fieldName=CanLike
-# --field-end--
-# --field-start--
-fieldName=Summary
-# --field-end--
-# --field-start--
-fieldName=Source
+dataPersister=SERIALIZABLE
 # --field-end--
 # --table-fields-end--
 # --table-end--
@@ -439,13 +292,13 @@ tableName=user
 # --table-fields-start--
 # --field-start--
 fieldName=NO
-id=true
 # --field-end--
 # --field-start--
 fieldName=Name
 # --field-end--
 # --field-start--
 fieldName=UID
+id=true
 # --field-end--
 # --field-start--
 fieldName=Phone

@@ -6,18 +6,6 @@ public class Version {
 	private String Current;
 	private String Description;
 	
-	public Version() {
-		super();
-	}
-
-	public Version(String url, String latest, String current, String description) {
-		super();
-		Url = url;
-		Latest = latest;
-		Current = current;
-		Description = description;
-	}
-
 	public String getCurrent() {
 		return Current;
 	}
@@ -50,9 +38,4 @@ public class Version {
 		Description = description;
 	}
 
-	@Override
-	public String toString() {
-		return super.toString()+"Latest:"+Latest;
-	}
-	
 }

@@ -3,11 +3,11 @@ package com.wetongji_android.data;
 import com.j256.ormlite.field.DatabaseField;
 
 public class User {
-	@DatabaseField(id=true)
+	@DatabaseField
 	private String NO;
 	@DatabaseField
 	private String Name;
-	@DatabaseField
+	@DatabaseField(id=true)
 	private String UID;
 	@DatabaseField
 	private String Phone;

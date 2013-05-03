@@ -28,7 +28,7 @@ import android.util.Log;
  */
 public class ApiHelper {
 	
-	private String session;
+	private String session="";
 	private String uid;
 	private Context context;
 	
