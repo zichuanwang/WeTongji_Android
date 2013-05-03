@@ -175,7 +175,7 @@ public class NowPagerAdapter extends PagerAdapter {
 				long id) {
 			Event event = listAdapter.getItem(position);
 			Bundle bundle = new Bundle();
-			bundle.putInt(EventsFragment.BUNDLE_KEY_ACTIVITY, event.getId());
+			bundle.putParcelable(EventsFragment.BUNDLE_KEY_ACTIVITY, event);
 			Intent intent=null;
 			if(event instanceof Activity){
 				intent = new Intent(context, EventDetailActivity.class);
