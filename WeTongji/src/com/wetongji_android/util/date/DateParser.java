@@ -52,6 +52,16 @@ public class DateParser {
 		return cal;
 	}
 	
+	public static Date parseDateAndTime(String dateStr){
+		Date date=new Date();
+		try {
+			date=serverSourse.parse(dateStr);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
+	}
+	
 	public static String buildDateAndTime(Calendar cal){
 		return serverTarget.format(cal.getTime());
 	}

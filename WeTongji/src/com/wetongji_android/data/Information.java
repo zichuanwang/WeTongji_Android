@@ -1,8 +1,7 @@
 package com.wetongji_android.data;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -44,7 +43,7 @@ public class Information implements Parcelable{
 	@DatabaseField
 	private String OrganizerAvatar;
 	@DatabaseField(dataType=DataType.SERIALIZABLE)
-	private HashMap<String, String> Images;
+	private ArrayList<String> Images;
 	
 	public Information() {
 		super();
@@ -54,7 +53,7 @@ public class Information implements Parcelable{
 			String summary, String contact, String location, boolean hasTicket,
 			String ticketService, int read, Date createdAt, String category,
 			int like, boolean canLike, String organizer,
-			String organizerAvatar, HashMap<String, String> images) {
+			String organizerAvatar, ArrayList<String> images) {
 		super();
 		Id = id;
 		Title = title;
@@ -203,11 +202,11 @@ public class Information implements Parcelable{
 		OrganizerAvatar = organizerAvatar;
 	}
 
-	public HashMap<String, String> getImages() {
+	public ArrayList<String> getImages() {
 		return Images;
 	}
 
-	public void setImages(HashMap<String, String> images) {
+	public void setImages(ArrayList<String> images) {
 		Images = images;
 	}
 
@@ -234,7 +233,7 @@ public class Information implements Parcelable{
 		dest.writeByte((byte)(CanLike?1:0));
 		dest.writeString(Organizer);
 		dest.writeString(OrganizerAvatar);
-		dest.writeMap(Images);
+		dest.writeList(Images);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -255,7 +254,7 @@ public class Information implements Parcelable{
 		CanLike=source.readByte()==1;
 		Organizer=source.readString();
 		OrganizerAvatar=source.readString();
-		Images=source.readHashMap(HashMap.class.getClassLoader());
+		Images=source.readArrayList(ArrayList.class.getClassLoader());
 	}
 	
 	public static final Creator<Information> CREATOR=new Creator<Information>() {

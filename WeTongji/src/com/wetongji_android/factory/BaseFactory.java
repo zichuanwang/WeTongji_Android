@@ -27,7 +27,7 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 	private Class<T> clazz;
 	private int loaderId;
 	
-	public BaseFactory(Fragment fragment, Class<T> clazz, int loaderId){
+	protected BaseFactory(Fragment fragment, Class<T> clazz, int loaderId){
 		this.fragment=fragment;
 		this.context=this.fragment.getActivity();
 		list=new ArrayList<T>();
@@ -40,7 +40,7 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 		}
 	}
 	
-	public List<T> createObjects(String jsonStr){
+	protected List<T> createObjects(String jsonStr){
 		return createObjects(jsonStr, false);
 	}
 	
@@ -51,7 +51,7 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 		try {
 			array = new JSONArray(jsonStr);
 			for(int i=0;i!=array.length();i++){
-				T t=gson.fromJson(array.getJSONObject(i).toString(), clazz);
+				T t=gson.fromJson(array.getString(i).toString(), clazz);
 				list.add(t);
 			}
 		} catch (JsonSyntaxException e) {
