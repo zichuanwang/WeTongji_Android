@@ -64,6 +64,7 @@ public class ApiHelper {
 	private static final String API_ARGS_OLD="Old";
 	private static final String API_ARGS_NEW="New";
 	private static final String API_ARGS_CHANNEL_IDS="Channel_Ids";
+	private static final String API_ARGS_CATEGORY_IDS = "Category_Ids";
 	private static final String API_ARGS_SORT="Sort";
 	private static final String API_ARGS_EXPIRE="Expire";
 	private static final String API_ARGS_BEGIN="Begin";
@@ -284,6 +285,38 @@ public class ApiHelper {
 		return bundle;
 	}
 	
+	public Bundle getInformations(int page, int sortType, String categoryIds)
+	{
+		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		if(page <= 0)
+			page = 1;
+		
+		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
+		bundle.putString(API_ARGS_METHOD, "Information.GetList");
+		bundle.putString(API_ARGS_CATEGORY_IDS, categoryIds);
+		
+		String sort = "";
+		switch(sortType) {
+		case API_ARGS_SORT_BY_ID:
+			sort = "`id`";
+			break;
+		case API_ARGS_SORT_BY_LIKE_DESC:
+			sort = "`like` DESC";
+			break;
+		case API_ARGS_SORT_BY_ID_DESC:
+			sort = "`id` DESC";
+			break;
+		}
+		if(!sort.equals("")) {
+			bundle.putString(API_ARGS_SORT, sort);
+		}
+		
+		return bundle;
+	}
+
 	public Bundle getNotifications()
 	{
 		Bundle bundle = new Bundle();
