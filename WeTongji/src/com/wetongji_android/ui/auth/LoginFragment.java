@@ -89,7 +89,7 @@ public class LoginFragment extends Fragment implements OnClickListener{
 	public void onClick(View v) {
 		String username=etUsername.getText().toString();
 		String password=etPassword.getText().toString();
-		((AuthenticatorActivity)getActivity()).handleLogin(username, password);
+		((BaseAuthActivity)getActivity()).handleLogin(username, password);
 	}
 
 }

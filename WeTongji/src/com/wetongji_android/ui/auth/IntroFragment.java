@@ -76,7 +76,7 @@ public class IntroFragment extends Fragment implements ViewFactory {
 		
 		for(int i=0;i!=4;i++){
 			ImageView image=new ImageView(getActivity());
-			image=(ImageView) inflater.inflate(R.layout.view_page_intro, null);
+			image=(ImageView) inflater.inflate(R.layout.page_intro, null);
 			viewList.add(image);
 		}
 		

@@ -129,7 +129,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		Event event=(Event) getItem(position);
 		int paddingTop=holder.rlNowRow.getPaddingTop();
 		int paddingOther=holder.rlNowRow.getPaddingLeft();
-		if(EventUtil.isNextEvent(event)){
+		if(EventUtil.isFutureEvent(event)){
 			holder.rlNowRow.setBackgroundResource(R.drawable.bg_row_now_current);
 			holder.ivNowIndicator.setVisibility(View.VISIBLE);
 			holder.tvNowIndicator.setVisibility(View.VISIBLE);
@@ -235,7 +235,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		return events;
 	}
 	
-	private void configureHeader(View view, int position){
+	public void configureHeader(View view, int position){
 		TextView tvWeekDay=(TextView) view.findViewById(R.id.tv_now_section_bar_week_day);
 		Date date=new Date();
 		if(dates!=null){

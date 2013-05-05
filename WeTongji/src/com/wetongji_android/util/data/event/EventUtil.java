@@ -14,7 +14,7 @@ import com.wetongji_android.util.date.DateParser;
 
 public class EventUtil {
 	
-	public static boolean isNextEvent(Event event){
+	public static boolean isFutureEvent(Event event){
 		Date now=new Date();
 		Date begin=event.getBegin();
 		Date end=event.getEnd();

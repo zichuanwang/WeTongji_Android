@@ -5,8 +5,7 @@ import com.flurry.android.FlurryAgent;
 import com.slidingmenu.lib.SlidingMenu;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Event;
-import com.wetongji_android.ui.auth.AuthenticatorActivity;
-import com.wetongji_android.ui.notification.NotificationFragment;
+import com.wetongji_android.ui.auth.IntroActivity;
 import com.wetongji_android.ui.today.TodayFragment;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.version.UpdateBaseActivity;
@@ -121,8 +120,7 @@ implements OnWTListClickedListener
 		AccountManager am=AccountManager.get(this);
 		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
 		if(accounts.length==0){
-			Intent intent=new Intent(this, AuthenticatorActivity.class);
-			intent.putExtra(AuthenticatorActivity.PARAM_SHOW_INTRO, true);
+			Intent intent=new Intent(this, IntroActivity.class);
 			startActivity(intent);
 		}
 		else{

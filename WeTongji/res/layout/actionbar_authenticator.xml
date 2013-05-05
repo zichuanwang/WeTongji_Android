@@ -13,8 +13,12 @@
         android:paddingRight="14dp"
         android:background="@drawable/btn_cab_done_wttheme"
         android:text="@string/text_not_now"
-        android:textSize="18sp"
-        android:textColor="@drawable/btn_text_cab_done_wttheme"/>
+        android:textSize="16sp"
+        android:textColor="@drawable/btn_text_cab_done_wttheme"
+        android:shadowColor="#33000000"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="1"/>
     
     <ToggleButton
         android:id="@+id/btn_on_login"
@@ -26,7 +30,11 @@
         android:background="@drawable/btn_cab_done_reversed_wttheme"
         android:textOn="@string/text_sign_up_log_in"
         android:textOff="@string/text_sign_up_log_in"
-        android:textSize="18sp"
-        android:textColor="@drawable/btn_text_cab_done_wttheme"/>
+        android:textSize="16sp"
+        android:textColor="@drawable/btn_text_cab_done_wttheme"
+        android:shadowColor="#33000000"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="1"/>
 
 </RelativeLayout>
