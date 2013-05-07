@@ -81,9 +81,6 @@ public class EventDetailActivity extends android.app.Activity{
 		}
 		tvEventTime.setText(DateParser.getEventTime(this, mEvent.getBegin(), mEvent.getEnd()));
 		
-		Log.d("activity", mEvent.getTitle());
-
-		
 	}
 	
 	private void recieveActivity() {
