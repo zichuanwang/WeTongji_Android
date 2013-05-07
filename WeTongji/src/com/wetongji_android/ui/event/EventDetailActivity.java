@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -49,8 +50,12 @@ public class EventDetailActivity extends android.app.Activity{
 		
 		Drawable drawable = getResources().getDrawable(R.drawable.image_place_holder);
         Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-		mAq.id(R.id.iv_event_detail_image).image(mEvent.getImage(), false, true, 0,
-				R.drawable.image_place_holder, bitmap, AQuery.FADE_IN, AQuery.RATIO_PRESERVE);
+        if(mEvent.getImage() !=WTApplication.MISSING_IMAGE_URL) {
+        	mAq.id(R.id.iv_event_detail_image).image(mEvent.getImage(), false, true, 0,
+        			R.drawable.image_place_holder, bitmap, AQuery.FADE_IN, 0.41f);
+        }else {
+        	mAq.id(R.id.iv_event_detail_image).visibility(View.GONE);
+        }
 		
 		mCbLike = (CheckBox)findViewById(R.id.cb_event_like);
 		mTvLikeNum = (TextView)findViewById(R.id.tv_event_like_number);
