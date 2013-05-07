@@ -50,7 +50,7 @@ public class EventDetailActivity extends android.app.Activity{
 		
 		Drawable drawable = getResources().getDrawable(R.drawable.image_place_holder);
         Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-        if(mEvent.getImage() !=WTApplication.MISSING_IMAGE_URL) {
+        if(!mEvent.getImage().equals(WTApplication.MISSING_IMAGE_URL)) {
         	mAq.id(R.id.iv_event_detail_image).image(mEvent.getImage(), false, true, 0,
         			R.drawable.image_place_holder, bitmap, AQuery.FADE_IN, 0.41f);
         }else {
