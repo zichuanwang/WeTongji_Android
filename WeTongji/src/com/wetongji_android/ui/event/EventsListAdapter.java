@@ -47,7 +47,8 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		apiHelper=ApiHelper.getInstance(mContext);
 		mFragment.getLoaderManager().initLoader(WTApplication.ACTIVITIES_LOADER, null, this);
 		
-		mBmDefaultThumbnails = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.default_avatar);
+		mBmDefaultThumbnails = (BitmapDrawable) mContext.getResources()
+				.getDrawable(R.drawable.event_list_thumbnail_place_holder);
 		
 		WTApplication app = WTApplication.getInstance();
 		app.setActivity(fragment.getActivity());
@@ -143,21 +144,21 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		
 		// Set thumbnails
 		String strUrl = event.getImage();
-		//String strUrl = event.getOrganizerAvatar();
 
+		AQuery aq = mListAq.recycle(convertView);
 		if(!strUrl.equals(WTApplication.MISSING_IMAGE_URL)){
-			AQuery aq = mListAq.recycle(convertView);
 			
 	        if(aq.shouldDelay(position, convertView, parent, strUrl)) {
 	        	aq.id(holder.ivEventThumb).image(mBmDefaultThumbnails);
 	        }
 	        else {
-	        	aq.id(holder.ivEventThumb).image(strUrl, true, true, LIST_THUMBNAILS_TARGET_WIDTH, R.drawable.default_avatar,
+	        	aq.id(holder.ivEventThumb).image(strUrl, true, true,
+	        			LIST_THUMBNAILS_TARGET_WIDTH, R.drawable.event_list_thumbnail_place_holder,
 	        			null, AQuery.FADE_IN_NETWORK, 1.33f);
 	        }
 		}
 		else{
-			holder.ivEventThumb.setVisibility(View.GONE);
+			aq.id(holder.ivEventThumb).image(mBmDefaultThumbnails);
 		}
         
 		return convertView;
