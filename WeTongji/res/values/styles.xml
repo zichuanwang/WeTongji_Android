@@ -109,8 +109,6 @@
  	<style name="EventDetailContent" >
        <item name="android:textSize">17sp</item>
        <item name="android:textColor">@color/tv_event_detail_content</item>
-       <item name="android:shadowRadius">1</item>
-        <item name="android:shadowDx">0</item>
-        <item name="android:shadowDy">0.5</item>
+       <item name="android:autoLink">all</item>
    	</style>
 </resources>
