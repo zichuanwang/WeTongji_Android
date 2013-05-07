@@ -5,6 +5,7 @@
     android:layout_height="96dp"
     android:orientation="horizontal"
     android:gravity="center_horizontal"
+    android:id="@id/layout_event_row"
     >
     
     <ImageView 
@@ -26,7 +27,8 @@
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5.0dp"
-        android:padding="1.5dip">
+        android:padding="1.5dip"
+        android:background="@android:color/transparent">
         
         <TextView 
             android:id="@id/tv_event_title"
