@@ -48,15 +48,14 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view=inflater.inflate(R.layout.fragment_events, null);
 
-		
-		
 		mListActivity = (AmazingListView) view.findViewById(R.id.lst_events);
-		//mListActivity.noMorePages();
 		mAdapter = new EventsListAdapter(this);
 		mListActivity.setAdapter(mAdapter);
 		mListActivity.setOnItemClickListener(onItemClickListener);
 		mListActivity.setLoadingView(inflater.inflate(R.layout.amazing_lst_view_loading_view, null));
+		mAdapter.notifyMayHaveMorePages();
 		
+		//refreshData();
 		
 		return view;
 	}
@@ -86,22 +85,20 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 					mFactory.createObjects(result.getStrResponseCon(), currentPage);
 			List<Activity> activities=pair.second;
 			
-			mAdapter.addContent(activities);
-			mAdapter.notifyMayHaveMorePages();
-			
 //			mAdapter.nextPage();
 //			if(currentPage==1){
 //				mListActivity.mayHaveMorePages();
 //				mAdapter.setContentList(activities);
 //			}
-//			if(pair.first==0){
-//				mListActivity.noMorePages();
-//			}
-//			else{
-//				mListActivity.mayHaveMorePages();
-//				mAdapter.addData(activities);
-//			}
+			if(pair.first==0){
+				mListActivity.noMorePages();
+			}
+			else{
+				mAdapter.addData(activities);
+				mListActivity.mayHaveMorePages();
+			}
 //			mAdapter.notifyDataSetChanged();
+			activities.clear();
 		}
 		else{
 			ExceptionToast.show(getActivity(), result.getResponseCode());
@@ -132,7 +129,7 @@ public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequ
 	
 	private void refreshData() {
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle args = apiHelper.getActivities(1, 15, ApiHelper.API_ARGS_SORT_BY_LIKE_DESC, false);
+		Bundle args = apiHelper.getActivities(1, 15, ApiHelper.API_ARGS_SORT_BY_ID_DESC, true);
 		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	
