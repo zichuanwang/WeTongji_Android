@@ -61,7 +61,7 @@ public class NewsFragment extends Fragment implements LoaderCallbacks<HttpReques
 		mListNews = (AmazingListView)mView.findViewById(R.id.lst_information);
 		mListNews.setAdapter(mAdapter = new NewsListAdapter(this)); 
 		TextView text = new TextView(getActivity());
-		text.setText("ÔØÈë");
+		text.setText("载入");
 		mListNews.setLoadingView(text);
 	}
 	
