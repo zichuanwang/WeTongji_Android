@@ -1,9 +1,9 @@
-package com.wetongji_android.ui.news;
+package com.wetongji_android.ui.informations;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -16,18 +16,22 @@ import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.information.InformationLoader;
+import com.wetongji_android.util.data.information.InformationUtil;
 
-public class NewsListAdapter extends AmazingAdapter implements
+public class InformationsListAdapter extends AmazingAdapter implements
 		LoaderCallbacks<List<Information>> 
 {
 	private Fragment mFragment;
 	private List<Pair<Date, List<Information>>> mListInfos;
+	private Context mContext;
 	
-	public NewsListAdapter(Fragment fragment)
+	public InformationsListAdapter(Fragment fragment)
 	{
 		this.mFragment = fragment;
-		this.setNews(new ArrayList<Pair<Date, List<Information>>>());
+		this.mContext = this.mFragment.getActivity();
 		this.mFragment.getLoaderManager().initLoader(WTApplication.INFORMATION_LOADER, null, this);
+		
+		
 	}
 	
 	@Override
@@ -105,14 +109,14 @@ public class NewsListAdapter extends AmazingAdapter implements
 	public Loader<List<Information>> onCreateLoader(int arg0, Bundle arg1) 
 	{
 		// TODO Auto-generated method stub
-		return new InformationLoader(this.mFragment.getActivity(), new Bundle());
+		return new InformationLoader(this.mContext, null);
 	}
 
 	@Override
-	public void onLoadFinished(Loader<List<Information>> arg0, List<Information> arg1) 
+	public void onLoadFinished(Loader<List<Information>> arg0, List<Information> list) 
 	{
 		// TODO Auto-generated method stub
-		
+		this.setInformations(InformationUtil.getSectionedInformationList(list));
 	}
 
 	@Override
@@ -127,7 +131,7 @@ public class NewsListAdapter extends AmazingAdapter implements
 		return mListInfos;
 	}
 
-	public void setNews(List<Pair<Date, List<Information>>> mListNews) 
+	public void setInformations(List<Pair<Date, List<Information>>> mListNews) 
 	{
 		this.mListInfos.clear();
 		this.mListInfos = mListNews;

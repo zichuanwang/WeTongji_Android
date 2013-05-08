@@ -8,7 +8,7 @@ import android.os.Parcelable;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
-public class Information implements Parcelable{
+public class Information implements Comparable<Information>, Parcelable{
 	
 	@DatabaseField(id=true)
 	private int Id;
@@ -45,7 +45,8 @@ public class Information implements Parcelable{
 	@DatabaseField(dataType=DataType.SERIALIZABLE)
 	private ArrayList<String> Images;
 	
-	public Information() {
+	public Information() 
+	{
 		super();
 	}
 
@@ -269,5 +270,11 @@ public class Information implements Parcelable{
 			return new Information(source);
 		}
 	};
-	
+
+	@Override
+	public int compareTo(Information another) 
+	{
+		// TODO Auto-generated method stub
+		return this.CreatedAt.compareTo(another.CreatedAt);
+	}
 }

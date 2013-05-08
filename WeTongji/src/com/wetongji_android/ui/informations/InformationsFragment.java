@@ -1,7 +1,10 @@
-package com.wetongji_android.ui.news;
+package com.wetongji_android.ui.informations;
+
+import java.util.List;
 
 import com.foound.widget.AmazingListView;
 import com.wetongji_android.R;
+import com.wetongji_android.data.Information;
 import com.wetongji_android.factory.InformationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -14,16 +17,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class NewsFragment extends Fragment implements LoaderCallbacks<HttpRequestResult> 
+public class InformationsFragment extends Fragment implements LoaderCallbacks<HttpRequestResult> 
 {	
 	private View mView;
 	private AmazingListView mListNews;
-	private NewsListAdapter mAdapter;
+	private InformationsListAdapter mAdapter;
 	private InformationFactory mFactory;
 	
 	@Override
@@ -59,9 +63,9 @@ public class NewsFragment extends Fragment implements LoaderCallbacks<HttpReques
 		this.getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 		
 		mListNews = (AmazingListView)mView.findViewById(R.id.lst_information);
-		mListNews.setAdapter(mAdapter = new NewsListAdapter(this)); 
+		mListNews.setAdapter(mAdapter = new InformationsListAdapter(this)); 
 		TextView text = new TextView(getActivity());
-		text.setText("ÔØÈë");
+		text.setText("载入");
 		mListNews.setLoadingView(text);
 	}
 	
@@ -92,7 +96,8 @@ public class NewsFragment extends Fragment implements LoaderCallbacks<HttpReques
 			if(mFactory == null)
 				mFactory = new InformationFactory(this);
 			
-			
+			int currentPage = mAdapter.getPage();
+			Pair<Integer, List<Information>> informations = mFactory.createObjects(result.getStrResponseCon(), currentPage);
 		}
 	}
 
