@@ -69,6 +69,7 @@ public class ApiHelper {
 	private static final String API_ARGS_EXPIRE="Expire";
 	private static final String API_ARGS_BEGIN="Begin";
 	private static final String API_ARGS_END="End";
+	private static final String API_ARGS_ID = "Id";
 	
 	public static final int API_ARGS_SORT_BY_ID_DESC = 1; 
 	public static final int API_ARGS_SORT_BY_LIKE_DESC = 2; 
@@ -235,6 +236,27 @@ public class ApiHelper {
 		bundle.putString(API_ARGS_METHOD, "System.Version");
 		return bundle;
 	}
+	
+	public Bundle likeActivity(int id) {
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		bundle.putString(API_ARGS_METHOD, "Activities.Like");
+		return bundle;
+	}
+	
+	public Bundle unlikeActivity(int id) {
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		bundle.putString(API_ARGS_METHOD, "Activities.UnLike");
+		return bundle;
+	}
+	
 	
 	public Bundle getActivities(int page, int channelIdsMask, int sortType, boolean expire) {
 		Bundle bundle=new Bundle();
