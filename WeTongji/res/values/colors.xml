@@ -48,5 +48,9 @@
     <color name="tv_event_detail_content">#6a6a6a</color>
     <color name="bg_event_detail_content">#f9f9f9</color>
     <color name="tv_text_now_section_bar_default">#737373</color>
+    <color name="layout_event_list_row1">#e8e8e8</color>
+    <color name="layout_event_list_row2">#f5f5f5</color>
+    <color name="bg_bottom_actionbar_divider">#393939</color>
+    <color name="bg_event_detail_bottom_actionbar">#222222</color>
     
 </resources>

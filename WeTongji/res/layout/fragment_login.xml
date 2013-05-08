@@ -2,8 +2,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fg_auth_login"
+    android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@drawable/bg_app_base"
     tools:context=".LoginFragment" >
 
     <EditText 
@@ -13,6 +16,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginTop="8dp"
         android:textColor="@color/et_text"
+        android:textSize="18sp"
         android:hint="@string/text_student_id"
         android:textColorHint="@color/et_text_hint"
         android:inputType="number" />
@@ -25,6 +29,7 @@
         android:layout_marginTop="6dp"
         android:layout_below="@+id/et_username"
         android:textColor="@color/et_text"
+        android:textSize="18sp"
         android:hint="@string/text_password"
         android:textColorHint="@color/et_text_hint"
         android:inputType="textPassword" />
@@ -36,7 +41,12 @@
         android:layout_below="@+id/et_password"
         android:layout_marginTop="10dp"
         android:text="@string/text_login"
+        android:textSize="18sp"
         android:textColor="@color/btn_text"
+        android:shadowColor="#33000000"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="1"
         android:focusableInTouchMode="true">
         <requestFocus/>
 	</Button>
@@ -48,6 +58,11 @@
         android:layout_below="@+id/btn_login"
         android:layout_marginTop="6dp"
         android:text="@string/text_create_account"
-        android:textColor="@color/btn_text"/>
+        android:textSize="18sp"
+        android:textColor="@color/btn_text"
+        android:shadowColor="#33000000"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="1"/>
 
 </RelativeLayout>

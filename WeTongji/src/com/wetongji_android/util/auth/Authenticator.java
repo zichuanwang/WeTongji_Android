@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import com.wetongji_android.R;
 import com.wetongji_android.net.WTClient;
 import com.wetongji_android.net.http.HttpMethod;
-import com.wetongji_android.ui.auth.AuthenticatorActivity;
+import com.wetongji_android.ui.auth.BaseAuthActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
@@ -42,7 +42,7 @@ public class Authenticator extends AbstractAccountAuthenticator {
 		Log.v(TAG, "addAccount");
 		final AccountManager am=AccountManager.get(mContext);
 		if(am.getAccountsByType(WTApplication.ACCOUNT_TYPE).length==0){
-			final Intent intent=new Intent(mContext, AuthenticatorActivity.class);
+			final Intent intent=new Intent(mContext, BaseAuthActivity.class);
 			intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
 			final Bundle bundle=new Bundle();
 			bundle.putParcelable(AccountManager.KEY_INTENT, intent);
@@ -114,9 +114,9 @@ public class Authenticator extends AbstractAccountAuthenticator {
 			}
 		}
 		
-		final Intent intent=new Intent(mContext, AuthenticatorActivity.class);
-		intent.putExtra(AuthenticatorActivity.PARAM_USERNAME, account.name);
-		intent.putExtra(AuthenticatorActivity.PARAM_AUTHTOKEN_TYPE, authTokenType);
+		final Intent intent=new Intent(mContext, BaseAuthActivity.class);
+		intent.putExtra(BaseAuthActivity.PARAM_USERNAME, account.name);
+		intent.putExtra(BaseAuthActivity.PARAM_AUTHTOKEN_TYPE, authTokenType);
 		intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
 		final Bundle bundle=new Bundle();
 		bundle.putParcelable(AccountManager.KEY_INTENT, intent);

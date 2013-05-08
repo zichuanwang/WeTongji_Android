@@ -9,21 +9,12 @@ import android.accounts.AccountManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ToggleButton;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.flurry.android.FlurryAgent;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -32,17 +23,15 @@ import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
-public class AuthenticatorActivity extends SherlockFragmentActivity
-implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeListener {
+public class BaseAuthActivity extends SherlockFragmentActivity
+implements LoaderCallbacks<HttpRequestResult> {
 	
 	public static final String PARAM_CONFIRM_CREDENTIALS="confirmCredentials";
 	public static final String PARAM_PASSWORD="password";
 	public static final String PARAM_USERNAME="username";
 	public static final String PARAM_AUTHTOKEN_TYPE="authTokenType";
-	public static final String PARAM_SHOW_INTRO="showIntro";
-	private boolean isShowIntro;
 	
-	private static final String TAG=AuthenticatorActivity.class.getSimpleName();
+	private static final String TAG=BaseAuthActivity.class.getSimpleName();
 	private AccountAuthenticatorResponse mAccountAuthenticatorResponse = null;
     private Bundle mResultBundle = null;
 	private AccountManager mAm;
@@ -50,8 +39,7 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 	private boolean mConfirmCredentials=false;
 	private String mPassword;
 	private boolean mRequestNewAccount=false;
-	private String mUsername;
-	private ToggleButton btnOnLogin;
+	protected String mUsername;
 	private ApiHelper apiHelper;
 	
 	public final void setAccountAuthenticatorResult(Bundle result) {
@@ -78,24 +66,8 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
 		mRequestNewAccount=mUsername==null;
 		mConfirmCredentials=intent.getBooleanExtra(PARAM_CONFIRM_CREDENTIALS, false);
 		Log.i(TAG, "   request new:"+mRequestNewAccount);
-		setContentView(R.layout.activity_authenticator);
-		
-		isShowIntro=intent.getBooleanExtra(PARAM_SHOW_INTRO, false);
-		setupActionBar(!isShowIntro);
 	}
 	
-	@Override
-	protected void onStart() {
-		super.onStart();
-		FlurryAgent.onStartSession(this, WTApplication.FLURRY_API_KEY);
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		FlurryAgent.onEndSession(this);
-	}
-
 	public void finish() {
         if (mAccountAuthenticatorResponse != null) {
             // send the result bundle back if set, otherwise send an error.
@@ -110,51 +82,6 @@ implements LoaderCallbacks<HttpRequestResult>, OnClickListener, OnCheckedChangeL
         super.finish();
     }
 
-	/**
-	 * Set up the {@link android.app.ActionBar}.
-	 */
-	private void setupActionBar(boolean isOnAuth) {
-		ActionBar ab=getSupportActionBar();
-		ab.setDisplayHomeAsUpEnabled(false);
-		ab.setDisplayShowCustomEnabled(true);
-		ab.setDisplayShowTitleEnabled(false);
-		ab.setDisplayShowHomeEnabled(false);
-		View v=getLayoutInflater().inflate(R.layout.actionbar_authenticator, null);
-		ab.setCustomView(v);
-		btnOnLogin=(ToggleButton) v.findViewById(R.id.btn_on_login);
-		btnOnLogin.setOnCheckedChangeListener(this);
-		btnOnLogin.setChecked(isOnAuth);
-		if(!isOnAuth){
-			onCheckedChanged(btnOnLogin, false);
-		}
-		Button btnNotNow=(Button) v.findViewById(R.id.btn_not_now);
-		btnNotNow.setOnClickListener(this);
-	}
-
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.btn_not_now:
-			finish();
-			break;
-		}
-	}
-	
-
-	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		Log.i(TAG, "isChecked"+isChecked);
-		FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
-		if(btnOnLogin.isChecked()){
-			transaction.replace(R.id.auth_content_container, LoginFragment.newInstance(mUsername));
-		}
-		else{
-			transaction.replace(R.id.auth_content_container, IntroFragment.newInstance());
-		}
-		transaction.commit();
-	}
-	
-	
 	public void handleLogin(String username,String password){
 		if(mRequestNewAccount){
 			mUsername=username;

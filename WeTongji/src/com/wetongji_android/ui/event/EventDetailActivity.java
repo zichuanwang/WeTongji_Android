@@ -8,7 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
-import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -19,7 +19,7 @@ import com.wetongji_android.data.Activity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.date.DateParser;
 
-public class EventDetailActivity extends android.app.Activity{
+public class EventDetailActivity extends android.app.Activity {
 	
 	private Activity mEvent;
 	
@@ -41,6 +41,7 @@ public class EventDetailActivity extends android.app.Activity{
 	
 	private void setUpUI() {
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+		
 		setContentView(R.layout.activity_event_detail);
 		
 		mAq = WTApplication.getInstance().getAq(this);
@@ -49,8 +50,12 @@ public class EventDetailActivity extends android.app.Activity{
 		
 		Drawable drawable = getResources().getDrawable(R.drawable.image_place_holder);
         Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-		mAq.id(R.id.iv_event_detail_image).image(mEvent.getImage(), false, true, 0,
-				R.drawable.image_place_holder, bitmap, AQuery.FADE_IN, AQuery.RATIO_PRESERVE);
+        if(!mEvent.getImage().equals(WTApplication.MISSING_IMAGE_URL)) {
+        	mAq.id(R.id.iv_event_detail_image).image(mEvent.getImage(), false, true, 0,
+        			R.drawable.image_place_holder, bitmap, AQuery.FADE_IN, 0.41f);
+        }else {
+        	mAq.id(R.id.iv_event_detail_image).visibility(View.GONE);
+        }
 		
 		mCbLike = (CheckBox)findViewById(R.id.cb_event_like);
 		mTvLikeNum = (TextView)findViewById(R.id.tv_event_like_number);
@@ -75,9 +80,6 @@ public class EventDetailActivity extends android.app.Activity{
 			tvEventTime.setTextColor(timeColor);
 		}
 		tvEventTime.setText(DateParser.getEventTime(this, mEvent.getBegin(), mEvent.getEnd()));
-		
-		Log.d("activity", mEvent.getTitle());
-
 		
 	}
 	

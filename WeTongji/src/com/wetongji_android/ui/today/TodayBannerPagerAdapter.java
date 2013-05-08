@@ -1,4 +1,4 @@
-package com.wetongji_android.util.adapter;
+package com.wetongji_android.ui.today;
 
 import java.util.List;
 
@@ -6,23 +6,17 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ViewPagerAdapter extends PagerAdapter 
+public class TodayBannerPagerAdapter extends PagerAdapter 
 {
-	private List<View> views;
-	
-	public ViewPagerAdapter(List<View> views) 
+	public TodayBannerPagerAdapter(List<View> views) 
 	{
 		super();
-		this.views = views;
 	}
 
 	@Override
 	public int getCount() 
 	{
 		// TODO Auto-generated method stub
-		if(views != null)
-			return views.size();
-		
 		return 0;
 	}
 
@@ -37,15 +31,12 @@ public class ViewPagerAdapter extends PagerAdapter
 	public void destroyItem(ViewGroup container, int position, Object object) 
 	{
 		// TODO Auto-generated method stub
-		container.removeView(views.get(position));
 	}
 
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) 
 	{
 		// TODO Auto-generated method stub
-		container.addView(views.get(position));
-		
-		return views.get(position);
+		return null;
 	}
 }

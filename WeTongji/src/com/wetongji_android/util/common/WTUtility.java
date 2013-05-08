@@ -9,6 +9,7 @@ import java.io.IOException;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 /**
  * @author nankonami
@@ -16,6 +17,8 @@ import android.net.NetworkInfo;
  */
 public class WTUtility 
 {
+	private static final boolean IS_DEBUG = true;
+	
 	private WTUtility()
 	{
 		//Forbidden being instantiated.
@@ -36,6 +39,12 @@ public class WTUtility
 			{
 				
 			}
+		}
+	}
+	
+	public static void log(String tag, String message) {
+		if(IS_DEBUG) {
+			Log.d(tag, message);
 		}
 	}
 	

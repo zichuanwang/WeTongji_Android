@@ -55,6 +55,8 @@ public class NowPagerAdapter extends PagerAdapter {
 		this.viewPager=viewPager;
 		initCalendars();
 		initAdapters();
+		Bundle args=ApiHelper.getInstance(context).getSchedule(begin, end);
+		fragment.getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_1, args, callbacks).forceLoad();
 		
 	}
 
@@ -78,12 +80,10 @@ public class NowPagerAdapter extends PagerAdapter {
 			return view;
 		default:
 			AmazingListView nowWeekList=(AmazingListView) inflater.inflate(R.layout.page_now_week, null);
-			Bundle args=null;
 			nowWeekList.setAdapter(listAdapter);
-			nowWeekList.setPinnedHeaderView(LayoutInflater.from(context).inflate(R.layout.section_bar_now, nowWeekList, false));
+			View pinnedHeader=LayoutInflater.from(context).inflate(R.layout.section_bar_now, nowWeekList, false);
+			nowWeekList.setPinnedHeaderView(pinnedHeader);
 			nowWeekList.setOnItemClickListener(new ListItemClickListener());
-			args=ApiHelper.getInstance(context).getSchedule(begin, end);
-			fragment.getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_1, args, callbacks).forceLoad();
 			container.addView(nowWeekList);
 			return nowWeekList;
 		}
@@ -180,8 +180,8 @@ public class NowPagerAdapter extends PagerAdapter {
 			if(event instanceof Activity){
 				intent = new Intent(context, EventDetailActivity.class);
 				intent.putExtras(bundle);
+				context.startActivity(intent);
 			}
-			context.startActivity(intent);
 		}
 		
 	}

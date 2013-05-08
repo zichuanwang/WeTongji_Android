@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks<List<Activity>>{
@@ -47,7 +48,8 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		apiHelper=ApiHelper.getInstance(mContext);
 		mFragment.getLoaderManager().initLoader(WTApplication.ACTIVITIES_LOADER, null, this);
 		
-		mBmDefaultThumbnails = (BitmapDrawable) mContext.getResources().getDrawable(R.drawable.default_avatar);
+		mBmDefaultThumbnails = (BitmapDrawable) mContext.getResources()
+				.getDrawable(R.drawable.event_list_thumbnail_place_holder);
 		
 		WTApplication app = WTApplication.getInstance();
 		app.setActivity(fragment.getActivity());
@@ -55,7 +57,6 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		if(dm.widthPixels <= 1080) {
 			LIST_THUMBNAILS_TARGET_WIDTH = (int)(dm.widthPixels / LIST_THUMBNAILS_TARGET_WIDTH_FACTOR);
 		}
-		Log.d("target", String.valueOf(LIST_THUMBNAILS_TARGET_WIDTH));
 	}
 
 	public void setContentList(List<Activity> lstEvent) {
@@ -73,6 +74,7 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		TextView tvEventTime;
 		TextView tvEventLocation;
 		ImageView ivEventThumb;	
+		LinearLayout llEventRow;
 	}
 
 	@Override
@@ -119,10 +121,21 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 					(TextView)convertView.findViewById(R.id.tv_event_location);
 			holder.ivEventThumb=
 					(ImageView)convertView.findViewById(R.id.img_event_thumbnails);
+			holder.llEventRow = 
+					(LinearLayout)convertView.findViewById(R.id.layout_event_row);
 			convertView.setTag(holder);
 		}
 		else {
 			holder=(ViewHolder)convertView.getTag();
+		}
+		
+		//Set background color
+		if(position % 2 != 0) {
+			holder.llEventRow.setBackgroundColor(mContext.
+					getResources().getColor(R.color.layout_event_list_row1));
+		}else {
+			holder.llEventRow.setBackgroundColor(mContext.
+					getResources().getColor(R.color.layout_event_list_row2));
 		}
 		
 		Activity event=getItem(position);
@@ -143,21 +156,21 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		
 		// Set thumbnails
 		String strUrl = event.getImage();
-		//String strUrl = event.getOrganizerAvatar();
 
+		AQuery aq = mListAq.recycle(convertView);
 		if(!strUrl.equals(WTApplication.MISSING_IMAGE_URL)){
-			AQuery aq = mListAq.recycle(convertView);
 			
 	        if(aq.shouldDelay(position, convertView, parent, strUrl)) {
 	        	aq.id(holder.ivEventThumb).image(mBmDefaultThumbnails);
 	        }
 	        else {
-	        	aq.id(holder.ivEventThumb).image(strUrl, true, true, LIST_THUMBNAILS_TARGET_WIDTH, R.drawable.default_avatar,
+	        	aq.id(holder.ivEventThumb).image(strUrl, true, true,
+	        			LIST_THUMBNAILS_TARGET_WIDTH, R.drawable.event_list_thumbnail_place_holder,
 	        			null, AQuery.FADE_IN_NETWORK, 1.33f);
 	        }
 		}
 		else{
-			holder.ivEventThumb.setVisibility(View.GONE);
+			aq.id(holder.ivEventThumb).image(mBmDefaultThumbnails);
 		}
         
 		return convertView;

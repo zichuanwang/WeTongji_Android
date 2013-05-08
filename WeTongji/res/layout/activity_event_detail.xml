@@ -4,14 +4,15 @@
     android:layout_height="match_parent" >
     
     
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         >
         
         <!-- actionbar container -->
 	    <LinearLayout 
+	        android:id="@id/layout_event_detail_top_actionbar"
+	        android:layout_alignParentTop="true"
 	        android:layout_width="match_parent"
 	        android:layout_height="48dp"
 	        android:background="@drawable/ab_solid_wttheme"
@@ -20,6 +21,7 @@
 	    </LinearLayout>
 	    
 		<FrameLayout 
+		    android:layout_below="@id/layout_event_detail_top_actionbar"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content">
 		    
@@ -87,10 +89,11 @@
 			        
 			        <ImageView android:id="@id/iv_event_detail_image"
 			            android:layout_width="match_parent"
-			            android:layout_height="144dp"
+			            android:layout_height="147dp"
 			            android:paddingTop="1dp"
 			            android:paddingBottom="1dp"
 			            android:background="@drawable/image_cover"
+			            android:scaleType="centerCrop"
 			            />
 			        
 			        <!-- organization -->
@@ -162,14 +165,89 @@
 		    
 		</FrameLayout>	    
         
+		<!-- Bottom actionbar -->
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/bg_event_detail_bottom_actionbar">
+            
+            <LinearLayout
+                android:layout_weight="260" 
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@id/btn_event_detail_invite" >
+		        
+		        <TextView 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_gravity="center"
+		            android:text="@string/text_event_invite"
+		            style="@style/EventDetailBottomActionbarText"
+		            />
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_gravity="center_vertical"
+                android:layout_width="1dp"
+                android:layout_height="23.33dp"
+                android:background="@color/bg_bottom_actionbar_divider" />
+            
+            <LinearLayout
+                android:layout_weight="440"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical">
+                
+                <ImageView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/img_event_detail_friends"/>
+                
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/text_event_detail_friends"
+                    style="@style/EventDetailBottomActionbarText" />
+                
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_gravity="center_vertical"
+                android:layout_width="1dp"
+                android:layout_height="23.33dp"
+                android:background="@color/bg_bottom_actionbar_divider" />
+            
+            <LinearLayout
+                android:layout_weight="380"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+                
+                <ImageView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/img_event_detail_attend"/>
+                
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/text_event_detail_attend"
+                    style="@style/EventDetailBottomActionbarText" />
+                
+            </LinearLayout>
+            
+        </LinearLayout>
         
-    </LinearLayout>
+    </RelativeLayout>
 
-    <!-- Like CheckBox and like number -->
     <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         
+    	<!-- Like checkbox -->
         <LinearLayout 
             android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
@@ -195,5 +273,7 @@
               android:layout_height="wrap_content"
               style="@style/EventLikeNumber"/>
         </LinearLayout>
+        
+        
     </RelativeLayout>
 </FrameLayout>

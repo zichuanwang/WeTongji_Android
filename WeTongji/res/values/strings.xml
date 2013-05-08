@@ -61,4 +61,8 @@
 	<string name="text_evnet_detail_organization">ORGANIZATION</string>
 	<string name="text_event_about">ABOUT</string>
 	<string name="text_week">WEEK</string>
+	<string name="text_event_invite">INVITE</string>
+	<string name="text_event_detail_friends">FRIENDS</string>
+	<string name="text_event_detail_attend">ATTEND</string>
+	<string name="text_event_detail_attended">ATTENDED</string>	
 </resources>
