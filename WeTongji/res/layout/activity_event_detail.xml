@@ -20,6 +20,7 @@
 	        >
 	    </LinearLayout>
 	    
+	    <!-- main content -->
 		<FrameLayout 
 		    android:layout_below="@id/layout_event_detail_top_actionbar"
 		    android:layout_width="match_parent"
@@ -78,7 +79,6 @@
 				                android:src="@drawable/event_detail_arrow"/>
 			                
 			            </LinearLayout>
-			            
 			            
 			        </LinearLayout>
 			        
@@ -150,6 +150,12 @@
 			       	       	android:layout_margin="14dp"
 			       	        style="@style/EventDetailContent"/>
 			       	</LinearLayout>
+			       	
+			       	<!-- this blank layout resolves conflict with 'bottom actionbar' -->
+		            <LinearLayout
+		                android:layout_width="match_parent"
+		                android:layout_height="48dp">
+		            </LinearLayout>
 			    </LinearLayout>
 		        
 		    </ScrollView>
@@ -165,7 +171,40 @@
 		    
 		</FrameLayout>	    
         
-		<!-- Bottom actionbar -->
+    </RelativeLayout>
+
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+    	<!-- Like checkbox -->
+        <LinearLayout 
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_alignParentRight="true"
+        	android:layout_marginRight="16dp"
+        	android:orientation="vertical"
+        	android:gravity="center"
+        	android:background="@drawable/bg_event_like"
+        	>
+          <CheckBox 
+              android:id="@id/cb_event_like"
+              android:layout_width="wrap_content"
+              android:layout_height="26dp"
+              android:layout_marginTop="1dp"
+              android:layout_marginLeft="4dp"
+              android:layout_marginBottom="0dp"
+              android:paddingBottom="-2dp"
+              style="@style/EventLikeCheckbox"/>
+          
+          <TextView 
+              android:id="@id/tv_event_like_number"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              style="@style/EventLikeNumber"/>
+        </LinearLayout>
+        
+        <!-- Bottom actionbar -->
         <LinearLayout
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
@@ -240,40 +279,7 @@
             </LinearLayout>
             
         </LinearLayout>
-        
-    </RelativeLayout>
-
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
-    	<!-- Like checkbox -->
-        <LinearLayout 
-            android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_alignParentRight="true"
-        	android:layout_marginRight="16dp"
-        	android:orientation="vertical"
-        	android:gravity="center"
-        	android:background="@drawable/bg_event_like"
-        	>
-          <CheckBox 
-              android:id="@id/cb_event_like"
-              android:layout_width="wrap_content"
-              android:layout_height="26dp"
-              android:layout_marginTop="1dp"
-              android:layout_marginLeft="4dp"
-              android:layout_marginBottom="0dp"
-              android:paddingBottom="-2dp"
-              style="@style/EventLikeCheckbox"/>
-          
-          <TextView 
-              android:id="@id/tv_event_like_number"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              style="@style/EventLikeNumber"/>
-        </LinearLayout>
-        
+        <!-- End of Bottom actionbar -->
         
     </RelativeLayout>
 </FrameLayout>

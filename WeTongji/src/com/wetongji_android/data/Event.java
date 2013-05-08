@@ -8,7 +8,7 @@ import android.os.Parcelable;
 import com.j256.ormlite.field.DatabaseField;
 
 public class Event implements Comparable<Event>, Parcelable{
-	@DatabaseField(generatedId=true)
+	@DatabaseField(generatedId=true, allowGeneratedIdInsert=true)
 	private int Id;
 	@DatabaseField
 	private Date Begin;

@@ -7,6 +7,7 @@ import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.activity.ActivitiesLoader;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.net.ApiHelper;
@@ -65,6 +66,12 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		notifyDataSetChanged();
 	}
 	
+	public void addContent(List<Activity> lstEvent) {
+		mLstEvent.addAll(lstEvent);
+		notifyDataSetChanged();
+		nextPage();
+	}
+	
 	public void addData(List<Activity> nextPageData){
 		mLstEvent.addAll(nextPageData);
 	}
@@ -94,7 +101,7 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 
 	@Override
 	protected void onNextPageRequested(int page) {
-		Log.d("EventListAdapter", "onNextPagerRequest...");
+		WTUtility.log("EventListAdapter", "onNextPagerRequest..." + page);
 		
 		Bundle args = apiHelper.getActivities(page, 15, ApiHelper.API_ARGS_SORT_BY_ID_DESC, false);
 		mFragment.getLoaderManager()
@@ -203,6 +210,7 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 	@Override
 	public void onLoadFinished(Loader<List<Activity>> arg0, List<Activity> activities) {
 		setContentList(activities);
+		notifyMayHaveMorePages();
 	}
 
 	@Override

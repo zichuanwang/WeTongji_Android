@@ -1,5 +1,7 @@
 package com.wetongji_android.ui.main;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.flurry.android.FlurryAgent;
 import com.slidingmenu.lib.SlidingMenu;
@@ -108,6 +110,15 @@ implements OnWTListClickedListener
 		
 	}
 	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add("Refresh")
+        .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		
+		return true;
+	}
+
 	public void switchContent(Fragment fragment) {
 		mContent = fragment;
 		getSupportFragmentManager()
