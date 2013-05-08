@@ -257,6 +257,45 @@ public class ApiHelper {
 		return bundle;
 	}
 	
+	public Bundle schedule(int id) {
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		bundle.putString(API_ARGS_METHOD, "Activities.Schedule");
+		return bundle;
+	}
+	
+	public Bundle unSchedule(int id) {
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		bundle.putString(API_ARGS_METHOD, "Activities.UnSchedule");
+		return bundle;
+	}
+	
+	public Bundle favorite(int id) {
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		bundle.putString(API_ARGS_METHOD, "Activities.Favorite");
+		return bundle;
+	}
+	
+	public Bundle unFavorite(int id) {
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		bundle.putString(API_ARGS_METHOD, "Activities.UnFavorite");
+		return bundle;
+	}
 	
 	public Bundle getActivities(int page, int channelIdsMask, int sortType, boolean expire) {
 		Bundle bundle=new Bundle();
