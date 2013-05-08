@@ -92,8 +92,7 @@ public class WTApplication extends Application
 			File ext = Environment.getExternalStorageDirectory();
 			File downloadCacheDir = getExternalFilesDir("imgCache");
 			
-			File cacheDir = new File(ext, downloadCacheDir.getPath());
-			AQUtility.setCacheDir(cacheDir);
+			AQUtility.setCacheDir(downloadCacheDir);
 		}
 		return aq ;
 	}

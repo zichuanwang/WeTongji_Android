@@ -103,7 +103,7 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 	protected void onNextPageRequested(int page) {
 		WTUtility.log("EventListAdapter", "onNextPagerRequest..." + page);
 		
-		Bundle args = apiHelper.getActivities(page, 15, ApiHelper.API_ARGS_SORT_BY_ID_DESC, false);
+		Bundle args = apiHelper.getActivities(page + 1, 15, ApiHelper.API_ARGS_SORT_BY_ID_DESC, false);
 		mFragment.getLoaderManager()
 			.initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, (EventsFragment)mFragment);
 	}
