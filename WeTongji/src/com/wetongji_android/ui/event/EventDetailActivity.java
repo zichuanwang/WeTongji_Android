@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.CheckBox;
@@ -20,7 +19,7 @@ import com.wetongji_android.data.Activity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.date.DateParser;
 
-public class EventDetailActivity extends android.app.Activity{
+public class EventDetailActivity extends android.app.Activity {
 	
 	private Activity mEvent;
 	
@@ -42,6 +41,7 @@ public class EventDetailActivity extends android.app.Activity{
 	
 	private void setUpUI() {
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+		
 		setContentView(R.layout.activity_event_detail);
 		
 		mAq = WTApplication.getInstance().getAq(this);

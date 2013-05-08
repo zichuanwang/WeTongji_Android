@@ -111,4 +111,10 @@
        <item name="android:textColor">@color/tv_event_detail_content</item>
        <item name="android:autoLink">all</item>
    	</style>
+   	
+ 	<style name="EventDetailBottomActionbarText">
+ 	    <item name="android:textColor">#ffffff</item>
+ 	    <item name="android:textSize">12sp</item>
+	    <item name="android:textStyle">bold</item>
+ 	</style>
 </resources>
