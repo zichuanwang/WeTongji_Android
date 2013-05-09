@@ -1,5 +1,6 @@
 package com.wetongji_android.ui.now;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -43,8 +44,9 @@ public class NowPagerAdapter extends PagerAdapter {
 	private Fragment fragment;
 	private ViewPager viewPager;
 	private NowWeekListAdapter listAdapter;
+	private AmazingListView nowWeekList;
 	private PageNetworkLoaderCallbacks callbacks;
-	private Calendar begin, end;
+	private Calendar begin, end, min, max;
 	private Context context;
 	
 	public NowPagerAdapter(Fragment fragment, ViewPager viewPager) {
@@ -55,6 +57,7 @@ public class NowPagerAdapter extends PagerAdapter {
 		this.viewPager=viewPager;
 		initCalendars();
 		initAdapters();
+		initCallbacks();
 		Bundle args=ApiHelper.getInstance(context).getSchedule(begin, end);
 		fragment.getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_1, args, callbacks).forceLoad();
 		
@@ -62,6 +65,9 @@ public class NowPagerAdapter extends PagerAdapter {
 
 	private void initAdapters() {
 		listAdapter=new NowWeekListAdapter(fragment, begin, end);
+	}
+	
+	private void initCallbacks(){
 		callbacks=new PageNetworkLoaderCallbacks();
 	}
 
@@ -79,7 +85,7 @@ public class NowPagerAdapter extends PagerAdapter {
 			container.addView(view);
 			return view;
 		default:
-			AmazingListView nowWeekList=(AmazingListView) inflater.inflate(R.layout.page_now_week, null);
+			nowWeekList=(AmazingListView) inflater.inflate(R.layout.page_now_week, null);
 			nowWeekList.setAdapter(listAdapter);
 			View pinnedHeader=LayoutInflater.from(context).inflate(R.layout.section_bar_now, nowWeekList, false);
 			nowWeekList.setPinnedHeaderView(pinnedHeader);
@@ -105,8 +111,8 @@ public class NowPagerAdapter extends PagerAdapter {
 	}
 	
 	private void initCalendars(){
-		begin=DateParser.getFirstDayOfWeek();
-		end=DateParser.getLastDayOfWeek();
+		min=begin=DateParser.getFirstDayOfWeek();
+		max=end=DateParser.getLastDayOfWeek();
 	}
 	
 	private void setCalendars(int pageScrolledTo){
@@ -115,21 +121,30 @@ public class NowPagerAdapter extends PagerAdapter {
 			Log.v("setcalendar", "page left");
 			begin.add(Calendar.DAY_OF_YEAR, -7);
 			end.add(Calendar.DAY_OF_YEAR, -7);
+			if(min.after(begin))
+				min=begin;
 			break;
 		case PAGE_RIGHT:
 			Log.v("setcalendar", "page right");
 			begin.add(Calendar.DAY_OF_YEAR, 7);
 			end.add(Calendar.DAY_OF_YEAR, 7);
+			if(end.after(max))
+				max=end;
 			break;
 		}
 	}
 	
 	public void setContent(int pageScrolledTo){
 		if(pageScrolledTo!=PAGE_MIDDILE){
-			Log.v("setContent", "page="+pageScrolledTo);
 			setCalendars(pageScrolledTo);
-			Bundle args=ApiHelper.getInstance(context).getSchedule(begin, end);
-			fragment.getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_1, args, callbacks).forceLoad();
+			if(begin.equals(min)||end.equals(max)){
+				Bundle args=ApiHelper.getInstance(context).getSchedule(begin, end);
+				fragment.getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_1, args, callbacks).forceLoad();
+			}
+			else{
+				initAdapters();
+				nowWeekList.setAdapter(listAdapter);
+			}
 		}
 	}
 	
@@ -152,7 +167,13 @@ public class NowPagerAdapter extends PagerAdapter {
 		public void onLoadFinished(Loader<HttpRequestResult> arg0,
 				HttpRequestResult result) {
 			if(result.getResponseCode()==0){
-				List<Event> events=factory.createObjects(result.getStrResponseCon());
+				List<Event> events=new ArrayList<Event>();
+				if(begin.equals(DateParser.getFirstDayOfWeek())){
+					events=factory.createObjects(result.getStrResponseCon(), true);
+				}
+				else{
+					events=factory.createObjects(result.getStrResponseCon(), false);
+				}
 				listAdapter.setRawData(events);
 			}
 			else{

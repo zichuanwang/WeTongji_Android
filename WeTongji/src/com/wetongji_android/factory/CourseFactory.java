@@ -1,6 +1,5 @@
 package com.wetongji_android.factory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -22,7 +21,7 @@ public class CourseFactory extends BaseFactory<Course, Integer> {
 
 	@Override
 	public List<Course> createObjects(String jsonStr) {
-		List<Course> result=new ArrayList<Course>();
+		list.clear();
 		try {
 			JSONObject outer=new JSONObject(jsonStr);
 			JSONArray array=outer.getJSONArray("CourseInstances");
@@ -41,7 +40,7 @@ public class CourseFactory extends BaseFactory<Course, Integer> {
 				int endSection=jsonCourse.getInt("SectionEnd");
 				course.setBegin(CourseUtil.parseCourseStartTime(strDay, startSection));
 				course.setEnd(CourseUtil.parseCourseEndTime(strDay, endSection));
-				result.add(course);
+				list.add(course);
 			}
 
 			Bundle args=new Bundle();
@@ -50,7 +49,7 @@ public class CourseFactory extends BaseFactory<Course, Integer> {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return result;
+		return list;
 	}
 	
 }

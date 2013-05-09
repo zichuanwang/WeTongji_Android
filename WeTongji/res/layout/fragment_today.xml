@@ -7,21 +7,22 @@
     android:background="@drawable/bg_app_base"
     tools:context=".ui.today.TodayFragment" >
     
-    <com.wetongji_android.ui.widgets.PageContainer
+    <com.wetongji_android.ui.widgets.PagerContainer
         android:id="@+id/pc_banner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     
 	    <android.support.v4.view.ViewPager
 	        android:id="@+id/vp_banner"
-	        android:layout_width="300dp"
-	        android:layout_height="200dp" />
+	        android:layout_width="320dp"
+	        android:layout_height="130dp"
+	        android:layout_gravity="left" />
     
-    </com.wetongji_android.ui.widgets.PageContainer>
+    </com.wetongji_android.ui.widgets.PagerContainer>
     
     <com.viewpagerindicator.UnderlinePageIndicator
 		xmlns:app="http://schemas.android.com/apk/res-auto"
-		android:id="@id/vp_indicator_today"
+		android:id="@+id/vp_indicator_today"
 		android:layout_width="match_parent"
 		android:layout_height="4dp"
 		android:layout_below="@+id/pc_banner"
@@ -36,44 +37,44 @@
         android:orientation="horizontal">
 	    
         <RelativeLayout
-		    android:id="@+id/rl_now_row"
-		    android:layout_width="match_parent"
-		    android:layout_height="150dp"
-		    android:layout_marginLeft="4dp"
-		    android:layout_marginRight="2dp"
-		    android:layout_marginBottom="2dp"
+		    android:id="@+id/rl_today_now_row"
+		    android:layout_width="0dp"
+		    android:layout_height="110dp"
+		    android:layout_weight="9"
+		    android:layout_marginLeft="5dp"
+		    android:layout_marginRight="3dp"
+		    android:layout_marginTop="5dp"
 		    android:background="@drawable/bg_row_now_default"
-		    android:paddingLeft="10dp"
-		    android:paddingRight="10dp"
-		    android:paddingTop="7dp"
-		    android:paddingBottom="10dp" >
+		    android:paddingLeft="14dp"
+		    android:paddingRight="14dp"
+		    android:paddingTop="11dp"
+		    android:paddingBottom="14dp" >
 	
 		    <RelativeLayout
-		        android:id="@+id/rl_now_indicator"
+		        android:id="@+id/rl_today_now_indicator"
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
-		        android:layout_marginBottom="8dp"
+		        android:layout_marginBottom="13dp"
 		        android:layout_alignParentTop="true" >
 		
 		        <ImageView
-		            android:id="@+id/iv_now_indicator"
+		            android:id="@+id/iv_today_now_indicator"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:layout_alignParentLeft="true"
 		            android:layout_alignParentTop="true"
 		            android:layout_marginTop="4dp"
-		            android:layout_marginRight="8dp"
+		            android:layout_marginRight="11dp"
 		            android:contentDescription="@string/content_description_all"
-		            android:src="@drawable/ic_row_now_indicator"
-		            android:visibility="gone" />
+		            android:src="@drawable/ic_today_now"/>
 		
 		        <RelativeLayout
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
-		            android:layout_toRightOf="@+id/iv_now_indicator" >
+		            android:layout_toRightOf="@+id/iv_today_now_indicator" >
 		
 		            <TextView
-		                android:id="@+id/tv_now_indicator"
+		                android:id="@+id/tv_today_now_indicator"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
 		                android:layout_alignParentTop="true"
@@ -82,112 +83,112 @@
 		                android:shadowDy="3"
 		                android:shadowRadius="0"
 		                android:text="@string/text_now_indicator"
-		                android:textColor="@color/tv_text_now_indicator"
+		                android:textColor="@color/tv_today_now"
 		                android:textSize="14sp"
-		                android:textStyle="bold"
-		                android:visibility="gone" />
+		                android:textStyle="bold"/>
 		
 		            <TextView
-		                android:id="@+id/tv_now_time"
+		                android:id="@+id/tv_today_now_time"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
-		                android:layout_alignLeft="@+id/tv_now_indicator"
-		                android:layout_below="@+id/tv_now_indicator"
+		                android:layout_alignLeft="@+id/tv_today_now_indicator"
+		                android:layout_below="@+id/tv_today_now_indicator"
 		                android:shadowColor="@color/tv_now_text_shadow"
 		                android:shadowDx="0"
 		                android:shadowDy="3"
 		                android:shadowRadius="0"
-		                android:textSize="14sp"
+		                android:textSize="12sp"
 		                android:textStyle="bold"
 		                android:textColor="@color/tv_text_now_time"
 		                android:textIsSelectable="false" />
 		            
 		        </RelativeLayout>
-	
-	        <TextView
-	            android:id="@+id/tv_now_friends_counter"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentRight="true"
-	            android:layout_alignParentTop="true"
-	            android:textColor="@color/tv_text_now_time"
-	            android:textSize="14sp"
-	            android:textStyle="bold"
-	            android:textIsSelectable="false" />
-	        
-	    </RelativeLayout>
-	
-	    <ImageView
-	        android:id="@+id/iv_now_thumb"
-	        style="@style/EventLstThumbnails"
-	        android:layout_width="48dp"
-	        android:layout_height="60dp"
-	        android:layout_marginRight="10dp"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/rl_now_indicator"
-	        android:contentDescription="@string/content_description_all" />
-	
-	    <RelativeLayout
-	        android:id="@+id/relativeLayout1"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:layout_alignParentBottom="true"
-	        android:layout_below="@+id/rl_now_indicator"
-	        android:layout_toRightOf="@+id/iv_now_thumb" >
-	
-	        <TextView
-	            android:id="@+id/tv_now_title"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentTop="true"
-	            android:shadowColor="@color/tv_now_text_shadow"
-	            android:shadowDx="0"
-	            android:shadowDy="3"
-	            android:shadowRadius="0"
-	            android:textSize="18sp"
-	            android:textStyle="bold"
-	            android:maxLines="2"
-	            android:textColor="@color/tv_text_now_title"
-	            android:textIsSelectable="false"  />
-	        
-	        <TextView
-		        android:id="@+id/tv_now_location"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
+		
+		        <TextView
+		            android:id="@+id/tv_today_now_friends_counter"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:layout_alignParentRight="true"
+		            android:layout_alignParentTop="true"
+		            android:textColor="@color/tv_text_now_time"
+		            android:textSize="14sp"
+		            android:textStyle="bold"
+		            android:textIsSelectable="false" />
+		        
+		    </RelativeLayout>
+		
+		    <ImageView
+		        android:id="@+id/iv_today_now_thumb"
+		        style="@style/EventLstThumbnails"
+		        android:layout_width="48dp"
+		        android:layout_height="64dp"
+		        android:layout_marginRight="17dp"
+		        android:layout_alignParentLeft="true"
+		        android:layout_below="@+id/rl_today_now_indicator"
+		        android:src="@drawable/event_list_thumbnail_place_holder"
+		        android:contentDescription="@string/content_description_all" />
+		
+		    <RelativeLayout
+		        android:id="@+id/relativeLayout1"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
 		        android:layout_alignParentBottom="true"
-		        android:shadowColor="@color/tv_now_text_shadow"
-		        android:shadowDx="0"
-		        android:shadowDy="3"
-		        android:shadowRadius="0"
-		        android:textStyle="bold"
-	            android:textSize="14sp"
-		        android:textColor="@color/tv_text_now_location"
-	            android:textIsSelectable="false"  />
-	        
-	    </RelativeLayout>
-	
-	</RelativeLayout>
+		        android:layout_below="@+id/rl_today_now_indicator"
+		        android:layout_toRightOf="@+id/iv_today_now_thumb" >
+		
+		        <TextView
+		            android:id="@+id/tv_today_now_title"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:layout_alignParentTop="true"
+		            android:shadowColor="@color/tv_now_text_shadow"
+		            android:shadowDx="0"
+		            android:shadowDy="3"
+		            android:shadowRadius="0"
+		            android:textSize="18sp"
+		            android:maxLines="2"
+		            android:textColor="@color/tv_text_now_title"
+		            android:textIsSelectable="false"  />
+		        
+		        <TextView
+			        android:id="@+id/tv_today_now_location"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_alignParentBottom="true"
+			        android:shadowColor="@color/tv_now_text_shadow"
+			        android:shadowDx="0"
+			        android:shadowDy="3"
+			        android:shadowRadius="0"
+			        android:textStyle="bold"
+		            android:textSize="12sp"
+			        android:textColor="@color/tv_text_now_location"
+		            android:textIsSelectable="false"  />
+		        
+		    </RelativeLayout>
+		
+		</RelativeLayout>
         
         <ImageButton 
             android:id="@+id/btn_more_now"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:contentDescription="@string/content_description_all"/>
         
     </LinearLayout>
     
     <TextView 
-        android:id="@+id/tv_today"
+        android:id="@+id/tv_today_information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_now_today"
         android:textIsSelectable="false"/>
     
     <GridView 
-        android:id="@+id/gv_today"
+        android:id="@+id/gv_today_information"
+        android:layout_below="@+id/tv_today_information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        
     </GridView>
          
 </RelativeLayout>

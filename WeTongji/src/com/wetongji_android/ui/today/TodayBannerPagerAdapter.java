@@ -2,13 +2,15 @@ package com.wetongji_android.ui.today;
 
 import java.util.List;
 
+import com.wetongji_android.data.Banner;
+
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class TodayBannerPagerAdapter extends PagerAdapter 
 {
-	public TodayBannerPagerAdapter(List<View> views) 
+	public TodayBannerPagerAdapter(List<Banner> views) 
 	{
 		super();
 	}

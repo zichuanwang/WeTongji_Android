@@ -73,19 +73,21 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
-		view=inflater.inflate(R.layout.fragment_now, container, false);
-		tvWeekNumber=(TextView) view.findViewById(R.id.tv_now_week_number);
-		tvWeekNumber.setText(weekNumber+"");
-		vpWeeks=(ViewPager) view.findViewById(R.id.vp_weeks);
-		adapter=new NowPagerAdapter(this, vpWeeks);
-		vpWeeks.setAdapter(adapter);
-		vpWeeks.setOnPageChangeListener(new PageChangeListener());
-		vpWeeks.setCurrentItem(NowPagerAdapter.PAGE_MIDDILE, false);
-		ImageButton btnNowNext=(ImageButton) view.findViewById(R.id.btn_now_next);
-		ImageButton btnNowPre=(ImageButton) view.findViewById(R.id.btn_now_previous);
-		ButtonClickListener btnListener=new ButtonClickListener();
-		btnNowNext.setOnClickListener(btnListener);
-		btnNowPre.setOnClickListener(btnListener);
+		if(view==null){
+			view=inflater.inflate(R.layout.fragment_now, container, false);
+			tvWeekNumber=(TextView) view.findViewById(R.id.tv_now_week_number);
+			tvWeekNumber.setText(weekNumber+"");
+			vpWeeks=(ViewPager) view.findViewById(R.id.vp_weeks);
+			adapter=new NowPagerAdapter(this, vpWeeks);
+			vpWeeks.setAdapter(adapter);
+			vpWeeks.setOnPageChangeListener(new PageChangeListener());
+			vpWeeks.setCurrentItem(NowPagerAdapter.PAGE_MIDDILE, false);
+			ImageButton btnNowNext=(ImageButton) view.findViewById(R.id.btn_now_next);
+			ImageButton btnNowPre=(ImageButton) view.findViewById(R.id.btn_now_previous);
+			ButtonClickListener btnListener=new ButtonClickListener();
+			btnNowNext.setOnClickListener(btnListener);
+			btnNowPre.setOnClickListener(btnListener);
+		}
 		return view;
 	}
 	
