@@ -3,14 +3,17 @@ package com.wetongji_android.ui.auth;
 import com.wetongji_android.R;
 
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 /**
@@ -23,6 +26,8 @@ public class RegisterFragment extends Fragment implements OnClickListener{
 	
 	private Button btnBack;
 	private Button btnNext;
+	private EditText etUsername;
+	private EditText etPassword;
 	private ImageView ivAvatar;
 	private View view;
 	
@@ -51,6 +56,10 @@ public class RegisterFragment extends Fragment implements OnClickListener{
 			Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		view=inflater.inflate(R.layout.fragment_register, container, false);
+		etUsername=(EditText) view.findViewById(R.id.et_register_username);
+		etPassword=(EditText) view.findViewById(R.id.et_register_password);
+		etPassword.setTypeface(Typeface.DEFAULT);
+		etPassword.setTransformationMethod(new PasswordTransformationMethod());
 		btnBack=(Button) view.findViewById(R.id.btn_register_back);
 		btnBack.setOnClickListener(this);
 		btnNext=(Button) view.findViewById(R.id.btn_register_next);

@@ -25,18 +25,32 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp">
         
-        <ImageView 
-            android:id="@+id/iv_avatar_picker"
+        <FrameLayout 
+            android:id="@+id/fl_avatar"
             android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/ic_social_person"
-            android:contentDescription="@string/content_description_all"/>
+            android:layout_height="80dp">
+        
+	        <ImageView 
+	            android:id="@+id/iv_avatar_picker"
+	            android:layout_width="80dp"
+	            android:layout_height="80dp"
+	            android:src="@drawable/ic_social_person"
+	            android:contentDescription="@string/content_description_all"/>
+	        
+	        <ImageView 
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="bottom|right"
+	            android:src="@drawable/ic_image_more_indicator"
+	            android:contentDescription="@string/content_description_all"/>
+        
+        </FrameLayout>
         
         <RelativeLayout 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_avatar_picker"
-            android:layout_toRightOf="@+id/iv_avatar_picker">
+            android:layout_alignBottom="@+id/fl_avatar"
+            android:layout_toRightOf="@+id/fl_avatar">
             
             <EditText 
                 android:id="@+id/et_register_username"
@@ -68,13 +82,16 @@
         android:id="@+id/tv_register_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
         android:textSize="14sp"
+        android:text="@string/text_confirm_terms_of_use"
         android:textColor="@color/tv_register_account"
         android:textIsSelectable="true"/>
     
     <LinearLayout 
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
         
         <Button
 	        android:id="@+id/btn_register_back" 

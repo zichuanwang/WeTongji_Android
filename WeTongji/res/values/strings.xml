@@ -75,5 +75,7 @@
     <string name="text_cancel">Cancel</string>
     <string name="text_no_camera">No camera</string>
     <string name="text_no_image_editor">No image editor</string>
+    <string name="text_confirm_terms_of_use">By tapping Next you are indicating that you have 
+read and agree to the <u><b>Term of Use</b></u></string>
 
 </resources>

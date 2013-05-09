@@ -12,9 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="16dp"
         android:textColor="@color/tv_text_now_section_bar_default"
-        android:textSize="14sp"
+        android:textSize="12sp"
+        android:textStyle="bold"
         android:textIsSelectable="false" />
     
     <TextView 
@@ -22,9 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="16dp"
         android:textColor="@color/tv_text_now_section_bar_default"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textIsSelectable="false" />
 
 </RelativeLayout>

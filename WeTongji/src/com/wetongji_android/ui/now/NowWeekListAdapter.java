@@ -102,6 +102,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public View getAmazingView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
@@ -130,6 +131,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		int paddingTop=holder.rlNowRow.getPaddingTop();
 		int paddingOther=holder.rlNowRow.getPaddingLeft();
 		if(EventUtil.isFutureEvent(event)){
+			holder.ivNowThumb.setAlpha(255);
 			holder.rlNowRow.setBackgroundResource(R.drawable.bg_row_now_current);
 			holder.ivNowIndicator.setVisibility(View.VISIBLE);
 			holder.tvNowIndicator.setVisibility(View.VISIBLE);
@@ -137,6 +139,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 			holder.tvNowTitle.setTextColor(context.getResources().getColor(R.color.tv_text_now_title));
 		}
 		else if(EventUtil.isPastEvent(event)){
+			holder.ivNowThumb.setAlpha(128);
 			holder.rlNowRow.setBackgroundResource(R.drawable.bg_row_now_passed);
 			holder.ivNowIndicator.setVisibility(View.GONE);
 			holder.tvNowIndicator.setVisibility(View.GONE);
@@ -144,6 +147,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 			holder.tvNowTitle.setTextColor(context.getResources().getColor(R.color.tv_text_now_time));
 		}
 		else{
+			holder.ivNowThumb.setAlpha(255);
 			holder.rlNowRow.setBackgroundResource(R.drawable.bg_row_now_default);
 			holder.ivNowIndicator.setVisibility(View.GONE);
 			holder.tvNowIndicator.setVisibility(View.GONE);
@@ -159,17 +163,14 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		holder.tvNowFriendsCounter.setText("6 Friends");
 		
 		if(event instanceof Activity){
-			// Set thumbnails
+			// Set thumb nails
 			String strUrl = ((Activity)event).getImage();
+			AQuery aq = listAq.recycle(convertView);
 			if(!strUrl.equals(WTApplication.MISSING_IMAGE_URL)){
-				AQuery aq = listAq.recycle(convertView);
 				
 		        //if(!aq.shouldDelay(position, convertView, parent, strUrl))
-		        	aq.id(holder.ivNowThumb).image(strUrl, true, true, 300, R.drawable.default_avatar,
+		        	aq.id(holder.ivNowThumb).image(strUrl, true, true, 300, R.drawable.event_list_thumbnail_place_holder,
 		        			null, AQuery.FADE_IN_NETWORK, 1.33f);
-			}
-			else{
-				holder.ivNowThumb.setVisibility(View.GONE);
 			}
 		}
 		else{
@@ -235,7 +236,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		return events;
 	}
 	
-	public void configureHeader(View view, int position){
+	private void configureHeader(View view, int position){
 		TextView tvWeekDay=(TextView) view.findViewById(R.id.tv_now_section_bar_week_day);
 		Date date=new Date();
 		if(dates!=null){
