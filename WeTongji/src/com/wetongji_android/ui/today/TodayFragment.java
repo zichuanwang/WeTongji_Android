@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.androidquery.AQuery;
+import com.viewpagerindicator.UnderlinePageIndicator;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Event;
@@ -31,6 +32,7 @@ public class TodayFragment extends Fragment
 	private View view;
 	private ViewPager vpBanner;
 	private TodayBannerPagerAdapter bannerAdapter;
+	private UnderlinePageIndicator indicator;
 	
 	/**
 	 * Use this factory method to create a new instance of this fragment using
@@ -59,10 +61,22 @@ public class TodayFragment extends Fragment
 	{
 		if(view==null){
 			view=inflater.inflate(R.layout.fragment_today, container, false);
+			setTodayBanner(view);
 			Bundle args=QueryHelper.getEventQueryArgs(Calendar.getInstance());
 			getLoaderManager().initLoader(WTApplication.EVENT_LOADER, args, new DbLoaderCallbacks()).forceLoad();
 		}
 		return view;
+	}
+	
+	private void setTodayBanner(View view){
+		vpBanner=(ViewPager) view.findViewById(R.id.vp_banner);
+		bannerAdapter=new TodayBannerPagerAdapter(null, getActivity());
+		vpBanner.setAdapter(bannerAdapter);
+		vpBanner.setOffscreenPageLimit(bannerAdapter.getCount());
+		vpBanner.setClipChildren(false);
+		indicator=(UnderlinePageIndicator) view.findViewById(R.id.vp_indicator_today);
+		indicator.setViewPager(vpBanner);
+		indicator.setFades(false);
 	}
 	
 	private void setTodayNowContent(Event event){

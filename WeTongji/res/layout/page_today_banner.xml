@@ -13,7 +13,8 @@
         android:id="@+id/iv_banner_mask"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@color/abs__background_holo_dark"
+        android:src="@drawable/img_banner_mask_next"
+        android:scaleType="fitXY"
         android:contentDescription="@string/content_description_all" />
     
     <TextView 
