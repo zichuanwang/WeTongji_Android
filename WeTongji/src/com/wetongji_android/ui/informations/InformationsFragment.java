@@ -21,7 +21,6 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 public class InformationsFragment extends Fragment implements LoaderCallbacks<HttpRequestResult> 
 {	
@@ -29,6 +28,7 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 	private AmazingListView mListNews;
 	private InformationsListAdapter mAdapter;
 	private InformationFactory mFactory;
+	private LayoutInflater mInflater;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -62,11 +62,10 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 		Bundle args = apiHelper.getInformations(1, 4, "");
 		this.getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 		
+		this.mInflater = LayoutInflater.from(getActivity());
 		mListNews = (AmazingListView)mView.findViewById(R.id.lst_information);
 		mListNews.setAdapter(mAdapter = new InformationsListAdapter(this)); 
-		TextView text = new TextView(getActivity());
-		text.setText("载入");
-		mListNews.setLoadingView(text);
+		mListNews.setLoadingView(this.mInflater.inflate(R.layout.amazing_lst_view_loading_view, null));
 	}
 	
 	@Override

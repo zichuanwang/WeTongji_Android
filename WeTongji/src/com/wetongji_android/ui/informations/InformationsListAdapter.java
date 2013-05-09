@@ -11,8 +11,10 @@ import android.support.v4.content.Loader;
 import android.util.Pair;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.foound.widget.AmazingAdapter;
+import com.wetongji_android.R;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.information.InformationLoader;
@@ -31,20 +33,36 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		this.mContext = this.mFragment.getActivity();
 		this.mFragment.getLoaderManager().initLoader(WTApplication.INFORMATION_LOADER, null, this);
 		
-		
 	}
 	
 	@Override
 	public int getCount() 
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		int res = 0;
+		for(int i = 0; i < mListInfos.size(); i++)
+		{
+			res += mListInfos.get(i).second.size();
+		}
+		
+		return res;
 	}
 
 	@Override
 	public Object getItem(int position) 
 	{
 		// TODO Auto-generated method stub
+		int res = 0;
+		for(int i = 0; i < mListInfos.size(); i++)
+		{
+			if(position >= res && position < res + mListInfos.get(i).second.size())
+			{
+				return mListInfos.get(i).second.get(position - res); 
+			}
+			
+			res += mListInfos.get(i).second.size();
+		}
+		
 		return null;
 	}
 
@@ -52,7 +70,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public long getItemId(int position) 
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		return position;
 	}
 
 	@Override
@@ -67,9 +85,24 @@ public class InformationsListAdapter extends AmazingAdapter implements
 			boolean displaySectionHeader) 
 	{
 		// TODO Auto-generated method stub
-
+		if(displaySectionHeader)
+		{
+			view.findViewById(R.id.information_list_header).setVisibility(View.VISIBLE);
+			TextView tv_header = (TextView)view.findViewById(R.id.information_list_header);
+			tv_header.setText(getSections()[getSectionForPosition(position)].toString());
+		}else
+		{
+			view.findViewById(R.id.information_list_header).setVisibility(View.GONE);
+		}
 	}
 
+	public static class ViewHolder
+	{
+		TextView tv_type;
+		TextView tv_title;
+		TextView tv_description;
+	}
+	
 	@Override
 	public View getAmazingView(int position, View convertView, ViewGroup parent) 
 	{
@@ -88,6 +121,24 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public int getPositionForSection(int section) 
 	{
 		// TODO Auto-generated method stub
+		if(section < 0)
+		{
+			section = 0;
+		}else if(section >= mListInfos.size())
+		{
+			section = mListInfos.size() - 1;
+		}
+		
+		int c = 0;
+		for(int i = 0; i < mListInfos.size(); i++)
+		{
+			if(section == i)
+			{
+				return c;
+			}
+			
+			c += mListInfos.get(i).second.size();
+		}
 		return 0;
 	}
 
@@ -95,14 +146,31 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public int getSectionForPosition(int position) 
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		int c = 0;
+		for(int i = 0; i < mListInfos.size(); i++)
+		{
+			if(position >= c && position < mListInfos.get(i).second.size())
+			{
+				return i;
+			}
+			
+			c += mListInfos.get(i).second.size();
+		}
+		
+		return -1;
 	}
 
 	@Override
-	public Object[] getSections() 
+	public Date[] getSections() 
 	{
 		// TODO Auto-generated method stub
-		return null;
+		Date[] dates = new Date[mListInfos.size()];
+		for(int i = 0; i < mListInfos.size(); i++)
+		{
+			dates[i] = mListInfos.get(i).first;
+		}
+		
+		return dates;
 	}
 
 	@Override

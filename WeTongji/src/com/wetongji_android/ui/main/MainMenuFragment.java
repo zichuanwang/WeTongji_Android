@@ -3,6 +3,7 @@ package com.wetongji_android.ui.main;
 
 import com.wetongji_android.R;
 import com.wetongji_android.ui.event.EventsFragment;
+import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.ui.now.NowFragment;
 
 import android.content.Context;
@@ -140,6 +141,7 @@ public class MainMenuFragment extends Fragment {
 			case 0:
 				break;
 			case 1:
+				newContent = new InformationsFragment();
 				break;
 			case 2:
 				newContent = new EventsFragment();

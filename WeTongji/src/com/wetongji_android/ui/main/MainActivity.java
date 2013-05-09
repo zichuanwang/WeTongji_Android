@@ -1,7 +1,6 @@
 package com.wetongji_android.ui.main;
 
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.flurry.android.FlurryAgent;
 import com.slidingmenu.lib.SlidingMenu;

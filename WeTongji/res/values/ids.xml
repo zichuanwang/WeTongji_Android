@@ -47,5 +47,9 @@
     <item name="layout_event_row" type="id">false</item>
     <item type="id" name="btn_event_detail_invite">false</item>
     <item type="id" name="layout_event_detail_top_actionbar">false</item>
+     <item type="id" name="information_list_header">false</item>
+    <item type="id" name="information_list_item_type">false</item>
+    <item type="id" name="information_list_item_title">false</item>
+    <item type="id" name="information_list_description">false</item>
     
 </resources>
