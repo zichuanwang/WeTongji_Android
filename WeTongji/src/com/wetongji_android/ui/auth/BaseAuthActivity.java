@@ -15,7 +15,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
@@ -161,7 +160,6 @@ implements LoaderCallbacks<HttpRequestResult> {
 		if(mPd==null){
 			mPd=new ProgressDialog(this);
 			mPd.setIndeterminate(true);
-			mPd.setTitle(R.string.title_activity_authenticator);
 		}
 		mPd.show();
 	}

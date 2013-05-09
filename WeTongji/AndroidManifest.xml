@@ -67,6 +67,10 @@
                 android:value="android.accounts.AccountAuthenticatorActivity" />
         </activity>
         
+        <activity android:name="com.android.camera.CropImage"
+            android:label="@string/app_name">
+        </activity>
+        
     </application>
 
 </manifest>

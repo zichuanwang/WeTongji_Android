@@ -1,0 +1,111 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="15dp"
+    tools:context=".RegisterFragment"
+    android:orientation="vertical"
+    android:background="@drawable/bg_app_base" >
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_register_account"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/tv_register_account"/>
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/divide_line_register"/>
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp">
+        
+        <ImageView 
+            android:id="@+id/iv_avatar_picker"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_social_person"
+            android:contentDescription="@string/content_description_all"/>
+        
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_avatar_picker"
+            android:layout_toRightOf="@+id/iv_avatar_picker">
+            
+            <EditText 
+                android:id="@+id/et_register_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:textColor="@color/et_text"
+        		android:textSize="18sp"
+        		android:hint="@string/text_student_id"
+        		android:textColorHint="@color/et_text_hint"
+        		android:inputType="number"/>
+            
+            <EditText 
+                android:id="@+id/et_register_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:textColor="@color/et_text"
+        		android:textSize="18sp"
+        		android:hint="@string/text_password"
+        		android:textColorHint="@color/et_text_hint"
+        		android:inputType="textPassword"/>
+            
+        </RelativeLayout>
+        
+    </RelativeLayout>
+    
+    <TextView 
+        android:id="@+id/tv_register_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/tv_register_account"
+        android:textIsSelectable="true"/>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <Button
+	        android:id="@+id/btn_register_back" 
+	        android:layout_width="0dp"
+	        android:layout_weight="1"
+	        android:layout_height="wrap_content"
+	        android:text="@string/text_back"
+	        android:textSize="18sp"
+	        android:textColor="@color/btn_text"
+	        android:shadowColor="#33000000"
+	        android:shadowDx="0"
+	        android:shadowDy="1"
+	        android:shadowRadius="1" />
+        
+        <Button
+	        android:id="@+id/btn_register_next" 
+	        android:layout_width="0dp"
+	        android:layout_weight="1"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="15dp"
+	        android:text="@string/text_next"
+	        android:textSize="18sp"
+	        android:textColor="@color/btn_text"
+	        android:shadowColor="#33000000"
+	        android:shadowDx="0"
+	        android:shadowDy="1"
+	        android:shadowRadius="1"
+        	android:focusableInTouchMode="true">
+        	<requestFocus/>
+		</Button>
+        
+    </LinearLayout>
+
+</LinearLayout>
