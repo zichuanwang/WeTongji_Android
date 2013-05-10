@@ -56,7 +56,7 @@ public class TodayBannerPagerAdapter extends PagerAdapter
 		}
 
 		Log.v("bannerPagerAdapter", "instantiate item at "+position);
-		ivBannerMask.setTag(position);
+		ivBannerMask.setTag("position"+position);
 		container.addView(view);
 		return view;
 	}
