@@ -23,6 +23,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.actionbarsherlock.ActionBarSherlock.OnMenuItemSelectedListener;
+import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.androidquery.AQuery;
 import com.google.gson.Gson;
@@ -127,7 +128,6 @@ OnMenuItemSelectedListener, OnScrollListener{
 		isRefresh = true;
 		
 		// scroll the listview to top
-		mListActivity.requestFocusFromTouch();
 		mListActivity .setSelection(0);
 		
 		mAdapter.clear();
@@ -139,7 +139,7 @@ OnMenuItemSelectedListener, OnScrollListener{
 	}
 	
 	private void loadMoreData(int page) {
-		isRefresh = true;
+		isRefresh = false;
 		mAdapter.setIsLoadingData(true);
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
 		Bundle args = apiHelper.getActivities(page, 15, ApiHelper.API_ARGS_SORT_BY_ID_DESC, true);
