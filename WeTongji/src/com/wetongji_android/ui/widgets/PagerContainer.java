@@ -110,18 +110,21 @@ public class PagerContainer extends FrameLayout implements OnPageChangeListener 
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         //Force the container to redraw on scrolling.
         //Without this the outer pages render initially and then stay static
-        invalidate();
+        if (mNeedsRedraw) invalidate();
     }
  
     @Override
     public void onPageSelected(int position) {
-    	ImageView ivBannerMask=(ImageView) mPager.findViewWithTag(position);
+    	ImageView ivBannerMask=(ImageView) mPager.findViewWithTag("position"+position);
     	ivBannerMask.setImageResource(R.drawable.img_banner_mask_current);
-    	ImageView ivBannerMaskNext=(ImageView) mPager.findViewWithTag(position+1);
+    	ImageView ivBannerMaskNext=(ImageView) mPager.findViewWithTag("position"+(position+1));
     	if(ivBannerMaskNext!=null){
-    		ivBannerMask.setImageResource(R.drawable.img_banner_mask_next);
+    		ivBannerMaskNext.setImageResource(R.drawable.img_banner_mask_next);
     	}
-    	invalidate();
+    	ImageView ivBannerMaskPre=(ImageView) mPager.findViewWithTag("position"+(position-1));
+    	if(ivBannerMaskPre!=null){
+    		ivBannerMaskPre.setImageResource(R.drawable.img_banner_mask_next);
+    	}
     }
  
     @Override
