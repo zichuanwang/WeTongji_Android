@@ -14,7 +14,7 @@ import com.wetongji_android.util.common.WTApplication;
 public class ExamFactory extends BaseFactory<Exam, Integer> {
 
 	public ExamFactory(Fragment fragment) {
-		super(fragment, Exam.class, WTApplication.EVENTS_SAVER);
+		super(fragment, Exam.class, WTApplication.EXAMS_SAVER);
 	}
 
 	@Override

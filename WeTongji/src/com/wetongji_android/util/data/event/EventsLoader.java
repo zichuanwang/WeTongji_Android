@@ -40,7 +40,7 @@ public class EventsLoader extends DbListLoader<Event, Integer> {
     	}
 	}
 	
-	private PreparedQuery<Event> getEventsQuery(Bundle args){
+	protected PreparedQuery<Event> getEventsQuery(Bundle args){
 		Calendar begin=(Calendar) args.getSerializable(QueryHelper.ARGS_BEGIN);
 		Calendar end=(Calendar) args.getSerializable(QueryHelper.ARGS_END);
 		QueryBuilder<Event, Integer> qb=mDao.queryBuilder();
@@ -56,4 +56,10 @@ public class EventsLoader extends DbListLoader<Event, Integer> {
 		}
 	}
 
+	@Override
+	protected void onStartLoading() {
+		super.onStartLoading();
+		forceLoad();
+	}
+	
 }

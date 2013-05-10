@@ -29,6 +29,7 @@ public class LoginFragment extends Fragment implements OnClickListener{
 	private EditText etUsername;
 	private EditText etPassword;
 	private Button btnLogin;
+	private Button btnCreateAccount;
 	
 	/**
 	 * Use this factory method to create a new instance of this fragment using
@@ -68,7 +69,9 @@ public class LoginFragment extends Fragment implements OnClickListener{
 		etPassword.setTypeface(Typeface.DEFAULT);
 		etPassword.setTransformationMethod(new PasswordTransformationMethod());
 		btnLogin=(Button) view.findViewById(R.id.btn_login);
+		btnCreateAccount=(Button) view.findViewById(R.id.btn_create_account);
 		btnLogin.setOnClickListener(this);
+		btnCreateAccount.setOnClickListener(this);
 		if(!TextUtils.isEmpty(mUsername)){
 			etUsername.setText(mUsername);
 		}
@@ -87,9 +90,19 @@ public class LoginFragment extends Fragment implements OnClickListener{
 	
 	@Override
 	public void onClick(View v) {
-		String username=etUsername.getText().toString();
-		String password=etPassword.getText().toString();
-		((BaseAuthActivity)getActivity()).handleLogin(username, password);
+		switch(v.getId()){
+		case R.id.btn_login:
+			String username=etUsername.getText().toString();
+			String password=etPassword.getText().toString();
+			((BaseAuthActivity)getActivity()).handleLogin(username, password);
+			break;
+		case R.id.btn_create_account:
+			RegisterFragment fragment=RegisterFragment.newInstance();
+			getFragmentManager().beginTransaction()
+				.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_left_out)
+				.add(R.id.auth_content_container, fragment, AuthActivity.TAG_REGISTER_FRAGMENT)
+				.commit();
+		}
 	}
 
 }

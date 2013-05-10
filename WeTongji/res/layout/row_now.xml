@@ -9,21 +9,21 @@
 	<RelativeLayout
 	    android:id="@+id/rl_now_row"
 	    android:layout_width="match_parent"
-	    android:layout_height="150dp"
-	    android:layout_marginLeft="4dp"
-	    android:layout_marginRight="2dp"
-	    android:layout_marginBottom="2dp"
+	    android:layout_height="126dp"
+	    android:layout_marginLeft="5dp"
+	    android:layout_marginRight="3dp"
+	    android:layout_marginBottom="3dp"
 	    android:background="@drawable/bg_row_now_default"
-	    android:paddingLeft="10dp"
-	    android:paddingRight="10dp"
-	    android:paddingTop="7dp"
-	    android:paddingBottom="10dp" >
+	    android:paddingLeft="14dp"
+	    android:paddingRight="14dp"
+	    android:paddingTop="11dp"
+	    android:paddingBottom="14dp" >
 	
 	    <RelativeLayout
 	        android:id="@+id/rl_now_indicator"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_marginBottom="8dp"
+	        android:layout_marginBottom="13dp"
 	        android:layout_alignParentTop="true" >
 	
 	        <ImageView
@@ -33,7 +33,7 @@
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentTop="true"
 	            android:layout_marginTop="4dp"
-	            android:layout_marginRight="8dp"
+	            android:layout_marginRight="11dp"
 	            android:contentDescription="@string/content_description_all"
 	            android:src="@drawable/ic_row_now_indicator"
 	            android:visibility="gone" />
@@ -68,7 +68,7 @@
 	                android:shadowDx="0"
 	                android:shadowDy="3"
 	                android:shadowRadius="0"
-	                android:textSize="14sp"
+	                android:textSize="12sp"
 	                android:textStyle="bold"
 	                android:textColor="@color/tv_text_now_time"
 	                android:textIsSelectable="false" />
@@ -92,10 +92,11 @@
 	        android:id="@+id/iv_now_thumb"
 	        style="@style/EventLstThumbnails"
 	        android:layout_width="48dp"
-	        android:layout_height="60dp"
-	        android:layout_marginRight="10dp"
+	        android:layout_height="64dp"
+	        android:layout_marginRight="17dp"
 	        android:layout_alignParentLeft="true"
 	        android:layout_below="@+id/rl_now_indicator"
+	        android:src="@drawable/event_list_thumbnail_place_holder"
 	        android:contentDescription="@string/content_description_all" />
 	
 	    <RelativeLayout
@@ -115,7 +116,7 @@
 	            android:shadowDx="0"
 	            android:shadowDy="3"
 	            android:shadowRadius="0"
-	            android:textSize="18sp"
+	            android:textSize="19sp"
 	            android:textStyle="bold"
 	            android:maxLines="2"
 	            android:textColor="@color/tv_text_now_title"
@@ -131,7 +132,7 @@
 		        android:shadowDy="3"
 		        android:shadowRadius="0"
 		        android:textStyle="bold"
-	            android:textSize="14sp"
+	            android:textSize="12sp"
 		        android:textColor="@color/tv_text_now_location"
 	            android:textIsSelectable="false"  />
 	        

@@ -19,7 +19,7 @@ public class QueryHelper {
 	public static final String ARGS_BEGIN="begin";
 	public static final String ARGS_END="end";
 	
-	public static Bundle getActivityQueryArgs(String orderBy, boolean ascending, boolean hasExpired, boolean hasChannel1, boolean hasChannel2, boolean hasChannel3, boolean hasChannel4){
+	public static Bundle getActivitiesQueryArgs(String orderBy, boolean ascending, boolean hasExpired, boolean hasChannel1, boolean hasChannel2, boolean hasChannel3, boolean hasChannel4){
 		Bundle bundle=new Bundle();
 		bundle.putString(ARGS_ORDER_BY, orderBy);
 		bundle.putBoolean(ARGS_HAS_CHANNEL_1, hasChannel1);
@@ -31,7 +31,7 @@ public class QueryHelper {
 		return bundle;
 	}
 	
-	public static Bundle getEventQueryArgs(Calendar begin, Calendar end){
+	public static Bundle getEventsQueryArgs(Calendar begin, Calendar end){
 		Bundle bundle=new Bundle();
 		begin.set(Calendar.HOUR_OF_DAY, 0);
 		begin.set(Calendar.MINUTE, 0);
@@ -41,6 +41,12 @@ public class QueryHelper {
 		end.set(Calendar.MINUTE, 59);
 		end.set(Calendar.SECOND, 59);
 		bundle.putSerializable(ARGS_END, end);
+		return bundle;
+	}
+	
+	public static Bundle getEventQueryArgs(Calendar begin){
+		Bundle bundle=new Bundle();
+		bundle.putSerializable(ARGS_BEGIN, begin);
 		return bundle;
 	}
 	
