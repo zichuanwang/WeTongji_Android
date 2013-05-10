@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import com.wetongji_android.util.auth.RSAEncrypter;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.date.DateParser;
 
 import android.accounts.Account;

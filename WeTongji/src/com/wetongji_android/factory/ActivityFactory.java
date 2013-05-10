@@ -18,22 +18,17 @@ public class ActivityFactory extends BaseFactory<Activity, Integer>{
 		super(fragment, Activity.class, WTApplication.ACTIVITIES_SAVER);
 	}
 
-	public Pair<Integer, List<Activity>> createObjects(String jsonStr, int currentPage) {
+	public List<Activity> createObjects(String jsonStr, boolean bRefresh) {
 		List<Activity> result=new ArrayList<Activity>();
 		int nextPager=0;
 		try {
 			JSONObject outer=new JSONObject(jsonStr);
 			nextPager=outer.getInt("NextPager");
-			if(currentPage!=1){
-				result=super.createObjects(outer.getString("Activities"),false);
-			}
-			else{
-				result=super.createObjects(outer.getString("Activities"),true);
-			}
+			result=super.createObjects(outer.getString("Activities"),bRefresh);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return new Pair<Integer, List<Activity>>(nextPager, result);
+		return result;
 	}
 	
 	public List<Activity> createObjects(String jsonSrt){

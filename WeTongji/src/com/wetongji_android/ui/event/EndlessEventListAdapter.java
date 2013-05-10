@@ -1,16 +1,14 @@
 package com.wetongji_android.ui.event;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import com.androidquery.AQuery;
-import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
+import com.wetongji_android.ui.event.EventsListAdapter.ViewHolder;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.activity.ActivitiesLoader;
 import com.wetongji_android.util.date.DateParser;
-import com.wetongji_android.util.net.ApiHelper;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,36 +17,33 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks<List<Activity>>{
+public class EndlessEventListAdapter extends EndlessListAdapter<Activity> implements LoaderCallbacks<List<Activity>>{
+
 	private static final float LIST_THUMBNAILS_TARGET_WIDTH_FACTOR = 3;
 	private static int LIST_THUMBNAILS_TARGET_WIDTH = 300;
 	
 	private LayoutInflater mInflater;
 	private Context mContext;
 	private AQuery mListAq;
-	private List<Activity> mLstEvent;
+	private AQuery mShouldDelayAq;
 	private Fragment mFragment;
-	private ApiHelper apiHelper;
 	
 	private BitmapDrawable mBmDefaultThumbnails;
-
-	public EventsListAdapter(Fragment fragment) { 
+	
+	public EndlessEventListAdapter(Fragment fragment, AbsListView listView) {
+		super(fragment.getActivity(), listView, R.layout.amazing_lst_view_loading_view);
 		mInflater = LayoutInflater.from(fragment.getActivity());
 		mContext = fragment.getActivity();
 		mListAq = WTApplication.getInstance().getAq(fragment.getActivity());
 		mFragment = fragment;
-		mLstEvent=new ArrayList<Activity>();
-		apiHelper=ApiHelper.getInstance(mContext);
-		mFragment.getLoaderManager().initLoader(WTApplication.ACTIVITIES_LOADER, null, this);
-		
 		mBmDefaultThumbnails = (BitmapDrawable) mContext.getResources()
 				.getDrawable(R.drawable.event_list_thumbnail_place_holder);
 		
@@ -60,60 +55,9 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		}
 	}
 
-	public void setContentList(List<Activity> lstEvent) {
-		mLstEvent.clear();
-		mLstEvent.addAll(lstEvent);
-		notifyDataSetChanged();
-	}
-	
-	public void addData(List<Activity> nextPageData){
-		mLstEvent.addAll(nextPageData);
-		nextPage();
-		notifyDataSetChanged();
-	}
-	
-	static class ViewHolder {
-		TextView tvEventTitle;
-		TextView tvEventTime;
-		TextView tvEventLocation;
-		ImageView ivEventThumb;	
-		LinearLayout llEventRow;
-	}
-
 	@Override
-	public int getCount() {
-		return mLstEvent.size();
-	}
-
-	@Override
-	public Activity getItem(int arg0) {
-		return mLstEvent.get(arg0);
-	}
-
-	@Override
-	public long getItemId(int arg0) {
-		return arg0;
-	}
-
-	@Override
-	protected void onNextPageRequested(int page) {
-		WTUtility.log("EventListAdapter", "onNextPagerRequest..." + page);
+	protected View doGetView(int position, View convertView, ViewGroup parent) {
 		
-		Bundle args = apiHelper.getActivities(page, 15, ApiHelper.API_ARGS_SORT_BY_ID_DESC, true);
-//		mFragment.getLoaderManager()
-//			.initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, (EventsFragment)mFragment);
-		
-		addData(mLstEvent);
-		notifyMayHaveMorePages();
-	}
-
-	@Override
-	protected void bindSectionHeader(View view, int position,
-			boolean displaySectionHeader) {
-	}
-
-	@Override
-	public View getAmazingView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 		
 		if(convertView==null){
@@ -163,59 +107,49 @@ public class EventsListAdapter extends AmazingAdapter implements LoaderCallbacks
 		// Set thumbnails
 		String strUrl = event.getImage();
 
-		AQuery aq = mListAq.recycle(convertView);
+		mShouldDelayAq = mListAq.recycle(convertView);
 		if(!strUrl.equals(WTApplication.MISSING_IMAGE_URL)){
 			
-	        if(aq.shouldDelay(position, convertView, parent, strUrl)) {
-	        	aq.id(holder.ivEventThumb).image(mBmDefaultThumbnails);
+	        if(mShouldDelayAq.shouldDelay(position, convertView, parent, strUrl)) {
+	        	mShouldDelayAq.id(holder.ivEventThumb).image(mBmDefaultThumbnails);
 	        }
 	        else {
-	        	aq.id(holder.ivEventThumb).image(strUrl, true, true,
+	        	mShouldDelayAq.id(holder.ivEventThumb).image(strUrl, true, true,
 	        			LIST_THUMBNAILS_TARGET_WIDTH, R.drawable.event_list_thumbnail_place_holder,
 	        			null, AQuery.FADE_IN_NETWORK, 1.33f);
 	        }
 		}
 		else{
-			aq.id(holder.ivEventThumb).image(mBmDefaultThumbnails);
+			mShouldDelayAq.id(holder.ivEventThumb).image(mBmDefaultThumbnails);
 		}
-        
+		
 		return convertView;
 	}
 
 	@Override
-	public void configurePinnedHeader(View header, int position, int alpha) {
-	}
-
-	@Override
-	public int getPositionForSection(int section) {
-		return 0;
-	}
-
-	@Override
-	public int getSectionForPosition(int position) {
-		return 0;
-	}
-
-	@Override
-	public Object[] getSections() {
-		return null;
-	}
-	
-	@Override
-	public Loader<List<Activity>> onCreateLoader(int arg0, Bundle args) {
+	public Loader<List<Activity>> onCreateLoader(int arg0, Bundle arg1) {
 		return new ActivitiesLoader(mContext, null);
 	}
 
 	@Override
-	public void onLoadFinished(Loader<List<Activity>> arg0, List<Activity> activities) {
-		//setContentList(activities);
-		this.addData(activities);
-		notifyMayHaveMorePages();
+	public void onLoadFinished(Loader<List<Activity>> arg0, List<Activity> arg1) {
+
+		if (arg1 != null && arg1.size() != 0) {
+			getData().addAll(arg1);
+			setIsLoadingData(false);
+			notifyDataSetChanged();
+		} else {
+			((EventsFragment)mFragment).refreshData();
+		}
 	}
 
 	@Override
 	public void onLoaderReset(Loader<List<Activity>> arg0) {
 	}
 	
+	public void loadDataFormDB() {
+		mFragment.getLoaderManager().initLoader(WTApplication.ACTIVITIES_LOADER, null, this);
+		setIsLoadingData(true);
+	}
 	
 }

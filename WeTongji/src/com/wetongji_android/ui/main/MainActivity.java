@@ -8,6 +8,7 @@ import com.slidingmenu.lib.SlidingMenu;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Event;
 import com.wetongji_android.ui.auth.IntroActivity;
+import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.today.TodayFragment;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.version.UpdateBaseActivity;
@@ -105,6 +106,10 @@ implements OnWTListClickedListener
 		case android.R.id.home:
 			toggle();
 			return true;
+		}
+		
+		if(item.getTitle().equals("Refresh")) {
+			((EventsFragment)mContent).refreshData();
 		}
 		return super.onOptionsItemSelected(item);
 		
