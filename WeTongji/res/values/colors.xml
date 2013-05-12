@@ -54,5 +54,6 @@
     <color name="bg_event_detail_bottom_actionbar">#222222</color>
     <color name="tv_register_account">#373737</color>
     <color name="divide_line_register">#b3000000</color>
+    <color name="tv_today_now">#373737</color>
     
 </resources>

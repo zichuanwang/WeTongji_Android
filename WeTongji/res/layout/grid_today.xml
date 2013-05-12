@@ -24,8 +24,7 @@
 	    android:id="@id/view_today_grid_divideline" 
 	    android:layout_height="2dp"
 	    android:layout_width="match_parent"
-	    android:layout_below="@id/img_today_grid_pic"
-	    android:background="@drawable/img_today_grid_divideline"/>
+	    android:layout_below="@id/img_today_grid_pic"/>
 	
 	<TextView 
 	    android:id="@id/tv_today_grid_content"

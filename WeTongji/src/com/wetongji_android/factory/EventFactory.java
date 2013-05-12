@@ -26,7 +26,7 @@ public class EventFactory extends BaseFactory<Event, Integer>{
 	}
 
 	@Override
-	public List<Event> createObjects(String jsonStr) {
+	public List<Event> createObjects(String jsonStr, boolean needToRefresh) {
 		list.clear();
 		
 		List<Activity> acts=actFactory.createObjects(jsonStr);
@@ -40,7 +40,7 @@ public class EventFactory extends BaseFactory<Event, Integer>{
 		Collections.sort(list);
 
 		Bundle args=new Bundle();
-		args.putBoolean(ARG_NEED_TO_REFRESH, true);
+		args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
 		fragment.getLoaderManager().initLoader(WTApplication.EVENTS_SAVER, args, this).forceLoad();
 		
 		return list;

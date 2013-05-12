@@ -23,6 +23,9 @@
 
 package com.wetongji_android.ui.widgets;
 
+import com.viewpagerindicator.PageIndicator;
+import com.wetongji_android.R;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Point;
@@ -32,10 +35,12 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 public class PagerContainer extends FrameLayout implements OnPageChangeListener {
 
 	private ViewPager mPager;
+	private PageIndicator indicator;
     boolean mNeedsRedraw = false;
  
     public PagerContainer(Context context) {
@@ -66,12 +71,10 @@ public class PagerContainer extends FrameLayout implements OnPageChangeListener 
  
     @Override
     protected void onFinishInflate() {
-        try {
             mPager = (ViewPager) getChildAt(0);
-            mPager.setOnPageChangeListener(this);
-        } catch (Exception e) {
-            throw new IllegalStateException("The root child of PagerContainer must be a ViewPager");
-        }
+            indicator=(PageIndicator) getChildAt(1);
+            indicator.setOnPageChangeListener(this);
+        
     }
  
     public ViewPager getViewPager() {
@@ -111,7 +114,18 @@ public class PagerContainer extends FrameLayout implements OnPageChangeListener 
     }
  
     @Override
-    public void onPageSelected(int position) { }
+    public void onPageSelected(int position) {
+    	ImageView ivBannerMask=(ImageView) mPager.findViewWithTag("position"+position);
+    	ivBannerMask.setImageResource(R.drawable.img_banner_mask_current);
+    	ImageView ivBannerMaskNext=(ImageView) mPager.findViewWithTag("position"+(position+1));
+    	if(ivBannerMaskNext!=null){
+    		ivBannerMaskNext.setImageResource(R.drawable.img_banner_mask_next);
+    	}
+    	ImageView ivBannerMaskPre=(ImageView) mPager.findViewWithTag("position"+(position-1));
+    	if(ivBannerMaskPre!=null){
+    		ivBannerMaskPre.setImageResource(R.drawable.img_banner_mask_next);
+    	}
+    }
  
     @Override
     public void onPageScrollStateChanged(int state) {

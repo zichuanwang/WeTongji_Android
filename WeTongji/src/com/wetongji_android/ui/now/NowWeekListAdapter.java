@@ -46,7 +46,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		listAq=new AQuery(context);
 		events=new ArrayList<Pair<Date,List<Event>>>();
 		this.fragment.getLoaderManager().initLoader(
-				WTApplication.EVENTS_LOADER, QueryHelper.getEventQueryArgs(begin, end), this);	
+				WTApplication.EVENTS_LOADER, QueryHelper.getEventsQueryArgs(begin, end), this);	
 	}
 	
 	static class ViewHolder {
