@@ -14,6 +14,7 @@ import android.util.Pair;
 import com.google.gson.JsonSyntaxException;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.date.DateParser;
 
 public class InformationFactory extends BaseFactory<Information, Integer> {
@@ -28,11 +29,13 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 		try {
 			JSONObject outer=new JSONObject(jsonStr);
 			nextPager=outer.getInt("NextPager");
+			WTUtility.log("Information List", "Next Page: " + nextPager);
+			WTUtility.log("Information List", "Current Page: " + currentPage);
 			if(currentPage!=1){
 				result=createObjects(outer.getString("Information"),false);
 			}
 			else{
-				result=createObjects(outer.getString("Informaiton"),true);
+				result=createObjects(outer.getString("Information"),true);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();

@@ -1,5 +1,6 @@
 package com.wetongji_android.ui.informations;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,8 +32,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	{
 		this.mFragment = fragment;
 		this.mContext = this.mFragment.getActivity();
-		this.mFragment.getLoaderManager().initLoader(WTApplication.INFORMATION_LOADER, null, this);
-		
+		mListInfos = new ArrayList<Pair<Date, List<Information>>>();
 	}
 	
 	@Override
@@ -184,7 +184,13 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public void onLoadFinished(Loader<List<Information>> arg0, List<Information> list) 
 	{
 		// TODO Auto-generated method stub
-		this.setInformations(InformationUtil.getSectionedInformationList(list));
+		if(list != null && list.size() != 0)
+		{
+			this.setInformations(InformationUtil.getSectionedInformationList(list));
+		}else
+		{
+			((InformationsFragment)mFragment).refreshData();
+		}
 	}
 
 	@Override
@@ -204,5 +210,10 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		this.mListInfos.clear();
 		this.mListInfos = mListNews;
 		notifyDataSetChanged();
+	}
+	
+	public void loadDataFromDB()
+	{
+		mFragment.getLoaderManager().initLoader(WTApplication.INFORMATION_LOADER, null, this);
 	}
 }

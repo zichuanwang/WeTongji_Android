@@ -5,7 +5,6 @@ import java.util.Calendar;
 
 import com.wetongji_android.util.auth.RSAEncrypter;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.date.DateParser;
 
 import android.accounts.Account;
@@ -363,7 +362,7 @@ public class ApiHelper {
 		String sort = "";
 		switch(sortType) {
 		case API_ARGS_SORT_BY_ID:
-			sort = "`id`";
+			sort = "`created_at` DESC";
 			break;
 		case API_ARGS_SORT_BY_LIKE_DESC:
 			sort = "`like` DESC";

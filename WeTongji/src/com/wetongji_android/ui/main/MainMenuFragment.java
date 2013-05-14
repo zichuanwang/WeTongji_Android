@@ -33,7 +33,6 @@ public class MainMenuFragment extends Fragment {
 		R.drawable.ic_main_profile,
 	};
 	
-	
 	private static final int MAIN_MENU_ICON_SELECTED_RES[] = {
 		R.drawable.ic_main_today_pressed,
 		R.drawable.ic_main_news_pressed,
