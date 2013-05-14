@@ -24,7 +24,8 @@ public class ActivityFactory extends BaseFactory<Activity, Integer>{
 		try {
 			JSONObject outer=new JSONObject(jsonStr);
 			nextPager=outer.getInt("NextPager");
-			result=super.createObjects(outer.getString("Activities"),bRefresh);
+			result = bRefresh ? super.createObjects(outer.getString("Activities"),bRefresh)
+					: super.unserializeObjects(outer.getString("Activities"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

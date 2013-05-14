@@ -65,6 +65,24 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 		return list;
 	}
 	
+	protected List<T> unserializeObjects(String jsonStr) {
+		list.clear();
+		Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+		JSONArray array;
+		try {
+			array = new JSONArray(jsonStr);
+			for(int i=0;i!=array.length();i++){
+				T t=gson.fromJson(array.getString(i).toString(), clazz);
+				list.add(t);
+			}
+		} catch (JsonSyntaxException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	@Override
 	public Loader<Void> onCreateLoader(int arg0, Bundle args) {
 		return new DbListSaver<T, ID>(context, clazz, list, args);
