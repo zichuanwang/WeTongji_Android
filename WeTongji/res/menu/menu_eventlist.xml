@@ -7,12 +7,25 @@
         android:icon="@drawable/abs_event_reload"/>
     
     <item
-        android:showAsAction="never"
-        android:title="排序规则"
-        />
+	    android:showAsAction="always"
+	    android:icon="@drawable/abs__ic_menu_moreoverflow_normal_holo_light">
+
+		<menu>
+
+			<group>
+			    <item
+			        android:showAsAction="never"
+			        android:title="排序规则"
+			        />
+			    
+			    <item
+			        android:showAsAction="never"
+			        android:title="过滤过期"
+			        />
+			</group>
+			
+		</menu>
+		
+	</item>
     
-    <item
-        android:showAsAction="never"
-        android:title="过滤过期"
-        />
 </menu>

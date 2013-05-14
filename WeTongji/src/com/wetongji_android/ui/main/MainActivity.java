@@ -119,22 +119,27 @@ implements OnWTListClickedListener
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		mMenu = menu;
-		//getSupportMenuInflater().inflate(R.menu.menu_eventlist, menu);
-		return super.onPrepareOptionsMenu(menu);
+		getSupportMenuInflater().inflate(R.menu.menu_eventlist, menu);
+		return super.onCreateOptionsMenu(menu);
+		
+		
 	}
 	
+	/*@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		mMenu.clear();
+		if(mContent instanceof EventsFragment) {
+			getSupportMenuInflater().inflate(R.menu.menu_eventlist, menu);
+		}
+		return super.onPrepareOptionsMenu(menu);
+	}*/
+
 	public void switchContent(Fragment fragment) {
 		mContent = fragment;
 		getSupportFragmentManager()
 		.beginTransaction()
 		.replace(R.id.content_frame, fragment)
 		.commit();
-		
-		mMenu.clear();
-		
-		if(mContent instanceof EventsFragment) {
-			getSupportMenuInflater().inflate(R.menu.menu_eventlist, mMenu);
-		}
 	}
 	
 	private void checkAccount(){

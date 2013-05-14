@@ -1,12 +1,13 @@
 package com.wetongji_android.data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import android.os.Parcel;
 
 import com.j256.ormlite.field.DatabaseField;
 
-public class Activity extends Event{
+public class Activity extends Event implements Serializable{
 	@DatabaseField
 	private int Channel_Id;
 	@DatabaseField
