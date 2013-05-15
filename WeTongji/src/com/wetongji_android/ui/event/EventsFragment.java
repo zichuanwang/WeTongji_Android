@@ -1,36 +1,27 @@
 package com.wetongji_android.ui.event;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.actionbarsherlock.ActionBarSherlock.OnMenuItemSelectedListener;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.androidquery.AQuery;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
+import com.wetongji_android.data.ActivityList;
 import com.wetongji_android.factory.ActivityFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -42,9 +33,16 @@ import com.wetongji_android.util.net.HttpRequestResult;
 
 
 public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>,
-OnMenuItemSelectedListener, OnScrollListener{
+OnScrollListener{
+	
+	private boolean isFirstTimeStartFlag = true;
+	private final int FIRST_TIME_START = 0; //when activity is first time start
+	private final int SCREEN_ROTATE = 1;    //when activity is destroyed and recreated because a configuration change, see setRetainInstance(boolean retain)
+	private final int ACTIVITY_DESTROY_AND_CREATE = 2; 
 	
 	public static final String BUNDLE_KEY_ACTIVITY = "bundle_key_activity";
+	public static final String BUNDLE_KEY_ACTIVITY_LIST = "bundle_key_activity_list";
+	public static final String BUNDLE_KEY_LOAD_FROM_DB_FINISHED = "bundle_key_load_from_db_finished";
 	
 	public ListView mListActivity;
 	public EndlessEventListAdapter mAdapter;
@@ -60,17 +58,47 @@ OnMenuItemSelectedListener, OnScrollListener{
 		mAdapter = new EndlessEventListAdapter(this, mListActivity);
 		mListActivity.setAdapter(mAdapter);
 		mListActivity.setOnItemClickListener(onItemClickListener);
-		
 		AQuery aq = WTApplication.getInstance().getAq(getActivity());
 		aq.id(mListActivity).scrolled(this);
-		mAdapter.loadDataFormDB();
 		
+		WTUtility.log("data", "createView");
 		return view;
 	}
 	
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		
+		switch(getCurrentState(savedInstanceState)) {
+		case FIRST_TIME_START:
+			mAdapter.loadDataFromDB();
+			break;
+		case SCREEN_ROTATE:
+			break;
+		case ACTIVITY_DESTROY_AND_CREATE:
+			ActivityList activityList = (ActivityList) savedInstanceState
+				.getSerializable(BUNDLE_KEY_ACTIVITY_LIST);
+			mAdapter.addAll(activityList.getList());
+			break;
+		}
+	}
+
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setRetainInstance(true);
+	}
+
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
+		
+		// save activity list for next time resume;
+		ActivityList activityList = new ActivityList();
+		activityList.setItems(mAdapter.getData());
+		outState.putSerializable(BUNDLE_KEY_ACTIVITY_LIST, activityList);
 	}
 	
 	@Override
@@ -80,7 +108,8 @@ OnMenuItemSelectedListener, OnScrollListener{
 	
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
-			HttpRequestResult result) {		
+			HttpRequestResult result) {
+		
 		if(result.getResponseCode()==0){
 			if(mFactory==null){
 				mFactory=new ActivityFactory(this);
@@ -95,7 +124,6 @@ OnMenuItemSelectedListener, OnScrollListener{
 			
 			mAdapter.addAll(activities);
 
-			WTUtility.log("data", "" + activities.get(0).getTitle());
 			mCurrentPage++;
 			mAdapter.setIsLoadingData(false);
 		}
@@ -125,17 +153,18 @@ OnMenuItemSelectedListener, OnScrollListener{
 	};
 	
 	public void refreshData() {
+		Toast.makeText(getActivity(), "refreshData", Toast.LENGTH_SHORT).show();
 		isRefresh = true;
 		
 		// scroll the listview to top
-		mListActivity .setSelection(0);
 		
 		mAdapter.clear();
 		mAdapter.setIsLoadingData(true);
+		mListActivity .setSelection(0);
 		mCurrentPage = 0;
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
 		Bundle args = apiHelper.getActivities(1, 15, ApiHelper.API_ARGS_SORT_BY_ID_DESC, true);
-		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
+		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	
 	private void loadMoreData(int page) {
@@ -144,63 +173,20 @@ OnMenuItemSelectedListener, OnScrollListener{
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
 		Bundle args = apiHelper.getActivities(page, 15, ApiHelper.API_ARGS_SORT_BY_ID_DESC, true);
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
-		WTUtility.log("data", "load page:" + args.getString("P"));
 	}
-	
-
-	@Override
-	public boolean onMenuItemSelected(int featureId, MenuItem item) {
-		if(item.getTitle().equals("Refresh")) {
-			return true;
-		}
-		return false;
-	}
-	
-	public Pair<Integer, List<Activity>> createActivities(String json) {
-		List<Activity> list = new ArrayList<Activity>();
-		String jsonStr = null;
-		JSONObject outer = null;
-		int nextPager = 0;
-		try {
-			outer = new JSONObject(json);
-			nextPager=outer.getInt("NextPager");
-			jsonStr = outer.getString("Activities");
-		} catch (JSONException e1) {
-			e1.printStackTrace();
-		}
-		
-		list.clear();
-		Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
-		JSONArray array;
-		try {
-			array = new JSONArray(jsonStr);
-			for(int i=0;i!=array.length();i++){
-				Activity t=gson.fromJson(array.getString(i).toString(), Activity.class);
-				list.add(t);
-			}
-		} catch (JsonSyntaxException e) {
-			e.printStackTrace();
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		
-		Pair<Integer, List<Activity>> pair = new Pair<Integer, List<Activity>>(nextPager, list);
-		
-		return pair;
-	}
-
 	
 
 	@Override
 	public void onPause() {
 		super.onPause();
 		getLoaderManager().destroyLoader(WTApplication.NETWORK_LOADER_DEFAULT);
+		getLoaderManager().destroyLoader(WTApplication.ACTIVITIES_LOADER);
 	}
 
 	@Override
 	public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) {
 		if(mAdapter.shouldRequestNextPage(arg1, arg2, arg3)) {
-			WTUtility.log("onNextPage", "loadMoreData: " + mCurrentPage + 1);
+			WTUtility.log("data", "onScroll page: " + String.valueOf(mCurrentPage + 1));
 			loadMoreData(mCurrentPage + 1);
 		}
 	}
@@ -208,5 +194,21 @@ OnMenuItemSelectedListener, OnScrollListener{
 	@Override
 	public void onScrollStateChanged(AbsListView arg0, int arg1) {
 	}
+	
+	private int getCurrentState(Bundle savedInstanceState) {
+
+        if (savedInstanceState != null) {
+            isFirstTimeStartFlag = false;
+            return ACTIVITY_DESTROY_AND_CREATE;
+        }
+
+
+        if (!isFirstTimeStartFlag) {
+            return SCREEN_ROTATE;
+        }
+
+        isFirstTimeStartFlag = false;
+        return FIRST_TIME_START;
+    }
 	
 }

@@ -5,6 +5,7 @@ import com.wetongji_android.R;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.ui.now.NowFragment;
+import com.wetongji_android.ui.today.TodayFragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -32,7 +33,6 @@ public class MainMenuFragment extends Fragment {
 		R.drawable.ic_main_bboard,
 		R.drawable.ic_main_profile,
 	};
-	
 	
 	private static final int MAIN_MENU_ICON_SELECTED_RES[] = {
 		R.drawable.ic_main_today_pressed,
@@ -139,6 +139,7 @@ public class MainMenuFragment extends Fragment {
 			//TODO Change the fragment
 			switch(position) {
 			case 0:
+				newContent=TodayFragment.newInstance();
 				break;
 			case 1:
 				newContent = new InformationsFragment();

@@ -7,6 +7,7 @@ import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.ui.event.EventsListAdapter.ViewHolder;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.activity.ActivitiesLoader;
 import com.wetongji_android.util.date.DateParser;
 
@@ -134,6 +135,8 @@ public class EndlessEventListAdapter extends EndlessListAdapter<Activity> implem
 	@Override
 	public void onLoadFinished(Loader<List<Activity>> arg0, List<Activity> arg1) {
 
+		WTUtility.log("data", "DBLoadeFinished");
+		
 		if (arg1 != null && arg1.size() != 0) {
 			getData().addAll(arg1);
 			setIsLoadingData(false);
@@ -141,13 +144,14 @@ public class EndlessEventListAdapter extends EndlessListAdapter<Activity> implem
 		} else {
 			((EventsFragment)mFragment).refreshData();
 		}
+		
 	}
 
 	@Override
 	public void onLoaderReset(Loader<List<Activity>> arg0) {
 	}
 	
-	public void loadDataFormDB() {
+	public void loadDataFromDB() {
 		mFragment.getLoaderManager().initLoader(WTApplication.ACTIVITIES_LOADER, null, this);
 		setIsLoadingData(true);
 	}

@@ -1,5 +1,6 @@
 package com.wetongji_android.ui.informations;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.util.Pair;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -26,13 +28,14 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	private Fragment mFragment;
 	private List<Pair<Date, List<Information>>> mListInfos;
 	private Context mContext;
+	private LayoutInflater mInflater;
 	
 	public InformationsListAdapter(Fragment fragment)
 	{
 		this.mFragment = fragment;
 		this.mContext = this.mFragment.getActivity();
-		this.mFragment.getLoaderManager().initLoader(WTApplication.INFORMATION_LOADER, null, this);
-		
+		this.mInflater = LayoutInflater.from(this.mContext);
+		mListInfos = new ArrayList<Pair<Date, List<Information>>>();
 	}
 	
 	@Override
@@ -107,14 +110,35 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public View getAmazingView(int position, View convertView, ViewGroup parent) 
 	{
 		// TODO Auto-generated method stub
-		return null;
+		ViewHolder holder;
+		
+		if(convertView == null)
+		{
+			holder = new ViewHolder();
+			convertView = mInflater.inflate(R.layout.information_list_item, parent, false);
+			holder.tv_type = (TextView)convertView.findViewById(R.id.information_list_item_type);
+			holder.tv_title = (TextView)convertView.findViewById(R.id.information_list_item_title);
+			holder.tv_description = (TextView)convertView.findViewById(R.id.information_list_item_description);
+			convertView.setTag(holder);
+		}else
+		{
+			holder = (ViewHolder)convertView.getTag();
+		}
+		
+		Information information = (Information)getItem(position);
+		holder.tv_type.setText(information.getCategory());
+		holder.tv_title.setText(information.getTitle());
+		holder.tv_description.setText(information.getSummary());
+		
+		return convertView;
 	}
 
 	@Override
 	public void configurePinnedHeader(View header, int position, int alpha) 
 	{
 		// TODO Auto-generated method stub
-
+		TextView tvSectionHeader = (TextView)header;
+		tvSectionHeader.setText(getSections()[getSectionForPosition(position)].toString());
 	}
 
 	@Override
@@ -184,7 +208,13 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public void onLoadFinished(Loader<List<Information>> arg0, List<Information> list) 
 	{
 		// TODO Auto-generated method stub
-		this.setInformations(InformationUtil.getSectionedInformationList(list));
+		if(list != null && list.size() != 0)
+		{
+			this.setInformations(InformationUtil.getSectionedInformationList(list));
+		}else
+		{
+			((InformationsFragment)mFragment).refreshData();
+		}
 	}
 
 	@Override
@@ -204,5 +234,10 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		this.mListInfos.clear();
 		this.mListInfos = mListNews;
 		notifyDataSetChanged();
+	}
+	
+	public void loadDataFromDB()
+	{
+		mFragment.getLoaderManager().initLoader(WTApplication.INFORMATION_LOADER, null, this);
 	}
 }

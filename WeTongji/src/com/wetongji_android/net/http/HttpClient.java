@@ -33,6 +33,7 @@ import android.util.Log;
  */
 public class HttpClient 
 {
+	private static final String TAG = "HttpClient";
 	//Constant values
 	private static final int CONNECT_TIMEOUT = 10*1000;
 	private static final int READ_TIMEOUT = 10*1000;
@@ -82,7 +83,9 @@ public class HttpClient
 	//Implement http get request
 	public HttpRequestResult doGet(Bundle params) throws WTException
 	{
+		WTUtility.log(TAG, "Bundle Size: " + params.size());
 		strCurrentMethod = params.getString(ApiHelper.API_ARGS_METHOD);
+		WTUtility.log(TAG, "current method" + strCurrentMethod);
 		
 		try
 		{
@@ -158,6 +161,7 @@ public class HttpClient
 		try
 		{
 			iStatus = urlConnection.getResponseCode();
+			WTUtility.log(TAG, "Response Code: " + iStatus);
 		}catch(IOException e)
 		{
 			urlConnection.disconnect();

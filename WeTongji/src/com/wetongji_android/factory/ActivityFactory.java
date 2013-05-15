@@ -20,7 +20,8 @@ public class ActivityFactory extends BaseFactory<Activity, Integer>{
 		List<Activity> result=new ArrayList<Activity>();
 		try {
 			JSONObject outer=new JSONObject(jsonStr);
-			result=super.createObjects(outer.getString("Activities"),bRefresh);
+			result = bRefresh ? super.createObjects(outer.getString("Activities"),bRefresh)
+					: super.unserializeObjects(outer.getString("Activities"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

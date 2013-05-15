@@ -9,6 +9,8 @@ import com.wetongji_android.factory.InformationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
+import com.wetongji_android.util.data.information.InformationUtil;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
@@ -21,6 +23,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 public class InformationsFragment extends Fragment implements LoaderCallbacks<HttpRequestResult> 
 {	
@@ -29,6 +32,11 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 	private InformationsListAdapter mAdapter;
 	private InformationFactory mFactory;
 	private LayoutInflater mInflater;
+	
+	private boolean isFirstTimeToStart = true;
+	private final int FIRST_TIME_START = 0; //when activity is first time start
+	private final int SCREEN_ROTATE = 1;    //when activity is destroyed and recreated because a configuration change, see setRetainInstance(boolean retain)
+	private final int ACTIVITY_DESTROY_AND_CREATE = 2; 
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -58,14 +66,18 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 	{
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle args = apiHelper.getInformations(1, 4, "");
-		this.getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 		
-		this.mInflater = LayoutInflater.from(getActivity());
+		mInflater = LayoutInflater.from(getActivity());
 		mListNews = (AmazingListView)mView.findViewById(R.id.lst_information);
+		mListNews.setPinnedHeaderView(mInflater.inflate(R.layout.information_list_header, mListNews, false));
 		mListNews.setAdapter(mAdapter = new InformationsListAdapter(this)); 
-		mListNews.setLoadingView(this.mInflater.inflate(R.layout.amazing_lst_view_loading_view, null));
+		//mListNews.setLoadingView(this.mInflater.inflate(R.layout.amazing_lst_view_loading_view, null));
+		
+		switch(getCurrentState(savedInstanceState))
+		{
+		case FIRST_TIME_START:
+			mAdapter.loadDataFromDB();
+		}
 	}
 	
 	@Override
@@ -96,7 +108,11 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 				mFactory = new InformationFactory(this);
 			
 			int currentPage = mAdapter.getPage();
-			//Pair<Integer, List<Information>> informations = mFactory.createObjects(result.getStrResponseCon(), currentPage);
+			Pair<Integer, List<Information>> informations = mFactory.createObjects(result.getStrResponseCon(), currentPage);
+			List<Information> lists = informations.second;
+			
+			WTUtility.log("Infromation Fragment", "list size: " + lists.size());
+			mAdapter.setInformations(InformationUtil.getSectionedInformationList(lists));
 		}
 	}
 
@@ -105,5 +121,29 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 	{
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void refreshData()
+	{
+		Toast.makeText(getActivity(), "refreshData", Toast.LENGTH_SHORT).show();
+		
+		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		Bundle args = apiHelper.getInformations(1, 3, "1,2,3,4");
+		this.getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
+	}
+	
+	private int getCurrentState(Bundle savedInstanceState)
+	{
+		if (savedInstanceState != null) {
+            isFirstTimeToStart = false;
+            return ACTIVITY_DESTROY_AND_CREATE;
+        }
+
+        if (!isFirstTimeToStart) {
+            return SCREEN_ROTATE;
+        }
+
+        isFirstTimeToStart = false;
+        return FIRST_TIME_START;
 	}
 }
