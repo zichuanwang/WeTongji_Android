@@ -69,6 +69,7 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 		
 		mInflater = LayoutInflater.from(getActivity());
 		mListNews = (AmazingListView)mView.findViewById(R.id.lst_information);
+		mListNews.setPinnedHeaderView(mInflater.inflate(R.layout.information_list_header, mListNews, false));
 		mListNews.setAdapter(mAdapter = new InformationsListAdapter(this)); 
 		//mListNews.setLoadingView(this.mInflater.inflate(R.layout.amazing_lst_view_loading_view, null));
 		
@@ -127,7 +128,7 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 		Toast.makeText(getActivity(), "refreshData", Toast.LENGTH_SHORT).show();
 		
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle args = apiHelper.getInformations(1, 1, "1,2,3,4");
+		Bundle args = apiHelper.getInformations(1, 3, "1,2,3,4");
 		this.getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	

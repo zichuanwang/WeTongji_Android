@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.util.Pair;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -27,11 +28,13 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	private Fragment mFragment;
 	private List<Pair<Date, List<Information>>> mListInfos;
 	private Context mContext;
+	private LayoutInflater mInflater;
 	
 	public InformationsListAdapter(Fragment fragment)
 	{
 		this.mFragment = fragment;
 		this.mContext = this.mFragment.getActivity();
+		this.mInflater = LayoutInflater.from(this.mContext);
 		mListInfos = new ArrayList<Pair<Date, List<Information>>>();
 	}
 	
@@ -107,14 +110,35 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public View getAmazingView(int position, View convertView, ViewGroup parent) 
 	{
 		// TODO Auto-generated method stub
-		return null;
+		ViewHolder holder;
+		
+		if(convertView == null)
+		{
+			holder = new ViewHolder();
+			convertView = mInflater.inflate(R.layout.information_list_item, parent, false);
+			holder.tv_type = (TextView)convertView.findViewById(R.id.information_list_item_type);
+			holder.tv_title = (TextView)convertView.findViewById(R.id.information_list_item_title);
+			holder.tv_description = (TextView)convertView.findViewById(R.id.information_list_item_description);
+			convertView.setTag(holder);
+		}else
+		{
+			holder = (ViewHolder)convertView.getTag();
+		}
+		
+		Information information = (Information)getItem(position);
+		holder.tv_type.setText(information.getCategory());
+		holder.tv_title.setText(information.getTitle());
+		holder.tv_description.setText(information.getSummary());
+		
+		return convertView;
 	}
 
 	@Override
 	public void configurePinnedHeader(View header, int position, int alpha) 
 	{
 		// TODO Auto-generated method stub
-
+		TextView tvSectionHeader = (TextView)header;
+		tvSectionHeader.setText(getSections()[getSectionForPosition(position)].toString());
 	}
 
 	@Override

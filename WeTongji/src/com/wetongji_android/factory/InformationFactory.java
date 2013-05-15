@@ -24,6 +24,8 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 	}
 	
 	public Pair<Integer, List<Information>> createObjects(String jsonStr, int currentPage) {
+		WTUtility.log("Information Factory", "jsonStr: " + jsonStr);
+		
 		List<Information> result=new ArrayList<Information>();
 		int nextPager=0;
 		try {
@@ -72,12 +74,12 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 			info.setId(jsonObject.getInt("Id"));
 			info.setTitle(jsonObject.getString("Title"));
 			info.setContext(jsonObject.getString("Context"));
-			info.setSource(jsonObject.getString("Source"));
-			info.setSummary(jsonObject.getString("Summary"));
-			info.setContact(jsonObject.getString("Contact"));
-			info.setLocation(jsonObject.getString("Location"));
-			info.setHasTicket(jsonObject.getBoolean("HasTicket"));
-			info.setTicketService(jsonObject.getString("TicketService"));
+			info.setSource("Small Message"); //This also needs to be fixed
+			info.setSummary("Summary"); //This also needs to be fixed
+			info.setContact("Contact"); //This also needs to be fixed
+			info.setLocation("同济大学假定小区");
+			info.setHasTicket(false); //Actually this needs to be fix in the future
+			info.setTicketService("票务信息");
 			info.setRead(jsonObject.getInt("Read"));
 			info.setCreatedAt(DateParser.parseDateAndTime(jsonObject.getString("CreatedAt")));
 			info.setCategory(jsonObject.getString("Category"));
@@ -97,5 +99,4 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 		}
 		return info;
 	}
-
 }
