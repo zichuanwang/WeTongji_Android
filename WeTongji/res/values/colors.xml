@@ -14,15 +14,8 @@
     <color name="text_slogan">#6a6a6a</color>
     <color name="vp_indicator_today_bg">#595959</color>
     <color name="vp_indicator_today">#0CC2CB</color>
-    <color name="today_bg">#CACACA</color>
-    <color name="today_now_bg">#E8E8E8</color>
-    <color name="test_color">#FF0000</color>
-    <color name="tv_today_friends">#B1B1B1</color>
-    <color name="tv_today_time">#B1B1B1</color>
-    <color name="tv_today_now">#373737</color>
-    <color name="tv_today_classroom">#0CC2CB</color>
-    <color name="tv_today_course">#454545</color>
-    <color name="today_tv_shadow">#656565</color>
+    <color name="tv_today_section">#373737</color>
+    <color name="tv_today_section_shadow">#66ffffff</color>
     <color name="img_today_arrow">#D6D6D6</color>
     <color name="bg_now_tab">#333333</color>
     <color name="tv_text_week">#6a6a6a</color>
@@ -55,5 +48,14 @@
     <color name="tv_register_account">#373737</color>
     <color name="divide_line_register">#b3000000</color>
     <color name="tv_today_now">#373737</color>
+    <color name="iv_today_grid_mask">#66000000</color>
+    <color name="transparent">#ffffffff</color>
+    <color name="tv_today_grid_title_shadow">#66ffffff</color>
+    <color name="tv_today_red">#ea5251</color>
+    <color name="tv_today_green">#13b92e</color>
+    <color name="tv_today_cyan">#0cc2cb</color>
+    <color name="tv_today_content_black">#373737</color>
+    <color name="tv_today_content_white">#ffffff</color>
+    <color name="tv_today_content_shadow">#3f000000</color>
     
 </resources>

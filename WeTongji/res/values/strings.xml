@@ -44,15 +44,10 @@
     <string name="text_wt_slogan">Campus In Your Pocket</string>
     <string name="text_guide">Guide</string>
     <string name="text_today_now">Now</string>
-    <string name="text_today_time">10:0012:00</string>
-    <string name="text_now_course">ObjectOrientedPrograming</string>
-    <string name="text_now_classroom">A206</string>
-    <string name="text_today_friends">3 Friends</string>
     <string name="text_today">Today</string>
-    <string name="text_today_campus">Campus Updates</string>
-    <string name="text_today_news">Association News</string>
-    <string name="text_today_people">People</string>
-    <string name="text_today_place">Place</string>
+    <string name="text_news">News</string>
+    <string name="text_events">Events</string>
+    <string name="text_features">Features</string>
     <!-- imageview content description -->
     <string name="img_content_description">ImageView</string>
     <string name="text_now_indicator">Now</string>
@@ -78,5 +73,15 @@
     <string name="text_confirm_terms_of_use">By tapping Next you are indicating that you have 
 read and agree to the <u><b>Term of Use</b></u></string>
     <string name="text_menu_reload">Reload</string>
+    <string name="text_event_channel_id_1">Lecture</string>
+    <string name="text_event_channel_id_2">Competition</string>
+    <string name="text_event_channel_id_3">Entertainment</string>
+    <string name="text_event_channel_id_4">Enterprise</string>
+    <string name="text_news_category_1">Campus Update</string>
+    <string name="text_news_category_2">Administrative Affairs</string>
+    <string name="text_news_category_3">Club News</string>
+    <string name="text_news_category_4">Local Recommendation</string>
+    <string name="text_people">People</string>
+    <string name="text_most_popular_account">Most Popluar Account</string>
 
 </resources>

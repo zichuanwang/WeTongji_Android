@@ -1,6 +1,5 @@
 package com.wetongji_android.factory;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -11,8 +10,6 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Pair;
-
 import com.google.gson.JsonSyntaxException;
 import com.wetongji_android.data.Person;
 import com.wetongji_android.util.common.WTApplication;
@@ -23,24 +20,6 @@ public class PersonFactory extends BaseFactory<Person, Integer> {
 		super(fragment, Person.class, WTApplication.PERSON_SAVER);
 	}
 	
-	public Pair<Integer, List<Person>> createObjects(String jsonStr, int currentPage) {
-		List<Person> result=new ArrayList<Person>();
-		int nextPager=0;
-		try {
-			JSONObject outer=new JSONObject(jsonStr);
-			nextPager=outer.getInt("NextPager");
-			if(currentPage!=1){
-				result=createObjects(outer.getString("People"),false);
-			}
-			else{
-				result=createObjects(outer.getString("People"),true);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return new Pair<Integer, List<Person>>(nextPager, result);
-	}
-
 	@Override
 	protected List<Person> createObjects(String jsonStr, boolean needToRefresh){ 
 		list.clear();
@@ -62,7 +41,7 @@ public class PersonFactory extends BaseFactory<Person, Integer> {
 		return list;
 	}
 	
-	private Person createObject(String jsonStr){
+	public Person createObject(String jsonStr){
 		Person person=new Person();
 		try {
 			JSONObject jsonObject=new JSONObject(jsonStr);

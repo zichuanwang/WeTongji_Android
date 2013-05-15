@@ -9,8 +9,6 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Pair;
-
 import com.google.gson.JsonSyntaxException;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.util.common.WTApplication;
@@ -22,31 +20,15 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 		super(fragment, Information.class, WTApplication.INFORMATION_SAVER);
 	}
 	
-	public Pair<Integer, List<Information>> createObjects(String jsonStr, int currentPage) {
-		List<Information> result=new ArrayList<Information>();
-		int nextPager=0;
-		try {
-			JSONObject outer=new JSONObject(jsonStr);
-			nextPager=outer.getInt("NextPager");
-			if(currentPage!=1){
-				result=createObjects(outer.getString("Information"),false);
-			}
-			else{
-				result=createObjects(outer.getString("Informaiton"),true);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return new Pair<Integer, List<Information>>(nextPager, result);
-	}
-
 	@Override
 	protected List<Information> createObjects(String jsonStr,
 			boolean needToRefresh) {
 		list.clear();
 		JSONArray array;
+		JSONObject outer;
 		try {
-			array = new JSONArray(jsonStr);
+			outer=new JSONObject(jsonStr);
+			array = outer.getJSONArray("Information");
 			for(int i=0;i!=array.length();i++){
 				Information info=createObject(array.getString(i));
 				list.add(info);
@@ -69,12 +51,42 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 			info.setId(jsonObject.getInt("Id"));
 			info.setTitle(jsonObject.getString("Title"));
 			info.setContext(jsonObject.getString("Context"));
-			info.setSource(jsonObject.getString("Source"));
-			info.setSummary(jsonObject.getString("Summary"));
-			info.setContact(jsonObject.getString("Contact"));
-			info.setLocation(jsonObject.getString("Location"));
-			info.setHasTicket(jsonObject.getBoolean("HasTicket"));
-			info.setTicketService(jsonObject.getString("TicketService"));
+			if(jsonObject.has("Source")){
+				info.setSource(jsonObject.getString("Source"));
+			}
+			else{
+				info.setSource("");
+			}
+			if(jsonObject.has("Summary")){
+				info.setSummary(jsonObject.getString("Summary"));
+			}
+			else{
+				info.setSummary("");
+			}
+			if(jsonObject.has("Contact")){
+				info.setContact(jsonObject.getString("Contact"));
+			}
+			else{
+				info.setContact("");
+			}
+			if(jsonObject.has("Location")){
+				info.setLocation(jsonObject.getString("Location"));
+			}
+			else{
+				info.setLocation("");
+			}
+			if(jsonObject.has("HasTicket")&&!jsonObject.isNull("HasTicket")){
+				info.setHasTicket(jsonObject.getBoolean("HasTicket"));
+			}
+			else{
+				info.setHasTicket(false);
+			}
+			if(jsonObject.has("TicketService")){
+				info.setTicketService(jsonObject.getString("TicketService"));
+			}
+			else{
+				info.setTicketService("");
+			}
 			info.setRead(jsonObject.getInt("Read"));
 			info.setCreatedAt(DateParser.parseDateAndTime(jsonObject.getString("CreatedAt")));
 			info.setCategory(jsonObject.getString("Category"));

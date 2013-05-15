@@ -1,40 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="173dp"
+    android:layout_height="173dp"
+    android:background="@drawable/bg_row_now_current">
     
-	<TextView 
-	    android:id="@id/tv_today_grid_title"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentTop="true"
-	    android:layout_marginTop="10dp"
-	    android:layout_marginLeft="10dp"
-	    android:textIsSelectable="true"/>
-	
-	<ImageView 
-	    android:id="@id/img_today_grid_pic"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentRight="true"
-	    android:layout_below="@id/tv_today_grid_title"
-	    android:contentDescription="@string/content_description_all"/>
-	
-	<View
-	    android:id="@id/view_today_grid_divideline" 
-	    android:layout_height="2dp"
-	    android:layout_width="match_parent"
-	    android:layout_below="@id/img_today_grid_pic"/>
-	
-	<TextView 
-	    android:id="@id/tv_today_grid_content"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_below="@id/view_today_grid_divideline"
-	    android:layout_alignParentBottom="true"
-	    android:layout_marginTop="50dp"
-	    android:paddingBottom="15dp"
-	    android:layout_alignLeft="@id/tv_today_grid_title"
-	    android:textIsSelectable="true"/>
-	
-</RelativeLayout>
+    <ImageView
+        android:id="@+id/iv_today_gird_image" 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:contentDescription="@string/content_description_all"/>
+    
+    <ImageView
+        android:id="@+id/iv_today_gird_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@color/iv_today_grid_mask"
+        android:visibility="gone"
+        android:contentDescription="@string/content_description_all"/>
+    
+    <FrameLayout 
+        android:layout_width="match_parent"
+        android:layout_height="32dp">
+        
+        <TextView 
+            android:id="@+id/tv_today_grid_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_today_gird_title_no_image"
+            android:singleLine="true"
+            android:layout_gravity="center"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:shadowColor="@color/tv_today_grid_title_shadow"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="0"
+            android:textIsSelectable="false"/>
+        
+        <ImageView 
+            android:id="@+id/iv_today_grid_title_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:src="@drawable/indicator_today_grid_red"
+            android:contentDescription="@string/content_description_all"/>
+        
+    </FrameLayout>
+    
+    <TextView 
+        android:id="@+id/tv_today_grid_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="12dp"
+        android:textSize="14sp"
+        android:textColor="@color/tv_today_content_black"
+        android:shadowColor="@color/transparent"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:textIsSelectable="false"/>
+    
+</FrameLayout>

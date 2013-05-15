@@ -26,10 +26,12 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 	protected List<T> list;
 	private Class<T> clazz;
 	private int loaderId;
+	private Gson gson;
 	
 	protected BaseFactory(Fragment fragment, Class<T> clazz, int loaderId){
 		this.fragment=fragment;
 		this.context=this.fragment.getActivity();
+		gson=new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 		list=new ArrayList<T>();
 		this.clazz=clazz;
 		if(loaderId>0){
@@ -46,7 +48,6 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 	
 	protected List<T> createObjects(String jsonStr, boolean needToRefresh) {
 		list.clear();
-		Gson gson=new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 		JSONArray array;
 		try {
 			array = new JSONArray(jsonStr);

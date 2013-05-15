@@ -96,7 +96,7 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 				mFactory = new InformationFactory(this);
 			
 			int currentPage = mAdapter.getPage();
-			Pair<Integer, List<Information>> informations = mFactory.createObjects(result.getStrResponseCon(), currentPage);
+			//Pair<Integer, List<Information>> informations = mFactory.createObjects(result.getStrResponseCon(), currentPage);
 		}
 	}
 
