@@ -17,7 +17,6 @@ import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -81,7 +80,7 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 			adapter=new NowPagerAdapter(this, vpWeeks);
 			vpWeeks.setAdapter(adapter);
 			vpWeeks.setOnPageChangeListener(new PageChangeListener());
-			vpWeeks.setCurrentItem(NowPagerAdapter.PAGE_MIDDILE, false);
+			vpWeeks.setCurrentItem(NowPagerAdapter.PAGE_LEFT, false);
 			ImageButton btnNowNext=(ImageButton) view.findViewById(R.id.btn_now_next);
 			ImageButton btnNowPre=(ImageButton) view.findViewById(R.id.btn_now_previous);
 			ButtonClickListener btnListener=new ButtonClickListener();
@@ -144,7 +143,6 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 				weekNumber++;
 			}
 			tvWeekNumber.setText(weekNumber+"");
-			Log.v("viewpager", "selecte page="+selectedPage);
 		}
 	
 	}

@@ -11,11 +11,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class TodayGridBaseAdapter<T> extends BaseAdapter 
+public class TodayGridBaseAdapter<T> extends BaseAdapter implements OnItemClickListener
 {
 	protected List<T> items;
 	protected Context context;
@@ -74,6 +76,10 @@ public class TodayGridBaseAdapter<T> extends BaseAdapter
 		TextView tvGridTitle;
 		ImageView ivGridTitleIndicator;
 		TextView tvGridContent;
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {		
 	}
 
 }

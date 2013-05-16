@@ -12,6 +12,8 @@ import com.wetongji_android.data.Information;
 import com.wetongji_android.factory.HomeFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.main.MainActivity;
+import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.data.event.EventLoader;
@@ -19,6 +21,7 @@ import com.wetongji_android.util.data.event.EventUtil;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,6 +31,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -42,6 +46,7 @@ public class TodayFragment extends Fragment
 	private TodayBannerPagerAdapter bannerAdapter;
 	private UnderlinePageIndicator indicator;
 	private GridView gvNews, gvEvents, gvFeatures;
+	private ProgressDialog progressDialog;
 	
 	/**
 	 * Use this factory method to create a new instance of this fragment using
@@ -73,6 +78,9 @@ public class TodayFragment extends Fragment
 			view=inflater.inflate(R.layout.fragment_today, container, false);
 			setTodayBanner(view);
 			setTodayGrids(view);
+			setTodaySectionTitles(view);
+			progressDialog=new ProgressDialog(context);
+			progressDialog.show();
 			Bundle args=QueryHelper.getEventQueryArgs(Calendar.getInstance());
 			getLoaderManager().initLoader(WTApplication.EVENT_LOADER, args, new DbLoaderCallbacks()).forceLoad();
 		}
@@ -88,6 +96,16 @@ public class TodayFragment extends Fragment
 		indicator=(UnderlinePageIndicator) view.findViewById(R.id.vp_indicator_today);
 		indicator.setViewPager(vpBanner);
 		indicator.setFades(false);
+	}
+	
+	private void setTodaySectionTitles(View view){
+		TextView tvNews=(TextView) view.findViewById(R.id.tv_today_information);
+		TextView tvEvents=(TextView) view.findViewById(R.id.tv_today_activities);
+		TextView tvFeatures=(TextView) view.findViewById(R.id.tv_today_features);
+		ClickListener listener=new ClickListener();
+		tvNews.setOnClickListener(listener);
+		tvEvents.setOnClickListener(listener);
+		tvFeatures.setOnClickListener(listener);
 	}
 	
 	private void setTodayGrids(View view){
@@ -147,9 +165,14 @@ public class TodayFragment extends Fragment
 				List<Information> infomation=factory.createInfos(strResult);
 				List<Object> features=factory.createFeatures(strResult);
 				
-				gvNews.setAdapter(new TodayGridNewsAdapter(context, infomation));
-				gvEvents.setAdapter(new TodayGridEventAdapter(context, activities));
-				gvFeatures.setAdapter(new TodayGridFeatureAdapter(context, features));
+				TodayGridNewsAdapter newsAdapter=new TodayGridNewsAdapter(context, infomation);
+				gvNews.setAdapter(newsAdapter);
+				TodayGridEventAdapter eventAdapter=new TodayGridEventAdapter(context, activities);
+				gvEvents.setAdapter(eventAdapter);
+				gvEvents.setOnItemClickListener(eventAdapter);
+				TodayGridFeatureAdapter featureAdapter=new TodayGridFeatureAdapter(context, features);
+				gvFeatures.setAdapter(featureAdapter);
+				progressDialog.dismiss();
 			}
 		}
 
@@ -176,6 +199,19 @@ public class TodayFragment extends Fragment
 
 		@Override
 		public void onLoaderReset(Loader<List<Event>> arg0) {
+		}
+		
+	}
+	
+	private class ClickListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			switch(v.getId()){
+			case R.id.tv_today_activities:
+				((MainActivity) context).switchContent(new EventsFragment());
+				break;
+			}
 		}
 		
 	}

@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -272,7 +271,6 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 	public void onLoadFinished(Loader<List<Event>> arg0, List<Event> events) {
 		this.events=EventUtil.getSectionedEventList(events);
 		notifyDataSetChanged();
-		Log.v("weekAdapter", "DBLoadFinished"+"count="+events.size());
 	}
 
 	@Override

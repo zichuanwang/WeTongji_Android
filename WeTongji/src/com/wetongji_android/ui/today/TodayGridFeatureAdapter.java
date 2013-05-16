@@ -36,12 +36,14 @@ public class TodayGridFeatureAdapter extends TodayGridBaseAdapter<Object> {
 		Object item=items.get(position);
 		holder.ivGridTitleIndicator.setImageResource(R.drawable.indicator_today_grid_cyan);
 		holder.tvGridTitle.setTextColor(context.getResources().getColor(R.color.tv_today_cyan));
+		int paddingLeft=holder.tvGridTitle.getPaddingLeft();
 		if(item instanceof Person){
 			getPersonView((Person) item, convertView);
 		}
 		else if(item instanceof Account){
 			getAccountView((Account) item, convertView);
 		}
+		holder.tvGridTitle.setPadding(paddingLeft, 0, 0, 0);
 		return convertView;
 	}
 
@@ -54,7 +56,7 @@ public class TodayGridFeatureAdapter extends TodayGridBaseAdapter<Object> {
 				
 				holder.ivGridImageMask.setVisibility(View.GONE);
 				
-				holder.tvGridTitle.setBackgroundResource(R.drawable.bg_today_gird_title_no_image);
+				holder.tvGridTitle.setBackgroundResource(R.drawable.bg_today_grid_title_no_image);
 				holder.tvGridTitle.setShadowLayer(0, 0, 1, context.getResources().getColor(R.color.tv_today_grid_title_shadow));
 				
 				holder.tvGridContent.setTextColor(context.getResources().getColor(R.color.tv_today_content_black));
@@ -68,7 +70,7 @@ public class TodayGridFeatureAdapter extends TodayGridBaseAdapter<Object> {
 				
 				holder.ivGridImageMask.setVisibility(View.VISIBLE);
 				
-				holder.tvGridTitle.setBackgroundResource(R.drawable.bg_today_gird_title);
+				holder.tvGridTitle.setBackgroundResource(R.drawable.bg_today_grid_title_default);
 				holder.tvGridTitle.setShadowLayer(0, 0, 1, context.getResources().getColor(R.color.transparent));
 				
 				holder.tvGridContent.setTextColor(context.getResources().getColor(R.color.tv_today_content_white));
@@ -83,7 +85,7 @@ public class TodayGridFeatureAdapter extends TodayGridBaseAdapter<Object> {
 			holder.tvGridContent.setText(account.getDisplay());	
 			holder.ivGridImage.setVisibility(View.GONE);
 			holder.ivGridImageMask.setVisibility(View.GONE);
-			holder.tvGridTitle.setBackgroundResource(R.drawable.bg_today_gird_title_no_image);
+			holder.tvGridTitle.setBackgroundResource(R.drawable.bg_today_grid_title_no_image);
 			holder.tvGridTitle.setShadowLayer(0, 0, 1, context.getResources().getColor(R.color.tv_today_grid_title_shadow));
 			holder.tvGridContent.setTextColor(context.getResources().getColor(R.color.tv_today_content_black));
 			holder.tvGridContent.setShadowLayer(2, 0, 1, context.getResources().getColor(R.color.transparent));

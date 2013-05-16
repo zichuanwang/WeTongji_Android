@@ -49,7 +49,7 @@
     <color name="divide_line_register">#b3000000</color>
     <color name="tv_today_now">#373737</color>
     <color name="iv_today_grid_mask">#66000000</color>
-    <color name="transparent">#ffffffff</color>
+    <color name="transparent">#00ffffff</color>
     <color name="tv_today_grid_title_shadow">#66ffffff</color>
     <color name="tv_today_red">#ea5251</color>
     <color name="tv_today_green">#13b92e</color>

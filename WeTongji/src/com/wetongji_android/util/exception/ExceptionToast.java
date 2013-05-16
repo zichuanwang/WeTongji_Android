@@ -1,13 +1,17 @@
 package com.wetongji_android.util.exception;
 
 import com.wetongji_android.R;
+import com.wetongji_android.ui.auth.AuthActivity;
 import com.wetongji_android.util.common.WTApplication;
 
 import android.accounts.AccountManager;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 public class ExceptionToast {
+	
+	private static boolean showLogin=true;
 	
 	public static void show(Context context,int code){
 		switch(code){
@@ -61,6 +65,11 @@ public class ExceptionToast {
 	private static void invalidAuthToken(Context context){
 		AccountManager am=AccountManager.get(context);
 		am.invalidateAuthToken(WTApplication.ACCOUNT_TYPE, null);
+		if(showLogin){
+			Intent intent=new Intent(context, AuthActivity.class);
+			context.startActivity(intent);
+			showLogin=false;
+		}
 	}
 
 }

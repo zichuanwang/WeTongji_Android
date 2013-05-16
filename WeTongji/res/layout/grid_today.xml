@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="173dp"
-    android:layout_height="173dp"
-    android:background="@drawable/bg_row_now_current">
+    android:layout_width="178dp"
+    android:layout_height="178dp"
+    android:background="@drawable/bg_today_grid">
     
     <ImageView
         android:id="@+id/iv_today_gird_image" 
@@ -19,34 +19,37 @@
         android:visibility="gone"
         android:contentDescription="@string/content_description_all"/>
     
-    <FrameLayout 
+    <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="32dp">
         
-        <TextView 
-            android:id="@+id/tv_today_grid_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_today_gird_title_no_image"
-            android:singleLine="true"
-            android:layout_gravity="center"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:shadowColor="@color/tv_today_grid_title_shadow"
-            android:shadowDx="0"
-            android:shadowDy="1"
-            android:shadowRadius="0"
-            android:textIsSelectable="false"/>
-        
-        <ImageView 
-            android:id="@+id/iv_today_grid_title_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:src="@drawable/indicator_today_grid_red"
-            android:contentDescription="@string/content_description_all"/>
-        
-    </FrameLayout>
+		<TextView 
+			android:id="@+id/tv_today_grid_title"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:singleLine="true"
+			android:paddingLeft="10dp"
+			android:gravity="center_vertical"
+			android:textSize="12sp"
+			android:textStyle="bold"
+			android:background="@drawable/bg_today_grid_title_default"
+			android:shadowColor="@color/tv_today_grid_title_shadow"
+			android:shadowDx="0"
+			android:shadowDy="1"
+			android:shadowRadius="0"
+			android:textIsSelectable="false"/>
+		
+		<ImageView 
+		    android:id="@+id/iv_today_grid_title_indicator"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:layout_alignParentBottom="true"
+		    android:layout_marginBottom="1dp"
+		    android:src="@drawable/indicator_today_grid_red"
+		    android:contentDescription="@string/content_description_all"/>
+
+    </RelativeLayout>
     
     <TextView 
         android:id="@+id/tv_today_grid_content"
