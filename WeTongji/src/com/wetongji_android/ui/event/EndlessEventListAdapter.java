@@ -142,6 +142,7 @@ public class EndlessEventListAdapter extends EndlessListAdapter<Activity> implem
 			setIsLoadingData(false);
 			notifyDataSetChanged();
 		} else {
+			WTUtility.log("EventList Fragment: ", "refresdata");
 			((EventsFragment)mFragment).refreshData();
 		}
 		

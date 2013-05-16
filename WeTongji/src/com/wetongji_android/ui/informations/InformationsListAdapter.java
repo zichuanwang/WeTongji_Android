@@ -21,6 +21,7 @@ import com.wetongji_android.data.Information;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.information.InformationLoader;
 import com.wetongji_android.util.data.information.InformationUtil;
+import com.wetongji_android.util.date.DateParser;
 
 public class InformationsListAdapter extends AmazingAdapter implements
 		LoaderCallbacks<List<Information>> 
@@ -29,6 +30,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	private List<Pair<Date, List<Information>>> mListInfos;
 	private Context mContext;
 	private LayoutInflater mInflater;
+	private List<Information> originList;
 	
 	public InformationsListAdapter(Fragment fragment)
 	{
@@ -36,6 +38,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		this.mContext = this.mFragment.getActivity();
 		this.mInflater = LayoutInflater.from(this.mContext);
 		mListInfos = new ArrayList<Pair<Date, List<Information>>>();
+		setOriginList(new ArrayList<Information>());
 	}
 	
 	@Override
@@ -92,7 +95,14 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		{
 			view.findViewById(R.id.information_list_header).setVisibility(View.VISIBLE);
 			TextView tv_header = (TextView)view.findViewById(R.id.information_list_header);
-			tv_header.setText(getSections()[getSectionForPosition(position)].toString());
+			if(DateParser.isToday(getSections()[getSectionForPosition(position)]))
+			{
+				tv_header.setText("Today");
+			}else
+			{
+				
+				tv_header.setText(DateParser.parseDateForInformation(getSections()[getSectionForPosition(position)]));
+			}
 		}else
 		{
 			view.findViewById(R.id.information_list_header).setVisibility(View.GONE);
@@ -211,6 +221,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		if(list != null && list.size() != 0)
 		{
 			this.setInformations(InformationUtil.getSectionedInformationList(list));
+			this.setOriginList(list);
 		}else
 		{
 			((InformationsFragment)mFragment).refreshData();
@@ -239,5 +250,13 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public void loadDataFromDB()
 	{
 		mFragment.getLoaderManager().initLoader(WTApplication.INFORMATION_LOADER, null, this);
+	}
+
+	public List<Information> getOriginList() {
+		return originList;
+	}
+
+	public void setOriginList(List<Information> originList) {
+		this.originList = originList;
 	}
 }

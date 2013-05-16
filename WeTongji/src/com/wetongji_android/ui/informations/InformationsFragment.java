@@ -5,6 +5,7 @@ import java.util.List;
 import com.foound.widget.AmazingListView;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Information;
+import com.wetongji_android.data.InformationList;
 import com.wetongji_android.factory.InformationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -38,11 +39,13 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 	private final int SCREEN_ROTATE = 1;    //when activity is destroyed and recreated because a configuration change, see setRetainInstance(boolean retain)
 	private final int ACTIVITY_DESTROY_AND_CREATE = 2; 
 	
+	private static final String INFORMATION_LIST = "INFORMATIONS";
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setRetainInstance(true);
 	}
 
 	@Override
@@ -77,14 +80,33 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 		{
 		case FIRST_TIME_START:
 			mAdapter.loadDataFromDB();
+		case SCREEN_ROTATE:
+			break;
+		case ACTIVITY_DESTROY_AND_CREATE:
+			InformationList informations = (InformationList)savedInstanceState.getSerializable(
+					INFORMATION_LIST);
+			mAdapter.setOriginList(informations.getInformations());
+			break;
 		}
 	}
 	
+	@Override
+	public void onSaveInstanceState(Bundle outState) 
+	{
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+		InformationList informations = new InformationList();
+		informations.setInformations(mAdapter.getOriginList());
+		outState.putSerializable(INFORMATION_LIST, informations);
+	}
+
 	@Override
 	public void onPause() 
 	{
 		// TODO Auto-generated method stub
 		super.onPause();
+		getLoaderManager().destroyLoader(WTApplication.NETWORK_LOADER_DEFAULT);
+		getLoaderManager().destroyLoader(WTApplication.INFORMATION_LOADER);
 	}
 
 	@Override
@@ -113,6 +135,7 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 			
 			WTUtility.log("Infromation Fragment", "list size: " + lists.size());
 			mAdapter.setInformations(InformationUtil.getSectionedInformationList(lists));
+			mAdapter.setOriginList(lists);
 		}
 	}
 
