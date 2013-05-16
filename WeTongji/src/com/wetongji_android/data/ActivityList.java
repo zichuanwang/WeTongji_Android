@@ -6,6 +6,8 @@ import java.util.List;
 
 public class ActivityList implements Serializable{
 
+	private static final long serialVersionUID = -1206921764794609032L;
+	
 	private List<Activity> items = new ArrayList<Activity>();
 	
 	public List<Activity> getList() {

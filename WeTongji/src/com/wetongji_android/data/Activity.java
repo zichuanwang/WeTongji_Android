@@ -8,6 +8,8 @@ import android.os.Parcel;
 import com.j256.ormlite.field.DatabaseField;
 
 public class Activity extends Event implements Serializable{
+	private static final long serialVersionUID = -2953062693889370366L;
+	
 	@DatabaseField
 	private int Channel_Id;
 	@DatabaseField
