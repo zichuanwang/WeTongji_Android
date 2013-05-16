@@ -59,6 +59,7 @@ public class NowPagerAdapter extends PagerAdapter {
 		initAdapters();
 		initCallbacks();
 		Bundle args=ApiHelper.getInstance(context).getSchedule(begin, end);
+		Log.v("nowpager", "initloader");
 		fragment.getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_1, args, callbacks).forceLoad();
 		
 	}
@@ -159,7 +160,6 @@ public class NowPagerAdapter extends PagerAdapter {
 		
 		@Override
 		public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle args) {
-			Log.v("pagerAdapter", "createdLoader");
 			return new NetworkLoader(context, HttpMethod.Get, args);
 		}
 
@@ -184,7 +184,6 @@ public class NowPagerAdapter extends PagerAdapter {
 
 		@Override
 		public void onLoaderReset(Loader<HttpRequestResult> arg0) {
-			Log.v("pagerAdapter", "restartedLoader");
 		}
 		
 	}

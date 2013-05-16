@@ -118,11 +118,10 @@ implements LoaderCallbacks<HttpRequestResult> {
 			JSONObject user=data.getJSONObject("User");
 			String uid=user.getString("UID");
 			String session=data.getString("Session");
-			Log.i(TAG, "uid="+uid+" session="+session);
-
 			mAm.setUserData(account, AccountManager.KEY_USERDATA, uid);
 			mAm.setAuthToken(account, WTApplication.AUTHTOKEN_TYPE, session);
 			apiHelper.setSession(session);
+			apiHelper.setUID(uid);
 			final Intent intent=new Intent();
 			intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mUsername);
 			intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, WTApplication.ACCOUNT_TYPE);

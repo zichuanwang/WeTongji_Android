@@ -28,7 +28,7 @@ import android.text.TextUtils;
 public class ApiHelper {
 	
 	private String session="";
-	private String uid;
+	private String uid="";
 	private Context context;
 	
 	static class SinglentonHolder{
@@ -119,6 +119,10 @@ public class ApiHelper {
 			Account wtAccount=accounts[0];
 			uid=am.getUserData(wtAccount, AccountManager.KEY_USERDATA);
 		}
+	}
+	
+	public void setUID(String uid){
+		this.uid=uid;
 	}
 	
 	private void putLoginArgs(Bundle bundle){

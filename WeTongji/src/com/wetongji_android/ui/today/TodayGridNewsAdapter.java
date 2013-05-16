@@ -30,6 +30,7 @@ public class TodayGridNewsAdapter extends TodayGridBaseAdapter<Information> {
 			holder.ivGridTitleIndicator.setImageResource(R.drawable.indicator_today_grid_red);
 			holder.tvGridTitle.setTextColor(context.getResources().getColor(R.color.tv_today_red));
 			holder.tvGridContent.setText(info.getTitle());
+			int paddingLeft=holder.tvGridTitle.getPaddingLeft();
 			String strCategory=info.getCategory();
 			if(strCategory.equals("Ð£Ô°ÐÂÎÅ")){
 				holder.tvGridTitle.setText(R.string.text_news_category_1);
@@ -48,7 +49,7 @@ public class TodayGridNewsAdapter extends TodayGridBaseAdapter<Information> {
 				
 				holder.ivGridImageMask.setVisibility(View.GONE);
 				
-				holder.tvGridTitle.setBackgroundResource(R.drawable.bg_today_gird_title_no_image);
+				holder.tvGridTitle.setBackgroundResource(R.drawable.bg_today_grid_title_no_image);
 				holder.tvGridTitle.setShadowLayer(0, 0, 1, context.getResources().getColor(R.color.tv_today_grid_title_shadow));
 				
 				holder.tvGridContent.setTextColor(context.getResources().getColor(R.color.tv_today_content_black));
@@ -61,12 +62,13 @@ public class TodayGridNewsAdapter extends TodayGridBaseAdapter<Information> {
 				
 				holder.ivGridImageMask.setVisibility(View.VISIBLE);
 				
-				holder.tvGridTitle.setBackgroundResource(R.drawable.bg_today_gird_title);
+				holder.tvGridTitle.setBackgroundResource(R.drawable.bg_today_grid_title_default);
 				holder.tvGridTitle.setShadowLayer(0, 0, 1, context.getResources().getColor(R.color.transparent));
 				
 				holder.tvGridContent.setTextColor(context.getResources().getColor(R.color.tv_today_content_white));
 				holder.tvGridContent.setShadowLayer(2, 0, 1, context.getResources().getColor(R.color.tv_today_content_shadow));
 			}
+			holder.tvGridTitle.setPadding(paddingLeft, 0, 0, 0);
 		}
 		return convertView;
 	}
