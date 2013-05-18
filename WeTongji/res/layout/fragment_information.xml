@@ -8,7 +8,7 @@
         android:id="@id/lst_information"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/eventlst_divider"
-        android:dividerHeight="1dp"/>
+        android:divider="@color/information_list_divider"
+        android:dividerHeight="0.33dp"/>
 	
 </RelativeLayout>

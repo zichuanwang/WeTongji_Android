@@ -147,8 +147,7 @@ public class DateParser {
 	
 	public static String parseDateForInformation(Date date)
 	{
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		return buildDateAndTime(cal);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+		return format.format(date);
 	}
 }

@@ -51,6 +51,7 @@
     <item type="id" name="information_list_item_type">false</item>
     <item type="id" name="information_list_item_title">false</item>
     <item type="id" name="information_list_item_description">false</item>
+    <item type="id" name="information_list_item">false</item>
     <item type="id" name="menu_eventlist_reload">false</item>
     
 </resources>

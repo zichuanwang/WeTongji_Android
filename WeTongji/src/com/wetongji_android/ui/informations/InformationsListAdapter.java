@@ -13,6 +13,8 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.foound.widget.AmazingAdapter;
@@ -31,12 +33,14 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	private Context mContext;
 	private LayoutInflater mInflater;
 	private List<Information> originList;
+	private boolean isLoadingData;
 	
-	public InformationsListAdapter(Fragment fragment)
+	public InformationsListAdapter(Fragment fragment, AbsListView listView)
 	{
 		this.mFragment = fragment;
 		this.mContext = this.mFragment.getActivity();
 		this.mInflater = LayoutInflater.from(this.mContext);
+		this.isLoadingData = true;
 		mListInfos = new ArrayList<Pair<Date, List<Information>>>();
 		setOriginList(new ArrayList<Information>());
 	}
@@ -94,15 +98,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		if(displaySectionHeader)
 		{
 			view.findViewById(R.id.information_list_header).setVisibility(View.VISIBLE);
-			TextView tv_header = (TextView)view.findViewById(R.id.information_list_header);
-			if(DateParser.isToday(getSections()[getSectionForPosition(position)]))
-			{
-				tv_header.setText("Today");
-			}else
-			{
-				
-				tv_header.setText(DateParser.parseDateForInformation(getSections()[getSectionForPosition(position)]));
-			}
+			configureHeader(view, position);
 		}else
 		{
 			view.findViewById(R.id.information_list_header).setVisibility(View.GONE);
@@ -114,6 +110,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		TextView tv_type;
 		TextView tv_title;
 		TextView tv_description;
+		RelativeLayout rl_item;
 	}
 	
 	@Override
@@ -121,7 +118,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	{
 		// TODO Auto-generated method stub
 		ViewHolder holder;
-		
+	
 		if(convertView == null)
 		{
 			holder = new ViewHolder();
@@ -129,10 +126,19 @@ public class InformationsListAdapter extends AmazingAdapter implements
 			holder.tv_type = (TextView)convertView.findViewById(R.id.information_list_item_type);
 			holder.tv_title = (TextView)convertView.findViewById(R.id.information_list_item_title);
 			holder.tv_description = (TextView)convertView.findViewById(R.id.information_list_item_description);
+			holder.rl_item = (RelativeLayout)convertView.findViewById(R.id.information_list_item);
 			convertView.setTag(holder);
 		}else
 		{
 			holder = (ViewHolder)convertView.getTag();
+		}
+		
+		if(position % 2 == 0)
+		{
+			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row1));
+		}else
+		{
+			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row2));
 		}
 		
 		Information information = (Information)getItem(position);
@@ -143,14 +149,33 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		return convertView;
 	}
 
+	public boolean isLoadingData() {
+		return isLoadingData;
+	}
+
+	public void setLoadingData(boolean isLoadingData) {
+		this.isLoadingData = isLoadingData;
+	}
+
 	@Override
 	public void configurePinnedHeader(View header, int position, int alpha) 
 	{
 		// TODO Auto-generated method stub
-		TextView tvSectionHeader = (TextView)header;
-		tvSectionHeader.setText(getSections()[getSectionForPosition(position)].toString());
+		configureHeader(header, position);
 	}
 
+	private void configureHeader(View header, int position)
+	{
+		TextView tvSectionHeader = (TextView)header.findViewById(R.id.information_list_header);
+		if(DateParser.isToday(getSections()[getSectionForPosition(position)]))
+		{
+			tvSectionHeader.setText("Today");
+		}else
+		{
+			tvSectionHeader.setText(DateParser.parseDateForInformation(getSections()[getSectionForPosition(position)]));
+		}
+	}
+	
 	@Override
 	public int getPositionForSection(int section) 
 	{

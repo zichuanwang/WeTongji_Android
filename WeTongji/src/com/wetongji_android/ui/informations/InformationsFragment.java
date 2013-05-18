@@ -10,7 +10,6 @@ import com.wetongji_android.factory.InformationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.information.InformationUtil;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
@@ -24,7 +23,6 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 public class InformationsFragment extends Fragment implements LoaderCallbacks<HttpRequestResult> 
 {	
@@ -73,8 +71,9 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 		mInflater = LayoutInflater.from(getActivity());
 		mListNews = (AmazingListView)mView.findViewById(R.id.lst_information);
 		mListNews.setPinnedHeaderView(mInflater.inflate(R.layout.information_list_header, mListNews, false));
-		mListNews.setAdapter(mAdapter = new InformationsListAdapter(this)); 
-		//mListNews.setLoadingView(this.mInflater.inflate(R.layout.amazing_lst_view_loading_view, null));
+		mAdapter = new InformationsListAdapter(this, mListNews);
+		mListNews.setAdapter(mAdapter); 
+		mListNews.setLoadingView(mInflater.inflate(R.layout.amazing_lst_view_loading_view, mListNews, false));
 		
 		switch(getCurrentState(savedInstanceState))
 		{
@@ -133,7 +132,7 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 			Pair<Integer, List<Information>> informations = mFactory.createObjects(result.getStrResponseCon(), currentPage);
 			List<Information> lists = informations.second;
 			
-			WTUtility.log("Infromation Fragment", "list size: " + lists.size());
+			mAdapter.setLoadingData(false);
 			mAdapter.setInformations(InformationUtil.getSectionedInformationList(lists));
 			mAdapter.setOriginList(lists);
 		}
@@ -147,8 +146,8 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 	}
 	
 	public void refreshData()
-	{
-		Toast.makeText(getActivity(), "refreshData", Toast.LENGTH_SHORT).show();
+	{	
+		mAdapter.setLoadingData(true);
 		
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
 		Bundle args = apiHelper.getInformations(1, 3, "1,2,3,4");

@@ -83,9 +83,7 @@ public class HttpClient
 	//Implement http get request
 	public HttpRequestResult doGet(Bundle params) throws WTException
 	{
-		WTUtility.log(TAG, "Bundle Size: " + params.size());
 		strCurrentMethod = params.getString(ApiHelper.API_ARGS_METHOD);
-		WTUtility.log(TAG, "current method" + strCurrentMethod);
 		
 		try
 		{

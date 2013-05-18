@@ -5,14 +5,13 @@
     android:orientation="vertical" >
     
     <include 
-        layout="@layout/information_list_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        layout="@layout/information_list_header"/>
     
     <RelativeLayout
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:padding="10dp">
+	    android:padding="10dp"
+	    android:id="@id/information_list_item">
 	    
 		<TextView 
 		    android:id="@id/information_list_item_type"
@@ -20,7 +19,8 @@
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentTop="true"
 		    android:layout_marginLeft="10dp"
-		    android:textIsSelectable="true"/>
+		    android:textIsSelectable="true"
+		    style="@style/InformationListType"/>
 		
 		<TextView 
 		    android:id="@id/information_list_item_title"
@@ -29,7 +29,8 @@
 		    android:layout_alignLeft="@id/information_list_item_type"
 		    android:layout_below="@id/information_list_item_type"
 		    android:layout_marginTop="5dp"
-		    android:textIsSelectable="true"/>
+		    android:textIsSelectable="true"
+		    style="@style/InformationListTitle"/>
 		
 		<TextView 
 		    android:id="@+id/information_list_item_description"
@@ -38,7 +39,8 @@
 		    android:layout_alignLeft="@id/information_list_item_type"
 		    android:layout_below="@id/information_list_item_title"
 		    android:layout_marginTop="5dp"
-		    android:textIsSelectable="true"/>
+		    android:textIsSelectable="true"
+		    style="@style/InformationListDescription"/>
 		
 	</RelativeLayout>
 </LinearLayout>

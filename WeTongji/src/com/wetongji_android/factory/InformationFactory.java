@@ -24,7 +24,6 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 	}
 	
 	public Pair<Integer, List<Information>> createObjects(String jsonStr, int currentPage) {
-		WTUtility.log("Information Factory", "jsonStr: " + jsonStr);
 		
 		List<Information> result=new ArrayList<Information>();
 		int nextPager=0;
@@ -34,10 +33,10 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 			WTUtility.log("Information List", "Next Page: " + nextPager);
 			WTUtility.log("Information List", "Current Page: " + currentPage);
 			if(currentPage!=1){
-				result=createObjects(outer.getString("Information"),false);
+				result=createObjects(jsonStr,false);
 			}
 			else{
-				result=createObjects(outer.getString("Information"),true);
+				result=createObjects(jsonStr,true);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -51,6 +50,7 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 		list.clear();
 		JSONArray array;
 		JSONObject outer;
+		WTUtility.log("Information Factory: ", jsonStr);
 		try {
 			outer=new JSONObject(jsonStr);
 			array = outer.getJSONArray("Information");
