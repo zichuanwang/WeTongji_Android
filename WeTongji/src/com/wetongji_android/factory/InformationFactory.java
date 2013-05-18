@@ -54,6 +54,7 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 		try {
 			outer=new JSONObject(jsonStr);
 			array = outer.getJSONArray("Information");
+			WTUtility.log("Information Factory", " " + array.length());
 			for(int i=0;i!=array.length();i++){
 				Information info=createObject(array.getString(i));
 				list.add(info);
@@ -63,9 +64,9 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		Bundle args=new Bundle();
-		args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
-		fragment.getLoaderManager().initLoader(WTApplication.INFORMATION_SAVER, args, this).forceLoad();
+		//Bundle args=new Bundle();
+		//args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
+		//fragment.getLoaderManager().initLoader(WTApplication.INFORMATION_SAVER, args, this).forceLoad();
 		return list;
 	}
 	
