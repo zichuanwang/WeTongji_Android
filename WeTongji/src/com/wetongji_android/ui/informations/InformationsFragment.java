@@ -74,6 +74,7 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 		mAdapter = new InformationsListAdapter(this, mListNews);
 		mListNews.setAdapter(mAdapter); 
 		mListNews.setLoadingView(mInflater.inflate(R.layout.amazing_lst_view_loading_view, mListNews, false));
+		mAdapter.notifyMayHaveMorePages();
 		
 		switch(getCurrentState(savedInstanceState))
 		{

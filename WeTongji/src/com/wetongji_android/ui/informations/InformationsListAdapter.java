@@ -21,6 +21,7 @@ import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.information.InformationLoader;
 import com.wetongji_android.util.data.information.InformationUtil;
 import com.wetongji_android.util.date.DateParser;
@@ -55,6 +56,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 			res += mListInfos.get(i).second.size();
 		}
 		
+		WTUtility.log(TAG, "getCount " + res);
 		return res;
 	}
 
@@ -62,6 +64,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public Object getItem(int position) 
 	{
 		// TODO Auto-generated method stub
+		WTUtility.log(TAG, "getItem" + position);
 		int res = 0;
 		for(int i = 0; i < mListInfos.size(); i++)
 		{
@@ -93,15 +96,16 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	@Override
 	protected void bindSectionHeader(View view, int position,
 			boolean displaySectionHeader) 
-	{
+	{	
+		WTUtility.log(TAG, "bindheader");
 		// TODO Auto-generated method stub
 		if(displaySectionHeader)
 		{
-			view.findViewById(R.id.information_list_header).setVisibility(View.VISIBLE);
+			view.findViewById(R.id.layout_information_header).setVisibility(View.VISIBLE);
 			configureHeader(view, position);
 		}else
 		{
-			view.findViewById(R.id.information_list_header).setVisibility(View.GONE);
+			view.findViewById(R.id.layout_information_header).setVisibility(View.GONE);
 		}
 	}
 
@@ -117,6 +121,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public View getAmazingView(int position, View convertView, ViewGroup parent) 
 	{
 		// TODO Auto-generated method stub
+		WTUtility.log(TAG, "getAmazingview");
 		ViewHolder holder;
 	
 		if(convertView == null)
@@ -161,6 +166,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public void configurePinnedHeader(View header, int position, int alpha) 
 	{
 		// TODO Auto-generated method stub
+		WTUtility.log(TAG, "configureheader");
 		configureHeader(header, position);
 	}
 
@@ -193,11 +199,13 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		{
 			if(section == i)
 			{
+				WTUtility.log(TAG, "positionforsection" + c);
 				return c;
 			}
 			
 			c += mListInfos.get(i).second.size();
 		}
+		
 		return 0;
 	}
 
@@ -223,6 +231,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public Date[] getSections() 
 	{
 		// TODO Auto-generated method stub
+		WTUtility.log(TAG, "getSections");
 		Date[] dates = new Date[mListInfos.size()];
 		for(int i = 0; i < mListInfos.size(); i++)
 		{
