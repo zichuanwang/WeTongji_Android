@@ -1,3 +1,7 @@
+/**
+ * Information factory used to store information data
+ * into the database
+ */
 package com.wetongji_android.factory;
 
 import java.util.ArrayList;
@@ -16,22 +20,23 @@ import com.wetongji_android.data.Information;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.date.DateParser;
-
-public class InformationFactory extends BaseFactory<Information, Integer> {
-
+import com.wetongji_android.ui.today.TodayFragment;
+public class InformationFactory extends BaseFactory<Information, Integer> 
+{
 	public InformationFactory(Fragment fragment) {
 		super(fragment, Information.class, WTApplication.INFORMATION_SAVER);
 	}
 	
-	public Pair<Integer, List<Information>> createObjects(String jsonStr, int currentPage) {
+	public Pair<Integer, List<Information>> createObjects(String jsonStr, int currentPage) 
+	{
 		
 		List<Information> result=new ArrayList<Information>();
 		int nextPager=0;
 		try {
 			JSONObject outer=new JSONObject(jsonStr);
 			nextPager=outer.getInt("NextPager");
-			WTUtility.log("Information List", "Next Page: " + nextPager);
-			WTUtility.log("Information List", "Current Page: " + currentPage);
+			WTUtility.log("Information Factory", "Next Page: " + nextPager);
+			WTUtility.log("Information Factory", "Current Page: " + currentPage);
 			if(currentPage!=1){
 				result=createObjects(jsonStr,false);
 			}
@@ -50,7 +55,6 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 		list.clear();
 		JSONArray array;
 		JSONObject outer;
-		WTUtility.log("Information Factory: ", jsonStr);
 		try {
 			outer=new JSONObject(jsonStr);
 			array = outer.getJSONArray("Information");
@@ -64,9 +68,18 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		//Bundle args=new Bundle();
-		//args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
-		//fragment.getLoaderManager().initLoader(WTApplication.INFORMATION_SAVER, args, this).forceLoad();
+		
+		WTUtility.log("Information Factory", "" + needToRefresh);
+		if(fragment instanceof TodayFragment)
+		{
+			
+		}else
+		{
+			Bundle args=new Bundle();
+			args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
+			fragment.getLoaderManager().initLoader(WTApplication.INFORMATION_SAVER, args, this).forceLoad();
+		}
+		
 		return list;
 	}
 	

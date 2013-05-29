@@ -10,6 +10,7 @@ import com.wetongji_android.factory.InformationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.information.InformationUtil;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
@@ -26,6 +27,8 @@ import android.view.ViewGroup;
 
 public class InformationsFragment extends Fragment implements LoaderCallbacks<HttpRequestResult> 
 {	
+	private static final String TAG = "InformationsFragment";
+	
 	private View mView;
 	private AmazingListView mListNews;
 	private InformationsListAdapter mAdapter;
@@ -167,6 +170,7 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
         }
 
         isFirstTimeToStart = false;
+        WTUtility.log(TAG, " " + isFirstTimeToStart);
         return FIRST_TIME_START;
 	}
 }
