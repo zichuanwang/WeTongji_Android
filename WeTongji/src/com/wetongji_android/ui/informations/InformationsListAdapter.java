@@ -34,6 +34,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	private LayoutInflater mInflater;
 	private List<Information> originList;
 	private boolean isLoadingData;
+	private int nextPage;
 	
 	public InformationsListAdapter(Fragment fragment, AbsListView listView)
 	{
@@ -43,6 +44,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		this.isLoadingData = true;
 		mListInfos = new ArrayList<Pair<Date, List<Information>>>();
 		setOriginList(new ArrayList<Information>());
+		setNextPage(2);
 	}
 	
 	@Override
@@ -87,7 +89,10 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	protected void onNextPageRequested(int page) 
 	{
 		// TODO Auto-generated method stub
-
+		if(page != this.nextPage)
+		{
+			this.notifyNoMorePages();
+		}
 	}
 
 	@Override
@@ -273,6 +278,12 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		notifyDataSetChanged();
 	}
 	
+	public void clear()
+	{
+		this.mListInfos.clear();
+		notifyDataSetChanged();
+	}
+	
 	public void loadDataFromDB()
 	{
 		mFragment.getLoaderManager().initLoader(WTApplication.INFORMATION_LOADER, null, this);
@@ -284,5 +295,13 @@ public class InformationsListAdapter extends AmazingAdapter implements
 
 	public void setOriginList(List<Information> originList) {
 		this.originList = originList;
+	}
+
+	public int getNextPage() {
+		return nextPage;
+	}
+
+	public void setNextPage(int nextPage) {
+		this.nextPage = nextPage;
 	}
 }

@@ -21,8 +21,11 @@ import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.ui.today.TodayFragment;
+
 public class InformationFactory extends BaseFactory<Information, Integer> 
 {
+	private int nextPage;
+	
 	public InformationFactory(Fragment fragment) {
 		super(fragment, Information.class, WTApplication.INFORMATION_SAVER);
 	}
@@ -35,6 +38,7 @@ public class InformationFactory extends BaseFactory<Information, Integer>
 		try {
 			JSONObject outer=new JSONObject(jsonStr);
 			nextPager=outer.getInt("NextPager");
+			setNextPage(nextPager);
 			WTUtility.log("Information Factory", "Next Page: " + nextPager);
 			WTUtility.log("Information Factory", "Current Page: " + currentPage);
 			if(currentPage!=1){
@@ -144,5 +148,13 @@ public class InformationFactory extends BaseFactory<Information, Integer>
 			e.printStackTrace();
 		}
 		return info;
+	}
+
+	public int getNextPage() {
+		return nextPage;
+	}
+
+	public void setNextPage(int nextPage) {
+		this.nextPage = nextPage;
 	}
 }

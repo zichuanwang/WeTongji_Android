@@ -16,6 +16,8 @@ import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -34,6 +36,7 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 	private InformationsListAdapter mAdapter;
 	private InformationFactory mFactory;
 	private LayoutInflater mInflater;
+	private Activity mActivity;
 	
 	private boolean isFirstTimeToStart = true;
 	private final int FIRST_TIME_START = 0; //when activity is first time start
@@ -93,6 +96,18 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 		}
 	}
 	
+	@SuppressLint("NewApi")
+	@Override
+	public void onAttach(Activity activity) 
+	{
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		
+		mActivity = activity;
+		mActivity.invalidateOptionsMenu();
+	}
+
+	
 	@Override
 	public void onSaveInstanceState(Bundle outState) 
 	{
@@ -137,6 +152,7 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 			List<Information> lists = informations.second;
 			
 			mAdapter.setLoadingData(false);
+			mAdapter.setNextPage(mFactory.getNextPage());
 			mAdapter.setInformations(InformationUtil.getSectionedInformationList(lists));
 			mAdapter.setOriginList(lists);
 		}
@@ -151,6 +167,7 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 	
 	public void refreshData()
 	{	
+		mAdapter.clear();
 		mAdapter.setLoadingData(true);
 		
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
@@ -170,7 +187,6 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
         }
 
         isFirstTimeToStart = false;
-        WTUtility.log(TAG, " " + isFirstTimeToStart);
         return FIRST_TIME_START;
 	}
 }
