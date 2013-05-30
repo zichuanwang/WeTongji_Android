@@ -46,8 +46,7 @@
         android:shadowColor="#33000000"
         android:shadowDx="0"
         android:shadowDy="1"
-        android:shadowRadius="1"
-        android:focusableInTouchMode="true">
+        android:shadowRadius="1">
         <requestFocus/>
 	</Button>
     

@@ -1,6 +1,8 @@
 package com.wetongji_android.ui.auth;
 
 import com.wetongji_android.R;
+import com.wetongji_android.util.exception.ExceptionToast;
+
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -94,7 +96,10 @@ public class LoginFragment extends Fragment implements OnClickListener{
 		case R.id.btn_login:
 			String username=etUsername.getText().toString();
 			String password=etPassword.getText().toString();
-			((BaseAuthActivity)getActivity()).handleLogin(username, password);
+			if(checkValidation(username, password))
+			{
+				((BaseAuthActivity)getActivity()).handleLogin(username, password);
+			}
 			break;
 		case R.id.btn_create_account:
 			RegisterFragment fragment=RegisterFragment.newInstance();
@@ -105,4 +110,20 @@ public class LoginFragment extends Fragment implements OnClickListener{
 		}
 	}
 
+	private boolean checkValidation(String name, String password)
+	{
+		boolean result = true;
+		
+		if(TextUtils.isEmpty(name))
+		{
+			result = false;
+			ExceptionToast.show(getActivity(), 16);
+		}else if(TextUtils.isEmpty(password))
+		{
+			result = false;
+			ExceptionToast.show(getActivity(), 17);
+		}
+		
+		return result;
+	}
 }

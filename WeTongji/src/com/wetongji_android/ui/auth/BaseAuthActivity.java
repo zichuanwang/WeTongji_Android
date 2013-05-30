@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -86,11 +85,10 @@ implements LoaderCallbacks<HttpRequestResult> {
 			mUsername=username;
 		}
 		mPassword=password;
-		if(!TextUtils.isEmpty(mUsername)&&!TextUtils.isEmpty(mPassword)){
-			showProgress();
-			Bundle args=apiHelper.getUserLogOn(mUsername, mPassword);
-			getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this).forceLoad();
-		}
+		
+		showProgress();
+		Bundle args=apiHelper.getUserLogOn(mUsername, mPassword);
+		getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this).forceLoad();
 	}
 	
 	private void finishConfirmCredentials(boolean result){
