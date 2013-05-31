@@ -5,7 +5,6 @@ import java.util.List;
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
-import com.wetongji_android.ui.event.EventsListAdapter.ViewHolder;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.activity.ActivitiesLoader;
@@ -38,6 +37,14 @@ public class EndlessEventListAdapter extends EndlessListAdapter<Activity> implem
 	private Fragment mFragment;
 	
 	private BitmapDrawable mBmDefaultThumbnails;
+	
+	static class ViewHolder {
+		TextView tvEventTitle;
+		TextView tvEventTime;
+		TextView tvEventLocation;
+		ImageView ivEventThumb;	
+		LinearLayout llEventRow;
+	}
 	
 	public EndlessEventListAdapter(Fragment fragment, AbsListView listView) {
 		super(fragment.getActivity(), listView, R.layout.amazing_lst_view_loading_view);
@@ -142,6 +149,7 @@ public class EndlessEventListAdapter extends EndlessListAdapter<Activity> implem
 			setIsLoadingData(false);
 			notifyDataSetChanged();
 		} else {
+			WTUtility.log("EventList Fragment: ", "refresdata");
 			((EventsFragment)mFragment).refreshData();
 		}
 		

@@ -232,13 +232,16 @@
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@color/bg_event_detail_bottom_actionbar">
+            android:background="@color/bg_event_detail_bottom_actionbar" >
             
             <LinearLayout
                 android:layout_weight="260" 
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:id="@id/btn_event_detail_invite" >
+                android:gravity="center"
+                android:clickable="true"
+                android:id="@id/btn_event_detail_invite" 
+                android:background="@drawable/event_detail_buttom_action_selector">
 		        
 		        <TextView 
 		            android:layout_width="wrap_content"
@@ -259,12 +262,16 @@
                 android:layout_weight="440"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical">
+                android:layout_gravity="center_vertical"
+                android:clickable="true"
+                android:background="@drawable/event_detail_buttom_action_selector">
                 
                 <ImageView 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="10dp"
                     android:src="@drawable/img_event_detail_friends"/>
                 
                 <TextView android:layout_width="wrap_content"
@@ -285,12 +292,16 @@
                 android:layout_weight="380"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center">
+                android:clickable="true"
+                android:layout_gravity="center"
+                android:background="@drawable/event_detail_buttom_action_selector">
                 
                 <ImageView 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="10dp"
                     android:src="@drawable/img_event_detail_attend"/>
                 
                 <TextView android:layout_width="wrap_content"

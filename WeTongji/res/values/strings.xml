@@ -11,7 +11,7 @@
     <string name="msg_dialog_update_found">New version %1$s found.\n%2$s</string>
     <string name="title_activity_authenticator">AuthenticatorActivity</string>
     <string name="title_mainmenu_today">Today</string>
-    <string name="title_mainmenu_news">News</string>
+    <string name="title_mainmenu_news">Informations</string>
     <string name="title_mainmenu_events">Events</string>
     <string name="title_mainmenu_now">Now</string>
     <string name="title_mainmenu_search">Search</string>
@@ -37,6 +37,8 @@
     <string name="text_error_wrong_username_password">Wrong username/password</string>
     <string name="text_error_student_id_not_registried">Student no hasn\'t registried</string>
     <string name="text_error_friends_not_allowed_due_to_privacy">Can\'t add friend due to his\/her privacy settings</string>
+    <string name="text_error_student_id_required">Please input student id</string>
+    <string name="text_error_password_requried">Please input password</string>
     <string name="text_create_account">Create Your Account</string>
     <string name="text_not_now">Not Now</string>
     <string name="text_sign_up_log_in">Sign Up / Log In</string>
@@ -83,5 +85,8 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="text_news_category_4">Local Recommendation</string>
     <string name="text_people">People</string>
     <string name="text_most_popular_account">Most Popluar Account</string>
-
+	<string name="menu_info_club">社团通告</string>
+	<string name="menu_info_around">周边推荐</string>
+	<string name="menu_info_school_news">校园新闻</string>
+	<string name="menu_info_school">校务信息</string>
 </resources>

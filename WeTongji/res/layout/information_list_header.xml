@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/layout_information_header"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:id="@id/information_list_header"
-    android:textIsSelectable="true"
-    android:background="#FF0000">
-</TextView>
+    android:layout_height="wrap_content"
+    android:background="#ffffff">
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/information_list_header"/>
+    
+    <TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingTop="4dp"
+	    android:paddingBottom="4dp"
+	    android:paddingLeft="20dp"
+	    android:id="@id/information_list_header"
+	    android:textIsSelectable="true"
+	    style="@style/InformationListHeaderText">
+    </TextView>
+    
+</FrameLayout>

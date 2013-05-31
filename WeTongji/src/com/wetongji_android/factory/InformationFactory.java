@@ -1,3 +1,7 @@
+/**
+ * Information factory used to store information data
+ * into the database
+ */
 package com.wetongji_android.factory;
 
 import java.util.ArrayList;
@@ -16,28 +20,32 @@ import com.wetongji_android.data.Information;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.date.DateParser;
+import com.wetongji_android.ui.today.TodayFragment;
 
-public class InformationFactory extends BaseFactory<Information, Integer> {
-
+public class InformationFactory extends BaseFactory<Information, Integer> 
+{
+	private int nextPage;
+	
 	public InformationFactory(Fragment fragment) {
 		super(fragment, Information.class, WTApplication.INFORMATION_SAVER);
 	}
 	
-	public Pair<Integer, List<Information>> createObjects(String jsonStr, int currentPage) {
-		WTUtility.log("Information Factory", "jsonStr: " + jsonStr);
+	public Pair<Integer, List<Information>> createObjects(String jsonStr, int currentPage) 
+	{
 		
 		List<Information> result=new ArrayList<Information>();
 		int nextPager=0;
 		try {
 			JSONObject outer=new JSONObject(jsonStr);
 			nextPager=outer.getInt("NextPager");
-			WTUtility.log("Information List", "Next Page: " + nextPager);
-			WTUtility.log("Information List", "Current Page: " + currentPage);
+			setNextPage(nextPager);
+			WTUtility.log("Information Factory", "Next Page: " + nextPager);
+			WTUtility.log("Information Factory", "Current Page: " + currentPage);
 			if(currentPage!=1){
-				result=createObjects(outer.getString("Information"),false);
+				result=createObjects(jsonStr,false);
 			}
 			else{
-				result=createObjects(outer.getString("Information"),true);
+				result=createObjects(jsonStr,true);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -54,6 +62,7 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 		try {
 			outer=new JSONObject(jsonStr);
 			array = outer.getJSONArray("Information");
+			WTUtility.log("Information Factory", " " + array.length());
 			for(int i=0;i!=array.length();i++){
 				Information info=createObject(array.getString(i));
 				list.add(info);
@@ -63,9 +72,18 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		Bundle args=new Bundle();
-		args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
-		fragment.getLoaderManager().initLoader(WTApplication.INFORMATION_SAVER, args, this).forceLoad();
+		
+		WTUtility.log("Information Factory", "" + needToRefresh);
+		if(fragment instanceof TodayFragment)
+		{
+			
+		}else
+		{
+			Bundle args=new Bundle();
+			args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
+			fragment.getLoaderManager().initLoader(WTApplication.INFORMATION_SAVER, args, this).forceLoad();
+		}
+		
 		return list;
 	}
 	
@@ -130,5 +148,13 @@ public class InformationFactory extends BaseFactory<Information, Integer> {
 			e.printStackTrace();
 		}
 		return info;
+	}
+
+	public int getNextPage() {
+		return nextPage;
+	}
+
+	public void setNextPage(int nextPage) {
+		this.nextPage = nextPage;
 	}
 }

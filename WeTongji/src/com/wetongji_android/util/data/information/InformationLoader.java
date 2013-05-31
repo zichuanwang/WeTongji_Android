@@ -1,3 +1,7 @@
+/**
+ * This loader is used to load information
+ * data from the database
+ */
 package com.wetongji_android.util.data.information;
 
 import java.sql.SQLException;

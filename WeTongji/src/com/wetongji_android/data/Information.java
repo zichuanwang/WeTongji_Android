@@ -1,5 +1,6 @@
 package com.wetongji_android.data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import android.os.Parcel;
@@ -8,8 +9,12 @@ import android.os.Parcelable;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
-public class Information implements Comparable<Information>, Parcelable{
+public class Information implements Comparable<Information>, Parcelable, Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@DatabaseField(id=true)
 	private int Id;
 	@DatabaseField

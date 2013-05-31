@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -86,11 +85,10 @@ implements LoaderCallbacks<HttpRequestResult> {
 			mUsername=username;
 		}
 		mPassword=password;
-		if(!TextUtils.isEmpty(mUsername)&&!TextUtils.isEmpty(mPassword)){
-			showProgress();
-			Bundle args=apiHelper.getUserLogOn(mUsername, mPassword);
-			getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this).forceLoad();
-		}
+		
+		showProgress();
+		Bundle args=apiHelper.getUserLogOn(mUsername, mPassword);
+		getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this).forceLoad();
 	}
 	
 	private void finishConfirmCredentials(boolean result){
@@ -118,11 +116,10 @@ implements LoaderCallbacks<HttpRequestResult> {
 			JSONObject user=data.getJSONObject("User");
 			String uid=user.getString("UID");
 			String session=data.getString("Session");
-			Log.i(TAG, "uid="+uid+" session="+session);
-
 			mAm.setUserData(account, AccountManager.KEY_USERDATA, uid);
 			mAm.setAuthToken(account, WTApplication.AUTHTOKEN_TYPE, session);
 			apiHelper.setSession(session);
+			apiHelper.setUID(uid);
 			final Intent intent=new Intent();
 			intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mUsername);
 			intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, WTApplication.ACCOUNT_TYPE);

@@ -9,6 +9,7 @@ import com.wetongji_android.data.Event;
 import com.wetongji_android.ui.auth.IntroActivity;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.today.TodayFragment;
+import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.version.UpdateBaseActivity;
 
@@ -23,7 +24,6 @@ implements OnWTListClickedListener
 {
 	private Fragment mContent;
 	public static final String PARAM_PREVIEW_WITHOUT_lOGIN="previewWithoutLogin";
-	private Menu mMenu;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -109,6 +109,9 @@ implements OnWTListClickedListener
 		case R.id.menu_eventlist_reload:
 			((EventsFragment)mContent).refreshData();
 			return true;
+		case R.id.menu_informationlist_reload:
+			((InformationsFragment)mContent).refreshData();
+			return true;
 		}
 		
 		return super.onOptionsItemSelected(item);
@@ -117,12 +120,17 @@ implements OnWTListClickedListener
 	
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		mMenu = menu;
-		getSupportMenuInflater().inflate(R.menu.menu_eventlist, menu);
+	public boolean onCreateOptionsMenu(Menu menu) 
+	{
+		if(mContent instanceof TodayFragment)
+		{
+			getSupportMenuInflater().inflate(R.menu.menu_eventlist, menu);
+		}else if(mContent instanceof InformationsFragment)
+		{
+			getSupportMenuInflater().inflate(R.menu.menu_informationlist, menu);
+		}
+		
 		return super.onCreateOptionsMenu(menu);
-		
-		
 	}
 	
 	/*@Override

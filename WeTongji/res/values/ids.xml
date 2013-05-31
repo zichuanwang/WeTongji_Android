@@ -44,6 +44,7 @@
     <item name="text_event_detail_org_name" type="id">false</item>
     <item name="tv_event_detail_content" type="id">false</item>
     <item name="lst_information" type="id">false</item>
+    <item type="id" name="layout_information_header">false</item>
     <item name="layout_event_row" type="id">false</item>
     <item type="id" name="btn_event_detail_invite">false</item>
     <item type="id" name="layout_event_detail_top_actionbar">false</item>
@@ -51,7 +52,8 @@
     <item type="id" name="information_list_item_type">false</item>
     <item type="id" name="information_list_item_title">false</item>
     <item type="id" name="information_list_item_description">false</item>
+    <item type="id" name="information_list_item">false</item>
     <item type="id" name="menu_eventlist_reload">false</item>
     <item name="event_detail_back" type="id">false</item>
-    
+    <item type="id" name="menu_informationlist_reload">false</item>
 </resources>

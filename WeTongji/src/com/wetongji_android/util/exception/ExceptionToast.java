@@ -58,6 +58,12 @@ public class ExceptionToast {
 		case 15:
 			Toast.makeText(context, R.string.text_error_friends_not_allowed_due_to_privacy, Toast.LENGTH_LONG).show();
 			break;
+		case 16:
+			Toast.makeText(context, R.string.text_error_student_id_required, Toast.LENGTH_SHORT).show();
+			break;
+		case 17:
+			Toast.makeText(context, R.string.text_error_password_requried, Toast.LENGTH_SHORT).show();
+			break;
 		}
 		
 	}
