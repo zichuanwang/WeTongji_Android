@@ -56,4 +56,5 @@
     <item type="id" name="menu_eventlist_reload">false</item>
     <item name="event_detail_back" type="id">false</item>
     <item type="id" name="menu_informationlist_reload">false</item>
+    <item name="action_event_detail_share" type="id">false</item>
 </resources>

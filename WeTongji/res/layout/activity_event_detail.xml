@@ -41,6 +41,33 @@
 	               android:adjustViewBounds="true"
 	               android:scaleType="fitCenter" />
 	        </LinearLayout>
+	        
+	        <LinearLayout
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center"
+			    android:addStatesFromChildren="true"
+			    android:gravity="center"
+			    android:focusable="true"
+			    android:paddingLeft="4dip"
+			    android:paddingRight="4dip"
+			    android:layout_marginLeft="100dp">
+	            
+	            <ImageButton android:id="@id/action_event_detail_share"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:src="@drawable/ab_event_share"
+	                 android:layout_gravity="center"
+	                 android:visibility="gone"
+	                 android:layout_marginTop="4dip"
+	                 android:layout_marginBottom="4dip"
+	                 android:layout_marginLeft="4dip"
+	                 android:layout_marginRight="4dip"
+	                 android:scaleType="fitCenter"
+	                 android:adjustViewBounds="true"
+	                 android:background="@drawable/ab_event_share"
+	                 android:focusable="false" />
+	        </LinearLayout>
 	    </LinearLayout>
 	    
 	    <!-- main content -->
