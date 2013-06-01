@@ -89,4 +89,5 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="menu_info_around">周边推荐</string>
 	<string name="menu_info_school_news">校园新闻</string>
 	<string name="menu_info_school">校务信息</string>
+	<string name="text_u_like_this_activity">You have liked this activity</string>
 </resources>

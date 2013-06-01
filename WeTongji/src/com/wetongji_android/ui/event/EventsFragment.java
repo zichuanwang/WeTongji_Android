@@ -153,9 +153,6 @@ OnScrollListener{
 	};
 	
 	public void refreshData() {
-		Toast.makeText(getActivity(), "refreshData", Toast.LENGTH_SHORT).show();
-		isRefresh = true;
-		
 		// scroll the listview to top
 		
 		mAdapter.clear();

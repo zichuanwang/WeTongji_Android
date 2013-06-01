@@ -9,6 +9,7 @@ import org.json.JSONException;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import com.google.gson.Gson;
@@ -30,7 +31,9 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 	
 	protected BaseFactory(Fragment fragment, Class<T> clazz, int loaderId){
 		this.fragment=fragment;
-		this.context=this.fragment.getActivity();
+		if(fragment != null) {
+			this.context=this.fragment.getActivity();
+		}
 		gson=new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 		list=new ArrayList<T>();
 		this.clazz=clazz;
@@ -39,6 +42,16 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 		}
 		else{
 			this.loaderId=WTApplication.DB_LIST_SAVER;
+		}
+	}
+	
+	public void saveObjects(FragmentActivity activity, List<T> data) {
+		Bundle args=new Bundle();
+		args.putBoolean(ARG_NEED_TO_REFRESH, false);
+		if (fragment == null) {
+			activity.getSupportLoaderManager().initLoader(loaderId, args, this).forceLoad();
+		} else {
+			fragment.getLoaderManager().initLoader(loaderId, args, this).forceLoad();
 		}
 	}
 	

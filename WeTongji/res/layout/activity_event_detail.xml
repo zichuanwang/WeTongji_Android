@@ -44,29 +44,29 @@
 	        
 	        <LinearLayout
 	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_gravity="center"
-			    android:addStatesFromChildren="true"
+	            android:layout_height="fill_parent"
+	            android:background="@drawable/selectable_background_wttheme"
+	            android:addStatesFromChildren="true"
+	            android:layout_gravity="center_vertical"
 			    android:gravity="center"
-			    android:focusable="true"
-			    android:paddingLeft="4dip"
-			    android:paddingRight="4dip"
-			    android:layout_marginLeft="100dp">
+			    android:clickable="true"
+			    android:paddingLeft="6dip"
+			    android:paddingRight="6dip"
+			    android:layout_marginLeft="190dp">
 	            
 	            <ImageButton android:id="@id/action_event_detail_share"
 	                 android:layout_width="wrap_content"
 	                 android:layout_height="wrap_content"
 	                 android:src="@drawable/ab_event_share"
 	                 android:layout_gravity="center"
-	                 android:visibility="gone"
 	                 android:layout_marginTop="4dip"
 	                 android:layout_marginBottom="4dip"
 	                 android:layout_marginLeft="4dip"
 	                 android:layout_marginRight="4dip"
 	                 android:scaleType="fitCenter"
 	                 android:adjustViewBounds="true"
-	                 android:background="@drawable/ab_event_share"
-	                 android:focusable="false" />
+	                 android:focusable="false"
+	                 android:background="@null"/>
 	        </LinearLayout>
 	    </LinearLayout>
 	    
