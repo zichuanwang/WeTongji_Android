@@ -153,6 +153,7 @@ OnScrollListener{
 	};
 	
 	public void refreshData() {
+		isRefresh = true;
 		// scroll the listview to top
 		
 		mAdapter.clear();
