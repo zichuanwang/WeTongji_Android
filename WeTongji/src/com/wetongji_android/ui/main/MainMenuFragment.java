@@ -5,6 +5,7 @@ import com.wetongji_android.R;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.ui.now.NowFragment;
+import com.wetongji_android.ui.profile.ProfileFragment;
 import com.wetongji_android.ui.today.TodayFragment;
 
 import android.content.Context;
@@ -149,6 +150,10 @@ public class MainMenuFragment extends Fragment {
 				break;
 			case 3:
 				newContent=NowFragment.newInstance();
+				break;
+			case 6:
+				newContent = new ProfileFragment();
+				break;
 			default:
 				break;
 			}

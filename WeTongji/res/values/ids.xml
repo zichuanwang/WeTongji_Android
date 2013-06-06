@@ -61,4 +61,8 @@
     <item type="id" name="cb_competition">false</item>
     <item type="id" name="cb_entertainment">false</item>
     <item type="id" name="cb_employ">false</item>
+    <item type="id" name="text_profile_words">false</item>
+    <item type="id" name="img_profile_avatar">false</item>
+    <item type="id" name="text_profile_gender">false</item>
+    <item type="id" name="btn_profile_action">false</item>
 </resources>
