@@ -249,7 +249,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public void onLoadFinished(Loader<List<Information>> arg0, List<Information> list) 
 	{
 		// TODO Auto-generated method stub
-		if(list != null && list.size() != 0)
+		if(list != null && list.size() > 20)
 		{
 			this.setInformations(InformationUtil.getSectionedInformationList(list));
 			this.setOriginList(list);

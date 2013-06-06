@@ -54,7 +54,15 @@
     <item type="id" name="information_list_item_description">false</item>
     <item type="id" name="information_list_item">false</item>
     <item type="id" name="menu_eventlist_reload">false</item>
-    <item name="event_detail_back" type="id">false</item>
+    <!-- Information Detail Part -->
+    <item type="id" name="layout_info_detail_top_actionbar">false</item>
+    <item type="id" name="info_detail_back">false</item>
+    <item type="id" name="action_info_detail_share">false</item>
+    <item type="id" name="event_detail_back">false</item>
+    <item type="id" name="info_detail_title">false</item>
+    <item type="id" name="info_detail_avatar">false</item>
+    <item type="id" name="info_detail_location">false</item>
+    <item type="id" name="info_detail_time">false</item>
     <item type="id" name="menu_informationlist_reload">false</item>
     <item name="action_event_detail_share" type="id">false</item>
 </resources>
