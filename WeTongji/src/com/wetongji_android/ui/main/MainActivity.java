@@ -106,12 +106,6 @@ implements OnWTListClickedListener
 		case android.R.id.home:
 			toggle();
 			return true;
-		case R.id.menu_eventlist_reload:
-			((EventsFragment)mContent).refreshData();
-			return true;
-		case R.id.menu_informationlist_reload:
-			((InformationsFragment)mContent).refreshData();
-			return true;
 		}
 		
 		return super.onOptionsItemSelected(item);
@@ -122,25 +116,10 @@ implements OnWTListClickedListener
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) 
 	{
-		if(mContent instanceof TodayFragment)
-		{
-			getSupportMenuInflater().inflate(R.menu.menu_eventlist, menu);
-		}else if(mContent instanceof InformationsFragment)
-		{
-			getSupportMenuInflater().inflate(R.menu.menu_informationlist, menu);
-		}
-		
 		return super.onCreateOptionsMenu(menu);
+		
 	}
 	
-	/*@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		mMenu.clear();
-		if(mContent instanceof EventsFragment) {
-			getSupportMenuInflater().inflate(R.menu.menu_eventlist, menu);
-		}
-		return super.onPrepareOptionsMenu(menu);
-	}*/
 
 	public void switchContent(Fragment fragment) {
 		mContent = fragment;

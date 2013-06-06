@@ -7,6 +7,7 @@
         android:icon="@drawable/abs_event_reload"/>
     
     <item
+        android:title="@string/menu_more"
 	    android:showAsAction="always"
 	    android:icon="@drawable/abs__ic_menu_moreoverflow_normal_holo_light">
 
@@ -15,22 +16,22 @@
 			<group>
 			    <item
 			        android:showAsAction="never"
-			        android:title="@string/menu_info_school"
+			        android:title="@string/text_news_category_1"
 			        />
 			    
 			    <item
 			        android:showAsAction="never"
-			        android:title="@string/menu_info_school_news"
+			        android:title="@string/text_news_category_2"
 			        />
 			    
 			    <item
 			        android:showAsAction="never"
-			        android:title="@string/menu_info_club"
+			        android:title="@string/text_news_category_3"
 			        />
 			    
 			    <item
 			        android:showAsAction="never"
-			        android:title="@string/menu_info_around"
+			        android:title="@string/text_news_category_4"
 			        />
 			</group>
 			

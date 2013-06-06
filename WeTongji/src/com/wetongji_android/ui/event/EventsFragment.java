@@ -5,19 +5,19 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.MenuItem;
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
@@ -32,7 +32,7 @@ import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 
-public class EventsFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>,
+public class EventsFragment extends SherlockFragment implements LoaderCallbacks<HttpRequestResult>,
 OnScrollListener{
 	
 	private boolean isFirstTimeStartFlag = true;
@@ -89,6 +89,8 @@ OnScrollListener{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
+		
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -208,5 +210,28 @@ OnScrollListener{
         isFirstTimeStartFlag = false;
         return FIRST_TIME_START;
     }
+
+	@Override
+	public void onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu,
+			com.actionbarsherlock.view.MenuInflater inflater) {
+		inflater.inflate(R.menu.menu_eventlist, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		switch (item.getItemId()) {
+		case R.id.menu_eventlist_reload:
+			refreshData();
+			return true;
+		
+		}
+		
+		return super.onOptionsItemSelected(item);
+	}
+	
+	
 	
 }

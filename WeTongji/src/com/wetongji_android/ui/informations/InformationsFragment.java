@@ -2,6 +2,10 @@ package com.wetongji_android.ui.informations;
 
 import java.util.List;
 
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.foound.widget.AmazingListView;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Information;
@@ -10,7 +14,6 @@ import com.wetongji_android.factory.InformationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.information.InformationUtil;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
@@ -19,7 +22,6 @@ import com.wetongji_android.util.net.HttpRequestResult;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.util.Pair;
@@ -27,7 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class InformationsFragment extends Fragment implements LoaderCallbacks<HttpRequestResult> 
+public class InformationsFragment extends SherlockFragment implements LoaderCallbacks<HttpRequestResult> 
 {	
 	private static final String TAG = "InformationsFragment";
 	
@@ -50,6 +52,8 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
+		
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -189,4 +193,24 @@ public class InformationsFragment extends Fragment implements LoaderCallbacks<Ht
         isFirstTimeToStart = false;
         return FIRST_TIME_START;
 	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.menu_informationlist, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_informationlist_reload:
+			refreshData();
+			return true;
+		}
+
+		return super.onOptionsItemSelected(item);
+	}
+	
+	
+	
 }
