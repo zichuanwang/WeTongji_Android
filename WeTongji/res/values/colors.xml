@@ -63,5 +63,7 @@
     <color name="tv_today_content_black">#373737</color>
     <color name="tv_today_content_white">#ffffff</color>
     <color name="tv_today_content_shadow">#3f000000</color>
-    
+    <color name="tv_info_detail_title">#454545</color>
+    <color name="info_detail_brief_bg">#eeeeee</color>
+    <color name="info_detail_brief_bg_two">#e6e6e6</color>
 </resources>

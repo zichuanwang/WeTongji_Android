@@ -137,4 +137,10 @@
  	    <item name="android:shadowColor">#99000000</item>
  	</style>
  	
+ 	<style name="InformationDetailTitle" parent="@style/TextWithShadow">
+ 	    <item name="android:textColor">@color/tv_info_detail_title</item>
+ 	    <item name="android:textSize">20sp</item>
+ 	    <item name="android:textStyle">bold</item>
+ 	</style>
+ 	
 </resources>
