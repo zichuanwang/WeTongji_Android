@@ -12,10 +12,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +59,14 @@ public class EventDetailActivity extends FragmentActivity implements LoaderCallb
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		
 		setContentView(R.layout.activity_event_detail);
+		
+		LinearLayout ll = (LinearLayout) findViewById(R.id.event_detail_back);
+		ll.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View view) {
+				EventDetailActivity.this.finish();
+			}
+		});
 		
 		mAq = WTApplication.getInstance().getAq(this);
 		mAq.id(R.id.img_event_detail_org_avatar).image(mEvent.getOrganizerAvatar(), false, true, 0,
