@@ -89,4 +89,8 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="menu_event_sort_order">Sort Order</string>
 	<string name="menu_event_filter_expired">Filter Expired</string>
 	<string name="menu_more">More</string>
+	<string name="menu_activity_type">Type</string>
+	<string name="channel_sort_publish_time_reverse_order">Publish Time Reverse</string>
+	<string name="channel_sort_like">Like Reverse</string>
+	<string name="channel_sort_publish_time_order">Publish Time</string>
 </resources>
