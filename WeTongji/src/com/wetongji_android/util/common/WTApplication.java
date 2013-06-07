@@ -6,12 +6,14 @@ package com.wetongji_android.util.common;
 import com.androidquery.AQuery;
 import com.androidquery.util.AQUtility;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.wetongji_android.R;
 import com.wetongji_android.util.data.DbHelper;
 
 import java.io.File;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -127,10 +129,5 @@ public class WTApplication extends Application
 	public void setActivity(Activity activity) {
 		this.activity = activity;
 	}
-	
-	
-	
-	
-	
 	
 }

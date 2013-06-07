@@ -17,6 +17,7 @@ import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +66,13 @@ public class EventDetailActivity extends FragmentActivity implements LoaderCallb
 			@Override
 			public void onClick(View view) {
 				EventDetailActivity.this.finish();
+			}
+		});
+		ImageButton btnShare = (ImageButton) findViewById(R.id.action_event_detail_share);
+		btnShare.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View view) {
+				showShareDialog(mEvent.getTitle());
 			}
 		});
 		
@@ -172,4 +180,16 @@ public class EventDetailActivity extends FragmentActivity implements LoaderCallb
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 	}
 	
+	public void showShareDialog(String content) {
+		String sourceDesc = getResources().getString(R.string.share_from_we);
+		String share = getResources().getString(R.string.test_share);
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		//intent.putExtra(Intent.EXTRA_TEXT, mEvent.getDescription());
+        intent.putExtra(Intent.EXTRA_TEXT, content + sourceDesc);
+        //intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(mAq.getCachedFile(mEvent.getImage())));
+        intent.setType("text/*"); 
+        intent.setType("image/*");
+        startActivity(Intent.createChooser(intent, share));
+	}
 }
