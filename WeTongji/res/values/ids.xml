@@ -63,6 +63,11 @@
     <item type="id" name="info_detail_avatar">false</item>
     <item type="id" name="info_detail_location">false</item>
     <item type="id" name="info_detail_time">false</item>
+    <item type="id" name="info_detail_image">false</item>
+    <item type="id" name="info_detail_content">false</item>
+    <item type="id" name="cb_info_like">false</item>
+    <item type="id" name="tv_info_like_number">false</item>
+    <item type="id" name="btn_info_detail_invite">false</item>
     <item type="id" name="menu_informationlist_reload">false</item>
     <item name="action_event_detail_share" type="id">false</item>
     <item type="id" name="cb_academic">false</item>

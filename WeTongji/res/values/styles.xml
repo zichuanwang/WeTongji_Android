@@ -143,4 +143,22 @@
  	    <item name="android:textStyle">bold</item>
  	</style>
  	
+ 	<style name="InformationDetailContent">
+ 	    <item name="android:textColor">@color/tv_info_detail_content</item>
+ 	    <item name="android:textSize">17sp</item>
+ 	    <item name="android:textStyle">normal</item>
+ 	</style>
+ 	
+ 	<style name="InformationDetailLocation" parent="@style/TextWithShadow">
+ 	    <item name="android:textColor">@color/tv_info_detail_location</item>
+ 	    <item name="android:textSize">12sp</item>
+ 	    <item name="android:textStyle">bold</item>
+ 	</style>
+ 	
+ 	<style name="InformationDetailTime" parent="@style/TextWithShadow">
+ 	    <item name="android:textColor">@color/tv_info_detail_time</item>
+ 	    <item name="android:textSize">12sp</item>
+ 	    <item name="android:textStyle">bold</item>
+ 	</style>
+ 	
 </resources>

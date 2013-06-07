@@ -98,73 +98,93 @@
 			        android:layout_width="match_parent"
 			        android:layout_height="wrap_content"
 			        android:orientation="vertical"
-			        android:background="@drawable/bg_app_base">
+			        android:background="#ffffff">
 			        
-		            <FrameLayout 
-		                android:layout_width="match_parent"
-		                android:layout_height="wrap_content"
-		                android:background="@color/info_detail_brief_bg">
-		                
-		                <RelativeLayout 
-		                    android:layout_width="match_parent"
-		                    android:layout_height="wrap_content">
-		                    
-		                    <TextView 
-				                android:id="@id/info_detail_title"
-				                android:layout_width="match_parent"
-				                android:layout_height="wrap_content"
-				                android:layout_alignParentTop="true"
-				                android:layout_marginLeft="16.5dp"
-				                android:layout_marginTop="16.5dp"
-				                android:layout_marginBottom="16.5dp"
-				                android:text="Test layout"
-				                style="@style/InformationDetailTitle"/>
-		                    
-		                    <RelativeLayout 
-		                        android:layout_width="match_parent"
-		                        android:layout_height="55dp"
-		                        android:layout_below="@id/info_detail_title"
-		                        android:background="@color/info_detail_brief_bg_two">
-		                        
-		                        <ImageView 
-		                            android:id="@id/info_detail_avatar"
-		                            android:layout_width="wrap_content"
-		                            android:layout_height="wrap_content"
-		                            android:layout_alignParentLeft="true"
-		                            android:src="@drawable/ab_event_share"
-		                            android:contentDescription="@string/img_content_description"/>
-		                        
-		                        <TextView 
-		                            android:id="@id/info_detail_location"
-		                            android:layout_width="wrap_content"
-		                            android:layout_height="wrap_content"
-		                            android:layout_toRightOf="@id/info_detail_avatar"
-		                            android:text="Center of China"/>
-		                        
-		                        <TextView 
-		                            android:id="@id/info_detail_time"
-		                            android:layout_width="wrap_content"
-		                            android:layout_height="wrap_content"
-		                            android:layout_toRightOf="@id/info_detail_avatar"
-		                            android:layout_below="@id/info_detail_location"
-		                            android:text="10:30 noon"/>
-		                        
-		                    </RelativeLayout>
-		                    
-		                </RelativeLayout>
-		                
-		            </FrameLayout>
-		            
+		            <!-- Brief Part Relativelayout -->
+	                <RelativeLayout 
+	                    android:layout_width="match_parent"
+	                    android:layout_height="wrap_content"
+	                    android:background="@drawable/info_detail_brief_shadow">
+	                    
+	                    <TextView 
+			                android:id="@id/info_detail_title"
+			                android:layout_width="267dp"
+			                android:layout_height="wrap_content"
+			                android:layout_alignParentTop="true"
+			                android:layout_marginLeft="16.5dp"
+			                android:layout_marginTop="16.5dp"
+			                android:layout_marginBottom="16.5dp"
+			                android:textIsSelectable="true"			      
+			                style="@style/InformationDetailTitle"/>
+	                    
+	                    <RelativeLayout 
+	                        android:layout_width="match_parent"
+	                        android:layout_height="65dp"
+	                        android:layout_below="@id/info_detail_title"
+	                        android:background="@color/info_detail_brief_bg_two">
+	                        
+	                        <ImageView 
+	                            android:id="@id/info_detail_avatar"
+	                            android:layout_width="30dp"
+	                            android:layout_height="30dp"
+	                            android:layout_alignParentLeft="true"
+	                            android:layout_marginLeft="15dp"
+	                            android:layout_marginTop="12dp"
+	                            android:src="@drawable/ab_event_share"
+	                            android:contentDescription="@string/img_content_description"/>
+	                        
+	                        <TextView 
+	                            android:id="@id/info_detail_location"
+	                            android:layout_width="wrap_content"
+	                            android:layout_height="wrap_content"
+	                            android:layout_toRightOf="@id/info_detail_avatar"
+	                            android:layout_marginLeft="8.5dp"
+	                            android:layout_marginTop="15dp"
+	                            android:textIsSelectable="true"
+	                            style="@style/InformationDetailLocation"/>
+	                        
+	                        <TextView 
+	                            android:id="@id/info_detail_time"
+	                            android:layout_width="wrap_content"
+	                            android:layout_height="wrap_content"
+	                            android:layout_alignLeft="@id/info_detail_location"
+	                            android:layout_below="@id/info_detail_location"
+	                            android:layout_marginTop="8.5dp"
+	                            android:textIsSelectable="true"
+	                            style="@style/InformationDetailTime"/>
+	                        
+	                    </RelativeLayout>
+	                    
+	                </RelativeLayout> 
+	                
+	                <ImageView 
+	                    android:id="@id/info_detail_image"
+	                    android:layout_width="match_parent"
+	                    android:layout_height="218dp"
+	                    android:layout_marginTop="17dp"
+	                    android:layout_marginLeft="15dp"
+	                    android:layout_marginRight="15dp"
+	                    android:scaleType="centerCrop"
+	                    android:contentDescription="@string/img_content_description"/>
+	              
+	                <TextView 
+	                    android:id="@id/info_detail_content"
+	                    android:layout_width="match_parent"
+	                    android:layout_height="wrap_content"
+	                    android:textIsSelectable="true"
+	                    android:layout_margin="14dp"
+	                    style="@style/InformationDetailContent"/>
+	                
 			       	<!-- this blank layout resolves conflict with 'bottom actionbar' -->
 		            <LinearLayout
 		                android:layout_width="match_parent"
-		                android:layout_height="48dp">
+		                android:layout_height="48dp"
+		                android:background="#ffffff">
 		            </LinearLayout>
 		            
 			    </LinearLayout>
 		        
 		    </ScrollView>
-		    
 		    
 		    <!-- actionbar shadow -->
 		    <LinearLayout 
@@ -193,7 +213,7 @@
         	android:background="@drawable/bg_event_like"
         	>
           <CheckBox 
-              android:id="@id/cb_event_like"
+              android:id="@id/cb_info_like"
               android:layout_width="wrap_content"
               android:layout_height="26dp"
               android:layout_marginTop="1dp"
@@ -203,10 +223,12 @@
               style="@style/EventLikeCheckbox"/>
           
           <TextView 
-              android:id="@id/tv_event_like_number"
+              android:id="@id/tv_info_like_number"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:textIsSelectable="false"
               style="@style/EventLikeNumber"/>
+          
         </LinearLayout>
         
         <!-- Bottom actionbar -->
@@ -222,7 +244,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:clickable="true"
-                android:id="@id/btn_event_detail_invite" 
+                android:id="@id/btn_info_detail_invite" 
                 android:background="@drawable/event_detail_buttom_action_selector">
 		        
 		        <TextView 
@@ -254,7 +276,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/img_event_detail_friends"/>
+                    android:src="@drawable/img_event_detail_friends"
+                    android:contentDescription="@string/img_content_description"/>
                 
                 <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -284,7 +307,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/img_event_detail_attend"/>
+                    android:src="@drawable/img_event_detail_attend"
+                    android:contentDescription="@string/img_content_description"/>
                 
                 <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
