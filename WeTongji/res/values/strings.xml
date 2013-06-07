@@ -93,4 +93,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="channel_sort_publish_time_reverse_order">Publish Time Reverse</string>
 	<string name="channel_sort_like">Like Reverse</string>
 	<string name="channel_sort_publish_time_order">Publish Time</string>
+	<string name="share_from_we">"（分享自 @WeTongji）http://we.tongji.edu.cn/"</string>
+	<string name="test_share">Share</string>
 </resources>
