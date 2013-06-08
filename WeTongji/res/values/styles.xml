@@ -143,6 +143,37 @@
  	    <item name="android:textStyle">bold</item>
  	</style>
  	
+ 	<style name="ProfileHeaderWords">
+ 	    <item name="android:textSize">15.3sp</item>
+ 	    <item name="android:textColor">#ffffff</item>
+ 	    <item name="android:maxLines">3</item>
+ 	</style>
+ 	
+ 	<style name="ProfileHeaderMajor">
+ 	    <item name="android:textSize">12sp</item>
+ 	    <item name="android:textColor">#ffffff</item>
+ 	</style>
+ 	
+ 	<style name="ProfileHeaderAction">
+ 	    <item name="android:textSize">18sp</item>
+ 	    <item name="android:textColor">#ffffff</item>
+ 	</style>
+ 	
+ 	<style name="ProfileInfoHeader">
+ 	    <item name="android:textSize">14sp</item>
+ 	    <item name="android:textColor">#999999</item>
+ 	    <item name="android:textStyle">bold</item>
+ 	</style>
+ 	
+ 	<style name="ProfileFriendList">
+ 	    <item name="android:textSize">18sp</item>
+ 	    <item name="android:textColor">#222222</item>
+ 	</style>
+ 	
+ 	<style name="ProfileFriendNum">
+ 	    <item name="android:textSize">14sp</item>
+ 	    <item name="android:textColor">#777777</item>
+ 	</style>
  	<style name="InformationDetailContent">
  	    <item name="android:textColor">@color/tv_info_detail_content</item>
  	    <item name="android:textSize">17sp</item>
