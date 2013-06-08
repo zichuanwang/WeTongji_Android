@@ -73,4 +73,19 @@
     <item type="id" name="img_profile_avatar">false</item>
     <item type="id" name="text_profile_gender">false</item>
     <item type="id" name="btn_profile_action">false</item>
+    <item type="id" name="text_profile_friendlist">false</item>
+    <item type="id" name="text_profile_friend_num">false</item>
+    <item type="id" name="btn_profile_friend_add">false</item>
+    <item type="id" name="ll_profile_friend_add">false</item>
+    <item type="id" name="ll_profile_friend_list">false</item>
+    <item type="id" name="ll_profile_events_like">false</item>
+    <item type="id" name="text_profile_events">false</item>
+    <item type="id" name="text_profile_events_num">false</item>
+    <item type="id" name="ll_profile_news_like">false</item>
+    <item type="id" name="text_profile_news">false</item>
+    <item type="id" name="text_profile_news_num">false</item>
+    <item type="id" name="ll_profile_people_like">false</item>
+    <item type="id" name="text_profile_people">false</item>
+    <item type="id" name="ll_profile_org_like">false</item>
+    <item type="id" name="text_profile_orgs">false</item>
 </resources>

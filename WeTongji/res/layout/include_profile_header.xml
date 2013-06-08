@@ -9,22 +9,27 @@
         android:id="@id/text_profile_words"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/img_profile_avatar"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="16.7dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="16.7dp"/>
+        android:layout_marginTop="16dp"
+        android:text="&#34;Say goodbye to the world you thought you've lived in.alksjdf;lakjsdf;kajsdffl;a;lksdjflkajsd&#34;"
+        style="@style/ProfileHeaderWords"/>
     
     <TextView
         android:id="@id/text_profile_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text_profile_words"
+        android:layout_above="@id/btn_profile_action"
         android:layout_toRightOf="@id/img_profile_avatar"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="12dp"
         android:layout_marginLeft="16.7dp"
         android:layout_marginRight="30dp"
-        android:drawableLeft="@drawable/ic_profile_gender_male"/>
+        android:drawableLeft="@drawable/ic_profile_gender_male"
+        android:text="School of Software Engineering Software Engineering"
+        style="@style/ProfileHeaderMajor"/>
 
     <ImageView
         android:id="@id/img_profile_avatar"
@@ -39,11 +44,13 @@
     <Button
         android:id="@id/btn_profile_action"
         android:layout_width="146.7dp"
-        android:layout_height="40dp"
+        android:layout_height="44dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp"
-        android:text="Button" />
+        android:gravity="center_vertical"
+        android:text="Change Avatar" 
+        style="@style/ProfileHeaderAction"/>
 
 </RelativeLayout>
