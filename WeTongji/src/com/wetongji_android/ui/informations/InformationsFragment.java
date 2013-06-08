@@ -36,7 +36,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class InformationsFragment extends SherlockFragment implements LoaderCallbacks<HttpRequestResult> 
 {	
 	private static final String TAG = "InformationsFragment";
-	private static final String BUNDLE_KEY_INFORMATION = "bundle_key_information";
+	public static final String BUNDLE_KEY_INFORMATION = "bundle_key_information";
 	
 	private View mView;
 	private AmazingListView mListNews;

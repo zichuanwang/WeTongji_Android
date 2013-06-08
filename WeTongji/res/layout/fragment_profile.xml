@@ -58,8 +58,8 @@
                         android:layout_width="wrap_content"
 	    				android:layout_height="wrap_content"
 	    				android:layout_alignParentTop="true"
-	    				android:layout_marginTop="16.7dp"
-	    				android:layout_marginLeft="18.3dp"
+	    				android:layout_marginTop="15dp"
+	    				android:layout_marginLeft="7dp"
 	    				android:text="@string/profile_section_friendlist"
 	    				style="@style/ProfileFriendList"/>
                     
@@ -68,8 +68,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/text_profile_friendlist"
-                        android:layout_marginLeft="18.3dp"
-                        android:layout_marginTop="6.3dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginTop="3dp"
                     	android:text="23 Friends"
                     	style="@style/ProfileFriendNum"
                     	/>
@@ -86,7 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="18.3dp"
+                        android:layout_marginRight="7.3dp"
                         android:layout_marginTop="15.7dp"
                         android:addStatesFromChildren="true"
                         android:background="@drawable/selectable_background_wttheme"
@@ -159,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_profile_events"
                         android:layout_marginTop="22dp"
-                        android:layout_marginLeft="17.3dp"
+                        android:layout_marginLeft="7dp"
                         />
                     
                     <TextView
@@ -167,8 +167,8 @@
                         android:layout_width="wrap_content"
 	    				android:layout_height="wrap_content"
 	    				android:layout_alignParentTop="true"
-	    				android:layout_marginTop="16.7dp"
-	    				android:layout_marginLeft="58.3dp"
+	    				android:layout_marginTop="15dp"
+	    				android:layout_marginLeft="48.3dp"
 	    				android:text="@string/profile_section_events"
 	    				style="@style/ProfileFriendList"/>
                     
@@ -177,8 +177,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/text_profile_events"
-                        android:layout_marginLeft="58.3dp"
-                        android:layout_marginTop="6.3dp"
+                        android:layout_marginLeft="48.3dp"
+                        android:layout_marginTop="3dp"
                     	android:text="7 Likes"
                     	style="@style/ProfileFriendNum"
                     	/>
@@ -208,7 +208,7 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_profile_news"
                         android:layout_marginTop="22dp"
-                        android:layout_marginLeft="17.3dp"
+                        android:layout_marginLeft="7dp"
                         />
                     
                     <TextView
@@ -216,8 +216,8 @@
                         android:layout_width="wrap_content"
 	    				android:layout_height="wrap_content"
 	    				android:layout_alignParentTop="true"
-	    				android:layout_marginTop="16.7dp"
-	    				android:layout_marginLeft="58.3dp"
+	    				android:layout_marginTop="15dp"
+	    				android:layout_marginLeft="48.3dp"
 	    				android:text="@string/profile_section_news"
 	    				style="@style/ProfileFriendList"/>
                     
@@ -226,8 +226,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/text_profile_news"
-                        android:layout_marginLeft="58.3dp"
-                        android:layout_marginTop="6.3dp"
+                        android:layout_marginLeft="48.3dp"
+                        android:layout_marginTop="3dp"
                     	android:text="7 Likes"
                     	style="@style/ProfileFriendNum"
                     	/>
@@ -257,7 +257,7 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_profile_people"
                         android:layout_marginTop="22dp"
-                        android:layout_marginLeft="17.3dp"
+                        android:layout_marginLeft="7dp"
                         />
                     
                     <TextView
@@ -265,8 +265,8 @@
                         android:layout_width="wrap_content"
 	    				android:layout_height="wrap_content"
 	    				android:layout_alignParentTop="true"
-	    				android:layout_marginTop="16.7dp"
-	    				android:layout_marginLeft="58.3dp"
+	    				android:layout_marginTop="15dp"
+	    				android:layout_marginLeft="48.3dp"
 	    				android:text="@string/profile_section_people"
 	    				style="@style/ProfileFriendList"/>
                     
@@ -274,8 +274,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/text_profile_people"
-                        android:layout_marginLeft="58.3dp"
-                        android:layout_marginTop="6.3dp"
+                        android:layout_marginLeft="48.3dp"
+                        android:layout_marginTop="3dp"
                     	android:text="7 Likes"
                     	style="@style/ProfileFriendNum"
                     	/>
@@ -305,7 +305,7 @@
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_profile_org"
                         android:layout_marginTop="22dp"
-                        android:layout_marginLeft="17.3dp"
+                        android:layout_marginLeft="7dp"
                         />
                     
                     <TextView
@@ -313,8 +313,8 @@
                         android:layout_width="wrap_content"
 	    				android:layout_height="wrap_content"
 	    				android:layout_alignParentTop="true"
-	    				android:layout_marginTop="16.7dp"
-	    				android:layout_marginLeft="58.3dp"
+	    				android:layout_marginTop="15dp"
+	    				android:layout_marginLeft="48.3dp"
 	    				android:text="@string/profile_section_org"
 	    				style="@style/ProfileFriendList"/>
                     
@@ -322,8 +322,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/text_profile_orgs"
-                        android:layout_marginLeft="58.3dp"
-                        android:layout_marginTop="6.3dp"
+                        android:layout_marginLeft="48.3dp"
+                        android:layout_marginTop="3dp"
                     	android:text="7 Likes"
                     	style="@style/ProfileFriendNum"
                     	/>
@@ -335,7 +335,8 @@
 	    			android:background="@color/profile_divider_thin"
 	    			android:layout_marginTop="14.7dp"
 	    			android:layout_marginLeft="11.3dp"
-	    			android:layout_marginRight="11.3dp"/>
+	    			android:layout_marginRight="11.3dp"
+	    			android:layout_marginBottom="14.7dp"/>
             </LinearLayout>
 			
         </LinearLayout>

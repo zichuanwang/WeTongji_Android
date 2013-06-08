@@ -70,4 +70,7 @@
     <color name="profile_divider_thin">#e0e0e0</color>
     <color name="profile_section_bg">#f9f9f9</color>
     <color name="profile_vertical_divider">#e0e0e0</color>
+    <color name="tv_info_detail_content">#6a6a6a</color>
+    <color name="tv_info_detail_location">#0cc2cb</color>
+    <color name="tv_info_detail_time">#b1b1b1</color>
 </resources>

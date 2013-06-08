@@ -35,7 +35,6 @@ import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 public class EventDetailActivity extends FragmentActivity implements LoaderCallbacks<HttpRequestResult>{
-	private static final String BUNDLE_KEY_IS_LIKE = "bundle_key_is_like";
 	
 	private Activity mEvent;
 	

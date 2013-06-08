@@ -50,6 +50,7 @@ public class WTApplication extends Application
 	public static final int INFORMATION_SAVER=14;
 	public static final int PERSON_SAVER=15;
 	public static final int INFORMATION_LOADER = 16;
+	public static final int INFORMATION_LIKE_LOADER = 19;
 	public static final int EVENT_LOADER=17;
 	public static final int EVENT_Like_LOADER=18;
 	
@@ -93,7 +94,7 @@ public class WTApplication extends Application
 		aq = new AQuery(activity);
 		// Instantiate AQuery and configure cache directory
 		if(Environment.getExternalStorageState().compareTo(Environment.MEDIA_MOUNTED)== 0) {
-			File ext = Environment.getExternalStorageDirectory();
+			//File ext = Environment.getExternalStorageDirectory();
 			File downloadCacheDir = getExternalFilesDir("imgCache");
 			
 			AQUtility.setCacheDir(downloadCacheDir);
