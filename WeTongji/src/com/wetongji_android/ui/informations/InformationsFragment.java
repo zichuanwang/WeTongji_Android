@@ -155,6 +155,7 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 			bundle.putParcelable(BUNDLE_KEY_INFORMATION, information);
 			intent.putExtras(bundle);
 			startActivity(intent);
+			mActivity.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}
 	};
 	

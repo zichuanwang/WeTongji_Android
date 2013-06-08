@@ -163,6 +163,7 @@ OnScrollListener{
 			bundle.putParcelable(BUNDLE_KEY_ACTIVITY, activity);
 			intent.putExtras(bundle);
 			startActivity(intent);
+			getActivity().overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}
 		
 	};

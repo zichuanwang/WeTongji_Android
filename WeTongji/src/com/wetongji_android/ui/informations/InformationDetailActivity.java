@@ -1,8 +1,12 @@
 package com.wetongji_android.ui.informations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Information;
+import com.wetongji_android.factory.InformationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
@@ -20,11 +24,15 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class InformationDetailActivity extends FragmentActivity 
@@ -98,7 +106,27 @@ public class InformationDetailActivity extends FragmentActivity
 		tvTime.setText(DateParser.parseDateForInformation(mInfo.getCreatedAt()));
 		tvContent.setText(mInfo.getContext());
 		
+		LinearLayout ll = (LinearLayout)findViewById(R.id.info_detail_back);
+		ll.setOnClickListener(new OnClickListener() 
+		{
+			@Override
+			public void onClick(View v) 
+			{
+				// TODO Auto-generated method stub
+				InformationDetailActivity.this.finish();
+			}			
+		});
 		
+		ImageButton btnShare = (ImageButton)findViewById(R.id.action_info_detail_share);
+		btnShare.setOnClickListener(new OnClickListener() 
+		{
+			@Override
+			public void onClick(View v) 
+			{
+				// TODO Auto-generated method stub
+				showShareDialog(mInfo.getTitle());
+			}
+		});
 	}
 	
 	private void receiveInformation()
@@ -176,6 +204,38 @@ public class InformationDetailActivity extends FragmentActivity
 	
 	private void updateInfoInDB()
 	{
+		InformationFactory infoFactory = new InformationFactory(null);
+		List<Information> infos = new ArrayList<Information>();
+		Information info = mInfo;
+		info.setLike(info.getLike() + (mCbLike.isChecked() ? 1 : -1));
+		info.setCanLike(!mCbLike.isChecked());
+		infos.add(info);
+		infoFactory.saveObjects(this, infos);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) 
+	{
+		// TODO Auto-generated method stub
+		if(keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			return false;
+		}
 		
+		return super.onKeyDown(keyCode, event);
+	}
+	
+	public void showShareDialog(String content) 
+	{
+		String sourceDesc = getResources().getString(R.string.share_from_we);
+		String share = getResources().getString(R.string.test_share);
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		//intent.putExtra(Intent.EXTRA_TEXT, mEvent.getDescription());
+        intent.putExtra(Intent.EXTRA_TEXT, content + sourceDesc);
+        //intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(mAq.getCachedFile(mEvent.getImage())));
+        intent.setType("text/*"); 
+        intent.setType("image/*");
+        startActivity(Intent.createChooser(intent, share));
 	}
 }
