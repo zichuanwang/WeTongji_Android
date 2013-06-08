@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -238,6 +239,9 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		{
 		case R.id.menu_informationlist_reload:
 			refreshData();
+			return true;
+		case R.id.info_menu_cat1:
+			Log.v(TAG, "Campus Update");
 			return true;
 		}
 
