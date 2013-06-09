@@ -95,4 +95,8 @@
     <item type="id" name="text_profile_orgs">false</item>
     <item type="id" name="text_profile_people_num">false</item>
     <item type="id" name="text_profile_orgs_num">false</item>
+    <item type="id" name="info_menu_cat1">false</item>
+    <item type="id" name="info_menu_cat2">false</item>
+    <item type="id" name="info_menu_cat3">false</item>
+    <item type="id" name="info_menu_cat4">false</item>
 </resources>

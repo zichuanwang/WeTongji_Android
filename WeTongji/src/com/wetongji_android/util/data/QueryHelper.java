@@ -18,6 +18,8 @@ public class QueryHelper {
 	public static final String ARGS_HAS_CHANNEL_4="hasChannel4";
 	public static final String ARGS_BEGIN="begin";
 	public static final String ARGS_END="end";
+	public static final String ARGS_INFO_TYPE = "INFOTYPE";
+	public static final String ARGS_INFO_ORDER_BY = "CreatedAt";
 	
 	public static Bundle getActivitiesQueryArgs(String orderBy, boolean ascending, boolean hasExpired, boolean hasChannel1, boolean hasChannel2, boolean hasChannel3, boolean hasChannel4){
 		Bundle bundle=new Bundle();

@@ -246,7 +246,7 @@ public class ApiHelper {
 		putLoginArgs(bundle);
 		
 		bundle.putString(API_ARGS_ID, String.valueOf(id));
-		bundle.putString(API_ARGS_METHOD, "");
+		bundle.putString(API_ARGS_METHOD, "Information.Like");
 		return bundle;
 	}
 	
@@ -256,7 +256,7 @@ public class ApiHelper {
 		putLoginArgs(bundle);
 		
 		bundle.putString(API_ARGS_ID, String.valueOf(id));
-		bundle.putString(API_ARGS_METHOD, "");
+		bundle.putString(API_ARGS_METHOD, "Information.UnLike");
 		return bundle;
 	}
 	
