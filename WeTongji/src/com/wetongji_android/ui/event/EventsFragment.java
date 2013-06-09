@@ -52,7 +52,7 @@ OnScrollListener{
 	public static final String PREFERENCE_EVENT_TYPE = "EventType";
 	
 	public ListView mListActivity;
-	public EndlessEventListAdapter mAdapter;
+	public EventListAdapter mAdapter;
 	private int mCurrentPage = 0;
 	private boolean isRefresh = false;
 	private ActivityFactory mFactory;
@@ -68,7 +68,7 @@ OnScrollListener{
 		View view = inflater.inflate(R.layout.fragment_events, null);
 		
 		mListActivity = (ListView) view.findViewById(R.id.lst_events);
-		mAdapter = new EndlessEventListAdapter(this, mListActivity);
+		mAdapter = new EventListAdapter(this, mListActivity);
 		mListActivity.setAdapter(mAdapter);
 		mListActivity.setOnItemClickListener(onItemClickListener);
 		AQuery aq = WTApplication.getInstance().getAq(getActivity());

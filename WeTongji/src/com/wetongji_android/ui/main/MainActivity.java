@@ -5,6 +5,7 @@ import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -126,12 +127,16 @@ public class MainActivity extends UpdateBaseActivity {
 	}
 
 	@Override
-	public void onBackPressed() {
-		if (!getSlidingMenu().isMenuShowing()) {
-			getSlidingMenu().showMenu();
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (getSlidingMenu().isMenuShowing()) {
+				finish();
+			} else {
+				getSlidingMenu().showMenu(true);
+			}
+			return true;
 		} else {
-			super.onBackPressed();
-			finish();
+			return false;
 		}
 	}
 

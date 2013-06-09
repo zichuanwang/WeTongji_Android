@@ -1,4 +1,4 @@
-package com.wetongji_android.ui.event;
+package com.wetongji_android.ui;
 
 import java.util.ArrayList;
 import java.util.List;
