@@ -14,9 +14,11 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.wetongji_android.factory.UserFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
@@ -104,6 +106,7 @@ implements LoaderCallbacks<HttpRequestResult> {
 	
 	private void finishLogin(String result){
 		Log.i(TAG, "finishLogin");
+		JSONObject user = null;
 		final Account account=new Account(mUsername, WTApplication.ACCOUNT_TYPE);
 		if(mRequestNewAccount){
 			mAm.addAccountExplicitly(account, mPassword, null);
@@ -113,7 +116,7 @@ implements LoaderCallbacks<HttpRequestResult> {
 		}
 		try {
 			JSONObject data=new JSONObject(result);
-			JSONObject user=data.getJSONObject("User");
+			user=data.getJSONObject("User");
 			String uid=user.getString("UID");
 			String session=data.getString("Session");
 			mAm.setUserData(account, AccountManager.KEY_USERDATA, uid);
@@ -129,6 +132,9 @@ implements LoaderCallbacks<HttpRequestResult> {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		
+		UserFactory userFactory = new UserFactory(this);
+		userFactory.createObject(user.toString());
 	}
 	
 	public void onAuthenticationResult(String result){

@@ -93,4 +93,6 @@
     <item type="id" name="text_profile_people">false</item>
     <item type="id" name="ll_profile_org_like">false</item>
     <item type="id" name="text_profile_orgs">false</item>
+    <item type="id" name="text_profile_people_num">false</item>
+    <item type="id" name="text_profile_orgs_num">false</item>
 </resources>
