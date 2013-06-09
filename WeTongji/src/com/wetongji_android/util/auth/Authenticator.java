@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import com.wetongji_android.R;
 import com.wetongji_android.net.WTClient;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.auth.AuthActivity;
 import com.wetongji_android.ui.auth.BaseAuthActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.net.ApiHelper;
@@ -42,7 +43,7 @@ public class Authenticator extends AbstractAccountAuthenticator {
 		Log.v(TAG, "addAccount");
 		final AccountManager am=AccountManager.get(mContext);
 		if(am.getAccountsByType(WTApplication.ACCOUNT_TYPE).length==0){
-			final Intent intent=new Intent(mContext, BaseAuthActivity.class);
+			final Intent intent=new Intent(mContext, AuthActivity.class);
 			intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
 			final Bundle bundle=new Bundle();
 			bundle.putParcelable(AccountManager.KEY_INTENT, intent);

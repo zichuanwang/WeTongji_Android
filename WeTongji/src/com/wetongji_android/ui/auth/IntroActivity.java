@@ -13,9 +13,11 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.flurry.android.FlurryAgent;
 import com.wetongji_android.R;
+import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 
-public class IntroActivity extends SherlockFragmentActivity implements OnCheckedChangeListener, OnClickListener{
+public class IntroActivity extends SherlockFragmentActivity implements OnCheckedChangeListener, OnClickListener
+{
 
 	private ToggleButton btnOnLogin;
 	
@@ -59,12 +61,17 @@ public class IntroActivity extends SherlockFragmentActivity implements OnChecked
 	}
 
 	@Override
-	public void onClick(View v) {
+	public void onClick(View v) 
+	{
+		Intent intent = new Intent(IntroActivity.this, MainActivity.class);
+		intent.putExtra(MainActivity.PARAM_PREVIEW_WITHOUT_lOGIN, true);
+		startActivity(intent);
 		finish();
 	}
 
 	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) 
+	{
 		Intent intent=new Intent(this, AuthActivity.class);
 		startActivity(intent);
 		overridePendingTransition(R.anim.slide_up_in, R.anim.push_out);

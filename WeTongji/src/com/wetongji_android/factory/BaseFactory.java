@@ -12,6 +12,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
@@ -46,6 +48,7 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 	}
 	
 	public void saveObjects(FragmentActivity activity, List<T> data) {
+		Log.v("t", data.size() + "");
 		Bundle args=new Bundle();
 		args.putBoolean(ARG_NEED_TO_REFRESH, false);
 		if (fragment == null) {

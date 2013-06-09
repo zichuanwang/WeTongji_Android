@@ -16,6 +16,7 @@ import android.util.Log;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
@@ -111,6 +112,7 @@ implements LoaderCallbacks<HttpRequestResult> {
 		else{
 			mAm.setPassword(account, mPassword);
 		}
+		
 		try {
 			JSONObject data=new JSONObject(result);
 			JSONObject user=data.getJSONObject("User");
@@ -120,12 +122,15 @@ implements LoaderCallbacks<HttpRequestResult> {
 			mAm.setAuthToken(account, WTApplication.AUTHTOKEN_TYPE, session);
 			apiHelper.setSession(session);
 			apiHelper.setUID(uid);
-			final Intent intent=new Intent();
+			
+			final Intent intent=new Intent(BaseAuthActivity.this, MainActivity.class);
 			intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mUsername);
 			intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, WTApplication.ACCOUNT_TYPE);
-			setAccountAuthenticatorResult(intent.getExtras());
-			setResult(RESULT_OK, intent);
+			//setAccountAuthenticatorResult(intent.getExtras());
+			//setResult(RESULT_OK, intent);
+			startActivity(intent);
 			finish();
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

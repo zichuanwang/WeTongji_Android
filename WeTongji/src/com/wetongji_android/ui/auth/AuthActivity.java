@@ -26,6 +26,7 @@ import android.widget.ToggleButton;
 import com.actionbarsherlock.app.ActionBar;
 import com.flurry.android.FlurryAgent;
 import com.wetongji_android.R;
+import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.image.PickImageIntentWrapper;
 
@@ -83,7 +84,11 @@ public class AuthActivity extends BaseAuthActivity implements OnClickListener, O
 	}
 
 	@Override
-	public void onClick(View v) {
+	public void onClick(View v) 
+	{
+		Intent intent = new Intent(AuthActivity.this, MainActivity.class);
+		intent.putExtra(MainActivity.PARAM_PREVIEW_WITHOUT_lOGIN, true);
+		startActivity(intent);
 		finish();
 	}
 

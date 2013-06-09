@@ -23,7 +23,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -85,7 +84,6 @@ public class InformationDetailActivity extends FragmentActivity
 		Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
 		if(!mInfo.getImages().get(0).equals(WTApplication.MISSING_IMAGE_URL))
 		{
-			Log.v("here", "not missing");
 			
 			mAq.id(R.id.info_detail_image).image(mInfo.getImages().get(0), false, true, 0, R.drawable.image_place_holder,
 					bitmap, AQuery.FADE_IN, 1.0f);
@@ -210,7 +208,7 @@ public class InformationDetailActivity extends FragmentActivity
 		info.setLike(info.getLike() + (mCbLike.isChecked() ? 1 : -1));
 		info.setCanLike(!mCbLike.isChecked());
 		infos.add(info);
-		infoFactory.saveObjects(this, infos);
+		infoFactory.saveObjects(InformationDetailActivity.this, infos);
 	}
 
 	@Override
