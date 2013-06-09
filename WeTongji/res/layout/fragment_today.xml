@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.wetongji_android.ui.widgets.WTScrollViewWithVP xmlns:android="http://schemas.android.com/apk/res/android"
 	    xmlns:app="http://schemas.android.com/res-auto"
 	    xmlns:tools="http://schemas.android.com/tools"
 	    tools:context=".ui.today.TodayFragment"
@@ -201,7 +201,7 @@
 	        android:shadowColor="@color/tv_today_section_shadow"
 	        android:shadowDx="0"
 	        android:shadowDy="1"
-	        android:shadowRadius="0"/>
+	        android:shadowRadius="2"/>
 	    
 	    <GridView 
 	        android:id="@+id/gv_today_information"
@@ -229,7 +229,7 @@
 	        android:shadowColor="@color/tv_today_section_shadow"
 	        android:shadowDx="0"
 	        android:shadowDy="1"
-	        android:shadowRadius="0"/>
+	        android:shadowRadius="2"/>
 	    
 	    <GridView 
 	        android:id="@+id/gv_today_activities"
@@ -257,7 +257,7 @@
 	        android:shadowColor="@color/tv_today_section_shadow"
 	        android:shadowDx="0"
 	        android:shadowDy="1"
-	        android:shadowRadius="0"/>
+	        android:shadowRadius="2"/>
 	    
 	    <GridView 
 	        android:id="@+id/gv_today_features"
@@ -272,4 +272,4 @@
 	         
 	</RelativeLayout>
 	
-</ScrollView>
+</com.wetongji_android.ui.widgets.WTScrollViewWithVP>

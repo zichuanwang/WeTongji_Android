@@ -2,15 +2,15 @@ package com.wetongji_android.ui.today;
 
 import java.util.List;
 
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Account;
 import com.wetongji_android.data.Person;
 import com.wetongji_android.util.common.WTApplication;
-
-import android.content.Context;
-import android.view.View;
-import android.view.ViewGroup;
 
 public class TodayGridFeatureAdapter extends TodayGridBaseAdapter<Object> {
 
@@ -20,11 +20,10 @@ public class TodayGridFeatureAdapter extends TodayGridBaseAdapter<Object> {
 
 	@Override
 	public long getItemId(int position) {
-		Object item=items.get(position);
-		if(item instanceof Person){
+		Object item = items.get(position);
+		if (item instanceof Person) {
 			return ((Person) item).getId();
-		}
-		else if(item instanceof Account){
+		} else if (item instanceof Account) {
 			return ((Account) item).getId();
 		}
 		return 0;
@@ -32,64 +31,88 @@ public class TodayGridFeatureAdapter extends TodayGridBaseAdapter<Object> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		convertView=super.getView(position, convertView, parent);
-		Object item=items.get(position);
-		holder.ivGridTitleIndicator.setImageResource(R.drawable.indicator_today_grid_cyan);
-		holder.tvGridTitle.setTextColor(context.getResources().getColor(R.color.tv_today_cyan));
-		int paddingLeft=holder.tvGridTitle.getPaddingLeft();
-		if(item instanceof Person){
+		convertView = super.getView(position, convertView, parent);
+		Object item = items.get(position);
+		holder.ivGridTitleIndicator
+				.setImageResource(R.drawable.indicator_today_grid_cyan);
+		holder.tvGridTitle.setTextColor(context.getResources().getColor(
+				R.color.tv_today_cyan));
+		int paddingLeft = holder.tvGridTitle.getPaddingLeft();
+		if (item instanceof Person) {
 			getPersonView((Person) item, convertView);
-		}
-		else if(item instanceof Account){
+		} else if (item instanceof Account) {
 			getAccountView((Account) item, convertView);
 		}
 		holder.tvGridTitle.setPadding(paddingLeft, 0, 0, 0);
 		return convertView;
 	}
 
-	private void getPersonView(Person person, View convertView){
-		if(person!=null){
+	private void getPersonView(Person person, View convertView) {
+		if (person != null) {
 			holder.tvGridTitle.setText(R.string.text_people);
 			holder.tvGridContent.setText(person.getName());
-			if(person.getImages()==null||person.getImages().isEmpty()||person.getImages().equals(WTApplication.MISSING_IMAGE_URL)){
+			if (person.getImages() == null
+					|| person.getImages().isEmpty()
+					|| person.getImages().equals(
+							WTApplication.MISSING_IMAGE_URL)) {
 				holder.ivGridImage.setVisibility(View.GONE);
-				
+
 				holder.ivGridImageMask.setVisibility(View.GONE);
-				
-				holder.tvGridTitle.setBackgroundResource(R.drawable.bg_today_grid_title_no_image);
-				holder.tvGridTitle.setShadowLayer(0, 0, 1, context.getResources().getColor(R.color.tv_today_grid_title_shadow));
-				
-				holder.tvGridContent.setTextColor(context.getResources().getColor(R.color.tv_today_content_black));
-				holder.tvGridContent.setShadowLayer(2, 0, 1, context.getResources().getColor(R.color.transparent));
-			}
-			else{
+
+				holder.tvGridTitle
+						.setBackgroundResource(R.drawable.bg_today_grid_title_no_image);
+				holder.tvGridTitle.setShadowLayer(
+						2,
+						0,
+						1,
+						context.getResources().getColor(
+								R.color.tv_today_grid_title_shadow));
+
+				holder.tvGridContent.setTextColor(context.getResources()
+						.getColor(R.color.tv_today_content_black));
+				holder.tvGridContent.setShadowLayer(2, 0, 1, context
+						.getResources().getColor(R.color.transparent));
+			} else {
 				holder.ivGridImage.setVisibility(View.VISIBLE);
-				AQuery aq=gridAq.recycle(convertView);
-				String strImage=person.getImages().keySet().iterator().next();
-				aq.id(holder.ivGridImage).image(strImage, true, true, 300, 0, null, AQuery.FADE_IN_NETWORK, 1f);
-				
+				AQuery aq = gridAq.recycle(convertView);
+				String strImage = person.getImages().keySet().iterator().next();
+				aq.id(holder.ivGridImage).image(strImage, true, true, 300, 0,
+						null, AQuery.FADE_IN_NETWORK, 1f);
+
 				holder.ivGridImageMask.setVisibility(View.VISIBLE);
-				
-				holder.tvGridTitle.setBackgroundResource(R.drawable.bg_today_grid_title_default);
-				holder.tvGridTitle.setShadowLayer(0, 0, 1, context.getResources().getColor(R.color.transparent));
-				
-				holder.tvGridContent.setTextColor(context.getResources().getColor(R.color.tv_today_content_white));
-				holder.tvGridContent.setShadowLayer(2, 0, 1, context.getResources().getColor(R.color.tv_today_content_shadow));
+
+				holder.tvGridTitle
+						.setBackgroundResource(R.drawable.bg_today_grid_title_default);
+				holder.tvGridTitle.setShadowLayer(0, 0, 1, context
+						.getResources().getColor(R.color.transparent));
+
+				holder.tvGridContent.setTextColor(context.getResources()
+						.getColor(R.color.tv_today_content_white));
+				holder.tvGridContent.setShadowLayer(
+						2,
+						0,
+						1,
+						context.getResources().getColor(
+								R.color.tv_today_content_shadow));
 			}
 		}
 	}
-	
-	private void getAccountView(Account account, View convertView){
-		if(account!=null){
-			holder.tvGridTitle.setText(R.string.text_most_popular_account);			
-			holder.tvGridContent.setText(account.getDisplay());	
+
+	private void getAccountView(Account account, View convertView) {
+		if (account != null) {
+			holder.tvGridTitle.setText(R.string.text_most_popular_account);
+			holder.tvGridContent.setText(account.getDisplay());
 			holder.ivGridImage.setVisibility(View.GONE);
 			holder.ivGridImageMask.setVisibility(View.GONE);
-			holder.tvGridTitle.setBackgroundResource(R.drawable.bg_today_grid_title_no_image);
-			holder.tvGridTitle.setShadowLayer(0, 0, 1, context.getResources().getColor(R.color.tv_today_grid_title_shadow));
-			holder.tvGridContent.setTextColor(context.getResources().getColor(R.color.tv_today_content_black));
-			holder.tvGridContent.setShadowLayer(2, 0, 1, context.getResources().getColor(R.color.transparent));
+			holder.tvGridTitle
+					.setBackgroundResource(R.drawable.bg_today_grid_title_no_image);
+			holder.tvGridTitle.setShadowLayer(2, 0, 1, context.getResources()
+					.getColor(R.color.tv_today_grid_title_shadow));
+			holder.tvGridContent.setTextColor(context.getResources().getColor(
+					R.color.tv_today_content_black));
+			holder.tvGridContent.setShadowLayer(2, 0, 1, context.getResources()
+					.getColor(R.color.transparent));
 		}
 	}
-	
+
 }

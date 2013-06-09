@@ -1,33 +1,32 @@
 package com.wetongji_android.ui.main;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.flurry.android.FlurryAgent;
-import com.slidingmenu.lib.SlidingMenu;
-import com.wetongji_android.R;
-import com.wetongji_android.data.Event;
-import com.wetongji_android.ui.auth.IntroActivity;
-import com.wetongji_android.ui.today.TodayFragment;
-import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.version.UpdateBaseActivity;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.flurry.android.FlurryAgent;
+import com.slidingmenu.lib.SlidingMenu;
+import com.wetongji_android.R;
+import com.wetongji_android.ui.auth.IntroActivity;
+import com.wetongji_android.ui.today.TodayFragment;
+import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.version.UpdateBaseActivity;
+
 import android.util.Log;
 
 public class MainActivity extends UpdateBaseActivity 
-implements OnWTListClickedListener
 {
 	private Fragment mContent;
 	public static final String PARAM_PREVIEW_WITHOUT_lOGIN = "previewWithoutLogin";
 	private static final String TAG = "MainActivity";
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState) 
-	{
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		//set the above view
@@ -52,7 +51,7 @@ implements OnWTListClickedListener
 			finish();
 		}
 	}
-	
+
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -68,43 +67,40 @@ implements OnWTListClickedListener
 	/**
 	 * set attributes of the sliding menu
 	 */
-	private void setSlidingMenu() 
-	{
+	private void setSlidingMenu() {
 		// set slidingmenu properties
 		SlidingMenu sm = getSlidingMenu();
-		//sm.setMode(SlidingMenu.LEFT_RIGHT);
+		// sm.setMode(SlidingMenu.LEFT_RIGHT);
 		sm.setShadowWidthRes(R.dimen.shadow_width);
 		sm.setShadowDrawable(R.drawable.shadow);
 		sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 		sm.setFadeDegree(0.35f);
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
-		
+
 		// set left menu
 		setBehindContentView(R.layout.menu_frame);
-		getSupportFragmentManager()
-		.beginTransaction()
-		.replace(R.id.menu_frame, new MainMenuFragment())
-		.commit();
-		
-		//set right menu
-		/*sm.setSecondaryMenu(R.layout.right_menu);
-		sm.setSecondaryShadowDrawable(R.drawable.shadow);
-		getSupportFragmentManager()
-		.beginTransaction()
-		.replace(R.id.right_menu, new NotificationFragment())
-		.commit();*/
-		
-		//setTitle();
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.menu_frame, new MainMenuFragment()).commit();
+
+		// set right menu
+		/*
+		 * sm.setSecondaryMenu(R.layout.right_menu);
+		 * sm.setSecondaryShadowDrawable(R.drawable.shadow);
+		 * getSupportFragmentManager() .beginTransaction()
+		 * .replace(R.id.right_menu, new NotificationFragment()) .commit();
+		 */
+
+		// setTitle();
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
-	
+
 	@Override
 	public void onSaveInstanceState(Bundle outState) 
 	{
 		super.onSaveInstanceState(outState);
 		getSupportFragmentManager().putFragment(outState, "mContent", mContent);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
@@ -114,25 +110,21 @@ implements OnWTListClickedListener
 			toggle();
 			return true;
 		}
-		
+
 		return super.onOptionsItemSelected(item);
 	}
-	
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) 
 	{
-		return super.onCreateOptionsMenu(menu);	
+		return super.onCreateOptionsMenu(menu);
 	}
-	
 
 	public void switchContent(Fragment fragment) 
 	{
 		mContent = fragment;
-		getSupportFragmentManager()
-		.beginTransaction()
-		.replace(R.id.content_frame, fragment)
-		.commit();
+		getSupportFragmentManager().beginTransaction()
+				.replace(R.id.content_frame, fragment).commit();
 	}
 	
 	private boolean checkAccount()
@@ -148,10 +140,17 @@ implements OnWTListClickedListener
 		return true;
 	}
 	
-	@Override
-	public void onEventClicked(Event event) 
+	public boolean onKeyUp(int keyCode, KeyEvent event) 
 	{
-		// TODO Auto-generated method stub
-		
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (getSlidingMenu().isMenuShowing()) {
+				finish();
+			} else {
+				getSlidingMenu().showMenu(true);
+			}
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
