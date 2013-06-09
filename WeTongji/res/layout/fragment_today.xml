@@ -201,7 +201,7 @@
 	        android:shadowColor="@color/tv_today_section_shadow"
 	        android:shadowDx="0"
 	        android:shadowDy="1"
-	        android:shadowRadius="0"/>
+	        android:shadowRadius="2"/>
 	    
 	    <GridView 
 	        android:id="@+id/gv_today_information"
@@ -229,7 +229,7 @@
 	        android:shadowColor="@color/tv_today_section_shadow"
 	        android:shadowDx="0"
 	        android:shadowDy="1"
-	        android:shadowRadius="0"/>
+	        android:shadowRadius="2"/>
 	    
 	    <GridView 
 	        android:id="@+id/gv_today_activities"
@@ -257,7 +257,7 @@
 	        android:shadowColor="@color/tv_today_section_shadow"
 	        android:shadowDx="0"
 	        android:shadowDy="1"
-	        android:shadowRadius="0"/>
+	        android:shadowRadius="2"/>
 	    
 	    <GridView 
 	        android:id="@+id/gv_today_features"
