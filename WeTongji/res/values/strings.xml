@@ -89,4 +89,17 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="menu_event_sort_order">Sort Order</string>
 	<string name="menu_event_filter_expired">Filter Expired</string>
 	<string name="menu_more">More</string>
+	<string name="menu_activity_type">Type</string>
+	<string name="channel_sort_publish_time_reverse_order">Publish Time Reverse</string>
+	<string name="channel_sort_like">Like Reverse</string>
+	<string name="channel_sort_publish_time_order">Publish Time</string>
+	<string name="share_from_we">"（分享自 @WeTongji）http://we.tongji.edu.cn/"</string>
+	<string name="test_share">Share</string>
+	<string name="profile_info">INFO</string>
+	<string name="profile_section_friendlist">Friend List</string>
+	<string name="things_i_like">THINGS I LIKE</string>
+	<string name="profile_section_events">Events</string>
+	<string name="profile_section_news">News</string>
+	<string name="profile_section_people">People</string>
+	<string name="profile_section_org">Organizations</string>
 </resources>

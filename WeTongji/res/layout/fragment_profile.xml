@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <ScrollView
+    	android:background="@drawable/bg_app_base"
+        android:layout_width="match_parent"
+    	android:layout_height="match_parent">
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:orientation="vertical"  >
+	    	
+			<include layout="@layout/include_profile_header"/>
+			
+            <LinearLayout
+                android:layout_width="match_parent"
+	    		android:layout_height="wrap_content"
+	    		android:background="@color/profile_section_bg"
+	    		android:orientation="vertical"
+	    		android:layout_marginLeft="5dp"
+	    		android:layout_marginRight="5dp"
+	    		android:layout_marginTop="8dp"
+	    		android:layout_marginBottom="8.7dp">
+                
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13.3dp"
+                    android:layout_marginLeft="18.3dp"
+                    android:layout_marginBottom="6.7dp"
+                    android:text="@string/profile_info"
+                    style="@style/ProfileInfoHeader"/>
+                
+                <View 
+                    android:layout_width="match_parent"
+	    			android:layout_height="1.7dp"
+	    			android:background="@color/profile_divider"
+	    			android:layout_marginLeft="11.3dp"
+	    			android:layout_marginRight="11.3dp"
+	    			android:layout_marginBottom="0dp"/>
+                
+                <RelativeLayout
+                    android:id="@id/ll_profile_friend_list"
+                    android:clickable="true"
+                    android:background="@drawable/selectable_background_wttheme"
+                    android:layout_width="match_parent"
+	    			android:layout_height="wrap_content"
+	    			android:layout_marginLeft="11.3dp"
+	    			android:layout_marginRight="11.3dp"
+	    			android:paddingBottom="12dp">
+                    
+                    <TextView
+                        android:id="@id/text_profile_friendlist"
+                        android:layout_width="wrap_content"
+	    				android:layout_height="wrap_content"
+	    				android:layout_alignParentTop="true"
+	    				android:layout_marginTop="12dp"
+	    				android:layout_marginLeft="7dp"
+	    				android:text="@string/profile_section_friendlist"
+	    				style="@style/ProfileFriendList"/>
+                    
+                    <TextView
+                        android:id="@id/text_profile_friend_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/text_profile_friendlist"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginTop="3dp"
+                    	android:text="23 Friends"
+                    	style="@style/ProfileFriendNum"
+                    	/>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="26.7dp"
+                        android:layout_marginTop="23dp"
+                        android:layout_toLeftOf="@id/ll_profile_friend_add"
+                        android:background="@color/profile_vertical_divider" />
+                    
+                    <LinearLayout
+                        android:id="@id/ll_profile_friend_add"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="7.3dp"
+                        android:layout_marginTop="15.7dp"
+                        android:addStatesFromChildren="true"
+                        android:background="@drawable/selectable_background_wttheme"
+                        android:clickable="true"
+                        android:gravity="center" >
+                        
+	                    <ImageButton
+	                        android:id="@id/btn_profile_friend_add"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        android:src="@drawable/ic_profile_friend_add"
+	                        android:scaleType="fitCenter"
+	                        android:background="@null" />
+                        
+                    </LinearLayout>
+
+                </RelativeLayout>
+                
+                <View 
+                    android:layout_width="match_parent"
+	    			android:layout_height="1dp"
+	    			android:background="@color/profile_divider_thin"
+	    			android:layout_marginLeft="11.3dp"
+	    			android:layout_marginRight="11.3dp"
+	    			android:layout_marginBottom="16.7dp"/>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+	    		android:layout_height="wrap_content"
+	    		android:background="@color/profile_section_bg"
+	    		android:orientation="vertical"
+	    		android:layout_marginLeft="5dp"
+	    		android:layout_marginRight="5dp"
+	    		android:layout_marginBottom="8.7dp">
+                
+                <TextView 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13.3dp"
+                    android:layout_marginLeft="18.3dp"
+                    android:layout_marginBottom="6.7dp"
+                    android:drawableLeft="@drawable/ic_profile_things_like"
+                    android:drawablePadding="4dp"
+                    android:text="@string/things_i_like"
+                    style="@style/ProfileInfoHeader"/>
+                
+                <View 
+                    android:layout_width="match_parent"
+	    			android:layout_height="1.7dp"
+	    			android:background="@color/profile_divider"
+	    			android:layout_marginLeft="11.3dp"
+	    			android:layout_marginRight="11.3dp"
+	    			android:layout_marginBottom="0dp"/>
+                
+                <!-- Events I like -->
+                <RelativeLayout
+                    android:id="@id/ll_profile_events_like"
+                    android:clickable="true"
+                    android:background="@drawable/selectable_background_wttheme"
+                    android:layout_width="match_parent"
+	    			android:layout_height="wrap_content"
+	    			android:layout_marginLeft="11.3dp"
+	    			android:layout_marginRight="11.3dp"
+	    			android:paddingBottom="12dp">
+                    
+                    <ImageView 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_profile_events"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginLeft="7dp"
+                        />
+                    
+                    <TextView
+                        android:id="@id/text_profile_events"
+                        android:layout_width="wrap_content"
+	    				android:layout_height="wrap_content"
+	    				android:layout_alignParentTop="true"
+	    				android:layout_marginTop="12dp"
+	    				android:layout_marginLeft="48.3dp"
+	    				android:text="@string/profile_section_events"
+	    				style="@style/ProfileFriendList"/>
+                    
+                    <TextView
+                        android:id="@id/text_profile_events_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/text_profile_events"
+                        android:layout_marginLeft="48.3dp"
+                        android:layout_marginTop="3dp"
+                    	android:text="7 Likes"
+                    	style="@style/ProfileFriendNum"
+                    	/>
+                </RelativeLayout>
+                
+                <View 
+                    android:layout_width="match_parent"
+	    			android:layout_height="1dp"
+	    			android:background="@color/profile_divider_thin"
+	    			android:layout_marginLeft="11.3dp"
+	    			android:layout_marginRight="11.3dp"/>
+                
+                <!-- News I like -->
+                <RelativeLayout
+                    android:id="@id/ll_profile_news_like"
+                    android:clickable="true"
+                    android:background="@drawable/selectable_background_wttheme"
+                    android:layout_width="match_parent"
+	    			android:layout_height="wrap_content"
+	    			android:layout_marginLeft="11.3dp"
+	    			android:layout_marginRight="11.3dp"
+	    			android:paddingBottom="12dp">
+                    
+                    <ImageView 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_profile_news"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginLeft="7dp"
+                        />
+                    
+                    <TextView
+                        android:id="@id/text_profile_news"
+                        android:layout_width="wrap_content"
+	    				android:layout_height="wrap_content"
+	    				android:layout_alignParentTop="true"
+	    				android:layout_marginTop="12dp"
+	    				android:layout_marginLeft="48.3dp"
+	    				android:text="@string/profile_section_news"
+	    				style="@style/ProfileFriendList"/>
+                    
+                    <TextView
+                        android:id="@id/text_profile_news_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/text_profile_news"
+                        android:layout_marginLeft="48.3dp"
+                        android:layout_marginTop="3dp"
+                    	android:text="7 Likes"
+                    	style="@style/ProfileFriendNum"
+                    	/>
+                </RelativeLayout>
+                
+                <View 
+                    android:layout_width="match_parent"
+	    			android:layout_height="1dp"
+	    			android:background="@color/profile_divider_thin"
+	    			android:layout_marginLeft="11.3dp"
+	    			android:layout_marginRight="11.3dp"/>
+                
+                <!-- People I like -->
+                <RelativeLayout
+                    android:id="@id/ll_profile_people_like"
+                    android:clickable="true"
+                    android:background="@drawable/selectable_background_wttheme"
+                    android:layout_width="match_parent"
+	    			android:layout_height="wrap_content"
+	    			android:layout_marginLeft="11.3dp"
+	    			android:layout_marginRight="11.3dp"
+	    			android:paddingBottom="12dp">
+                    
+                    <ImageView 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_profile_people"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginLeft="7dp"
+                        />
+                    
+                    <TextView
+                        android:id="@id/text_profile_people"
+                        android:layout_width="wrap_content"
+	    				android:layout_height="wrap_content"
+	    				android:layout_alignParentTop="true"
+	    				android:layout_marginTop="12dp"
+	    				android:layout_marginLeft="48.3dp"
+	    				android:text="@string/profile_section_people"
+	    				style="@style/ProfileFriendList"/>
+                    
+                    <TextView
+                        android:id="@id/text_profile_people_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/text_profile_people"
+                        android:layout_marginLeft="48.3dp"
+                        android:layout_marginTop="3dp"
+                    	android:text="7 Likes"
+                    	style="@style/ProfileFriendNum"
+                    	/>
+                </RelativeLayout>
+                
+                <View 
+                    android:layout_width="match_parent"
+	    			android:layout_height="1dp"
+	    			android:background="@color/profile_divider_thin"
+	    			android:layout_marginLeft="11.3dp"
+	    			android:layout_marginRight="11.3dp"/>
+                
+                <!-- Organizations I like -->
+                <RelativeLayout
+                    android:id="@id/ll_profile_org_like"
+                    android:clickable="true"
+                    android:background="@drawable/selectable_background_wttheme"
+                    android:layout_width="match_parent"
+	    			android:layout_height="wrap_content"
+	    			android:layout_marginLeft="11.3dp"
+	    			android:layout_marginRight="11.3dp"
+	    			android:paddingBottom="12dp">
+                    
+                    <ImageView 
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_profile_org"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginLeft="7dp"
+                        />
+                    
+                    <TextView
+                        android:id="@id/text_profile_orgs"
+                        android:layout_width="wrap_content"
+	    				android:layout_height="wrap_content"
+	    				android:layout_alignParentTop="true"
+	    				android:layout_marginTop="12dp"
+	    				android:layout_marginLeft="48.3dp"
+	    				android:text="@string/profile_section_org"
+	    				style="@style/ProfileFriendList"/>
+                    
+                    <TextView
+                        android:id="@id/text_profile_orgs_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/text_profile_orgs"
+                        android:layout_marginLeft="48.3dp"
+                        android:layout_marginTop="3dp"
+                    	android:text="7 Likes"
+                    	style="@style/ProfileFriendNum"
+                    	/>
+                </RelativeLayout>
+                
+                <View 
+                    android:layout_width="match_parent"
+	    			android:layout_height="1dp"
+	    			android:background="@color/profile_divider_thin"
+	    			android:layout_marginLeft="11.3dp"
+	    			android:layout_marginRight="11.3dp"
+	    			android:layout_marginBottom="14.7dp"/>
+            </LinearLayout>
+			
+        </LinearLayout>
+    </ScrollView>
+	
+	
+</LinearLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_profile_header"
+    android:layout_width="match_parent"
+    android:layout_height="165dp"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@id/text_profile_words"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/img_profile_avatar"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16.7dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="16dp"
+        android:text="&#34;Say goodbye to the world you thought you've lived in.&#34;"
+        style="@style/ProfileHeaderWords"/>
+    
+    <TextView
+        android:id="@id/text_profile_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_profile_action"
+        android:layout_toRightOf="@id/img_profile_avatar"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="16.7dp"
+        android:layout_marginRight="30dp"
+        android:drawableLeft="@drawable/ic_profile_gender_male"
+        android:text="School of Software Engineering"
+        style="@style/ProfileHeaderMajor"/>
+
+    <ImageView
+        android:id="@id/img_profile_avatar"
+        android:layout_width="106.7dp"
+        android:layout_height="106.7dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="13.3dp"
+        android:src="@drawable/test_avatar" />
+
+    <Button
+        android:id="@id/btn_profile_action"
+        android:layout_width="146.7dp"
+        android:layout_height="44dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical"
+        android:text="Change Avatar" 
+        style="@style/ProfileHeaderAction"/>
+
+</RelativeLayout>

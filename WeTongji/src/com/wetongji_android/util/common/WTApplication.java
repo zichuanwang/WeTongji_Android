@@ -6,12 +6,14 @@ package com.wetongji_android.util.common;
 import com.androidquery.AQuery;
 import com.androidquery.util.AQUtility;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
+import com.wetongji_android.R;
 import com.wetongji_android.util.data.DbHelper;
 
 import java.io.File;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -48,8 +50,11 @@ public class WTApplication extends Application
 	public static final int INFORMATION_SAVER=14;
 	public static final int PERSON_SAVER=15;
 	public static final int INFORMATION_LOADER = 16;
-	public static final int EVENT_LOADER=17;
-	public static final int EVENT_Like_LOADER=18;
+	public static final int INFORMATION_LIKE_LOADER = 17;
+	public static final int EVENT_LOADER=18;
+	public static final int EVENT_Like_LOADER=19;
+	public static final int USER_SAVER = 20;
+	public static final int USER_LOADER = 21;
 	
 	public static final String FLURRY_API_KEY="GN5KJMW6XWCSD5DTCWRW";
 	public static final String MISSING_IMAGE_URL="http://we.tongji.edu.cn/images/original/missing.png";
@@ -91,7 +96,7 @@ public class WTApplication extends Application
 		aq = new AQuery(activity);
 		// Instantiate AQuery and configure cache directory
 		if(Environment.getExternalStorageState().compareTo(Environment.MEDIA_MOUNTED)== 0) {
-			File ext = Environment.getExternalStorageDirectory();
+			//File ext = Environment.getExternalStorageDirectory();
 			File downloadCacheDir = getExternalFilesDir("imgCache");
 			
 			AQUtility.setCacheDir(downloadCacheDir);
@@ -127,10 +132,5 @@ public class WTApplication extends Application
 	public void setActivity(Activity activity) {
 		this.activity = activity;
 	}
-	
-	
-	
-	
-	
 	
 }

@@ -240,6 +240,26 @@ public class ApiHelper {
 		return bundle;
 	}
 	
+	public Bundle likeInfo(int id) {
+		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		bundle.putString(API_ARGS_METHOD, "Information.Like");
+		return bundle;
+	}
+	
+	public Bundle unLikeInfo(int id) {
+		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		bundle.putString(API_ARGS_METHOD, "Information.UnLike");
+		return bundle;
+	}
+	
 	public Bundle likeActivity(int id) {
 		Bundle bundle=new Bundle();
 		putBasicArgs(bundle);

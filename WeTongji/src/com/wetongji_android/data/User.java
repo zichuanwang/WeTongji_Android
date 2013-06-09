@@ -1,5 +1,6 @@
 package com.wetongji_android.data;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
 public class User {
@@ -35,6 +36,14 @@ public class User {
 	private String Department;
 	@DatabaseField
 	private String Email;
+	@DatabaseField
+	private String Words;
+	@DatabaseField
+	private String Room;
+	@DatabaseField(dataType=DataType.SERIALIZABLE)
+	private LikeCounts LikeCount;
+	@DatabaseField
+	private boolean IsFriend;
 	
 	public User() {
 		super();
@@ -190,6 +199,38 @@ public class User {
 
 	public void setEmail(String email) {
 		Email = email;
+	}
+
+	public String getWords() {
+		return Words;
+	}
+
+	public void setWords(String words) {
+		Words = words;
+	}
+
+	public String getRoom() {
+		return Room;
+	}
+
+	public void setRoom(String room) {
+		Room = room;
+	}
+
+	public LikeCounts getLikeCount() {
+		return LikeCount;
+	}
+
+	public void setLikeCount(LikeCounts likeCount) {
+		LikeCount = likeCount;
+	}
+
+	public boolean isIsFriend() {
+		return IsFriend;
+	}
+
+	public void setIsFriend(boolean isFriend) {
+		IsFriend = isFriend;
 	}
 	
 }

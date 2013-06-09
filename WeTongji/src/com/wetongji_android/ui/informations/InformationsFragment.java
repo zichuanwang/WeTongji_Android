@@ -14,6 +14,7 @@ import com.wetongji_android.factory.InformationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.information.InformationUtil;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
@@ -21,17 +22,22 @@ import com.wetongji_android.util.net.HttpRequestResult;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class InformationsFragment extends SherlockFragment implements LoaderCallbacks<HttpRequestResult> 
 {	
 	private static final String TAG = "InformationsFragment";
+	public static final String BUNDLE_KEY_INFORMATION = "bundle_key_information";
 	
 	private View mView;
 	private AmazingListView mListNews;
@@ -84,15 +90,18 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		mAdapter = new InformationsListAdapter(this, mListNews);
 		mListNews.setAdapter(mAdapter); 
 		mListNews.setLoadingView(mInflater.inflate(R.layout.amazing_lst_view_loading_view, mListNews, false));
+		mListNews.setOnItemClickListener(onItemClickListener);
 		mAdapter.notifyMayHaveMorePages();
 		
 		switch(getCurrentState(savedInstanceState))
 		{
 		case FIRST_TIME_START:
+			WTUtility.log(TAG, "First Time Start");
 			mAdapter.loadDataFromDB();
 		case SCREEN_ROTATE:
 			break;
 		case ACTIVITY_DESTROY_AND_CREATE:
+			WTUtility.log(TAG, "ACTIVITY DESTROY AND RECREATE");
 			InformationList informations = (InformationList)savedInstanceState.getSerializable(
 					INFORMATION_LIST);
 			mAdapter.setOriginList(informations.getInformations());
@@ -116,6 +125,8 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 	public void onSaveInstanceState(Bundle outState) 
 	{
 		// TODO Auto-generated method stub
+		WTUtility.log(TAG, "saveinstance state");
+		
 		super.onSaveInstanceState(outState);
 		InformationList informations = new InformationList();
 		informations.setInformations(mAdapter.getOriginList());
@@ -131,6 +142,24 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		getLoaderManager().destroyLoader(WTApplication.INFORMATION_LOADER);
 	}
 
+	private OnItemClickListener onItemClickListener = new OnItemClickListener() 
+	{
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) 
+		{
+			// TODO Auto-generated method stub
+			WTUtility.log(TAG, "click item");
+			Intent intent = new Intent(mActivity, InformationDetailActivity.class);
+			Information information = (Information)mAdapter.getItem(arg2);
+			Bundle bundle = new Bundle();
+			bundle.putParcelable(BUNDLE_KEY_INFORMATION, information);
+			intent.putExtras(bundle);
+			startActivity(intent);
+			mActivity.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
+		}
+	};
+	
 	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) 
 	{
@@ -175,13 +204,15 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		mAdapter.setLoadingData(true);
 		
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		//By default we fetch all kind of informations
 		Bundle args = apiHelper.getInformations(1, 3, "1,2,3,4");
 		this.getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	
 	private int getCurrentState(Bundle savedInstanceState)
 	{
-		if (savedInstanceState != null) {
+		if (savedInstanceState != null) 
+		{
             isFirstTimeToStart = false;
             return ACTIVITY_DESTROY_AND_CREATE;
         }
@@ -195,22 +226,25 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 	}
 
 	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) 
+	{
 		inflater.inflate(R.menu.menu_informationlist, menu);
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+		switch (item.getItemId()) 
+		{
 		case R.id.menu_informationlist_reload:
 			refreshData();
+			return true;
+		case R.id.info_menu_cat1:
+			Log.v(TAG, "Campus Update");
 			return true;
 		}
 
 		return super.onOptionsItemSelected(item);
 	}
-	
-	
-	
 }

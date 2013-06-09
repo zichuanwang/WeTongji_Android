@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.wetongji_android.ui.widgets.WTScrollViewWithVP xmlns:android="http://schemas.android.com/apk/res/android"
 	    xmlns:app="http://schemas.android.com/res-auto"
 	    xmlns:tools="http://schemas.android.com/tools"
 	    tools:context=".ui.today.TodayFragment"
@@ -272,4 +272,4 @@
 	         
 	</RelativeLayout>
 	
-</ScrollView>
+</com.wetongji_android.ui.widgets.WTScrollViewWithVP>
