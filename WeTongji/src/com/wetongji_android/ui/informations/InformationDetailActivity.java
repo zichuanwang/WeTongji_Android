@@ -22,6 +22,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
@@ -36,7 +37,8 @@ import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 public class InformationDetailActivity extends FragmentActivity implements
-		LoaderCallbacks<HttpRequestResult> {
+		LoaderCallbacks<HttpRequestResult> 
+{
 	private Information mInfo;
 
 	private AQuery mAq;
@@ -47,7 +49,8 @@ public class InformationDetailActivity extends FragmentActivity implements
 	private boolean isRestCheckBox = false;
 
 	@Override
-	protected void onCreate(Bundle arg0) {
+	protected void onCreate(Bundle arg0) 
+	{
 		super.onCreate(arg0);
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_information_detail);
@@ -57,7 +60,8 @@ public class InformationDetailActivity extends FragmentActivity implements
 		initWidget();
 	}
 
-	private void initWidget() {
+	private void initWidget() 
+	{
 		mAq = WTApplication.getInstance().getAq(this);
 		//Set the organization avatar
 		mAq.id(R.id.info_detail_avatar).image(mInfo.getOrganizerAvatar(), false, true, 0, R.drawable.image_place_holder,
@@ -91,52 +95,69 @@ public class InformationDetailActivity extends FragmentActivity implements
 		tvContent.setText(mInfo.getContext());
 
 		LinearLayout ll = (LinearLayout) findViewById(R.id.info_detail_back);
-		ll.setOnClickListener(new OnClickListener() {
+		ll.setOnClickListener(new OnClickListener() 
+		{
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v) 
+			{
 				InformationDetailActivity.this.finish();
 			}
 		});
 
 		ImageButton btnShare = (ImageButton) findViewById(R.id.action_info_detail_share);
-		btnShare.setOnClickListener(new OnClickListener() {
+		btnShare.setOnClickListener(new OnClickListener() 
+		{
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v) 
+			{
 				showShareDialog(mInfo.getTitle());
 			}
 		});
 	}
 
-	private void receiveInformation() {
+	private void receiveInformation() 
+	{
 		Intent intent = getIntent();
 		mInfo = intent
 				.getParcelableExtra(InformationsFragment.BUNDLE_KEY_INFORMATION);
 	}
 
-	private void setLikeCheckbox() {
+	private void setLikeCheckbox() 
+	{
 		mCbLike = (CheckBox) findViewById(R.id.cb_info_like);
 		mTvLikeNum = (TextView) findViewById(R.id.tv_info_like_number);
 
 		mCbLike.setChecked(!mInfo.isCanLike());
 		mTvLikeNum.setText(String.valueOf(mInfo.getLike()));
 
-		mCbLike.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		mCbLike.setOnCheckedChangeListener(new OnCheckedChangeListener() 
+		{
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				if (isRestCheckBox) {
-					return;
+					boolean isChecked) 
+			{
+				if(WTApplication.getInstance().hasAccount)
+				{
+					if (isRestCheckBox) 
+					{
+						return;
+					}
+
+					int delat = isChecked ? 1 : -1;
+					mTvLikeNum.setText(String.valueOf(mInfo.getLike() + delat));
+
+					likeInfo(isChecked);
+				}else
+				{
+					mCbLike.setChecked(false);
+					Toast.makeText(InformationDetailActivity.this, getResources().getString(R.string.need_account_login), Toast.LENGTH_SHORT).show();
 				}
-
-				int delat = isChecked ? 1 : -1;
-				mTvLikeNum.setText(String.valueOf(mInfo.getLike() + delat));
-
-				likeInfo(isChecked);
 			}
 		});
 	}
 
-	private void likeInfo(boolean isLike) {
+	private void likeInfo(boolean isLike) 
+	{
 		ApiHelper apihelper = ApiHelper
 				.getInstance(InformationDetailActivity.this);
 		Bundle bundle = isLike ? apihelper.likeInfo(mInfo.getId()) : apihelper
@@ -146,16 +167,21 @@ public class InformationDetailActivity extends FragmentActivity implements
 	}
 
 	@Override
-	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
+	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) 
+	{
 		return new NetworkLoader(this, HttpMethod.Get, arg1);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
-			HttpRequestResult arg1) {
-		if (arg1.getResponseCode() == 0) {
+			HttpRequestResult arg1) 
+	{
+		if (arg1.getResponseCode() == 0) 
+		{
 			updateInfoInDB();
-		} else {
+		} else 
+		{
+			//When network error occurs, the checkbox state should be reset
 			ExceptionToast.show(this, arg1.getResponseCode());
 			mTvLikeNum.setText(String.valueOf(mInfo.getLike()));
 			isRestCheckBox = true;
@@ -165,7 +191,8 @@ public class InformationDetailActivity extends FragmentActivity implements
 	}
 
 	@Override
-	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
+	public void onLoaderReset(Loader<HttpRequestResult> arg0) 
+	{
 	}
 	
 	private void updateInfoInDB()
@@ -180,15 +207,18 @@ public class InformationDetailActivity extends FragmentActivity implements
 	}
 
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
+	public boolean onKeyDown(int keyCode, KeyEvent event) 
+	{
+		if (keyCode == KeyEvent.KEYCODE_BACK) 
+		{
 			return false;
 		}
 
 		return super.onKeyDown(keyCode, event);
 	}
 
-	public void showShareDialog(String content) {
+	public void showShareDialog(String content) 
+	{
 		String sourceDesc = getResources().getString(R.string.share_from_we);
 		String share = getResources().getString(R.string.test_share);
 		Intent intent = new Intent(Intent.ACTION_SEND);

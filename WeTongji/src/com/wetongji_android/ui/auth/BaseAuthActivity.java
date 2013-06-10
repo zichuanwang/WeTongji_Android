@@ -127,6 +127,7 @@ public class BaseAuthActivity extends SherlockFragmentActivity implements
 			mAm.setAuthToken(account, WTApplication.AUTHTOKEN_TYPE, session);
 			apiHelper.setSession(session);
 			apiHelper.setUID(uid);
+			WTApplication.getInstance().hasAccount = true;
 			
 			final Intent intent=new Intent(BaseAuthActivity.this, MainActivity.class);
 			intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mUsername);

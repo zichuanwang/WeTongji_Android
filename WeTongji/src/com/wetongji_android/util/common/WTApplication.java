@@ -65,15 +65,20 @@ public class WTApplication extends Application {
 	private Activity activity = null;
 	private DisplayMetrics displayMetrics = null;
 
-	public static WTApplication getInstance() {
+	public boolean hasAccount;
+	
+	public static WTApplication getInstance() 
+	{
 		return application;
 	}
 
 	@Override
-	public void onCreate() {
+	public void onCreate() 
+	{
 		super.onCreate();
 		application = this;
 		dbHelper = OpenHelperManager.getHelper(this, DbHelper.class);
+		hasAccount = true;
 	}
 
 	public DbHelper getDbHelper() {

@@ -51,7 +51,9 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 		Log.v("t", data.size() + "");
 		Bundle args=new Bundle();
 		args.putBoolean(ARG_NEED_TO_REFRESH, false);
-		if (fragment == null) {
+		if (fragment == null) 
+		{
+			this.context = activity;
 			activity.getSupportLoaderManager().initLoader(loaderId, args, this).forceLoad();
 		} else {
 			fragment.getLoaderManager().initLoader(loaderId, args, this).forceLoad();

@@ -66,6 +66,7 @@ public class IntroActivity extends SherlockFragmentActivity implements OnChecked
 		Intent intent = new Intent(IntroActivity.this, MainActivity.class);
 		intent.putExtra(MainActivity.PARAM_PREVIEW_WITHOUT_lOGIN, true);
 		startActivity(intent);
+		overridePendingTransition(R.anim.slide_up_in, R.anim.push_out);
 		finish();
 	}
 

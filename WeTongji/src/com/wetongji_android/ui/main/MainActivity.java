@@ -29,7 +29,6 @@ public class MainActivity extends UpdateBaseActivity
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		//set the above view
 		if(getIntent().getBooleanExtra(PARAM_PREVIEW_WITHOUT_lOGIN, false) || checkAccount())
 		{
 			if(savedInstanceState != null)
@@ -37,6 +36,7 @@ public class MainActivity extends UpdateBaseActivity
 			if(mContent == null)
 				mContent = new TodayFragment();
 			
+			//set the above view
 			setContentView(R.layout.content_frame);
 			getSupportFragmentManager()
 				.beginTransaction()
@@ -44,6 +44,12 @@ public class MainActivity extends UpdateBaseActivity
 				.commit();
 			
 			setSlidingMenu();
+			
+			if(getIntent().getBooleanExtra(PARAM_PREVIEW_WITHOUT_lOGIN, false))
+			{
+				WTApplication.getInstance().hasAccount = false;
+			}
+			
 		}else
 		{
 			Intent intent = new Intent(MainActivity.this, IntroActivity.class);
