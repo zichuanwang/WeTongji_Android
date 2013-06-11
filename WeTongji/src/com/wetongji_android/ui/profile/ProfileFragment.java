@@ -2,6 +2,9 @@ package com.wetongji_android.ui.profile;
 
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +23,18 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.wetongji_android.R;
 import com.wetongji_android.data.User;
+import com.wetongji_android.factory.UserFactory;
+import com.wetongji_android.net.NetworkLoader;
+import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.DbListLoader;
 import com.wetongji_android.util.data.user.UserLoader;
 import com.wetongji_android.util.image.ImageUtil;
+import com.wetongji_android.util.net.ApiHelper;
+import com.wetongji_android.util.net.HttpRequestResult;
 
-public class ProfileFragment extends SherlockFragment implements LoaderCallbacks<List<User>>{
+public class ProfileFragment extends SherlockFragment implements LoaderCallbacks<HttpRequestResult>{
 
 	private User mUser;
 	
@@ -87,26 +97,46 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 		if (!TextUtils.isEmpty(user.getWords())) {
 			mTvWords.setText("\"" + user.getWords() + "\"");
 		}
-		mTvCollege.setText(user.getDepartment());
-		//mTvFriendsNum.setText(text)
-	}
-
-	@Override
-	public Loader<List<User>> onCreateLoader(int arg0, Bundle arg1) {
 		
-		return new UserLoader(getActivity());
+		mTvCollege.setText(user.getDepartment());
+		
+		String format = getResources().getString(R.string.format_likes);
+		mTvEventsLikes.setText(String.format(format, user.getLikeCount().getActivity()));
+		mTvNewsLikes.setText(String.format(format, user.getLikeCount().getInformation()));
+		mTvPeopleLikes.setText(String.format(format, user.getLikeCount().getPerson()));
+		
+		getActivity().setTitle(user.getName());
 	}
 
 	@Override
-	public void onLoadFinished(Loader<List<User>> arg0, List<User> result) {
-		if (result != null && result.size() != 0) {
-			mUser = result.get(0);
+	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
+		Bundle bundle = ApiHelper.getInstance(getActivity()).getUserGet();
+		
+		NetworkLoader loader = new NetworkLoader(getActivity(), HttpMethod.Get, bundle);
+		return loader;
+	}
+
+	@Override
+	public void onLoadFinished(Loader<HttpRequestResult> arg0,
+			HttpRequestResult result) {
+		Log.d("data", result.getStrResponseCon());
+		JSONObject json = null;
+		String strUser = null;
+		if (result.getResponseCode() == 0) {
+			try {
+				json = new JSONObject(result.getStrResponseCon());
+				strUser = json.getString("User");
+			} catch (JSONException e) {
+			}
+			
+			UserFactory factory = new UserFactory((MainActivity)getActivity());
+			mUser = factory.createObject(strUser);
 			setWidgets(mUser);
 		}
 	}
 
 	@Override
-	public void onLoaderReset(Loader<List<User>> arg0) {
+	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 	}
-	
+
 }
