@@ -149,7 +149,6 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 				long arg3) 
 		{
 			// TODO Auto-generated method stub
-			WTUtility.log(TAG, "click item");
 			Intent intent = new Intent(mActivity, InformationDetailActivity.class);
 			Information information = (Information)mAdapter.getItem(arg2);
 			Bundle bundle = new Bundle();

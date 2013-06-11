@@ -86,6 +86,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="text_people">People</string>
     <string name="text_most_popular_account">Most Popluar Account</string>
 	<string name="text_u_like_this_activity">You have liked this activity</string>
+	<string name="text_u_like_this_information">You have liked this information</string>
 	<string name="menu_event_sort_order">Sort Order</string>
 	<string name="menu_event_filter_expired">Filter Expired</string>
 	<string name="menu_more">More</string>

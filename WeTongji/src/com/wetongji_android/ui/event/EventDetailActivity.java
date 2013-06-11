@@ -1,5 +1,7 @@
 package com.wetongji_android.ui.event;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -22,6 +25,7 @@ import android.widget.Toast;
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
+import com.wetongji_android.factory.ActivityFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
@@ -60,6 +64,7 @@ public class EventDetailActivity extends FragmentActivity implements
 			@Override
 			public void onClick(View view) {
 				EventDetailActivity.this.finish();
+				EventDetailActivity.this.overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
 			}
 		});
 		ImageButton btnShare = (ImageButton) findViewById(R.id.action_event_detail_share);
@@ -126,14 +131,33 @@ public class EventDetailActivity extends FragmentActivity implements
 			@Override
 			public void onCheckedChanged(CompoundButton button,
 					boolean isChecked) {
-				if (isRestCheckBox) {
-					return;
+				if(WTApplication.getInstance().hasAccount) {
+					if (isRestCheckBox) {
+						return;
+					}
+					likeEvent(isChecked);
+					int delta = isChecked ? 1 : -1;
+					mTvLikeNum.setText(String.valueOf(mEvent.getLike() + delta));
+				}else
+				{
+					mCbLike.setChecked(false);
+					Toast.makeText(EventDetailActivity.this, getResources().getString(R.string.need_account_login), Toast.LENGTH_SHORT).show();
 				}
-				likeEvent(isChecked);
-				int delta = isChecked ? 1 : -1;
-				mTvLikeNum.setText(String.valueOf(mEvent.getLike() + delta));
 			}
 		});
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		if(keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			finish();
+			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+			return true;
+		}
+		
+		return super.onKeyDown(keyCode, event);
 	}
 
 	private void likeEvent(boolean isLike) {
@@ -170,14 +194,14 @@ public class EventDetailActivity extends FragmentActivity implements
 	}
 
 	private void updateEventInDB() {
-		// ActivityFactory factory = new ActivityFactory(null);
-		// ArrayList<Activity> lstTask = new ArrayList<Activity>();
-		// Activity newActivity = mEvent;
-		// newActivity.setLike(newActivity.getLike() + (mCbLike.isChecked() ? 1
-		// : -1));
-		// newActivity.setCanLike(!mCbLike.isChecked());
-		// lstTask.add(newActivity);
-		// factory.saveObjects(this, lstTask);
+		 ActivityFactory factory = new ActivityFactory(null);
+		 ArrayList<Activity> lstTask = new ArrayList<Activity>();
+		 Activity newActivity = mEvent;
+		 newActivity.setLike(newActivity.getLike() + (mCbLike.isChecked() ? 1
+		 : -1));
+		 newActivity.setCanLike(!mCbLike.isChecked());
+		 lstTask.add(newActivity);
+		 factory.saveObjects(this, lstTask);
 	}
 
 	@Override

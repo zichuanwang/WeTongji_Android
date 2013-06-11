@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,6 +34,7 @@ import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
+import com.wetongji_android.util.net.HttpUtil;
 
 public class InformationDetailActivity extends FragmentActivity implements
 		LoaderCallbacks<HttpRequestResult> 
@@ -64,7 +64,7 @@ public class InformationDetailActivity extends FragmentActivity implements
 	{
 		mAq = WTApplication.getInstance().getAq(this);
 		//Set the organization avatar
-		mAq.id(R.id.info_detail_avatar).image(mInfo.getOrganizerAvatar(), false, true, 0, R.drawable.image_place_holder,
+		mAq.id(R.id.info_detail_avatar).image(HttpUtil.replaceURL(mInfo.getOrganizerAvatar()), false, true, 0, R.drawable.image_place_holder,
 				null, AQuery.FADE_IN, 1.0f);
 		
 		Drawable drawable = getResources().getDrawable(
@@ -72,9 +72,7 @@ public class InformationDetailActivity extends FragmentActivity implements
 		Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
 		if (!mInfo.getImages().get(0).equals(WTApplication.MISSING_IMAGE_URL)) 
 		{
-			Log.v("here", "not missing");
-
-			mAq.id(R.id.info_detail_image).image(mInfo.getImages().get(0),
+			mAq.id(R.id.info_detail_image).image(HttpUtil.replaceURL(mInfo.getImages().get(0)),
 					false, true, 0, R.drawable.image_place_holder, bitmap,
 					AQuery.FADE_IN, 1.0f);
 		} else 
@@ -101,6 +99,7 @@ public class InformationDetailActivity extends FragmentActivity implements
 			public void onClick(View v) 
 			{
 				InformationDetailActivity.this.finish();
+				InformationDetailActivity.this.overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
 			}
 		});
 
@@ -178,6 +177,11 @@ public class InformationDetailActivity extends FragmentActivity implements
 	{
 		if (arg1.getResponseCode() == 0) 
 		{
+			Toast.makeText(
+					this,
+					getResources()
+							.getString(R.string.text_u_like_this_information),
+					Toast.LENGTH_SHORT).show();
 			updateInfoInDB();
 		} else 
 		{
@@ -211,7 +215,9 @@ public class InformationDetailActivity extends FragmentActivity implements
 	{
 		if (keyCode == KeyEvent.KEYCODE_BACK) 
 		{
-			return false;
+			finish();
+			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+			return true;
 		}
 
 		return super.onKeyDown(keyCode, event);
