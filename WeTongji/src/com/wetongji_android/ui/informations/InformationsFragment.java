@@ -173,7 +173,7 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		// TODO Auto-generated method stub
 		if(result.getResponseCode() != 0)
 		{
-			ExceptionToast.show(getActivity(), result.getResponseCode());
+			ExceptionToast.show(mActivity, result.getResponseCode());
 		}else
 		{
 			if(mFactory == null)
@@ -202,8 +202,8 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		mAdapter.clear();
 		mAdapter.setLoadingData(true);
 		
-		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		//By default we fetch all kind of informations
+		ApiHelper apiHelper = ApiHelper.getInstance(mActivity);
+		//By default we fetch all kind of informations from the server
 		Bundle args = apiHelper.getInformations(1, 3, "1,2,3,4");
 		this.getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}

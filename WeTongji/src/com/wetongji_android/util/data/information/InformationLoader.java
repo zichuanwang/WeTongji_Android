@@ -1,6 +1,7 @@
 /**
  * This loader is used to load information
- * data from the database
+ * data from the database and also order by the
+ * created date descending
  */
 package com.wetongji_android.util.data.information;
 
@@ -52,24 +53,38 @@ public class InformationLoader extends DbListLoader<Information, Integer>
 		}
 	}
 	
-	private PreparedQuery<Information> getInformationQuery(Bundle args)
+	/**
+	 * Generate the query option and for all the query the sort
+	 * is stable, but has different category
+	 * @param args
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private PreparedQuery<Information> getInformationQuery(Bundle bundle)
 	{
-		if(args == null)
+		if(bundle == null)
+		{
 			return null;
+		}
 		
 		QueryBuilder<Information, Integer> qb = mDao.queryBuilder();
 		//Sort by the create time descending
 		qb.orderBy(QueryHelper.ARGS_INFO_ORDER_BY, false);
 		Where<Information, Integer> where = qb.where();
 		
-		try 
+		try
 		{
-			where.eq("Category", args.get(QueryHelper.ARGS_INFO_TYPE));
+			if(args.get(QueryHelper.ARGS_INFO_TYPE).equals(QueryHelper.ARGS_INFO_TYPE_ALL))
+			{
+				where.or(where.eq("Category", QueryHelper.ARGS_INFO_TYPE_ONE), where.eq("Category", QueryHelper.ARGS_INFO_TYPE_TWO), where.eq("Category", QueryHelper.ARGS_INFO_TYPE_THREE), where.eq("Category", QueryHelper.ARGS_INFO_TYPE_FOUR));
+			}else
+			{
+				where.eq("Category", bundle.get(QueryHelper.ARGS_INFO_TYPE));
+			}
 			
 			return qb.prepare();
-		} catch (SQLException e) 
+		}catch(SQLException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
