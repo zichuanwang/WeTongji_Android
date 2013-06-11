@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
     
     
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
         
         <!-- actionbar container -->
 	    <LinearLayout 
@@ -24,12 +23,15 @@
       			android:layout_height="fill_parent"
       			android:clickable="true"
       			android:background="@drawable/selectable_background_wttheme">
+      			
 	            <ImageView android:id="@id/abs__up"
 	               android:src="?attr/homeAsUpIndicator"
 	               android:layout_gravity="center_vertical|left"
 	               android:layout_width="wrap_content"
 	               android:layout_height="wrap_content"
-	               android:layout_marginRight="-4dip" />
+	               android:layout_marginRight="-4dip"
+	               android:contentDescription="@string/img_content_description"/>
+	            
 			    <ImageView android:id="@id/abs__home"
 	               android:layout_width="wrap_content"
 	               android:layout_height="wrap_content"
@@ -39,7 +41,9 @@
 	               android:layout_marginBottom="@dimen/abs__action_bar_icon_vertical_padding"
 	               android:layout_gravity="center"
 	               android:adjustViewBounds="true"
-	               android:scaleType="fitCenter" />
+	               android:scaleType="fitCenter"
+	               android:contentDescription="@string/img_content_description"/>
+			    
 	        </LinearLayout>
 	        
 	        <LinearLayout
@@ -54,7 +58,8 @@
 			    android:paddingRight="6dip"
 			    android:layout_marginLeft="190dp">
 	            
-	            <ImageButton android:id="@id/action_event_detail_share"
+	            <ImageButton 
+	                android:id="@id/action_event_detail_share"
 	                 android:layout_width="wrap_content"
 	                 android:layout_height="wrap_content"
 	                 android:src="@drawable/ab_event_share"
@@ -66,7 +71,9 @@
 	                 android:scaleType="fitCenter"
 	                 android:adjustViewBounds="true"
 	                 android:focusable="false"
-	                 android:background="@null"/>
+	                 android:background="@null"
+	                 android:contentDescription="@string/img_content_description"/>
+	            
 	        </LinearLayout>
 	    </LinearLayout>
 	    
@@ -74,7 +81,8 @@
 		<FrameLayout 
 		    android:layout_below="@id/layout_event_detail_top_actionbar"
 		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content">
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/bg_app_base">
 		    
 		    <!-- main content -->
 		    <ScrollView android:layout_width="match_parent"
@@ -83,32 +91,34 @@
 		        <LinearLayout 
 			        android:layout_width="match_parent"
 			        android:layout_height="wrap_content"
-			        android:orientation="vertical"
-			        android:background="@drawable/bg_app_base"
-					>
+			        android:orientation="vertical">
 				
 			        <LinearLayout
 			            android:layout_width="match_parent"
 			            android:layout_height="wrap_content"
 			            android:orientation="vertical"
 			            android:paddingBottom="0dp"
-			            android:background="@color/bg_event_deatil_brief">
+			            android:background="@drawable/event_detail_brief_shadow">
 			            
-			            <TextView android:id="@id/tv_event_detail_title"
+			            <TextView 
+			                android:id="@id/tv_event_detail_title"
 			                android:layout_width="match_parent"
 			                android:layout_height="wrap_content"
 			                android:layout_marginRight="64dp"
 			                android:layout_marginLeft="10dp"
 			                android:layout_marginTop="10dp"
 			                android:layout_marginBottom="6dp"
-			                style="@style/EventDetailTitle"/>
+			                style="@style/EventDetailTitle"
+			                android:textIsSelectable="true"/>
 			            
-			            <TextView android:id="@id/tv_event_detail_time"
+			            <TextView 
+			                android:id="@id/tv_event_detail_time"
 			                android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
 			                android:layout_marginLeft="10dp"
 			                android:layout_marginBottom="12dp"
-			                style="@style/EventDetailTime"/>
+			                style="@style/EventDetailTime"
+			                android:textIsSelectable="true"/>
 			            
 			            <LinearLayout android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
@@ -117,16 +127,20 @@
 			                android:layout_gravity="right"
 			                android:background="@color/bg_event_deatil_brief">
 			                
-				            <TextView android:id="@id/tv_event_detail_location"
+				            <TextView 
+				                android:id="@id/tv_event_detail_location"
 				                android:layout_width="wrap_content"
 				                android:layout_height="wrap_content"
 				                android:layout_marginRight="3dp"
-				                style="@style/EventDetailLocation"/>
+				                style="@style/EventDetailLocation"
+				                android:textIsSelectable="true"/>
 				            
-				            <ImageView android:layout_width="wrap_content"
+				            <ImageView 
+				                android:layout_width="wrap_content"
 				                android:layout_height="wrap_content"
 				                android:layout_gravity="center_vertical"
-				                android:src="@drawable/event_detail_arrow"/>
+				                android:src="@drawable/event_detail_arrow"
+				                android:contentDescription="@string/img_content_description"/>
 			                
 			            </LinearLayout>
 			            
@@ -137,13 +151,15 @@
 			            android:paddingBottom="-0.5dp"
 			            android:background="@drawable/event_detail_shadow"></LinearLayout -->
 			        
-			        <ImageView android:id="@id/iv_event_detail_image"
+			        <ImageView 
+			            android:id="@id/iv_event_detail_image"
 			            android:layout_width="match_parent"
 			            android:layout_height="147dp"
-			            android:paddingTop="1dp"
-			            android:paddingBottom="1dp"
 			            android:background="@drawable/image_cover"
 			            android:scaleType="centerCrop"
+			            android:paddingTop="0dp"
+						android:paddingBottom="0dp"
+			            android:contentDescription="@string/img_content_description"
 			            />
 			        
 			        <!-- organization -->
@@ -154,6 +170,7 @@
 		            	android:layout_marginTop="10dp"
 		            	android:text="@string/text_evnet_detail_organization"
 		            	style="@style/EventDetailOrganization"/>
+		            
 			        <LinearLayout
 			            android:layout_width="match_parent"
 			            android:layout_height="wrap_content"
@@ -168,7 +185,8 @@
 			                android:layout_marginBottom="7dp"
 			                android:layout_marginLeft="1dp"
 			                android:padding="1dp"
-			                android:background="@drawable/image_cover"/>
+			                android:background="@drawable/image_cover"
+			                android:contentDescription="@string/img_content_description"/>
 			            
 			            <TextView android:id="@id/text_event_detail_org_name"
 			                android:layout_width="wrap_content"
@@ -206,17 +224,16 @@
 		                android:layout_width="match_parent"
 		                android:layout_height="48dp">
 		            </LinearLayout>
+		            
 			    </LinearLayout>
 		        
 		    </ScrollView>
-		    
-		    
+		     
 		    <!-- actionbar shadow -->
 		    <LinearLayout 
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
-		        android:background="@drawable/action_bar_shadow"
-		        >
+		        android:background="@drawable/action_bar_shadow">
 		    </LinearLayout>
 		    
 		</FrameLayout>	    
@@ -251,7 +268,9 @@
               android:id="@id/tv_event_like_number"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
+              android:textIsSelectable="true"
               style="@style/EventLikeNumber"/>
+          
         </LinearLayout>
         
         <!-- Bottom actionbar -->
@@ -299,7 +318,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/img_event_detail_friends"/>
+                    android:src="@drawable/img_event_detail_friends"
+                    android:contentDescription="@string/img_content_description"/>
                 
                 <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -329,7 +349,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/img_event_detail_attend"/>
+                    android:src="@drawable/img_event_detail_attend"
+                    android:contentDescription="@string/img_content_description"/>
                 
                 <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

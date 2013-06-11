@@ -33,6 +33,7 @@ import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
+import com.wetongji_android.util.net.HttpUtil;
 
 public class EventDetailActivity extends FragmentActivity implements
 		LoaderCallbacks<HttpRequestResult> {
@@ -84,7 +85,7 @@ public class EventDetailActivity extends FragmentActivity implements
 				R.drawable.image_place_holder);
 		Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
 		if (!mEvent.getImage().equals(WTApplication.MISSING_IMAGE_URL)) {
-			mAq.id(R.id.iv_event_detail_image).image(mEvent.getImage(), false,
+			mAq.id(R.id.iv_event_detail_image).image(HttpUtil.replaceURL(mEvent.getImage()), false,
 					true, 0, R.drawable.image_place_holder, bitmap,
 					AQuery.FADE_IN, 0.41f);
 		} else {
