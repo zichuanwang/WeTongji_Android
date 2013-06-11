@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,11 +17,13 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.data.information.InformationLoader;
 import com.wetongji_android.util.data.information.InformationUtil;
 import com.wetongji_android.util.date.DateParser;
@@ -89,9 +92,11 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	protected void onNextPageRequested(int page) 
 	{
 		// TODO Auto-generated method stub
+		Log.v(TAG, "next page request: " + page);
 		if(page != this.nextPage)
 		{
 			this.notifyNoMorePages();
+			Toast.makeText(mContext, "No More Data", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -242,15 +247,17 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public Loader<List<Information>> onCreateLoader(int arg0, Bundle arg1) 
 	{
 		// TODO Auto-generated method stub
-		return new InformationLoader(this.mContext, null);
+		return new InformationLoader(this.mContext, arg1);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<List<Information>> arg0, List<Information> list) 
 	{
 		// TODO Auto-generated method stub
-		if(list != null && list.size() > 20)
+		if(list != null && list.size() != 0)
 		{
+			if(list.size() < 20)
+				this.setNextPage(0);
 			this.setInformations(InformationUtil.getSectionedInformationList(list));
 			this.setOriginList(list);
 		}else
@@ -286,7 +293,9 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	
 	public void loadDataFromDB()
 	{
-		mFragment.getLoaderManager().initLoader(WTApplication.INFORMATION_LOADER, null, this);
+		Bundle bundle = new Bundle();
+		bundle.putString(QueryHelper.ARGS_INFO_TYPE, QueryHelper.ARGS_INFO_TYPE_ALL);
+		mFragment.getLoaderManager().initLoader(WTApplication.INFORMATION_LOADER, bundle, this);
 	}
 
 	public List<Information> getOriginList() {

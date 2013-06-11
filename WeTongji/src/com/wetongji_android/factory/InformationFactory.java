@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.Pair;
 
 import com.google.gson.JsonSyntaxException;
@@ -20,6 +21,7 @@ import com.wetongji_android.data.Information;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.date.DateParser;
+import com.wetongji_android.util.net.HttpUtil;
 import com.wetongji_android.ui.today.TodayFragment;
 
 public class InformationFactory extends BaseFactory<Information, Integer> 
@@ -41,10 +43,14 @@ public class InformationFactory extends BaseFactory<Information, Integer>
 			setNextPage(nextPager);
 			WTUtility.log("Information Factory", "Next Page: " + nextPager);
 			WTUtility.log("Information Factory", "Current Page: " + currentPage);
-			if(currentPage!=1){
+			if(currentPage!=1)
+			{
 				result=createObjects(jsonStr,false);
 			}
-			else{
+			else
+			{
+				//If it is the first page or the top 20 informations we need to store
+				//into the database
 				result=createObjects(jsonStr,true);
 			}
 		} catch (JSONException e) {
@@ -79,6 +85,7 @@ public class InformationFactory extends BaseFactory<Information, Integer>
 			
 		}else
 		{
+			Log.v("Information Factory", "store into db");
 			Bundle args=new Bundle();
 			args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
 			fragment.getLoaderManager().initLoader(WTApplication.INFORMATION_SAVER, args, this).forceLoad();
@@ -140,8 +147,9 @@ public class InformationFactory extends BaseFactory<Information, Integer>
 			
 			JSONArray jsonImage=jsonObject.getJSONArray("Images");
 			ArrayList<String> images=new ArrayList<String>();
-			for(int i=0;i!=jsonImage.length();i++){
-				images.add(jsonImage.getString(i));
+			for(int i=0;i!=jsonImage.length();i++)
+			{
+				images.add(HttpUtil.replaceURL(jsonImage.getString(i)));
 			}
 			info.setImages(images);
 		} catch (JSONException e) {

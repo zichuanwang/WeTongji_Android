@@ -33,18 +33,21 @@ public class NetworkLoader extends AsyncTaskLoader<HttpRequestResult>
 	@Override
 	public HttpRequestResult loadInBackground() 
 	{
-		try {
+		try 
+		{
 			HttpRequestResult result=mClient.execute(mMethod, mArgs);
 			Log.v("Network result", result.getStrResponseCon());
 			return result;
-		} catch (WTException e) {
+		} catch (WTException e) 
+		{
 			e.printStackTrace();
 			return new HttpRequestResult(200, "");
 		}
 	}
 
 	@Override
-	protected void onStartLoading() {
+	protected void onStartLoading() 
+	{
 		forceLoad();
 	}
 	
