@@ -266,7 +266,7 @@ public class ApiHelper {
 		putLoginArgs(bundle);
 		
 		bundle.putString(API_ARGS_ID, String.valueOf(id));
-		bundle.putString(API_ARGS_METHOD, "Activities.Like");
+		bundle.putString(API_ARGS_METHOD, "Activity.Like");
 		return bundle;
 	}
 	
@@ -276,7 +276,7 @@ public class ApiHelper {
 		putLoginArgs(bundle);
 		
 		bundle.putString(API_ARGS_ID, String.valueOf(id));
-		bundle.putString(API_ARGS_METHOD, "Activities.UnLike");
+		bundle.putString(API_ARGS_METHOD, "Activity.UnLike");
 		return bundle;
 	}
 	
@@ -286,7 +286,7 @@ public class ApiHelper {
 		putLoginArgs(bundle);
 		
 		bundle.putString(API_ARGS_ID, String.valueOf(id));
-		bundle.putString(API_ARGS_METHOD, "Activities.Schedule");
+		bundle.putString(API_ARGS_METHOD, "Activity.Schedule");
 		return bundle;
 	}
 	
@@ -296,7 +296,7 @@ public class ApiHelper {
 		putLoginArgs(bundle);
 		
 		bundle.putString(API_ARGS_ID, String.valueOf(id));
-		bundle.putString(API_ARGS_METHOD, "Activities.UnSchedule");
+		bundle.putString(API_ARGS_METHOD, "Activity.UnSchedule");
 		return bundle;
 	}
 	
@@ -306,7 +306,7 @@ public class ApiHelper {
 		putLoginArgs(bundle);
 		
 		bundle.putString(API_ARGS_ID, String.valueOf(id));
-		bundle.putString(API_ARGS_METHOD, "Activities.Favorite");
+		bundle.putString(API_ARGS_METHOD, "Activity.Favorite");
 		return bundle;
 	}
 	
@@ -316,7 +316,7 @@ public class ApiHelper {
 		putLoginArgs(bundle);
 		
 		bundle.putString(API_ARGS_ID, String.valueOf(id));
-		bundle.putString(API_ARGS_METHOD, "Activities.UnFavorite");
+		bundle.putString(API_ARGS_METHOD, "Activity.UnFavorite");
 		return bundle;
 	}
 	
@@ -428,6 +428,7 @@ public class ApiHelper {
 	public Bundle getHome(){
 		Bundle bundle=new Bundle();
 		putBasicArgs(bundle);
+		//putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "Home");
 		return bundle;
 	}
