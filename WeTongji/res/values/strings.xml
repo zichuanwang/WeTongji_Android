@@ -104,4 +104,5 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="profile_section_people">People</string>
 	<string name="profile_section_org">Organizations</string>
 	<string name="need_account_login">This Needs User Login</string>
+	<string name="format_likes">%d Likes</string>
 </resources>

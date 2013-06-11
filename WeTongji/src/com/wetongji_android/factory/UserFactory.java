@@ -25,12 +25,14 @@ public class UserFactory implements LoaderCallbacks<Void>{
 	}
 
 	
-	public void createObject(String jsonStr){
+	public User createObject(String jsonStr){
 		mUser = gson.fromJson(jsonStr, User.class);
 		
 		Bundle args=new Bundle();
 		args.putBoolean(BaseFactory.ARG_NEED_TO_REFRESH, true);
 		mActivity.getSupportLoaderManager().initLoader(WTApplication.USER_SAVER, args, this).forceLoad();
+		
+		return mUser;
 	}
 
 	@Override

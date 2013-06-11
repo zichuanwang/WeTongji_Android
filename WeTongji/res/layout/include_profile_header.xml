@@ -14,7 +14,7 @@
         android:layout_marginLeft="16.7dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="16dp"
-        android:text="&#34;Say goodbye to the world you thought you've lived in.&#34;"
+        android:text=""
         style="@style/ProfileHeaderWords"/>
     
     <TextView
@@ -28,7 +28,6 @@
         android:layout_marginLeft="16.7dp"
         android:layout_marginRight="30dp"
         android:drawableLeft="@drawable/ic_profile_gender_male"
-        android:text="School of Software Engineering"
         style="@style/ProfileHeaderMajor"/>
 
     <ImageView
