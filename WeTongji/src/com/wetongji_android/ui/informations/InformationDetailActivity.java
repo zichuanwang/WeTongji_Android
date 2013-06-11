@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.view.KeyEvent;
@@ -23,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Information;
@@ -36,9 +36,8 @@ import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 import com.wetongji_android.util.net.HttpUtil;
 
-public class InformationDetailActivity extends FragmentActivity implements
-		LoaderCallbacks<HttpRequestResult> 
-{
+public class InformationDetailActivity extends SherlockFragmentActivity
+		implements LoaderCallbacks<HttpRequestResult> {
 	private Information mInfo;
 
 	private AQuery mAq;
@@ -49,8 +48,7 @@ public class InformationDetailActivity extends FragmentActivity implements
 	private boolean isRestCheckBox = false;
 
 	@Override
-	protected void onCreate(Bundle arg0) 
-	{
+	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_information_detail);
@@ -60,23 +58,24 @@ public class InformationDetailActivity extends FragmentActivity implements
 		initWidget();
 	}
 
-	private void initWidget() 
-	{
+	private void initWidget() {
+		getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 		mAq = WTApplication.getInstance().getAq(this);
-		//Set the organization avatar
-		mAq.id(R.id.info_detail_avatar).image(HttpUtil.replaceURL(mInfo.getOrganizerAvatar()), false, true, 0, R.drawable.image_place_holder,
-				null, AQuery.FADE_IN, 1.0f);
-		
+		// Set the organization avatar
+		mAq.id(R.id.info_detail_avatar).image(
+				HttpUtil.replaceURL(mInfo.getOrganizerAvatar()), false, true,
+				0, R.drawable.image_place_holder, null, AQuery.FADE_IN, 1.0f);
+
 		Drawable drawable = getResources().getDrawable(
 				R.drawable.image_place_holder);
 		Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-		if (!mInfo.getImages().get(0).equals(WTApplication.MISSING_IMAGE_URL)) 
-		{
-			mAq.id(R.id.info_detail_image).image(HttpUtil.replaceURL(mInfo.getImages().get(0)),
-					false, true, 0, R.drawable.image_place_holder, bitmap,
-					AQuery.FADE_IN, 1.0f);
-		} else 
-		{
+		if (!mInfo.getImages().get(0).equals(WTApplication.MISSING_IMAGE_URL)) {
+			mAq.id(R.id.info_detail_image).image(
+					HttpUtil.replaceURL(mInfo.getImages().get(0)), false, true,
+					0, R.drawable.image_place_holder, bitmap, AQuery.FADE_IN,
+					1.0f);
+		} else {
 			mAq.id(R.id.info_detail_image).visibility(View.GONE);
 		}
 
@@ -93,52 +92,43 @@ public class InformationDetailActivity extends FragmentActivity implements
 		tvContent.setText(mInfo.getContext());
 
 		LinearLayout ll = (LinearLayout) findViewById(R.id.info_detail_back);
-		ll.setOnClickListener(new OnClickListener() 
-		{
+		ll.setOnClickListener(new OnClickListener() {
 			@Override
-			public void onClick(View v) 
-			{
+			public void onClick(View v) {
 				InformationDetailActivity.this.finish();
-				InformationDetailActivity.this.overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+				InformationDetailActivity.this.overridePendingTransition(
+						R.anim.slide_left_in, R.anim.slide_right_out);
 			}
 		});
 
 		ImageButton btnShare = (ImageButton) findViewById(R.id.action_info_detail_share);
-		btnShare.setOnClickListener(new OnClickListener() 
-		{
+		btnShare.setOnClickListener(new OnClickListener() {
 			@Override
-			public void onClick(View v) 
-			{
+			public void onClick(View v) {
 				showShareDialog(mInfo.getTitle());
 			}
 		});
 	}
 
-	private void receiveInformation() 
-	{
+	private void receiveInformation() {
 		Intent intent = getIntent();
 		mInfo = intent
 				.getParcelableExtra(InformationsFragment.BUNDLE_KEY_INFORMATION);
 	}
 
-	private void setLikeCheckbox() 
-	{
+	private void setLikeCheckbox() {
 		mCbLike = (CheckBox) findViewById(R.id.cb_info_like);
 		mTvLikeNum = (TextView) findViewById(R.id.tv_info_like_number);
 
 		mCbLike.setChecked(!mInfo.isCanLike());
 		mTvLikeNum.setText(String.valueOf(mInfo.getLike()));
 
-		mCbLike.setOnCheckedChangeListener(new OnCheckedChangeListener() 
-		{
+		mCbLike.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) 
-			{
-				if(WTApplication.getInstance().hasAccount)
-				{
-					if (isRestCheckBox) 
-					{
+					boolean isChecked) {
+				if (WTApplication.getInstance().hasAccount) {
+					if (isRestCheckBox) {
 						return;
 					}
 
@@ -146,17 +136,19 @@ public class InformationDetailActivity extends FragmentActivity implements
 					mTvLikeNum.setText(String.valueOf(mInfo.getLike() + delat));
 
 					likeInfo(isChecked);
-				}else
-				{
+				} else {
 					mCbLike.setChecked(false);
-					Toast.makeText(InformationDetailActivity.this, getResources().getString(R.string.need_account_login), Toast.LENGTH_SHORT).show();
+					Toast.makeText(
+							InformationDetailActivity.this,
+							getResources().getString(
+									R.string.need_account_login),
+							Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
 	}
 
-	private void likeInfo(boolean isLike) 
-	{
+	private void likeInfo(boolean isLike) {
 		ApiHelper apihelper = ApiHelper
 				.getInstance(InformationDetailActivity.this);
 		Bundle bundle = isLike ? apihelper.likeInfo(mInfo.getId()) : apihelper
@@ -166,26 +158,22 @@ public class InformationDetailActivity extends FragmentActivity implements
 	}
 
 	@Override
-	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) 
-	{
+	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
 		return new NetworkLoader(this, HttpMethod.Get, arg1);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
-			HttpRequestResult arg1) 
-	{
-		if (arg1.getResponseCode() == 0) 
-		{
+			HttpRequestResult arg1) {
+		if (arg1.getResponseCode() == 0) {
 			Toast.makeText(
 					this,
-					getResources()
-							.getString(R.string.text_u_like_this_information),
+					getResources().getString(
+							R.string.text_u_like_this_information),
 					Toast.LENGTH_SHORT).show();
 			updateInfoInDB();
-		} else 
-		{
-			//When network error occurs, the checkbox state should be reset
+		} else {
+			// When network error occurs, the checkbox state should be reset
 			ExceptionToast.show(this, arg1.getResponseCode());
 			mTvLikeNum.setText(String.valueOf(mInfo.getLike()));
 			isRestCheckBox = true;
@@ -195,12 +183,10 @@ public class InformationDetailActivity extends FragmentActivity implements
 	}
 
 	@Override
-	public void onLoaderReset(Loader<HttpRequestResult> arg0) 
-	{
+	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 	}
-	
-	private void updateInfoInDB()
-	{
+
+	private void updateInfoInDB() {
 		InformationFactory infoFactory = new InformationFactory(null);
 		List<Information> infos = new ArrayList<Information>();
 		Information info = mInfo;
@@ -211,20 +197,18 @@ public class InformationDetailActivity extends FragmentActivity implements
 	}
 
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) 
-	{
-		if (keyCode == KeyEvent.KEYCODE_BACK) 
-		{
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			finish();
-			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+			overridePendingTransition(R.anim.slide_left_in,
+					R.anim.slide_right_out);
 			return true;
 		}
 
 		return super.onKeyDown(keyCode, event);
 	}
 
-	public void showShareDialog(String content) 
-	{
+	public void showShareDialog(String content) {
 		String sourceDesc = getResources().getString(R.string.share_from_we);
 		String share = getResources().getString(R.string.test_share);
 		Intent intent = new Intent(Intent.ACTION_SEND);

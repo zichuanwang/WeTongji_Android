@@ -17,11 +17,36 @@
         android:scaleType="fitXY"
         android:contentDescription="@string/content_description_all" />
     
-    <TextView 
-        android:id="@+id/tv_banner_title"
+    <RelativeLayout 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|left"
-        android:textIsSelectable="false"/>
+        android:layout_gravity="center_vertical|left">
+    
+	    <TextView 
+	        android:id="@+id/tv_banner_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textIsSelectable="false"
+	        android:textSize="20sp"
+	        android:textColor="@android:color/white"
+	        android:shadowColor="#b2000000"
+	        android:shadowDx="0"
+	        android:shadowDy="1"
+	        android:shadowRadius="2"/>
+	    
+	    <TextView 
+	        android:id="@+id/tv_banner_publisher"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/tv_banner_title"
+	        android:textIsSelectable="false"
+	        android:textSize="20sp"
+	        android:textColor="#98eef2"
+	        android:shadowColor="#b2000000"
+	        android:shadowDx="0"
+	        android:shadowDy="1"
+	        android:shadowRadius="2"/>
+    
+    </RelativeLayout>
     
 </FrameLayout>

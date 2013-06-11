@@ -5,6 +5,7 @@ import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import com.actionbarsherlock.view.Menu;
@@ -17,41 +18,37 @@ import com.wetongji_android.ui.today.TodayFragment;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.version.UpdateBaseActivity;
 
-import android.util.Log;
-
-public class MainActivity extends UpdateBaseActivity 
-{
+public class MainActivity extends UpdateBaseActivity {
 	private Fragment mContent;
 	public static final String PARAM_PREVIEW_WITHOUT_lOGIN = "previewWithoutLogin";
 	private static final String TAG = "MainActivity";
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		if(getIntent().getBooleanExtra(PARAM_PREVIEW_WITHOUT_lOGIN, false) || checkAccount())
-		{
-			if(savedInstanceState != null)
-				mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
-			if(mContent == null)
+
+		if (getIntent().getBooleanExtra(PARAM_PREVIEW_WITHOUT_lOGIN, false)
+				|| checkAccount()) {
+			if (savedInstanceState != null)
+				mContent = getSupportFragmentManager().getFragment(
+						savedInstanceState, "mContent");
+			if (mContent == null)
 				mContent = new TodayFragment();
-			
-			//set the above view
+
+			// set the above view
 			setContentView(R.layout.content_frame);
-			getSupportFragmentManager()
-				.beginTransaction()
-				.replace(R.id.content_frame, mContent)
-				.commit();
-			
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.content_frame, mContent).commit();
+
+			getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 			setSlidingMenu();
-			
-			if(getIntent().getBooleanExtra(PARAM_PREVIEW_WITHOUT_lOGIN, false))
-			{
+
+			if (getIntent().getBooleanExtra(PARAM_PREVIEW_WITHOUT_lOGIN, false)) {
 				WTApplication.getInstance().hasAccount = false;
 			}
-			
-		}else
-		{
+
+		} else {
 			Intent intent = new Intent(MainActivity.this, IntroActivity.class);
 			startActivity(intent);
 			finish();
@@ -101,17 +98,14 @@ public class MainActivity extends UpdateBaseActivity
 	}
 
 	@Override
-	public void onSaveInstanceState(Bundle outState) 
-	{
+	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		getSupportFragmentManager().putFragment(outState, "mContent", mContent);
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{
-		switch (item.getItemId()) 
-		{
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
 		case android.R.id.home:
 			toggle();
 			return true;
@@ -121,33 +115,28 @@ public class MainActivity extends UpdateBaseActivity
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) 
-	{
+	public boolean onCreateOptionsMenu(Menu menu) {
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	public void switchContent(Fragment fragment) 
-	{
+	public void switchContent(Fragment fragment) {
 		mContent = fragment;
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
 	}
-	
-	private boolean checkAccount()
-	{
+
+	private boolean checkAccount() {
 		Log.v(TAG, "checkAccount");
-		AccountManager am=AccountManager.get(this);
-		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
-		if(accounts.length==0)
-		{
+		AccountManager am = AccountManager.get(this);
+		Account[] accounts = am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
+		if (accounts.length == 0) {
 			return false;
 		}
-		
+
 		return true;
 	}
-	
-	public boolean onKeyUp(int keyCode, KeyEvent event) 
-	{
+
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if (getSlidingMenu().isMenuShowing()) {
 				finish();

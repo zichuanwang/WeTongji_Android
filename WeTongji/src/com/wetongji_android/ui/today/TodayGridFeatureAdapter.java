@@ -11,6 +11,7 @@ import com.wetongji_android.R;
 import com.wetongji_android.data.Account;
 import com.wetongji_android.data.Person;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.net.HttpUtil;
 
 public class TodayGridFeatureAdapter extends TodayGridBaseAdapter<Object> {
 
@@ -76,8 +77,8 @@ public class TodayGridFeatureAdapter extends TodayGridBaseAdapter<Object> {
 				holder.ivGridImage.setVisibility(View.VISIBLE);
 				AQuery aq = gridAq.recycle(convertView);
 				String strImage = person.getImages().keySet().iterator().next();
-				aq.id(holder.ivGridImage).image(strImage, true, true, 300, 0,
-						null, AQuery.FADE_IN_NETWORK, 1f);
+				aq.id(holder.ivGridImage).image(HttpUtil.replaceURL(strImage),
+						true, true, 300, 0, null, AQuery.FADE_IN_NETWORK, 1f);
 
 				holder.ivGridImageMask.setVisibility(View.VISIBLE);
 

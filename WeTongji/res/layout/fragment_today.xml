@@ -5,34 +5,48 @@
 	    tools:context=".ui.today.TodayFragment"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:scrollbars="none">
+	    android:scrollbars="none"
+	    android:background="@drawable/bg_app_base" >
 	    
 	<RelativeLayout 
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:background="@drawable/bg_app_base" >
+	    android:layout_height="wrap_content">
 	    
-	    <com.wetongji_android.ui.widgets.PagerContainer
-	        android:id="@+id/pc_banner"
+	    <FrameLayout 
+	        android:id="@+id/fl_today_banner"
 	        android:layout_width="match_parent"
-	        android:layout_height="134dp">
+	        android:layout_height="wrap_content">
 	    
-		    <android.support.v4.view.ViewPager
-		        android:id="@+id/vp_banner"
-		        android:layout_width="320dp"
-		        android:layout_height="130dp"
-		        android:layout_gravity="left" />
+		    <com.wetongji_android.ui.widgets.PagerContainer
+		        android:id="@+id/pc_banner"
+		        android:layout_width="match_parent"
+		        android:layout_height="134dp"
+		        android:visibility="invisible">
+		        
+			    <android.support.v4.view.ViewPager
+			        android:id="@+id/vp_banner"
+			        android:layout_width="320dp"
+			        android:layout_height="130dp"
+			        android:layout_gravity="left"/>
+			    
+			    <com.viewpagerindicator.UnderlinePageIndicator
+					xmlns:app="http://schemas.android.com/apk/res-auto"
+					android:id="@+id/vp_indicator_today"
+					android:layout_width="match_parent"
+					android:layout_height="4dp"
+					android:layout_gravity="bottom"
+					android:background="@color/vp_indicator_today_bg"
+					app:selectedColor="@color/vp_indicator_today" />
+			    
+		    </com.wetongji_android.ui.widgets.PagerContainer>
 		    
-		    <com.viewpagerindicator.UnderlinePageIndicator
-				xmlns:app="http://schemas.android.com/apk/res-auto"
-				android:id="@+id/vp_indicator_today"
-				android:layout_width="match_parent"
-				android:layout_height="4dp"
-				android:layout_gravity="bottom"
-				android:background="@color/vp_indicator_today_bg"
-				app:selectedColor="@color/vp_indicator_today" />
-		    
-	    </com.wetongji_android.ui.widgets.PagerContainer>
+		    <ProgressBar 
+		        android:id="@+id/pb_today_banner"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"/>
+	    
+	    </FrameLayout>
 	    
 	    <FrameLayout 
 	        android:id="@+id/fl_now_today"
@@ -41,8 +55,9 @@
 			android:layout_marginLeft="5dp"
 			android:layout_marginRight="3dp"
 			android:layout_marginTop="5dp"
-	        android:layout_below="@+id/pc_banner"
-			android:background="@drawable/bg_row_now_default">
+	        android:layout_below="@+id/fl_today_banner"
+			android:background="@drawable/bg_row_now_default"
+			android:visibility="gone">
 		    
 	        <RelativeLayout
 			    android:id="@+id/rl_today_now_row"
@@ -203,22 +218,36 @@
 	        android:shadowDy="1"
 	        android:shadowRadius="2"/>
 	    
-	    <GridView 
-	        android:id="@+id/gv_today_information"
-	        android:layout_below="@+id/tv_today_information"
+	    <FrameLayout 
+	        android:id="@+id/fl_today_information"
 	        android:layout_width="match_parent"
-	        android:layout_height="358dp"
-	        android:layout_margin="2dp"
-	        android:numColumns="2"
-	        android:verticalSpacing="2dp"
-	        android:horizontalSpacing="2dp">
-	    </GridView>
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/tv_today_information">
+	    
+		    <GridView 
+		        android:id="@+id/gv_today_information"
+		        android:layout_width="match_parent"
+		        android:layout_height="358dp"
+		        android:layout_margin="2dp"
+		        android:numColumns="2"
+		        android:verticalSpacing="2dp"
+		        android:horizontalSpacing="2dp"
+		        android:visibility="invisible">
+		    </GridView>
+		    
+		    <ProgressBar 
+		        android:id="@+id/pb_today_information"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"/>
+	    
+	    </FrameLayout>
 	    
 	    <TextView 
 	        android:id="@+id/tv_today_activities"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/gv_today_information"
+	        android:layout_below="@+id/fl_today_information"
 	        android:layout_margin="5dp"
 	        android:paddingLeft="5dp"
 	        android:textIsSelectable="false"
@@ -231,22 +260,36 @@
 	        android:shadowDy="1"
 	        android:shadowRadius="2"/>
 	    
-	    <GridView 
-	        android:id="@+id/gv_today_activities"
-	        android:layout_below="@+id/tv_today_activities"
+	    <FrameLayout 
+	        android:id="@+id/fl_today_activities"
 	        android:layout_width="match_parent"
-	        android:layout_height="358dp"
-	        android:layout_margin="2dp"
-	        android:numColumns="2"
-	        android:verticalSpacing="2dp"
-	        android:horizontalSpacing="2dp">
-	    </GridView>
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/tv_today_activities">
+	    
+		    <GridView 
+		        android:id="@+id/gv_today_activities"
+		        android:layout_width="match_parent"
+		        android:layout_height="358dp"
+		        android:layout_margin="2dp"
+		        android:numColumns="2"
+		        android:verticalSpacing="2dp"
+		        android:horizontalSpacing="2dp"
+		        android:visibility="invisible">
+		    </GridView>
+		    
+		    <ProgressBar 
+		        android:id="@+id/pb_today_activities"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"/>
+	    
+	    </FrameLayout>
 	    
 	    <TextView 
 	        android:id="@+id/tv_today_features"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/gv_today_activities"
+	        android:layout_below="@+id/fl_today_activities"
 	        android:layout_margin="5dp"
 	        android:paddingLeft="5dp"
 	        android:textIsSelectable="false"
@@ -259,17 +302,31 @@
 	        android:shadowDy="1"
 	        android:shadowRadius="2"/>
 	    
-	    <GridView 
-	        android:id="@+id/gv_today_features"
-	        android:layout_below="@+id/tv_today_features"
+	    <FrameLayout 
+	        android:id="@+id/fl_today_features"
 	        android:layout_width="match_parent"
-	        android:layout_height="178dp"
-	        android:layout_margin="2dp"
-	        android:numColumns="2"
-	        android:verticalSpacing="2dp"
-	        android:horizontalSpacing="2dp">
-	    </GridView>
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/tv_today_features">
+	    
+		    <GridView 
+		        android:id="@+id/gv_today_features"
+		        android:layout_width="match_parent"
+		        android:layout_height="178dp"
+		        android:layout_margin="2dp"
+		        android:numColumns="2"
+		        android:verticalSpacing="2dp"
+		        android:horizontalSpacing="2dp"
+		        android:visibility="invisible">
+		    </GridView>
 	         
+		    <ProgressBar 
+		        android:id="@+id/pb_today_features"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"/>
+	    
+	    </FrameLayout>
+	    
 	</RelativeLayout>
 	
 </com.wetongji_android.ui.widgets.WTScrollViewWithVP>

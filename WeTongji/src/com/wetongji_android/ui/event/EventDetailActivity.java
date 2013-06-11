@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.view.KeyEvent;
@@ -22,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
@@ -35,7 +35,7 @@ import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 import com.wetongji_android.util.net.HttpUtil;
 
-public class EventDetailActivity extends FragmentActivity implements
+public class EventDetailActivity extends SherlockFragmentActivity implements
 		LoaderCallbacks<HttpRequestResult> {
 
 	private Activity mEvent;
@@ -60,12 +60,15 @@ public class EventDetailActivity extends FragmentActivity implements
 
 		setContentView(R.layout.activity_event_detail);
 
+		getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 		LinearLayout ll = (LinearLayout) findViewById(R.id.event_detail_back);
 		ll.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				EventDetailActivity.this.finish();
-				EventDetailActivity.this.overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+				EventDetailActivity.this.overridePendingTransition(
+						R.anim.slide_left_in, R.anim.slide_right_out);
 			}
 		});
 		ImageButton btnShare = (ImageButton) findViewById(R.id.action_event_detail_share);
@@ -85,9 +88,10 @@ public class EventDetailActivity extends FragmentActivity implements
 				R.drawable.image_place_holder);
 		Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
 		if (!mEvent.getImage().equals(WTApplication.MISSING_IMAGE_URL)) {
-			mAq.id(R.id.iv_event_detail_image).image(HttpUtil.replaceURL(mEvent.getImage()), false,
-					true, 0, R.drawable.image_place_holder, bitmap,
-					AQuery.FADE_IN, 0.41f);
+			mAq.id(R.id.iv_event_detail_image).image(
+					HttpUtil.replaceURL(mEvent.getImage()), false, true, 0,
+					R.drawable.image_place_holder, bitmap, AQuery.FADE_IN,
+					0.41f);
 		} else {
 			mAq.id(R.id.iv_event_detail_image).visibility(View.GONE);
 		}
@@ -132,17 +136,20 @@ public class EventDetailActivity extends FragmentActivity implements
 			@Override
 			public void onCheckedChanged(CompoundButton button,
 					boolean isChecked) {
-				if(WTApplication.getInstance().hasAccount) {
+				if (WTApplication.getInstance().hasAccount) {
 					if (isRestCheckBox) {
 						return;
 					}
 					likeEvent(isChecked);
 					int delta = isChecked ? 1 : -1;
 					mTvLikeNum.setText(String.valueOf(mEvent.getLike() + delta));
-				}else
-				{
+				} else {
 					mCbLike.setChecked(false);
-					Toast.makeText(EventDetailActivity.this, getResources().getString(R.string.need_account_login), Toast.LENGTH_SHORT).show();
+					Toast.makeText(
+							EventDetailActivity.this,
+							getResources().getString(
+									R.string.need_account_login),
+							Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -150,14 +157,13 @@ public class EventDetailActivity extends FragmentActivity implements
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// TODO Auto-generated method stub
-		if(keyCode == KeyEvent.KEYCODE_BACK)
-		{
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			finish();
-			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+			overridePendingTransition(R.anim.slide_left_in,
+					R.anim.slide_right_out);
 			return true;
 		}
-		
+
 		return super.onKeyDown(keyCode, event);
 	}
 
@@ -195,14 +201,14 @@ public class EventDetailActivity extends FragmentActivity implements
 	}
 
 	private void updateEventInDB() {
-		 ActivityFactory factory = new ActivityFactory(null);
-		 ArrayList<Activity> lstTask = new ArrayList<Activity>();
-		 Activity newActivity = mEvent;
-		 newActivity.setLike(newActivity.getLike() + (mCbLike.isChecked() ? 1
-		 : -1));
-		 newActivity.setCanLike(!mCbLike.isChecked());
-		 lstTask.add(newActivity);
-		 factory.saveObjects(this, lstTask);
+		ActivityFactory factory = new ActivityFactory(null);
+		ArrayList<Activity> lstTask = new ArrayList<Activity>();
+		Activity newActivity = mEvent;
+		newActivity.setLike(newActivity.getLike()
+				+ (mCbLike.isChecked() ? 1 : -1));
+		newActivity.setCanLike(!mCbLike.isChecked());
+		lstTask.add(newActivity);
+		factory.saveObjects(this, lstTask);
 	}
 
 	@Override

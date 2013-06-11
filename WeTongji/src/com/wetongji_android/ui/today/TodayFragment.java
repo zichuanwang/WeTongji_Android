@@ -3,14 +3,12 @@ package com.wetongji_android.ui.today;
 import java.util.Calendar;
 import java.util.List;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,9 +21,10 @@ import com.androidquery.AQuery;
 import com.viewpagerindicator.UnderlinePageIndicator;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
+import com.wetongji_android.data.Banner;
 import com.wetongji_android.data.Event;
 import com.wetongji_android.data.Information;
-import com.wetongji_android.factory.HomeFactory;
+import com.wetongji_android.factory.TodayFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.event.EventsFragment;
@@ -43,10 +42,8 @@ public class TodayFragment extends Fragment {
 	private View view;
 	private Context context;
 	private ViewPager vpBanner;
-	private TodayBannerPagerAdapter bannerAdapter;
 	private UnderlinePageIndicator indicator;
 	private GridView gvNews, gvEvents, gvFeatures;
-	private ProgressDialog progressDialog;
 
 	/**
 	 * Use this factory method to create a new instance of this fragment using
@@ -67,6 +64,7 @@ public class TodayFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = getActivity();
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -74,11 +72,9 @@ public class TodayFragment extends Fragment {
 			Bundle savedInstanceState) {
 		if (view == null) {
 			view = inflater.inflate(R.layout.fragment_today, container, false);
-			setTodayBanner(view);
+
 			setTodayGrids(view);
 			setTodaySectionTitles(view);
-			progressDialog = new ProgressDialog(context);
-			progressDialog.show();
 			Bundle args = QueryHelper.getEventQueryArgs(Calendar.getInstance());
 			getLoaderManager().initLoader(WTApplication.EVENT_LOADER, args,
 					new DbLoaderCallbacks()).forceLoad();
@@ -86,9 +82,10 @@ public class TodayFragment extends Fragment {
 		return view;
 	}
 
-	private void setTodayBanner(View view) {
+	private void setTodayBanner(View view, TodayBannerPagerAdapter bannerAdapter) {
+		view.findViewById(R.id.pb_today_banner).setVisibility(View.GONE);
+		view.findViewById(R.id.pc_banner).setVisibility(View.VISIBLE);
 		vpBanner = (ViewPager) view.findViewById(R.id.vp_banner);
-		bannerAdapter = new TodayBannerPagerAdapter(null, context);
 		vpBanner.setAdapter(bannerAdapter);
 		vpBanner.setOffscreenPageLimit(bannerAdapter.getCount());
 		vpBanner.setClipChildren(false);
@@ -121,12 +118,7 @@ public class TodayFragment extends Fragment {
 	}
 
 	private void setTodayNowContent(Event event) {
-		if (event == null) {
-			View todayLayout = view.findViewById(R.id.fl_now_today);
-			todayLayout.setVisibility(View.GONE);
-		}
-		TextView tvNowFriendsCounter = (TextView) view
-				.findViewById(R.id.tv_today_now_friends_counter);
+		view.findViewById(R.id.fl_now_today).setVisibility(View.VISIBLE);
 		TextView tvNowTitle = (TextView) view
 				.findViewById(R.id.tv_today_now_title);
 		TextView tvNowTime = (TextView) view
@@ -139,15 +131,14 @@ public class TodayFragment extends Fragment {
 		tvNowTitle.setText(event.getTitle());
 		tvNowTime.setText(EventUtil.getEventDisplayTime(event, context));
 		tvNowLocation.setText(event.getLocation());
-		// TODO
-		tvNowFriendsCounter.setText("6 Friends");
 
 		if (event instanceof Activity) {
 			// Set thumb nails
 			String strUrl = ((Activity) event).getImage();
 			AQuery aq = new AQuery(context);
 			if (!strUrl.equals(WTApplication.MISSING_IMAGE_URL)) {
-				aq.id(ivNowThumb).image(HttpUtil.replaceURL(strUrl), true, true, 300,
+				aq.id(ivNowThumb).image(HttpUtil.replaceURL(strUrl), true,
+						true, 300,
 						R.drawable.event_list_thumbnail_place_holder, null,
 						AQuery.FADE_IN_NETWORK, 1.33f);
 			}
@@ -169,23 +160,38 @@ public class TodayFragment extends Fragment {
 		public void onLoadFinished(Loader<HttpRequestResult> arg0,
 				HttpRequestResult result) {
 			if (result.getResponseCode() == 0) {
-				HomeFactory factory = new HomeFactory(TodayFragment.this);
+				TodayFactory factory = new TodayFactory(TodayFragment.this);
 				String strResult = result.getStrResponseCon();
+				List<Banner> banners = factory.createBanners(strResult);
 				List<Activity> activities = factory.createActivities(strResult);
 				List<Information> infomation = factory.createInfos(strResult);
 				List<Object> features = factory.createFeatures(strResult);
 
+				TodayBannerPagerAdapter bannerAdapter = new TodayBannerPagerAdapter(
+						banners, context);
+				setTodayBanner(view, bannerAdapter);
+
 				TodayGridNewsAdapter newsAdapter = new TodayGridNewsAdapter(
 						context, infomation);
+				view.findViewById(R.id.pb_today_information).setVisibility(
+						View.GONE);
 				gvNews.setAdapter(newsAdapter);
+				gvNews.setVisibility(View.VISIBLE);
+
 				TodayGridEventAdapter eventAdapter = new TodayGridEventAdapter(
 						context, activities);
+				view.findViewById(R.id.pb_today_activities).setVisibility(
+						View.GONE);
 				gvEvents.setAdapter(eventAdapter);
 				gvEvents.setOnItemClickListener(eventAdapter);
+				gvEvents.setVisibility(View.VISIBLE);
+
 				TodayGridFeatureAdapter featureAdapter = new TodayGridFeatureAdapter(
 						context, features);
+				view.findViewById(R.id.pb_today_features).setVisibility(
+						View.GONE);
 				gvFeatures.setAdapter(featureAdapter);
-				progressDialog.dismiss();
+				gvFeatures.setVisibility(View.VISIBLE);
 			}
 		}
 
@@ -205,7 +211,6 @@ public class TodayFragment extends Fragment {
 		@Override
 		public void onLoadFinished(Loader<List<Event>> arg0, List<Event> events) {
 			if (events != null && !events.isEmpty()) {
-				Log.d("today event", events.get(0).getTitle());
 				setTodayNowContent(events.get(0));
 			}
 		}

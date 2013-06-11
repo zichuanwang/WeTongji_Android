@@ -15,6 +15,7 @@ import com.wetongji_android.data.Activity;
 import com.wetongji_android.ui.event.EventDetailActivity;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.net.HttpUtil;
 
 public class TodayGridEventAdapter extends TodayGridBaseAdapter<Activity> {
 
@@ -75,8 +76,9 @@ public class TodayGridEventAdapter extends TodayGridBaseAdapter<Activity> {
 			} else {
 				holder.ivGridImage.setVisibility(View.VISIBLE);
 				AQuery aq = gridAq.recycle(convertView);
-				aq.id(holder.ivGridImage).image(activity.getImage(), true,
-						true, 300, 0, null, AQuery.FADE_IN_NETWORK, 1f);
+				aq.id(holder.ivGridImage).image(
+						HttpUtil.replaceURL(activity.getImage()), true, true,
+						300, 0, null, AQuery.FADE_IN_NETWORK, 1f);
 
 				holder.ivGridImageMask.setVisibility(View.VISIBLE);
 
