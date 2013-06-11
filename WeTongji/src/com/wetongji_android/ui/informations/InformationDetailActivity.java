@@ -34,6 +34,7 @@ import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
+import com.wetongji_android.util.net.HttpUtil;
 
 public class InformationDetailActivity extends FragmentActivity implements
 		LoaderCallbacks<HttpRequestResult> 
@@ -63,7 +64,7 @@ public class InformationDetailActivity extends FragmentActivity implements
 	{
 		mAq = WTApplication.getInstance().getAq(this);
 		//Set the organization avatar
-		mAq.id(R.id.info_detail_avatar).image(mInfo.getOrganizerAvatar(), false, true, 0, R.drawable.image_place_holder,
+		mAq.id(R.id.info_detail_avatar).image(HttpUtil.replaceURL(mInfo.getOrganizerAvatar()), false, true, 0, R.drawable.image_place_holder,
 				null, AQuery.FADE_IN, 1.0f);
 		
 		Drawable drawable = getResources().getDrawable(
@@ -71,7 +72,7 @@ public class InformationDetailActivity extends FragmentActivity implements
 		Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
 		if (!mInfo.getImages().get(0).equals(WTApplication.MISSING_IMAGE_URL)) 
 		{
-			mAq.id(R.id.info_detail_image).image(mInfo.getImages().get(0),
+			mAq.id(R.id.info_detail_image).image(HttpUtil.replaceURL(mInfo.getImages().get(0)),
 					false, true, 0, R.drawable.image_place_holder, bitmap,
 					AQuery.FADE_IN, 1.0f);
 		} else 

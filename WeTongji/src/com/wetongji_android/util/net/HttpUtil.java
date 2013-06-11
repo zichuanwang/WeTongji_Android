@@ -157,4 +157,9 @@ public class HttpUtil
 		
 		return bConnected;
 	}
+	
+	public static String replaceURL(String originURL)
+	{
+		return originURL.replace("we.tongji.edu.cn", "leiz.name:8080");
+	}
 }
