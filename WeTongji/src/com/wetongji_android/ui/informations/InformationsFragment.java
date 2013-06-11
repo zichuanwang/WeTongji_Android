@@ -15,6 +15,7 @@ import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
+import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.data.information.InformationUtil;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
@@ -97,7 +98,7 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		{
 		case FIRST_TIME_START:
 			WTUtility.log(TAG, "First Time Start");
-			mAdapter.loadDataFromDB();
+			mAdapter.loadDataFromDB(QueryHelper.ARGS_INFO_TYPE_ALL);
 		case SCREEN_ROTATE:
 			break;
 		case ACTIVITY_DESTROY_AND_CREATE:
@@ -241,6 +242,19 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 			return true;
 		case R.id.info_menu_cat1:
 			Log.v(TAG, "Campus Update");
+			mAdapter.loadDataFromDB(QueryHelper.ARGS_INFO_TYPE_ONE);
+			return true;
+		case R.id.info_menu_cat2:
+			Log.v(TAG, "Administrative Affairs");
+			mAdapter.loadDataFromDB(QueryHelper.ARGS_INFO_TYPE_FOUR);
+			return true;
+		case R.id.info_menu_cat3:
+			Log.v(TAG, "Club News");
+			mAdapter.loadDataFromDB(QueryHelper.ARGS_INFO_TYPE_TWO);
+			return true;
+		case R.id.info_menu_cat4:
+			Log.v(TAG, "Local Recommend");
+			mAdapter.loadDataFromDB(QueryHelper.ARGS_INFO_TYPE_THREE);
 			return true;
 		}
 

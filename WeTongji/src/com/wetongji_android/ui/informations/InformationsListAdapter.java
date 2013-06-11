@@ -67,7 +67,9 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public Object getItem(int position) 
 	{
 		// TODO Auto-generated method stub
+		Log.v("InfoAd", "position: " + position);
 		int res = 0;
+		
 		for(int i = 0; i < mListInfos.size(); i++)
 		{
 			if(position >= res && position < res + mListInfos.get(i).second.size())
@@ -92,7 +94,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	protected void onNextPageRequested(int page) 
 	{
 		// TODO Auto-generated method stub
-		Log.v(TAG, "next page request: " + page);
 		if(page != this.nextPage)
 		{
 			this.notifyNoMorePages();
@@ -143,13 +144,14 @@ public class InformationsListAdapter extends AmazingAdapter implements
 			holder = (ViewHolder)convertView.getTag();
 		}
 		
-		if(position % 2 == 0)
+		holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row1));
+		/*if(position % 2 == 0)
 		{
 			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row1));
 		}else
 		{
 			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row2));
-		}
+		}*/
 		
 		Information information = (Information)getItem(position);
 		holder.tv_type.setText(information.getCategory());
@@ -190,13 +192,8 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public int getPositionForSection(int section) 
 	{
 		// TODO Auto-generated method stub
-		if(section < 0)
-		{
-			section = 0;
-		}else if(section >= mListInfos.size())
-		{
-			section = mListInfos.size() - 1;
-		}
+		if(section < 0) section = 0;
+		if(section >= mListInfos.size()) section = mListInfos.size() - 1;
 		
 		int c = 0;
 		for(int i = 0; i < mListInfos.size(); i++)
@@ -219,7 +216,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		int c = 0;
 		for(int i = 0; i < mListInfos.size(); i++)
 		{
-			if(position >= c && position < mListInfos.get(i).second.size())
+			if(position >= c && position < c + mListInfos.get(i).second.size())
 			{
 				return i;
 			}
@@ -260,6 +257,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 				this.setNextPage(0);
 			this.setInformations(InformationUtil.getSectionedInformationList(list));
 			this.setOriginList(list);
+			this.setLoadingData(false);
 		}else
 		{
 			((InformationsFragment)mFragment).refreshData();
@@ -291,11 +289,18 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		notifyDataSetChanged();
 	}
 	
-	public void loadDataFromDB()
+	public void loadDataFromDB(String infoType)
 	{
+		this.setLoadingData(true);
 		Bundle bundle = new Bundle();
-		bundle.putString(QueryHelper.ARGS_INFO_TYPE, QueryHelper.ARGS_INFO_TYPE_ALL);
-		mFragment.getLoaderManager().initLoader(WTApplication.INFORMATION_LOADER, bundle, this);
+		bundle.putString(QueryHelper.ARGS_INFO_TYPE, infoType);
+		if(infoType.equals(QueryHelper.ARGS_INFO_TYPE_ALL))
+		{
+			mFragment.getLoaderManager().initLoader(WTApplication.INFORMATION_LOADER, bundle, this);
+		}else
+		{
+			mFragment.getLoaderManager().restartLoader(WTApplication.INFORMATION_LOADER, bundle, this).forceLoad();
+		}
 	}
 
 	public List<Information> getOriginList() {
