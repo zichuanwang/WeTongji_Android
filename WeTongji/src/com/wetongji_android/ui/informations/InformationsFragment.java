@@ -16,6 +16,7 @@ import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.QueryHelper;
+import com.wetongji_android.util.data.information.InformationLoader;
 import com.wetongji_android.util.data.information.InformationUtil;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
@@ -209,6 +210,45 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		this.getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	
+	public void filterData(String infoType)
+	{		
+		Bundle bundle = new Bundle();
+		bundle.putString(QueryHelper.ARGS_INFO_TYPE, infoType);
+		this.getLoaderManager().restartLoader(WTApplication.INFORMATION_LOADER, bundle, new infoLoaderCallbacks());
+	}
+	
+	private class infoLoaderCallbacks implements LoaderCallbacks<List<Information>>
+	{
+
+		@Override
+		public Loader<List<Information>> onCreateLoader(int arg0, Bundle arg1) 
+		{
+			// TODO Auto-generated method stub
+			return new InformationLoader(mActivity, arg1);
+		}
+
+		@Override
+		public void onLoadFinished(Loader<List<Information>> arg0,
+				List<Information> arg1) 
+		{
+			// TODO Auto-generated method stub
+			//mAdapter = null;
+			//mAdapter = new InformationsListAdapter(InformationsFragment.this, mListNews);
+			mAdapter.setLoadingData(false);
+			mAdapter.setNextPage(0);
+			mAdapter.notifyNoMorePages();
+			mListNews.setAdapter(mAdapter);
+			mAdapter.setInformations(InformationUtil.getSectionedInformationList(arg1));
+		}
+
+		@Override
+		public void onLoaderReset(Loader<List<Information>> arg0) 
+		{
+			// TODO Auto-generated method stub
+			
+		}
+	}
+	
 	private int getCurrentState(Bundle savedInstanceState)
 	{
 		if (savedInstanceState != null) 
@@ -242,7 +282,11 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 			return true;
 		case R.id.info_menu_cat1:
 			Log.v(TAG, "Campus Update");
-			mAdapter.loadDataFromDB(QueryHelper.ARGS_INFO_TYPE_ONE);
+			mAdapter = null;
+			mAdapter = new InformationsListAdapter(this, mListNews);
+			mListNews.setAdapter(mAdapter);
+			mAdapter.setLoadingData(true);
+			filterData(QueryHelper.ARGS_INFO_TYPE_ONE);
 			return true;
 		case R.id.info_menu_cat2:
 			Log.v(TAG, "Administrative Affairs");
@@ -259,5 +303,13 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	public AmazingListView getmListNews() {
+		return mListNews;
+	}
+
+	public void setmListNews(AmazingListView mListNews) {
+		this.mListNews = mListNews;
 	}
 }

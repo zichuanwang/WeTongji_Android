@@ -39,6 +39,8 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	private boolean isLoadingData;
 	private int nextPage;
 	
+	private int item_pos = 0;
+	
 	public InformationsListAdapter(Fragment fragment, AbsListView listView)
 	{
 		this.mFragment = fragment;
@@ -67,7 +69,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public Object getItem(int position) 
 	{
 		// TODO Auto-generated method stub
-		Log.v("InfoAd", "position: " + position);
 		int res = 0;
 		
 		for(int i = 0; i < mListInfos.size(); i++)
@@ -144,16 +145,8 @@ public class InformationsListAdapter extends AmazingAdapter implements
 			holder = (ViewHolder)convertView.getTag();
 		}
 		
-		holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row1));
-		/*if(position % 2 == 0)
-		{
-			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row1));
-		}else
-		{
-			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row2));
-		}*/
-		
 		Information information = (Information)getItem(position);
+		holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row1));
 		holder.tv_type.setText(information.getCategory());
 		holder.tv_title.setText(information.getTitle());
 		holder.tv_description.setText(information.getSummary());
@@ -279,7 +272,9 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public void setInformations(List<Pair<Date, List<Information>>> mListNews) 
 	{
 		this.mListInfos.clear();
-		this.mListInfos = mListNews;
+		this.notifyDataSetInvalidated();
+		this.mListInfos.addAll(mListNews);
+		Log.v(TAG, "set info list");
 		notifyDataSetChanged();
 	}
 	
@@ -291,7 +286,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	
 	public void loadDataFromDB(String infoType)
 	{
-		this.setLoadingData(true);
 		Bundle bundle = new Bundle();
 		bundle.putString(QueryHelper.ARGS_INFO_TYPE, infoType);
 		if(infoType.equals(QueryHelper.ARGS_INFO_TYPE_ALL))

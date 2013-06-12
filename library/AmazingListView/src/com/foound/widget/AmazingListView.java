@@ -43,7 +43,7 @@ public class AmazingListView extends ListView implements HasMorePagesListener {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+       super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (mHeaderView != null) {
             measureChild(mHeaderView, widthMeasureSpec, heightMeasureSpec);
             mHeaderViewWidth = mHeaderView.getMeasuredWidth();
