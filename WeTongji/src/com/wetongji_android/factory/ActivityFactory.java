@@ -7,6 +7,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
+
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.util.common.WTApplication;
 
@@ -17,6 +19,7 @@ public class ActivityFactory extends BaseFactory<Activity, Integer>{
 	}
 
 	public List<Activity> createObjects(String jsonStr, boolean bRefresh) {
+		Log.v("need to refresh", "" + bRefresh);
 		List<Activity> result=new ArrayList<Activity>();
 		try {
 			JSONObject outer=new JSONObject(jsonStr);

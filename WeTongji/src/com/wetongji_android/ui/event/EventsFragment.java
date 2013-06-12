@@ -57,7 +57,7 @@ OnScrollListener{
 	private boolean isRefresh = false;
 	private ActivityFactory mFactory;
 	
-	/** Sort preferences **/
+	/** Sort preferences by default**/
 	private boolean mExpire = true;
 	private int mSortType = 1;
 	private int mSelectedType = 15;
@@ -244,7 +244,7 @@ OnScrollListener{
 			break;
 		case R.id.cb_event_sort_publish_time_reverse_order:
 			item.setChecked(true);
-			mSortType = ApiHelper.API_ARGS_SORT_BY_ID_DESC;
+			mSortType = ApiHelper.API_ARGS_SORT_BY_PUBLISH_DESC;
 			break;
 		case R.id.cb_activity_sort_like_all:
 			item.setChecked(true);
@@ -252,7 +252,7 @@ OnScrollListener{
 			break;
 		case R.id.cb_event_sort_publish_time_order:
 			item.setChecked(true);
-			mSortType = ApiHelper.API_ARGS_SORT_BY_ID;
+			mSortType = ApiHelper.API_ARGS_SORT_BY_PUBLISH_ASC;
 			break;
 		case R.id.cb_academic:
 			item.setChecked(!item.isChecked());
@@ -298,11 +298,17 @@ OnScrollListener{
 		return true;
 	}
 	
-	private void readPreference() {
+	/*
+	 * Read preference and by default the sort type is by
+	 * publish time descending, the expire is true and also
+	 * we select all the type
+	 */
+	private void readPreference() 
+	{
 		SharedPreferences sp = 
 				getActivity().getSharedPreferences(SHARE_PREFERENCE_EVENT, Context.MODE_PRIVATE);
 		mExpire = sp.getBoolean(PREFERENCE_EVENT_EXPIRE, true);
-		mSortType = sp.getInt(PREFERENCE_EVENT_SORT, ApiHelper.API_ARGS_SORT_BY_ID_DESC);
+		mSortType = sp.getInt(PREFERENCE_EVENT_SORT, ApiHelper.API_ARGS_SORT_BY_PUBLISH_DESC);
 		mSelectedType = sp.getInt(PREFERENCE_EVENT_TYPE, 15);
 	}
 	
@@ -317,11 +323,11 @@ OnScrollListener{
 	}
 	
 	private void setMenuStatus(Menu menu) {
-		if (mSortType == ApiHelper.API_ARGS_SORT_BY_ID_DESC) {
+		if (mSortType == ApiHelper.API_ARGS_SORT_BY_PUBLISH_DESC) {
 			menu.getItem(1).getSubMenu().getItem(0).getSubMenu().getItem(0).setChecked(true);
 		} else if (mSortType == ApiHelper.API_ARGS_SORT_BY_LIKE_DESC) {
 			menu.getItem(1).getSubMenu().getItem(0).getSubMenu().getItem(2).setChecked(true);
-		} else if (mSortType == ApiHelper.API_ARGS_SORT_BY_ID) {
+		} else if (mSortType == ApiHelper.API_ARGS_SORT_BY_PUBLISH_ASC) {
 			menu.getItem(1).getSubMenu().getItem(0).getSubMenu().getItem(1).setChecked(true);
 		}
 		
@@ -340,13 +346,14 @@ OnScrollListener{
 	private Bundle getQueryArgs() {
 		String orderBy = QueryHelper.ARGS_ORDER_BY_PUBLISH_TIME;
 		boolean assending = false;
-		if (mSortType == ApiHelper.API_ARGS_SORT_BY_ID_DESC) {
+		
+		if (mSortType == ApiHelper.API_ARGS_SORT_BY_PUBLISH_DESC) {
 			orderBy = QueryHelper.ARGS_ORDER_BY_PUBLISH_TIME;
 			assending = false;
 		} else if (mSortType == ApiHelper.API_ARGS_SORT_BY_LIKE_DESC) {
 			orderBy = QueryHelper.ARGS_ORDER_BY_LIKE;
 			assending = false;
-		} else if (mSortType == ApiHelper.API_ARGS_SORT_BY_ID) {
+		} else if (mSortType == ApiHelper.API_ARGS_SORT_BY_PUBLISH_ASC) {
 			orderBy = QueryHelper.ARGS_ORDER_BY_PUBLISH_TIME;
 			assending = true;
 		}

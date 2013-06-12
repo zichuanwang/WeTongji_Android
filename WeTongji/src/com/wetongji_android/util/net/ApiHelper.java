@@ -16,6 +16,7 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 /**
  * @author John
@@ -70,9 +71,12 @@ public class ApiHelper {
 	private static final String API_ARGS_END="End";
 	private static final String API_ARGS_ID = "Id";
 	
-	public static final int API_ARGS_SORT_BY_ID_DESC = 1; 
-	public static final int API_ARGS_SORT_BY_LIKE_DESC = 2; 
-	public static final int API_ARGS_SORT_BY_ID = 3; 
+	public static final int API_ARGS_SORT_BY_PUBLISH_DESC = 1;
+	public static final int API_ARGS_SORT_BY_PUBLISH_ASC = 2;
+	public static final int API_ARGS_SORT_BY_LIKE_ASC = 3;
+	public static final int API_ARGS_SORT_BY_LIKE_DESC = 4; 
+	public static final int API_ARGS_SORT_BY_BEGIN_ASC = 5;
+	public static final int API_ARGS_SORT_BY_BEGIN_DESC = 6;
 	
 	public static final int API_ARGS_CHANNEL_ACADEMIC_MASK = 1;
 	public static final int API_ARGS_CHANNEL_COMPETITION_MASK = 2;
@@ -349,18 +353,30 @@ public class ApiHelper {
 					sbChannelId.toString().trim().replace(" ", ","));
 		}
 		
+		Log.v("ApiHelper", "" + sortType);
 		String sort = "";
-		switch(sortType) {
-		case API_ARGS_SORT_BY_ID:
-			sort = "`id`";
+		switch(sortType) 
+		{
+		case API_ARGS_SORT_BY_PUBLISH_DESC:
+			sort = "`created_at` DESC";
+			break;
+		case API_ARGS_SORT_BY_PUBLISH_ASC:
+			sort = "`created_at` ASC";
 			break;
 		case API_ARGS_SORT_BY_LIKE_DESC:
 			sort = "`like` DESC";
 			break;
-		case API_ARGS_SORT_BY_ID_DESC:
-			sort = "`id` DESC";
+		case API_ARGS_SORT_BY_LIKE_ASC:
+			sort = "`like` ASC";
+			break;
+		case API_ARGS_SORT_BY_BEGIN_DESC:
+			sort = "`begin` DESC";
+			break;
+		case API_ARGS_SORT_BY_BEGIN_ASC:
+			sort = "`begin` ASC";
 			break;
 		}
+		
 		if(!sort.equals("")) {
 			bundle.putString(API_ARGS_SORT, sort);
 		}
@@ -369,7 +385,8 @@ public class ApiHelper {
 		return bundle;
 	}
 	
-	public Bundle getInformations(int page, int sortType, String categoryIds)
+	//By default we just get information order by created_at time descending
+	public Bundle getInformations(int page, String categoryIds)
 	{
 		Bundle bundle = new Bundle();
 		putBasicArgs(bundle);
@@ -381,22 +398,7 @@ public class ApiHelper {
 		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
 		bundle.putString(API_ARGS_METHOD, "Information.GetList");
 		bundle.putString(API_ARGS_CATEGORY_IDS, categoryIds);
-		
-		String sort = "";
-		switch(sortType) {
-		case API_ARGS_SORT_BY_ID:
-			sort = "`created_at` DESC";
-			break;
-		case API_ARGS_SORT_BY_LIKE_DESC:
-			sort = "`like` DESC";
-			break;
-		case API_ARGS_SORT_BY_ID_DESC:
-			sort = "`id` DESC";
-			break;
-		}
-		if(!sort.equals("")) {
-			bundle.putString(API_ARGS_SORT, sort);
-		}
+		bundle.putString(API_ARGS_SORT, "`created_at` DESC");
 		
 		return bundle;
 	}

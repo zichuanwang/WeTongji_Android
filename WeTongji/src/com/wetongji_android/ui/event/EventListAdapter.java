@@ -136,7 +136,7 @@ public class EventListAdapter extends EndlessListAdapter<Activity> implements Lo
 
 	@Override
 	public Loader<List<Activity>> onCreateLoader(int arg0, Bundle arg1) {
-		return new ActivitiesLoader(mContext, null);
+		return new ActivitiesLoader(mContext, arg1);
 	}
 
 	@Override

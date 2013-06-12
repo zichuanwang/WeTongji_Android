@@ -9,7 +9,7 @@ public class QueryHelper {
 	public static final String ARGS_ORDER_BY="order";
 	public static final String ARGS_ORDER_BY_LIKE="Like";
 	public static final String ARGS_ORDER_BY_TIME="Begin";
-	public static final String ARGS_ORDER_BY_PUBLISH_TIME="Id";
+	public static final String ARGS_ORDER_BY_PUBLISH_TIME="CreatedAt";
 	public static final String ARGS_ASCENDING="ascending";
 	public static final String ARGS_HAS_EXPIRED="hasExpired";
 	public static final String ARGS_HAS_CHANNEL_1="hasChannel1";

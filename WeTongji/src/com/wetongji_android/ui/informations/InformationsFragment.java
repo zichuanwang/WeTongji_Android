@@ -206,7 +206,7 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		
 		ApiHelper apiHelper = ApiHelper.getInstance(mActivity);
 		//By default we fetch all kind of informations from the server
-		Bundle args = apiHelper.getInformations(1, 3, "1,2,3,4");
+		Bundle args = apiHelper.getInformations(1, "1,2,3,4");
 		this.getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	
