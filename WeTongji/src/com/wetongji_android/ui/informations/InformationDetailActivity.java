@@ -52,7 +52,7 @@ public class InformationDetailActivity extends SherlockFragmentActivity
 	protected void onCreate(Bundle arg0) 
 	{
 		super.onCreate(arg0);
-		//this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_information_detail);
 
 		receiveInformation();
@@ -62,7 +62,7 @@ public class InformationDetailActivity extends SherlockFragmentActivity
 
 	private void initWidget() 
 	{
-		getSupportActionBar().setDisplayShowTitleEnabled(false);
+		//getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 		mAq = WTApplication.getInstance().getAq(this);
 		// Set the organization avatar

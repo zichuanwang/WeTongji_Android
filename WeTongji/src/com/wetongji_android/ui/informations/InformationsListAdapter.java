@@ -39,8 +39,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	private boolean isLoadingData;
 	private int nextPage;
 	
-	private int item_pos = 0;
-	
 	public InformationsListAdapter(Fragment fragment, AbsListView listView)
 	{
 		this.mFragment = fragment;
@@ -146,7 +144,15 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		}
 		
 		Information information = (Information)getItem(position);
-		holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row1));
+		int section = getSectionForPosition(position);
+		int pos = getPositionForSection(section);
+		if((position - pos) % 2 == 0)
+		{
+			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row1));
+		}else
+		{
+			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row2));
+		}
 		holder.tv_type.setText(information.getCategory());
 		holder.tv_title.setText(information.getTitle());
 		holder.tv_description.setText(information.getSummary());
@@ -272,9 +278,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public void setInformations(List<Pair<Date, List<Information>>> mListNews) 
 	{
 		this.mListInfos.clear();
-		this.notifyDataSetInvalidated();
 		this.mListInfos.addAll(mListNews);
-		Log.v(TAG, "set info list");
 		notifyDataSetChanged();
 	}
 	
@@ -284,17 +288,9 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		notifyDataSetChanged();
 	}
 	
-	public void loadDataFromDB(String infoType)
-	{
-		Bundle bundle = new Bundle();
-		bundle.putString(QueryHelper.ARGS_INFO_TYPE, infoType);
-		if(infoType.equals(QueryHelper.ARGS_INFO_TYPE_ALL))
-		{
-			mFragment.getLoaderManager().initLoader(WTApplication.INFORMATION_LOADER, bundle, this);
-		}else
-		{
-			mFragment.getLoaderManager().restartLoader(WTApplication.INFORMATION_LOADER, bundle, this).forceLoad();
-		}
+	public void loadDataFromDB(Bundle bundle)
+	{	
+		mFragment.getLoaderManager().initLoader(WTApplication.INFORMATION_LOADER, bundle, this);
 	}
 
 	public List<Information> getOriginList() {

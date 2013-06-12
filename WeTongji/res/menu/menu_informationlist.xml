@@ -14,28 +14,38 @@
 
 		<menu>
 
-			<group>
+			<group
+			    android:checkableBehavior="single">
+			    
 			    <item
 			        android:id="@id/info_menu_cat1"
 			        android:showAsAction="never"
+			        android:checkable="true"
+			        android:checked="true"
 			        android:title="@string/text_news_category_1"
 			        />
 			    
 			    <item
 			        android:id="@id/info_menu_cat2"
 			        android:showAsAction="never"
+			        android:checkable="true"
+			        android:checked="true"
 			        android:title="@string/text_news_category_2"
 			        />
 			    
 			    <item
 			        android:id="@id/info_menu_cat3"
 			        android:showAsAction="never"
+			        android:checkable="true"
+			        android:checked="true"
 			        android:title="@string/text_news_category_3"
 			        />
 			    
 			    <item
 			        android:id="@id/info_menu_cat4"
 			        android:showAsAction="never"
+			        android:checkable="true"
+			        android:checked="true"
 			        android:title="@string/text_news_category_4"
 			        />
 			</group>

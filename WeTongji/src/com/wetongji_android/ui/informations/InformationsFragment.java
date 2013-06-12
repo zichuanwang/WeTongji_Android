@@ -24,7 +24,9 @@ import com.wetongji_android.util.net.HttpRequestResult;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -54,6 +56,11 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 	private final int ACTIVITY_DESTROY_AND_CREATE = 2; 
 	
 	private static final String INFORMATION_LIST = "INFORMATIONS";
+	public static final String SHARED_PREFERENCE_INFORMATION = "InfoSetting";
+	public static final String PREFERENCE_INFO_TYPE = "InfoType";
+	
+	private int mSelectType = 15;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -99,7 +106,7 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		{
 		case FIRST_TIME_START:
 			WTUtility.log(TAG, "First Time Start");
-			mAdapter.loadDataFromDB(QueryHelper.ARGS_INFO_TYPE_ALL);
+			mAdapter.loadDataFromDB(getQueryArgs());
 		case SCREEN_ROTATE:
 			break;
 		case ACTIVITY_DESTROY_AND_CREATE:
@@ -232,8 +239,6 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 				List<Information> arg1) 
 		{
 			// TODO Auto-generated method stub
-			//mAdapter = null;
-			//mAdapter = new InformationsListAdapter(InformationsFragment.this, mListNews);
 			mAdapter.setLoadingData(false);
 			mAdapter.setNextPage(0);
 			mAdapter.notifyNoMorePages();
@@ -269,9 +274,38 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) 
 	{
 		inflater.inflate(R.menu.menu_informationlist, menu);
+		
+		readPreference();
+		setMenuStatus(menu);
+		
 		super.onCreateOptionsMenu(menu, inflater);
 	}
 
+	private void readPreference()
+	{
+		SharedPreferences sp = getActivity().getSharedPreferences(SHARED_PREFERENCE_INFORMATION, Context.MODE_PRIVATE);
+		mSelectType = sp.getInt(PREFERENCE_INFO_TYPE, 15);
+	}
+	
+	private void writePreference()
+	{
+		SharedPreferences.Editor editor = getActivity().getSharedPreferences(SHARED_PREFERENCE_INFORMATION, Context.MODE_PRIVATE).edit();
+		editor.putInt(PREFERENCE_INFO_TYPE, mSelectType);
+		editor.commit();
+	}
+	
+	private void setMenuStatus(Menu menu)
+	{
+		menu.getItem(1).getSubMenu().getItem(0).setChecked(
+				(mSelectType & ApiHelper.API_ARGS_INFO_CAMPUS) != 0);
+		menu.getItem(1).getSubMenu().getItem(1).setChecked(
+				(mSelectType & ApiHelper.API_ARGS_INFO_ADMINISTRATIVE) != 0);
+		menu.getItem(1).getSubMenu().getItem(2).setChecked(
+				(mSelectType & ApiHelper.API_ARGS_INFO_CLUB) != 0);
+		menu.getItem(1).getSubMenu().getItem(3).setChecked(
+				(mSelectType & ApiHelper.API_ARGS_INFO_LOCAL) != 0);
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
@@ -279,32 +313,66 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		{
 		case R.id.menu_informationlist_reload:
 			refreshData();
-			return true;
+			break;
 		case R.id.info_menu_cat1:
-			Log.v(TAG, "Campus Update");
-			mAdapter = null;
-			mAdapter = new InformationsListAdapter(this, mListNews);
-			mListNews.setAdapter(mAdapter);
-			mAdapter.setLoadingData(true);
-			filterData(QueryHelper.ARGS_INFO_TYPE_ONE);
-			return true;
+			item.setChecked(!item.isChecked());
+			if(item.isChecked())
+			{
+				mSelectType += ApiHelper.API_ARGS_INFO_CAMPUS;
+			}else
+			{
+				mSelectType -= ApiHelper.API_ARGS_INFO_CAMPUS;
+			}
+			break;
 		case R.id.info_menu_cat2:
-			Log.v(TAG, "Administrative Affairs");
-			mAdapter.loadDataFromDB(QueryHelper.ARGS_INFO_TYPE_FOUR);
-			return true;
+			item.setChecked(!item.isChecked());
+			if(item.isChecked())
+			{
+				mSelectType += ApiHelper.API_ARGS_INFO_ADMINISTRATIVE;
+			}else
+			{
+				mSelectType -= ApiHelper.API_ARGS_INFO_ADMINISTRATIVE;
+			}
+			break;
 		case R.id.info_menu_cat3:
-			Log.v(TAG, "Club News");
-			mAdapter.loadDataFromDB(QueryHelper.ARGS_INFO_TYPE_TWO);
-			return true;
+			item.setChecked(!item.isChecked());
+			if(item.isChecked())
+			{
+				mSelectType += ApiHelper.API_ARGS_INFO_CLUB;
+			}else
+			{
+				mSelectType -= ApiHelper.API_ARGS_INFO_CLUB;
+			}
+			break;
 		case R.id.info_menu_cat4:
-			Log.v(TAG, "Local Recommend");
-			mAdapter.loadDataFromDB(QueryHelper.ARGS_INFO_TYPE_THREE);
-			return true;
+			item.setChecked(!item.isChecked());
+			if(item.isChecked())
+			{
+				mSelectType += ApiHelper.API_ARGS_INFO_LOCAL;
+			}else
+			{
+				mSelectType -= ApiHelper.API_ARGS_INFO_LOCAL;
+			}
+			break;
+		default:
+			return super.onOptionsItemSelected(item);
+				
 		}
 
-		return super.onOptionsItemSelected(item);
+		writePreference();
+		return true;
 	}
 
+	private Bundle getQueryArgs()
+	{
+		boolean hasCampus = (mSelectType & ApiHelper.API_ARGS_INFO_CAMPUS) != 0;
+		boolean hasAdmin = (mSelectType & ApiHelper.API_ARGS_INFO_ADMINISTRATIVE) != 0;
+		boolean hasClub = (mSelectType & ApiHelper.API_ARGS_INFO_CLUB) != 0;
+		boolean hasLocal = (mSelectType & ApiHelper.API_ARGS_INFO_LOCAL) != 0;
+			
+		return QueryHelper.getInformationsQueryArgs(hasCampus, hasAdmin, hasClub, hasLocal);
+	}
+	
 	public AmazingListView getmListNews() {
 		return mListNews;
 	}

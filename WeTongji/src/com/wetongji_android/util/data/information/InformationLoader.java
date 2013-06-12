@@ -59,7 +59,6 @@ public class InformationLoader extends DbListLoader<Information, Integer>
 	 * @param args
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	private PreparedQuery<Information> getInformationQuery(Bundle bundle)
 	{
 		if(bundle == null)
@@ -71,15 +70,34 @@ public class InformationLoader extends DbListLoader<Information, Integer>
 		//Sort by the create time descending
 		qb.orderBy(QueryHelper.ARGS_INFO_ORDER_BY, false);
 		Where<Information, Integer> where = qb.where();
+		int count = 0;
 		
 		try
-		{
-			if(args.get(QueryHelper.ARGS_INFO_TYPE).equals(QueryHelper.ARGS_INFO_TYPE_ALL))
+		{	
+			if(bundle.getBoolean(QueryHelper.ARGS_INFO_TYPE_ONE))
 			{
-				where.or(where.eq("Category", QueryHelper.ARGS_INFO_TYPE_ONE), where.eq("Category", QueryHelper.ARGS_INFO_TYPE_TWO), where.eq("Category", QueryHelper.ARGS_INFO_TYPE_THREE), where.eq("Category", QueryHelper.ARGS_INFO_TYPE_FOUR));
-			}else
+				where.eq("Category", QueryHelper.ARGS_INFO_TYPE_ONE);
+				count ++;
+			}
+			if(bundle.getBoolean(QueryHelper.ARGS_INFO_TYPE_TWO))
 			{
-				where.eq("Category", bundle.get(QueryHelper.ARGS_INFO_TYPE));
+				where.eq("Category", QueryHelper.ARGS_INFO_TYPE_TWO);
+				count ++;
+			}
+			if(bundle.getBoolean(QueryHelper.ARGS_INFO_TYPE_THREE))
+			{
+				where.eq("Category", QueryHelper.ARGS_INFO_TYPE_THREE);
+				count ++;
+			}
+			if(bundle.getBoolean(QueryHelper.ARGS_INFO_TYPE_FOUR))
+			{
+				where.eq("Category", QueryHelper.ARGS_INFO_TYPE_FOUR);
+				count ++;
+			}
+			
+			if(count > 1)
+			{
+				where.or(count);
 			}
 			
 			return qb.prepare();

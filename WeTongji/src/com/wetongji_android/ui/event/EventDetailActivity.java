@@ -60,7 +60,7 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 
 		setContentView(R.layout.activity_event_detail);
 
-		getSupportActionBar().setDisplayShowTitleEnabled(false);
+		//getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 		LinearLayout ll = (LinearLayout) findViewById(R.id.event_detail_back);
 		ll.setOnClickListener(new OnClickListener() {

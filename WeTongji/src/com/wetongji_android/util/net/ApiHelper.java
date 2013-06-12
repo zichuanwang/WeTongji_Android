@@ -83,6 +83,11 @@ public class ApiHelper {
 	public static final int API_ARGS_CHANNEL_EMPLOYMENT_MASK = 4;
 	public static final int API_ARGS_CHANNEL_ENTERTAINMENT_MASK = 8;
 	
+	public static final int API_ARGS_INFO_CAMPUS = 1;
+	public static final int API_ARGS_INFO_ADMINISTRATIVE = 2;
+	public static final int API_ARGS_INFO_CLUB = 4;
+	public static final int API_ARGS_INFO_LOCAL = 8;
+	
 	private void putBasicArgs(Bundle bundle){
 		bundle.putString(API_ARGS_DEVICE, WTApplication.API_DEVICE);
 		bundle.putString(API_ARGS_VERSION, WTApplication.API_VERSION);

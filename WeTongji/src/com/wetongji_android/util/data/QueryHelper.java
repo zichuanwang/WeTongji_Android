@@ -57,4 +57,15 @@ public class QueryHelper {
 		return bundle;
 	}
 	
+	public static Bundle getInformationsQueryArgs(boolean hasCampus, boolean hasAdmin, boolean hasClub, boolean hasLocal)
+	{
+		Bundle bundle = new Bundle();
+		bundle.putBoolean(ARGS_INFO_TYPE_ONE, hasCampus);
+		bundle.putBoolean(ARGS_INFO_TYPE_TWO, hasAdmin);
+		bundle.putBoolean(ARGS_INFO_TYPE_THREE, hasClub);
+		bundle.putBoolean(ARGS_INFO_TYPE_FOUR, hasLocal);
+		
+		return bundle;
+	}
+	
 }
