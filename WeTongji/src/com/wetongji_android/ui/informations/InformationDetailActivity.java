@@ -31,6 +31,7 @@ import com.wetongji_android.factory.InformationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTFullScreenActivity;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
@@ -49,6 +50,10 @@ public class InformationDetailActivity extends SherlockFragmentActivity
 
 	private boolean isRestCheckBox = false;
 
+	public static final String IMAGE_URL = "ImageUrl";
+	public static final String IMAGE_WIDTH = "ImageWidth";
+	public static final String IMAGE_HEIGHT = "ImageHeight";
+	
 	@Override
 	protected void onCreate(Bundle arg0) 
 	{
@@ -77,7 +82,7 @@ public class InformationDetailActivity extends SherlockFragmentActivity
 		if (!mInfo.getImages().get(0).equals(WTApplication.MISSING_IMAGE_URL)) 
 		{
 			mAq.id(R.id.info_detail_image).image(
-					HttpUtil.replaceURL(mInfo.getImages().get(0)), false, true,
+					mInfo.getImages().get(0), false, true,
 					0, R.drawable.image_place_holder, bitmap, AQuery.FADE_IN,
 					1.0f);
 		} else 
@@ -258,7 +263,26 @@ public class InformationDetailActivity extends SherlockFragmentActivity
 		public void onClick(View v) 
 		{
 			// TODO Auto-generated method stub
+			Intent intent = new Intent(InformationDetailActivity.this, WTFullScreenActivity.class);
+			Bundle bundle = new Bundle();
+			bundle.putString(IMAGE_URL, mInfo.getImages().get(0));
 			
+			Bitmap bitmapTemp = mAq.getCachedImage(mInfo.getImages().get(0));
+			if(bitmapTemp != null)
+			{
+				bundle.putInt(IMAGE_WIDTH, bitmapTemp.getWidth());
+				bundle.putInt(IMAGE_HEIGHT, bitmapTemp.getHeight());
+			}else
+			{
+				Drawable drawable = getResources().getDrawable(R.drawable.image_place_holder);
+				Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+				bundle.putInt(IMAGE_WIDTH, bitmap.getWidth());
+				bundle.putInt(IMAGE_HEIGHT, bitmap.getHeight());
+			}
+			
+			intent.putExtras(bundle);
+			startActivity(intent);
+			InformationDetailActivity.this.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}
 	}
 }
