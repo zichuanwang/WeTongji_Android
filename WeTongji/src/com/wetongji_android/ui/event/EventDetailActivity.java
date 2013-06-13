@@ -29,7 +29,9 @@ import com.wetongji_android.data.Activity;
 import com.wetongji_android.factory.ActivityFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.informations.InformationDetailActivity;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTFullScreenActivity;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
@@ -99,6 +101,7 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 
 		ImageView detailImage = (ImageView)findViewById(R.id.iv_event_detail_image);
 		detailImage.setOnClickListener(new OnPicClickListener());
+		
 		setLikeCheckbox();
 
 		TextView tvEventTitle = (TextView) findViewById(R.id.tv_event_detail_title);
@@ -238,7 +241,26 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 		public void onClick(View v) 
 		{
 			// TODO Auto-generated method stub
+			Intent intent = new Intent(EventDetailActivity.this, WTFullScreenActivity.class);
+			Bundle bundle = new Bundle();
+			bundle.putString(InformationDetailActivity.IMAGE_URL, mEvent.getImage());
 			
+			Bitmap bitmapTemp = mAq.getCachedImage(mEvent.getImage());
+			if(bitmapTemp != null)
+			{
+				bundle.putInt(InformationDetailActivity.IMAGE_WIDTH, bitmapTemp.getWidth());
+				bundle.putInt(InformationDetailActivity.IMAGE_HEIGHT, bitmapTemp.getHeight());
+			}else
+			{
+				Drawable drawable = getResources().getDrawable(R.drawable.image_place_holder);
+				Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
+				bundle.putInt(InformationDetailActivity.IMAGE_WIDTH, bitmap.getWidth());
+				bundle.putInt(InformationDetailActivity.IMAGE_HEIGHT, bitmap.getHeight());
+			}
+			
+			intent.putExtras(bundle);
+			startActivity(intent);
+			EventDetailActivity.this.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}	
 	}
 }
