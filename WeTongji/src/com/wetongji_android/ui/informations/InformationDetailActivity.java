@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,6 +85,9 @@ public class InformationDetailActivity extends SherlockFragmentActivity
 			mAq.id(R.id.info_detail_image).visibility(View.GONE);
 		}
 
+		ImageView detailImage = (ImageView)findViewById(R.id.info_detail_image);
+		detailImage.setOnClickListener(new OnPicClickListener());
+		
 		setLikeCheckbox();
 
 		TextView tvTitle = (TextView) findViewById(R.id.info_detail_title);
@@ -246,5 +250,15 @@ public class InformationDetailActivity extends SherlockFragmentActivity
 		intent.setType("text/*");
 		intent.setType("image/*");
 		startActivity(Intent.createChooser(intent, share));
+	}
+	
+	private class OnPicClickListener implements OnClickListener
+	{
+		@Override
+		public void onClick(View v) 
+		{
+			// TODO Auto-generated method stub
+			
+		}
 	}
 }

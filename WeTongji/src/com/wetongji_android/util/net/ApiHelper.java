@@ -16,7 +16,6 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 /**
  * @author John
@@ -358,7 +357,6 @@ public class ApiHelper {
 					sbChannelId.toString().trim().replace(" ", ","));
 		}
 		
-		Log.v("ApiHelper", "" + sortType);
 		String sort = "";
 		switch(sortType) 
 		{
@@ -391,7 +389,7 @@ public class ApiHelper {
 	}
 	
 	//By default we just get information order by created_at time descending
-	public Bundle getInformations(int page, String categoryIds)
+	public Bundle getInformations(int page, int infoType)
 	{
 		Bundle bundle = new Bundle();
 		putBasicArgs(bundle);
@@ -402,8 +400,31 @@ public class ApiHelper {
 		
 		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
 		bundle.putString(API_ARGS_METHOD, "Information.GetList");
-		bundle.putString(API_ARGS_CATEGORY_IDS, categoryIds);
+		//bundle.putString(API_ARGS_CATEGORY_IDS, categoryIds);
 		bundle.putString(API_ARGS_SORT, "`created_at` DESC");
+		
+		StringBuilder sb = new StringBuilder();
+		if((infoType & API_ARGS_INFO_CAMPUS) != 0)
+		{
+			sb.append("1 ");
+		}
+		if((infoType & API_ARGS_INFO_ADMINISTRATIVE) != 0)
+		{
+			sb.append("2 ");
+		}
+		if((infoType & API_ARGS_INFO_CLUB) != 0)
+		{
+			sb.append("3 ");
+		}
+		if((infoType & API_ARGS_INFO_LOCAL) != 0)
+		{
+			sb.append("4 ");
+		}
+		
+		if(infoType != 0)
+		{
+			bundle.putString(API_ARGS_CATEGORY_IDS, sb.toString().trim().replace(" ", ","));
+		}
 		
 		return bundle;
 	}

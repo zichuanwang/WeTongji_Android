@@ -16,7 +16,6 @@ import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.QueryHelper;
-import com.wetongji_android.util.data.information.InformationLoader;
 import com.wetongji_android.util.data.information.InformationUtil;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
@@ -30,7 +29,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -210,48 +208,13 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 	{	
 		mAdapter.clear();
 		mAdapter.setLoadingData(true);
+		mAdapter.notifyMayHaveMorePages();
+		mListNews.setSelection(0);
 		
 		ApiHelper apiHelper = ApiHelper.getInstance(mActivity);
 		//By default we fetch all kind of informations from the server
-		Bundle args = apiHelper.getInformations(1, "1,2,3,4");
+		Bundle args = apiHelper.getInformations(1, mSelectType);
 		this.getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
-	}
-	
-	public void filterData(String infoType)
-	{		
-		Bundle bundle = new Bundle();
-		bundle.putString(QueryHelper.ARGS_INFO_TYPE, infoType);
-		this.getLoaderManager().restartLoader(WTApplication.INFORMATION_LOADER, bundle, new infoLoaderCallbacks());
-	}
-	
-	private class infoLoaderCallbacks implements LoaderCallbacks<List<Information>>
-	{
-
-		@Override
-		public Loader<List<Information>> onCreateLoader(int arg0, Bundle arg1) 
-		{
-			// TODO Auto-generated method stub
-			return new InformationLoader(mActivity, arg1);
-		}
-
-		@Override
-		public void onLoadFinished(Loader<List<Information>> arg0,
-				List<Information> arg1) 
-		{
-			// TODO Auto-generated method stub
-			mAdapter.setLoadingData(false);
-			mAdapter.setNextPage(0);
-			mAdapter.notifyNoMorePages();
-			mListNews.setAdapter(mAdapter);
-			mAdapter.setInformations(InformationUtil.getSectionedInformationList(arg1));
-		}
-
-		@Override
-		public void onLoaderReset(Loader<List<Information>> arg0) 
-		{
-			// TODO Auto-generated method stub
-			
-		}
 	}
 	
 	private int getCurrentState(Bundle savedInstanceState)
