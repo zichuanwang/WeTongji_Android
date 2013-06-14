@@ -3,13 +3,18 @@ package com.wetongji_android.ui.today;
 import java.util.Calendar;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -44,7 +49,7 @@ public class TodayFragment extends Fragment {
 	private ViewPager vpBanner;
 	private UnderlinePageIndicator indicator;
 	private GridView gvNews, gvEvents, gvFeatures;
-
+	
 	/**
 	 * Use this factory method to create a new instance of this fragment using
 	 * the provided parameters.
@@ -64,7 +69,7 @@ public class TodayFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = getActivity();
-		setHasOptionsMenu(true);
+		setHasOptionsMenu(false);
 	}
 
 	@Override
@@ -80,6 +85,15 @@ public class TodayFragment extends Fragment {
 					new DbLoaderCallbacks()).forceLoad();
 		}
 		return view;
+	}
+	
+	@SuppressLint("NewApi")
+	@Override
+	public void onAttach(android.app.Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		
+		//getActivity().invalidateOptionsMenu();
 	}
 
 	private void setTodayBanner(View view, TodayBannerPagerAdapter bannerAdapter) {
@@ -234,4 +248,18 @@ public class TodayFragment extends Fragment {
 
 	}
 
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		Log.v("menu", "create");
+		// TODO Auto-generated method stub
+		//inflater.inflate(R.menu.menu_main, menu);
+		
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		return super.onOptionsItemSelected(item);
+	}
 }

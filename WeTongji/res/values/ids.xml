@@ -101,4 +101,6 @@
     <item type="id" name="info_menu_cat4">false</item>
     <item type="id" name="full_screen_layout">false</item>
     <item type="id" name="pic_save">false</item>
+    <item type="id" name="right_menu">false</item>
+    <item type="id" name="notification_button">false</item>
 </resources>

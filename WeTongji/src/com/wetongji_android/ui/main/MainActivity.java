@@ -14,6 +14,7 @@ import com.flurry.android.FlurryAgent;
 import com.slidingmenu.lib.SlidingMenu;
 import com.wetongji_android.R;
 import com.wetongji_android.ui.auth.IntroActivity;
+import com.wetongji_android.ui.notification.NotificationFragment;
 import com.wetongji_android.ui.today.TodayFragment;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.version.UpdateBaseActivity;
@@ -86,12 +87,10 @@ public class MainActivity extends UpdateBaseActivity {
 				.replace(R.id.menu_frame, new MainMenuFragment()).commit();
 
 		// set right menu
-		/*
-		 * sm.setSecondaryMenu(R.layout.right_menu);
-		 * sm.setSecondaryShadowDrawable(R.drawable.shadow);
-		 * getSupportFragmentManager() .beginTransaction()
-		 * .replace(R.id.right_menu, new NotificationFragment()) .commit();
-		 */
+		sm.setSecondaryMenu(R.layout.right_menu);
+		sm.setSecondaryShadowDrawable(R.drawable.shadow);
+		getSupportFragmentManager().beginTransaction()
+			.replace(R.id.right_menu, new NotificationFragment()).commit();
 
 		// setTitle();
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -104,6 +103,14 @@ public class MainActivity extends UpdateBaseActivity {
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		getSupportMenuInflater().inflate(R.menu.menu_main, menu);
+		
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
@@ -113,12 +120,7 @@ public class MainActivity extends UpdateBaseActivity {
 
 		return super.onOptionsItemSelected(item);
 	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		return super.onCreateOptionsMenu(menu);
-	}
-
+	
 	public void switchContent(Fragment fragment) {
 		mContent = fragment;
 		getSupportFragmentManager().beginTransaction()

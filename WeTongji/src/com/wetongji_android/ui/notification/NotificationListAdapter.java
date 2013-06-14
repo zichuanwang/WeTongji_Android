@@ -3,7 +3,6 @@ package com.wetongji_android.ui.notification;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.data.Notification;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.notification.NotificationsLoader;
@@ -15,11 +14,12 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class NotificationListAdapter extends AmazingAdapter implements LoaderCallbacks<List<Notification>>
+public class NotificationListAdapter extends BaseAdapter implements LoaderCallbacks<List<Notification>>
 {
 	private List<Notification> mListNotifications;
 	private Fragment mFragment;
@@ -30,7 +30,7 @@ public class NotificationListAdapter extends AmazingAdapter implements LoaderCal
 		this.mFragment = fragment;
 		this.mContext = fragment.getActivity();
 		this.mListNotifications = new ArrayList<Notification>();
-		this.mFragment.getLoaderManager().initLoader(WTApplication.NOTIFICATIONS_LOADER, null, this);
+		//this.mFragment.getLoaderManager().initLoader(WTApplication.NOTIFICATIONS_LOADER, null, this);
 	}
 	
 	public void setContentList(List<Notification> notifications)
@@ -83,21 +83,6 @@ public class NotificationListAdapter extends AmazingAdapter implements LoaderCal
 		
 	}
 
-	@Override
-	protected void onNextPageRequested(int page) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void bindSectionHeader(View view, int position,
-			boolean displaySectionHeader) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
 	static class InformViewHolder
 	{
 		TextView tv_notification_time;
@@ -115,35 +100,7 @@ public class NotificationListAdapter extends AmazingAdapter implements LoaderCal
 	}
 	
 	@Override
-	public View getAmazingView(int position, View convertView, ViewGroup parent) 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void configurePinnedHeader(View header, int position, int alpha) 
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getPositionForSection(int section)
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getSectionForPosition(int position) 
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Object[] getSections() 
+	public View getView(int arg0, View arg1, ViewGroup arg2) 
 	{
 		// TODO Auto-generated method stub
 		return null;

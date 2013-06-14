@@ -110,4 +110,5 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="save_image">Store into Picture Folder</string>
 	<string name="image_stored_at">Picture was stored at </string>
 	<string name="image_save_failed">Save Pictrue Failed</string>
+	<string name="notification_title">Notification</string>
 </resources>

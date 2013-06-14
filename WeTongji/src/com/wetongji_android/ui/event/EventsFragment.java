@@ -227,11 +227,13 @@ OnScrollListener{
 	@Override
 	public void onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu,
 			com.actionbarsherlock.view.MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		
+		menu.clear();
 		inflater.inflate(R.menu.menu_eventlist, menu);
 		
 		readPreference();
 		setMenuStatus(menu);
-		super.onCreateOptionsMenu(menu, inflater);
 	}
 
 

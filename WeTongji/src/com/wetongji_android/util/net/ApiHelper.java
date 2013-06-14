@@ -69,6 +69,7 @@ public class ApiHelper {
 	private static final String API_ARGS_BEGIN="Begin";
 	private static final String API_ARGS_END="End";
 	private static final String API_ARGS_ID = "Id";
+	private static final String API_ARGS_UNREAD = "Unread";
 	
 	public static final int API_ARGS_SORT_BY_PUBLISH_DESC = 1;
 	public static final int API_ARGS_SORT_BY_PUBLISH_ASC = 2;
@@ -400,7 +401,6 @@ public class ApiHelper {
 		
 		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
 		bundle.putString(API_ARGS_METHOD, "Information.GetList");
-		//bundle.putString(API_ARGS_CATEGORY_IDS, categoryIds);
 		bundle.putString(API_ARGS_SORT, "`created_at` DESC");
 		
 		StringBuilder sb = new StringBuilder();
@@ -429,9 +429,13 @@ public class ApiHelper {
 		return bundle;
 	}
 
-	public Bundle getNotifications()
+	public Bundle getNotifications(boolean read)
 	{
 		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		bundle.putString(API_ARGS_METHOD, "Notifications.Get");
+		bundle.putString(API_ARGS_UNREAD, read ? String.valueOf(1) : String.valueOf(0));
 		return bundle;
 	}
 	

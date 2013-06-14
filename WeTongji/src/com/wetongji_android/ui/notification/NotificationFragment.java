@@ -1,6 +1,5 @@
 package com.wetongji_android.ui.notification;
 
-import com.foound.widget.AmazingListView;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -8,21 +7,28 @@ import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class NotificationFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>
 {
 
 	private View mView;
-	private AmazingListView mListNotifications;
+	private ListView mListNotifications;
 	private NotificationListAdapter mAdapter;
+	private Activity mActivity;
+	
+	private ProgressDialog mProDialog = null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -53,22 +59,27 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		
-		//init loader(this loader is used for loading data from network)
-		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle bundle = apiHelper.getNotifications();
-		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
-		
 		//set list adapter
-		mListNotifications = (AmazingListView)mView.findViewById(R.id.lst_notification);
+		mListNotifications = (ListView)mView.findViewById(R.id.lst_notification);
 		mAdapter = new NotificationListAdapter(this);
 		mListNotifications.setAdapter(mAdapter);
 		
-		//set loading text
-		TextView text = new TextView(getActivity());
-		text.setText("loading....");
-		mListNotifications.setLoadingView(text);
+		//init loader(this loader is used for loading data from network)
+		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		Bundle bundle = apiHelper.getNotifications(true);
+		//showProgressDialog();
+		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
 	}
 	
+	@Override
+	public void onAttach(Activity activity)
+	{
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		
+		mActivity = activity;
+	}
+
 	@Override
 	public void onPause() 
 	{
@@ -88,9 +99,11 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 			HttpRequestResult result) 
 	{
 		// TODO Auto-generated method stub
-		if(result.getResponseCode() != 0)
+		hideProgressDialog();
+		
+		if(result.getResponseCode() == 0)
 		{
-			
+			Log.v("notification", "success");
 		}else
 		{
 			
@@ -101,5 +114,24 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) 
 	{
 		// TODO Auto-generated method stub
+	}
+	
+	private void showProgressDialog()
+	{
+		if(mProDialog == null)
+		{
+			mProDialog = new ProgressDialog(mActivity);
+			mProDialog.setIndeterminate(true);
+			mProDialog.show();
+		}
+	}
+	
+	private void hideProgressDialog()
+	{
+		if(mProDialog != null)
+		{
+			mProDialog.dismiss();
+			mProDialog = null;
+		}
 	}
 }
