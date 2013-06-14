@@ -3,18 +3,12 @@ package com.wetongji_android.ui.today;
 import java.util.Calendar;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -22,6 +16,10 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.androidquery.AQuery;
 import com.viewpagerindicator.UnderlinePageIndicator;
 import com.wetongji_android.R;
@@ -43,7 +41,7 @@ import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 import com.wetongji_android.util.net.HttpUtil;
 
-public class TodayFragment extends Fragment {
+public class TodayFragment extends SherlockFragment {
 
 	private View view;
 	private Context context;
@@ -70,7 +68,7 @@ public class TodayFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = getActivity();
-		setHasOptionsMenu(false);
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -86,15 +84,6 @@ public class TodayFragment extends Fragment {
 					new DbLoaderCallbacks()).forceLoad();
 		}
 		return view;
-	}
-	
-	@SuppressLint("NewApi")
-	@Override
-	public void onAttach(android.app.Activity activity) {
-		// TODO Auto-generated method stub
-		super.onAttach(activity);
-		
-		//getActivity().invalidateOptionsMenu();
 	}
 
 	private void setTodayBanner(View view, TodayBannerPagerAdapter bannerAdapter) {
@@ -256,11 +245,10 @@ public class TodayFragment extends Fragment {
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		Log.v("menu", "create");
 		// TODO Auto-generated method stub
-		//inflater.inflate(R.menu.menu_main, menu);
-		
 		super.onCreateOptionsMenu(menu, inflater);
+		
+		inflater.inflate(R.menu.menu_today, menu);
 	}
 
 	@Override

@@ -21,7 +21,6 @@ import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -116,7 +115,6 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		}
 	}
 	
-	@SuppressLint("NewApi")
 	@Override
 	public void onAttach(Activity activity) 
 	{
@@ -124,7 +122,6 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		super.onAttach(activity);
 		
 		mActivity = activity;
-		mActivity.invalidateOptionsMenu();
 	}
 
 	
@@ -238,7 +235,6 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 	{
 		super.onCreateOptionsMenu(menu, inflater);
 		
-		menu.clear();
 		inflater.inflate(R.menu.menu_informationlist, menu);
 		
 		readPreference();

@@ -113,4 +113,5 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="notification_title">Notification</string>
 	<string name="people_current_star">Current Star</string>
 	<string name="people_vol">Vol.%d</string>
+	<string name="notification_title">Notifications</string>
 </resources>

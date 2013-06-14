@@ -1,5 +1,7 @@
 package com.wetongji_android.data;
 
+import java.util.Date;
+
 import com.j256.ormlite.field.DatabaseField;
 
 public class Notification 
@@ -13,19 +15,36 @@ public class Notification
 	@DatabaseField
 	private int Type;
 	@DatabaseField
-	private int Status;
+	private boolean Read;
 	@DatabaseField
 	private int SourceId;
-
+	@DatabaseField
+	private String From;
+	@DatabaseField
+	private Date SentAt;
+	@DatabaseField
+	private Date AcceptedAt;
+	@DatabaseField
+	private Date RejectedAt;
+	
+	public Notification()
+	{
+		
+	}
+	
 	public Notification(int id, String title, String description, int type,
-			int status, int sourceId) {
+			boolean Read, int sourceId, String from, Date sent, Date accept, Date reject) {
 		super();
 		this.Id = id;
 		this.Title = title;
 		this.Description = description;
 		this.Type = type;
-		this.Status = status;
+		this.Read = Read;
 		this.SourceId = sourceId;
+		this.From = from;
+		this.SentAt = sent;
+		this.AcceptedAt = accept;
+		this.RejectedAt = reject;
 	}
 
 	public int getId() {
@@ -60,12 +79,12 @@ public class Notification
 		this.Description = description;
 	}
 
-	public int getStatus() {
-		return Status;
+	public boolean getRead() {
+		return Read;
 	}
 
-	public void setStatus(int status) {
-		this.Status = status;
+	public void setRead(boolean Read) {
+		this.Read = Read;
 	}
 
 	public int getSourceId() {
@@ -74,5 +93,37 @@ public class Notification
 
 	public void setSourceId(int sourceId) {
 		this.SourceId = sourceId;
+	}
+
+	public String getFrom() {
+		return From;
+	}
+
+	public void setFrom(String from) {
+		From = from;
+	}
+
+	public Date getSentAt() {
+		return SentAt;
+	}
+
+	public void setSentAt(Date sentAt) {
+		SentAt = sentAt;
+	}
+
+	public Date getAcceptedAt() {
+		return AcceptedAt;
+	}
+
+	public void setAcceptedAt(Date acceptedAt) {
+		AcceptedAt = acceptedAt;
+	}
+
+	public Date getRejectedAt() {
+		return RejectedAt;
+	}
+
+	public void setRejectedAt(Date rejectedAt) {
+		RejectedAt = rejectedAt;
 	}
 }

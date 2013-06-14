@@ -208,7 +208,6 @@ OnScrollListener{
 			com.actionbarsherlock.view.MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		
-		menu.clear();
 		inflater.inflate(R.menu.menu_eventlist, menu);
 		
 		readPreference();

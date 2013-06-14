@@ -74,4 +74,8 @@
     <color name="tv_info_detail_location">#0cc2cb</color>
     <color name="tv_info_detail_time">#b1b1b1</color>
     <color name="tv_people_current_vol">#ea5251</color>
+    <color name="tv_notification_title">#d4d4d4</color>
+    <color name="notification_bg_color">#323232</color>
+    <color name="notification_title_bg_color">#212121</color>
+    <color name="notification_title_bg_inner_shadow">#70454545</color>
 </resources>
