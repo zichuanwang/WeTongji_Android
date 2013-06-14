@@ -14,6 +14,8 @@
     <item name="tv_notification_content" type="id">false</item>
     <item name="tv_notification_time" type="id">false</item>
     <item name="img_notification_thumbnails" type="id">false</item>
+    <item name="btn_notification_ignore" type="id">false</item>
+    <item name="btn_notification_yes" type="id">false</item>
     <item name="vp_today" type="id">false</item>
     <item name="vp_indicator_today" type="id">false</item>
     <item name="framelayout_today" type="id">false</item>

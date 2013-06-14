@@ -1,6 +1,10 @@
 package com.wetongji_android.ui.notification;
 
+import java.util.List;
+
 import com.wetongji_android.R;
+import com.wetongji_android.data.Notification;
+import com.wetongji_android.factory.NotificationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
@@ -22,13 +26,16 @@ import android.widget.TextView;
 
 public class NotificationFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>
 {
-
+	private static final String TAG = "NotificationFragment";
+	
 	private View mView;
 	private ListView mListNotifications;
 	private NotificationListAdapter mAdapter;
 	private Activity mActivity;
 	
 	private ProgressDialog mProDialog = null;
+	
+	private NotificationFactory mFactory;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -66,7 +73,7 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 		
 		//init loader(this loader is used for loading data from network)
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle bundle = apiHelper.getNotifications(true);
+		Bundle bundle = apiHelper.getNotifications(false);
 		//showProgressDialog();
 		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
 	}
@@ -103,7 +110,11 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 		
 		if(result.getResponseCode() == 0)
 		{
-			Log.v("notification", "success");
+			if(mFactory == null)
+				mFactory = new NotificationFactory();
+			
+			List<Notification> results = mFactory.createObjects(result.getStrResponseCon());
+			Log.v(TAG, "" + results.size());
 		}else
 		{
 			
@@ -120,7 +131,7 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 	{
 		//init loader(this loader is used for loading data from network)
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle bundle = apiHelper.getNotifications(true);
+		Bundle bundle = apiHelper.getNotifications(false);
 		//showProgressDialog();
 		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
 	}

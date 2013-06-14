@@ -70,7 +70,7 @@ public class ApiHelper {
 	private static final String API_ARGS_BEGIN="Begin";
 	private static final String API_ARGS_END="End";
 	private static final String API_ARGS_ID = "Id";
-	private static final String API_ARGS_UNREAD = "Onlynew";
+	private static final String API_ARGS_UNREAD = "OnlyNew";
 	
 	public static final int API_ARGS_SORT_BY_PUBLISH_DESC = 1;
 	public static final int API_ARGS_SORT_BY_PUBLISH_ASC = 2;
