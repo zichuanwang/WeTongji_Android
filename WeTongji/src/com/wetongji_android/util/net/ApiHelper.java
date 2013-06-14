@@ -16,6 +16,7 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 
 /**
  * @author John
@@ -69,7 +70,7 @@ public class ApiHelper {
 	private static final String API_ARGS_BEGIN="Begin";
 	private static final String API_ARGS_END="End";
 	private static final String API_ARGS_ID = "Id";
-	private static final String API_ARGS_UNREAD = "Unread";
+	private static final String API_ARGS_UNREAD = "Onlynew";
 	
 	public static final int API_ARGS_SORT_BY_PUBLISH_DESC = 1;
 	public static final int API_ARGS_SORT_BY_PUBLISH_ASC = 2;
@@ -136,6 +137,7 @@ public class ApiHelper {
 	
 	private void putLoginArgs(Bundle bundle){
 		if(!TextUtils.isEmpty(session)){
+			Log.v("session", "not null");
 			bundle.putString(API_ARGS_SESSION, session);
 			bundle.putString(API_ARGS_UID, uid);
 		}

@@ -63,6 +63,12 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 		mListNotifications = (ListView)mView.findViewById(R.id.lst_notification);
 		mAdapter = new NotificationListAdapter(this);
 		mListNotifications.setAdapter(mAdapter);
+		
+		//init loader(this loader is used for loading data from network)
+		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		Bundle bundle = apiHelper.getNotifications(true);
+		//showProgressDialog();
+		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
 	}
 	
 	@Override

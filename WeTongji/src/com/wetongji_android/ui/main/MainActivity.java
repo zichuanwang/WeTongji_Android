@@ -105,8 +105,6 @@ public class MainActivity extends UpdateBaseActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
-		getSupportMenuInflater().inflate(R.menu.menu_main, menu);
-		
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -116,16 +114,6 @@ public class MainActivity extends UpdateBaseActivity {
 		case android.R.id.home:
 			toggle();
 			return true;
-		case R.id.notification_button:
-			Log.v(TAG, "notification");
-			if(getSlidingMenu().isSecondaryMenuShowing())
-			{
-				Log.v(TAG, "show");
-			}else
-			{
-				Log.v(TAG, "not show");
-				showSecondaryMenu();
-			}
 		}
 
 		return super.onOptionsItemSelected(item);

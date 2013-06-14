@@ -21,6 +21,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
 import com.wetongji_android.data.User;
 import com.wetongji_android.factory.UserFactory;
@@ -57,7 +60,7 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -139,4 +142,17 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 	}
 
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// TODO Auto-generated method stub
+		super.onCreateOptionsMenu(menu, inflater);
+		
+		inflater.inflate(R.menu.menu_profile, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		return super.onOptionsItemSelected(item);
+	}
 }
