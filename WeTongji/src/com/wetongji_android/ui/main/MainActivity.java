@@ -74,7 +74,7 @@ public class MainActivity extends UpdateBaseActivity {
 	private void setSlidingMenu() {
 		// set slidingmenu properties
 		SlidingMenu sm = getSlidingMenu();
-		// sm.setMode(SlidingMenu.LEFT_RIGHT);
+		sm.setMode(SlidingMenu.LEFT_RIGHT);
 		sm.setShadowWidthRes(R.dimen.shadow_width);
 		sm.setShadowDrawable(R.drawable.shadow);
 		sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
@@ -116,6 +116,16 @@ public class MainActivity extends UpdateBaseActivity {
 		case android.R.id.home:
 			toggle();
 			return true;
+		case R.id.notification_button:
+			Log.v(TAG, "notification");
+			if(getSlidingMenu().isSecondaryMenuShowing())
+			{
+				Log.v(TAG, "show");
+			}else
+			{
+				Log.v(TAG, "not show");
+				showSecondaryMenu();
+			}
 		}
 
 		return super.onOptionsItemSelected(item);

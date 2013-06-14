@@ -192,4 +192,10 @@
  	    <item name="android:textStyle">bold</item>
  	</style>
  	
+ 	<style name="NotificationTitleStyle" parent="@style/TextWithShadow">
+ 	    <item name="android:textColor">@color/tv_notification_title</item>
+ 	    <item name="android:textSize">18sp</item>
+ 	    <item name="android:textStyle">normal</item>
+ 	</style>
+ 	
 </resources>
