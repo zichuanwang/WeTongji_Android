@@ -18,7 +18,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.androidquery.AQuery;
@@ -29,19 +28,15 @@ import com.wetongji_android.factory.ActivityFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 
-public class EventsFragment extends SherlockFragment implements LoaderCallbacks<HttpRequestResult>,
+public class EventsFragment extends WTBaseFragment implements LoaderCallbacks<HttpRequestResult>,
 OnScrollListener{
-	
-	private boolean isFirstTimeStartFlag = true;
-	private final int FIRST_TIME_START = 0; //when activity is first time start
-	private final int SCREEN_ROTATE = 1;    //when activity is destroyed and recreated because a configuration change, see setRetainInstance(boolean retain)
-	private final int ACTIVITY_DESTROY_AND_CREATE = 2; 
 	
 	public static final String BUNDLE_KEY_ACTIVITY = "bundle_key_activity";
 	public static final String BUNDLE_KEY_ACTIVITY_LIST = "bundle_key_activity_list";
@@ -170,10 +165,10 @@ OnScrollListener{
 	
 	public void refreshData() {
 		isRefresh = true;
-		// scroll the listview to top
 		
 		mAdapter.clear();
 		mAdapter.setIsLoadingData(true);
+		// scroll the listview to top
 		mListActivity .setSelection(0);
 		mCurrentPage = 0;
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
@@ -208,22 +203,6 @@ OnScrollListener{
 	public void onScrollStateChanged(AbsListView arg0, int arg1) {
 	}
 	
-	private int getCurrentState(Bundle savedInstanceState) {
-
-        if (savedInstanceState != null) {
-            isFirstTimeStartFlag = false;
-            return ACTIVITY_DESTROY_AND_CREATE;
-        }
-
-
-        if (!isFirstTimeStartFlag) {
-            return SCREEN_ROTATE;
-        }
-
-        isFirstTimeStartFlag = false;
-        return FIRST_TIME_START;
-    }
-
 	@Override
 	public void onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu,
 			com.actionbarsherlock.view.MenuInflater inflater) {

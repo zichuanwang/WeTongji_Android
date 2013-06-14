@@ -103,4 +103,9 @@
     <item type="id" name="pic_save">false</item>
     <item type="id" name="right_menu">false</item>
     <item type="id" name="notification_button">false</item>
+    <item name="img_people_avatar" type="id" />
+    <item name="tv_people_name" type="id" />
+    <item name="tv_people_vol_num" type="id" />
+    <item name="tv_people_words" type="id" />
+    <item name="layout_people_row" type="id" />
 </resources>

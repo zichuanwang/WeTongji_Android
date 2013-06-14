@@ -465,4 +465,18 @@ public class ApiHelper {
 		return bundle;
 	}
 	
+	public Bundle getPeople(int page) {
+		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		if(page <= 0) {
+			page = 1;
+		}
+		bundle.putString(API_ARGS_METHOD, "People.Get");
+		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
+		
+		return bundle;
+	}
+	
 }

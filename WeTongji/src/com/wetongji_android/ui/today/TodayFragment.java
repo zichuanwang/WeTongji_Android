@@ -34,6 +34,7 @@ import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.main.MainActivity;
+import com.wetongji_android.ui.people.PeopleListFragment;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.data.event.EventLoader;
@@ -243,6 +244,11 @@ public class TodayFragment extends Fragment {
 			case R.id.tv_today_activities:
 				((MainActivity) context).switchContent(new EventsFragment());
 				break;
+			
+			case R.id.tv_today_features:
+				((MainActivity) context).switchContent(new PeopleListFragment());
+				break;
+				
 			}
 		}
 

@@ -21,7 +21,7 @@ public class PersonFactory extends BaseFactory<Person, Integer> {
 	}
 	
 	@Override
-	protected List<Person> createObjects(String jsonStr, boolean needToRefresh){ 
+	public List<Person> createObjects(String jsonStr, boolean needToRefresh){ 
 		list.clear();
 		JSONArray array;
 		try {
@@ -47,8 +47,8 @@ public class PersonFactory extends BaseFactory<Person, Integer> {
 			JSONObject jsonObject=new JSONObject(jsonStr);
 			person.setId(jsonObject.getInt("Id"));
 			person.setName(jsonObject.getString("Name"));
-			person.setNO(jsonObject.getString("NO"));
-			person.setNO(jsonObject.getString("NO"));
+			person.setNO(jsonObject.getInt("NO"));
+			person.setNO(jsonObject.getInt("NO"));
 			person.setJobTitle(jsonObject.getString("JobTitle"));
 			person.setWords(jsonObject.getString("Words"));
 			person.setAvatar(jsonObject.getString("Avatar"));

@@ -192,4 +192,14 @@
  	    <item name="android:textStyle">bold</item>
  	</style>
  	
+ 	<style name="PeopleName" parent="@style/EventLstTitle">
+ 	    <item name="android:maxLines">1</item>
+ 	</style>
+ 	
+ 	<style name="PeopleWords" parent="@style/EventLstTime">
+ 	    <item name="android:textSize">13sp</item>
+ 	    <item name="android:maxLines">2</item>
+        <item name="android:textStyle">normal</item>
+ 	</style>
+ 	
 </resources>

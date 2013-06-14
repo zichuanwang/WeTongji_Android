@@ -19,7 +19,7 @@ public class Person implements Parcelable{
 	@DatabaseField
 	private String Words;
 	@DatabaseField
-	private String NO;
+	private int NO;
 	@DatabaseField
 	private String Avatar;
 	@DatabaseField
@@ -40,7 +40,7 @@ public class Person implements Parcelable{
 	}
 
 	public Person(int id, String name, String jobTitle, String words,
-			String nO, String avatar, String title, String description,
+			int nO, String avatar, String title, String description,
 			int read, int like, boolean canLike, HashMap<String, String> images) {
 		super();
 		Id = id;
@@ -89,11 +89,12 @@ public class Person implements Parcelable{
 		Words = words;
 	}
 
-	public String getNO() {
+
+	public int getNO() {
 		return NO;
 	}
 
-	public void setNO(String nO) {
+	public void setNO(int nO) {
 		NO = nO;
 	}
 
@@ -164,7 +165,7 @@ public class Person implements Parcelable{
 		dest.writeString(Name);
 		dest.writeString(JobTitle);
 		dest.writeString(Words);
-		dest.writeString(NO);
+		dest.writeInt(NO);
 		dest.writeString(Avatar);
 		dest.writeString(Title);
 		dest.writeString(Description);
@@ -180,7 +181,7 @@ public class Person implements Parcelable{
 		Name=source.readString();
 		JobTitle=source.readString();
 		Words=source.readString();
-		NO=source.readString();
+		NO=source.readInt();
 		Avatar=source.readString();
 		Title=source.readString();
 		Description=source.readString();

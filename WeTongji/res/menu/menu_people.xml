@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	<item android:id="@id/menu_eventlist_reload" 
+	    android:icon="@drawable/abs_event_reload" 
+	    android:title="@string/text_menu_reload" 
+	    android:titleCondensed="@string/notification_title" 
+	    android:visible="true"
+	    android:showAsAction="always"/>
+	
+</menu>

@@ -51,6 +51,7 @@ public class WTApplication extends Application {
 	public static final int EVENT_Like_LOADER = 19;
 	public static final int USER_SAVER = 20;
 	public static final int USER_LOADER = 21;
+	public static final int PERSON_LOADER = 22;
 
 	public static final String FLURRY_API_KEY = "GN5KJMW6XWCSD5DTCWRW";
 	public static final String MISSING_IMAGE_URL = "http://we.tongji.edu.cn/images/original/missing.png";
