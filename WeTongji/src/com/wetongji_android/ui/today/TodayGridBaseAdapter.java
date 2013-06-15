@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class TodayGridBaseAdapter<T> extends BaseAdapter implements OnItemClickListener
@@ -62,6 +63,7 @@ public class TodayGridBaseAdapter<T> extends BaseAdapter implements OnItemClickL
 			holder.tvGridTitle=(TextView) convertView.findViewById(R.id.tv_today_grid_title);
 			holder.ivGridTitleIndicator=(ImageView) convertView.findViewById(R.id.iv_today_grid_title_indicator);
 			holder.tvGridContent=(TextView) convertView.findViewById(R.id.tv_today_grid_content);
+			holder.rlSpinner = (RelativeLayout) convertView.findViewById(R.id.layout_today_spinner);
 			convertView.setTag(holder);
 		}
 		else{
@@ -76,6 +78,7 @@ public class TodayGridBaseAdapter<T> extends BaseAdapter implements OnItemClickL
 		TextView tvGridTitle;
 		ImageView ivGridTitleIndicator;
 		TextView tvGridContent;
+		RelativeLayout rlSpinner;
 	}
 
 	@Override

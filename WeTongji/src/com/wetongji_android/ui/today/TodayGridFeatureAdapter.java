@@ -3,13 +3,16 @@ package com.wetongji_android.ui.today;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Account;
 import com.wetongji_android.data.Person;
+import com.wetongji_android.ui.people.PeopleListActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.net.HttpUtil;
 
@@ -50,6 +53,14 @@ public class TodayGridFeatureAdapter extends TodayGridBaseAdapter<Object> {
 
 	private void getPersonView(Person person, View convertView) {
 		if (person != null) {
+			
+			holder.rlSpinner.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					context.startActivity(new Intent(context, PeopleListActivity.class));
+				}
+			});
+			
 			holder.tvGridTitle.setText(R.string.text_people);
 			holder.tvGridContent.setText(person.getName());
 			if (person.getImages() == null

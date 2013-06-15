@@ -123,4 +123,6 @@
     <item name="vp_person_images" type="id" />
     <item name="tv_person_detail_pic_desc" type="id" />
     <item name="img_person_detail_viewpager_pic" type="id">false</item>
+    <item name="fragment_container" type="id" />
+    <item name="layout_today_spinner" type="id" />
 </resources>

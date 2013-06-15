@@ -233,11 +233,6 @@ public class TodayFragment extends SherlockFragment {
 			case R.id.tv_today_activities:
 				((MainActivity) context).switchContent(new EventsFragment());
 				break;
-			
-			case R.id.tv_today_features:
-				((MainActivity) context).switchContent(new PeopleListFragment());
-				break;
-				
 			}
 		}
 

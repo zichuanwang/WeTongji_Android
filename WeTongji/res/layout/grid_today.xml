@@ -19,7 +19,9 @@
         android:visibility="gone"
         android:contentDescription="@string/content_description_all"/>
     
-    <RelativeLayout 
+    <RelativeLayout
+        android:id="@id/layout_today_spinner"
+        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="32dp">
         
