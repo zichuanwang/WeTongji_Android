@@ -103,12 +103,14 @@ public class PeopleListAdapter extends EndlessListAdapter<Person> implements Loa
 		
 		if (position == 0) {
 			holder.tvPeopleVol.setText(
-					mContext.getResources().getString(R.string.people_current_star));
+					mContext.getString(R.string.people_current_star));
 			holder.tvPeopleVol.setTextColor(
 					mContext.getResources().getColor(R.color.tv_people_current_vol));
 		} else {
 			String vol = mContext.getResources().getString(R.string.people_vol);
 			holder.tvPeopleVol.setText(String.format(vol, person.getNO()));
+			holder.tvPeopleVol.setTextColor(
+					mContext.getResources().getColor(R.color.tv_eventlst_location));
 		}
 		
 		// Set avatar

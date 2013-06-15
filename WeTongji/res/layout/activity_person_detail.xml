@@ -1,262 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    
-    
+    android:layout_height="match_parent" >
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        
+        android:layout_height="match_parent" >
+
         <!-- actionbar container -->
-	    <LinearLayout 
-	        android:id="@id/layout_event_detail_top_actionbar"
-	        android:layout_alignParentTop="true"
-	        android:layout_width="match_parent"
-	        android:layout_height="48dp"
-	        android:background="@drawable/ab_solid_wttheme"
-	        style="?attr/actionBarStyle"
-	        >
-	        <LinearLayout
-	            android:id="@id/event_detail_back"
-	            android:layout_width="wrap_content"
-      			android:layout_height="fill_parent"
-      			android:clickable="true"
-      			android:background="@drawable/selectable_background_wttheme">
-      			
-	            <ImageView android:id="@id/abs__up"
-	               android:src="?attr/homeAsUpIndicator"
-	               android:layout_gravity="center_vertical|left"
-	               android:layout_width="wrap_content"
-	               android:layout_height="wrap_content"
-	               android:layout_marginRight="-4dip"
-	               android:contentDescription="@string/img_content_description"/>
-	            
-			    <ImageView android:id="@id/abs__home"
-	               android:layout_width="wrap_content"
-	               android:layout_height="wrap_content"
-	               android:src="@drawable/ic_launcher"
-	               android:layout_marginRight="8dip"
-	               android:layout_marginTop="@dimen/abs__action_bar_icon_vertical_padding"
-	               android:layout_marginBottom="@dimen/abs__action_bar_icon_vertical_padding"
-	               android:layout_gravity="center"
-	               android:adjustViewBounds="true"
-	               android:scaleType="fitCenter"
-	               android:contentDescription="@string/img_content_description"/>
-			    
-	        </LinearLayout>
-	        
-	        <LinearLayout
-	            android:layout_width="wrap_content"
-	            android:layout_height="fill_parent"
-	            android:background="@drawable/selectable_background_wttheme"
-	            android:addStatesFromChildren="true"
-	            android:layout_gravity="center_vertical"
-			    android:gravity="center"
-			    android:clickable="true"
-			    android:paddingLeft="6dip"
-			    android:paddingRight="6dip"
-			    android:layout_marginLeft="190dp">
-	            
-	            <ImageButton 
-	                android:id="@id/action_event_detail_share"
-	                 android:layout_width="wrap_content"
-	                 android:layout_height="wrap_content"
-	                 android:src="@drawable/ab_event_share"
-	                 android:layout_gravity="center"
-	                 android:layout_marginTop="4dip"
-	                 android:layout_marginBottom="4dip"
-	                 android:layout_marginLeft="4dip"
-	                 android:layout_marginRight="4dip"
-	                 android:scaleType="fitCenter"
-	                 android:adjustViewBounds="true"
-	                 android:focusable="false"
-	                 android:background="@null"
-	                 android:contentDescription="@string/img_content_description"/>
-	            
-	        </LinearLayout>
-	    </LinearLayout>
-	    
-	    <!-- main content -->
-		<FrameLayout 
-		    android:layout_below="@id/layout_event_detail_top_actionbar"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:background="@drawable/bg_app_base">
-		    
-		    <!-- main content -->
-		    <ScrollView android:layout_width="match_parent"
-		        android:layout_height="match_parent">
-		        
-		        <LinearLayout 
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:orientation="vertical">
-				
-			        <LinearLayout
-			            android:layout_width="match_parent"
-			            android:layout_height="106.6dp"
-			            android:paddingBottom="0dp"
-			            android:background="@drawable/event_detail_brief_shadow">
-			            
-			            <ImageView 
-			                android:id="@id/img_people_detail_avatar"
-			                style="@style/EventLstThumbnails"
-					        android:layout_width="66.6dip"
-					        android:layout_height="66.6dip"
-			                android:layout_marginRight="18dp"
-			                android:layout_marginLeft="20dp"
-			                android:layout_marginTop="20dp"
-			                android:layout_marginBottom="20dp"
-			                android:background="@drawable/bg_people_avatar_cover"/>
-			            
-			            <LinearLayout android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:layout_marginRight="7dp"
-			                android:layout_marginBottom="10dp"
-			                android:orientation="vertical"
-			                android:background="@color/bg_event_deatil_brief">
-			                
-				            <TextView 
-				                android:id="@id/tv_person_detail_vol"
-				                android:layout_width="wrap_content"
-				                android:layout_height="wrap_content"
-				                android:layout_marginTop="3dp"
-				                android:layout_marginRight="3dp"
-				                style="@style/EventLstLocation"
-				                android:textIsSelectable="true"
-				                android:text="@string/people_current_star"
-				                />
-				            
-				            <TextView 
-				                android:id="@id/tv_person_name"
-				                android:layout_width="wrap_content"
-				                android:layout_height="wrap_content"
-				                android:layout_marginTop="-1dp"
-				                style="@style/PeopleName"
-				                android:textIsSelectable="true"
-				                />
-				            
-				            <TextView
-				                android:id="@id/tv_person_words"
-				                style="@style/PersonDetailWords"
-				                android:layout_width="wrap_content"
-				                android:layout_height="wrap_content"
-				                android:layout_marginTop="3dp"
-				                android:textIsSelectable="true" />
-				            
-			            </LinearLayout>
-			            
-			        </LinearLayout>
-			        
-			        <!-- LinearLayout android:layout_width="match_parent"
-			            android:layout_height="1.5dp"
-			            android:paddingBottom="-0.5dp"
-			            android:background="@drawable/event_detail_shadow"></LinearLayout -->
-			        
-			        <ImageView 
-			            android:id="@id/iv_event_detail_image"
-			            android:layout_width="match_parent"
-			            android:layout_height="147dp"
-			            android:background="@drawable/image_cover"
-			            android:scaleType="centerCrop"
-			            android:paddingTop="0dp"
-						android:paddingBottom="0dp"
-			            android:contentDescription="@string/img_content_description"
-			            />
-			        
-			        <!-- title -->
 
-		            <TextView
-		                style="@style/EventDetailOrganization"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_marginBottom="6dp"
-		                android:layout_marginLeft="10dp"
-		                android:layout_marginTop="10dp"
-		                android:text="@string/text_people_detail_title" />
-		            
-		            <TextView
-		                android:id="@id/text_person_detail_title_name"
-		                style="@style/PeopleDetailTitleName"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_gravity="center_vertical"
-		                android:layout_marginBottom="8dp"
-		                android:layout_marginLeft="10dp"
-		                android:text="同济大学优秀学生、国家奖学金获得者"
-		                android:textIsSelectable="true" />
-			            
-			       	<!-- END-title-END -->
-			       	
-			       	<LinearLayout 
-			       	    android:layout_width="match_parent"
-			       	    android:layout_height="wrap_content"
-			       	    android:layout_margin="4dp"
-			       	    android:orientation="vertical"
-			       	    android:background="@drawable/event_detail_content_bg">
-			       	    
-			       	    <TextView android:layout_width="wrap_content"
-			       	        android:layout_height="wrap_content"
-			       	        android:text="@string/text_event_about"
-			       	        android:layout_margin="6dp"
-			       	        style="@style/EventDetailAbout"/>
-			       	    <TextView 
-			       	        android:id="@id/tv_person_detail_content"
-			       	        android:layout_width="match_parent" 
-			       	        android:layout_height="wrap_content"
-			       	        android:textIsSelectable="true"
-			       	       	android:layout_margin="14dp"
-			       	        style="@style/EventDetailContent"/>
-			       	</LinearLayout>
-			       	
-			    </LinearLayout>
-		        
-		    </ScrollView>
-		     
-		    <!-- actionbar shadow -->
-		    <LinearLayout 
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:background="@drawable/action_bar_shadow">
-		    </LinearLayout>
-		    
-		</FrameLayout>	    
-        
-    </RelativeLayout>
+        <LinearLayout
+            android:id="@id/layout_event_detail_top_actionbar"
+            style="?attr/actionBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/ab_solid_wttheme" >
 
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        
-    	<!-- Like checkbox -->
-        <LinearLayout 
-            android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_alignParentRight="true"
-        	android:layout_marginRight="16dp"
-        	android:orientation="vertical"
-        	android:gravity="center"
-        	android:background="@drawable/bg_event_like"
-        	>
-          <CheckBox 
-              android:id="@id/cb_event_like"
-              android:layout_width="wrap_content"
-              android:layout_height="26dp"
-              android:layout_marginTop="1dp"
-              android:layout_marginLeft="4dp"
-              android:layout_marginBottom="0dp"
-              android:paddingBottom="-2dp"
-              style="@style/EventLikeCheckbox"/>
-          
-          <TextView 
-              android:id="@id/tv_event_like_number"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textIsSelectable="true"
-              style="@style/EventLikeNumber"/>
-          
+            <LinearLayout
+                android:id="@id/event_detail_back"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:background="@drawable/selectable_background_wttheme"
+                android:clickable="true" >
+
+                <ImageView
+                    android:id="@id/abs__up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_marginRight="-4dip"
+                    android:contentDescription="@string/img_content_description"
+                    android:src="?attr/homeAsUpIndicator" />
+
+                <ImageView
+                    android:id="@id/abs__home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/abs__action_bar_icon_vertical_padding"
+                    android:layout_marginRight="8dip"
+                    android:layout_marginTop="@dimen/abs__action_bar_icon_vertical_padding"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/img_content_description"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_launcher" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="190dp"
+                android:addStatesFromChildren="true"
+                android:background="@drawable/selectable_background_wttheme"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingLeft="6dip"
+                android:paddingRight="6dip" >
+
+                <ImageButton
+                    android:id="@id/action_event_detail_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4dip"
+                    android:layout_marginLeft="4dip"
+                    android:layout_marginRight="4dip"
+                    android:layout_marginTop="4dip"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:contentDescription="@string/img_content_description"
+                    android:focusable="false"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ab_event_share" />
+            </LinearLayout>
         </LinearLayout>
-        
+
+        <!-- main content -->
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_event_detail_top_actionbar"
+            android:background="@drawable/bg_app_base" >
+
+            <!-- main content -->
+
+            <com.wetongji_android.ui.widgets.WTScrollViewWithVP
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="106.6dp"
+                        android:background="@drawable/event_detail_brief_shadow">
+
+                        <ImageView
+                            android:id="@id/img_people_detail_avatar"
+                            style="@style/EventLstThumbnails"
+                            android:layout_width="66.6dip"
+                            android:layout_height="66.6dip"
+                            android:layout_marginBottom="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="18dp"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/bg_people_avatar_cover" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginRight="7dp"
+                            android:background="@color/bg_event_deatil_brief"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:id="@id/tv_person_detail_vol"
+                                style="@style/EventLstLocation"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="3dp"
+                                android:layout_marginTop="3dp"
+                                android:text="@string/people_current_star"
+                                android:textIsSelectable="true" />
+
+                            <TextView
+                                android:id="@id/tv_person_name"
+                                style="@style/PeopleName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="-1dp"
+                                android:textIsSelectable="true" />
+
+                            <TextView
+                                android:id="@id/tv_person_words"
+                                style="@style/PersonDetailWords"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:textIsSelectable="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="147dp"
+                        android:orientation="vertical" >
+
+                        <android.support.v4.view.ViewPager
+                            android:id="@id/vp_person_images"
+                            android:layout_width="match_parent"
+                            android:layout_height="143dp" />
+
+                        <com.viewpagerindicator.UnderlinePageIndicator
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/vp_indicator_person"
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:layout_gravity="bottom"
+                            android:background="@color/vp_indicator_today_bg"
+                            app:selectedColor="@color/vp_indicator_today" />
+                    </LinearLayout>
+
+                    <!-- title -->
+
+                    <TextView
+                        style="@style/EventDetailOrganization"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/text_people_detail_title" />
+
+                    <TextView
+                        android:id="@id/text_person_detail_title_name"
+                        style="@style/PeopleDetailTitleName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginLeft="10dp"
+                        android:textIsSelectable="true" />
+
+                    <!-- END-title-END -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/event_detail_content_bg"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            style="@style/EventDetailAbout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="6dp"
+                            android:text="@string/text_event_about" />
+
+                        <TextView
+                            android:id="@id/tv_person_detail_content"
+                            style="@style/EventDetailContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="14dp"
+                            android:textIsSelectable="true" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.wetongji_android.ui.widgets.WTScrollViewWithVP>
+
+            <!-- actionbar shadow -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/action_bar_shadow" >
+            </LinearLayout>
+        </FrameLayout>
     </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <!-- Like checkbox -->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_event_like"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <CheckBox
+                android:id="@id/cb_event_like"
+                style="@style/EventLikeCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="1dp"
+                android:paddingBottom="-2dp" />
+
+            <TextView
+                android:id="@id/tv_event_like_number"
+                style="@style/EventLikeNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true" />
+        </LinearLayout>
+    </RelativeLayout>
+
 </FrameLayout>

@@ -2,6 +2,7 @@ package com.wetongji_android.ui.people;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -10,9 +11,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.androidquery.AQuery;
+import com.viewpagerindicator.UnderlinePageIndicator;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Person;
 import com.wetongji_android.ui.event.EventDetailActivity;
+import com.wetongji_android.util.common.WTApplication;
 
 public class PersonDetailActivity extends SherlockFragmentActivity {
 
@@ -34,7 +38,7 @@ public class PersonDetailActivity extends SherlockFragmentActivity {
 		
 		setBackButton();
 		
-		//TODO set the viewpager
+		setImages();
 		
 		setTextViews();
 		
@@ -99,5 +103,21 @@ public class PersonDetailActivity extends SherlockFragmentActivity {
 		intent.setType("text/*");
 		intent.setType("image/*");
 		startActivity(Intent.createChooser(intent, share));
+	}
+	
+	private void setImages() {
+		ViewPager vpPics = (ViewPager) findViewById(R.id.vp_person_images);
+		PersonDetailPicPagerAdapter adapter = 
+				new PersonDetailPicPagerAdapter(mPerson.getImages(), this);
+		vpPics.setAdapter(adapter);
+		UnderlinePageIndicator indicator = 
+				(UnderlinePageIndicator) findViewById(R.id.vp_indicator_person);
+		indicator.setViewPager(vpPics);
+		indicator.setFades(false);
+		
+		AQuery aq = WTApplication.getInstance().getAq(this);
+		aq.id(R.id.img_people_detail_avatar).image(mPerson.getAvatar(),true, true,
+    			300, R.drawable.event_list_thumbnail_place_holder,
+    			null, AQuery.FADE_IN_NETWORK, 1.0f);
 	}
 }

@@ -120,4 +120,7 @@
     <item name="tv_person_words" type="id" />
     <item name="text_person_detail_title_name" type="id" />
     <item name="tv_person_detail_content" type="id" />
+    <item name="vp_person_images" type="id" />
+    <item name="tv_person_detail_pic_desc" type="id" />
+    <item name="img_person_detail_viewpager_pic" type="id">false</item>
 </resources>
