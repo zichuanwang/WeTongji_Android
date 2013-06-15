@@ -107,7 +107,8 @@
 			                android:layout_marginRight="18dp"
 			                android:layout_marginLeft="20dp"
 			                android:layout_marginTop="20dp"
-			                android:layout_marginBottom="20dp"/>
+			                android:layout_marginBottom="20dp"
+			                android:background="@drawable/bg_people_avatar_cover"/>
 			            
 			            <LinearLayout android:layout_width="wrap_content"
 			                android:layout_height="wrap_content"
@@ -120,30 +121,28 @@
 				                android:id="@id/tv_person_detail_vol"
 				                android:layout_width="wrap_content"
 				                android:layout_height="wrap_content"
-				                android:layout_marginTop="5dp"
+				                android:layout_marginTop="3dp"
 				                android:layout_marginRight="3dp"
 				                style="@style/EventLstLocation"
 				                android:textIsSelectable="true"
-				                android:text="Current Star"
+				                android:text="@string/people_current_star"
 				                />
 				            
 				            <TextView 
 				                android:id="@id/tv_person_name"
 				                android:layout_width="wrap_content"
 				                android:layout_height="wrap_content"
-				                android:layout_marginTop="1dp"
+				                android:layout_marginTop="-1dp"
 				                style="@style/PeopleName"
 				                android:textIsSelectable="true"
-				                android:text="陈四惠"
 				                />
 				            
 				            <TextView
 				                android:id="@id/tv_person_words"
-				                style="@style/PeopleWords"
+				                style="@style/PersonDetailWords"
 				                android:layout_width="wrap_content"
 				                android:layout_height="wrap_content"
-				                android:layout_marginTop="8dp"
-				                android:text="一个学期的课时有近四万分钟，一个人的一生中有几个四万分钟呢"
+				                android:layout_marginTop="3dp"
 				                android:textIsSelectable="true" />
 				            
 			            </LinearLayout>
@@ -178,7 +177,7 @@
 		                android:text="@string/text_people_detail_title" />
 		            
 		            <TextView
-		                android:id="@id/text_people_detail_title_name"
+		                android:id="@id/text_person_detail_title_name"
 		                style="@style/PeopleDetailTitleName"
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
@@ -203,7 +202,7 @@
 			       	        android:layout_margin="6dp"
 			       	        style="@style/EventDetailAbout"/>
 			       	    <TextView 
-			       	        android:id="@id/tv_people_detail_content"
+			       	        android:id="@id/tv_person_detail_content"
 			       	        android:layout_width="match_parent" 
 			       	        android:layout_height="wrap_content"
 			       	        android:textIsSelectable="true"
@@ -211,12 +210,6 @@
 			       	        style="@style/EventDetailContent"/>
 			       	</LinearLayout>
 			       	
-			       	<!-- this blank layout resolves conflict with 'bottom actionbar' -->
-		            <LinearLayout
-		                android:layout_width="match_parent"
-		                android:layout_height="48dp">
-		            </LinearLayout>
-		            
 			    </LinearLayout>
 		        
 		    </ScrollView>

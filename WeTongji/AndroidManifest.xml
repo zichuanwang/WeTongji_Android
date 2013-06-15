@@ -81,6 +81,11 @@
             android:label="@string/app_name">
         </activity>
         
+        <activity 
+            android:name="com.wetongji_android.ui.people.PersonDetailActivity"
+            android:label="@string/app_name">
+        </activity>
+        
     </application>
 
 </manifest>

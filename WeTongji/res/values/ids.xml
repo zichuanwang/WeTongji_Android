@@ -118,6 +118,6 @@
     <item name="tv_person_detail_vol" type="id" />
     <item name="tv_person_name" type="id" />
     <item name="tv_person_words" type="id" />
-    <item name="text_people_detail_title_name" type="id" />
-    <item name="tv_people_detail_content" type="id" />
+    <item name="text_person_detail_title_name" type="id" />
+    <item name="tv_person_detail_content" type="id" />
 </resources>

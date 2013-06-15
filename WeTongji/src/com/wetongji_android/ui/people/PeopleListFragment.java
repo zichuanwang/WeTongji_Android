@@ -5,6 +5,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -35,6 +36,8 @@ import com.wetongji_android.util.net.HttpRequestResult;
 public class PeopleListFragment extends WTBaseFragment implements LoaderCallbacks<HttpRequestResult>,
 OnScrollListener{
 
+	public static final String BUNDLE_KEY_PERSON = "BUNDLE_KEY_PERSON";
+	public static final String BUNDLE_KEY_IS_CURRENT = "BUNDLE_KEY_IS_CURRENT";
 	private ListView mLvPeople;
 	private PeopleListAdapter mAdapter;
 	private int mCurrentPage = 0;
@@ -177,13 +180,14 @@ OnScrollListener{
 		public void onItemClick(AdapterView<?> arg0, View view, int position,
 				long id) {
 			
-			/*Intent intent = new Intent(getActivity(), EventDetailActivity.class);
-			Activity activity = mAdapter.getItem(position);
+			Intent intent = new Intent(getActivity(), PersonDetailActivity.class);
+			Person person = mAdapter.getItem(position);
 			Bundle bundle = new Bundle();
-			bundle.putParcelable(BUNDLE_KEY_ACTIVITY, activity);
+			bundle.putParcelable(BUNDLE_KEY_PERSON, person);
+			bundle.putBoolean(BUNDLE_KEY_IS_CURRENT, (position == 0));
 			intent.putExtras(bundle);
 			startActivity(intent);
-			getActivity().overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);*/
+			getActivity().overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}
 		
 	};

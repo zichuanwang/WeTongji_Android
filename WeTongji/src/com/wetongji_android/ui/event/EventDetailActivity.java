@@ -82,6 +82,20 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 			}
 		});
 
+		setPicture();
+		
+		setLikeCheckbox();
+
+		setTextViews();
+
+	}
+
+	private void recieveActivity() {
+		Intent intent = this.getIntent();
+		mEvent = intent.getParcelableExtra(EventsFragment.BUNDLE_KEY_ACTIVITY);
+	}
+
+	private void setPicture() {
 		mAq = WTApplication.getInstance().getAq(this);
 		mAq.id(R.id.img_event_detail_org_avatar).image(
 				mEvent.getOrganizerAvatar(), false, true, 0,
@@ -101,9 +115,9 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 
 		ImageView detailImage = (ImageView)findViewById(R.id.iv_event_detail_image);
 		detailImage.setOnClickListener(new OnPicClickListener());
-		
-		setLikeCheckbox();
-
+	}
+	
+	private void setTextViews() {
 		TextView tvEventTitle = (TextView) findViewById(R.id.tv_event_detail_title);
 		TextView tvEventTime = (TextView) findViewById(R.id.tv_event_detail_time);
 		TextView tvEventLocation = (TextView) findViewById(R.id.tv_event_detail_location);
@@ -124,14 +138,8 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 		}
 		tvEventTime.setText(DateParser.getEventTime(this, mEvent.getBegin(),
 				mEvent.getEnd()));
-
 	}
-
-	private void recieveActivity() {
-		Intent intent = this.getIntent();
-		mEvent = intent.getParcelableExtra(EventsFragment.BUNDLE_KEY_ACTIVITY);
-	}
-
+	
 	private void setLikeCheckbox() {
 		mCbLike = (CheckBox) findViewById(R.id.cb_event_like);
 		mTvLikeNum = (TextView) findViewById(R.id.tv_event_like_number);

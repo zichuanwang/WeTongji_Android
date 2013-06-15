@@ -115,4 +115,5 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="people_vol">Vol.%d</string>
 	<string name="notification_title">Notifications</string>
 	<string name="text_people_detail_title">TITLE</string>
+	<string name="share_person">【每周人物第%d期】</string>
 </resources>
