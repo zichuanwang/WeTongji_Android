@@ -21,6 +21,7 @@
     
     <RelativeLayout
         android:id="@id/layout_today_spinner"
+        android:background="@drawable/selectable_background_wttheme"
         android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="32dp">

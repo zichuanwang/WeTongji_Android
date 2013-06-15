@@ -10,7 +10,7 @@
 
         <!-- actionbar container -->
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@id/layout_event_detail_top_actionbar"
             style="?attr/actionBarStyle"
             android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|left"
-                    android:layout_marginRight="-4dip"
+                    android:layout_marginRight="-9dip"
                     android:contentDescription="@string/img_content_description"
                     android:src="?attr/homeAsUpIndicator" />
 
@@ -45,14 +45,16 @@
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/img_content_description"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_launcher" />
+                    android:padding="6dp"
+                    android:src="@drawable/img_wt_logo" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="190dp"
+                android:layout_alignParentRight="true"
+			    android:layout_marginRight="70dp"
                 android:addStatesFromChildren="true"
                 android:background="@drawable/selectable_background_wttheme"
                 android:clickable="true"
@@ -76,7 +78,7 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/ab_event_share" />
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
         <!-- main content -->
 

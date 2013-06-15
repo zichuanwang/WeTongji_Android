@@ -9,7 +9,7 @@
         >
         
         <!-- actionbar container -->
-	    <LinearLayout 
+	    <RelativeLayout 
 	        android:id="@id/layout_info_detail_top_actionbar"
 	        android:layout_alignParentTop="true"
 	        android:layout_width="match_parent"
@@ -31,7 +31,7 @@
 	               android:layout_gravity="center_vertical|left"
 	               android:layout_width="wrap_content"
 	               android:layout_height="wrap_content"
-	               android:layout_marginRight="-4dip"
+	               android:layout_marginRight="-9dip"
 	               android:contentDescription="@string/img_content_description"/>
 	            
 	            <!-- Home Icon -->
@@ -39,13 +39,14 @@
 			       android:id="@id/abs__home"
 	               android:layout_width="wrap_content"
 	               android:layout_height="wrap_content"
-	               android:src="@drawable/ic_launcher"
+	               android:src="@drawable/img_wt_logo"
 	               android:layout_marginRight="8dip"
 	               android:layout_marginTop="@dimen/abs__action_bar_icon_vertical_padding"
 	               android:layout_marginBottom="@dimen/abs__action_bar_icon_vertical_padding"
 	               android:layout_gravity="center"
 	               android:adjustViewBounds="true"
 	               android:scaleType="fitCenter"
+	               android:padding="6dp"
 	               android:contentDescription="@string/img_content_description"/>
 			    
 	        </LinearLayout>
@@ -60,7 +61,8 @@
 			    android:clickable="true"
 			    android:paddingLeft="6dip"
 			    android:paddingRight="6dip"
-			    android:layout_marginLeft="190dp">
+			    android:layout_alignParentRight="true"
+			    android:layout_marginRight="70dp">
 	            
 	            <ImageButton 
 	                 android:id="@id/action_info_detail_share"
@@ -80,7 +82,7 @@
 	            
 	        </LinearLayout>
 	        
-	    </LinearLayout>
+	    </RelativeLayout>
 	    
 	    <!-- main content -->
 		<FrameLayout 
