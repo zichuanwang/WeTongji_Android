@@ -39,6 +39,7 @@
     <string name="text_error_friends_not_allowed_due_to_privacy">Can\'t add friend due to his\/her privacy settings</string>
     <string name="text_error_student_id_required">Please input student id</string>
     <string name="text_error_password_requried">Please input password</string>
+    <string name="text_error_net_disconnect">Network is not connected</string>
     <string name="text_create_account">Create Your Account</string>
     <string name="text_not_now">Not Now</string>
     <string name="text_sign_up_log_in">Sign Up / Log In</string>

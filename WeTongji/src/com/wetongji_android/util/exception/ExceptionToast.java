@@ -64,6 +64,11 @@ public class ExceptionToast {
 		case 17:
 			Toast.makeText(context, R.string.text_error_password_requried, Toast.LENGTH_SHORT).show();
 			break;
+		// Network disconnect	
+		case 444:
+			Toast.makeText(context, R.string.text_error_net_disconnect, Toast.LENGTH_SHORT).show();
+			break;
+			
 		}
 		
 	}

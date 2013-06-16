@@ -81,5 +81,15 @@ public class WTUtility
         }
         return -1;
     }
+    
+    public static boolean isConnect(Context context) {
+        ConnectivityManager cm = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return networkInfo.isAvailable();
+        }
+        return false;
+    }
 
 }

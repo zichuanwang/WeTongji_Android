@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.exception.WTException;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
@@ -34,6 +35,10 @@ public class NetworkLoader extends AsyncTaskLoader<HttpRequestResult>
 	@Override
 	public HttpRequestResult loadInBackground() 
 	{
+		if (!WTUtility.isConnect(getContext())) {
+			cancelLoad();
+			return new HttpRequestResult(444, "");
+		}
 		try 
 		{
 			HttpRequestResult result=mClient.execute(mMethod, mArgs);
@@ -49,7 +54,19 @@ public class NetworkLoader extends AsyncTaskLoader<HttpRequestResult>
 	@Override
 	protected void onStartLoading() 
 	{
+		
 		forceLoad();
 	}
+
+	@Override
+	public void onCanceled(HttpRequestResult data) {
+		super.onCanceled(data);
+		if (data == null) {
+			data = new HttpRequestResult(444, "");
+			//deliverResult(data);
+		}
+	}
+	
+	
 	
 }
