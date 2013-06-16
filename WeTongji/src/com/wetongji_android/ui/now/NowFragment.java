@@ -3,15 +3,20 @@ package com.wetongji_android.ui.now;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.main.MainActivity;
+import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
@@ -23,6 +28,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass. Use the
@@ -30,7 +36,7 @@ import android.widget.TextView;
  * fragment.
  * 
  */
-public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequestResult> 
+public class NowFragment extends SherlockFragment implements LoaderCallbacks<HttpRequestResult> 
 {
 	
 	private View view;
@@ -60,6 +66,7 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 		
 		selectedPage=0;
 		weekNumber=8;
@@ -163,5 +170,27 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 		}
 		
 	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.menu_now, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == R.id.notification_button_now) {
+			if (WTApplication.getInstance().hasAccount) {
+				((MainActivity)getActivity()).showRightMenu();
+			} else {
+				Toast.makeText(getActivity(), getResources().getText(R.string.no_account_error),
+						Toast.LENGTH_SHORT).show();
+			}
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	
 	
 }

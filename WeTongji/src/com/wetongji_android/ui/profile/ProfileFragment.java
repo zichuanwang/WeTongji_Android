@@ -1,11 +1,9 @@
 package com.wetongji_android.ui.profile;
 
-import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -19,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
@@ -144,7 +143,6 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		// TODO Auto-generated method stub
 		super.onCreateOptionsMenu(menu, inflater);
 		
 		inflater.inflate(R.menu.menu_profile, menu);
@@ -152,7 +150,15 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
+		if (item.getItemId() == R.id.notification_button_profile) {
+			if (WTApplication.getInstance().hasAccount) {
+				((MainActivity)getActivity()).showRightMenu();
+			} else {
+				Toast.makeText(getActivity(), getResources().getText(R.string.no_account_error),
+						Toast.LENGTH_SHORT).show();
+			}
+			return true;
+		}
 		return super.onOptionsItemSelected(item);
 	}
 }

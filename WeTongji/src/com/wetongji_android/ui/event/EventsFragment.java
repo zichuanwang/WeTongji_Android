@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -27,6 +28,7 @@ import com.wetongji_android.data.ActivityList;
 import com.wetongji_android.factory.ActivityFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.data.QueryHelper;
@@ -221,6 +223,14 @@ OnScrollListener{
 		switch (item.getItemId()) {
 		case R.id.menu_eventlist_reload:
 			refreshData();
+			break;
+		case R.id.notification_button_event:
+			if (WTApplication.getInstance().hasAccount) {
+				((MainActivity)getActivity()).showRightMenu();
+			} else {
+				Toast.makeText(getActivity(), getResources().getText(R.string.no_account_error),
+						Toast.LENGTH_SHORT).show();
+			}
 			break;
 		case R.id.cb_event_sort_publish_time_reverse_order:
 			item.setChecked(true);

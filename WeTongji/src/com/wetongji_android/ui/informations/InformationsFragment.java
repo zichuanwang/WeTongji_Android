@@ -13,6 +13,7 @@ import com.wetongji_android.data.InformationList;
 import com.wetongji_android.factory.InformationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.QueryHelper;
@@ -33,6 +34,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class InformationsFragment extends SherlockFragment implements LoaderCallbacks<HttpRequestResult> 
@@ -273,6 +275,14 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		{
 		case R.id.menu_informationlist_reload:
 			refreshData();
+			break;
+		case R.id.notification_button_info:
+			if (WTApplication.getInstance().hasAccount) {
+				((MainActivity)getActivity()).showRightMenu();
+			} else {
+				Toast.makeText(getActivity(), getResources().getText(R.string.no_account_error),
+						Toast.LENGTH_SHORT).show();
+			}
 			break;
 		case R.id.info_menu_cat1:
 			item.setChecked(!item.isChecked());
