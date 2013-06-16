@@ -114,6 +114,7 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 				mFactory = new NotificationFactory();
 			
 			List<Notification> results = mFactory.createObjects(result.getStrResponseCon());
+			mAdapter.setContentList(results);
 			Log.v(TAG, "" + results.size());
 		}else
 		{

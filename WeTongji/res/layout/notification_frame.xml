@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/notification_bg_color">
 	
-    <FrameLayout 
+    <FrameLayout
+        android:id="@id/notification_top_title" 
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -27,11 +28,12 @@
     
 	<ListView 
 	    android:id="@id/lst_notification"
+	    android:layout_below="@id/notification_top_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/eventlst_divider"
-        android:dividerHeight="1dp"
-        android:visibility="gone">
+        android:cacheColorHint="#00000000"
+        android:listSelector="#00000000"
+        android:divider="@drawable/mainmenu_lst_separator">
 	</ListView>
 	
 </RelativeLayout>

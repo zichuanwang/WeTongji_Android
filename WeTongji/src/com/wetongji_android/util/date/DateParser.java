@@ -145,9 +145,46 @@ public class DateParser {
 		return false;
 	}
 	
+	public static boolean isYesterday(Date time)
+	{
+		Calendar today = Calendar.getInstance();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(time);
+		
+		if((today.get(Calendar.YEAR) == cal.get(Calendar.YEAR)) && (today.get(Calendar.DAY_OF_YEAR) 
+				== cal.get(Calendar.DAY_OF_YEAR) + 1))
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public static String parseDateForInformation(Date date)
 	{
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 		return format.format(date);
+	}
+	
+	public static String parseDateForNotification(Date date)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(cal.get(Calendar.HOUR_OF_DAY)).append(":").append(cal.get(Calendar.MINUTE));
+		
+		if(isToday(date))
+		{
+			sb.append(" ").append("Today");
+		}else if(isYesterday(date))
+		{
+			sb.append(" ").append("Yesterday");
+		}else
+		{
+			sb.append(" ").append(cal.get(Calendar.MONTH)).append("-").append(cal.get(Calendar.DAY_OF_MONTH));
+		}
+		
+		return sb.toString();
 	}
 }

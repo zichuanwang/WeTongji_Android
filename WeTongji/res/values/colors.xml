@@ -78,4 +78,7 @@
     <color name="notification_bg_color">#323232</color>
     <color name="notification_title_bg_color">#212121</color>
     <color name="notification_title_bg_inner_shadow">#70454545</color>
+    <color name="notification_divider_bg">#474747</color>
+    <color name="notification_item_content">#b1b1b1</color>
+    <color name="notification_item_time">#6a6a6a</color>
 </resources>

@@ -216,6 +216,24 @@
  	    <item name="android:textStyle">normal</item>
  	</style>
  	
+ 	<style name="NotificationItemFrom">
+ 	    <item name="android:textColor">@android:color/white</item>
+ 	    <item name="android:textSize">18sp</item>
+ 	    <item name="android:textStyle">bold</item>
+ 	</style>
+ 	
+ 	<style name="NotificationItemContent">
+ 	    <item name="android:textColor">@color/notification_item_content</item>
+ 	    <item name="android:textSize">18sp</item>
+ 	    <item name="android:textStyle">normal</item>
+ 	</style>
+ 	
+ 	<style name="NotificationItemTime">
+ 	    <item name="android:textColor">@color/notification_item_time</item>
+ 	    <item name="android:textSize">18sp</item>
+ 	    <item name="android:textStyle">normal</item>
+ 	</style>
+ 	
  	<style name="PeopleDetailTitleName" parent="@style/EventDetailOrgName">
  	    <item name="android:textSize">16sp</item>
  	</style>
