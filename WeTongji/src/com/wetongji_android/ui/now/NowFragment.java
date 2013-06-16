@@ -16,6 +16,7 @@ import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.HttpRequestResult;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -48,6 +49,8 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 	private NowPagerAdapter adapter;
 	//private ApiHelper apiHelper;
 	
+	private Activity mActivity;
+	
 	/**
 	 * Use this factory method to create a new instance of this fragment using
 	 * the provided parameters.
@@ -73,6 +76,7 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 		//apiHelper=ApiHelper.getInstance(getActivity());
 		//Bundle args=apiHelper.getTimetable();
 		//getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -97,6 +101,14 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 		return view;
 	}
 	
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		
+		mActivity = activity;
+	}
+
 	public void setNowTime(Date dateFromServer){
 		if(tvNowTime==null){
 			tvNowTime=(TextView) view.findViewById(R.id.tv_now_time);
@@ -190,7 +202,6 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
 	
 	
 }

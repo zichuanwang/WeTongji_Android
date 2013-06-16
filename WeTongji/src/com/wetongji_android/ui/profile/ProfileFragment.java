@@ -1,9 +1,9 @@
 package com.wetongji_android.ui.profile;
 
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -48,11 +48,11 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 	private TextView mTvPeopleLikes;
 	private TextView mTvOrgsLikes;
 	
+	private Activity mActivity;
+	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
-		
 	}
 
 	@Override
@@ -75,6 +75,14 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 		return view;
 	}
 	
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		
+		mActivity = activity;
+	}
+
 	@SuppressWarnings("deprecation")
 	private void setHeadBluredBg(View view) {
 		RelativeLayout rl = (RelativeLayout) view.findViewById(R.id.layout_profile_header);
