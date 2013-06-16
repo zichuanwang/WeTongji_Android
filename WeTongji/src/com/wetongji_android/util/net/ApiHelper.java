@@ -140,6 +140,13 @@ public class ApiHelper {
 			Log.v("session", "not null");
 			bundle.putString(API_ARGS_SESSION, session);
 			bundle.putString(API_ARGS_UID, uid);
+		}else
+		{
+			if(WTApplication.getInstance().hasAccount)
+			{
+				bundle.putString(API_ARGS_SESSION, WTApplication.getInstance().session);
+				bundle.putString(API_ARGS_UID, WTApplication.getInstance().uid);
+			}
 		}
 	}
 	

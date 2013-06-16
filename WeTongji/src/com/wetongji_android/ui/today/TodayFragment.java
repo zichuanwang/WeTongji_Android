@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
@@ -32,7 +33,6 @@ import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.main.MainActivity;
-import com.wetongji_android.ui.people.PeopleListFragment;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.data.event.EventLoader;
@@ -181,6 +181,7 @@ public class TodayFragment extends SherlockFragment {
 						View.GONE);
 				gvNews.setAdapter(newsAdapter);
 				gvNews.setVisibility(View.VISIBLE);
+				gvNews.setOnItemClickListener(newsAdapter);
 
 				TodayGridEventAdapter eventAdapter = new TodayGridEventAdapter(
 						context, activities);
@@ -249,6 +250,19 @@ public class TodayFragment extends SherlockFragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
+		switch(item.getItemId())
+		{
+		case R.id.notification_button_today:
+			if(WTApplication.getInstance().hasAccount)
+			{
+				((MainActivity)context).showRightMenu();
+			}else
+			{
+				Toast.makeText(context, getResources().getText(R.string.no_account_error), Toast.LENGTH_SHORT).show();
+			}
+			return true;
+		}
+		
 		return super.onOptionsItemSelected(item);
 	}
 }

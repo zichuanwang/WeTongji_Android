@@ -3,12 +3,17 @@ package com.wetongji_android.ui.today;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Information;
+import com.wetongji_android.ui.informations.InformationDetailActivity;
+import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.net.HttpUtil;
 
@@ -92,5 +97,14 @@ public class TodayGridNewsAdapter extends TodayGridBaseAdapter<Information> {
 		}
 		return convertView;
 	}
-
+	
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View view, int position, long arg3) 
+	{		
+		Intent intent = new Intent(context, InformationDetailActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putParcelable(InformationsFragment.BUNDLE_KEY_INFORMATION, items.get(position));
+		intent.putExtras(bundle);
+		context.startActivity(intent);
+	}
 }

@@ -22,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class NotificationFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>
 {
@@ -71,11 +70,14 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 		mAdapter = new NotificationListAdapter(this);
 		mListNotifications.setAdapter(mAdapter);
 		
-		//init loader(this loader is used for loading data from network)
-		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle bundle = apiHelper.getNotifications(false);
-		//showProgressDialog();
-		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
+		if(WTApplication.getInstance().hasAccount)
+		{
+			//init loader(this loader is used for loading data from network)
+			ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+			Bundle bundle = apiHelper.getNotifications(false);
+			//showProgressDialog();
+			getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
+		}
 	}
 	
 	@Override
@@ -133,7 +135,7 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 		//init loader(this loader is used for loading data from network)
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
 		Bundle bundle = apiHelper.getNotifications(false);
-		//showProgressDialog();
+		showProgressDialog();
 		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
 	}
 	

@@ -67,6 +67,8 @@ public class WTApplication extends Application {
 	private DisplayMetrics displayMetrics = null;
 
 	public boolean hasAccount;
+	public String session;
+	public String uid;
 	
 	public static WTApplication getInstance() 
 	{
@@ -79,7 +81,7 @@ public class WTApplication extends Application {
 		super.onCreate();
 		application = this;
 		dbHelper = OpenHelperManager.getHelper(this, DbHelper.class);
-		hasAccount = true;
+		hasAccount = false;
 	}
 
 	public DbHelper getDbHelper() {
