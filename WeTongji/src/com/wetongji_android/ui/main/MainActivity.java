@@ -3,6 +3,7 @@ package com.wetongji_android.ui.main;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -10,6 +11,8 @@ import com.flurry.android.FlurryAgent;
 import com.slidingmenu.lib.SlidingMenu;
 import com.wetongji_android.R;
 import com.wetongji_android.ui.notification.NotificationFragment;
+import com.wetongji_android.ui.now.NowFragment;
+import com.wetongji_android.ui.profile.ProfileFragment;
 import com.wetongji_android.ui.today.TodayFragment;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.version.UpdateBaseActivity;
@@ -102,9 +105,23 @@ public class MainActivity extends UpdateBaseActivity {
 	}
 	
 	public void switchContent(Fragment fragment) {
-		mContent = fragment;
-		getSupportFragmentManager().beginTransaction()
-				.replace(R.id.content_frame, fragment).commit();
+		if((fragment instanceof NowFragment) || (fragment instanceof ProfileFragment))
+		{
+			if(WTApplication.getInstance().hasAccount)
+			{
+				mContent = fragment;
+				getSupportFragmentManager().beginTransaction()
+						.replace(R.id.content_frame, fragment).commit();
+			}else
+			{
+				Toast.makeText(this, getResources().getText(R.string.no_account_error), Toast.LENGTH_SHORT).show();
+			}
+		}else
+		{
+			mContent = fragment;
+			getSupportFragmentManager().beginTransaction()
+					.replace(R.id.content_frame, fragment).commit();
+		}
 	}
 
 	public boolean onKeyUp(int keyCode, KeyEvent event) {

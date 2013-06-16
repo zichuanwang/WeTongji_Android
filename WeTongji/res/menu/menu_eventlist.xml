@@ -78,7 +78,8 @@
 		
 	</item>
 	
-    <item android:id="@id/notification_button_event" 
+    <item 
+        android:id="@id/notification_button_event" 
 	    android:icon="@drawable/notification_button" 
 	    android:title="@string/notification_title" 
 	    android:titleCondensed="@string/notification_title" 

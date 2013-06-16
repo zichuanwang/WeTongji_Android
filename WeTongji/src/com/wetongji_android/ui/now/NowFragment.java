@@ -3,15 +3,20 @@ package com.wetongji_android.ui.now;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.HttpRequestResult;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
@@ -30,7 +35,7 @@ import android.widget.TextView;
  * fragment.
  * 
  */
-public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequestResult> 
+public class NowFragment extends SherlockFragment implements LoaderCallbacks<HttpRequestResult> 
 {
 	
 	private View view;
@@ -41,6 +46,8 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 	private ViewPager vpWeeks;
 	private NowPagerAdapter adapter;
 	//private ApiHelper apiHelper;
+	
+	private Activity mActivity;
 	
 	/**
 	 * Use this factory method to create a new instance of this fragment using
@@ -66,6 +73,7 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 		//apiHelper=ApiHelper.getInstance(getActivity());
 		//Bundle args=apiHelper.getTimetable();
 		//getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
+		setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -90,6 +98,14 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 		return view;
 	}
 	
+	@Override
+	public void onAttach(Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		
+		mActivity = activity;
+	}
+
 	public void setNowTime(Date dateFromServer){
 		if(tvNowTime==null){
 			tvNowTime=(TextView) view.findViewById(R.id.tv_now_time);
@@ -163,5 +179,24 @@ public class NowFragment extends Fragment implements LoaderCallbacks<HttpRequest
 		}
 		
 	}
-	
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// TODO Auto-generated method stub
+		inflater.inflate(R.menu.menu_now, menu);
+		
+		super.onCreateOptionsMenu(menu, inflater);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch(item.getItemId())
+		{
+		case R.id.notification_button_now:
+			((MainActivity) mActivity).showRightMenu();
+		}
+		
+		return super.onOptionsItemSelected(item);
+	}
 }

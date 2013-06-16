@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -27,6 +28,7 @@ import com.wetongji_android.data.ActivityList;
 import com.wetongji_android.factory.ActivityFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.data.QueryHelper;
@@ -57,6 +59,7 @@ OnScrollListener{
 	private int mSortType = 1;
 	private int mSelectedType = 15;
 	
+	private MainActivity mActivity;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -92,6 +95,13 @@ OnScrollListener{
 		
 	}
 
+	@Override
+	public void onAttach(android.app.Activity activity) {
+		// TODO Auto-generated method stub
+		super.onAttach(activity);
+		
+		mActivity = (MainActivity) activity;
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -269,6 +279,15 @@ OnScrollListener{
 		case R.id.cb_event_expired:
 			item.setChecked(!item.isChecked());
 			mExpire = !item.isChecked();
+			break;
+		case R.id.notification_button_event:
+			if(WTApplication.getInstance().hasAccount)
+			{
+				mActivity.showRightMenu();
+			}else
+			{
+				Toast.makeText(mActivity, getResources().getText(R.string.no_account_error), Toast.LENGTH_SHORT).show();
+			}
 			break;
 		default:
 			return super.onOptionsItemSelected(item);

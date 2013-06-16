@@ -115,6 +115,7 @@
     <item type="id" name="notification_button_info">false</item>
     <item type="id" name="notification_button_profile">false</item>
     <item type="id" name="notification_top_title">false</item>
+    <item type="id" name="notification_button_now">false</item>
     <item name="img_people_detail_avatar" type="id" />
     <item name="tv_person_detail_vol" type="id" />
     <item name="tv_person_name" type="id" />
