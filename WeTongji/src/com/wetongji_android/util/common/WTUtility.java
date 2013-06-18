@@ -17,7 +17,7 @@ import android.util.Log;
  */
 public class WTUtility 
 {
-	private static final boolean IS_DEBUG = true;
+	private static final boolean IS_DEBUG = false;
 	
 	private WTUtility()
 	{
