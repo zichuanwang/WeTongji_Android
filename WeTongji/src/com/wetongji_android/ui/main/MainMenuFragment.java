@@ -18,6 +18,7 @@ import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.ui.now.NowFragment;
 import com.wetongji_android.ui.profile.ProfileFragment;
+import com.wetongji_android.ui.search.SearchFragment;
 import com.wetongji_android.ui.today.TodayFragment;
 
 public class MainMenuFragment extends Fragment {
@@ -140,6 +141,9 @@ public class MainMenuFragment extends Fragment {
 				break;
 			case 3:
 				newContent = NowFragment.newInstance();
+				break;
+			case 4:
+				newContent = SearchFragment.newInstance();
 				break;
 			case 6:
 				newContent = new ProfileFragment();

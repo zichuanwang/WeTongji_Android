@@ -128,4 +128,5 @@
     <item name="fragment_container" type="id" />
     <item name="layout_today_spinner" type="id" />
     <item type="id" name="notification_button_now">false</item>
+    <item type="id" name="notification_button_search">false</item>
 </resources>

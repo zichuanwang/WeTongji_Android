@@ -118,4 +118,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="text_people_detail_title">TITLE</string>
 	<string name="share_person">【每周人物第%d期】</string>
 	<string name="no_account_error">Login in Please</string>
+	<string name="hint_search_in_wetongji">Search in WeTongji</string>
+	<string name="search">Search</string>
 </resources>

@@ -76,7 +76,6 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 		//apiHelper=ApiHelper.getInstance(getActivity());
 		//Bundle args=apiHelper.getTimetable();
 		//getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
-		setHasOptionsMenu(true);
 	}
 
 	@Override
