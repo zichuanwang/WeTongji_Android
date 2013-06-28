@@ -71,6 +71,8 @@ public class ApiHelper {
 	private static final String API_ARGS_END="End";
 	private static final String API_ARGS_ID = "Id";
 	private static final String API_ARGS_UNREAD = "OnlyNew";
+	private static final String API_ARGS_KEYWORDS = "Keywords";
+	private static final String API_ARGS_CATEGORY = "Type";
 	
 	public static final int API_ARGS_SORT_BY_PUBLISH_DESC = 1;
 	public static final int API_ARGS_SORT_BY_PUBLISH_ASC = 2;
@@ -484,6 +486,16 @@ public class ApiHelper {
 		}
 		bundle.putString(API_ARGS_METHOD, "People.Get");
 		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
+		
+		return bundle;
+	}
+	
+	public Bundle getSearchResult(int category, String keywords) {
+		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		bundle.putString(API_ARGS_METHOD, "Search");
+		bundle.putString(API_ARGS_KEYWORDS, keywords);
+		bundle.putString(API_ARGS_CATEGORY, String.valueOf(category));
 		
 		return bundle;
 	}

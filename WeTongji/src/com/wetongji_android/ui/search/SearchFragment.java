@@ -46,6 +46,9 @@ public class SearchFragment extends SherlockFragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
+		
+		getSherlockActivity().getSupportActionBar().setDisplayShowCustomEnabled(true);
+		
 		inflater.inflate(R.menu.menu_search, menu);
 		menu.getItem(0).expandActionView();
 	}
