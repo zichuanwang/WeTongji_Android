@@ -15,6 +15,7 @@ import com.wetongji_android.data.Event;
 import com.wetongji_android.data.Exam;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.data.Person;
+import com.wetongji_android.data.Search;
 import com.wetongji_android.data.User;
 
 public class DbHelper extends OrmLiteSqliteOpenHelper {
@@ -35,6 +36,7 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTableIfNotExists(connSource, Information.class);
 			TableUtils.createTableIfNotExists(connSource, Person.class);
 			TableUtils.createTableIfNotExists(connSource, User.class);
+			TableUtils.createTableIfNotExists(connSource, Search.class);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -51,6 +53,7 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.dropTable(connSource, Information.class, false);
 			TableUtils.dropTable(connSource, Person.class, false);
 			TableUtils.dropTable(connSource, User.class, false);
+			TableUtils.dropTable(connSource, Search.class, false);
 			onCreate(db, connSource);
 		} catch (SQLException e) {
 			e.printStackTrace();

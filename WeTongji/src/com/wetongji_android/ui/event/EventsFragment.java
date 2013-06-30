@@ -59,8 +59,6 @@ OnScrollListener{
 	private int mSortType = 1;
 	private int mSelectedType = 15;
 	
-	private MainActivity mActivity;
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_events, null);
@@ -93,14 +91,6 @@ OnScrollListener{
 			break;
 		}
 		
-	}
-
-	@Override
-	public void onAttach(android.app.Activity activity) {
-		// TODO Auto-generated method stub
-		super.onAttach(activity);
-		
-		mActivity = (MainActivity) activity;
 	}
 
 	@Override

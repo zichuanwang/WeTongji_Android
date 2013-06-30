@@ -495,7 +495,9 @@ public class ApiHelper {
 		putBasicArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "Search");
 		bundle.putString(API_ARGS_KEYWORDS, keywords);
-		bundle.putString(API_ARGS_CATEGORY, String.valueOf(category));
+		if (category != 0) {
+			bundle.putString(API_ARGS_CATEGORY, String.valueOf(category));
+		}
 		
 		return bundle;
 	}
