@@ -39,7 +39,7 @@ public class DbListSaver<T, ID> extends AsyncTaskLoader<Void> implements Callabl
 	public Void loadInBackground() {
 		try {
 			if(args!=null&&args.getBoolean(BaseFactory.ARG_NEED_TO_REFRESH)){
-				TableUtils.clearTable(dbHelper.getConnectionSource(), clazz);
+				clearTable();
 			}
 			mDao.callBatchTasks(this);
 		} catch (SQLException e) {
@@ -107,6 +107,10 @@ public class DbListSaver<T, ID> extends AsyncTaskLoader<Void> implements Callabl
 			mDao.createOrUpdate(data);
 		}
 		return null;
+	}
+	
+	public void clearTable() throws SQLException {
+		TableUtils.clearTable(dbHelper.getConnectionSource(), clazz);
 	}
 	
 }
