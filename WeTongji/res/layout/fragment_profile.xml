@@ -71,8 +71,8 @@
                         android:layout_below="@id/text_profile_friendlist"
                         android:layout_marginLeft="7dp"
                         android:layout_marginTop="3dp"
-                    	android:text="23 Friends"
                     	style="@style/ProfileFriendNum"
+                    	android:textIsSelectable="false"
                     	/>
 
                     <View
@@ -100,7 +100,8 @@
 	                        android:layout_height="wrap_content"
 	                        android:src="@drawable/ic_profile_friend_add"
 	                        android:scaleType="fitCenter"
-	                        android:background="@null" />
+	                        android:background="@null" 
+	                        android:contentDescription="@string/img_content_description"/>
                         
                     </LinearLayout>
 
@@ -160,6 +161,7 @@
                         android:src="@drawable/ic_profile_events"
                         android:layout_marginTop="22dp"
                         android:layout_marginLeft="7dp"
+                        android:contentDescription="@string/img_content_description"
                         />
                     
                     <TextView
@@ -179,7 +181,7 @@
                         android:layout_below="@id/text_profile_events"
                         android:layout_marginLeft="48.3dp"
                         android:layout_marginTop="3dp"
-                    	android:text="7 Likes"
+                    	android:textIsSelectable="false"
                     	style="@style/ProfileFriendNum"
                     	/>
                 </RelativeLayout>
@@ -208,6 +210,7 @@
                         android:src="@drawable/ic_profile_news"
                         android:layout_marginTop="22dp"
                         android:layout_marginLeft="7dp"
+                        android:contentDescription="@string/img_content_description"
                         />
                     
                     <TextView
@@ -227,7 +230,7 @@
                         android:layout_below="@id/text_profile_news"
                         android:layout_marginLeft="48.3dp"
                         android:layout_marginTop="3dp"
-                    	android:text="7 Likes"
+                    	android:textIsSelectable="false"
                     	style="@style/ProfileFriendNum"
                     	/>
                 </RelativeLayout>
@@ -256,6 +259,7 @@
                         android:src="@drawable/ic_profile_people"
                         android:layout_marginTop="22dp"
                         android:layout_marginLeft="7dp"
+                        android:contentDescription="@string/img_content_description"
                         />
                     
                     <TextView
@@ -275,7 +279,7 @@
                         android:layout_below="@id/text_profile_people"
                         android:layout_marginLeft="48.3dp"
                         android:layout_marginTop="3dp"
-                    	android:text="7 Likes"
+                        android:textIsSelectable="false"
                     	style="@style/ProfileFriendNum"
                     	/>
                 </RelativeLayout>
@@ -305,6 +309,7 @@
                         android:src="@drawable/ic_profile_org"
                         android:layout_marginTop="22dp"
                         android:layout_marginLeft="7dp"
+                        android:contentDescription="@string/img_content_description"
                         />
                     
                     <TextView
@@ -324,7 +329,7 @@
                         android:layout_below="@id/text_profile_orgs"
                         android:layout_marginLeft="48.3dp"
                         android:layout_marginTop="3dp"
-                    	android:text="7 Likes"
+                        android:textIsSelectable="false"
                     	style="@style/ProfileFriendNum"
                     	/>
                 </RelativeLayout>
@@ -341,6 +346,5 @@
 			
         </LinearLayout>
     </ScrollView>
-	
 	
 </LinearLayout>

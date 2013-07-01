@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/friend_item"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/layout_event_list_row1">
+    
+	<ImageView 
+	    android:id="@id/friend_avatar"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginTop="15dp"
+	    android:layout_marginLeft="20dp"
+	    android:contentDescription="@string/img_content_description"/>
+	
+	<TextView 
+	    android:id="@id/friend_name"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_toRightOf="@id/friend_avatar"
+	    android:layout_marginLeft="20dp"
+	    android:layout_marginTop="23dp"
+	    android:textIsSelectable="false"
+	    style="@style/PeopleName"
+	    />
+	
+	<TextView 
+	    android:id="@id/friend_department"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@id/friend_name"
+	    android:layout_alignLeft="@id/friend_name"
+	    android:layout_marginTop="20dp"
+	    android:drawableLeft="@drawable/ic_profile_gender_male"
+	    android:textIsSelectable="false"
+	    style="@style/ProfileHeaderMajor"/>
+	
+</RelativeLayout>

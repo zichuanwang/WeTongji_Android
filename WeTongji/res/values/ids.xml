@@ -134,4 +134,11 @@
     <item type="id" name="lst_search_history">false</item>
     <item type="id" name="layout_search_row">false</item>
     <item name="text_search_history_title" type="id" />
+    <!-- Friends List Part -->
+    <item type="id" name="friend_list_container">false</item>
+    <item type="id" name="lst_friends">false</item>
+    <item type="id" name="friend_avatar">false</item>
+    <item type="id" name="friend_name">false</item>
+    <item type="id" name="friend_department">false</item>
+    <item type="id" name="friend_item">false</item>
 </resources>

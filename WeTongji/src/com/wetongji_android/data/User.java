@@ -44,6 +44,10 @@ public class User {
 	private LikeCounts LikeCount;
 	@DatabaseField
 	private boolean IsFriend;
+	@DatabaseField
+	private int FriendCount;
+	@DatabaseField
+	private String Avatar;
 	
 	public User() {
 		super();
@@ -53,7 +57,7 @@ public class User {
 			String displayName, String major, String nativePlace,
 			String degree, String gender, String year, String birthday,
 			String plan, String sinaWeibo, String qQ, String department,
-			String email) {
+			String email, int friendCount, String avatar) {
 		super();
 		NO = nO;
 		Name = name;
@@ -71,6 +75,16 @@ public class User {
 		QQ = qQ;
 		Department = department;
 		Email = email;
+		FriendCount = friendCount;
+		Avatar = avatar;
+	}
+
+	public String getAvatar() {
+		return Avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		Avatar = avatar;
 	}
 
 	public String getNO() {
@@ -233,4 +247,11 @@ public class User {
 		IsFriend = isFriend;
 	}
 	
+	public int getFriendCount() {
+		return FriendCount;
+	}
+
+	public void setFriendCount(int friendCount) {
+		FriendCount = friendCount;
+	}
 }

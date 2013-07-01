@@ -129,4 +129,5 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="search_type_stars">stars</string>
 	<string name="search_type_information">Information</string>
 	<string name="search_history_clear">Clear History</string>
+	<string name="friend_activity_name">Friends</string>
 </resources>

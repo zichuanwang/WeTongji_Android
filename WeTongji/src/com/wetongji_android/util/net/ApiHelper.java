@@ -490,6 +490,17 @@ public class ApiHelper {
 		return bundle;
 	}
 	
+	public Bundle getFriends()
+	{
+		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_METHOD, "Friends.Get");
+		
+		return bundle;
+	}
+	
 	public Bundle getSearchResult(int category, String keywords) {
 		Bundle bundle = new Bundle();
 		putBasicArgs(bundle);
