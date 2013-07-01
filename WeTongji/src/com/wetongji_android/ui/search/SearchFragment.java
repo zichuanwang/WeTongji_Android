@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -74,7 +76,17 @@ public class SearchFragment extends SherlockFragment
 		mAdapter = new SearchHistoryAdapter(this);
 		mLvSearchHistory.setAdapter(mAdapter);
 		
-		mClearTask = new ClearHistoryTask();
+		mLvSearchHistory.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View view, int position,
+					long id) {
+				if (position == mAdapter.getCount() - 1) {
+					startClearTask();
+				} else {
+					//TODO Do history search 
+				}
+			}
+		});
 		
 		return view;
 	}
@@ -175,6 +187,11 @@ public class SearchFragment extends SherlockFragment
 		searchFactory.saveSearch(true);
 	}
 	
+	private void startClearTask() {
+		mClearTask = new ClearHistoryTask();
+		mClearTask.execute();
+	}
+	
 	private class ClearHistoryTask extends AsyncTask<Void, Void, Void> {
 
 		@Override
@@ -192,8 +209,7 @@ public class SearchFragment extends SherlockFragment
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			
-			//TODO clear data in search history listView
+			mAdapter.clearHistory();
 		}
 		
 		

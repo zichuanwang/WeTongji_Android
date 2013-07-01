@@ -259,4 +259,9 @@
  	    <item name="android:textSize">18sp</item>
  	</style>
  	
+ 	<style name="SearchHistoryClear">
+ 	    <item name="android:textColor">#b1b1b1</item>
+ 	    <item name="android:textSize">18sp</item>
+ 	</style>
+ 	
 </resources>

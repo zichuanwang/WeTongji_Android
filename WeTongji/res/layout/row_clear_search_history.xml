@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="vertical"
+    android:id="@id/layout_search_row"
+    android:gravity="center_vertical" >
+    
+    <TextView 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_history_clear"
+        android:layout_marginLeft="17dp"
+        style="@style/SearchHistoryClear"/>
+
+</LinearLayout>

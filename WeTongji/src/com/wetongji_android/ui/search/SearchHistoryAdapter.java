@@ -25,6 +25,7 @@ public class SearchHistoryAdapter extends BaseAdapter implements
 	private static final int MAX_SIZE = 9;
 	private Fragment mFragment;
 	private List<Search> mData;
+	private int hasClearRow = 1;
 
 	public SearchHistoryAdapter(Fragment fragment) {
 		mFragment = fragment;
@@ -62,12 +63,15 @@ public class SearchHistoryAdapter extends BaseAdapter implements
 
 	@Override
 	public int getCount() {
-		return mData.size();
+		return mData.size() + hasClearRow;
 	}
 
 	@Override
 	public Object getItem(int arg0) {
-		return mData.get(arg0);
+		if (arg0 != mData.size()) {
+			return mData.get(arg0);
+		}
+		return null;
 	}
 
 	@Override
@@ -77,24 +81,38 @@ public class SearchHistoryAdapter extends BaseAdapter implements
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		if (position == mData.size()) {
+			LayoutInflater layoutnflater1 = LayoutInflater.from(mFragment
+					.getActivity());
+			View view = layoutnflater1.inflate(R.layout.row_clear_search_history,
+					parent, false);
+			LinearLayout llRow = (LinearLayout) view
+					.findViewById(R.id.layout_search_row);
+			if (position % 2 != 0) {
+				llRow.setBackgroundColor(mFragment.getActivity().
+						getResources().getColor(R.color.layout_event_list_row1));
+			} else {
+				llRow.setBackgroundColor(mFragment.getActivity().
+						getResources().getColor(R.color.layout_event_list_row2));
+			}
+			return view;
+		}
 		Search search = (Search) getItem(position);
 		ViewHolder holder = null;
-		if (convertView == null) {
-			holder = new ViewHolder();
-			LayoutInflater layoutnflater = LayoutInflater.from(mFragment
-					.getActivity());
-			convertView = layoutnflater.inflate(R.layout.row_search_history,
-					parent, false);
-			holder.tvType = (TextView) convertView
-					.findViewById(R.id.text_search_type);
-			holder.tvKeywords = (TextView) convertView
-					.findViewById(R.id.text_search_keywords);
-			holder.llRow = (LinearLayout) convertView
-					.findViewById(R.id.layout_search_row);
-			convertView.setTag(holder);
-		} else {
-			holder=(ViewHolder)convertView.getTag();
-		}
+		
+		holder = new ViewHolder();
+		LayoutInflater layoutnflater2 = LayoutInflater.from(mFragment
+				.getActivity());
+		View view = layoutnflater2.inflate(R.layout.row_search_history,
+				parent, false);
+		holder.tvType = (TextView) view
+				.findViewById(R.id.text_search_type);
+		holder.tvKeywords = (TextView) view
+				.findViewById(R.id.text_search_keywords);
+		holder.llRow = (LinearLayout) view
+				.findViewById(R.id.layout_search_row);
+		view.setTag(holder);
+		
 		
 		holder.tvKeywords.setText(search.getKeywords());
 		String searchType = null;;
@@ -120,14 +138,14 @@ public class SearchHistoryAdapter extends BaseAdapter implements
 		}
 		holder.tvType.setText(searchType);
 		
-		if(position % 2 != 0) {
+		if (position % 2 != 0) {
 			holder.llRow.setBackgroundColor(mFragment.getActivity().
 					getResources().getColor(R.color.layout_event_list_row1));
-		}else {
+		} else {
 			holder.llRow.setBackgroundColor(mFragment.getActivity().
 					getResources().getColor(R.color.layout_event_list_row2));
 		}
-		return convertView;
+		return view;
 	}
 	
 	public void addObject(Search search) {
@@ -138,11 +156,18 @@ public class SearchHistoryAdapter extends BaseAdapter implements
 		if ((mData.size() + 1) > MAX_SIZE) {
 			mData.remove(MAX_SIZE - 1);
 		}
+		hasClearRow = 1;
 		mData.add(0, search);
 		notifyDataSetChanged();
 	}
 
 	public List<Search> getData() {
 		return mData;
+	}
+	
+	public void clearHistory() {
+		hasClearRow = 0;
+		mData.clear();
+		notifyDataSetChanged();
 	}
 }
