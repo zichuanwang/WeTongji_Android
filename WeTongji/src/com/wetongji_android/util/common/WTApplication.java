@@ -9,6 +9,8 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.wetongji_android.util.data.DbHelper;
 import java.io.File;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Environment;
@@ -19,7 +21,8 @@ import android.view.Display;
  * @author zihe
  * 
  */
-public class WTApplication extends Application {
+public class WTApplication extends Application 
+{
 	/**
 	 * static constants
 	 */
@@ -84,24 +87,39 @@ public class WTApplication extends Application {
 		super.onCreate();
 		application = this;
 		dbHelper = OpenHelperManager.getHelper(this, DbHelper.class);
+		/*AccountManager am = AccountManager.get(getApplicationContext());
+		Account[] accounts = am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
+		if(accounts.length > 0)
+		{
+			hasAccount = true;
+			session = am.getUserData(accounts[0], WTApplication.AUTHTOKEN_TYPE);
+			uid = am.getUserData(accounts[0], AccountManager.KEY_USERDATA);
+		}else
+		{
+			hasAccount = false;
+		}*/
 		hasAccount = false;
 	}
 
-	public DbHelper getDbHelper() {
+	public DbHelper getDbHelper() 
+	{
 		return dbHelper;
 	}
 
 	@Override
-	public void onTerminate() {
+	public void onTerminate() 
+	{
 		super.onTerminate();
 		OpenHelperManager.releaseHelper();
 	}
 
-	public AQuery getAq(Activity activity) {
+	public AQuery getAq(Activity activity) 
+	{
 		aq = new AQuery(activity);
 		// Instantiate AQuery and configure cache directory
 		if (Environment.getExternalStorageState().compareTo(
-				Environment.MEDIA_MOUNTED) == 0) {
+				Environment.MEDIA_MOUNTED) == 0) 
+		{
 			// File ext = Environment.getExternalStorageDirectory();
 			File downloadCacheDir = getExternalFilesDir("imgCache");
 
@@ -110,7 +128,8 @@ public class WTApplication extends Application {
 		return aq;
 	}
 
-	public DisplayMetrics getDisplayMetrics() {
+	public DisplayMetrics getDisplayMetrics() 
+	{
 		if (displayMetrics != null) {
 			return displayMetrics;
 		} else {
@@ -132,12 +151,13 @@ public class WTApplication extends Application {
 		}
 	}
 
-	public Activity getActivity() {
+	public Activity getActivity() 
+	{
 		return activity;
 	}
 
-	public void setActivity(Activity activity) {
+	public void setActivity(Activity activity) 
+	{
 		this.activity = activity;
 	}
-
 }

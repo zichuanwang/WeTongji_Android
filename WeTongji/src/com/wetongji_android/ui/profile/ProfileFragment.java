@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -11,10 +12,11 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ import com.wetongji_android.data.User;
 import com.wetongji_android.factory.UserFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.friend.FriendListActivity;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.DbListLoader;
@@ -47,6 +50,9 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 	private TextView mTvNewsLikes;
 	private TextView mTvPeopleLikes;
 	private TextView mTvOrgsLikes;
+	
+	private RelativeLayout rlFriendsList;
+	private ImageButton btnFriendAdd;
 	
 	private Activity mActivity;
 	
@@ -101,6 +107,10 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 		mTvNewsLikes = (TextView) v.findViewById(R.id.text_profile_news_num);
 		mTvPeopleLikes = (TextView) v.findViewById(R.id.text_profile_people_num);
 		mTvOrgsLikes = (TextView) v.findViewById(R.id.text_profile_orgs_num);
+		
+		rlFriendsList = (RelativeLayout)v.findViewById(R.id.ll_profile_friend_list);
+		rlFriendsList.setOnClickListener(new ClickListener());
+		btnFriendAdd = (ImageButton)v.findViewById(R.id.btn_profile_friend_add);
 	}
 	
 	private void setWidgets(User user) {
@@ -109,11 +119,14 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 		}
 		
 		mTvCollege.setText(user.getDepartment());
+		String fmt = getResources().getString(R.string.text_friends_counter);
+		mTvFriendsNum.setText(String.format(fmt, user.getFriendCount()));
 		
 		String format = getResources().getString(R.string.format_likes);
 		mTvEventsLikes.setText(String.format(format, user.getLikeCount().getActivity()));
 		mTvNewsLikes.setText(String.format(format, user.getLikeCount().getInformation()));
 		mTvPeopleLikes.setText(String.format(format, user.getLikeCount().getPerson()));
+		mTvOrgsLikes.setText(String.format(format, user.getLikeCount().getAccount()));
 		
 		getActivity().setTitle(user.getName());
 	}
@@ -128,8 +141,8 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
-			HttpRequestResult result) {
-		Log.d("data", result.getStrResponseCon());
+			HttpRequestResult result) 
+	{
 		JSONObject json = null;
 		String strUser = null;
 		if (result.getResponseCode() == 0) {
@@ -168,5 +181,19 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	class ClickListener implements OnClickListener
+	{
+		@Override
+		public void onClick(View v) 
+		{
+			// TODO Auto-generated method stub
+			if(v.getId() == R.id.ll_profile_friend_list)
+			{
+				Intent intent = new Intent(getActivity(), FriendListActivity.class);
+				startActivity(intent);
+			}
+		}
 	}
 }

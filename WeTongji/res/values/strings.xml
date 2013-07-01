@@ -120,4 +120,5 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="no_account_error">Login in Please</string>
 	<string name="hint_search_in_wetongji">Search in WeTongji</string>
 	<string name="search">Search</string>
+	<string name="friend_activity_name">Friends</string>
 </resources>

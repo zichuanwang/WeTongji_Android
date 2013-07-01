@@ -102,6 +102,11 @@
             android:label="@string/app_name">
         </activity>
         
+        <!-- Friend List Activity -->
+         <activity 
+            android:name="com.wetongji_android.ui.friend.FriendListActivity"
+            android:label="@string/friend_activity_name">
+        </activity>
     </application>
 
 </manifest>
