@@ -1,5 +1,10 @@
 package com.wetongji_android.ui.search;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -18,16 +23,23 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.table.TableUtils;
 import com.wetongji_android.R;
+import com.wetongji_android.data.Search;
+import com.wetongji_android.factory.SearchFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.data.DbHelper;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 public class SearchFragment extends SherlockFragment 
 	implements LoaderCallbacks<HttpRequestResult>{
+	
+	
 	public static SearchFragment newInstance() {
 		SearchFragment f = new SearchFragment();
 		return f;
@@ -129,5 +141,39 @@ public class SearchFragment extends SherlockFragment
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 	}
 	
+	private void saveSearchHistory(int type, String keywords) {
+		Search search = new Search();
+		search.setType(type);
+		search.setKeywords(keywords);
+		List<Search> history = new ArrayList<Search>(1);
+		history.add(search);
+		SearchFactory searchFactory = new SearchFactory(this, history);
+		searchFactory.saveSearch(false);
+	}
+	
+	private class ClearHistoryTask extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+			DbHelper dbHelper = WTApplication.getInstance().getDbHelper();
+			
+			try {
+				TableUtils.clearTable(dbHelper.getConnectionSource(), Search.class);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			
+			//TODO clear data in search history listView
+		}
+		
+		
+		
+	}
 	
 }

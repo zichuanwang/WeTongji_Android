@@ -27,7 +27,7 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 	private Context context;
 	protected List<T> list;
 	private Class<T> clazz;
-	private int loaderId;
+	protected int loaderId;
 	private Gson gson;
 	
 	protected BaseFactory(Fragment fragment, Class<T> clazz, int loaderId){
