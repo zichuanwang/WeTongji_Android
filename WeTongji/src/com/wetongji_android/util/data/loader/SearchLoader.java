@@ -10,21 +10,18 @@ import com.wetongji_android.util.data.DbListLoader;
 
 public class SearchLoader extends DbListLoader<Search, String>{
 
-	public SearchLoader(Context context, Class<Search> clazz) {
-		super(context, clazz);
-		// TODO Auto-generated constructor stub
+	public SearchLoader(Context context) {
+		super(context, Search.class);
 	}
 
 	@Override
 	public List<Search> loadInBackground() 
 	{
-		// TODO Auto-generated method stub
 		try 
 		{
 			return mDao.queryForAll();
 		} catch (SQLException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

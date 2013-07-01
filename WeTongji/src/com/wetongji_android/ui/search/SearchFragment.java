@@ -1,7 +1,6 @@
 package com.wetongji_android.ui.search;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.os.AsyncTask;
@@ -16,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +23,6 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.table.TableUtils;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Search;
@@ -39,6 +38,10 @@ import com.wetongji_android.util.net.HttpRequestResult;
 public class SearchFragment extends SherlockFragment 
 	implements LoaderCallbacks<HttpRequestResult>{
 	
+	private SearchHistoryAdapter mAdapter;
+	private ListView mLvSearchHistory;
+	private ClearHistoryTask mClearTask;
+	private EditText mEtSearch;
 	
 	public static SearchFragment newInstance() {
 		SearchFragment f = new SearchFragment();
@@ -66,12 +69,27 @@ public class SearchFragment extends SherlockFragment
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_search, container, false);
-			
-			//TODO init widgets
+		
+		mLvSearchHistory = (ListView) view.findViewById(R.id.lst_search_history);
+		mAdapter = new SearchHistoryAdapter(this);
+		mLvSearchHistory.setAdapter(mAdapter);
+		
+		mClearTask = new ClearHistoryTask();
 		
 		return view;
 	}
 	
+	
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		
+		if (mClearTask != null) {
+			mClearTask.cancel(true);
+		}
+	}
+
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
@@ -81,14 +99,14 @@ public class SearchFragment extends SherlockFragment
 		inflater.inflate(R.menu.menu_search, menu);
 		menu.getItem(0).expandActionView();
 		
-		final EditText etSearch = (EditText) menu.findItem(
+		mEtSearch = (EditText) menu.findItem(
 				R.id.menu_search_edit).getActionView();
-		etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+		mEtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			@Override
 			public boolean onEditorAction(TextView arg0, int actionId,
 					KeyEvent arg2) {
 				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-					String content = etSearch.getText().toString();
+					String content = mEtSearch.getText().toString();
 					if (!TextUtils.isEmpty(content)) {
 						ApiHelper apiHelper = ApiHelper
 								.getInstance(getActivity());
@@ -96,6 +114,8 @@ public class SearchFragment extends SherlockFragment
 						getLoaderManager().initLoader(
 								WTApplication.NETWORK_LOADER_SEARCH, b,
 								SearchFragment.this);
+						//TODO change type
+						saveSearchHistory(0, content);
 					}
 					return true;
 				}
@@ -106,7 +126,7 @@ public class SearchFragment extends SherlockFragment
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.notification_button_profile) {
+		if (item.getItemId() == R.id.notification_button_search) {
 			if (WTApplication.getInstance().hasAccount) {
 				((MainActivity) getActivity()).showRightMenu();
 			} else {
@@ -145,10 +165,14 @@ public class SearchFragment extends SherlockFragment
 		Search search = new Search();
 		search.setType(type);
 		search.setKeywords(keywords);
-		List<Search> history = new ArrayList<Search>(1);
-		history.add(search);
+		
+		if (mAdapter != null) {
+			mAdapter.addObject(search);
+		}
+		
+		List<Search> history = mAdapter.getData();
 		SearchFactory searchFactory = new SearchFactory(this, history);
-		searchFactory.saveSearch(false);
+		searchFactory.saveSearch(true);
 	}
 	
 	private class ClearHistoryTask extends AsyncTask<Void, Void, Void> {

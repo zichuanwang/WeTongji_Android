@@ -18,7 +18,7 @@ public class SearchFactory extends BaseFactory<Search, String> {
 	public void saveSearch(boolean needToRefresh) {
 		Bundle args = new Bundle();
 		args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
-		fragment.getLoaderManager().initLoader(loaderId, args, this).forceLoad();
+		fragment.getLoaderManager().restartLoader(loaderId, args, this).forceLoad();
 	}
 
 }

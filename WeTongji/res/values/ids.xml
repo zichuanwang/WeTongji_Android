@@ -129,4 +129,9 @@
     <item name="layout_today_spinner" type="id" />
     <item type="id" name="notification_button_now">false</item>
     <item type="id" name="notification_button_search">false</item>
+    <item type="id" name="text_search_type">false</item>
+    <item name="text_search_keywords" type="id" />
+    <item type="id" name="lst_search_history">false</item>
+    <item type="id" name="layout_search_row">false</item>
+    <item name="text_search_history_title" type="id" />
 </resources>
