@@ -137,9 +137,12 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 	public void onLoadFinished(Loader<List<User>> arg0, List<User> arg1) 
 	{
 		// TODO Auto-generated method stub
+		Log.v("db size", "" + arg1.size());
 		if(arg1 != null && arg1.size() > 1)
 		{
-			Log.v("adapter", "" + arg1.size());
+			getData().addAll(arg1);
+			setIsLoadingData(false);
+			notifyDataSetChanged();
 		}else
 		{
 			((FriendListFragment)mFragment).refreshData();

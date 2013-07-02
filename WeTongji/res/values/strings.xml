@@ -130,6 +130,11 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="search_type_information">Information</string>
 	<string name="search_history_clear">Clear History</string>
 	<string name="friend_activity_name">Friends</string>
+	<string name="friend_detail_part_events">Participated Events</string>
+	<string name="friend_detail_about">About</string>
+	<string name="friend_detail_major">Major</string>
+	<string name="friend_detail_grade">Grade</string>
+	<string name="friend_detail_email">Email</string>
 	<string name="search_tip_all">Search all</string>
 	<string name="search_tip_users">Search users for </string>
 	<string name="search_tip_org">Search organizations for </string>

@@ -103,10 +103,17 @@
         </activity>
         
         <!-- Friend List Activity -->
-         <activity 
+        <activity 
             android:name="com.wetongji_android.ui.friend.FriendListActivity"
             android:label="@string/friend_activity_name">
         </activity>
+        
+         <!-- Friend Detail Activity -->
+         <activity 
+            android:name="com.wetongji_android.ui.friend.FriendDetailActivity"
+            android:label="@string/friend_activity_name">
+        </activity>
+        
     </application>
 
 </manifest>
