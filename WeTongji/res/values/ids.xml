@@ -141,4 +141,7 @@
     <item type="id" name="friend_name">false</item>
     <item type="id" name="friend_department">false</item>
     <item type="id" name="friend_item">false</item>
+    <item name="text_search_tip" type="id" />
+    <item type="id" name="ll_search_tip">false</item>
+    <item type="id" name="lst_search_tips">false</item>
 </resources>

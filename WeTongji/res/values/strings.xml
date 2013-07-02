@@ -130,4 +130,10 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="search_type_information">Information</string>
 	<string name="search_history_clear">Clear History</string>
 	<string name="friend_activity_name">Friends</string>
+	<string name="search_tip_all">Search all</string>
+	<string name="search_tip_users">Search users for </string>
+	<string name="search_tip_org">Search organizations for </string>
+	<string name="search_tip_activity">Search activities for </string>
+	<string name="search_tip_news">Search information for</string>
+	<string name="search_tip_stars">Search stars for </string>
 </resources>
