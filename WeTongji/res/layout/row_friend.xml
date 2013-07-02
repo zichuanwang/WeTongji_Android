@@ -7,11 +7,13 @@
     
 	<ImageView 
 	    android:id="@id/friend_avatar"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
+	     android:layout_width="66.6dip"
+        android:layout_height="66.6dip"
 	    android:layout_alignParentLeft="true"
 	    android:layout_marginTop="15dp"
 	    android:layout_marginLeft="20dp"
+	    android:layout_marginBottom="18dp"
+	    android:background="@drawable/bg_people_avatar_cover"
 	    android:contentDescription="@string/img_content_description"/>
 	
 	<TextView 
@@ -20,9 +22,9 @@
 	    android:layout_height="wrap_content"
 	    android:layout_toRightOf="@id/friend_avatar"
 	    android:layout_marginLeft="20dp"
-	    android:layout_marginTop="23dp"
+	    android:layout_marginTop="20dp"
 	    android:textIsSelectable="false"
-	    style="@style/PeopleName"
+	    style="@style/FriendName"
 	    />
 	
 	<TextView 
@@ -31,9 +33,9 @@
 	    android:layout_height="wrap_content"
 	    android:layout_below="@id/friend_name"
 	    android:layout_alignLeft="@id/friend_name"
-	    android:layout_marginTop="20dp"
+	    android:layout_marginTop="10dp"
 	    android:drawableLeft="@drawable/ic_profile_gender_male"
 	    android:textIsSelectable="false"
-	    style="@style/ProfileHeaderMajor"/>
+	    style="@style/FriendMajor"/>
 	
 </RelativeLayout>

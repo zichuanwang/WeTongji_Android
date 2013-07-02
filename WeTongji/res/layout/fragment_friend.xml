@@ -8,7 +8,7 @@
         android:id="@id/lst_friends"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/eventlst_divider"
+        android:divider="#b1b1b1"
         android:dividerHeight="0.33dp"/>    
         
 </RelativeLayout>
