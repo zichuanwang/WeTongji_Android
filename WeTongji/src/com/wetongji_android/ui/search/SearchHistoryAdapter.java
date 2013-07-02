@@ -120,16 +120,16 @@ public class SearchHistoryAdapter extends BaseAdapter implements
 		case 0:
 			searchType = mFragment.getString(R.string.search_type_all);
 			break;
-		case 1:
+		case 4:
 			searchType = mFragment.getString(R.string.search_type_information);
 			break;
 		case 2:
 			searchType = mFragment.getString(R.string.search_type_organizations);
 			break;
-		case 3:
+		case 1:
 			searchType = mFragment.getString(R.string.search_type_people);
 			break;
-		case 4:
+		case 3:
 			searchType = mFragment.getString(R.string.search_type_activities);
 			break;
 		case 5:

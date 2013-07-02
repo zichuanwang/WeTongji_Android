@@ -163,4 +163,7 @@
     <item type="id" name="ll_friend_detail_email">false</item>
     <item type="id" name="tv_friend_detail_email_title">false</item>
     <item type="id" name="tv_friend_detail_email">false</item>
+    <item name="text_search_tip" type="id" />
+    <item type="id" name="ll_search_tip">false</item>
+    <item type="id" name="lst_search_tips">false</item>
 </resources>

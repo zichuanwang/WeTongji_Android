@@ -264,6 +264,10 @@
  	    <item name="android:textSize">18sp</item>
  	</style>
  	
+ 	<style name="SearchTip" parent="@style/SearchHistoryTitle">
+ 	    <item name="android:maxLines">2</item>
+    </style>
+ 	    
  	<style name="FriendName">
  	    <item name="android:textColor">@color/tv_eventlst_title</item>
  	    <item name="android:textSize">20sp</item>

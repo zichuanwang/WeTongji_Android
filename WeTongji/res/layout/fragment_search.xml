@@ -20,5 +20,14 @@
         android:layout_height="wrap_content"
         android:divider="@color/eventlst_divider"
         android:layout_below="@id/text_search_history_title" />
+    
+    <ListView
+        android:id="@id/lst_search_tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/eventlst_divider"
+        android:layout_alignParentTop="true"
+        android:visibility="gone"
+        />
 
 </RelativeLayout>
