@@ -144,4 +144,9 @@
     <item name="text_search_tip" type="id" />
     <item type="id" name="ll_search_tip">false</item>
     <item type="id" name="lst_search_tips">false</item>
+    <item type="id" name="lst_search_result">false</item>
+    <item name="search_result_item" type="id" />
+    <item name="search_result_pic" type="id" />
+    <item name="search_result_name" type="id" />
+    <item name="search_result_sub_name" type="id" />
 </resources>

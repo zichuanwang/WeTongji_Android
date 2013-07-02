@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@color/eventlst_divider"
+        android:dividerHeight="0.33dp"
         android:layout_below="@id/text_search_history_title" />
     
     <ListView
@@ -26,8 +27,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@color/eventlst_divider"
+        android:dividerHeight="0.33dp"
         android:layout_alignParentTop="true"
         android:visibility="gone"
         />
+    
+    <com.foound.widget.AmazingListView
+        android:id="@id/lst_search_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/eventlst_divider"
+        android:layout_alignParentTop="true"
+        android:dividerHeight="0.33dp"
+        android:visibility="gone"/>
 
 </RelativeLayout>
