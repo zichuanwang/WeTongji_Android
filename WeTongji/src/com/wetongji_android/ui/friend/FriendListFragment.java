@@ -9,12 +9,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -73,6 +74,7 @@ public class FriendListFragment extends WTBaseFragment implements
 		lstFriends = (ListView)mView.findViewById(R.id.lst_friends);
 		mAdapter = new FriendListAdapter(this, lstFriends);
 		lstFriends.setAdapter(mAdapter);
+		lstFriends.setOnItemClickListener(new ItemClickListener());
 		
 		return mView;
 	}
@@ -144,5 +146,16 @@ public class FriendListFragment extends WTBaseFragment implements
 	{
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, apiHelper.getFriends(), this);
+	}
+	
+	class ItemClickListener implements OnItemClickListener
+	{
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) 
+		{
+			// TODO Auto-generated method stub
+			
+		}
 	}
 }
