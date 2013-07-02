@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -18,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.wetongji_android.R;
 import com.wetongji_android.data.User;
 import com.wetongji_android.factory.UserFactory;
@@ -109,7 +109,7 @@ public class FriendListFragment extends WTBaseFragment implements
 		{
 			if(mFactory == null)
 			{
-				mFactory = new UserFactory((SherlockFragmentActivity) mActivity);
+				mFactory = new UserFactory(this);
 			}
 			
 			String data = result.getStrResponseCon();
@@ -125,7 +125,7 @@ public class FriendListFragment extends WTBaseFragment implements
 				// TODO Auto-generated catch block
 			}
 			
-			List<User> users = mFactory.createObjects(userStr);
+			List<User> users = mFactory.createObjects(userStr, true);
 			mAdapter.getData().clear();
 			mAdapter.addAll(users);
 			mAdapter.setIsLoadingData(false);
@@ -155,7 +155,9 @@ public class FriendListFragment extends WTBaseFragment implements
 				long arg3) 
 		{
 			// TODO Auto-generated method stub
-			
+			Intent intent = new Intent(mActivity, FriendDetailActivity.class);
+			startActivity(intent);
+			mActivity.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}
 	}
 }

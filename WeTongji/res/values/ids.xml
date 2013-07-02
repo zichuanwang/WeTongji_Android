@@ -141,4 +141,26 @@
     <item type="id" name="friend_name">false</item>
     <item type="id" name="friend_department">false</item>
     <item type="id" name="friend_item">false</item>
+    <!-- Friend Detail Part -->
+    <item type="id" name="friend_detail_back">false</item>
+    <item type="id" name="layout_friend_detail_top_actionbar">false</item>
+    <item type="id" name="cb_friend_like">false</item>
+    <item type="id" name="tv_friend_like_number">false</item>
+    <item type="id" name="ll_friend_detail_list">false</item>
+    <item type="id" name="tv_detail_friendlist">false</item>
+    <item type="id" name="tv_detail_friend_num">false</item>
+    <item type="id" name="ll_detail_friend_add">false</item>
+    <item type="id" name="btn_detail_friend_add">false</item>
+    <item type="id" name="ll_friend_detail_part_events">false</item>
+    <item type="id" name="tv_detail_friend_part_events">false</item>
+    <item type="id" name="tv_detail_friend_part_events_num">false</item>
+    <item type="id" name="ll_friend_detail_major">false</item>
+    <item type="id" name="tv_friend_detail_major_title">false</item>
+    <item type="id" name="tv_friend_detail_major">false</item>
+    <item type="id" name="ll_friend_detail_grade">false</item>
+    <item type="id" name="tv_friend_detail_grade_title">false</item>
+    <item type="id" name="tv_friend_detail_grade">false</item>
+    <item type="id" name="ll_friend_detail_email">false</item>
+    <item type="id" name="tv_friend_detail_email_title">false</item>
+    <item type="id" name="tv_friend_detail_email">false</item>
 </resources>

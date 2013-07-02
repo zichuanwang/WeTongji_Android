@@ -141,8 +141,8 @@ public class BaseAuthActivity extends SherlockFragmentActivity implements
 			e.printStackTrace();
 		}
 
-		UserFactory userFactory = new UserFactory(this);
-		userFactory.createObject(user.toString());
+		/*UserFactory userFactory = new UserFactory(this.getSupportFragmentManager().g);
+		userFactory.createObject(user.toString());*/
 	}
 
 	public void onAuthenticationResult(String result) {

@@ -1,46 +1,49 @@
 package com.wetongji_android.factory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.Loader;
-
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+import android.support.v4.app.Fragment;
 import com.google.gson.Gson;
 import com.wetongji_android.data.User;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.data.DbListSaver;
 
-public class UserFactory implements LoaderCallbacks<Void>{
-	
-	private User mUser;
-	private SherlockFragmentActivity mActivity;
+public class UserFactory extends BaseFactory<User, String>
+{	
 	private Gson gson=new Gson();
-	
-	
-	public UserFactory(SherlockFragmentActivity activity) {
-		mActivity = activity;
+
+	public UserFactory(Fragment fragment) 
+	{
+		super(fragment, User.class, WTApplication.USER_SAVER);
+		// TODO Auto-generated constructor stub
 	}
 
+	private User createObject(String jsonStr)
+	{
+		return gson.fromJson(jsonStr, User.class);
+	}
 	
-	public User createObject(String jsonStr){
-		mUser = gson.fromJson(jsonStr, User.class);
+	public User createSingleObject(String jsonStr)
+	{
+		list.clear();
+		User user = createObject(jsonStr);
 		
+		list.add(user);
 		Bundle args=new Bundle();
 		args.putBoolean(BaseFactory.ARG_NEED_TO_REFRESH, true);
-		mActivity.getSupportLoaderManager().initLoader(WTApplication.USER_SAVER, args, this).forceLoad();
+		fragment.getLoaderManager().initLoader(WTApplication.USER_SAVER, args, this).forceLoad();
 		
-		return mUser;
+		return user;
 	}
-
-	public List<User> createObjects(String jsonStr)
+	
+	@Override
+	public List<User> createObjects(String jsonStr, boolean needToRefresh) 
 	{
-		List<User> users = new ArrayList<User>();
+		// TODO Auto-generated method stub
+		list.clear();
 		JSONArray array;
 		
 		try 
@@ -48,7 +51,7 @@ public class UserFactory implements LoaderCallbacks<Void>{
 			array = new JSONArray(jsonStr);
 			for(int i = 0; i < array.length(); i++)
 			{
-				users.add(createObject(array.getString(i)));
+				list.add(createObject(array.getString(i)));
 			}
 		} catch (JSONException e) 
 		{
@@ -56,25 +59,10 @@ public class UserFactory implements LoaderCallbacks<Void>{
 			e.printStackTrace();
 		}
 		
-		/*Bundle args=new Bundle();
-		args.putBoolean(BaseFactory.ARG_NEED_TO_REFRESH, true);
-		mActivity.getSupportLoaderManager().initLoader(WTApplication.USER_SAVER, args, this).forceLoad();*/
-		return users;
+		Bundle args=new Bundle();
+		args.putBoolean(BaseFactory.ARG_NEED_TO_REFRESH, needToRefresh);
+		fragment.getLoaderManager().initLoader(WTApplication.USER_SAVER, args, this).forceLoad();
+		
+		return list;
 	}
-	
-	@Override
-	public Loader<Void> onCreateLoader(int arg0, Bundle arg1) {
-		List<User> list = new ArrayList<User>();
-		list.add(mUser);
-		return new DbListSaver<User, String>(mActivity, User.class, list, arg1);
-	}
-
-	@Override
-	public void onLoadFinished(Loader<Void> arg0, Void arg1) {
-	}
-
-	@Override
-	public void onLoaderReset(Loader<Void> arg0) {
-	}
-	
 }

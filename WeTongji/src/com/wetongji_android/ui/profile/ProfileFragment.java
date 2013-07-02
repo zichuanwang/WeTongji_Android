@@ -87,6 +87,7 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 		super.onAttach(activity);
 		
 		mActivity = activity;
+		((MainActivity)mActivity).getSupportActionBar().setDisplayShowTitleEnabled(true);
 	}
 
 	@SuppressWarnings("deprecation")
@@ -111,6 +112,7 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 		rlFriendsList = (RelativeLayout)v.findViewById(R.id.ll_profile_friend_list);
 		rlFriendsList.setOnClickListener(new ClickListener());
 		btnFriendAdd = (ImageButton)v.findViewById(R.id.btn_profile_friend_add);
+		btnFriendAdd.setOnClickListener(new ClickListener());
 	}
 	
 	private void setWidgets(User user) {
@@ -128,7 +130,7 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 		mTvPeopleLikes.setText(String.format(format, user.getLikeCount().getPerson()));
 		mTvOrgsLikes.setText(String.format(format, user.getLikeCount().getAccount()));
 		
-		getActivity().setTitle(user.getName());
+		((MainActivity)mActivity).getSupportActionBar().setTitle(user.getName());
 	}
 
 	@Override
@@ -152,8 +154,8 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 			} catch (JSONException e) {
 			}
 			
-			UserFactory factory = new UserFactory((MainActivity)getActivity());
-			mUser = factory.createObject(strUser);
+			UserFactory factory = new UserFactory(this);
+			mUser = factory.createSingleObject(strUser);
 			setWidgets(mUser);
 		}
 	}
@@ -191,8 +193,9 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 			// TODO Auto-generated method stub
 			if(v.getId() == R.id.ll_profile_friend_list)
 			{
-				Intent intent = new Intent(getActivity(), FriendListActivity.class);
+				Intent intent = new Intent(mActivity, FriendListActivity.class);
 				startActivity(intent);
+				mActivity.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 			}
 		}
 	}

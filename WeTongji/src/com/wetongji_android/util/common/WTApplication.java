@@ -9,8 +9,6 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.wetongji_android.util.data.DbHelper;
 import java.io.File;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.Application;
 import android.os.Environment;
