@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ public class FriendDetailActivity extends SherlockFragmentActivity implements
 {
 	private TextView tvFriendWords;
 	private TextView tvFriendDepartment;
-	private ImageButton ibFriend;
+	private Button ibFriend;
 	private RelativeLayout rlFriendList;
 	private TextView tvFriendNum;
 	private ImageButton ibFriendAdd;
@@ -36,6 +37,17 @@ public class FriendDetailActivity extends SherlockFragmentActivity implements
 		setContentView(R.layout.activity_friend_detail);
 	}
 
+	private void initWidget()
+	{
+		tvFriendWords = (TextView)findViewById(R.id.text_profile_words);
+		tvFriendDepartment = (TextView)findViewById(R.id.text_profile_gender);
+		ibFriend = (Button)findViewById(R.id.btn_profile_action);
+		rlFriendList = (RelativeLayout)findViewById(R.id.ll_friend_detail_list);
+		tvFriendNum = (TextView)findViewById(R.id.tv_detail_friend_num);
+		ibFriendAdd = (ImageButton)findViewById(R.id.btn_detail_friend_add);
+		rlPartEvents = (RelativeLayout)findViewById(R.id.ll_friend_detail_part_events);
+	}
+	
 	@Override
 	protected void onPause() 
 	{
