@@ -6,6 +6,13 @@ public class Account {
 	private String Name;
 	private String Display;
 	private String Description;
+	private String Image;
+	private String Email;
+	private int InformationCount;
+	private int ActivitiesCount;
+	private String Background;
+	private int Like;
+	private String Title;
 	
 	public Account(){
 	}
@@ -49,5 +56,62 @@ public class Account {
 	public void setDescription(String description) {
 		Description = description;
 	}
+
+	public String getImage() {
+		return Image;
+	}
+
+	public void setImage(String image) {
+		Image = image;
+	}
+
+	public String getEmail() {
+		return Email;
+	}
+
+	public void setEmail(String email) {
+		Email = email;
+	}
+
+	public int getInformationCount() {
+		return InformationCount;
+	}
+
+	public void setInformationCount(int informationCount) {
+		InformationCount = informationCount;
+	}
+
+	public int getActivitiesCount() {
+		return ActivitiesCount;
+	}
+
+	public void setActivitiesCount(int activitiesCount) {
+		ActivitiesCount = activitiesCount;
+	}
+
+	public String getBackground() {
+		return Background;
+	}
+
+	public void setBackground(String background) {
+		Background = background;
+	}
+
+	public int getLike() {
+		return Like;
+	}
+
+	public void setLike(int like) {
+		Like = like;
+	}
+
+	public String getTitle() {
+		return Title;
+	}
+
+	public void setTitle(String title) {
+		Title = title;
+	}
+	
 	
 }

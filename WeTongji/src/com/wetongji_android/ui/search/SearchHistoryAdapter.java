@@ -8,6 +8,7 @@ import com.wetongji_android.data.Search;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.loader.SearchLoader;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -79,6 +80,7 @@ public class SearchHistoryAdapter extends BaseAdapter implements
 		return arg0;
 	}
 
+	@SuppressLint("CutPasteId")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (position == mData.size()) {
