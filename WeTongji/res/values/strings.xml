@@ -146,4 +146,5 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="type_activities">Activity</string>
 	<string name="type_information">Information</string>
 	<string name="type_stars">Star</string>
+	<string name="profile_button_text">Change Avatar</string>
 </resources>
