@@ -30,9 +30,13 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
+import com.foound.widget.AmazingListView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.j256.ormlite.table.TableUtils;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Search;
+import com.wetongji_android.data.SearchResults;
 import com.wetongji_android.factory.SearchFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -47,8 +51,10 @@ public class SearchFragment extends SherlockFragment implements
 
 	private SearchHistoryAdapter mAdapter;
 	private SearchTipsAdapter mTipAdapter;
+	private SearchResultAdapter mResultAdapter;
 	private ListView mLvSearchHistory;
 	private ListView mLvSearchTips;
+	private AmazingListView mLvSearchResult;
 	private ClearHistoryTask mClearTask;
 	private EditText mEtSearch;
 	private TextView mTvHistoryTitle;
@@ -84,6 +90,9 @@ public class SearchFragment extends SherlockFragment implements
 		mLvSearchHistory = (ListView) view
 				.findViewById(R.id.lst_search_history);
 		mLvSearchTips = (ListView) view.findViewById(R.id.lst_search_tips);
+		mLvSearchResult = (AmazingListView) view.findViewById(R.id.lst_search_result);
+		mResultAdapter = new SearchResultAdapter(this);
+		mLvSearchResult.setAdapter(mResultAdapter);
 		mAdapter = new SearchHistoryAdapter(this);
 		mLvSearchHistory.setAdapter(mAdapter);
 
@@ -201,12 +210,14 @@ public class SearchFragment extends SherlockFragment implements
 					mLvSearchTips.setVisibility(View.GONE);
 					mLvSearchHistory.setVisibility(View.VISIBLE);
 					mTvHistoryTitle.setVisibility(View.VISIBLE);
+					mLvSearchResult.setVisibility(View.GONE);
 				}
 				if (mEtSearch.getText().length() > 0 && 
 						mLvSearchTips.getVisibility() == View.GONE) {
 					mLvSearchTips.setVisibility(View.VISIBLE);
 					mLvSearchHistory.setVisibility(View.GONE);
 					mTvHistoryTitle.setVisibility(View.GONE);
+					mLvSearchResult.setVisibility(View.GONE);
 				}
 				if (mTipAdapter != null) {
 					mTipAdapter.setKeywords(mEtSearch.getText().toString());
@@ -245,6 +256,7 @@ public class SearchFragment extends SherlockFragment implements
 
 	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int loaderId, Bundle bundle) {
+		// adjust view
 		Loader<HttpRequestResult> loader = null;
 		if (loaderId == WTApplication.NETWORK_LOADER_SEARCH) {
 			loader = new NetworkLoader(getActivity(), HttpMethod.Get, bundle);
@@ -255,14 +267,31 @@ public class SearchFragment extends SherlockFragment implements
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> loader,
 			HttpRequestResult result) {
+		
+		mResultAdapter.notifyMayHaveMorePages();
+		mLvSearchResult.setVisibility(View.VISIBLE);
+		mLvSearchTips.setVisibility(View.GONE);
 		if (loader.getId() == WTApplication.NETWORK_LOADER_SEARCH) {
 			Log.d("data", result.getStrResponseCon());
+			if (result.getResponseCode() == 0) {
+				processSearchResult(result.getStrResponseCon());
+			} else {
+				// Network Error
+			}
 		}
-
 	}
 
 	@Override
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
+	}
+	
+	private void processSearchResult(String jsonStr) {
+		Gson gson = new GsonBuilder()
+		  .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+		  .create();
+		SearchResults result = gson.fromJson(jsonStr, SearchResults.class);
+		mResultAdapter.addResult(result);
+		
 	}
 
 	private void saveSearchHistory(int type, String keywords) {
