@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:addStatesFromChildren="true"
     android:orientation="vertical" >
     
     <include 
@@ -15,7 +16,7 @@
 	    
 		<ImageView 
 		    android:id="@id/search_result_pic"
-		     android:layout_width="66.6dip"
+		    android:layout_width="66.6dip"
 	        android:layout_height="66.6dip"
 		    android:layout_alignParentLeft="true"
 		    android:layout_marginTop="15dp"
@@ -24,23 +25,23 @@
 		    android:background="@drawable/bg_people_avatar_cover"
 		    android:contentDescription="@string/img_content_description"/>
 		
-		<TextView 
+		<com.wetongji_android.ui.widgets.AlwaysFocusTextView 
 		    android:id="@id/search_result_name"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_toRightOf="@id/friend_avatar"
+		    android:layout_toRightOf="@id/search_result_pic"
 		    android:layout_marginLeft="20dp"
 		    android:layout_marginTop="20dp"
 		    android:textIsSelectable="false"
-		    style="@style/FriendName"
+		    style="@style/SearchResultTitle"
 		    />
 		
 		<TextView 
-		    android:id="@id/friend_department"
+		    android:id="@id/search_result_sub_name"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_below="@id/friend_name"
-		    android:layout_alignLeft="@id/friend_name"
+		    android:layout_below="@id/search_result_name"
+		    android:layout_alignLeft="@id/search_result_name"
 		    android:layout_marginTop="10dp"
 		    android:drawableLeft="@drawable/ic_profile_gender_male"
 		    android:textIsSelectable="false"

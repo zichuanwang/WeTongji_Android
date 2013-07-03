@@ -9,7 +9,8 @@ import android.os.Parcelable;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
-public class Information implements Comparable<Information>, Parcelable, Serializable
+public class Information implements Comparable<Information>, Parcelable,
+Serializable
 {
 	
 	/**

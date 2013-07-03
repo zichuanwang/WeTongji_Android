@@ -2,12 +2,13 @@ package com.wetongji_android.data;
 
 import java.util.ArrayList;
 
-public class SearchResult {
-	private ArrayList<Information> Information;
-	private ArrayList<Account> Accounts;
+public class SearchResults {
 	private ArrayList<User> Users;
+	private ArrayList<Account> Accounts;
 	private ArrayList<Activity> Activities;
+	private ArrayList<Information> Information;
 	private ArrayList<Person> Person;
+	
 	public ArrayList<Information> getInformation() {
 		return Information;
 	}
@@ -38,6 +39,4 @@ public class SearchResult {
 	public void setPerson(ArrayList<Person> person) {
 		Person = person;
 	}
-	
-	
 }

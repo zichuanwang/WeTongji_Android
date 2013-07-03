@@ -281,4 +281,11 @@
  	    <item name="android:textStyle">normal</item>
  	</style>
  	
+ 	<style name="SearchResultTitle" parent="@style/FriendName">
+ 	    <item name="android:singleLine">true</item>
+ 	    <item name="android:focusable">true</item>
+ 	    <item name="android:ellipsize">marquee</item>
+ 	    <item name="android:focusableInTouchMode">true</item>
+ 	    <item name="android:marqueeRepeatLimit">marquee_forever</item>
+ 	</style>
 </resources>

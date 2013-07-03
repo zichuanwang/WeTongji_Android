@@ -1,17 +1,22 @@
 package com.wetongji_android.ui.search;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.androidquery.AQuery;
 import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Account;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.data.Person;
+import com.wetongji_android.data.SearchResults;
 import com.wetongji_android.data.User;
+import com.wetongji_android.util.common.WTApplication;
 
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +28,10 @@ public class SearchResultAdapter extends AmazingAdapter {
 
 	private Fragment mFragment;
 	private LayoutInflater mInflater;
-	private List<Pair<Integer, List<Object>>> mResults;
+	private SearchResults mResults;
+	private AQuery mListAq;
+	private AQuery mShouldDelayAq;
+	private BitmapDrawable mBmDefaultThumbnails;
 	
 	public static class ViewHolder
 	{
@@ -33,32 +41,62 @@ public class SearchResultAdapter extends AmazingAdapter {
 		RelativeLayout rl_item;
 	}
 	
+	public class Result {
+		public String title;
+		public String desc;
+		public String pic;
+		public int gender = 0;
+	}
+	
 	public SearchResultAdapter(Fragment fragment) {
 		mFragment = fragment;
 		mInflater = LayoutInflater.from(fragment.getActivity());
+		mListAq = WTApplication.getInstance().getAq(fragment.getActivity());
+		mBmDefaultThumbnails = (BitmapDrawable) fragment.getActivity()
+				.getResources()
+				.getDrawable(R.drawable.event_list_thumbnail_place_holder);
+		addResult(new SearchResults());
 	}
 	
 	@Override
 	public int getCount() {
 		int count = 0;
-		for (int i = 0; i < mResults.size(); i++) {
-			count += mResults.get(i).second.size();
-		}
+		count += mResults.getAccounts().size();
+		count += mResults.getUsers().size();
+		count += mResults.getActivities().size();
+		count += mResults.getInformation().size();
+		count += mResults.getPerson().size();
 		return count;
 	}
 
 	@Override
 	public Object getItem(int position) {
-		Object item = null;
 		int pos = 0;
-		for (int i = 0; i < mResults.size(); i++) {
-			if (position < mResults.get(i).second.size() + pos) {
-				item = mResults.get(i).second.get(position - pos);
-			} else {
-				pos += mResults.get(i).second.size();
-			}
+		if (position < mResults.getUsers().size() + pos) {
+			return mResults.getUsers().get(position);
+		} else {
+			pos += mResults.getUsers().size();
 		}
-		return item;
+		if (position < mResults.getAccounts().size() + pos) {
+			return mResults.getAccounts().get(position - pos);
+		} else {
+			pos += mResults.getAccounts().size();
+		}
+		if (position < mResults.getActivities().size() + pos) {
+			return mResults.getActivities().get(position - pos);
+		} else {
+			pos += mResults.getActivities().size();
+		}
+		if (position < mResults.getInformation().size() + pos) {
+			return mResults.getInformation().get(position - pos);
+		} else {
+			pos += mResults.getInformation().size();
+		}
+		if (position < mResults.getPerson().size() + pos) {
+			return mResults.getPerson().get(position - pos);
+		}
+		
+		return null;
 	}
 
 	@Override
@@ -75,10 +113,12 @@ public class SearchResultAdapter extends AmazingAdapter {
 	protected void bindSectionHeader(View view, int position,
 			boolean displaySectionHeader) {
 		if (displaySectionHeader) {
-			view.findViewById(R.id.layout_information_header).setVisibility(View.VISIBLE);
+			view.findViewById(R.id.layout_information_header).setVisibility(
+					View.VISIBLE);
 			configureHeader(view, position);
 		} else {
-			view.findViewById(R.id.layout_information_header).setVisibility(View.GONE);
+			view.findViewById(R.id.layout_information_header).setVisibility(
+					View.GONE);
 		}
 		
 	}
@@ -100,7 +140,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 			stringResId = R.string.type_stars;
 		}
 		
-		tvSectionHeader.setText(mFragment.getString(stringResId));
+		tvSectionHeader.setText(stringResId);
 	}
 
 	@Override
@@ -121,40 +161,164 @@ public class SearchResultAdapter extends AmazingAdapter {
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
-			SearchResult result = convertItemToResult(position);
+			Result result = convertItemToResult(position);
 			holder.tv_title.setText(result.title);
 			holder.tv_description.setText(result.desc);
-			//TODO add image
+			Drawable gender = null;
+			if (result.gender == 1) {
+				gender = mFragment.getActivity().getResources()
+						.getDrawable(R.drawable.ic_profile_gender_male);
+			} else if (result.gender == 2) {
+				gender = mFragment.getActivity().getResources()
+						.getDrawable(R.drawable.ic_profile_gender_female);
+			}
+			holder.tv_description.setCompoundDrawables(gender, null, null, null);
+			//add image
+			mShouldDelayAq = mListAq.recycle(convertView);
+			if (!result.pic.equals(WTApplication.MISSING_IMAGE_URL)) {
+				if (mShouldDelayAq.shouldDelay(position, convertView, parent,
+						result.pic)) {
+					mShouldDelayAq.id(holder.iv_pic)
+							.image(mBmDefaultThumbnails);
+				} else {
+					mShouldDelayAq.id(holder.iv_pic).image(result.pic, true,
+							true, 360,
+							R.drawable.event_list_thumbnail_place_holder, null,
+							AQuery.FADE_IN_NETWORK, 1.0f);
+				}
+			} else {
+				mShouldDelayAq.id(holder.iv_pic).image(mBmDefaultThumbnails);
+			}
 		}
 		return convertView;
 	}
 
 	@Override
 	public void configurePinnedHeader(View header, int position, int alpha) {
-		// TODO Auto-generated method stub
-		
+		configureHeader(header, position);
 	}
 
 	@Override
 	public int getPositionForSection(int section) {
-		// TODO Auto-generated method stub
+		switch (section) {
+		case 0:
+			return 0;
+		case 1:
+			return getSecondSection();
+		case 2:
+			return getThirdSection();
+		case 3:
+			return getFourthSection();
+		case 4:
+			return getFifthSection();
+		}
+		
 		return 0;
 	}
 
 	@Override
 	public int getSectionForPosition(int position) {
-		// TODO Auto-generated method stub
-		return 0;
+		Object item = getItem(position);
+		int section = 0;
+		if (item instanceof User) {
+			section = 0;
+		} else if (item instanceof Account) {
+			section = 1;
+		} else if (item instanceof Activity) {
+			section = 2;
+		} else if (item instanceof Information) {
+			section = 3;
+		} else if (item instanceof Person) {
+			section = 4;
+		}
+		return section;
 	}
 
 	@Override
-	public Object[] getSections() {
-		// TODO Auto-generated method stub
-		return null;
+	public String[] getSections() {
+		String user = mFragment.getString(R.string.type_users);
+		String accounts = mFragment.getString(R.string.type_org);
+		String activity = mFragment.getString(R.string.type_activities);
+		String information = mFragment.getString(R.string.type_information);
+		String star = mFragment.getString(R.string.type_stars);
+		
+		List<String> sections = new ArrayList<String>();
+		if (mResults.getPerson().size() != 0) {
+			sections.add(star);
+		}
+		if (mResults.getInformation().size() != 0) {
+			sections.add(information);
+		}
+		if (mResults.getActivities().size() != 0) {
+			sections.add(activity);
+		}
+		if (mResults.getAccounts().size() != 0) {
+			sections.add(accounts);
+		}
+		if (mResults.getUsers().size() != 0) {
+			sections.add(user);
+		}
+		return (String[]) sections.toArray();
 	}
 	
-	private SearchResult convertItemToResult(int position) {
-		SearchResult result = new SearchResult();
+	private int getSecondSection() {
+		int pos = 0;
+		if (mResults.getUsers().size() != 0) {
+			return mResults.getUsers().size();
+		} else if (mResults.getAccounts().size() != 0){
+			return mResults.getAccounts().size() + pos;
+		} else if (mResults.getActivities().size() != 0) {
+			return mResults.getActivities().size() + pos;
+		} else if (mResults.getInformation().size() != 0) {
+			return mResults.getInformation().size() + pos;
+		}
+		return pos;
+	}
+	
+	private int getThirdSection() {
+		int pos = 0;
+		if (mResults.getUsers().size() != 0) {
+			pos += mResults.getUsers().size();
+		} else if (mResults.getAccounts().size() != 0){
+			return mResults.getAccounts().size() + pos;
+		} else if (mResults.getActivities().size() != 0) {
+			return mResults.getActivities().size() + pos;
+		} else if (mResults.getInformation().size() != 0) {
+			return mResults.getInformation().size() + pos;
+		}
+		return pos;
+	}
+	
+	private int getFourthSection() {
+		int pos = 0;
+		if (mResults.getUsers().size() != 0) {
+			pos += mResults.getUsers().size();
+		} else if (mResults.getAccounts().size() != 0){
+			pos +=  mResults.getAccounts().size() + pos;
+		} else if (mResults.getActivities().size() != 0) {
+			return mResults.getActivities().size() + pos;
+		} else if (mResults.getInformation().size() != 0) {
+			return mResults.getInformation().size() + pos;
+		}
+		return pos;
+	}
+	
+	private int getFifthSection() {
+		int pos = 0;
+		if (mResults.getUsers().size() != 0) {
+			pos += mResults.getUsers().size();
+		} else if (mResults.getAccounts().size() != 0){
+			pos +=  mResults.getAccounts().size() + pos;
+		} else if (mResults.getActivities().size() != 0) {
+			pos += mResults.getActivities().size() + pos;
+		} else if (mResults.getInformation().size() != 0) {
+			return mResults.getInformation().size() + pos;
+		}
+		return pos;
+	}
+	
+	private Result convertItemToResult(int position) {
+		Result result = new Result();
 		Object item = getItem(position);
 		if (item instanceof User) {
 			User user = (User) item;
@@ -186,12 +350,26 @@ public class SearchResultAdapter extends AmazingAdapter {
 		
 		return result;
 	}
-	
-	public class SearchResult {
-		public String title;
-		public String desc;
-		public String pic;
-		public int gender = 0;
-	}
 
+	public void addResult(SearchResults result) {
+		mResults = result;
+		if (mResults.getAccounts() == null) {
+			mResults.setAccounts(new ArrayList<Account>(0));
+		}
+		if (mResults.getUsers() == null) {
+			mResults.setUsers(new ArrayList<User>(0));
+		}
+		if (mResults.getPerson() == null) {
+			mResults.setPerson(new ArrayList<Person>(0));
+		}
+		if (mResults.getActivities() == null) {
+			mResults.setActivities(new ArrayList<Activity>(0));
+		}
+		if (mResults.getInformation() == null) {
+			mResults.setInformation(new ArrayList<Information>(0));
+		}
+		
+		notifyDataSetChanged();
+	}
+	
 }
