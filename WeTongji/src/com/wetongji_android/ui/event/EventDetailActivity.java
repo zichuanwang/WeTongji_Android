@@ -29,6 +29,7 @@ import com.wetongji_android.data.Activity;
 import com.wetongji_android.factory.ActivityFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.friend.FriendInviteActivity;
 import com.wetongji_android.ui.informations.InformationDetailActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTFullScreenActivity;
@@ -49,6 +50,8 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 
 	private AQuery mAq;
 
+	private LinearLayout llInvite;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,6 +91,7 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 
 		setTextViews();
 
+		setupBottomActionBar();
 	}
 
 	private void recieveActivity() {
@@ -169,6 +173,12 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 		});
 	}
 
+	private void setupBottomActionBar()
+	{
+		llInvite = (LinearLayout)findViewById(R.id.btn_event_detail_invite);
+		llInvite.setOnClickListener(new ClickListener());
+	}
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -270,5 +280,26 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 			startActivity(intent);
 			EventDetailActivity.this.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}	
+	}
+	
+	class ClickListener implements OnClickListener
+	{
+		@Override
+		public void onClick(View v)
+		{
+			// TODO Auto-generated method stub
+			if(v.getId() == R.id.btn_event_detail_invite)
+			{
+				if(WTApplication.getInstance().hasAccount)
+				{
+					Intent intent = new Intent(EventDetailActivity.this, FriendInviteActivity.class);
+					startActivity(intent);
+				}else
+				{
+					Toast.makeText(EventDetailActivity.this, getResources().getText(R.string.no_account_error),
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+		}
 	}
 }
