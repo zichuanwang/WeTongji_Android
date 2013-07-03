@@ -157,7 +157,6 @@
 		                        android:layout_below="@id/tv_detail_friendlist"
 		                        android:layout_marginLeft="7dp"
 		                        android:layout_marginTop="3dp"
-		                        android:text="20 Friends"
 		                    	style="@style/ProfileFriendNum"
 		                    	android:textIsSelectable="false"
 		                    	/>
@@ -229,7 +228,6 @@
 		                        android:layout_marginLeft="7dp"
 		                        android:layout_marginTop="3dp"
 		                    	style="@style/ProfileFriendNum"
-		                    	android:text="20 Events"
 		                    	android:textIsSelectable="false"
 		                    	/>
 		                    
@@ -300,7 +298,6 @@
 		                        android:layout_below="@id/tv_friend_detail_major_title"
 		                        android:layout_marginLeft="7dp"
 		                        android:layout_marginTop="3dp"
-		                        android:text="Software Engineering"
 		                    	android:textIsSelectable="false"
 		                    	style="@style/ProfileFriendNum"
 		                    	/>
@@ -342,7 +339,6 @@
 		                        android:layout_below="@id/tv_friend_detail_grade_title"
 		                        android:layout_marginLeft="7dp"
 		                        android:layout_marginTop="3dp"
-		                        android:text="2010"
 		                    	android:textIsSelectable="false"
 		                    	style="@style/ProfileFriendNum"
 		                    	/>
@@ -384,7 +380,6 @@
 		                        android:layout_marginLeft="7dp"
 		                        android:layout_marginTop="3dp"
 		                        android:textIsSelectable="false"
-		                        android:text="coolhzb@163.com"
 		                    	style="@style/ProfileFriendNum"
 		                    	/>
 		                </RelativeLayout>

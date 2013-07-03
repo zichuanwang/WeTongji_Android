@@ -32,6 +32,8 @@ import com.wetongji_android.util.net.HttpRequestResult;
 public class FriendListFragment extends WTBaseFragment implements
 		LoaderCallbacks<HttpRequestResult>, OnScrollListener 
 {
+	public static final String BUNDLE_KEY_USER = "User";
+	
 	private View mView;
 	private Activity mActivity;
 	private UserFactory mFactory;
@@ -156,6 +158,9 @@ public class FriendListFragment extends WTBaseFragment implements
 		{
 			// TODO Auto-generated method stub
 			Intent intent = new Intent(mActivity, FriendDetailActivity.class);
+			Bundle  bundle = new Bundle();
+			bundle.putParcelable(BUNDLE_KEY_USER, mAdapter.getItem(arg2));
+			intent.putExtras(bundle);
 			startActivity(intent);
 			mActivity.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}

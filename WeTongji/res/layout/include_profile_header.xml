@@ -28,6 +28,7 @@
         android:layout_marginLeft="16.7dp"
         android:layout_marginRight="30dp"
         android:drawableLeft="@drawable/ic_profile_gender_male"
+        android:textIsSelectable="false"
         style="@style/ProfileHeaderMajor"/>
 
     <ImageView
@@ -38,7 +39,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="13.3dp"
-        android:src="@drawable/test_avatar" />
+        android:src="@drawable/test_avatar"
+        android:contentDescription="@string/img_content_description"/>
 
     <Button
         android:id="@id/btn_profile_action"
@@ -48,8 +50,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp"
-        android:gravity="center_vertical"
-        android:text="Change Avatar" 
+        android:gravity="center"
+        android:text="@string/profile_button_text" 
         style="@style/ProfileHeaderAction"/>
 
 </RelativeLayout>
