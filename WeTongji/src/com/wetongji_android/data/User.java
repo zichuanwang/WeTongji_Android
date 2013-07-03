@@ -1,9 +1,13 @@
 package com.wetongji_android.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
-public class User {
+public class User implements Parcelable
+{
 	@DatabaseField
 	private String NO;
 	@DatabaseField
@@ -254,4 +258,82 @@ public class User {
 	public void setFriendCount(int friendCount) {
 		FriendCount = friendCount;
 	}
+
+	@Override
+	public int describeContents() 
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) 
+	{
+		// TODO Auto-generated method stub
+		dest.writeString(NO);
+		dest.writeString(Name);
+		dest.writeString(UID);
+		dest.writeString(Phone);
+		dest.writeString(DisplayName);
+		dest.writeString(Major);
+		dest.writeString(NativePlace);
+		dest.writeString(Degree);
+		dest.writeString(Gender);
+		dest.writeString(Year);
+		dest.writeString(Birthday);
+		dest.writeString(Plan);
+		dest.writeString(SinaWeibo);
+		dest.writeString(QQ);
+		dest.writeString(Department);
+		dest.writeString(Email);
+		dest.writeString(Words);
+		dest.writeString(Room);
+		dest.writeSerializable(LikeCount);
+		dest.writeByte((byte)(IsFriend?1:0));
+		dest.writeInt(FriendCount);
+		dest.writeString(Avatar);
+	}
+	
+	private User(Parcel source)
+	{
+		NO = source.readString();
+		Name = source.readString();
+		UID = source.readString();
+		Phone = source.readString();
+		DisplayName = source.readString();
+		Major = source.readString();
+		NativePlace = source.readString();
+		Degree = source.readString();
+		Gender = source.readString();
+		Year = source.readString();
+		Birthday = source.readString();
+		Plan = source.readString();
+		SinaWeibo = source.readString();
+		QQ = source.readString();
+		Department = source.readString();
+		Email = source.readString();
+		Words = source.readString();
+		Room = source.readString();
+		LikeCount = (LikeCounts) source.readSerializable();
+		IsFriend = source.readByte() == 1;
+		FriendCount = source.readInt();
+		Avatar = source.readString();
+	}
+	
+	public static final Creator<User> CREATOR = new Creator<User>()
+	{
+		@Override
+		public User createFromParcel(Parcel source) 
+		{
+			// TODO Auto-generated method stub
+			return new User(source);
+		}
+
+		@Override
+		public User[] newArray(int size) 
+		{
+			// TODO Auto-generated method stub
+			return new User[size];
+		}
+	};
 }
