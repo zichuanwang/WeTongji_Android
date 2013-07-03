@@ -114,6 +114,12 @@
             android:label="@string/friend_activity_name">
         </activity>
         
+         <!-- Friend Invite Activity -->
+         <activity 
+            android:name="com.wetongji_android.ui.friend.FriendInviteActivity"
+            android:label="@string/invite_friends">
+        </activity>
+        
     </application>
 
 </manifest>

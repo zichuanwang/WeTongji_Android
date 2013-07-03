@@ -171,4 +171,12 @@
     <item name="search_result_pic" type="id" />
     <item name="search_result_name" type="id" />
     <item name="search_result_sub_name" type="id" />
+    <!-- Friend Invite Part -->
+    <item type="id" name="lst_invite_friends">false</item>
+    <item type="id" name="btn_on_invite">false</item>
+    <item type="id" name="friend_invite_item">false</item>
+    <item type="id" name="friend_invite_avatar">false</item>
+    <item type="id" name="friend_invite_name">false</item>
+    <item type="id" name="friend_invite_department">false</item>
+    <item type="id" name="friend_invite_cb">false</item>
 </resources>
