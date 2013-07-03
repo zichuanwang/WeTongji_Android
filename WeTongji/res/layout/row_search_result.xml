@@ -25,7 +25,7 @@
 		    android:background="@drawable/bg_people_avatar_cover"
 		    android:contentDescription="@string/img_content_description"/>
 		
-		<com.wetongji_android.ui.widgets.AlwaysFocusTextView 
+		<TextView 
 		    android:id="@id/search_result_name"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"

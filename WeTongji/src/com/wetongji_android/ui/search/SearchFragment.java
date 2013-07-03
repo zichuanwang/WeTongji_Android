@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -35,12 +36,25 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.j256.ormlite.table.TableUtils;
 import com.wetongji_android.R;
+import com.wetongji_android.data.Account;
+import com.wetongji_android.data.Activity;
+import com.wetongji_android.data.Information;
+import com.wetongji_android.data.Person;
 import com.wetongji_android.data.Search;
 import com.wetongji_android.data.SearchResults;
+import com.wetongji_android.data.User;
 import com.wetongji_android.factory.SearchFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.event.EventDetailActivity;
+import com.wetongji_android.ui.event.EventsFragment;
+import com.wetongji_android.ui.friend.FriendDetailActivity;
+import com.wetongji_android.ui.friend.FriendListFragment;
+import com.wetongji_android.ui.informations.InformationDetailActivity;
+import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.ui.main.MainActivity;
+import com.wetongji_android.ui.people.PeopleListFragment;
+import com.wetongji_android.ui.people.PersonDetailActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.DbHelper;
 import com.wetongji_android.util.net.ApiHelper;
@@ -93,6 +107,10 @@ public class SearchFragment extends SherlockFragment implements
 		mLvSearchResult = (AmazingListView) view.findViewById(R.id.lst_search_result);
 		mResultAdapter = new SearchResultAdapter(this);
 		mLvSearchResult.setAdapter(mResultAdapter);
+		mLvSearchResult.setPinnedHeaderView(
+				inflater.inflate(R.layout.information_list_header,
+				mLvSearchResult, false));
+		mLvSearchResult.setOnItemClickListener(mOnResultClickListener);
 		mAdapter = new SearchHistoryAdapter(this);
 		mLvSearchHistory.setAdapter(mAdapter);
 
@@ -335,5 +353,40 @@ public class SearchFragment extends SherlockFragment implements
 		}
 
 	}
+	
+	private OnItemClickListener mOnResultClickListener = new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+				long id) {
+			Log.d("data", "click");
+			Intent intent = new Intent();
+			Bundle b = new Bundle();
+			Object item = mResultAdapter.getItem(position);
+			if (item instanceof User) {
+				User user = (User) item;
+				intent.setClass(getActivity(), FriendDetailActivity.class);
+				b.putParcelable(FriendListFragment.BUNDLE_KEY_USER, user);
+			} else if (item instanceof Account) {
+				// TODO enter account detail
+			} else if (item instanceof Activity) {
+				Activity activity = (Activity) item;
+				intent.setClass(getActivity(), EventDetailActivity.class);
+				b.putParcelable(EventsFragment.BUNDLE_KEY_ACTIVITY, activity);
+			} else if (item instanceof Information) {
+				Information info = (Information) item;
+				intent.setClass(getActivity(), InformationDetailActivity.class);
+				b.putParcelable(InformationsFragment.BUNDLE_KEY_INFORMATION, info);
+			} else if (item instanceof Person) {
+				Person person = (Person) item;
+				intent.setClass(getActivity(), PersonDetailActivity.class);
+				b.putParcelable(PeopleListFragment.BUNDLE_KEY_PERSON, person);
+			}
+			
+			intent.putExtras(b);
+			startActivity(intent);
+		}
+		
+	};
 
 }
