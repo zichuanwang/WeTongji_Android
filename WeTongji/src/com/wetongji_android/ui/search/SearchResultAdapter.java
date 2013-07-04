@@ -17,6 +17,7 @@ import com.wetongji_android.util.common.WTApplication;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +34,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 	private AQuery mShouldDelayAq;
 	private BitmapDrawable mBmDefaultThumbnails;
 	
-	public static class ViewHolder
-	{
+	public static class ViewHolder {
 		ImageView iv_pic;
 		TextView tv_title;
 		TextView tv_description;
@@ -66,6 +66,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 		count += mResults.getActivities().size();
 		count += mResults.getInformation().size();
 		count += mResults.getPerson().size();
+		
 		return count;
 	}
 
@@ -236,6 +237,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 
 	@Override
 	public String[] getSections() {
+		Log.v(TAG, "getSections");
 		String user = mFragment.getString(R.string.type_users);
 		String accounts = mFragment.getString(R.string.type_org);
 		String activity = mFragment.getString(R.string.type_activities);
@@ -258,6 +260,8 @@ public class SearchResultAdapter extends AmazingAdapter {
 		if (mResults.getUsers().size() != 0) {
 			sections.add(user);
 		}
+		
+		Log.v("size", "" + sections.size());
 		return (String[]) sections.toArray();
 	}
 	

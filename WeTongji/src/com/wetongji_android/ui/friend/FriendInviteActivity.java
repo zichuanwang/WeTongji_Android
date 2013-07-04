@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ListView;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -18,30 +17,33 @@ import com.wetongji_android.util.net.HttpRequestResult;
 public class FriendInviteActivity extends SherlockFragmentActivity implements
 		OnClickListener, OnCheckedChangeListener, LoaderCallbacks<HttpRequestResult> 
 {	
+	private static final String TAG_FRIEND_INVITE_FRAGMENT = "FRIEND_INVITE_FRAGMENT";
+	
 	private ToggleButton btnInvite;
-	private ListView mList;
 	
 	@Override
 	protected void onCreate(Bundle arg0) 
 	{
-		// TODO Auto-generated method stub
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_friend_invite);
 		
 		setupActionBar();
+		
+		FriendListFragment fragment = new FriendListFragment();
+		getSupportFragmentManager().beginTransaction()
+			.add(R.id.friend_invite_list_container, fragment, TAG_FRIEND_INVITE_FRAGMENT)
+			.commit();
 	}
 	
 	@Override
 	protected void onPause() 
 	{
-		// TODO Auto-generated method stub
 		super.onPause();
 	}
 
 	@Override
 	protected void onResume() 
 	{
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 
@@ -58,29 +60,21 @@ public class FriendInviteActivity extends SherlockFragmentActivity implements
 		btnInvite.setOnCheckedChangeListener(this);
 	}
 	
-	private void initWidget()
-	{
-		
-	}
-	
 	@Override
 	public void onCheckedChanged(CompoundButton arg0, boolean arg1) 
 	{
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void onClick(View v) 
 	{
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) 
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -88,15 +82,12 @@ public class FriendInviteActivity extends SherlockFragmentActivity implements
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
 			HttpRequestResult arg1) 
 	{
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) 
 	{
-		// TODO Auto-generated method stub
 		
 	}
-
 }

@@ -92,6 +92,12 @@ dataPersister=SERIALIZABLE
 # --field-start--
 fieldName=IsFriend
 # --field-end--
+# --field-start--
+fieldName=FriendCount
+# --field-end--
+# --field-start--
+fieldName=Avatar
+# --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
