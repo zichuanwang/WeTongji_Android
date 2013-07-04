@@ -124,6 +124,7 @@ public class SearchFragment extends SherlockFragment implements
 					Search search = (Search) arg0.getItemAtPosition(position);
 					doSearch(search.getType(), search.getKeywords());
 					mEtSearch.setText(search.getKeywords());
+					mEtSearch.setSelection(mEtSearch.getText().length());
 				}
 			}
 		});
