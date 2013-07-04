@@ -179,4 +179,5 @@
     <item type="id" name="friend_invite_name">false</item>
     <item type="id" name="friend_invite_department">false</item>
     <item type="id" name="friend_invite_cb">false</item>
+    <item type="id" name="friend_invite_list_container">false</item>
 </resources>

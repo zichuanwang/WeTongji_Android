@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/friend_invite_list_container"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_app_base">
-    
-    <ListView
-        android:id="@id/lst_invite_friends"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="#b1b1b1"
-        android:dividerHeight="0.33dp"
-        android:visibility="gone"/>    
-        
-</RelativeLayout>
+    android:background="@drawable/bg_app_base"
+    >
+</LinearLayout>

@@ -290,7 +290,6 @@ public class SearchFragment extends SherlockFragment implements
 		mLvSearchResult.setVisibility(View.VISIBLE);
 		mLvSearchTips.setVisibility(View.GONE);
 		if (loader.getId() == WTApplication.NETWORK_LOADER_SEARCH) {
-			Log.d("data", result.getStrResponseCon());
 			if (result.getResponseCode() == 0) {
 				processSearchResult(result.getStrResponseCon());
 			} else {
@@ -309,7 +308,7 @@ public class SearchFragment extends SherlockFragment implements
 		  .create();
 		SearchResults result = gson.fromJson(jsonStr, SearchResults.class);
 		mResultAdapter.addResult(result);
-		
+		mResultAdapter.notifyDataSetChanged();
 	}
 
 	private void saveSearchHistory(int type, String keywords) {

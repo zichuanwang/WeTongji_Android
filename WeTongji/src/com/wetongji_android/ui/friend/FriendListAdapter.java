@@ -24,7 +24,6 @@ import com.wetongji_android.data.User;
 import com.wetongji_android.ui.EndlessListAdapter;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.user.UserLoader;
-import com.wetongji_android.util.net.HttpUtil;
 
 public class FriendListAdapter extends EndlessListAdapter<User> implements
 		LoaderCallbacks<List<User>> 
@@ -105,7 +104,7 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 		holder.tvFriendDepart.setText(user.getDepartment());
 		
 		//Set avatar
-		String strUrl = HttpUtil.replaceURL(user.getAvatar());
+		String strUrl = user.getAvatar();
 		mShouldDelayAq = mListAq.recycle(convertView);
 		if(!strUrl.equals(WTApplication.MISSING_IMAGE_URL))
 		{
@@ -137,7 +136,6 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 	public void onLoadFinished(Loader<List<User>> arg0, List<User> arg1) 
 	{
 		// TODO Auto-generated method stub
-		Log.v("db size", "" + arg1.size());
 		if(arg1 != null && arg1.size() > 1)
 		{
 			getData().addAll(arg1);
@@ -158,6 +156,7 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 	
 	public void loadDataFromDB() 
 	{
+		Log.v("db", "load");
 		mFragment.getLoaderManager().initLoader(WTApplication.USER_LOADER, null, this);
 		setIsLoadingData(true);
 	}

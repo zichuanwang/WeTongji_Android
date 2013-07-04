@@ -18,7 +18,6 @@ public class UserFactory extends BaseFactory<User, String>
 	public UserFactory(Fragment fragment) 
 	{
 		super(fragment, User.class, WTApplication.USER_SAVER);
-		// TODO Auto-generated constructor stub
 	}
 
 	private User createObject(String jsonStr)
@@ -42,7 +41,6 @@ public class UserFactory extends BaseFactory<User, String>
 	@Override
 	public List<User> createObjects(String jsonStr, boolean needToRefresh) 
 	{
-		// TODO Auto-generated method stub
 		list.clear();
 		JSONArray array;
 		
@@ -55,7 +53,6 @@ public class UserFactory extends BaseFactory<User, String>
 			}
 		} catch (JSONException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
