@@ -111,10 +111,10 @@ public class SearchFragment extends SherlockFragment implements
 				inflater.inflate(R.layout.information_list_header,
 				mLvSearchResult, false));
 		mLvSearchResult.setOnItemClickListener(mOnResultClickListener);
-		mAdapter = new SearchHistoryAdapter(this);
-		mLvSearchHistory.setAdapter(mAdapter);
+		//mAdapter = new SearchHistoryAdapter(this);
+		//mLvSearchHistory.setAdapter(mAdapter);
 
-		mLvSearchHistory.setOnItemClickListener(new OnItemClickListener() {
+		/*mLvSearchHistory.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long id) {
@@ -156,7 +156,7 @@ public class SearchFragment extends SherlockFragment implements
 		});
 
 		mTipAdapter = new SearchTipsAdapter(this);
-		mLvSearchTips.setAdapter(mTipAdapter);
+		mLvSearchTips.setAdapter(mTipAdapter);*/
 		
 		// show software keyboards
 		InputMethodManager imm = (InputMethodManager) getActivity()
@@ -255,7 +255,8 @@ public class SearchFragment extends SherlockFragment implements
 		getLoaderManager().restartLoader(
 				WTApplication.NETWORK_LOADER_SEARCH, b,
 				SearchFragment.this);
-		saveSearchHistory(type, content);
+		//TODO
+		//saveSearchHistory(type, content);
 	}
 
 	@Override
@@ -312,7 +313,8 @@ public class SearchFragment extends SherlockFragment implements
 		mResultAdapter.notifyDataSetChanged();
 	}
 
-	private void saveSearchHistory(int type, String keywords) {
+	//TODO
+	/*private void saveSearchHistory(int type, String keywords) {
 		Search search = new Search();
 		search.setType(type);
 		search.setKeywords(keywords);
@@ -324,7 +326,7 @@ public class SearchFragment extends SherlockFragment implements
 		List<Search> history = mAdapter.getData();
 		SearchFactory searchFactory = new SearchFactory(this, history);
 		searchFactory.saveSearch(true);
-	}
+	}*/
 
 	private void startClearTask() {
 		mClearTask = new ClearHistoryTask();
