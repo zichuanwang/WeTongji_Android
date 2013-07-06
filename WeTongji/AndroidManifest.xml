@@ -120,6 +120,12 @@
             android:label="@string/invite_friends">
         </activity>
         
+         <!-- Course Detail Activity -->
+         <activity
+             android:name="com.wetongji_android.ui.now.CourseDetailActivity">
+             android:label="CourseDetail"
+         </activity>
+        
     </application>
 
 </manifest>

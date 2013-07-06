@@ -284,4 +284,14 @@
  	<style name="SearchResultTitle" parent="@style/FriendName">
  	    <item name="android:singleLine">true</item>
  	</style>
+ 	
+ 	<style name="CourseDetailTitle">
+ 	    <item name="android:textSize">20sp</item>
+ 	    <item name="android:textColor">#454545</item>
+ 	</style>
+ 	
+ 	<style name="CourseDetailTime">
+ 	    <item name="android:textSize">12sp</item>
+ 	    <item name="android:textColor">#b1b1b1</item>
+ 	</style>
 </resources>
