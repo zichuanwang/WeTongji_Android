@@ -123,7 +123,11 @@
          <!-- Course Detail Activity -->
          <activity
              android:name="com.wetongji_android.ui.now.CourseDetailActivity">
-             android:label="CourseDetail"
+             android:label="@string/activity_label_schedule""
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
          </activity>
         
     </application>
