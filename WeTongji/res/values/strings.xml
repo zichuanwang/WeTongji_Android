@@ -150,4 +150,9 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="invite_friends">Invite Friends</string>
 	<string name="invite_title">Invite</string>
 	<string name="activity_label_schedule">Schedule</string>
+	<string name="course_section_teacher">Teacher</string>
+	<string name="course_section_number">Course No.</string>
+	<string name="course_section_credit">Credit</string>
+	<string name="course_section_hours">Hours</string>
+	<string name="course_section_type">Type</string>
 </resources>

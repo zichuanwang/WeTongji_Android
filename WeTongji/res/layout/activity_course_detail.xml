@@ -48,5 +48,242 @@
                 />
         </LinearLayout>
     </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="8.7dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/profile_section_bg"
+        android:orientation="vertical" >
 
+        <TextView
+            style="@style/ProfileInfoHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6.7dp"
+            android:layout_marginLeft="20.3dp"
+            android:layout_marginTop="13.3dp"
+            android:text="@string/text_event_about" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.7dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider" />
+
+        <!-- Teacher -->
+
+        <RelativeLayout
+            android:id="@id/ll_profile_events_like"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="true"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/text_course_teacher"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/course_section_teacher"
+                 />
+
+            <TextView
+                android:id="@id/text_teacher_name"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_course_teacher"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false" 
+                android:text="季平"
+                />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin" />
+        
+        <!-- Course No.-->
+
+        <RelativeLayout
+            android:id="@id/ll_profile_events_like"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="true"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/text_course_number"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/course_section_number" />
+
+            <TextView
+                android:id="@id/text_course_number_value"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_course_number"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false" 
+                android:text="420020012"
+                />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin" />
+        
+        <!-- Credit-->
+
+        <RelativeLayout
+            android:id="@id/ll_profile_events_like"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="true"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/text_course_credit"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/course_section_credit" />
+
+            <TextView
+                android:id="@id/text_course_credit_value"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_course_credit"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false"
+                android:text="4"
+                 />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin" />
+        
+         <!-- Hours-->
+
+        <RelativeLayout
+            android:id="@id/ll_profile_events_like"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="true"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/text_course_hours"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/course_section_hours" />
+
+            <TextView
+                android:id="@id/text_course_hours_value"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_course_hours"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false"
+                android:text="20"
+                 />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin" />
+        
+        <!-- Type-->
+        <RelativeLayout
+            android:id="@id/ll_profile_events_like"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="true"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/text_course_type"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/course_section_type" />
+
+            <TextView
+                android:id="@id/text_course_type_name"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_course_type"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false"
+                android:text="必修"
+                 />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin" />
+    </LinearLayout>
 </LinearLayout>

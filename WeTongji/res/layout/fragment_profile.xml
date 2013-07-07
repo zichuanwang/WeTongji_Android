@@ -165,7 +165,7 @@
                         />
                     
                     <TextView
-                        android:id="@id/text_profile_events"
+                        android:id="@id/text_course_teacher"
                         android:layout_width="wrap_content"
 	    				android:layout_height="wrap_content"
 	    				android:layout_alignParentTop="true"
@@ -178,7 +178,7 @@
                         android:id="@id/text_profile_events_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/text_profile_events"
+                        android:layout_below="@id/text_course_teacher"
                         android:layout_marginLeft="48.3dp"
                         android:layout_marginTop="3dp"
                     	android:textIsSelectable="false"
