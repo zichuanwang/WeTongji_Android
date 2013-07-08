@@ -3,9 +3,11 @@ package com.wetongji_android.data;
 import java.util.Date;
 
 import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.j256.ormlite.field.DatabaseField;
 
-public class Course extends Event {
+public class Course extends Event implements Parcelable {
 	@DatabaseField
 	private String NO;
 	@DatabaseField

@@ -13,8 +13,14 @@ public class WTBaseDetailActivity extends SherlockActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_detail_frame);
+	}
+	
+	@Override
+	public void setContentView(int layoutResId) {
+		super.setContentView(R.layout.activity_detail_frame);
 		mVsContent = (ViewStub) findViewById(R.id.stub);
+		mVsContent.setLayoutResource(layoutResId);
+		mVsContent.inflate();
 	}
 	
 }

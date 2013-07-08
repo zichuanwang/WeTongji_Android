@@ -155,4 +155,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="course_section_credit">Credit</string>
 	<string name="course_section_hours">Hours</string>
 	<string name="course_section_type">Type</string>
+	<string name="course_required">必修</string>
+	<string name="course_not_required">选修</string>
 </resources>
