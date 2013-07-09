@@ -1,5 +1,6 @@
 package com.wetongji_android.ui.friend;
 
+import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,12 +41,15 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 	
 	private BitmapDrawable mBmDefaultThumbnails;
 	
+	private static HashMap<Integer, Boolean> isSelected;
+	
 	static class ViewHolder
 	{
 		TextView tvFriendName;
 		TextView tvFriendDepart;
 		ImageView imgFriendAvatar;
 		RelativeLayout rlFriendItem;
+		CheckBox cbFriendInvite;
 	}
 	
 	public FriendListAdapter(Fragment fragment, AbsListView listView)
@@ -64,6 +69,16 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 		if(dm.widthPixels <= 1080) {
 			LIST_THUMBNAILS_TARGET_WIDTH = (int)(dm.widthPixels / LIST_THUMBNAILS_TARGET_WIDTH_FACTOR);
 		}
+		
+		initData();
+	}
+	
+	private void initData()
+	{
+		for(int i = 0; i < getData().size(); i++)
+		{
+			isSelected.put(i, false);
+		}
 	}
 	
 	@Override
@@ -80,6 +95,7 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 			holder.tvFriendDepart = (TextView)convertView.findViewById(R.id.friend_department);
 			holder.imgFriendAvatar = (ImageView)convertView.findViewById(R.id.friend_avatar);
 			holder.rlFriendItem = (RelativeLayout)convertView.findViewById(R.id.friend_item);
+			holder.cbFriendInvite = (CheckBox)convertView.findViewById(R.id.cb_friend_invite);
 			
 			convertView.setTag(holder);
 		}else
@@ -102,6 +118,16 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 		User user = getItem(position);
 		holder.tvFriendName.setText(user.getName());
 		holder.tvFriendDepart.setText(user.getDepartment());
+		
+		//set the checkbox visibility
+		if(mContext instanceof FriendInviteActivity)
+		{
+			holder.cbFriendInvite.setVisibility(View.VISIBLE);
+			holder.cbFriendInvite.setChecked(false);
+		}else
+		{
+			holder.cbFriendInvite.setVisibility(View.GONE);
+		}
 		
 		//Set avatar
 		String strUrl = user.getAvatar();
@@ -159,5 +185,15 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 		Log.v("db", "load");
 		mFragment.getLoaderManager().initLoader(WTApplication.USER_LOADER, null, this);
 		setIsLoadingData(true);
+	}
+	
+	public static HashMap<Integer, Boolean> getIsSelected()
+	{
+		return isSelected;
+	}
+	
+	public static void setIsSelected(HashMap<Integer, Boolean> isSelected)
+	{
+		FriendListAdapter.isSelected = isSelected;
 	}
 }

@@ -180,6 +180,7 @@
     <item type="id" name="friend_invite_department">false</item>
     <item type="id" name="friend_invite_cb">false</item>
     <item type="id" name="friend_invite_list_container">false</item>
+    <item type="id" name="cb_friend_invite">false</item>
     <item name="layout_detail_content" type="id" />
     <item name="text_course_detail_title" type="id" />
     <item name="text_course_detail_time" type="id" />
