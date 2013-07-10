@@ -44,7 +44,7 @@ public class CourseDetailActivity extends WTBaseDetailActivity{
 		tvTeacher.setText(mCourse.getTeacher());
 		tvCourseNo.setText(mCourse.getNO());
 		tvCredit.setText(String.valueOf(mCourse.getPoint()));
-		tvHours.setText(mCourse.getHours());
+		tvHours.setText(String.valueOf(mCourse.getHours()));
 		tvType.setText(mCourse.isRequired());
 	}
 	

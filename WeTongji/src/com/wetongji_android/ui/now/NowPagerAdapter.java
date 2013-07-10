@@ -22,6 +22,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.foound.widget.AmazingListView;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
+import com.wetongji_android.data.Course;
 import com.wetongji_android.data.Event;
 import com.wetongji_android.factory.EventFactory;
 import com.wetongji_android.net.NetworkLoader;
@@ -195,13 +196,17 @@ public class NowPagerAdapter extends PagerAdapter {
 				long id) {
 			Event event = listAdapter.getItem(position);
 			Bundle bundle = new Bundle();
-			bundle.putParcelable(EventsFragment.BUNDLE_KEY_ACTIVITY, event);
 			Intent intent=null;
 			if(event instanceof Activity){
 				intent = new Intent(context, EventDetailActivity.class);
+				bundle.putParcelable(EventsFragment.BUNDLE_KEY_ACTIVITY, event);
 				intent.putExtras(bundle);
-				context.startActivity(intent);
+			} else if (event instanceof Course) {
+				intent = new Intent(context, CourseDetailActivity.class);
+				bundle.putParcelable(CourseDetailActivity.BUNDLE_COURSE, event);
+				intent.putExtras(bundle);
 			}
+			context.startActivity(intent);
 		}
 		
 	}
