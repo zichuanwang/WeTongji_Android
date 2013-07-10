@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Course;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
+import com.wetongji_android.util.date.DateParser;
 
 public class CourseDetailActivity extends WTBaseDetailActivity{
 
@@ -38,8 +39,16 @@ public class CourseDetailActivity extends WTBaseDetailActivity{
 		TextView tvType = (TextView) findViewById(R.id.text_course_type_name);
 		
 		tvTitle.setText(mCourse.getTitle());
-		//TODO
-		//tvTime.setText(mCourse.get)
+		
+		if (DateParser.isNow(mCourse.getBegin(), mCourse.getEnd())) {
+			int timeColor = getResources().getColor(R.color.tv_eventlst_time_now);
+			tvTime.setTextColor(timeColor);
+		} else {
+			int timeColor = getResources().getColor(R.color.tv_eventlst_time);
+			tvTime.setTextColor(timeColor);
+		}
+		tvTime.setText(DateParser.getEventTime(this, mCourse.getBegin(),
+				mCourse.getEnd()));
 		tvLocation.setText(mCourse.getLocation());
 		tvTeacher.setText(mCourse.getTeacher());
 		tvCourseNo.setText(mCourse.getNO());

@@ -94,10 +94,11 @@ public class DateParser {
 			String timeBegin = DateUtils.formatDateTime(context, calBegin.getTimeInMillis(),
 					DateUtils.FORMAT_24HOUR|DateUtils.FORMAT_SHOW_TIME);
 			String timeEnd = DateUtils.formatDateTime(context, calEnd.getTimeInMillis(),
-					DateUtils.FORMAT_24HOUR|DateUtils.FORMAT_SHOW_TIME);
+					DateUtils.FORMAT_SHOW_TIME);
 			
 			StringBuilder sb = new StringBuilder(timeBegin);
 			sb.append(" - ").append(timeEnd);
+			
 			return sb.toString();
 		}
 		
