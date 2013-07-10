@@ -1,14 +1,19 @@
 package com.wetongji_android.util.common;
 
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewStub;
 import android.view.Window;
+import android.widget.LinearLayout;
+
 import com.actionbarsherlock.app.SherlockActivity;
 import com.wetongji_android.R;
 
 public class WTBaseDetailActivity extends SherlockActivity {
 
 	protected ViewStub mVsContent;
+	private LinearLayout mLayoutBack;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,6 +26,15 @@ public class WTBaseDetailActivity extends SherlockActivity {
 		mVsContent = (ViewStub) findViewById(R.id.stub);
 		mVsContent.setLayoutResource(layoutResId);
 		mVsContent.inflate();
+		
+		mLayoutBack = (LinearLayout) findViewById(R.id.event_detail_back);
+		mLayoutBack.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				finish();
+			}
+		});
+		
 	}
 	
 }
