@@ -129,6 +129,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter-->
          </activity>
+         
+          <!-- Account Detail -->
+         <activity
+             android:name="com.wetongji_android.ui.account.AccountDetailActivity">
+         </activity>
         
     </application>
 

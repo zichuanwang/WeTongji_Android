@@ -157,4 +157,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="course_section_type">Type</string>
 	<string name="course_required">必修</string>
 	<string name="course_not_required">选修</string>
+	<string name="account_detail_activities">Activities</string>
+	<string name="account_detail_news">Club News</string>
 </resources>

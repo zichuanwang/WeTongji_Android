@@ -4,15 +4,20 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Account;
 import com.wetongji_android.data.Person;
+import com.wetongji_android.ui.account.AccountDetailActivity;
 import com.wetongji_android.ui.people.PeopleListActivity;
+import com.wetongji_android.ui.people.PeopleListFragment;
+import com.wetongji_android.ui.people.PersonDetailActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.net.HttpUtil;
 
@@ -57,7 +62,8 @@ public class TodayGridFeatureAdapter extends TodayGridBaseAdapter<Object> {
 			holder.rlSpinner.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View arg0) {
-					context.startActivity(new Intent(context, PeopleListActivity.class));
+					context.startActivity(new Intent(context, 
+							PeopleListActivity.class));
 				}
 			});
 			
@@ -127,4 +133,28 @@ public class TodayGridFeatureAdapter extends TodayGridBaseAdapter<Object> {
 		}
 	}
 
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		Object item = items.get(position);
+		Intent intent = new Intent();
+		Bundle bundle = new Bundle();
+		switch(position) {
+		case 0:
+			bundle.putParcelable(PeopleListFragment.BUNDLE_KEY_PERSON,  
+					(Person) item);
+			bundle.putBoolean(PeopleListFragment.BUNDLE_KEY_IS_CURRENT, true);
+			intent.setClass(context, PersonDetailActivity.class);
+			break;
+		case 1:
+			bundle.putParcelable(AccountDetailActivity.BUNDLE_KEY_ACCOUNT, 
+					(Account) item);
+			intent.setClass(context, AccountDetailActivity.class);
+			break;
+		}
+		intent.putExtras(bundle);
+		context.startActivity(intent);
+	}
+
+	
 }

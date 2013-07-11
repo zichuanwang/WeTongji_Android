@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <include layout="@layout/include_profile_header" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8.7dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/profile_section_bg"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/ProfileInfoHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6.7dp"
+            android:layout_marginLeft="18.3dp"
+            android:layout_marginTop="13.3dp"
+            android:text="@string/profile_info" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.7dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider" />
+
+        <!-- Activities -->
+
+        <RelativeLayout
+            android:id="@id/ll_profile_events_like"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="true"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/text_course_teacher"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/account_detail_activities" />
+
+            <TextView
+                android:id="@id/text_profile_events_num"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_course_teacher"
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin" />
+
+        <!-- Club News -->
+
+        <RelativeLayout
+            android:id="@id/ll_profile_news_like"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="true"
+            android:paddingBottom="12dp" >
+
+
+            <TextView
+                android:id="@id/text_profile_news"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/account_detail_news" />
+
+            <TextView
+                android:id="@id/text_profile_news_num"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_profile_news"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8.7dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/profile_section_bg"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/ProfileInfoHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6.7dp"
+            android:layout_marginLeft="18.3dp"
+            android:layout_marginTop="13.3dp"
+            android:text="@string/text_event_about" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.7dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider" />
+        
+        <TextView
+            android:id="@id/text_account_detail_about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginBottom="12dp"
+            android:text="本应用使用同济大学电子邮件系统进行实名认证。用户须使用自己的@tongji.edu.cn电子邮箱进行WeTongji账号激活操作。尚未注册邮箱的用户须访问mail.tongji.edu.cn先行完成邮箱的注册操作。本应用不对因同济大学电子邮件系统故障造成的影响负责。
+2.用户不得冒充他人登录，不得冒用他人的名义发布信息，不得使用本应用侵犯他人的利益、损害他人的名誉。微同济校园信息服务小组有权清除存在上述侵权行为的用户。
+3.本应用重视对用户个人隐私的保护。除法律或有法律赋予权限的部门要求或事先得到用户明确授权的情况外，本应用保证不对外公开或向第三方泄漏用户个人隐私信息及用户在使用本"
+            >
+        </TextView>
+        
+	</LinearLayout>
+
+</LinearLayout>

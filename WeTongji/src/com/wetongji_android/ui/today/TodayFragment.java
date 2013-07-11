@@ -196,6 +196,7 @@ public class TodayFragment extends SherlockFragment {
 				view.findViewById(R.id.pb_today_features).setVisibility(
 						View.GONE);
 				gvFeatures.setAdapter(featureAdapter);
+				gvFeatures.setOnItemClickListener(featureAdapter);
 				gvFeatures.setVisibility(View.VISIBLE);
 			}
 		}

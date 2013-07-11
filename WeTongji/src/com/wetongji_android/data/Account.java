@@ -1,6 +1,9 @@
 package com.wetongji_android.data;
 
-public class Account {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Account implements Parcelable {
 
 	private int Id;
 	private String Name;
@@ -112,6 +115,26 @@ public class Account {
 	public void setTitle(String title) {
 		Title = title;
 	}
-	
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(Name);
+		dest.writeInt(Id);
+		dest.writeString(Display);
+		dest.writeString(Description);
+		dest.writeString(Image);
+		dest.writeString(Email);
+		dest.writeInt(InformationCount);
+		dest.writeInt(ActivitiesCount);
+		dest.writeString(Background);
+		dest.writeInt(Like);
+		dest.writeString(Title);
+	}
+
 	
 }
