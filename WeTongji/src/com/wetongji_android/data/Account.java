@@ -2,6 +2,7 @@ package com.wetongji_android.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.os.Parcelable.Creator;
 
 public class Account implements Parcelable {
 
@@ -135,6 +136,32 @@ public class Account implements Parcelable {
 		dest.writeInt(Like);
 		dest.writeString(Title);
 	}
+	
+	public static final Creator<Account> CREATOR = new Creator<Account>() {
+		
+		@Override
+		public Account[] newArray(int size) {
+			return new Account[size];
+		}
+		
+		@Override
+		public Account createFromParcel(Parcel source) {
+			return new Account(source);
+		}
+	};
 
+	public Account(Parcel source) {
+		this.Name = source.readString();
+		this.Id = source.readInt();
+		this.Display = source.readString();
+		this.Description = source.readString();
+		this.Image = source.readString();
+		this.Email = source.readString();
+		this.InformationCount = source.readInt();
+		this.ActivitiesCount = source.readInt();
+		this.Background = source.readString();
+		this.Like = source.readInt();
+		this.Title = source.readString();
+	}
 	
 }

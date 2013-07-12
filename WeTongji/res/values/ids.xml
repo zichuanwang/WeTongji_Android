@@ -195,4 +195,6 @@
     <item name="text_course_type" type="id" />
     <item name="text_course_type_name" type="id" />
     <item name="text_account_detail_about" type="id" />
+    <item name="text_club_news_num" type="id">false</item>
+    <item name="text_account_activity_num" type="id" />
 </resources>

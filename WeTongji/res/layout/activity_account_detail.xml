@@ -55,7 +55,7 @@
                 android:text="@string/account_detail_activities" />
 
             <TextView
-                android:id="@id/text_profile_events_num"
+                android:id="@id/text_account_activity_num"
                 style="@style/ProfileFriendNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
                 android:text="@string/account_detail_news" />
 
             <TextView
-                android:id="@id/text_profile_news_num"
+                android:id="@id/text_club_news_num"
                 style="@style/ProfileFriendNum"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,6 +111,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="11.3dp"
             android:layout_marginRight="11.3dp"
+            android:layout_marginBottom="12dp"
             android:background="@color/profile_divider_thin" />
     </LinearLayout>
     
@@ -148,9 +149,6 @@
             android:layout_marginLeft="14dp"
             android:layout_marginRight="14dp"
             android:layout_marginBottom="12dp"
-            android:text="本应用使用同济大学电子邮件系统进行实名认证。用户须使用自己的@tongji.edu.cn电子邮箱进行WeTongji账号激活操作。尚未注册邮箱的用户须访问mail.tongji.edu.cn先行完成邮箱的注册操作。本应用不对因同济大学电子邮件系统故障造成的影响负责。
-2.用户不得冒充他人登录，不得冒用他人的名义发布信息，不得使用本应用侵犯他人的利益、损害他人的名誉。微同济校园信息服务小组有权清除存在上述侵权行为的用户。
-3.本应用重视对用户个人隐私的保护。除法律或有法律赋予权限的部门要求或事先得到用户明确授权的情况外，本应用保证不对外公开或向第三方泄漏用户个人隐私信息及用户在使用本"
             >
         </TextView>
         
