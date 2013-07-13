@@ -119,6 +119,7 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 		rlFriendsList.setOnClickListener(new ClickListener());
 		
 		rlMyProfile = (RelativeLayout) v.findViewById(R.id.layout_profile_my_profile);
+		rlMyProfile.setOnClickListener(new ClickListener());
 	}
 	
 	private void setWidgets(User user) {
@@ -202,7 +203,7 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 				mActivity.overridePendingTransition(R.anim.slide_right_in,
 						R.anim.slide_left_out);
 			} else if (v.getId() == R.id.layout_profile_my_profile) {
-				Intent intent = new Intent();
+				Intent intent = new Intent(mActivity, ProfileUpdateActivity.class);
 				startActivity(intent);
 				mActivity.overridePendingTransition(R.anim.slide_right_in,
 						R.anim.slide_left_out);
