@@ -7,15 +7,12 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +20,6 @@ import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.factory.ActivityFactory;
-import com.wetongji_android.ui.friend.FriendInviteActivity;
 import com.wetongji_android.ui.informations.InformationDetailActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
@@ -42,8 +38,6 @@ public class EventDetailActivity extends WTBaseDetailActivity
 	private TextView mTvLikeNum;
 
 	private AQuery mAq;
-
-	private LinearLayout llInvite;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -53,7 +47,7 @@ public class EventDetailActivity extends WTBaseDetailActivity
 		setContentView(R.layout.activity_event_detail);
 		recieveActivity();
 		setUpUI();
-
+		showBottomActionBar();
 	}
 
 	private void setUpUI() 
@@ -63,8 +57,6 @@ public class EventDetailActivity extends WTBaseDetailActivity
 		setLikeCheckbox();
 
 		setTextViews();
-
-		setupBottomActionBar();
 	}
 
 	private void recieveActivity() {
@@ -146,24 +138,6 @@ public class EventDetailActivity extends WTBaseDetailActivity
 		});
 	}
 
-	private void setupBottomActionBar()
-	{
-		llInvite = (LinearLayout)findViewById(R.id.btn_event_detail_invite);
-		llInvite.setOnClickListener(new ClickListener());
-	}
-	
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			finish();
-			overridePendingTransition(R.anim.slide_left_in,
-					R.anim.slide_right_out);
-			return true;
-		}
-
-		return super.onKeyDown(keyCode, event);
-	}
-
 	private void likeEvent(boolean isLike) {
 		ApiHelper apiHelper = ApiHelper.getInstance(EventDetailActivity.this);
 		int id = mEvent.getId();
@@ -180,20 +154,6 @@ public class EventDetailActivity extends WTBaseDetailActivity
 		newActivity.setCanLike(!mCbLike.isChecked());
 		lstTask.add(newActivity);
 		//factory.saveObjects(this, lstTask);
-	}
-
-	public void showShareDialog(String content) {
-		String sourceDesc = getResources().getString(R.string.share_from_we);
-		String share = getResources().getString(R.string.test_share);
-		Intent intent = new Intent(Intent.ACTION_SEND);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		// intent.putExtra(Intent.EXTRA_TEXT, mEvent.getDescription());
-		intent.putExtra(Intent.EXTRA_TEXT, content + sourceDesc);
-		// intent.putExtra(Intent.EXTRA_STREAM,
-		// Uri.fromFile(mAq.getCachedFile(mEvent.getImage())));
-		intent.setType("text/*");
-		intent.setType("image/*");
-		startActivity(Intent.createChooser(intent, share));
 	}
 	
 	private class OnPicClickListener implements OnClickListener
@@ -223,26 +183,5 @@ public class EventDetailActivity extends WTBaseDetailActivity
 			startActivity(intent);
 			EventDetailActivity.this.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}	
-	}
-	
-	class ClickListener implements OnClickListener
-	{
-		@Override
-		public void onClick(View v)
-		{
-			// TODO Auto-generated method stub
-			if(v.getId() == R.id.btn_event_detail_invite)
-			{
-				if(WTApplication.getInstance().hasAccount)
-				{
-					Intent intent = new Intent(EventDetailActivity.this, FriendInviteActivity.class);
-					startActivity(intent);
-				}else
-				{
-					Toast.makeText(EventDetailActivity.this, getResources().getText(R.string.no_account_error),
-							Toast.LENGTH_SHORT).show();
-				}
-			}
-		}
 	}
 }

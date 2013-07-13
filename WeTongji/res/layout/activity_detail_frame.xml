@@ -168,11 +168,13 @@
         <!-- Bottom actionbar -->
 
         <LinearLayout
+            android:id="@id/bottom_action_bar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:background="@color/bg_event_detail_bottom_actionbar"
-            tools:ignore="DisableBaselineAlignment" >
+            tools:ignore="DisableBaselineAlignment"
+            android:visibility="gone">
 
             <LinearLayout
                 android:id="@id/btn_event_detail_invite"
@@ -198,6 +200,7 @@
                 android:background="@color/bg_bottom_actionbar_divider" />
 
             <LinearLayout
+                android:id="@id/btn_event_detail_friends"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
@@ -229,6 +232,7 @@
                 android:background="@color/bg_bottom_actionbar_divider" />
 
             <LinearLayout
+                android:id="@id/btn_event_detail_attend"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"

@@ -197,4 +197,7 @@
     <item name="text_account_detail_about" type="id" />
     <item name="text_club_news_num" type="id">false</item>
     <item name="text_account_activity_num" type="id" />
+    <item name="bottom_action_bar" type="id">false</item>
+    <item name="btn_event_detail_friends" type="id">false</item>
+    <item name="btn_event_detail_attend" type="id">false</item>
 </resources>
