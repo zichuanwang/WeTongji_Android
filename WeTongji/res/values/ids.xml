@@ -197,4 +197,7 @@
     <item name="text_account_detail_about" type="id" />
     <item name="text_club_news_num" type="id">false</item>
     <item name="text_account_activity_num" type="id" />
+    <item name="text_profile_par_course_num" type="id" />
+    <item name="text_profile_par_activities_num" type="id" />
+    <item name="layout_profile_my_profile" type="id" />
 </resources>
