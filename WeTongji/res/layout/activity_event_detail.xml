@@ -1,369 +1,127 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     
+    <LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:paddingBottom="0dp"
+	    android:background="@drawable/event_detail_brief_shadow">
     
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        
-        <!-- actionbar container -->
-	    <RelativeLayout 
-	        android:id="@id/layout_event_detail_top_actionbar"
-	        android:layout_alignParentTop="true"
+	    <TextView 
+	        android:id="@id/tv_event_detail_title"
 	        android:layout_width="match_parent"
-	        android:layout_height="48dp"
-	        android:background="@drawable/ab_solid_wttheme"
-	        style="?attr/actionBarStyle"
-	        >
-	        <LinearLayout
-	            android:id="@id/event_detail_back"
-	            android:layout_width="wrap_content"
-      			android:layout_height="fill_parent"
-      			android:clickable="true"
-      			android:background="@drawable/selectable_background_wttheme">
-      			
-	            <ImageView android:id="@id/abs__up"
-	               android:src="?attr/homeAsUpIndicator"
-	               android:layout_gravity="center_vertical|left"
-	               android:layout_width="wrap_content"
-	               android:layout_height="wrap_content"
-	               android:layout_marginRight="-9dip"
-	               android:contentDescription="@string/img_content_description"/>
-	            
-			    <ImageView android:id="@id/abs__home"
-	               android:layout_width="wrap_content"
-	               android:layout_height="wrap_content"
-	               android:padding="6dp"
-	               android:src="@drawable/img_wt_logo"
-	               android:layout_marginRight="8dip"
-	               android:layout_marginTop="@dimen/abs__action_bar_icon_vertical_padding"
-	               android:layout_marginBottom="@dimen/abs__action_bar_icon_vertical_padding"
-	               android:layout_gravity="center"
-	               android:adjustViewBounds="true"
-	               android:scaleType="fitCenter"
-	               android:contentDescription="@string/img_content_description"/>
-			    
-	        </LinearLayout>
-	        
-	        <LinearLayout
-	            android:layout_width="wrap_content"
-	            android:layout_height="fill_parent"
-	            android:background="@drawable/selectable_background_wttheme"
-	            android:addStatesFromChildren="true"
-	            android:layout_gravity="center_vertical"
-			    android:gravity="center"
-			    android:clickable="true"
-			    android:paddingLeft="6dip"
-			    android:paddingRight="6dip"
-			    android:layout_alignParentRight="true"
-			    android:layout_marginRight="70dp">
-	            
-	            <ImageButton 
-	                android:id="@id/action_event_detail_share"
-	                 android:layout_width="wrap_content"
-	                 android:layout_height="wrap_content"
-	                 android:src="@drawable/ab_event_share"
-	                 android:layout_gravity="center"
-	                 android:layout_marginTop="4dip"
-	                 android:layout_marginBottom="4dip"
-	                 android:layout_marginLeft="4dip"
-	                 android:layout_marginRight="4dip"
-	                 android:scaleType="fitCenter"
-	                 android:adjustViewBounds="true"
-	                 android:focusable="false"
-	                 android:background="@null"
-	                 android:contentDescription="@string/img_content_description"/>
-	            
-	        </LinearLayout>
-	    </RelativeLayout>
+	        android:layout_height="wrap_content"
+	        android:layout_marginRight="64dp"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginTop="10dp"
+	        android:layout_marginBottom="6dp"
+	        style="@style/EventDetailTitle"
+	        android:textIsSelectable="true"/>
 	    
-	    <!-- main content -->
-		<FrameLayout 
-		    android:layout_below="@id/layout_event_detail_top_actionbar"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:background="@drawable/bg_app_base">
-		    
-		    <!-- main content -->
-		    <ScrollView android:layout_width="match_parent"
-		        android:layout_height="match_parent">
-		        
-		        <LinearLayout 
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:orientation="vertical">
-				
-			        <LinearLayout
-			            android:layout_width="match_parent"
-			            android:layout_height="wrap_content"
-			            android:orientation="vertical"
-			            android:paddingBottom="0dp"
-			            android:background="@drawable/event_detail_brief_shadow">
-			            
-			            <TextView 
-			                android:id="@id/tv_event_detail_title"
-			                android:layout_width="match_parent"
-			                android:layout_height="wrap_content"
-			                android:layout_marginRight="64dp"
-			                android:layout_marginLeft="10dp"
-			                android:layout_marginTop="10dp"
-			                android:layout_marginBottom="6dp"
-			                style="@style/EventDetailTitle"
-			                android:textIsSelectable="true"/>
-			            
-			            <TextView 
-			                android:id="@id/tv_event_detail_time"
-			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:layout_marginLeft="10dp"
-			                android:layout_marginBottom="12dp"
-			                style="@style/EventDetailTime"
-			                android:textIsSelectable="true"/>
-			            
-			            <LinearLayout android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:layout_marginRight="7dp"
-			                android:layout_marginBottom="10dp"
-			                android:layout_gravity="right"
-			                android:background="@color/bg_event_deatil_brief">
-			                
-				            <TextView 
-				                android:id="@id/tv_event_detail_location"
-				                android:layout_width="wrap_content"
-				                android:layout_height="wrap_content"
-				                android:layout_marginRight="3dp"
-				                style="@style/EventDetailLocation"
-				                android:textIsSelectable="true"/>
-				            
-				            <ImageView 
-				                android:layout_width="wrap_content"
-				                android:layout_height="wrap_content"
-				                android:layout_gravity="center_vertical"
-				                android:src="@drawable/event_detail_arrow"
-				                android:contentDescription="@string/img_content_description"/>
-			                
-			            </LinearLayout>
-			            
-			        </LinearLayout>
-			        
-			        <!-- LinearLayout android:layout_width="match_parent"
-			            android:layout_height="1.5dp"
-			            android:paddingBottom="-0.5dp"
-			            android:background="@drawable/event_detail_shadow"></LinearLayout -->
-			        
-			        <ImageView 
-			            android:id="@id/iv_event_detail_image"
-			            android:layout_width="match_parent"
-			            android:layout_height="147dp"
-			            android:background="@drawable/image_cover"
-			            android:scaleType="centerCrop"
-			            android:paddingTop="0dp"
-						android:paddingBottom="0dp"
-			            android:contentDescription="@string/img_content_description"
-			            />
-			        
-			        <!-- organization -->
-		            <TextView
-		                android:layout_width="wrap_content"
-		            	android:layout_height="wrap_content"
-		            	android:layout_marginLeft="10dp"
-		            	android:layout_marginTop="10dp"
-		            	android:text="@string/text_evnet_detail_organization"
-		            	style="@style/EventDetailOrganization"/>
-		            
-			        <LinearLayout
-			            android:layout_width="match_parent"
-			            android:layout_height="wrap_content"
-			            android:layout_marginLeft="10dp">
-			            
-			            <ImageView 
-			                android:id="@id/img_event_detail_org_avatar"
-			                android:layout_width="34dp"
-			                android:layout_height="34dp"
-			                android:layout_marginRight="7dp"
-			                android:layout_marginTop="7dp"
-			                android:layout_marginBottom="7dp"
-			                android:layout_marginLeft="1dp"
-			                android:padding="1dp"
-			                android:background="@drawable/image_cover"
-			                android:contentDescription="@string/img_content_description"/>
-			            
-			            <TextView android:id="@id/text_event_detail_org_name"
-			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:layout_gravity="center_vertical"
-			                android:textIsSelectable="true"
-			                style="@style/EventDetailOrgName"/>
-			            
-			        </LinearLayout>
-			       	<!-- END-organization-END -->
-			       	
-			       	<LinearLayout 
-			       	    android:layout_width="match_parent"
-			       	    android:layout_height="wrap_content"
-			       	    android:layout_margin="4dp"
-			       	    android:orientation="vertical"
-			       	    android:background="@drawable/event_detail_content_bg">
-			       	    
-			       	    <TextView android:layout_width="wrap_content"
-			       	        android:layout_height="wrap_content"
-			       	        android:text="@string/text_event_about"
-			       	        android:layout_margin="6dp"
-			       	        style="@style/EventDetailAbout"/>
-			       	    <TextView 
-			       	        android:id="@id/tv_event_detail_content"
-			       	        android:layout_width="match_parent" 
-			       	        android:layout_height="wrap_content"
-			       	        android:textIsSelectable="true"
-			       	       	android:layout_margin="14dp"
-			       	        style="@style/EventDetailContent"/>
-			       	</LinearLayout>
-			       	
-			       	<!-- this blank layout resolves conflict with 'bottom actionbar' -->
-		            <LinearLayout
-		                android:layout_width="match_parent"
-		                android:layout_height="48dp">
-		            </LinearLayout>
-		            
-			    </LinearLayout>
-		        
-		    </ScrollView>
+	    <TextView 
+	        android:id="@id/tv_event_detail_time"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginBottom="12dp"
+	        style="@style/EventDetailTime"
+	        android:textIsSelectable="true"/>
+	    
+	    <LinearLayout android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginRight="7dp"
+	        android:layout_marginBottom="10dp"
+	        android:layout_gravity="right"
+	        android:background="@color/bg_event_deatil_brief">
+	        
+		     <TextView 
+		         android:id="@id/tv_event_detail_location"
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:layout_marginRight="3dp"
+		         style="@style/EventDetailLocation"
+		         android:textIsSelectable="true"/>
 		     
-		    <!-- actionbar shadow -->
-		    <LinearLayout 
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:background="@drawable/action_bar_shadow">
-		    </LinearLayout>
-		    
-		</FrameLayout>	    
-        
-    </RelativeLayout>
+		     <ImageView 
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:layout_gravity="center_vertical"
+		         android:src="@drawable/event_detail_arrow"
+		         android:contentDescription="@string/img_content_description"/>
+	        
+	    </LinearLayout>
+	    
+	</LinearLayout>
 
-    <RelativeLayout 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        
-    	<!-- Like checkbox -->
-        <LinearLayout 
-            android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_alignParentRight="true"
-        	android:layout_marginRight="16dp"
-        	android:orientation="vertical"
-        	android:gravity="center"
-        	android:background="@drawable/bg_event_like"
-        	>
-          <CheckBox 
-              android:id="@id/cb_event_like"
-              android:layout_width="wrap_content"
-              android:layout_height="26dp"
-              android:layout_marginTop="1dp"
-              android:layout_marginLeft="0dp"
-              android:layout_marginBottom="0dp"
-              android:paddingBottom="-2dp"
-              style="@style/EventLikeCheckbox"/>
-          
-          <TextView 
-              android:id="@id/tv_event_like_number"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textIsSelectable="true"
-              style="@style/EventLikeNumber"/>
-          
-        </LinearLayout>
-        
-        <!-- Bottom actionbar -->
-        <LinearLayout
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@color/bg_event_detail_bottom_actionbar" >
-            
-            <LinearLayout
-                android:layout_weight="260" 
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:clickable="true"
-                android:id="@id/btn_event_detail_invite" 
-                android:background="@drawable/event_detail_buttom_action_selector">
-		        
-		        <TextView 
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:layout_gravity="center"
-		            android:text="@string/text_event_invite"
-		            style="@style/EventDetailBottomActionbarText"
-		            />
-            </LinearLayout>
-            
-            <LinearLayout
-                android:layout_gravity="center_vertical"
-                android:layout_width="1dp"
-                android:layout_height="23.33dp"
-                android:background="@color/bg_bottom_actionbar_divider" />
-            
-            <LinearLayout
-                android:layout_weight="440"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:clickable="true"
-                android:background="@drawable/event_detail_buttom_action_selector">
-                
-                <ImageView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/img_event_detail_friends"
-                    android:contentDescription="@string/img_content_description"/>
-                
-                <TextView android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/text_event_detail_friends"
-                    style="@style/EventDetailBottomActionbarText" />
-                
-            </LinearLayout>
-            
-            <LinearLayout
-                android:layout_gravity="center_vertical"
-                android:layout_width="1dp"
-                android:layout_height="23.33dp"
-                android:background="@color/bg_bottom_actionbar_divider" />
-            
-            <LinearLayout
-                android:layout_weight="380"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:layout_gravity="center"
-                android:background="@drawable/event_detail_buttom_action_selector">
-                
-                <ImageView 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/img_event_detail_attend"
-                    android:contentDescription="@string/img_content_description"/>
-                
-                <TextView android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/text_event_detail_attend"
-                    style="@style/EventDetailBottomActionbarText" />
-                
-            </LinearLayout>
-            
-        </LinearLayout>
-        <!-- End of Bottom actionbar -->
-        
-    </RelativeLayout>
-</FrameLayout>
+	<ImageView 
+	    android:id="@id/iv_event_detail_image"
+	    android:layout_width="match_parent"
+	    android:layout_height="147dp"
+	    android:background="@drawable/image_cover"
+	    android:scaleType="centerCrop"
+	    android:paddingTop="0dp"
+	 	android:paddingBottom="0dp"
+	    android:contentDescription="@string/img_content_description"></ImageView>
+	
+	<!-- organization -->
+	<TextView
+	    android:layout_width="wrap_content"
+	 	android:layout_height="wrap_content"
+	 	android:layout_marginLeft="10dp"
+	 	android:layout_marginTop="10dp"
+	 	android:text="@string/text_evnet_detail_organization"
+	 	style="@style/EventDetailOrganization"/>
+   
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="10dp">
+	    
+	    <ImageView 
+	        android:id="@id/img_event_detail_org_avatar"
+	        android:layout_width="34dp"
+	        android:layout_height="34dp"
+	        android:layout_marginRight="7dp"
+	        android:layout_marginTop="7dp"
+	        android:layout_marginBottom="7dp"
+	        android:layout_marginLeft="1dp"
+	        android:padding="1dp"
+	        android:background="@drawable/image_cover"
+	        android:contentDescription="@string/img_content_description"/>
+	    
+	    <TextView 
+	        android:id="@id/text_event_detail_org_name"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_vertical"
+	        android:textIsSelectable="true"
+	        style="@style/EventDetailOrgName"/>
+	    
+	</LinearLayout>
+	<!-- END-organization-END -->
+
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="4dp"
+	    android:orientation="vertical"
+	    android:background="@drawable/event_detail_content_bg">
+	    
+	    <TextView android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/text_event_about"
+	        android:layout_margin="6dp"
+	        style="@style/EventDetailAbout"/>
+	    <TextView 
+	        android:id="@id/tv_event_detail_content"
+	        android:layout_width="match_parent" 
+	        android:layout_height="wrap_content"
+	        android:textIsSelectable="true"
+	       	android:layout_margin="14dp"
+	        style="@style/EventDetailContent"/>
+	</LinearLayout>
+
+</LinearLayout>

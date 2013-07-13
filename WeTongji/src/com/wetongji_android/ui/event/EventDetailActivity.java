@@ -7,8 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.Loader;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,31 +14,26 @@ import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.factory.ActivityFactory;
-import com.wetongji_android.net.NetworkLoader;
-import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.friend.FriendInviteActivity;
 import com.wetongji_android.ui.informations.InformationDetailActivity;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTFullScreenActivity;
 import com.wetongji_android.util.date.DateParser;
-import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
-import com.wetongji_android.util.net.HttpRequestResult;
 import com.wetongji_android.util.net.HttpUtil;
 
-public class EventDetailActivity extends SherlockFragmentActivity implements
-		LoaderCallbacks<HttpRequestResult> {
+public class EventDetailActivity extends WTBaseDetailActivity  
+{
 
 	private Activity mEvent;
 
@@ -53,38 +46,18 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 	private LinearLayout llInvite;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 
+		setContentView(R.layout.activity_event_detail);
 		recieveActivity();
 		setUpUI();
 
 	}
 
-	private void setUpUI() {
-		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-
-		setContentView(R.layout.activity_event_detail);
-
-		//getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-		LinearLayout ll = (LinearLayout) findViewById(R.id.event_detail_back);
-		ll.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				EventDetailActivity.this.finish();
-				EventDetailActivity.this.overridePendingTransition(
-						R.anim.slide_left_in, R.anim.slide_right_out);
-			}
-		});
-		ImageButton btnShare = (ImageButton) findViewById(R.id.action_event_detail_share);
-		btnShare.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				showShareDialog(mEvent.getTitle());
-			}
-		});
-
+	private void setUpUI() 
+	{
 		setPicture();
 		
 		setLikeCheckbox();
@@ -196,32 +169,6 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 		int id = mEvent.getId();
 		Bundle bundle = isLike ? apiHelper.likeActivity(id) : apiHelper
 				.unlikeActivity(id);
-		getSupportLoaderManager().restartLoader(
-				WTApplication.EVENT_Like_LOADER, bundle, this);
-	}
-
-	@Override
-	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
-		return new NetworkLoader(this, HttpMethod.Get, arg1);
-	}
-
-	@Override
-	public void onLoadFinished(Loader<HttpRequestResult> arg0,
-			HttpRequestResult arg1) {
-		if (arg1.getResponseCode() == 0) {
-			Toast.makeText(
-					this,
-					getResources()
-							.getString(R.string.text_u_like_this_activity),
-					Toast.LENGTH_SHORT).show();
-			updateEventInDB();
-		} else {
-			ExceptionToast.show(this, arg1.getResponseCode());
-			mTvLikeNum.setText(String.valueOf(mEvent.getLike()));
-			isRestCheckBox = true;
-			mCbLike.setChecked(!mCbLike.isChecked());
-			isRestCheckBox = false;
-		}
 	}
 
 	private void updateEventInDB() {
@@ -232,11 +179,7 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 				+ (mCbLike.isChecked() ? 1 : -1));
 		newActivity.setCanLike(!mCbLike.isChecked());
 		lstTask.add(newActivity);
-		factory.saveObjects(this, lstTask);
-	}
-
-	@Override
-	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
+		//factory.saveObjects(this, lstTask);
 	}
 
 	public void showShareDialog(String content) {
