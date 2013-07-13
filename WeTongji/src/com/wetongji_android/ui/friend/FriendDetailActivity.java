@@ -8,24 +8,23 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
 import com.androidquery.callback.BitmapAjaxCallback;
 import com.wetongji_android.R;
 import com.wetongji_android.data.User;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.image.ImageUtil;
 import com.wetongji_android.util.net.HttpRequestResult;
 
-public class FriendDetailActivity extends SherlockFragmentActivity implements
+public class FriendDetailActivity extends WTBaseDetailActivity implements
 		LoaderCallbacks<HttpRequestResult> 
 {
 	private TextView tvFriendWords;
@@ -48,7 +47,7 @@ public class FriendDetailActivity extends SherlockFragmentActivity implements
 	{
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
-		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
 		setContentView(R.layout.activity_friend_detail);
 		
 		receiveData();

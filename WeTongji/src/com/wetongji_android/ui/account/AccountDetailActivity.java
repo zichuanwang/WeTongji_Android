@@ -41,7 +41,7 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 		TextView tvClubNewsNum = (TextView) findViewById(R.id.text_club_news_num);
 		TextView tvClubAbout = (TextView) findViewById(R.id.text_account_detail_about);
 		TextView tvAccountName = (TextView) findViewById(R.id.text_profile_words);
-		TextView tvAccountLikeCount = (TextView) findViewById(R.id.tv_event_like_number);
+		TextView tvAccountLikeCount = (TextView) findViewById(R.id.tv_like_number);
 		Button tvAccountContact = (Button) findViewById(R.id.btn_profile_action);
 		// set the gender text invisible
 		((TextView) findViewById(R.id.text_profile_gender)).setVisibility(View.GONE);

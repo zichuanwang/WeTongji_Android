@@ -52,7 +52,7 @@ public class PersonDetailActivity extends SherlockFragmentActivity {
 	}
 	
 	private void setBackButton() {
-		LinearLayout ll = (LinearLayout) findViewById(R.id.event_detail_back);
+		LinearLayout ll = (LinearLayout) findViewById(R.id.detail_back);
 		ll.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
