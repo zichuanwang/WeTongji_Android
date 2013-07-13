@@ -25,6 +25,10 @@ public class WTBaseDetailActivity extends SherlockActivity
 	private LinearLayout mLayoutFriends;
 	private LinearLayout mLayoutAttend;
 	
+	public static final String IMAGE_URL = "ImageUrl";
+	public static final String IMAGE_WIDTH = "ImageWidth";
+	public static final String IMAGE_HEIGHT = "ImageHeight";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -46,18 +50,20 @@ public class WTBaseDetailActivity extends SherlockActivity
 	private void setTopActionBar()
 	{
 		//Set up the back icon event
-		mLayoutBack = (LinearLayout) findViewById(R.id.event_detail_back);
+		mLayoutBack = (LinearLayout) findViewById(R.id.detail_back);
 		mLayoutBack.setOnClickListener(new OnClickListener() 
 		{
 			@Override
 			public void onClick(View arg0) 
 			{
 				finish();
+				overridePendingTransition(R.anim.slide_left_in,
+						R.anim.slide_right_out);
 			}
 		});
 		
 		//Set up the share event
-		mBtnShare = (ImageButton)findViewById(R.id.action_event_detail_share);
+		mBtnShare = (ImageButton)findViewById(R.id.action_detail_share);
 		mBtnShare.setOnClickListener(new OnClickListener() 
 		{
 			@Override

@@ -35,8 +35,6 @@
     <item name="img_today_arrow" type="id">false</item>
     <item name="relativelayout_today" type="id">false</item>
     <item name="gridview_today" type="id">false</item>
-    <item type="id" name="cb_event_like">false</item>
-    <item type="id" name="tv_event_like_number">false</item>
     <item name="view_today_grid_divideline" type="id">false</item>
     <item name="tv_event_detail_title" type="id">false</item>
     <item name="tv_event_detail_time" type="id">false</item>
@@ -57,18 +55,12 @@
     <item type="id" name="information_list_item">false</item>
     <item type="id" name="menu_eventlist_reload">false</item>
     <!-- Information Detail Part -->
-    <item type="id" name="layout_info_detail_top_actionbar">false</item>
-    <item type="id" name="info_detail_back">false</item>
-    <item type="id" name="action_info_detail_share">false</item>
-    <item type="id" name="event_detail_back">false</item>
     <item type="id" name="info_detail_title">false</item>
     <item type="id" name="info_detail_avatar">false</item>
     <item type="id" name="info_detail_location">false</item>
     <item type="id" name="info_detail_time">false</item>
     <item type="id" name="info_detail_image">false</item>
     <item type="id" name="info_detail_content">false</item>
-    <item type="id" name="cb_info_like">false</item>
-    <item type="id" name="tv_info_like_number">false</item>
     <item type="id" name="btn_info_detail_invite">false</item>
     <item type="id" name="menu_informationlist_reload">false</item>
     <item name="action_event_detail_share" type="id">false</item>
@@ -200,4 +192,9 @@
     <item name="bottom_action_bar" type="id">false</item>
     <item name="btn_event_detail_friends" type="id">false</item>
     <item name="btn_event_detail_attend" type="id">false</item>
+    <!-- Common ID -->
+    <item name="cb_like" type="id">false</item>
+    <item name="tv_like_number" type="id">false</item>
+    <item name="action_detail_share" type="id">false</item>
+    <item name="detail_back" type="id">false</item>
 </resources>

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -228,8 +227,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	@Override
 	public Date[] getSections() 
 	{
-		Log.v("dfa", "getsections");
-		
 		Date[] dates = new Date[mListInfos.size()];
 		for(int i = 0; i < mListInfos.size(); i++)
 		{

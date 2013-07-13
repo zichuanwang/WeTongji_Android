@@ -20,7 +20,6 @@ import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.factory.ActivityFactory;
-import com.wetongji_android.ui.informations.InformationDetailActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTFullScreenActivity;
@@ -45,6 +44,7 @@ public class EventDetailActivity extends WTBaseDetailActivity
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_event_detail);
+		
 		recieveActivity();
 		setUpUI();
 		showBottomActionBar();
@@ -110,8 +110,8 @@ public class EventDetailActivity extends WTBaseDetailActivity
 	}
 	
 	private void setLikeCheckbox() {
-		mCbLike = (CheckBox) findViewById(R.id.cb_event_like);
-		mTvLikeNum = (TextView) findViewById(R.id.tv_event_like_number);
+		mCbLike = (CheckBox) findViewById(R.id.cb_like);
+		mTvLikeNum = (TextView) findViewById(R.id.tv_like_number);
 		mCbLike.setChecked(!mEvent.isCanLike());
 		mTvLikeNum.setText(String.valueOf(mEvent.getLike()));
 
@@ -164,19 +164,19 @@ public class EventDetailActivity extends WTBaseDetailActivity
 			// TODO Auto-generated method stub
 			Intent intent = new Intent(EventDetailActivity.this, WTFullScreenActivity.class);
 			Bundle bundle = new Bundle();
-			bundle.putString(InformationDetailActivity.IMAGE_URL, mEvent.getImage());
+			bundle.putString(IMAGE_URL, mEvent.getImage());
 			
 			Bitmap bitmapTemp = mAq.getCachedImage(mEvent.getImage());
 			if(bitmapTemp != null)
 			{
-				bundle.putInt(InformationDetailActivity.IMAGE_WIDTH, bitmapTemp.getWidth());
-				bundle.putInt(InformationDetailActivity.IMAGE_HEIGHT, bitmapTemp.getHeight());
+				bundle.putInt(IMAGE_WIDTH, bitmapTemp.getWidth());
+				bundle.putInt(IMAGE_HEIGHT, bitmapTemp.getHeight());
 			}else
 			{
 				Drawable drawable = getResources().getDrawable(R.drawable.image_place_holder);
 				Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-				bundle.putInt(InformationDetailActivity.IMAGE_WIDTH, bitmap.getWidth());
-				bundle.putInt(InformationDetailActivity.IMAGE_HEIGHT, bitmap.getHeight());
+				bundle.putInt(IMAGE_WIDTH, bitmap.getWidth());
+				bundle.putInt(IMAGE_HEIGHT, bitmap.getHeight());
 			}
 			
 			intent.putExtras(bundle);
