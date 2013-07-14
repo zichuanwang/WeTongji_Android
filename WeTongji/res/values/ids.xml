@@ -187,6 +187,9 @@
     <item name="text_account_detail_about" type="id" />
     <item name="text_club_news_num" type="id">false</item>
     <item name="text_account_activity_num" type="id" />
+    <item name="text_profile_par_course_num" type="id" />
+    <item name="text_profile_par_activities_num" type="id" />
+    <item name="layout_profile_my_profile" type="id" />
     <item name="bottom_action_bar" type="id">false</item>
     <item name="btn_event_detail_friends" type="id">false</item>
     <item name="btn_event_detail_attend" type="id">false</item>
@@ -196,4 +199,9 @@
     <item name="action_detail_share" type="id">false</item>
     <item name="detail_back" type="id">false</item>
     <item name="action_person_detail_share" type="id">false</item>
+    <item name="et_profile_phone" type="id" />
+    <item name="et_profile_email" type="id" />
+    <item name="et_profile_qq" type="id" />
+    <item name="et_profile_weibo" type="id" />
+    <item name="et_profile_dorm" type="id" />
 </resources>

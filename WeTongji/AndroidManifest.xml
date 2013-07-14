@@ -134,6 +134,10 @@
          <activity
              android:name="com.wetongji_android.ui.account.AccountDetailActivity">
          </activity>
+         
+         <activity 
+             android:name="com.wetongji_android.ui.profile.ProfileUpdateActivity">
+         </activity>
         
     </application>
 
