@@ -200,4 +200,9 @@
     <item name="tv_like_number" type="id">false</item>
     <item name="action_detail_share" type="id">false</item>
     <item name="detail_back" type="id">false</item>
+    <item name="et_profile_phone" type="id" />
+    <item name="et_profile_email" type="id" />
+    <item name="et_profile_qq" type="id" />
+    <item name="et_profile_weibo" type="id" />
+    <item name="et_profile_dorm" type="id" />
 </resources>

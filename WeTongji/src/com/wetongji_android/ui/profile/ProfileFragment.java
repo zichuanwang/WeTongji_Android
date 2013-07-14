@@ -41,6 +41,8 @@ import com.wetongji_android.util.net.HttpRequestResult;
 
 public class ProfileFragment extends SherlockFragment implements LoaderCallbacks<HttpRequestResult>{
 
+	private static final String BUNDLE_USER = "BUNDLE_USER";
+	
 	private User mUser;
 	
 	private TextView mTvWords;
