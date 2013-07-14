@@ -62,7 +62,7 @@ public class PersonDetailActivity extends SherlockFragmentActivity {
 			}
 		});
 		
-		ImageButton btnShare = (ImageButton) findViewById(R.id.action_event_detail_share);
+		ImageButton btnShare = (ImageButton) findViewById(R.id.action_person_detail_share);
 		btnShare.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {

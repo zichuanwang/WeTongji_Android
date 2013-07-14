@@ -33,8 +33,6 @@ import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.friend.FriendListActivity;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.data.DbListLoader;
-import com.wetongji_android.util.data.user.UserLoader;
 import com.wetongji_android.util.image.ImageUtil;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;

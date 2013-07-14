@@ -25,7 +25,7 @@ import com.wetongji_android.util.image.ImageUtil;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 public class FriendDetailActivity extends WTBaseDetailActivity implements
-		LoaderCallbacks<HttpRequestResult> 
+	LoaderCallbacks<HttpRequestResult>
 {
 	private TextView tvFriendWords;
 	private TextView tvFriendDepartment;
@@ -41,6 +41,8 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	
 	private User mUser;
 	private AQuery mAq;
+	
+	private boolean bIsFriend;
 	
 	@Override
 	protected void onCreate(Bundle arg0) 
@@ -63,19 +65,15 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	
 	private void initWidget()
 	{
+		bIsFriend = true;
 		mAq = WTApplication.getInstance().getAq(this);
 		tvFriendWords = (TextView)findViewById(R.id.text_profile_words);
 		tvFriendWords.setText(mUser.getWords());
 		tvFriendDepartment = (TextView)findViewById(R.id.text_profile_gender);
 		tvFriendDepartment.setText(mUser.getDepartment());
 		ibFriend = (Button)findViewById(R.id.btn_profile_action);
-		if(mUser.isIsFriend())
-		{
-			ibFriend.setText("Friend");
-		}else
-		{
-			ibFriend.setText("UnFriend");
-		}
+		ibFriend.setText("UnFriend");
+		ibFriend.setOnClickListener(new ClickListener());
 		//Set Avatar
 		mAq.id(R.id.img_profile_avatar).image(mUser.getAvatar(), true, true, 0, 0, new BitmapAjaxCallback() 
 		{
@@ -156,6 +154,16 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		
 	}
 	
+	private void addFriend(String id)
+	{
+		
+	}
+	
+	private void removeFriend(String id)
+	{
+		
+	}
+	
 	class ClickListener implements OnClickListener
 	{
 		@Override
@@ -165,9 +173,15 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 			if(v.getId() == R.id.ll_friend_detail_list)
 			{
 				
-			}else
+			}else if(v.getId() == R.id.btn_profile_action)
 			{
-				
+				if(bIsFriend)
+				{
+					removeFriend(mUser.getUID());
+				}else
+				{
+					addFriend(mUser.getUID());
+				}
 			}
 		}
 	}

@@ -63,7 +63,7 @@
                 android:paddingRight="6dip" >
 
                 <ImageButton
-                    android:id="@id/action_event_detail_share"
+                    android:id="@id/action_person_detail_share"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
