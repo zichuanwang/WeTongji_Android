@@ -39,7 +39,7 @@ import com.wetongji_android.util.net.HttpRequestResult;
 
 public class ProfileFragment extends SherlockFragment implements LoaderCallbacks<HttpRequestResult>{
 
-	private static final String BUNDLE_USER = "BUNDLE_USER";
+	public static final String BUNDLE_USER = "BUNDLE_USER";
 	
 	private User mUser;
 	
@@ -204,6 +204,9 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 						R.anim.slide_left_out);
 			} else if (v.getId() == R.id.layout_profile_my_profile) {
 				Intent intent = new Intent(mActivity, ProfileUpdateActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putParcelable(BUNDLE_USER, mUser);
+				intent.putExtras(bundle);
 				startActivity(intent);
 				mActivity.overridePendingTransition(R.anim.slide_right_in,
 						R.anim.slide_left_out);
