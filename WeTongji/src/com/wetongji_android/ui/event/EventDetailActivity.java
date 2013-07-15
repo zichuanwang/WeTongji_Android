@@ -7,40 +7,28 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.Loader;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.factory.ActivityFactory;
-import com.wetongji_android.net.NetworkLoader;
-import com.wetongji_android.net.http.HttpMethod;
-import com.wetongji_android.ui.friend.FriendInviteActivity;
-import com.wetongji_android.ui.informations.InformationDetailActivity;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTFullScreenActivity;
 import com.wetongji_android.util.date.DateParser;
-import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
-import com.wetongji_android.util.net.HttpRequestResult;
 import com.wetongji_android.util.net.HttpUtil;
 
-public class EventDetailActivity extends SherlockFragmentActivity implements
-		LoaderCallbacks<HttpRequestResult> {
+public class EventDetailActivity extends WTBaseDetailActivity  
+{
 
 	private Activity mEvent;
 
@@ -49,49 +37,26 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 	private TextView mTvLikeNum;
 
 	private AQuery mAq;
-
-	private LinearLayout llInvite;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
 		super.onCreate(savedInstanceState);
 
+		setContentView(R.layout.activity_event_detail);
+		
 		recieveActivity();
 		setUpUI();
-
+		showBottomActionBar();
 	}
 
-	private void setUpUI() {
-		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-
-		setContentView(R.layout.activity_event_detail);
-
-		//getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-		LinearLayout ll = (LinearLayout) findViewById(R.id.event_detail_back);
-		ll.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				EventDetailActivity.this.finish();
-				EventDetailActivity.this.overridePendingTransition(
-						R.anim.slide_left_in, R.anim.slide_right_out);
-			}
-		});
-		ImageButton btnShare = (ImageButton) findViewById(R.id.action_event_detail_share);
-		btnShare.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				showShareDialog(mEvent.getTitle());
-			}
-		});
-
+	private void setUpUI() 
+	{
 		setPicture();
 		
 		setLikeCheckbox();
 
 		setTextViews();
-
-		setupBottomActionBar();
 	}
 
 	private void recieveActivity() {
@@ -145,8 +110,8 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 	}
 	
 	private void setLikeCheckbox() {
-		mCbLike = (CheckBox) findViewById(R.id.cb_event_like);
-		mTvLikeNum = (TextView) findViewById(R.id.tv_event_like_number);
+		mCbLike = (CheckBox) findViewById(R.id.cb_like);
+		mTvLikeNum = (TextView) findViewById(R.id.tv_like_number);
 		mCbLike.setChecked(!mEvent.isCanLike());
 		mTvLikeNum.setText(String.valueOf(mEvent.getLike()));
 
@@ -173,55 +138,11 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 		});
 	}
 
-	private void setupBottomActionBar()
-	{
-		llInvite = (LinearLayout)findViewById(R.id.btn_event_detail_invite);
-		llInvite.setOnClickListener(new ClickListener());
-	}
-	
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			finish();
-			overridePendingTransition(R.anim.slide_left_in,
-					R.anim.slide_right_out);
-			return true;
-		}
-
-		return super.onKeyDown(keyCode, event);
-	}
-
 	private void likeEvent(boolean isLike) {
 		ApiHelper apiHelper = ApiHelper.getInstance(EventDetailActivity.this);
 		int id = mEvent.getId();
 		Bundle bundle = isLike ? apiHelper.likeActivity(id) : apiHelper
 				.unlikeActivity(id);
-		getSupportLoaderManager().restartLoader(
-				WTApplication.EVENT_Like_LOADER, bundle, this);
-	}
-
-	@Override
-	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
-		return new NetworkLoader(this, HttpMethod.Get, arg1);
-	}
-
-	@Override
-	public void onLoadFinished(Loader<HttpRequestResult> arg0,
-			HttpRequestResult arg1) {
-		if (arg1.getResponseCode() == 0) {
-			Toast.makeText(
-					this,
-					getResources()
-							.getString(R.string.text_u_like_this_activity),
-					Toast.LENGTH_SHORT).show();
-			updateEventInDB();
-		} else {
-			ExceptionToast.show(this, arg1.getResponseCode());
-			mTvLikeNum.setText(String.valueOf(mEvent.getLike()));
-			isRestCheckBox = true;
-			mCbLike.setChecked(!mCbLike.isChecked());
-			isRestCheckBox = false;
-		}
 	}
 
 	private void updateEventInDB() {
@@ -232,25 +153,7 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 				+ (mCbLike.isChecked() ? 1 : -1));
 		newActivity.setCanLike(!mCbLike.isChecked());
 		lstTask.add(newActivity);
-		factory.saveObjects(this, lstTask);
-	}
-
-	@Override
-	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
-	}
-
-	public void showShareDialog(String content) {
-		String sourceDesc = getResources().getString(R.string.share_from_we);
-		String share = getResources().getString(R.string.test_share);
-		Intent intent = new Intent(Intent.ACTION_SEND);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		// intent.putExtra(Intent.EXTRA_TEXT, mEvent.getDescription());
-		intent.putExtra(Intent.EXTRA_TEXT, content + sourceDesc);
-		// intent.putExtra(Intent.EXTRA_STREAM,
-		// Uri.fromFile(mAq.getCachedFile(mEvent.getImage())));
-		intent.setType("text/*");
-		intent.setType("image/*");
-		startActivity(Intent.createChooser(intent, share));
+		//factory.saveObjects(this, lstTask);
 	}
 	
 	private class OnPicClickListener implements OnClickListener
@@ -261,45 +164,24 @@ public class EventDetailActivity extends SherlockFragmentActivity implements
 			// TODO Auto-generated method stub
 			Intent intent = new Intent(EventDetailActivity.this, WTFullScreenActivity.class);
 			Bundle bundle = new Bundle();
-			bundle.putString(InformationDetailActivity.IMAGE_URL, mEvent.getImage());
+			bundle.putString(IMAGE_URL, mEvent.getImage());
 			
 			Bitmap bitmapTemp = mAq.getCachedImage(mEvent.getImage());
 			if(bitmapTemp != null)
 			{
-				bundle.putInt(InformationDetailActivity.IMAGE_WIDTH, bitmapTemp.getWidth());
-				bundle.putInt(InformationDetailActivity.IMAGE_HEIGHT, bitmapTemp.getHeight());
+				bundle.putInt(IMAGE_WIDTH, bitmapTemp.getWidth());
+				bundle.putInt(IMAGE_HEIGHT, bitmapTemp.getHeight());
 			}else
 			{
 				Drawable drawable = getResources().getDrawable(R.drawable.image_place_holder);
 				Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-				bundle.putInt(InformationDetailActivity.IMAGE_WIDTH, bitmap.getWidth());
-				bundle.putInt(InformationDetailActivity.IMAGE_HEIGHT, bitmap.getHeight());
+				bundle.putInt(IMAGE_WIDTH, bitmap.getWidth());
+				bundle.putInt(IMAGE_HEIGHT, bitmap.getHeight());
 			}
 			
 			intent.putExtras(bundle);
 			startActivity(intent);
 			EventDetailActivity.this.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}	
-	}
-	
-	class ClickListener implements OnClickListener
-	{
-		@Override
-		public void onClick(View v)
-		{
-			// TODO Auto-generated method stub
-			if(v.getId() == R.id.btn_event_detail_invite)
-			{
-				if(WTApplication.getInstance().hasAccount)
-				{
-					Intent intent = new Intent(EventDetailActivity.this, FriendInviteActivity.class);
-					startActivity(intent);
-				}else
-				{
-					Toast.makeText(EventDetailActivity.this, getResources().getText(R.string.no_account_error),
-							Toast.LENGTH_SHORT).show();
-				}
-			}
-		}
 	}
 }

@@ -9,7 +9,6 @@
         android:layout_height="match_parent" >
 
         <!-- actionbar container -->
-
         <RelativeLayout
             android:id="@id/layout_event_detail_top_actionbar"
             style="?attr/actionBarStyle"
@@ -19,7 +18,7 @@
             android:background="@drawable/ab_solid_wttheme" >
 
             <LinearLayout
-                android:id="@id/event_detail_back"
+                android:id="@id/detail_back"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:background="@drawable/selectable_background_wttheme"
@@ -63,7 +62,7 @@
                 android:paddingRight="6dip" >
 
                 <ImageButton
-                    android:id="@id/action_event_detail_share"
+                    android:id="@id/action_detail_share"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -89,7 +88,6 @@
             android:background="@drawable/bg_app_base" >
 
             <!-- main content -->
-
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
@@ -104,16 +102,7 @@
 		               android:layout_width="match_parent"
 		               android:layout_height="wrap_content" />
                     
-                    <!--
-                        LinearLayout android:layout_width="match_parent"
-			            android:layout_height="1.5dp"
-			            android:paddingBottom="-0.5dp"
-			            android:background="@drawable/event_detail_shadow"></LinearLayout
-                    -->
-
-					
                     <!-- this blank layout resolves conflict with 'bottom actionbar' -->
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
@@ -123,7 +112,6 @@
             </ScrollView>
 
             <!-- actionbar shadow -->
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -148,7 +136,7 @@
             android:orientation="vertical" >
 
             <CheckBox
-                android:id="@id/cb_event_like"
+                android:id="@id/cb_like"
                 style="@style/EventLikeCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="26dp"
@@ -158,7 +146,7 @@
                 android:paddingBottom="-2dp" />
 
             <TextView
-                android:id="@id/tv_event_like_number"
+                android:id="@id/tv_like_number"
                 style="@style/EventLikeNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -168,11 +156,13 @@
         <!-- Bottom actionbar -->
 
         <LinearLayout
+            android:id="@id/bottom_action_bar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:background="@color/bg_event_detail_bottom_actionbar"
-            tools:ignore="DisableBaselineAlignment" >
+            tools:ignore="DisableBaselineAlignment"
+            android:visibility="gone">
 
             <LinearLayout
                 android:id="@id/btn_event_detail_invite"
@@ -198,6 +188,7 @@
                 android:background="@color/bg_bottom_actionbar_divider" />
 
             <LinearLayout
+                android:id="@id/btn_event_detail_friends"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
@@ -229,6 +220,7 @@
                 android:background="@color/bg_bottom_actionbar_divider" />
 
             <LinearLayout
+                android:id="@id/btn_event_detail_attend"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"

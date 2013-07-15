@@ -1,450 +1,295 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-	<RelativeLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent" >
-	    
-		<!-- actionbar container -->
-	    <RelativeLayout 
-	        android:id="@id/layout_friend_detail_top_actionbar"
-	        android:layout_alignParentTop="true"
-	        android:layout_width="match_parent"
-	        android:layout_height="48dp"
-	        android:background="@drawable/ab_solid_wttheme"
-	        style="?attr/actionBarStyle"
-	        >
-	        
-	        <LinearLayout
-	            android:id="@id/friend_detail_back"
-	            android:layout_width="wrap_content"
-	   			android:layout_height="match_parent"
-	   			android:clickable="true"
-	   			android:background="@drawable/selectable_background_wttheme">
-	     			
-	            <ImageView 
-	               android:id="@id/abs__up"
-	               android:src="?attr/homeAsUpIndicator"
-	               android:layout_gravity="center_vertical|left"
-	               android:layout_width="wrap_content"
-	               android:layout_height="wrap_content"
-	               android:layout_marginRight="-9dip"
-	               android:contentDescription="@string/img_content_description"/>
-	            
-	            <!-- Home Icon -->
-			    <ImageView 
-			       android:id="@id/abs__home"
-	               android:layout_width="wrap_content"
-	               android:layout_height="wrap_content"
-	               android:src="@drawable/img_wt_logo"
-	               android:layout_marginRight="8dip"
-	               android:layout_marginTop="@dimen/abs__action_bar_icon_vertical_padding"
-	               android:layout_marginBottom="@dimen/abs__action_bar_icon_vertical_padding"
-	               android:layout_gravity="center"
-	               android:adjustViewBounds="true"
-	               android:scaleType="fitCenter"
-	               android:padding="6dp"
-	               android:contentDescription="@string/img_content_description"/>
-			    
-	        </LinearLayout>
-	        
-	        <LinearLayout
-	            android:layout_width="wrap_content"
-	            android:layout_height="fill_parent"
-	            android:background="@drawable/selectable_background_wttheme"
-	            android:addStatesFromChildren="true"
-	            android:layout_gravity="center_vertical"
-			    android:gravity="center"
-			    android:clickable="true"
-			    android:paddingLeft="6dip"
-			    android:paddingRight="6dip"
-			    android:layout_alignParentRight="true"
-			    android:layout_marginRight="70dp">
-	            
-	            <ImageButton 
-	                 android:id="@id/action_info_detail_share"
-	                 android:layout_width="wrap_content"
-	                 android:layout_height="wrap_content"
-	                 android:src="@drawable/ab_event_share"
-	                 android:layout_gravity="center"
-	                 android:layout_marginTop="4dip"
-	                 android:layout_marginBottom="4dip"
-	                 android:layout_marginLeft="4dip"
-	                 android:layout_marginRight="4dip"
-	                 android:scaleType="fitCenter"
-	                 android:adjustViewBounds="true"
-	                 android:focusable="false"
-	                 android:background="@null"
-	                 android:contentDescription="@string/img_content_description"/>
-	            
-	        </LinearLayout>
-	        
-	    </RelativeLayout>
-		    
-	    <FrameLayout
-	        android:layout_below="@id/layout_friend_detail_top_actionbar" 
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content">
-	        
-	        <!-- Main Content -->
-	        <ScrollView
-	            android:background="@drawable/bg_app_base" 
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent">
-	            
-	            <LinearLayout 
-	                android:layout_width="match_parent"
-	                android:layout_height="wrap_content"
-	                android:orientation="vertical">
-	                
-	                <include layout="@layout/include_profile_header"/>
-	                
-	                <!--Friend Info Section -->
-		            <LinearLayout
-		                android:visibility="visible"
-		                android:layout_width="match_parent"
-			    		android:layout_height="wrap_content"
-			    		android:background="@color/profile_section_bg"
-			    		android:orientation="vertical"
-			    		android:layout_marginLeft="5dp"
-			    		android:layout_marginRight="5dp"
-			    		android:layout_marginTop="8dp"
-			    		android:layout_marginBottom="8.7dp">
-	                
-		                <TextView 
-		                    android:layout_width="wrap_content"
-		                    android:layout_height="wrap_content"
-		                    android:layout_marginTop="13.3dp"
-		                    android:layout_marginLeft="18.3dp"
-		                    android:layout_marginBottom="6.7dp"
-		                    android:text="@string/profile_info"
-		                    style="@style/ProfileInfoHeader"/>
-		                
-		                <View 
-		                    android:layout_width="match_parent"
-			    			android:layout_height="1.7dp"
-			    			android:background="@color/profile_divider"
-			    			android:layout_marginLeft="11.3dp"
-			    			android:layout_marginRight="11.3dp"
-			    			android:layout_marginBottom="0dp"/>
-		                
-		                <RelativeLayout
-		                    android:id="@id/ll_friend_detail_list"
-		                    android:clickable="true"
-		                    android:background="@drawable/selectable_background_wttheme"
-		                    android:layout_width="match_parent"
-			    			android:layout_height="wrap_content"
-			    			android:layout_marginLeft="11.3dp"
-			    			android:layout_marginRight="11.3dp"
-			    			android:paddingBottom="12dp">
-		                    
-		                    <TextView
-		                        android:id="@id/tv_detail_friendlist"
-		                        android:layout_width="wrap_content"
-			    				android:layout_height="wrap_content"
-			    				android:layout_alignParentTop="true"
-			    				android:layout_marginTop="12dp"
-			    				android:layout_marginLeft="7dp"
-			    				android:text="@string/profile_section_friendlist"
-			    				style="@style/ProfileFriendList"/>
-		                    
-		                    <TextView
-		                        android:id="@id/tv_detail_friend_num"
-		                        android:layout_width="wrap_content"
-		                        android:layout_height="wrap_content"
-		                        android:layout_below="@id/tv_detail_friendlist"
-		                        android:layout_marginLeft="7dp"
-		                        android:layout_marginTop="3dp"
-		                    	style="@style/ProfileFriendNum"
-		                    	android:textIsSelectable="false"
-		                    	/>
-		
-		                    <View
-		                        android:layout_width="1dp"
-		                        android:layout_height="26.7dp"
-		                        android:layout_marginTop="23dp"
-		                        android:layout_toLeftOf="@id/ll_detail_friend_add"
-		                        android:background="@color/profile_vertical_divider" />
-		                    
-		                    <LinearLayout
-		                        android:id="@id/ll_detail_friend_add"
-		                        android:layout_width="wrap_content"
-		                        android:layout_height="fill_parent"
-		                        android:layout_alignParentRight="true"
-		                        android:layout_marginRight="7.3dp"
-		                        android:layout_marginTop="15.7dp"
-		                        android:addStatesFromChildren="true"
-		                        android:background="@drawable/selectable_background_wttheme"
-		                        android:clickable="true"
-		                        android:gravity="center" >
-		                        
-			                    <ImageButton
-			                        android:id="@id/btn_detail_friend_add"
-			                        android:layout_width="wrap_content"
-			                        android:layout_height="wrap_content"
-			                        android:src="@drawable/ic_profile_friend_add"
-			                        android:scaleType="fitCenter"
-			                        android:background="@null" 
-			                        android:contentDescription="@string/img_content_description"/>
-		                        
-		                    </LinearLayout>
-		
-		                </RelativeLayout>
-	                
-	                	<View 
-		                    android:layout_width="match_parent"
-			    			android:layout_height="1dp"
-			    			android:background="@color/profile_divider_thin"
-			    			android:layout_marginLeft="11.3dp"
-			    			android:layout_marginRight="11.3dp"/>
-	                	
-	                	<RelativeLayout
-		                    android:id="@id/ll_friend_detail_part_events"
-		                    android:clickable="true"
-		                    android:background="@drawable/selectable_background_wttheme"
-		                    android:layout_width="match_parent"
-			    			android:layout_height="wrap_content"
-			    			android:layout_marginLeft="11.3dp"
-			    			android:layout_marginRight="11.3dp"
-			    			android:paddingBottom="12dp">
-		                   
-	                	    <TextView
-		                        android:id="@id/tv_detail_friend_part_events"
-		                        android:layout_width="wrap_content"
-			    				android:layout_height="wrap_content"
-			    				android:layout_alignParentTop="true"
-			    				android:layout_marginTop="12dp"
-			    				android:layout_marginLeft="7dp"
-			    				android:text="@string/friend_detail_part_events"
-			    				style="@style/ProfileFriendList"/>
-		                    
-		                    <TextView
-		                        android:id="@id/tv_detail_friend_part_events_num"
-		                        android:layout_width="wrap_content"
-		                        android:layout_height="wrap_content"
-		                        android:layout_below="@id/tv_detail_friend_part_events"
-		                        android:layout_marginLeft="7dp"
-		                        android:layout_marginTop="3dp"
-		                    	style="@style/ProfileFriendNum"
-		                    	android:textIsSelectable="false"
-		                    	/>
-		                    
-                	   	</RelativeLayout>
-                	   	
-	                	<View 
-		                    android:layout_width="match_parent"
-			    			android:layout_height="1dp"
-			    			android:background="@color/profile_divider_thin"
-			    			android:layout_marginLeft="11.3dp"
-			    			android:layout_marginRight="11.3dp"
-			    			android:layout_marginBottom="16.7dp"/>
-	                	
-	            	</LinearLayout>
-	            	
-		            <!-- Friend About Section -->
-		            <LinearLayout
-		                android:layout_width="match_parent"
-			    		android:layout_height="wrap_content"
-			    		android:background="@color/profile_section_bg"
-			    		android:orientation="vertical"
-			    		android:layout_marginLeft="5dp"
-			    		android:layout_marginRight="5dp"
-			    		android:layout_marginBottom="8.7dp">
-		                
-		                <TextView 
-		                    android:layout_width="wrap_content"
-		                    android:layout_height="wrap_content"
-		                    android:layout_marginTop="13.3dp"
-		                    android:layout_marginLeft="18.3dp"
-		                    android:layout_marginBottom="6.7dp"
-		                    android:text="@string/friend_detail_about"
-		                    style="@style/ProfileInfoHeader"/>
-		                
-		                <View 
-		                    android:layout_width="match_parent"
-			    			android:layout_height="1.7dp"
-			    			android:background="@color/profile_divider"
-			    			android:layout_marginLeft="11.3dp"
-			    			android:layout_marginRight="11.3dp"
-			    			android:layout_marginBottom="0dp"/>
-		                
-		                <!-- Major -->
-		                <RelativeLayout
-		                    android:id="@id/ll_friend_detail_major"
-		                    android:clickable="false"
-		                    android:background="@drawable/selectable_background_wttheme"
-		                    android:layout_width="match_parent"
-			    			android:layout_height="wrap_content"
-			    			android:layout_marginLeft="11.3dp"
-			    			android:layout_marginRight="11.3dp"
-			    			android:paddingBottom="12dp">
-		                    
-		                    <TextView
-		                        android:id="@id/tv_friend_detail_major_title"
-		                        android:layout_width="wrap_content"
-			    				android:layout_height="wrap_content"
-			    				android:layout_alignParentTop="true"
-			    				android:layout_marginTop="12dp"
-			    				android:layout_marginLeft="7dp"
-			    				android:text="@string/friend_detail_major"
-			    				style="@style/ProfileFriendList"/>
-		                    
-		                    <TextView
-		                        android:id="@id/tv_friend_detail_major"
-		                        android:layout_width="wrap_content"
-		                        android:layout_height="wrap_content"
-		                        android:layout_below="@id/tv_friend_detail_major_title"
-		                        android:layout_marginLeft="7dp"
-		                        android:layout_marginTop="3dp"
-		                    	android:textIsSelectable="false"
-		                    	style="@style/ProfileFriendNum"
-		                    	/>
-		                    
-		                </RelativeLayout>
-		                
-		                <View 
-		                    android:layout_width="match_parent"
-			    			android:layout_height="1dp"
-			    			android:background="@color/profile_divider_thin"
-			    			android:layout_marginLeft="11.3dp"
-			    			android:layout_marginRight="11.3dp"/>
-		                
-		                <!-- Grade -->
-		                <RelativeLayout
-		                    android:id="@id/ll_friend_detail_grade"
-		                    android:clickable="false"
-		                    android:background="@drawable/selectable_background_wttheme"
-		                    android:layout_width="match_parent"
-			    			android:layout_height="wrap_content"
-			    			android:layout_marginLeft="11.3dp"
-			    			android:layout_marginRight="11.3dp"
-			    			android:paddingBottom="12dp">
-		                    
-		                    <TextView
-		                        android:id="@id/tv_friend_detail_grade_title"
-		                        android:layout_width="wrap_content"
-			    				android:layout_height="wrap_content"
-			    				android:layout_alignParentTop="true"
-			    				android:layout_marginTop="12dp"
-			    				android:layout_marginLeft="7dp"
-			    				android:text="@string/friend_detail_grade"
-			    				style="@style/ProfileFriendList"/>
-		                    
-		                    <TextView
-		                        android:id="@id/tv_friend_detail_grade"
-		                        android:layout_width="wrap_content"
-		                        android:layout_height="wrap_content"
-		                        android:layout_below="@id/tv_friend_detail_grade_title"
-		                        android:layout_marginLeft="7dp"
-		                        android:layout_marginTop="3dp"
-		                    	android:textIsSelectable="false"
-		                    	style="@style/ProfileFriendNum"
-		                    	/>
-		                </RelativeLayout>
-		                
-		                <View 
-		                    android:layout_width="match_parent"
-			    			android:layout_height="1dp"
-			    			android:background="@color/profile_divider_thin"
-			    			android:layout_marginLeft="11.3dp"
-			    			android:layout_marginRight="11.3dp"/>
-		                
-		                <!-- Email -->
-		                <RelativeLayout
-		                    android:id="@id/ll_friend_detail_email"
-		                    android:clickable="false"
-		                    android:background="@drawable/selectable_background_wttheme"
-		                    android:layout_width="match_parent"
-			    			android:layout_height="wrap_content"
-			    			android:layout_marginLeft="11.3dp"
-			    			android:layout_marginRight="11.3dp"
-			    			android:paddingBottom="12dp">
-		                    
-		                    <TextView
-		                        android:id="@id/tv_friend_detail_email_title"
-		                        android:layout_width="wrap_content"
-			    				android:layout_height="wrap_content"
-			    				android:layout_alignParentTop="true"
-			    				android:layout_marginTop="12dp"
-			    				android:layout_marginLeft="7dp"
-			    				android:text="@string/friend_detail_email"
-			    				style="@style/ProfileFriendList"/>
-		                    
-		                    <TextView
-		                        android:id="@id/tv_friend_detail_email"
-		                        android:layout_width="wrap_content"
-		                        android:layout_height="wrap_content"
-		                        android:layout_below="@id/tv_friend_detail_email_title"
-		                        android:layout_marginLeft="7dp"
-		                        android:layout_marginTop="3dp"
-		                        android:textIsSelectable="false"
-		                    	style="@style/ProfileFriendNum"
-		                    	/>
-		                </RelativeLayout>
-		                
-		                <View 
-		                    android:visibility="visible"
-		                    android:layout_width="match_parent"
-			    			android:layout_height="1dp"
-			    			android:background="@color/profile_divider_thin"
-			    			android:layout_marginLeft="11.3dp"
-			    			android:layout_marginRight="11.3dp"
-			    			android:layout_marginBottom="14.7dp"/>
-		                
-	            	</LinearLayout>
-	            	
-	            </LinearLayout>	           
-	            
-	        </ScrollView>
-	        
-	         <!-- actionbar shadow -->
-		    <LinearLayout 
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:background="@drawable/action_bar_shadow"
-		        >
-		    </LinearLayout>
-		    
-	    </FrameLayout>
-	    
-	</RelativeLayout>
-	
-	<RelativeLayout 
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <include layout="@layout/include_profile_header" />
+
+    <!-- Friend Info Section -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        
-    	<!-- Like checkbox -->
-        <LinearLayout 
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8.7dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/profile_section_bg"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+        <TextView
+            style="@style/ProfileInfoHeader"
             android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-        	android:layout_alignParentRight="true"
-        	android:layout_marginRight="16dp"
-        	android:orientation="vertical"
-        	android:gravity="center"
-        	android:background="@drawable/bg_event_like"
-        	>
-		    
-          <CheckBox 
-              android:id="@id/cb_friend_like"
-              android:layout_width="wrap_content"
-              android:layout_height="26dp"
-              android:layout_marginTop="1dp"
-              android:layout_marginLeft="0dp"
-              android:layout_marginBottom="0dp"
-              android:paddingBottom="-2dp"
-              style="@style/EventLikeCheckbox"/>
-          
-          <TextView 
-              android:id="@id/tv_friend_like_number"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textIsSelectable="false"
-              style="@style/EventLikeNumber"/>
-          
-        </LinearLayout>
-        
-    </RelativeLayout>
-    
-</FrameLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6.7dp"
+            android:layout_marginLeft="18.3dp"
+            android:layout_marginTop="13.3dp"
+            android:text="@string/profile_info" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.7dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider" />
+
+        <RelativeLayout
+            android:id="@id/ll_friend_detail_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="true"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/tv_detail_friendlist"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/profile_section_friendlist" />
+
+            <TextView
+                android:id="@id/tv_detail_friend_num"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_detail_friendlist"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="26.7dp"
+                android:layout_marginTop="23dp"
+                android:layout_toLeftOf="@id/ll_detail_friend_add"
+                android:background="@color/profile_vertical_divider" />
+
+            <LinearLayout
+                android:id="@id/ll_detail_friend_add"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="7.3dp"
+                android:layout_marginTop="15.7dp"
+                android:addStatesFromChildren="true"
+                android:background="@drawable/selectable_background_wttheme"
+                android:clickable="true"
+                android:gravity="center" >
+
+                <ImageButton
+                    android:id="@id/btn_detail_friend_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:contentDescription="@string/img_content_description"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_profile_friend_add" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin" />
+
+        <RelativeLayout
+            android:id="@id/ll_friend_detail_part_events"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="true"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/tv_detail_friend_part_events"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/friend_detail_part_events" />
+
+            <TextView
+                android:id="@id/tv_detail_friend_part_events_num"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_detail_friend_part_events"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="16.7dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin" />
+    </LinearLayout>
+
+    <!-- Friend About Section -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8.7dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/profile_section_bg"
+        android:orientation="vertical" >
+
+        <TextView
+            style="@style/ProfileInfoHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6.7dp"
+            android:layout_marginLeft="18.3dp"
+            android:layout_marginTop="13.3dp"
+            android:text="@string/friend_detail_about" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.7dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider" />
+
+        <!-- Major -->
+
+        <RelativeLayout
+            android:id="@id/ll_friend_detail_major"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="false"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/tv_friend_detail_major_title"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/friend_detail_major" />
+
+            <TextView
+                android:id="@id/tv_friend_detail_major"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_friend_detail_major_title"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin" />
+
+        <!-- Grade -->
+
+        <RelativeLayout
+            android:id="@id/ll_friend_detail_grade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="false"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/tv_friend_detail_grade_title"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/friend_detail_grade" />
+
+            <TextView
+                android:id="@id/tv_friend_detail_grade"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_friend_detail_grade_title"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin" />
+
+        <!-- Email -->
+
+        <RelativeLayout
+            android:id="@id/ll_friend_detail_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="false"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/tv_friend_detail_email_title"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/friend_detail_email" />
+
+            <TextView
+                android:id="@id/tv_friend_detail_email"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_friend_detail_email_title"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="14.7dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin"
+            android:visibility="visible" />
+    </LinearLayout>
+
+</LinearLayout>

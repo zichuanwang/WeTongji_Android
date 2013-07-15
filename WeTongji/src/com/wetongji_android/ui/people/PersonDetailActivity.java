@@ -52,7 +52,7 @@ public class PersonDetailActivity extends SherlockFragmentActivity {
 	}
 	
 	private void setBackButton() {
-		LinearLayout ll = (LinearLayout) findViewById(R.id.event_detail_back);
+		LinearLayout ll = (LinearLayout) findViewById(R.id.detail_back);
 		ll.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -62,7 +62,7 @@ public class PersonDetailActivity extends SherlockFragmentActivity {
 			}
 		});
 		
-		ImageButton btnShare = (ImageButton) findViewById(R.id.action_event_detail_share);
+		ImageButton btnShare = (ImageButton) findViewById(R.id.action_person_detail_share);
 		btnShare.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {

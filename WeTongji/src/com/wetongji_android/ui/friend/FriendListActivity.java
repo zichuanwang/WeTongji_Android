@@ -1,6 +1,7 @@
 package com.wetongji_android.ui.friend;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.wetongji_android.R;
@@ -37,5 +38,18 @@ public class FriendListActivity extends SherlockFragmentActivity
 	{
 		// TODO Auto-generated method stub
 		super.onResume();
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) 
+	{
+		// TODO Auto-generated method stub
+		if(keyCode == KeyEvent.KEYCODE_BACK)
+		{
+			finish();
+			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+		}
+		
+		return super.onKeyDown(keyCode, event);
 	}
 }

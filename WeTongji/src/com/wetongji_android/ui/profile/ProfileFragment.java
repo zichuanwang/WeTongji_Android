@@ -33,14 +33,14 @@ import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.friend.FriendListActivity;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.data.DbListLoader;
-import com.wetongji_android.util.data.user.UserLoader;
 import com.wetongji_android.util.image.ImageUtil;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 public class ProfileFragment extends SherlockFragment implements LoaderCallbacks<HttpRequestResult>{
 
+	private static final String BUNDLE_USER = "BUNDLE_USER";
+	
 	private User mUser;
 	
 	private TextView mTvWords;
@@ -50,8 +50,11 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 	private TextView mTvNewsLikes;
 	private TextView mTvPeopleLikes;
 	private TextView mTvOrgsLikes;
+	private TextView mTvParActivities;
+	private TextView mTvParCourse;
 	
 	private RelativeLayout rlFriendsList;
+	private RelativeLayout rlMyProfile;
 	private ImageButton btnFriendAdd;
 	
 	private Activity mActivity;
@@ -108,11 +111,15 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 		mTvNewsLikes = (TextView) v.findViewById(R.id.text_profile_news_num);
 		mTvPeopleLikes = (TextView) v.findViewById(R.id.text_profile_people_num);
 		mTvOrgsLikes = (TextView) v.findViewById(R.id.text_profile_orgs_num);
+		mTvParActivities = (TextView) v
+				.findViewById(R.id.text_profile_par_activities_num);
+		mTvParCourse = (TextView) v.findViewById(R.id.text_profile_par_course_num);
 		
 		rlFriendsList = (RelativeLayout)v.findViewById(R.id.ll_profile_friend_list);
 		rlFriendsList.setOnClickListener(new ClickListener());
-		btnFriendAdd = (ImageButton)v.findViewById(R.id.btn_profile_friend_add);
-		btnFriendAdd.setOnClickListener(new ClickListener());
+		
+		rlMyProfile = (RelativeLayout) v.findViewById(R.id.layout_profile_my_profile);
+		rlMyProfile.setOnClickListener(new ClickListener());
 	}
 	
 	private void setWidgets(User user) {
@@ -129,6 +136,8 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 		mTvNewsLikes.setText(String.format(format, user.getLikeCount().getInformation()));
 		mTvPeopleLikes.setText(String.format(format, user.getLikeCount().getPerson()));
 		mTvOrgsLikes.setText(String.format(format, user.getLikeCount().getAccount()));
+		/*mTvParActivities.setText(String.format(format, user.get));
+		mTvParCourse.setText(String.format(format, user));*/
 		
 		((MainActivity)mActivity).getSupportActionBar().setTitle(user.getName());
 	}
@@ -185,17 +194,19 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 		return super.onOptionsItemSelected(item);
 	}
 	
-	class ClickListener implements OnClickListener
-	{
+	class ClickListener implements OnClickListener {
 		@Override
-		public void onClick(View v) 
-		{
-			// TODO Auto-generated method stub
-			if(v.getId() == R.id.ll_profile_friend_list)
-			{
+		public void onClick(View v) {
+			if (v.getId() == R.id.ll_profile_friend_list) {
 				Intent intent = new Intent(mActivity, FriendListActivity.class);
 				startActivity(intent);
-				mActivity.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
+				mActivity.overridePendingTransition(R.anim.slide_right_in,
+						R.anim.slide_left_out);
+			} else if (v.getId() == R.id.layout_profile_my_profile) {
+				Intent intent = new Intent(mActivity, ProfileUpdateActivity.class);
+				startActivity(intent);
+				mActivity.overridePendingTransition(R.anim.slide_right_in,
+						R.anim.slide_left_out);
 			}
 		}
 	}

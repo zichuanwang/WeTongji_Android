@@ -8,25 +8,24 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
 import com.androidquery.callback.BitmapAjaxCallback;
 import com.wetongji_android.R;
 import com.wetongji_android.data.User;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.image.ImageUtil;
 import com.wetongji_android.util.net.HttpRequestResult;
 
-public class FriendDetailActivity extends SherlockFragmentActivity implements
-		LoaderCallbacks<HttpRequestResult> 
+public class FriendDetailActivity extends WTBaseDetailActivity implements
+	LoaderCallbacks<HttpRequestResult>
 {
 	private TextView tvFriendWords;
 	private TextView tvFriendDepartment;
@@ -43,12 +42,14 @@ public class FriendDetailActivity extends SherlockFragmentActivity implements
 	private User mUser;
 	private AQuery mAq;
 	
+	private boolean bIsFriend;
+	
 	@Override
 	protected void onCreate(Bundle arg0) 
 	{
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
-		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
 		setContentView(R.layout.activity_friend_detail);
 		
 		receiveData();
@@ -64,19 +65,15 @@ public class FriendDetailActivity extends SherlockFragmentActivity implements
 	
 	private void initWidget()
 	{
+		bIsFriend = true;
 		mAq = WTApplication.getInstance().getAq(this);
 		tvFriendWords = (TextView)findViewById(R.id.text_profile_words);
 		tvFriendWords.setText(mUser.getWords());
 		tvFriendDepartment = (TextView)findViewById(R.id.text_profile_gender);
 		tvFriendDepartment.setText(mUser.getDepartment());
 		ibFriend = (Button)findViewById(R.id.btn_profile_action);
-		if(mUser.isIsFriend())
-		{
-			ibFriend.setText("Friend");
-		}else
-		{
-			ibFriend.setText("UnFriend");
-		}
+		ibFriend.setText("UnFriend");
+		ibFriend.setOnClickListener(new ClickListener());
 		//Set Avatar
 		mAq.id(R.id.img_profile_avatar).image(mUser.getAvatar(), true, true, 0, 0, new BitmapAjaxCallback() 
 		{
@@ -157,6 +154,16 @@ public class FriendDetailActivity extends SherlockFragmentActivity implements
 		
 	}
 	
+	private void addFriend(String id)
+	{
+		
+	}
+	
+	private void removeFriend(String id)
+	{
+		
+	}
+	
 	class ClickListener implements OnClickListener
 	{
 		@Override
@@ -166,9 +173,15 @@ public class FriendDetailActivity extends SherlockFragmentActivity implements
 			if(v.getId() == R.id.ll_friend_detail_list)
 			{
 				
-			}else
+			}else if(v.getId() == R.id.btn_profile_action)
 			{
-				
+				if(bIsFriend)
+				{
+					removeFriend(mUser.getUID());
+				}else
+				{
+					addFriend(mUser.getUID());
+				}
 			}
 		}
 	}
