@@ -1,6 +1,8 @@
 package com.wetongji_android.ui.profile;
 
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -9,10 +11,18 @@ import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.wetongji_android.R;
 import com.wetongji_android.data.User;
+import com.wetongji_android.net.NetworkLoader;
+import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.exception.ExceptionToast;
+import com.wetongji_android.util.net.ApiHelper;
+import com.wetongji_android.util.net.HttpRequestResult;
 
-public class ProfileUpdateActivity extends SherlockActivity implements OnClickListener {
+public class ProfileUpdateActivity extends SherlockFragmentActivity implements OnClickListener, 
+LoaderCallbacks<HttpRequestResult>{
 
 	private EditText mEtPhone;
 	private EditText mEtEmail;
@@ -21,6 +31,7 @@ public class ProfileUpdateActivity extends SherlockActivity implements OnClickLi
 	private EditText mEtDorm;
 	
 	private User mUser;
+	private User mNewUser;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,8 +83,35 @@ public class ProfileUpdateActivity extends SherlockActivity implements OnClickLi
 	}
 
 	private void updateProfile() {
-		// TODO Auto-generated method stub
+		mNewUser = new User();
+		mNewUser.setPhone(mEtPhone.getText().toString());
+		mNewUser.setEmail(mEtEmail.getText().toString());
+		mNewUser.setQQ(mEtQQ.getText().toString());
+		mNewUser.setSinaWeibo(mEtWeibo.getText().toString());
+		mNewUser.setRoom(mEtDorm.getText().toString());
 		
+		getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, null, this);
+	}
+
+	@Override
+	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
+		ApiHelper apiHelper = ApiHelper.getInstance(this);
+		Bundle b = apiHelper.postUserUpdate(mNewUser);
+		return new NetworkLoader(this, HttpMethod.Post, b);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<HttpRequestResult> loader,
+			HttpRequestResult result) {
+		if (result.getResponseCode() == 0) {
+			finish();
+		} else {
+			ExceptionToast.show(this, result.getResponseCode());
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 	}
 	
 }
