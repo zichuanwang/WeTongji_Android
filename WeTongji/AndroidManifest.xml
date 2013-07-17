@@ -138,6 +138,10 @@
          <activity 
              android:name="com.wetongji_android.ui.profile.ProfileUpdateActivity">
          </activity>
+         
+         <activity
+             android:name="com.wetongji_android.ui.setting.DevSettingActivity">
+         </activity>
         
     </application>
 

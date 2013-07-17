@@ -1,14 +1,17 @@
 package com.wetongji_android.ui.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +22,7 @@ import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.ui.now.NowFragment;
 import com.wetongji_android.ui.profile.ProfileFragment;
 import com.wetongji_android.ui.search.SearchFragment;
+import com.wetongji_android.ui.setting.DevSettingActivity;
 import com.wetongji_android.ui.today.TodayFragment;
 
 public class MainMenuFragment extends Fragment {
@@ -50,7 +54,16 @@ public class MainMenuFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		return inflater.inflate(R.layout.main_menu, null);
+		View view = inflater.inflate(R.layout.main_menu, null);
+		Button btnSetting = (Button) view.findViewById(R.id.btn_main_menu_setting);
+		btnSetting.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				startActivity(new Intent(getActivity(), DevSettingActivity.class));
+			}
+		});
+		
+		return view;
 
 	}
 
