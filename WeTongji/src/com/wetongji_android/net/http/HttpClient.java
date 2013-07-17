@@ -131,7 +131,7 @@ public class HttpClient
 			Proxy proxy = getProxy();
 			HttpURLConnection urlConnection;
 			
-			Log.d("HttpClient", "URL="+sb.toString() + "Body=" + "");
+			Log.d("HttpClient", "URL=" + sb.toString());
 			
 			if(proxy != null)
 				urlConnection = (HttpURLConnection)url.openConnection(proxy);
@@ -143,7 +143,7 @@ public class HttpClient
 			urlConnection.setDoInput(true);
 			urlConnection.setUseCaches(false);
 			urlConnection.setInstanceFollowRedirects(false);
-            urlConnection.setRequestProperty("Content-Type", "x-www-form-urlencoded");
+            urlConnection.setRequestProperty("Content-Type", "multipart/form-data");
             
             setRequestProperty(urlConnection);
             

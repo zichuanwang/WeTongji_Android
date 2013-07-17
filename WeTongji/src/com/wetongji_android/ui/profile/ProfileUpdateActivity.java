@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -104,6 +105,7 @@ LoaderCallbacks<HttpRequestResult>{
 	public void onLoadFinished(Loader<HttpRequestResult> loader,
 			HttpRequestResult result) {
 		if (result.getResponseCode() == 0) {
+			Toast.makeText(this, R.string.text_save_success, Toast.LENGTH_SHORT).show();
 			finish();
 		} else {
 			ExceptionToast.show(this, result.getResponseCode());
