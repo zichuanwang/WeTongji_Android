@@ -167,6 +167,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="account_contact">Contact</string>
 	<string name="my_basic_information">My Basic Infomation</string>
 	<string name="profile_section_phone">Phone</string>
+	<string name="profile_section_motto">Motto</string>
 	<string name="profile_section_email">Email</string>
 	<string name="profile_section_qq">QQ</string>
 	<string name="profile_section_weibo">Sina Weibo</string>

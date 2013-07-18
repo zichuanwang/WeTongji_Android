@@ -25,6 +25,7 @@ import com.wetongji_android.util.net.HttpRequestResult;
 public class ProfileUpdateActivity extends SherlockFragmentActivity implements OnClickListener, 
 LoaderCallbacks<HttpRequestResult>{
 
+	private EditText mEtMotto;
 	private EditText mEtPhone;
 	private EditText mEtEmail;
 	private EditText mEtQQ;
@@ -44,6 +45,7 @@ LoaderCallbacks<HttpRequestResult>{
 	
 	private void setUpUI() {
 		mUser = getIntent().getParcelableExtra(ProfileFragment.BUNDLE_USER);
+		mEtMotto = (EditText) findViewById(R.id.et_profile_motto);
 		mEtPhone = (EditText) findViewById(R.id.et_profile_phone);
 		mEtEmail = (EditText) findViewById(R.id.et_profile_email);
 		mEtQQ = (EditText) findViewById(R.id.et_profile_qq);
@@ -51,6 +53,7 @@ LoaderCallbacks<HttpRequestResult>{
 		mEtDorm = (EditText) findViewById(R.id.et_profile_dorm);
 		
 		if (mUser != null) {
+			mEtMotto.setText(mUser.getWords());
 			mEtPhone.setText(mUser.getPhone());
 			mEtEmail.setText(mUser.getEmail());
 			mEtQQ.setText(mUser.getQQ());
@@ -85,6 +88,7 @@ LoaderCallbacks<HttpRequestResult>{
 
 	private void updateProfile() {
 		mNewUser = new User();
+		mNewUser.setWords(mEtMotto.getText().toString());
 		mNewUser.setPhone(mEtPhone.getText().toString());
 		mNewUser.setEmail(mEtEmail.getText().toString());
 		mNewUser.setQQ(mEtQQ.getText().toString());

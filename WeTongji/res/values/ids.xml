@@ -205,4 +205,5 @@
     <item name="et_profile_weibo" type="id" />
     <item name="et_profile_dorm" type="id" />
     <item name="btn_main_menu_setting" type="id" />
+    <item type="id" name="et_profile_motto">false</item>
 </resources>

@@ -207,6 +207,7 @@ public class ApiHelper {
 			json.put("Phone", user.getPhone());
 			json.put("QQ", user.getQQ());
 			json.put("Room", user.getRoom());
+			json.put("Words", user.getWords());
 			userJson.put("User", json);
 		} catch (JSONException e) {
 		}
