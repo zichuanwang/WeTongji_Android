@@ -3,6 +3,10 @@ package com.wetongji_android.util.net;
 import java.io.IOException;
 import java.util.Calendar;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.wetongji_android.data.User;
 import com.wetongji_android.util.auth.RSAEncrypter;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.date.DateParser;
@@ -187,13 +191,27 @@ public class ApiHelper {
 		return bundle;
 	}
 	
-	public Bundle postUserUpdate(String updateContent){
+	public Bundle postUserUpdate(User user){
 		Bundle bundle=new Bundle();
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "User.Update");
 		//TODO object User need to be submitted
-		bundle.putString(API_ARGS_USER, updateContent);
+		JSONObject json = new JSONObject();
+		JSONObject userJson = new JSONObject();
+		
+		try {
+			json.put("DisplayName", user.getDisplayName());
+			json.put("Email", user.getEmail());
+			json.put("SinaWeibo", user.getSinaWeibo());
+			json.put("Phone", user.getPhone());
+			json.put("QQ", user.getQQ());
+			json.put("Room", user.getRoom());
+			userJson.put("User", json);
+		} catch (JSONException e) {
+		}
+		
+		bundle.putString(API_ARGS_USER, userJson.toString());
 		return bundle;
 	}
 	

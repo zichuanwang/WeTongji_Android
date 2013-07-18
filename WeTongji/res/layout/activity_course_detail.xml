@@ -21,7 +21,6 @@
                 android:layout_marginTop="13dp"
                 android:layout_marginLeft="15dp"
                 style="@style/CourseDetailTitle"
-                android:text="视频与动画设计制作"
                 />
             
             <TextView 
@@ -31,7 +30,6 @@
                 android:layout_marginTop="9dp"
                 android:layout_marginLeft="15dp"
                 style="@style/CourseDetailTime"
-                android:text="10:00-12:00"
                 />
             
             <TextView 
@@ -44,7 +42,6 @@
                 android:drawablePadding="6dp"
                 android:drawableRight="@drawable/event_detail_arrow"
                 style="@style/EventDetailLocation"
-                android:text="学院机房"
                 />
         </LinearLayout>
     </LinearLayout>
@@ -108,7 +105,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:textIsSelectable="false" 
-                android:text="季平"
                 />
         </RelativeLayout>
 
@@ -150,7 +146,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:textIsSelectable="false" 
-                android:text="420020012"
                 />
         </RelativeLayout>
 
@@ -192,7 +187,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:textIsSelectable="false"
-                android:text="4"
                  />
         </RelativeLayout>
 
@@ -234,7 +228,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:textIsSelectable="false"
-                android:text="20"
                  />
         </RelativeLayout>
 
@@ -275,7 +268,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="3dp"
                 android:textIsSelectable="false"
-                android:text="必修"
                  />
         </RelativeLayout>
 

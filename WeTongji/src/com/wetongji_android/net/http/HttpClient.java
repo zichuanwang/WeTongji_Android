@@ -117,11 +117,21 @@ public class HttpClient
 	//Implement http post request
 	public HttpRequestResult doPost(Bundle params) throws WTException
 	{
+		Bundle body = new Bundle();
+		if (params.containsKey("User")) {
+			body.putString("User", params.getString("User"));
+			params.remove("User");
+		}
+		
 		try
 		{
-			URL url = new URL(API_DOMAIN);
+			StringBuilder sb = new StringBuilder(API_DOMAIN);
+			sb.append("?").append(HttpUtil.encodeUrl(params));
+			URL url = new URL(sb.toString());
 			Proxy proxy = getProxy();
 			HttpURLConnection urlConnection;
+			
+			Log.d("HttpClient", "URL=" + sb.toString());
 			
 			if(proxy != null)
 				urlConnection = (HttpURLConnection)url.openConnection(proxy);
@@ -133,14 +143,19 @@ public class HttpClient
 			urlConnection.setDoInput(true);
 			urlConnection.setUseCaches(false);
 			urlConnection.setInstanceFollowRedirects(false);
-            urlConnection.setRequestProperty("Content-Type", "application/json");
+            urlConnection.setRequestProperty("Content-Type", "multipart/form-data");
             
             setRequestProperty(urlConnection);
             
             urlConnection.connect();
             
             DataOutputStream outStream = new DataOutputStream(urlConnection.getOutputStream());
-            outStream.write(HttpUtil.encodeUrl(params).getBytes());
+            
+            StringBuilder content = new StringBuilder();
+            if (body.containsKey("User")) {
+            	content.append("User=").append(body.get("User"));
+            	outStream.write(content.toString().getBytes("UTF-8"));
+            }
             outStream.flush();
             outStream.close();
             

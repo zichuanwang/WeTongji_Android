@@ -1,0 +1,10 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory 
+        android:title="开发设置"
+        android:key="pref_key_dev_settings">
+        <Preference 
+            android:key="pref_is_login_setting"
+            android:summary="登出账号"
+            android:title="登出"/>
+    </PreferenceCategory>
+</PreferenceScreen>

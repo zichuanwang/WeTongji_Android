@@ -204,4 +204,5 @@
     <item name="et_profile_qq" type="id" />
     <item name="et_profile_weibo" type="id" />
     <item name="et_profile_dorm" type="id" />
+    <item name="btn_main_menu_setting" type="id" />
 </resources>

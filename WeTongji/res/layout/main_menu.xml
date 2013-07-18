@@ -30,6 +30,7 @@
         android:background="@color/main_menu_bg"
         >
         <Button
+            android:id="@id/btn_main_menu_setting"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_margin="2dp"

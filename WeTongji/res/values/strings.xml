@@ -171,4 +171,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="profile_section_qq">QQ</string>
 	<string name="profile_section_weibo">Sina Weibo</string>
 	<string name="profile_section_dorm">Dorm</string>
+	<string name="text_save">Save</string>
+	<string name="text_save_success">Save success</string>
 </resources>
