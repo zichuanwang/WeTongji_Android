@@ -111,10 +111,10 @@ public class SearchFragment extends SherlockFragment implements
 				inflater.inflate(R.layout.information_list_header,
 				mLvSearchResult, false));
 		mLvSearchResult.setOnItemClickListener(mOnResultClickListener);
-		//mAdapter = new SearchHistoryAdapter(this);
-		//mLvSearchHistory.setAdapter(mAdapter);
+		mAdapter = new SearchHistoryAdapter(this);
+		mLvSearchHistory.setAdapter(mAdapter);
 
-		/*mLvSearchHistory.setOnItemClickListener(new OnItemClickListener() {
+		mLvSearchHistory.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long id) {
@@ -134,6 +134,7 @@ public class SearchFragment extends SherlockFragment implements
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long id) {
 				int type = 0;
+				
 				switch (position) {
 				case 1:
 					type = 1;
@@ -156,13 +157,13 @@ public class SearchFragment extends SherlockFragment implements
 		});
 
 		mTipAdapter = new SearchTipsAdapter(this);
-		mLvSearchTips.setAdapter(mTipAdapter);*/
+		mLvSearchTips.setAdapter(mTipAdapter);
 		
 		// show software keyboards
-		InputMethodManager imm = (InputMethodManager) getActivity()
+		/*InputMethodManager imm = (InputMethodManager) getActivity()
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,
-				InputMethodManager.HIDE_NOT_ALWAYS);
+				InputMethodManager.HIDE_NOT_ALWAYS);*/
 		return view;
 	}
 
