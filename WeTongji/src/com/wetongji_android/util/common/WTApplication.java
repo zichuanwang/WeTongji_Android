@@ -11,8 +11,10 @@ import java.io.File;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 
 /**
@@ -159,5 +161,15 @@ public class WTApplication extends Application
 	public void setActivity(Activity activity) 
 	{
 		this.activity = activity;
+	}
+	
+	public String getServerBaseUrl() {
+		StringBuilder sb = new StringBuilder(getPackageName());
+		SharedPreferences sp = getSharedPreferences(sb.append("_preferences").toString(),
+				MODE_PRIVATE);
+		Boolean bUseTest = sp.getBoolean("pre_use_test_server", true);
+		String url = bUseTest ? "http://leiz.name:8080/api/call"
+				: "http://we.tongji.edu.cn/api/call";
+		return url;
 	}
 }

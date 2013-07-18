@@ -17,6 +17,8 @@ import java.util.zip.GZIPInputStream;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.wetongji_android.ui.setting.DevSettingActivity;
+import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.exception.WTException;
 import com.wetongji_android.util.net.ApiHelper;
@@ -39,6 +41,7 @@ public class HttpClient
 	private static final int READ_TIMEOUT = 10*1000;
 	//private static final String API_DOMAIN = "http://we.tongji.edu.cn/api/call";
 	private static final String API_DOMAIN="http://leiz.name:8080/api/call";
+	//private static String API_DOMAIN;
 	
 	private static final String HTTP_TIMEOUT = "HttpTimeout";
 	
