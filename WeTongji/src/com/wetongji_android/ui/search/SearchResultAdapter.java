@@ -10,14 +10,17 @@ import com.wetongji_android.data.Account;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.data.Person;
+import com.wetongji_android.data.SearchResult;
 import com.wetongji_android.data.SearchResults;
 import com.wetongji_android.data.User;
 import com.wetongji_android.util.common.WTApplication;
 
+import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,11 +31,14 @@ import android.widget.TextView;
 public class SearchResultAdapter extends AmazingAdapter {
 
 	private Fragment mFragment;
+	private Context mContext;
 	private LayoutInflater mInflater;
 	private SearchResults mResults;
 	private AQuery mListAq;
 	private AQuery mShouldDelayAq;
 	private BitmapDrawable mBmDefaultThumbnails;
+	
+	private List<Pair<String, List<SearchResult>>> mData;
 	
 	public static class ViewHolder {
 		ImageView iv_pic;
@@ -50,22 +56,28 @@ public class SearchResultAdapter extends AmazingAdapter {
 	
 	public SearchResultAdapter(Fragment fragment) {
 		mFragment = fragment;
+		mContext = fragment.getActivity();
 		mInflater = LayoutInflater.from(fragment.getActivity());
 		mListAq = WTApplication.getInstance().getAq(fragment.getActivity());
 		mBmDefaultThumbnails = (BitmapDrawable) fragment.getActivity()
 				.getResources()
 				.getDrawable(R.drawable.event_list_thumbnail_place_holder);
+		mData = new ArrayList<Pair<String, List<SearchResult>>>();
 		addResult(new SearchResults());
 	}
 	
 	@Override
 	public int getCount() {
 		int count = 0;
-		count += mResults.getAccounts().size();
+		/*count += mResults.getAccounts().size();
 		count += mResults.getUsers().size();
 		count += mResults.getActivities().size();
 		count += mResults.getInformation().size();
-		count += mResults.getPerson().size();
+		count += mResults.getPerson().size();*/
+		for(int i = 0; i < mData.size(); i++)
+		{
+			count += mData.get(i).second.size();
+		}
 		
 		return count;
 	}
@@ -73,7 +85,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 	@Override
 	public Object getItem(int position) {
 		int pos = 0;
-		if (position < mResults.getUsers().size() + pos) {
+		/*if (position < mResults.getUsers().size() + pos) {
 			return mResults.getUsers().get(position);
 		} else {
 			pos += mResults.getUsers().size();
@@ -95,6 +107,16 @@ public class SearchResultAdapter extends AmazingAdapter {
 		}
 		if (position < mResults.getPerson().size() + pos) {
 			return mResults.getPerson().get(position - pos);
+		}*/
+		
+		for(int i = 0; i < mData.size(); i++)
+		{
+			if(position >= pos && position < pos + mData.get(i).second.size())
+			{
+				return mData.get(i).second.get(position - pos);
+			}
+			
+			pos += mData.get(i).second.size();
 		}
 		
 		return null;
@@ -127,7 +149,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 	private void configureHeader(View view, int position) {
 		TextView tvSectionHeader = 
 				(TextView) view.findViewById(R.id.information_list_header);
-		Object item = getItem(position);
+		/*Object item = getItem(position);
 		int stringResId = 0;
 		if (item instanceof User) {
 			stringResId = R.string.type_users;
@@ -139,9 +161,9 @@ public class SearchResultAdapter extends AmazingAdapter {
 			stringResId = R.string.type_information;
 		} else if (item instanceof Person) {
 			stringResId = R.string.type_stars;
-		}
+		}*/
 		
-		tvSectionHeader.setText(stringResId);
+		tvSectionHeader.setText(getSections()[getSectionForPosition(position)]);
 	}
 
 	@Override
@@ -165,6 +187,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 			Result result = convertItemToResult(position);
 			holder.tv_title.setText(result.title);
 			holder.tv_description.setText(result.desc);
+			
 			Drawable gender = null;
 			if (result.gender == 1) {
 				gender = mFragment.getActivity().getResources()
@@ -191,6 +214,21 @@ public class SearchResultAdapter extends AmazingAdapter {
 				mShouldDelayAq.id(holder.iv_pic).image(mBmDefaultThumbnails);
 			}
 		}
+		
+		SearchResult sr = (SearchResult)getItem(position);
+		int section = getSectionForPosition(position);
+		int pos = getPositionForSection(section);
+		
+		if((position - pos) % 2 == 0)
+		{
+			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row1));
+		}else
+		{
+			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row2));
+		}
+		holder.tv_title.setText(sr.getTitle());
+		holder.tv_description.setText(sr.getDesc());
+		
 		return convertView;
 	}
 
@@ -201,7 +239,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 
 	@Override
 	public int getPositionForSection(int section) {
-		switch (section) {
+		/*switch (section) {
 		case 0:
 			return 0;
 		case 1:
@@ -212,6 +250,21 @@ public class SearchResultAdapter extends AmazingAdapter {
 			return getFourthSection();
 		case 4:
 			return getFifthSection();
+		}*/
+		
+		if(section < 0) section = 0;
+		if(section >= mData.size()) section = mData.size() - 1;
+		
+		int c = 0;
+		
+		for(int i = 0; i < mData.size(); i++)
+		{
+			if(section == i)
+			{
+				return c;
+			}
+			
+			c += mData.get(i).second.size();
 		}
 		
 		return 0;
@@ -219,7 +272,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 
 	@Override
 	public int getSectionForPosition(int position) {
-		Object item = getItem(position);
+		/*Object item = getItem(position);
 		int section = 0;
 		if (item instanceof User) {
 			section = 0;
@@ -232,12 +285,26 @@ public class SearchResultAdapter extends AmazingAdapter {
 		} else if (item instanceof Person) {
 			section = 4;
 		}
-		return section;
+		return section;*/
+		
+		int c= 0;
+		
+		for(int i = 0; i < mData.size(); i++)
+		{
+			if(position >= c && position < c + mData.get(i).second.size())
+			{
+				return i;
+			}
+			
+			c += mData.get(i).second.size();
+		}
+		
+		return -1;
 	}
 
 	@Override
 	public String[] getSections() {
-		Log.v(TAG, "getSections");
+		/*Log.v(TAG, "getSections");
 		String user = mFragment.getString(R.string.type_users);
 		String accounts = mFragment.getString(R.string.type_org);
 		String activity = mFragment.getString(R.string.type_activities);
@@ -262,7 +329,16 @@ public class SearchResultAdapter extends AmazingAdapter {
 		}
 		
 		Log.v("size", "" + sections.size());
-		return (String[]) sections.toArray();
+		return (String[]) sections.toArray();*/
+		
+		String[] sections = new String[mData.size()];
+		
+		for(int i = 0; i < mData.size(); i++)
+		{
+			sections[i] = mData.get(i).first;
+		}
+		
+		return sections;
 	}
 	
 	private int getSecondSection() {
@@ -376,4 +452,9 @@ public class SearchResultAdapter extends AmazingAdapter {
 		notifyDataSetChanged();
 	}
 	
+	public void setSearchResult(List<Pair<String, List<SearchResult>>> search)
+	{
+		this.mData = search;
+		notifyDataSetChanged();
+	}
 }
