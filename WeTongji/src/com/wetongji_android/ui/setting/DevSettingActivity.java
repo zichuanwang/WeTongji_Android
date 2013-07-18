@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceScreen;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
@@ -15,7 +16,7 @@ import com.wetongji_android.ui.auth.AuthActivity;
 import com.wetongji_android.util.common.WTApplication;
 
 public class DevSettingActivity extends SherlockPreferenceActivity 
-implements OnSharedPreferenceChangeListener{
+implements OnSharedPreferenceChangeListener, OnPreferenceClickListener{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,9 @@ implements OnSharedPreferenceChangeListener{
 
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharePreferences, String key) {
-		
+		if (key.equals("pref_user_test_server")) {
+			
+		}
 	}
 
 	@Override
@@ -41,11 +44,19 @@ implements OnSharedPreferenceChangeListener{
 	private void logout() {
 		AccountManager am = AccountManager.get(this);
 		Account[] accounts = am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
-		am.removeAccount(accounts[0], null, null);
+		if (accounts.length != 0) {
+			am.removeAccount(accounts[0], null, null);
+		}
 		Intent intent = new Intent();
 		intent.setClass(this, AuthActivity.class);
 		startActivity(intent);
 		finish();
+	}
+
+	@Override
+	public boolean onPreferenceClick(Preference preference) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	

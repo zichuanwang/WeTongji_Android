@@ -1,10 +1,21 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory 
-        android:title="开发设置"
-        android:key="pref_key_dev_settings">
-        <Preference 
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory
+        android:key="pref_key_dev_settings"
+        android:title="开发设置" >
+        <Preference
             android:key="pref_is_login_setting"
             android:summary="登出账号"
-            android:title="登出"/>
+            android:title="登出" />
+
+        <!--CheckBoxPreference
+            android:defaultValue="true"
+            android:key="pref_use_test_server"
+            android:summary="使用leiz.name:8080"
+            android:title="使用测试服务器"
+            android:persistent="true" >
+        </CheckBoxPreference-->
+        
     </PreferenceCategory>
+
 </PreferenceScreen>
