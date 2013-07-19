@@ -203,7 +203,7 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 				mActivity.overridePendingTransition(R.anim.slide_right_in,
 						R.anim.slide_left_out);
 			} else if (v.getId() == R.id.layout_profile_my_profile) {
-				Intent intent = new Intent(mActivity, ProfileUpdateActivity.class);
+				Intent intent = new Intent(mActivity, ProfileInfoActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putParcelable(BUNDLE_USER, mUser);
 				intent.putExtras(bundle);
