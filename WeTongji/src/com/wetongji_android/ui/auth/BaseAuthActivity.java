@@ -19,11 +19,12 @@ import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseImagePickActivity;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
-public class BaseAuthActivity extends SherlockFragmentActivity implements
+public class BaseAuthActivity extends WTBaseImagePickActivity implements
 		LoaderCallbacks<HttpRequestResult> {
 
 	public static final String PARAM_CONFIRM_CREDENTIALS = "confirmCredentials";
