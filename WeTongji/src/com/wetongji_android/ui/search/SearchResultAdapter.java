@@ -6,20 +6,13 @@ import java.util.List;
 import com.androidquery.AQuery;
 import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.R;
-import com.wetongji_android.data.Account;
-import com.wetongji_android.data.Activity;
-import com.wetongji_android.data.Information;
-import com.wetongji_android.data.Person;
 import com.wetongji_android.data.SearchResult;
-import com.wetongji_android.data.SearchResults;
-import com.wetongji_android.data.User;
 import com.wetongji_android.util.common.WTApplication;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +26,6 @@ public class SearchResultAdapter extends AmazingAdapter {
 	private Fragment mFragment;
 	private Context mContext;
 	private LayoutInflater mInflater;
-	private SearchResults mResults;
 	private AQuery mListAq;
 	private AQuery mShouldDelayAq;
 	private BitmapDrawable mBmDefaultThumbnails;
@@ -47,13 +39,6 @@ public class SearchResultAdapter extends AmazingAdapter {
 		RelativeLayout rl_item;
 	}
 	
-	public class Result {
-		public String title;
-		public String desc;
-		public String pic;
-		public int gender = 0;
-	}
-	
 	public SearchResultAdapter(Fragment fragment) {
 		mFragment = fragment;
 		mContext = fragment.getActivity();
@@ -63,17 +48,11 @@ public class SearchResultAdapter extends AmazingAdapter {
 				.getResources()
 				.getDrawable(R.drawable.event_list_thumbnail_place_holder);
 		mData = new ArrayList<Pair<String, List<SearchResult>>>();
-		addResult(new SearchResults());
 	}
 	
 	@Override
 	public int getCount() {
 		int count = 0;
-		/*count += mResults.getAccounts().size();
-		count += mResults.getUsers().size();
-		count += mResults.getActivities().size();
-		count += mResults.getInformation().size();
-		count += mResults.getPerson().size();*/
 		for(int i = 0; i < mData.size(); i++)
 		{
 			count += mData.get(i).second.size();
@@ -85,29 +64,6 @@ public class SearchResultAdapter extends AmazingAdapter {
 	@Override
 	public Object getItem(int position) {
 		int pos = 0;
-		/*if (position < mResults.getUsers().size() + pos) {
-			return mResults.getUsers().get(position);
-		} else {
-			pos += mResults.getUsers().size();
-		}
-		if (position < mResults.getAccounts().size() + pos) {
-			return mResults.getAccounts().get(position - pos);
-		} else {
-			pos += mResults.getAccounts().size();
-		}
-		if (position < mResults.getActivities().size() + pos) {
-			return mResults.getActivities().get(position - pos);
-		} else {
-			pos += mResults.getActivities().size();
-		}
-		if (position < mResults.getInformation().size() + pos) {
-			return mResults.getInformation().get(position - pos);
-		} else {
-			pos += mResults.getInformation().size();
-		}
-		if (position < mResults.getPerson().size() + pos) {
-			return mResults.getPerson().get(position - pos);
-		}*/
 		
 		for(int i = 0; i < mData.size(); i++)
 		{
@@ -149,19 +105,6 @@ public class SearchResultAdapter extends AmazingAdapter {
 	private void configureHeader(View view, int position) {
 		TextView tvSectionHeader = 
 				(TextView) view.findViewById(R.id.information_list_header);
-		/*Object item = getItem(position);
-		int stringResId = 0;
-		if (item instanceof User) {
-			stringResId = R.string.type_users;
-		} else if (item instanceof Account) {
-			stringResId = R.string.type_org;
-		} else if (item instanceof Activity) {
-			stringResId = R.string.type_activities;
-		} else if (item instanceof Information) {
-			stringResId = R.string.type_information;
-		} else if (item instanceof Person) {
-			stringResId = R.string.type_stars;
-		}*/
 		
 		tvSectionHeader.setText(getSections()[getSectionForPosition(position)]);
 	}
@@ -180,32 +123,37 @@ public class SearchResultAdapter extends AmazingAdapter {
 					.findViewById(R.id.search_result_name);
 			holder.tv_description = (TextView) convertView
 					.findViewById(R.id.search_result_sub_name);
-			
+			holder.rl_item = (RelativeLayout)convertView.findViewById(R.id.search_result_item);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
-			Result result = convertItemToResult(position);
-			holder.tv_title.setText(result.title);
-			holder.tv_description.setText(result.desc);
-			
 			Drawable gender = null;
-			if (result.gender == 1) {
-				gender = mFragment.getActivity().getResources()
-						.getDrawable(R.drawable.ic_profile_gender_male);
-			} else if (result.gender == 2) {
-				gender = mFragment.getActivity().getResources()
-						.getDrawable(R.drawable.ic_profile_gender_female);
+			SearchResult sr = (SearchResult)getItem(position);
+			int section = getSectionForPosition(position);
+			int pos = getPositionForSection(section);
+			
+			if((position - pos) % 2 == 0)
+			{
+				holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row1));
+			}else
+			{
+				holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row2));
 			}
+			holder.tv_title.setText(sr.getTitle());
+			holder.tv_description.setText(sr.getDesc());
+
+			gender = mFragment.getActivity().getResources()
+					.getDrawable(R.drawable.ic_profile_gender_female);
 			holder.tv_description.setCompoundDrawables(gender, null, null, null);
 			//add image
 			mShouldDelayAq = mListAq.recycle(convertView);
-			if (!result.pic.equals(WTApplication.MISSING_IMAGE_URL)) {
+			if (!sr.getAvatar().equals(WTApplication.MISSING_IMAGE_URL)) {
 				if (mShouldDelayAq.shouldDelay(position, convertView, parent,
-						result.pic)) {
+						sr.getAvatar())) {
 					mShouldDelayAq.id(holder.iv_pic)
 							.image(mBmDefaultThumbnails);
 				} else {
-					mShouldDelayAq.id(holder.iv_pic).image(result.pic, true,
+					mShouldDelayAq.id(holder.iv_pic).image(sr.getAvatar(), true,
 							true, 360,
 							R.drawable.event_list_thumbnail_place_holder, null,
 							AQuery.FADE_IN_NETWORK, 1.0f);
@@ -214,20 +162,6 @@ public class SearchResultAdapter extends AmazingAdapter {
 				mShouldDelayAq.id(holder.iv_pic).image(mBmDefaultThumbnails);
 			}
 		}
-		
-		SearchResult sr = (SearchResult)getItem(position);
-		int section = getSectionForPosition(position);
-		int pos = getPositionForSection(section);
-		
-		if((position - pos) % 2 == 0)
-		{
-			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row1));
-		}else
-		{
-			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row2));
-		}
-		holder.tv_title.setText(sr.getTitle());
-		holder.tv_description.setText(sr.getDesc());
 		
 		return convertView;
 	}
@@ -239,19 +173,6 @@ public class SearchResultAdapter extends AmazingAdapter {
 
 	@Override
 	public int getPositionForSection(int section) {
-		/*switch (section) {
-		case 0:
-			return 0;
-		case 1:
-			return getSecondSection();
-		case 2:
-			return getThirdSection();
-		case 3:
-			return getFourthSection();
-		case 4:
-			return getFifthSection();
-		}*/
-		
 		if(section < 0) section = 0;
 		if(section >= mData.size()) section = mData.size() - 1;
 		
@@ -272,21 +193,6 @@ public class SearchResultAdapter extends AmazingAdapter {
 
 	@Override
 	public int getSectionForPosition(int position) {
-		/*Object item = getItem(position);
-		int section = 0;
-		if (item instanceof User) {
-			section = 0;
-		} else if (item instanceof Account) {
-			section = 1;
-		} else if (item instanceof Activity) {
-			section = 2;
-		} else if (item instanceof Information) {
-			section = 3;
-		} else if (item instanceof Person) {
-			section = 4;
-		}
-		return section;*/
-		
 		int c= 0;
 		
 		for(int i = 0; i < mData.size(); i++)
@@ -304,33 +210,6 @@ public class SearchResultAdapter extends AmazingAdapter {
 
 	@Override
 	public String[] getSections() {
-		/*Log.v(TAG, "getSections");
-		String user = mFragment.getString(R.string.type_users);
-		String accounts = mFragment.getString(R.string.type_org);
-		String activity = mFragment.getString(R.string.type_activities);
-		String information = mFragment.getString(R.string.type_information);
-		String star = mFragment.getString(R.string.type_stars);
-		
-		List<String> sections = new ArrayList<String>();
-		if (mResults.getPerson().size() != 0) {
-			sections.add(star);
-		}
-		if (mResults.getInformation().size() != 0) {
-			sections.add(information);
-		}
-		if (mResults.getActivities().size() != 0) {
-			sections.add(activity);
-		}
-		if (mResults.getAccounts().size() != 0) {
-			sections.add(accounts);
-		}
-		if (mResults.getUsers().size() != 0) {
-			sections.add(user);
-		}
-		
-		Log.v("size", "" + sections.size());
-		return (String[]) sections.toArray();*/
-		
 		String[] sections = new String[mData.size()];
 		
 		for(int i = 0; i < mData.size(); i++)
@@ -340,120 +219,9 @@ public class SearchResultAdapter extends AmazingAdapter {
 		
 		return sections;
 	}
-	
-	private int getSecondSection() {
-		int pos = 0;
-		if (mResults.getUsers().size() != 0) {
-			return mResults.getUsers().size();
-		} else if (mResults.getAccounts().size() != 0){
-			return mResults.getAccounts().size() + pos;
-		} else if (mResults.getActivities().size() != 0) {
-			return mResults.getActivities().size() + pos;
-		} else if (mResults.getInformation().size() != 0) {
-			return mResults.getInformation().size() + pos;
-		}
-		return pos;
-	}
-	
-	private int getThirdSection() {
-		int pos = 0;
-		if (mResults.getUsers().size() != 0) {
-			pos += mResults.getUsers().size();
-		} else if (mResults.getAccounts().size() != 0){
-			return mResults.getAccounts().size() + pos;
-		} else if (mResults.getActivities().size() != 0) {
-			return mResults.getActivities().size() + pos;
-		} else if (mResults.getInformation().size() != 0) {
-			return mResults.getInformation().size() + pos;
-		}
-		return pos;
-	}
-	
-	private int getFourthSection() {
-		int pos = 0;
-		if (mResults.getUsers().size() != 0) {
-			pos += mResults.getUsers().size();
-		} else if (mResults.getAccounts().size() != 0){
-			pos +=  mResults.getAccounts().size() + pos;
-		} else if (mResults.getActivities().size() != 0) {
-			return mResults.getActivities().size() + pos;
-		} else if (mResults.getInformation().size() != 0) {
-			return mResults.getInformation().size() + pos;
-		}
-		return pos;
-	}
-	
-	private int getFifthSection() {
-		int pos = 0;
-		if (mResults.getUsers().size() != 0) {
-			pos += mResults.getUsers().size();
-		} else if (mResults.getAccounts().size() != 0){
-			pos +=  mResults.getAccounts().size() + pos;
-		} else if (mResults.getActivities().size() != 0) {
-			pos += mResults.getActivities().size() + pos;
-		} else if (mResults.getInformation().size() != 0) {
-			return mResults.getInformation().size() + pos;
-		}
-		return pos;
-	}
-	
-	private Result convertItemToResult(int position) {
-		Result result = new Result();
-		Object item = getItem(position);
-		if (item instanceof User) {
-			User user = (User) item;
-			result.title = user.getName();
-			result.desc = user.getDepartment();
-			result.pic = user.getAvatar();
-			result.gender = user.getGender().equals("ÄÐ") ? 1 : 2;
-		} else if (item instanceof Account) {
-			Account org = (Account) item;
-			result.title = org.getName();
-			result.desc = org.getDescription();
-			result.pic = org.getImage();
-		} else if (item instanceof Activity) {
-			Activity activity = (Activity) item;
-			result.title = activity.getTitle();
-			result.desc = activity.getOrganizer();
-			result.pic = activity.getImage();
-		} else if (item instanceof Information) {
-			Information info = (Information) item;
-			result.title = info.getTitle();
-			result.desc = info.getOrganizer();
-			result.pic = "";
-		} else if (item instanceof Person) {
-			Person person = (Person) item;
-			result.title = person.getName();
-			result.desc = person.getJobTitle();
-			result.pic = person.getAvatar();
-		}
-		
-		return result;
-	}
-
-	public void addResult(SearchResults result) {
-		mResults = result;
-		if (mResults.getAccounts() == null) {
-			mResults.setAccounts(new ArrayList<Account>(0));
-		}
-		if (mResults.getUsers() == null) {
-			mResults.setUsers(new ArrayList<User>(0));
-		}
-		if (mResults.getPerson() == null) {
-			mResults.setPerson(new ArrayList<Person>(0));
-		}
-		if (mResults.getActivities() == null) {
-			mResults.setActivities(new ArrayList<Activity>(0));
-		}
-		if (mResults.getInformation() == null) {
-			mResults.setInformation(new ArrayList<Information>(0));
-		}
-		
-		notifyDataSetChanged();
-	}
-	
 	public void setSearchResult(List<Pair<String, List<SearchResult>>> search)
 	{
+		this.mData.clear();
 		this.mData = search;
 		notifyDataSetChanged();
 	}

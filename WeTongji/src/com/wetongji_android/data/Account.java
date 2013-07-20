@@ -1,11 +1,16 @@
 package com.wetongji_android.data;
 
+import java.io.Serializable;
+
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
 
-public class Account implements Parcelable {
+public class Account implements Parcelable, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int Id;
 	private String Name;
 	private String Display;
@@ -17,6 +22,7 @@ public class Account implements Parcelable {
 	private String Background;
 	private int Like;
 	private String Title;
+	private boolean CanLike;
 	
 	public Account(){
 	}
@@ -27,6 +33,25 @@ public class Account implements Parcelable {
 		Name = name;
 		Display = display;
 		Description = description;
+	}
+
+	public Account(int id, String name, String display, String description,
+			String image, String email, int informationCount,
+			int activitiesCount, String background, int like, String title,
+			boolean canLike) {
+		super();
+		Id = id;
+		Name = name;
+		Display = display;
+		Description = description;
+		Image = image;
+		Email = email;
+		InformationCount = informationCount;
+		ActivitiesCount = activitiesCount;
+		Background = background;
+		Like = like;
+		Title = title;
+		CanLike = canLike;
 	}
 
 	public int getId() {
@@ -117,6 +142,14 @@ public class Account implements Parcelable {
 		Title = title;
 	}
 
+	public boolean isCanLike() {
+		return CanLike;
+	}
+
+	public void setCanLike(boolean canLike) {
+		CanLike = canLike;
+	}
+	
 	@Override
 	public int describeContents() {
 		return 0;
@@ -135,6 +168,7 @@ public class Account implements Parcelable {
 		dest.writeString(Background);
 		dest.writeInt(Like);
 		dest.writeString(Title);
+		dest.writeByte((byte)(CanLike?1:0));
 	}
 	
 	public static final Creator<Account> CREATOR = new Creator<Account>() {
@@ -162,6 +196,6 @@ public class Account implements Parcelable {
 		this.Background = source.readString();
 		this.Like = source.readInt();
 		this.Title = source.readString();
+		this.CanLike = source.readByte() == 1;
 	}
-	
 }

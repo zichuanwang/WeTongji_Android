@@ -8,13 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.wetongji_android.data.Account;
-import com.wetongji_android.data.Activity;
-import com.wetongji_android.data.Course;
-import com.wetongji_android.data.Information;
-import com.wetongji_android.data.Person;
 import com.wetongji_android.data.SearchResult;
-import com.wetongji_android.data.User;
 
 import android.util.Pair;
 
@@ -59,10 +53,10 @@ public class SearchUtil
 			{
 				SearchResult result = new SearchResult();
 				result.setType(1);
-				Information info = (Information)array.get(i);
-				result.setAvatar(info.getOrganizerAvatar());
-				result.setTitle(info.getTitle());
-				result.setDesc(info.getSource());
+				JSONObject json = array.getJSONObject(i);
+				result.setAvatar(json.getString("OrganizerAvatar"));
+				result.setTitle(json.getString("Title"));
+				result.setDesc(json.getString("Summary"));
 				results.add(result);
 			}
 		}else if(key.equals("Accounts"))
@@ -71,10 +65,10 @@ public class SearchUtil
 			{
 				SearchResult result = new SearchResult();
 				result.setType(2);
-				Account account = (Account)array.get(i);
-				result.setAvatar(account.getImage());
-				result.setTitle(account.getTitle());
-				result.setDesc(account.getDescription());
+				JSONObject json = array.getJSONObject(i);
+				result.setAvatar(json.getString("Image"));
+				result.setDesc(json.getString("Description"));
+				result.setTitle(json.getString("Title"));
 				results.add(result);
 			}
 		}else if(key.equals("Users"))
@@ -83,10 +77,10 @@ public class SearchUtil
 			{
 				SearchResult result = new SearchResult();
 				result.setType(3);
-				User user = (User)array.get(i);
-				result.setAvatar(user.getAvatar());
-				result.setTitle(user.getName());
-				result.setDesc(user.getWords());
+				JSONObject json = array.getJSONObject(i);
+				result.setAvatar(json.getString("Avatar"));
+				result.setTitle(json.getString("DisplayName"));
+				result.setDesc(json.getString("Department"));
 				results.add(result);
 			}
 		}else if(key.equals("Courses"))
@@ -95,10 +89,10 @@ public class SearchUtil
 			{
 				SearchResult result = new SearchResult();
 				result.setType(4);
-				Course course = (Course)array.get(i);
-				result.setAvatar(course.getTeacher());
-				result.setTitle(course.getTitle());
-				result.setDesc(course.getLocation());
+				JSONObject json = array.getJSONObject(i);
+				result.setAvatar(json.getString("Teacher"));
+				result.setTitle(json.getString("Name"));
+				result.setDesc(json.getString("Teacher"));
 				results.add(result);
 			}
 		}else if(key.equals("Activities"))
@@ -107,10 +101,10 @@ public class SearchUtil
 			{
 				SearchResult result = new SearchResult();
 				result.setType(5);
-				Activity activity = (Activity)array.get(i);
-				result.setAvatar(activity.getImage());
-				result.setTitle(activity.getTitle());
-				result.setDesc(activity.getDescription());
+				JSONObject json = array.getJSONObject(i);
+				result.setAvatar(json.getString("OrganizerAvatar"));
+				result.setTitle(json.getString("Title"));
+				result.setDesc(json.getString("Description"));
 				results.add(result);
 			}
 		}else
@@ -119,10 +113,10 @@ public class SearchUtil
 			{
 				SearchResult result = new SearchResult();
 				result.setType(6);
-				Person person = (Person)array.get(i);
-				result.setAvatar(person.getAvatar());
-				result.setTitle(person.getTitle());
-				result.setDesc(person.getDescription());
+				JSONObject json = array.getJSONObject(i);
+				result.setAvatar(json.getString("Avatar"));
+				result.setTitle(json.getString("Title"));
+				result.setDesc(json.getString("Words"));
 				results.add(result);
 			}
 		}
