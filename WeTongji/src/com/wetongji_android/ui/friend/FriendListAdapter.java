@@ -3,6 +3,7 @@ package com.wetongji_android.ui.friend;
 import java.util.HashMap;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -43,7 +44,7 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 	
 	private static HashMap<Integer, Boolean> isSelected;
 	
-	static class ViewHolder
+	public final class ViewHolder
 	{
 		TextView tvFriendName;
 		TextView tvFriendDepart;
@@ -52,6 +53,7 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 		CheckBox cbFriendInvite;
 	}
 	
+	@SuppressLint("UseSparseArrays")
 	public FriendListAdapter(Fragment fragment, AbsListView listView)
 	{
 		super(fragment.getActivity(), listView, R.layout.amazing_lst_view_loading_view);
@@ -70,7 +72,7 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 			LIST_THUMBNAILS_TARGET_WIDTH = (int)(dm.widthPixels / LIST_THUMBNAILS_TARGET_WIDTH_FACTOR);
 		}
 		
-		initData();
+		isSelected = new HashMap<Integer, Boolean>();
 	}
 	
 	private void initData()
@@ -167,6 +169,8 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 			getData().addAll(arg1);
 			setIsLoadingData(false);
 			notifyDataSetChanged();
+			
+			initData();
 		}else
 		{
 			((FriendListFragment)mFragment).refreshData();

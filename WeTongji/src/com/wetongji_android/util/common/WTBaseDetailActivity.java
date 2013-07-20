@@ -132,7 +132,8 @@ public class WTBaseDetailActivity extends SherlockActivity
 							Toast.LENGTH_SHORT).show();
 				}else
 				{
-					
+					Toast.makeText(WTBaseDetailActivity.this, getResources().getText(R.string.no_account_error), 
+							Toast.LENGTH_SHORT).show();
 				}
 			}else if(v.getId() == R.id.btn_event_detail_attend)
 			{
@@ -142,7 +143,8 @@ public class WTBaseDetailActivity extends SherlockActivity
 							Toast.LENGTH_SHORT).show();
 				}else
 				{
-					
+					Toast.makeText(WTBaseDetailActivity.this, getResources().getText(R.string.no_account_error), 
+							Toast.LENGTH_SHORT).show();
 				}
 			}
 		}

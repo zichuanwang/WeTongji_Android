@@ -24,6 +24,7 @@ import com.wetongji_android.data.User;
 import com.wetongji_android.factory.UserFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.friend.FriendListAdapter.ViewHolder;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.net.ApiHelper;
@@ -40,6 +41,8 @@ public class FriendListFragment extends WTBaseFragment implements
 	
 	private ListView lstFriends;
 	private FriendListAdapter mAdapter;
+	
+	private String iSelectedId;
 	
 	@Override
 	public void onAttach(Activity activity) 
@@ -150,19 +153,36 @@ public class FriendListFragment extends WTBaseFragment implements
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, apiHelper.getFriends(), this);
 	}
 	
+	public String getiSelectedId() {
+		return iSelectedId;
+	}
+
+	public void setiSelectedId(String iSelectedId) {
+		this.iSelectedId = iSelectedId;
+	}
+
 	class ItemClickListener implements OnItemClickListener
 	{
 		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+		public void onItemClick(AdapterView<?> arg0, View view, int position,
 				long arg3) 
 		{
 			// TODO Auto-generated method stub
-			Intent intent = new Intent(mActivity, FriendDetailActivity.class);
-			Bundle  bundle = new Bundle();
-			bundle.putParcelable(BUNDLE_KEY_USER, mAdapter.getItem(arg2));
-			intent.putExtras(bundle);
-			startActivity(intent);
-			mActivity.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
+			if(mActivity instanceof FriendInviteActivity)
+			{
+				ViewHolder holder = (ViewHolder)view.getTag();
+				holder.cbFriendInvite.toggle();
+				FriendListAdapter.getIsSelected().put(position, holder.cbFriendInvite.isChecked());
+				iSelectedId = mAdapter.getItem(position).getUID();
+			}else
+			{
+				Intent intent = new Intent(mActivity, FriendDetailActivity.class);
+				Bundle  bundle = new Bundle();
+				bundle.putParcelable(BUNDLE_KEY_USER, mAdapter.getItem(position));
+				intent.putExtras(bundle);
+				startActivity(intent);
+				mActivity.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
+			}
 		}
 	}
 }
