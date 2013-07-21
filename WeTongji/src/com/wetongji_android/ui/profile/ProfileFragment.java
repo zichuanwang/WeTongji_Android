@@ -41,6 +41,7 @@ import com.wetongji_android.ui.friend.FriendListActivity;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseFragment;
+import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.image.ImageUtil;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
@@ -67,7 +68,6 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	private RelativeLayout rlMyProfile;
 	private ImageView mIvAvatar;
 	private Button mBtnChangeAvatar;
-	private ImageButton btnFriendAdd;
 	
 	private Activity mActivity;
 	
@@ -82,8 +82,9 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 			getLoaderManager().initLoader(WTApplication.USER_LOADER, null, this);
 			break;
 		case SCREEN_ROTATE:
-			break;
 		case ACTIVITY_DESTROY_AND_CREATE:
+			mUser = savedInstanceState.getParcelable(BUNDLE_USER);
+			setWidgets();
 			break;
 		}
 	}
@@ -105,6 +106,14 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		return mContentView;
 	}
 	
+	
+	
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putParcelable(BUNDLE_USER, mUser);
+	}
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -145,26 +154,27 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		
 	}
 	
-	private void setWidgets(User user) {
-		if (!TextUtils.isEmpty(user.getWords())) {
-			mTvWords.setText("\"" + user.getWords() + "\"");
+	private void setWidgets() {
+		if (!TextUtils.isEmpty(mUser.getWords())) {
+			mTvWords.setText("\"" + mUser.getWords() + "\"");
 		}
 		
-		mTvCollege.setText(user.getDepartment());
+		mTvCollege.setText(mUser.getDepartment());
 		String fmt = getResources().getString(R.string.text_friends_counter);
-		mTvFriendsNum.setText(String.format(fmt, user.getFriendCount()));
+		mTvFriendsNum.setText(String.format(fmt, mUser.getFriendCount()));
 		
 		String format = getResources().getString(R.string.format_likes);
-		mTvEventsLikes.setText(String.format(format, user.getLikeCount().getActivity()));
-		mTvNewsLikes.setText(String.format(format, user.getLikeCount().getInformation()));
-		mTvPeopleLikes.setText(String.format(format, user.getLikeCount().getPerson()));
-		mTvOrgsLikes.setText(String.format(format, user.getLikeCount().getAccount()));
+		mTvEventsLikes.setText(String.format(format, mUser.getLikeCount().getActivity()));
+		mTvNewsLikes.setText(String.format(format, mUser.getLikeCount().getInformation()));
+		mTvPeopleLikes.setText(String.format(format, mUser.getLikeCount().getPerson()));
+		mTvOrgsLikes.setText(String.format(format, mUser.getLikeCount().getAccount()));
 		/*mTvParActivities.setText(String.format(format, user.get));
 		mTvParCourse.setText(String.format(format, user));*/
 		
-		((MainActivity)mActivity).getSupportActionBar().setTitle(user.getName());
-		
-		// set Avatar
+		((MainActivity)mActivity).getSupportActionBar().setTitle(mUser.getName());
+	}
+	
+	private void setAvatarFromUrl() {
 		AQuery aq = WTApplication.getInstance().getAq(getActivity());
 		aq.id(R.id.img_profile_avatar).image((mUser.getAvatar() == null ? "" : mUser.getAvatar()),
 				true, true, 0, 0, 
@@ -178,10 +188,16 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	}
 
 	@Override
-	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
-		Bundle bundle = ApiHelper.getInstance(getActivity()).getUserGet();
-		
-		NetworkLoader loader = new NetworkLoader(getActivity(), HttpMethod.Get, bundle);
+	public Loader<HttpRequestResult> onCreateLoader(int loaderId, Bundle arg1) {
+		NetworkLoader loader = null;
+		if (loaderId == WTApplication.USER_LOADER) {
+			Bundle bundle = ApiHelper.getInstance(getActivity()).getUserGet();
+			loader = new NetworkLoader(getActivity(), HttpMethod.Get, bundle);
+		} else if (loaderId == WTApplication.UPLOAD_AVATAR_LOADER){
+			Bundle bundle = ApiHelper.getInstance(getActivity())
+					.postUserUpdateAvatar(mStrImgLocalPath);
+			loader = new NetworkLoader(getActivity(), HttpMethod.Post, bundle);
+		}
 		return loader;
 	}
 
@@ -189,20 +205,29 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	public void onLoadFinished(Loader<HttpRequestResult> loader,
 			HttpRequestResult result) 
 	{
-		JSONObject json = null;
-		String strUser = null;
-		if (result.getResponseCode() == 0) {
-			try {
-				json = new JSONObject(result.getStrResponseCon());
-				strUser = json.getString("User");
-			} catch (JSONException e) {
+		if (loader.getId() == WTApplication.USER_LOADER) {
+			JSONObject json = null;
+			String strUser = null;
+			if (result.getResponseCode() == 0) {
+				try {
+					json = new JSONObject(result.getStrResponseCon());
+					strUser = json.getString("User");
+				} catch (JSONException e) {
+				}
+				UserFactory factory = new UserFactory(this);
+				mUser = factory.createSingleObject(strUser);
+				setWidgets();
+				setAvatarFromUrl();
 			}
-			
-			UserFactory factory = new UserFactory(this);
-			mUser = factory.createSingleObject(strUser);
-			setWidgets(mUser);
-			
 			getLoaderManager().destroyLoader(WTApplication.USER_LOADER);
+		} else if (loader.getId() == WTApplication.UPLOAD_AVATAR_LOADER) {
+			if (result.getResponseCode() == 0) {
+				Toast.makeText(getActivity(), R.string.text_save_success,
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+		if (result.getResponseCode() != 0) {
+			ExceptionToast.show(getActivity(), result.getResponseCode());
 		}
 	}
 
@@ -236,6 +261,8 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		mStrImgLocalPath = bundle.getString("imagePath");
 		mIvAvatar.setImageBitmap(bmAvatar);
 		setHeadBluredBg(bmAvatar);
+		
+		getLoaderManager().initLoader(WTApplication.UPLOAD_AVATAR_LOADER, bundle, this);
 	}
 	
 	class ClickListener implements OnClickListener {

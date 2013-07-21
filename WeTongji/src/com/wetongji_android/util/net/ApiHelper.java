@@ -216,13 +216,12 @@ public class ApiHelper {
 		return bundle;
 	}
 	
-	public Bundle postUserUpdateAvatar(){
+	public Bundle postUserUpdateAvatar(String path){
 		Bundle bundle=new Bundle();
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "User.Update.Avatar");
-		//TODO object User need to be submitted
-		bundle.putString(API_ARGS_IMAGE, "");
+		bundle.putString(API_ARGS_IMAGE, path);
 		return bundle;
 	}
 	

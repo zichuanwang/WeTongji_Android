@@ -42,21 +42,4 @@ public class PickImageIntentWrapper {
 		return intent;
 
 	}
-	
-	public static Intent getCropImageIntent(Bitmap data) {
-		Intent intent = new Intent("com.android.camera.action.CROP");
-		intent.putExtra("data", data);
-		intent.setType("image/*");
-		intent.putExtra("crop", "true");
-		intent.putExtra("aspectX", 1);
-		intent.putExtra("aspectY", 1);
-		intent.putExtra("scale", true);
-		intent.putExtra("noFaceDetection", true);
-		intent.putExtra("outputX", 200);
-		intent.putExtra("outputY", 200);
-		intent.putExtra("return-data", true);
-		return intent;
-
-	}
-
 }
