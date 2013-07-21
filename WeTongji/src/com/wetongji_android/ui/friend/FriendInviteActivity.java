@@ -12,6 +12,10 @@ import android.widget.ToggleButton;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.wetongji_android.R;
+import com.wetongji_android.net.NetworkLoader;
+import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 public class FriendInviteActivity extends SherlockFragmentActivity implements
@@ -63,7 +67,10 @@ public class FriendInviteActivity extends SherlockFragmentActivity implements
 	@Override
 	public void onCheckedChanged(CompoundButton arg0, boolean arg1) 
 	{
-
+		FriendListFragment fragment = (FriendListFragment)getSupportFragmentManager().findFragmentByTag(TAG_FRIEND_INVITE_FRAGMENT);
+		
+		ApiHelper helper = ApiHelper.getInstance(this);
+		getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_INVITE, helper.getActivityInviate(1, fragment.getiSelectedId()), this);
 	}
 
 	@Override
@@ -75,7 +82,7 @@ public class FriendInviteActivity extends SherlockFragmentActivity implements
 	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) 
 	{
-		return null;
+		return new NetworkLoader(this, HttpMethod.Get, arg1);
 	}
 
 	@Override

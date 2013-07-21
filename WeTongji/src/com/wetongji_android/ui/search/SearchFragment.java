@@ -1,9 +1,6 @@
 package com.wetongji_android.ui.search;
 
 import java.sql.SQLException;
-import java.util.List;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -32,8 +28,6 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.foound.widget.AmazingListView;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.j256.ormlite.table.TableUtils;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Account;
@@ -41,9 +35,7 @@ import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.data.Person;
 import com.wetongji_android.data.Search;
-import com.wetongji_android.data.SearchResults;
 import com.wetongji_android.data.User;
-import com.wetongji_android.factory.SearchFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.event.EventDetailActivity;
@@ -57,6 +49,7 @@ import com.wetongji_android.ui.people.PeopleListFragment;
 import com.wetongji_android.ui.people.PersonDetailActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.DbHelper;
+import com.wetongji_android.util.data.search.SearchUtil;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
@@ -306,11 +299,7 @@ public class SearchFragment extends SherlockFragment implements
 	}
 	
 	private void processSearchResult(String jsonStr) {
-		Gson gson = new GsonBuilder()
-		  .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-		  .create();
-		SearchResults result = gson.fromJson(jsonStr, SearchResults.class);
-		mResultAdapter.addResult(result);
+		mResultAdapter.setSearchResult(SearchUtil.generateSearchResults(jsonStr));
 		mResultAdapter.notifyDataSetChanged();
 	}
 

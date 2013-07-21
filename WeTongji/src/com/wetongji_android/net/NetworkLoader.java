@@ -66,7 +66,4 @@ public class NetworkLoader extends AsyncTaskLoader<HttpRequestResult>
 			//deliverResult(data);
 		}
 	}
-	
-	
-	
 }

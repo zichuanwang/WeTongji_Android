@@ -58,6 +58,7 @@ public class ApiHelper {
 	public static final String API_ARGS_METHOD="M";
 	private static final String API_ARGS_VERSION="V";
 	private static final String API_ARGS_UID="U";
+	private static final String API_ARGS_USER_ID = "UID";
 	private static final String API_ARGS_PAGE="P";
 	private static final String API_ARGS_SESSION="S";
 	private static final String API_ARGS_NO="NO";
@@ -531,4 +532,16 @@ public class ApiHelper {
 		return bundle;
 	}
 	
+	public Bundle getActivityInviate(int id, String uid)
+	{
+		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_METHOD, "Activity.Invite");
+		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		bundle.putString(API_ARGS_USER_ID, uid);
+		
+		return bundle;
+	}
 }
