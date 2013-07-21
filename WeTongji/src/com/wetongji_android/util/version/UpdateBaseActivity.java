@@ -1,12 +1,12 @@
 package com.wetongji_android.util.version;
 
-import com.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Version;
 import com.wetongji_android.factory.VersionFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseImagePickActivity;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
@@ -22,7 +22,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
 
-public class UpdateBaseActivity extends SlidingFragmentActivity 
+public class UpdateBaseActivity extends WTBaseImagePickActivity 
 implements LoaderCallbacks<HttpRequestResult>{
 	
 	private ApiHelper apiHelper;

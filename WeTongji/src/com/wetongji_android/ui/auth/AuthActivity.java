@@ -1,26 +1,13 @@
 package com.wetongji_android.ui.auth;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Environment;
-import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ListAdapter;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -28,7 +15,6 @@ import com.flurry.android.FlurryAgent;
 import com.wetongji_android.R;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.image.PickImageIntentWrapper;
 
 public class AuthActivity extends BaseAuthActivity implements OnClickListener, OnCheckedChangeListener{
 	
@@ -44,13 +30,18 @@ public class AuthActivity extends BaseAuthActivity implements OnClickListener, O
 	}
 
 	@Override
-	protected void onCreate(Bundle arg0) {
+	public void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_authenticator);
 		getSupportFragmentManager().beginTransaction()
 			.add(R.id.auth_content_container, LoginFragment.newInstance(mUsername), TAG_LOGIN_FRAGMENT)
 			.commit();
 		setupActionBar();
+		
+		/** setBehindContentView make no sense but cleanging
+		 * error caused by SlidingFragmentActivity
+		 */
+		setBehindContentView(R.layout.menu_frame);
 	}
 
 	@Override
@@ -114,11 +105,18 @@ public class AuthActivity extends BaseAuthActivity implements OnClickListener, O
                  fragment.setAvatar(bundle);
                  break;  
              }
-             case CAMERA_WITH_DATA:
-             {
-                 final Bitmap bm = data.getParcelableExtra("data");
-                 doCropPhoto(bm);
+             case CAMERA_WITH_DATA: {
+                 doCropPhoto();
                  break;
+             }
+             case PHOTO_CROPED_WITH_DATA: {
+					RegisterFragment fragment = (RegisterFragment) getSupportFragmentManager()
+							.findFragmentByTag(TAG_REGISTER_FRAGMENT);
+					Bundle bundle = new Bundle();
+					Bitmap bm = decodeUriAsBitmap(mUriTemp);
+	            	bundle.putParcelable("cropedImage", bm);
+	                bundle.putString("imagePath", mUriTemp.getPath());
+					fragment.setAvatar(bundle);
              }
          }  
      }

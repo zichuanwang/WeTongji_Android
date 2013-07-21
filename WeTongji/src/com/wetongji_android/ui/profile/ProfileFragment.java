@@ -12,11 +12,14 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +28,11 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxStatus;
+import com.androidquery.callback.BitmapAjaxCallback;
 import com.wetongji_android.R;
+import com.wetongji_android.data.ActivityList;
 import com.wetongji_android.data.User;
 import com.wetongji_android.factory.UserFactory;
 import com.wetongji_android.net.NetworkLoader;
@@ -33,15 +40,18 @@ import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.friend.FriendListActivity;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.image.ImageUtil;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
-public class ProfileFragment extends SherlockFragment implements LoaderCallbacks<HttpRequestResult>{
+public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<HttpRequestResult>{
 
 	public static final String BUNDLE_USER = "BUNDLE_USER";
 	
 	private User mUser;
+	private String mStrImgLocalPath;
+	private View mContentView;
 	
 	private TextView mTvWords;
 	private TextView mTvCollege;
@@ -55,13 +65,27 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 	
 	private RelativeLayout rlFriendsList;
 	private RelativeLayout rlMyProfile;
+	private ImageView mIvAvatar;
+	private Button mBtnChangeAvatar;
 	private ImageButton btnFriendAdd;
 	
 	private Activity mActivity;
 	
+	private OnClickListener mClickListener = new ClickListener();
+	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		
+		switch(getCurrentState(savedInstanceState)) {
+		case FIRST_TIME_START:
+			getLoaderManager().initLoader(WTApplication.USER_LOADER, null, this);
+			break;
+		case SCREEN_ROTATE:
+			break;
+		case ACTIVITY_DESTROY_AND_CREATE:
+			break;
+		}
 	}
 
 	@Override
@@ -74,19 +98,15 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_profile, null);
+		mContentView = inflater.inflate(R.layout.fragment_profile, null);
+		mIvAvatar = (ImageView) mContentView.findViewById(R.id.img_profile_avatar);
+		initWidgets(mContentView);
 		
-		setHeadBluredBg(view);
-		initWidgets(view);
-		
-		this.getLoaderManager().initLoader(WTApplication.USER_LOADER, null, this);
-		
-		return view;
+		return mContentView;
 	}
 	
 	@Override
 	public void onAttach(Activity activity) {
-		// TODO Auto-generated method stub
 		super.onAttach(activity);
 		
 		mActivity = activity;
@@ -94,11 +114,10 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 	}
 
 	@SuppressWarnings("deprecation")
-	private void setHeadBluredBg(View view) {
-		RelativeLayout rl = (RelativeLayout) view.findViewById(R.id.layout_profile_header);
-		Bitmap resource = BitmapFactory.decodeResource(getResources(), R.drawable.test_avatar);
+	private void setHeadBluredBg(Bitmap source) {
+		RelativeLayout rl = (RelativeLayout) mContentView.findViewById(R.id.layout_profile_header);
 		int tH =  (496 * 200 / 1080);
-		Bitmap bm = Bitmap.createBitmap(resource, 0, (100 - tH / 2), 200, tH);
+		Bitmap bm = Bitmap.createBitmap(source, 0, (100 - tH / 2), 200, tH);
 		Bitmap bg = ImageUtil.fastblur(bm, 10);
 		rl.setBackgroundDrawable(new BitmapDrawable(getActivity().getResources(), bg));
 	}
@@ -119,7 +138,11 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 		rlFriendsList.setOnClickListener(new ClickListener());
 		
 		rlMyProfile = (RelativeLayout) v.findViewById(R.id.layout_profile_my_profile);
-		rlMyProfile.setOnClickListener(new ClickListener());
+		rlMyProfile.setOnClickListener(mClickListener);
+		
+		mBtnChangeAvatar = (Button) v.findViewById(R.id.btn_profile_action);
+		mBtnChangeAvatar.setOnClickListener(mClickListener);
+		
 	}
 	
 	private void setWidgets(User user) {
@@ -140,6 +163,18 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 		mTvParCourse.setText(String.format(format, user));*/
 		
 		((MainActivity)mActivity).getSupportActionBar().setTitle(user.getName());
+		
+		// set Avatar
+		AQuery aq = WTApplication.getInstance().getAq(getActivity());
+		aq.id(R.id.img_profile_avatar).image((mUser.getAvatar() == null ? "" : mUser.getAvatar()),
+				true, true, 0, 0, 
+				new BitmapAjaxCallback() {
+			@Override
+			protected void callback(String url, ImageView iv, Bitmap bm, AjaxStatus status) {
+				iv.setImageBitmap(bm);
+				setHeadBluredBg(bm);
+			}	
+		});
 	}
 
 	@Override
@@ -151,7 +186,7 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 	}
 
 	@Override
-	public void onLoadFinished(Loader<HttpRequestResult> arg0,
+	public void onLoadFinished(Loader<HttpRequestResult> loader,
 			HttpRequestResult result) 
 	{
 		JSONObject json = null;
@@ -166,6 +201,8 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 			UserFactory factory = new UserFactory(this);
 			mUser = factory.createSingleObject(strUser);
 			setWidgets(mUser);
+			
+			getLoaderManager().destroyLoader(WTApplication.USER_LOADER);
 		}
 	}
 
@@ -194,6 +231,13 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 		return super.onOptionsItemSelected(item);
 	}
 	
+	public void setAvatar(Bundle bundle) {
+		Bitmap bmAvatar = bundle.getParcelable("cropedImage");
+		mStrImgLocalPath = bundle.getString("imagePath");
+		mIvAvatar.setImageBitmap(bmAvatar);
+		setHeadBluredBg(bmAvatar);
+	}
+	
 	class ClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
@@ -210,6 +254,8 @@ public class ProfileFragment extends SherlockFragment implements LoaderCallbacks
 				startActivity(intent);
 				mActivity.overridePendingTransition(R.anim.slide_right_in,
 						R.anim.slide_left_out);
+			} else if (v.getId() == R.id.btn_profile_action) {
+				((MainActivity) getActivity()).doPickPhotoAction();
 			}
 		}
 	}

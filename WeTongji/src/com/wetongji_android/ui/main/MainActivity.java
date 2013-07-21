@@ -1,5 +1,7 @@
 package com.wetongji_android.ui.main;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -10,6 +12,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.flurry.android.FlurryAgent;
 import com.slidingmenu.lib.SlidingMenu;
 import com.wetongji_android.R;
+import com.wetongji_android.ui.auth.RegisterFragment;
 import com.wetongji_android.ui.notification.NotificationFragment;
 import com.wetongji_android.ui.now.NowFragment;
 import com.wetongji_android.ui.profile.ProfileFragment;
@@ -104,6 +107,43 @@ public class MainActivity extends UpdateBaseActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode != RESULT_OK)  {
+			return;  
+		}
+        switch (requestCode) 
+        {  
+            case PHOTO_PICKED_WITH_DATA: 
+            {    
+                final Bitmap bm = data.getParcelableExtra("data");
+                saveBitmap(bm);
+                
+                ProfileFragment fragment = (ProfileFragment) mContent;
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("cropedImage", bm);
+                bundle.putString("imagePath", UPLOAD_AVATAR.getPath());
+                fragment.setAvatar(bundle);
+                break;  
+            }
+            case CAMERA_WITH_DATA:
+            {
+                doCropPhoto();
+                break;
+            }
+            case  PHOTO_CROPED_WITH_DATA: {
+            	ProfileFragment fragment = (ProfileFragment) mContent;
+            	Bundle bundle = new Bundle();
+            	Bitmap bm = decodeUriAsBitmap(mUriTemp);
+            	bundle.putParcelable("cropedImage", bm);
+                bundle.putString("imagePath", mUriTemp.getPath());
+                fragment.setAvatar(bundle);
+            	break;
+            }
+            	
+        }  
+	}
+
 	public void switchContent(Fragment fragment) {
 		if((fragment instanceof NowFragment) || (fragment instanceof ProfileFragment))
 		{

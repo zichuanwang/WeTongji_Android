@@ -1,6 +1,7 @@
 package com.wetongji_android.util.common;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -10,6 +11,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.ContextThemeWrapper;
@@ -17,25 +20,28 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.wetongji_android.R;
 import com.wetongji_android.util.image.PickImageIntentWrapper;
 
-public class WTBaseImagePickActivity extends SherlockFragmentActivity {
+public class WTBaseImagePickActivity extends SlidingFragmentActivity {
 	
 	protected static File PHOTO_DIR;
 	protected static File UPLOAD_AVATAR;
+	protected Uri mUriTemp;
 	protected static final int CAMERA_WITH_DATA = 3023;
 	protected static final int PHOTO_PICKED_WITH_DATA = 3021;
+	protected static final int PHOTO_CROPED_WITH_DATA = 3024;
 
 	
 	
 	@Override
-	protected void onCreate(Bundle arg0) {
+	public void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		
 		PHOTO_DIR = this.getExternalFilesDir("temp");
 		UPLOAD_AVATAR = new File(PHOTO_DIR, "upload_avatar.jpg");
+		mUriTemp = Uri.parse("file://" + UPLOAD_AVATAR.getPath());
 	}
 
 	public void doPickPhotoAction() {
@@ -94,7 +100,7 @@ public class WTBaseImagePickActivity extends SherlockFragmentActivity {
 		try {
 
 			final Intent intent = PickImageIntentWrapper
-					.getTakePickIntent(PHOTO_DIR);
+					.getTakePickIntent(mUriTemp);
 			startActivityForResult(intent, CAMERA_WITH_DATA);
 		} catch (ActivityNotFoundException e) {
 			Toast.makeText(this, R.string.text_no_camera,
@@ -125,12 +131,23 @@ public class WTBaseImagePickActivity extends SherlockFragmentActivity {
 		}
 	}
 
-	protected void doCropPhoto(Bitmap bm) {
-		Intent intent = PickImageIntentWrapper.getCropImageIntent(bm);
+	protected void doCropPhoto() {
+		Intent intent = PickImageIntentWrapper.getCropImageIntent(mUriTemp);
 		if (intent != null) {
-			startActivityForResult(intent, PHOTO_PICKED_WITH_DATA);
+			startActivityForResult(intent, PHOTO_CROPED_WITH_DATA);
 		} else {
 		}
+	}
+	
+	protected Bitmap decodeUriAsBitmap(Uri uri){
+		Bitmap bitmap = null;
+		try {
+			bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return bitmap;
 	}
 
 }
