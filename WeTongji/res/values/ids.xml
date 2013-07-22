@@ -206,4 +206,14 @@
     <item name="et_profile_dorm" type="id" />
     <item name="btn_main_menu_setting" type="id" />
     <item type="id" name="et_profile_motto">false</item>
+    <item name="text_profile_birthday" type="id" />
+    <item name="text_profile_student_no" type="id" />
+    <item name="text_profile_major" type="id" />
+    <item name="text_profile_dorm" type="id" />
+    <item name="text_profile_qq" type="id" />
+    <item name="text_profile_email" type="id" />
+    <item name="text_profile_phone" type="id" />
+    <item name="text_profile_motto" type="id" />
+    <item name="text_profile_weibo" type="id">false</item>
+    <item name="action_profile_edit" type="id">false</item>
 </resources>

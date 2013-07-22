@@ -188,4 +188,12 @@ public class DateParser {
 		
 		return sb.toString();
 	}
+	
+	public static String parseDateFromString(String time, Context context) {
+		String result = null;
+		Date date = parseDateAndTime(time);
+		result = DateUtils.formatDateTime(context, date.getTime(),
+				DateUtils.FORMAT_SHOW_DATE);
+		return result;
+	}
 }

@@ -103,11 +103,17 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="profile_section_participated_activities">Participated Activities</string>
     <string name="profile_section_participated_course">Participated Courses</string>
     <string name="profile_section_my_profile">My Profile</string>
+    <string name="profile_section_motto">Motto</string>
+    <string name="profile_section_phone">Phone</string>
+    <string name="profile_section_email">Email</string>
     <string name="things_i_like">THINGS I LIKE</string>
     <string name="profile_section_events">Events</string>
     <string name="profile_section_news">News</string>
     <string name="profile_section_people">People</string>
     <string name="profile_section_org">Organizations</string>
+    <string name="profile_section_birthday">Birthday</string>
+    <string name="profile_section_student_no">Student NO.</string>
+    <string name="profile_section_major">Major</string>    
     <string name="need_account_login">This Needs User Login</string>
     <string name="format_likes">%d Likes</string>
     <string name="text_banner_publisher_mask">\@%1$s</string>
@@ -175,5 +181,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="text_save">Save</string>
     <string name="text_save_success">Save success</string>
     <string name="title_activity_profile_info">MyProfile</string>
+    <string name="profile_basic_info">BASIC INFO</string>
+    <string name="profile_personal_info">PERSONAL INFO</string>
 
 </resources>
