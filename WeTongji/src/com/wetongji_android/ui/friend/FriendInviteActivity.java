@@ -3,6 +3,7 @@ package com.wetongji_android.ui.friend;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
@@ -15,6 +16,7 @@ import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
@@ -70,7 +72,8 @@ public class FriendInviteActivity extends SherlockFragmentActivity implements
 		FriendListFragment fragment = (FriendListFragment)getSupportFragmentManager().findFragmentByTag(TAG_FRIEND_INVITE_FRAGMENT);
 		
 		ApiHelper helper = ApiHelper.getInstance(this);
-		getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_INVITE, helper.getActivityInviate(1, fragment.getiSelectedId()), this);
+		int id = getIntent().getIntExtra(WTBaseDetailActivity.CHILD_ID, 0);
+		getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_INVITE, helper.getActivityInviate(id, fragment.getiSelectedId()), this);
 	}
 
 	@Override
@@ -87,9 +90,12 @@ public class FriendInviteActivity extends SherlockFragmentActivity implements
 
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
-			HttpRequestResult arg1) 
+			HttpRequestResult result) 
 	{
-		
+		if(result.getResponseCode() == 0)
+		{
+			Log.v("test", "hah");
+		}
 	}
 
 	@Override

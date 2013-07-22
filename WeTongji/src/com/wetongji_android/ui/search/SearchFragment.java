@@ -35,6 +35,7 @@ import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.data.Person;
 import com.wetongji_android.data.Search;
+import com.wetongji_android.data.SearchResult;
 import com.wetongji_android.data.User;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -354,8 +355,10 @@ public class SearchFragment extends SherlockFragment implements
 			Log.d("data", "click");
 			Intent intent = new Intent();
 			Bundle b = new Bundle();
-			Object item = mResultAdapter.getItem(position);
-			if (item instanceof User) {
+			SearchResult item = (SearchResult)mResultAdapter.getItem(position);
+			
+			//This part has some questions
+			/*if (item instanceof User) {
 				User user = (User) item;
 				intent.setClass(getActivity(), FriendDetailActivity.class);
 				b.putParcelable(FriendListFragment.BUNDLE_KEY_USER, user);
@@ -376,7 +379,7 @@ public class SearchFragment extends SherlockFragment implements
 			}
 			
 			intent.putExtras(b);
-			startActivity(intent);
+			startActivity(intent);*/
 		}
 		
 	};

@@ -28,12 +28,16 @@ public class WTBaseDetailActivity extends SherlockActivity
 	public static final String IMAGE_URL = "ImageUrl";
 	public static final String IMAGE_WIDTH = "ImageWidth";
 	public static final String IMAGE_HEIGHT = "ImageHeight";
+	public static final String CHILD_ID = "ChildId";
+	
+	private int iChildId;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+		iChildId = 0;
 	}
 	
 	@Override
@@ -107,6 +111,11 @@ public class WTBaseDetailActivity extends SherlockActivity
 		startActivity(Intent.createChooser(intent, share));
 	}
 	
+	protected void setiChildId(int iChildId) 
+	{
+		this.iChildId = iChildId;
+	}
+
 	class BottomABClickListener implements OnClickListener
 	{
 		@Override
@@ -118,6 +127,7 @@ public class WTBaseDetailActivity extends SherlockActivity
 				if(WTApplication.getInstance().hasAccount)
 				{
 					Intent intent = new Intent(WTBaseDetailActivity.this, FriendInviteActivity.class);
+					intent.putExtra(CHILD_ID, iChildId);
 					startActivity(intent);
 				}else
 				{
