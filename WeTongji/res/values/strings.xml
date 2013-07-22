@@ -183,5 +183,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="title_activity_profile_info">MyProfile</string>
     <string name="profile_basic_info">BASIC INFO</string>
     <string name="profile_personal_info">PERSONAL INFO</string>
+    <string name="profile_edit">Edit</string>
 
 </resources>
