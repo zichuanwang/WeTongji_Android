@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+	<item android:id="@id/action_profile_edit" 
+	    android:icon="@drawable/ab_profile_edit" 
+	    android:title="@string/profile_edit" 
+	    android:titleCondensed="@string/notification_title" 
+	    android:visible="true"
+	    android:showAsAction="always"/>    
+
+</menu>

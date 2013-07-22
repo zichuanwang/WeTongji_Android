@@ -1,5 +1,6 @@
 package com.wetongji_android.ui.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -8,10 +9,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.wetongji_android.R;
 import com.wetongji_android.data.User;
@@ -88,6 +87,10 @@ LoaderCallbacks<HttpRequestResult>{
 
 	private void updateProfile() {
 		mNewUser = new User();
+		mNewUser.setBirthday(mUser.getBirthday());
+		mNewUser.setMajor(mUser.getMajor());
+		mNewUser.setNO(mUser.getNO());
+		
 		mNewUser.setWords(mEtMotto.getText().toString());
 		mNewUser.setPhone(mEtPhone.getText().toString());
 		mNewUser.setEmail(mEtEmail.getText().toString());
@@ -110,6 +113,11 @@ LoaderCallbacks<HttpRequestResult>{
 			HttpRequestResult result) {
 		if (result.getResponseCode() == 0) {
 			Toast.makeText(this, R.string.text_save_success, Toast.LENGTH_SHORT).show();
+			Intent intent = getIntent();
+			Bundle bundle = new Bundle();
+			bundle.putParcelable(ProfileFragment.BUNDLE_USER, mNewUser);
+			intent.putExtras(bundle);
+			setResult(RESULT_OK, intent);
 			finish();
 		} else {
 			ExceptionToast.show(this, result.getResponseCode());

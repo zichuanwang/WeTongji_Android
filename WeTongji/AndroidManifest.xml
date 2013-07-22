@@ -14,22 +14,21 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- for write update files, images, etc. -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
-    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:hardwareAccelerated="true"
-        android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:logo="@drawable/ic_home"
-        android:label="@string/app_name"
         android:name="com.wetongji_android.util.common.WTApplication"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:logo="@drawable/ic_home"
         android:theme="@style/WTTheme" >
-        
         <activity
             android:name="com.wetongji_android.ui.main.MainActivity"
             android:label="@string/app_name"
@@ -39,40 +38,38 @@
         <service
             android:name="com.wetongji_android.util.auth.AuthenticationService"
             android:enabled="true"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
-                <action android:name="android.accounts.AccountAuthenticator"/>
+                <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
-            <meta-data 
+
+            <meta-data
                 android:name="android.accounts.AccountAuthenticator"
-                android:resource="@xml/authenticator"/>
+                android:resource="@xml/authenticator" />
         </service>
 
-        <activity 
+        <activity
             android:name="com.wetongji_android.ui.welcome.WelcomeActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar">
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="com.wetongji_android.ui.event.EventDetailActivity"
-            android:label="@string/title_mainmenu_events">
+            android:label="@string/title_mainmenu_events" >
         </activity>
-        
-        <activity 
+        <activity
             android:name="com.wetongji_android.ui.informations.InformationDetailActivity"
-            android:label="@string/title_mainmenu_events">
+            android:label="@string/title_mainmenu_events" >
         </activity>
-        
         <activity
             android:name="com.wetongji_android.ui.auth.IntroActivity"
             android:label="@string/app_name" >
         </activity>
-        
         <activity
             android:name="com.wetongji_android.ui.auth.AuthActivity"
             android:label="@string/app_name" >
@@ -80,66 +77,63 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="android.accounts.AccountAuthenticatorActivity" />
         </activity>
-        
-        <activity android:name="com.android.camera.CropImage"
-            android:label="@string/app_name">
+        <activity
+            android:name="com.android.camera.CropImage"
+            android:label="@string/app_name" >
         </activity>
-        
-        <activity android:name="com.wetongji_android.util.common.WTFullScreenActivity"
-            android:label="@string/app_name">
+        <activity
+            android:name="com.wetongji_android.util.common.WTFullScreenActivity"
+            android:label="@string/app_name" >
         </activity>
-        
-        <activity 
+        <activity
             android:name="com.wetongji_android.ui.people.PersonDetailActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
         </activity>
-        
-        <activity 
+        <activity
             android:name="com.wetongji_android.ui.people.PeopleListActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name" >
         </activity>
-        
+
         <!-- Friend List Activity -->
-        <activity 
+        <activity
             android:name="com.wetongji_android.ui.friend.FriendListActivity"
-            android:label="@string/friend_activity_name">
+            android:label="@string/friend_activity_name" >
         </activity>
-        
-         <!-- Friend Detail Activity -->
-         <activity 
+
+        <!-- Friend Detail Activity -->
+        <activity
             android:name="com.wetongji_android.ui.friend.FriendDetailActivity"
-            android:label="@string/friend_activity_name">
+            android:label="@string/friend_activity_name" >
         </activity>
-        
-         <!-- Friend Invite Activity -->
-         <activity 
+
+        <!-- Friend Invite Activity -->
+        <activity
             android:name="com.wetongji_android.ui.friend.FriendInviteActivity"
-            android:label="@string/invite_friends">
+            android:label="@string/invite_friends" >
         </activity>
-        
-         <!-- Course Detail Activity -->
-         <activity
-             android:name="com.wetongji_android.ui.now.CourseDetailActivity">
+
+        <!-- Course Detail Activity -->
+        <activity android:name="com.wetongji_android.ui.now.CourseDetailActivity" >
              android:label="@string/activity_label_schedule""
-             <!--intent-filter>
+            <!--
+            intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter-->
-         </activity>
-         
-          <!-- Account Detail -->
-         <activity
-             android:name="com.wetongji_android.ui.account.AccountDetailActivity">
-         </activity>
-         
-         <activity 
-             android:name="com.wetongji_android.ui.profile.ProfileUpdateActivity">
-         </activity>
-         
-         <activity
-             android:name="com.wetongji_android.ui.setting.DevSettingActivity">
-         </activity>
-        
+            </intent-filter
+            -->
+        </activity>
+
+        <!-- Account Detail -->
+        <activity android:name="com.wetongji_android.ui.account.AccountDetailActivity" >
+        </activity>
+        <activity android:name="com.wetongji_android.ui.profile.ProfileUpdateActivity" >
+        </activity>
+        <activity android:name="com.wetongji_android.ui.setting.DevSettingActivity" >
+        </activity>
+        <activity
+            android:name="com.wetongji_android.ui.profile.ProfileInfoActivity"
+            android:label="@string/title_activity_profile_info" >
+        </activity>
     </application>
 
 </manifest>
