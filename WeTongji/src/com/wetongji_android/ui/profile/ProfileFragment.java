@@ -41,6 +41,7 @@ import com.wetongji_android.ui.friend.FriendListActivity;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseFragment;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.image.ImageUtil;
 import com.wetongji_android.util.net.ApiHelper;
@@ -50,6 +51,10 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 
 	public static final String BUNDLE_USER = "BUNDLE_USER";
 	
+	public static final int REQUEST_CODE_PROFILE = 9912;
+
+	public static final String BUNDLE_MOTTO = "BUNDLE_MOTTO";
+
 	private User mUser;
 	private String mStrImgLocalPath;
 	private View mContentView;
@@ -256,6 +261,27 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		return super.onOptionsItemSelected(item);
 	}
 	
+	
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		WTUtility.log("data", "data result, requestCode" +  requestCode  
+				+ " resultCode:" + resultCode );
+		if (requestCode == REQUEST_CODE_PROFILE && data != null) {
+			String strNewMotto = data.getStringExtra(ProfileFragment.BUNDLE_MOTTO);
+			updateMotto(strNewMotto);
+		}
+	}
+	
+	public void updateMotto(String strNewMotto) {
+		if (strNewMotto != null && !strNewMotto.equals(mUser.getWords())) {
+			mTvWords.setText(strNewMotto); 
+			mUser.setWords(strNewMotto);
+		}
+	}
+
 	public void setAvatar(Bundle bundle) {
 		Bitmap bmAvatar = bundle.getParcelable("cropedImage");
 		mStrImgLocalPath = bundle.getString("imagePath");
@@ -263,6 +289,14 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		setHeadBluredBg(bmAvatar);
 		
 		getLoaderManager().initLoader(WTApplication.UPLOAD_AVATAR_LOADER, bundle, this);
+	}
+	
+	public Intent getSeeProfileIntent() {
+		Intent intent = new Intent(mActivity, ProfileInfoActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putParcelable(BUNDLE_USER, mUser);
+		intent.putExtras(bundle);
+		return intent;
 	}
 	
 	class ClickListener implements OnClickListener {
@@ -274,13 +308,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 				mActivity.overridePendingTransition(R.anim.slide_right_in,
 						R.anim.slide_left_out);
 			} else if (v.getId() == R.id.layout_profile_my_profile) {
-				Intent intent = new Intent(mActivity, ProfileInfoActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putParcelable(BUNDLE_USER, mUser);
-				intent.putExtras(bundle);
-				startActivity(intent);
-				mActivity.overridePendingTransition(R.anim.slide_right_in,
-						R.anim.slide_left_out);
+				((MainActivity) getActivity()).doClickProfile();
 			} else if (v.getId() == R.id.btn_profile_action) {
 				((MainActivity) getActivity()).doPickPhotoAction();
 			}

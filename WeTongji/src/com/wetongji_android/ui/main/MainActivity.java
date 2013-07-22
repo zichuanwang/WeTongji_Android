@@ -16,6 +16,7 @@ import com.wetongji_android.ui.auth.RegisterFragment;
 import com.wetongji_android.ui.notification.NotificationFragment;
 import com.wetongji_android.ui.now.NowFragment;
 import com.wetongji_android.ui.profile.ProfileFragment;
+import com.wetongji_android.ui.profile.ProfileInfoActivity;
 import com.wetongji_android.ui.today.TodayFragment;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.version.UpdateBaseActivity;
@@ -140,6 +141,11 @@ public class MainActivity extends UpdateBaseActivity {
                 fragment.setAvatar(bundle);
             	break;
             }
+            case ProfileFragment.REQUEST_CODE_PROFILE: {
+            	ProfileFragment fragment = (ProfileFragment) mContent;
+            	fragment.updateMotto(data.getStringExtra(ProfileFragment.BUNDLE_MOTTO));
+            	break;
+            }
             	
         }  
 	}
@@ -186,5 +192,12 @@ public class MainActivity extends UpdateBaseActivity {
 		{
 			showSecondaryMenu();
 		}
+	}
+	
+	public void doClickProfile() {
+		ProfileFragment f = (ProfileFragment) mContent;
+		startActivityForResult(f.getSeeProfileIntent(), ProfileFragment.REQUEST_CODE_PROFILE);
+		overridePendingTransition(R.anim.slide_right_in,
+				R.anim.slide_left_out);
 	}
 }
