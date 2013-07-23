@@ -40,6 +40,7 @@ import com.wetongji_android.util.net.HttpRequestResult;
 public class EventsFragment extends WTBaseFragment implements LoaderCallbacks<HttpRequestResult>,
 OnScrollListener{
 	
+	public static final String BUNDLE_KEY_UID = "bundle_key_uid";
 	public static final String BUNDLE_KEY_START_MODE = "bundle_key_start_mode";
 	public static final String BUNDLE_KEY_ACTIVITY = "bundle_key_activity";
 	public static final String BUNDLE_KEY_ACTIVITY_LIST = "bundle_key_activity_list";
@@ -50,6 +51,8 @@ OnScrollListener{
 	public static final String PREFERENCE_EVENT_TYPE = "EventType";
 	
 	private StartMode mStartMode;
+	//mUID may be used in USERS mode
+	private String mUID;
 	public ListView mListActivity;
 	public EventListAdapter mAdapter;
 	private int mCurrentPage = 0;
@@ -64,9 +67,14 @@ OnScrollListener{
 	public static enum StartMode {
 		BASIC, USERS, LIKE
 	}
-	public static EventsFragment newInstance(StartMode startMode) {
+	public static EventsFragment newInstance(StartMode startMode, Bundle args) {
 		EventsFragment f = new EventsFragment();
-		Bundle bundle = new Bundle();
+		Bundle bundle;
+		if (args != null) {
+			bundle = args;
+		} else {
+			bundle = new Bundle();
+		}
 		switch(startMode) {
 		case BASIC:
 			bundle.putInt(BUNDLE_KEY_START_MODE, 1);
@@ -130,6 +138,7 @@ OnScrollListener{
 			int modeCode = b.getInt(BUNDLE_KEY_START_MODE);
 			mStartMode = (modeCode == 1) ? StartMode.BASIC : 
 				((modeCode == 2) ? StartMode.USERS : StartMode.LIKE);
+			mUID = b.getString(BUNDLE_KEY_UID);
 		}
 		
 		setRetainInstance(true);
@@ -220,6 +229,14 @@ OnScrollListener{
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	
+	private void loadDataByUser(int page) {
+		isRefresh = false;
+		mAdapter.setIsLoadingData(true);
+		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		Bundle args = apiHelper.getActivityByUser(mUID, page, mSelectedType, mSortType, mExpire);
+		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
+	}
+	
 
 	@Override
 	public void onPause() {
@@ -231,7 +248,11 @@ OnScrollListener{
 	@Override
 	public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) {
 		if(mAdapter.shouldRequestNextPage(arg1, arg2, arg3)) {
-			loadMoreData(mCurrentPage + 1);
+			if (mStartMode == StartMode.BASIC) {
+				loadMoreData(mCurrentPage + 1);
+			} else if (mStartMode == StartMode.USERS) {
+				loadDataByUser(mCurrentPage + 1);
+			}
 		}
 	}
 

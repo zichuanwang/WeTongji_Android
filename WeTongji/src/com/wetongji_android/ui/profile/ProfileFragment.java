@@ -38,6 +38,8 @@ import com.wetongji_android.data.User;
 import com.wetongji_android.factory.UserFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.event.EventsFragment;
+import com.wetongji_android.ui.event.EventsListActivity;
 import com.wetongji_android.ui.friend.FriendListActivity;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
@@ -72,6 +74,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	
 	private RelativeLayout rlFriendsList;
 	private RelativeLayout rlMyProfile;
+	private RelativeLayout rlParActivities;
 	private ImageView mIvAvatar;
 	private Button mBtnChangeAvatar;
 	
@@ -158,6 +161,8 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		mBtnChangeAvatar = (Button) v.findViewById(R.id.btn_profile_action);
 		mBtnChangeAvatar.setOnClickListener(mClickListener);
 		
+		rlParActivities = (RelativeLayout) v.findViewById(R.id.ll_profile_activity_list);
+		rlParActivities.setOnClickListener(mClickListener);
 	}
 	
 	private void setWidgets() {
@@ -298,6 +303,12 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 				((MainActivity) getActivity()).doClickProfile();
 			} else if (v.getId() == R.id.btn_profile_action) {
 				((MainActivity) getActivity()).doPickPhotoAction();
+			} else if (v.getId() == R.id.ll_profile_activity_list) {
+				Intent intent = new Intent(mActivity, EventsListActivity.class);
+				intent.putExtra(EventsFragment.BUNDLE_KEY_UID, mUser.getUID());
+				startActivity(intent);
+				mActivity.overridePendingTransition(R.anim.slide_right_in,
+						R.anim.slide_left_out);
 			}
 		}
 	}

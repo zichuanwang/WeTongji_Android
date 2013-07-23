@@ -134,6 +134,10 @@
             android:name="com.wetongji_android.ui.profile.ProfileInfoActivity"
             android:label="@string/title_activity_profile_info" >
         </activity>
+        
+        <activity
+            android:name="com.wetongji_android.ui.event.EventsListActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -220,4 +220,5 @@
     <item name="ll_profile_email" type="id">false</item>
     <item name="ll_profile_qq" type="id">false</item>
     <item name="ll_profile_weibo" type="id">false</item>
+    <item name="ll_profile_activity_list" type="id">false</item>
 </resources>

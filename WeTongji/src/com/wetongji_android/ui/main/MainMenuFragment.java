@@ -114,7 +114,6 @@ public class MainMenuFragment extends Fragment {
 			image.setImageResource(MAIN_MENU_ICON_RES[position]);
 			text.setText(MAIN_MENU_TEXT_RES[position]);
 
-			// 选中项深色
 			if (position == mCurrentItemNu) {
 				convertView.setBackgroundColor(getResources().getColor(
 						R.color.main_menu_selected));
@@ -151,7 +150,7 @@ public class MainMenuFragment extends Fragment {
 				newContent = new InformationsFragment();
 				break;
 			case 2:
-				newContent = EventsFragment.newInstance(StartMode.BASIC);
+				newContent = EventsFragment.newInstance(StartMode.BASIC, null);
 				break;
 			case 3:
 				newContent = NowFragment.newInstance();

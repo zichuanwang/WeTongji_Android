@@ -544,4 +544,13 @@ public class ApiHelper {
 		
 		return bundle;
 	}
+	
+	public Bundle getActivityByUser(String uid, int page, int channelIdsMask,
+			int sortType, boolean expire) {
+		Bundle bundle = getActivities(page, channelIdsMask, sortType, expire);
+		bundle.putString(API_ARGS_USER_ID, uid);
+		bundle.remove(API_ARGS_METHOD);
+		bundle.putString(API_ARGS_METHOD, "Activities.Get.ByUser");
+		return bundle;
+	}
 }
