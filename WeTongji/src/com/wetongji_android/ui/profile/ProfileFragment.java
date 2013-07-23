@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -261,20 +262,6 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		return super.onOptionsItemSelected(item);
 	}
 	
-	
-	
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		
-		WTUtility.log("data", "data result, requestCode" +  requestCode  
-				+ " resultCode:" + resultCode );
-		if (requestCode == REQUEST_CODE_PROFILE && data != null) {
-			String strNewMotto = data.getStringExtra(ProfileFragment.BUNDLE_MOTTO);
-			updateMotto(strNewMotto);
-		}
-	}
-	
 	public void updateMotto(String strNewMotto) {
 		if (strNewMotto != null && !strNewMotto.equals(mUser.getWords())) {
 			mTvWords.setText(strNewMotto); 
@@ -291,8 +278,8 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		getLoaderManager().initLoader(WTApplication.UPLOAD_AVATAR_LOADER, bundle, this);
 	}
 	
-	public Intent getSeeProfileIntent() {
-		Intent intent = new Intent(mActivity, ProfileInfoActivity.class);
+	public Intent getSeeProfileIntent(Context context) {
+		Intent intent = new Intent(context, ProfileInfoActivity.class);
 		Bundle bundle = new Bundle();
 		bundle.putParcelable(BUNDLE_USER, mUser);
 		intent.putExtras(bundle);

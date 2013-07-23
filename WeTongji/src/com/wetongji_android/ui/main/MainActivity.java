@@ -19,6 +19,7 @@ import com.wetongji_android.ui.profile.ProfileFragment;
 import com.wetongji_android.ui.profile.ProfileInfoActivity;
 import com.wetongji_android.ui.today.TodayFragment;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.version.UpdateBaseActivity;
 
 public class MainActivity extends UpdateBaseActivity {
@@ -110,6 +111,8 @@ public class MainActivity extends UpdateBaseActivity {
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
 		if (resultCode != RESULT_OK)  {
 			return;  
 		}
@@ -196,7 +199,7 @@ public class MainActivity extends UpdateBaseActivity {
 	
 	public void doClickProfile() {
 		ProfileFragment f = (ProfileFragment) mContent;
-		startActivityForResult(f.getSeeProfileIntent(), ProfileFragment.REQUEST_CODE_PROFILE);
+		startActivityForResult(f.getSeeProfileIntent(this), ProfileFragment.REQUEST_CODE_PROFILE);
 		overridePendingTransition(R.anim.slide_right_in,
 				R.anim.slide_left_out);
 	}

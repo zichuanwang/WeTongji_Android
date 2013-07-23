@@ -85,7 +85,7 @@ public class ProfileInfoActivity extends SherlockFragmentActivity {
 		switch(item.getItemId()) {
 		case android.R.id.home: {
 			// send back motto to previous screen
-			Intent intent = new Intent();
+			Intent intent = getIntent();
 			intent.putExtra(ProfileFragment.BUNDLE_MOTTO, mUser.getWords());
 			setResult(RESULT_OK, intent);
 			finish();
@@ -112,7 +112,7 @@ public class ProfileInfoActivity extends SherlockFragmentActivity {
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			// send back motto to previous screen
-			Intent intent = new Intent();
+			Intent intent = getIntent();
 			intent.putExtra(ProfileFragment.BUNDLE_MOTTO, mUser.getWords());
 			setResult(RESULT_OK, intent);
 			finish();
