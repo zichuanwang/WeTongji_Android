@@ -171,7 +171,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="account_detail_news">Club News</string>
     <string name="format_items">%d Items</string>
     <string name="account_contact">Contact</string>
-    <string name="my_basic_information">My Basic Infomation</string>
+    <string name="my_basic_information">My Basic Information</string>
     <string name="profile_section_phone">Phone</string>
     <string name="profile_section_motto">Motto</string>
     <string name="profile_section_email">Email</string>
@@ -184,5 +184,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="profile_basic_info">BASIC INFO</string>
     <string name="profile_personal_info">PERSONAL INFO</string>
     <string name="profile_edit">Edit</string>
+    <string name="title_choose_app_send_email">Please choose an application to send email </string>
+    <string name="msg_content_copied">The content has been copied</string>
 
 </resources>

@@ -235,7 +235,7 @@
                 <!-- Phone -->
 
                 <RelativeLayout
-                    android:id="@id/ll_profile_friend_list"
+                    android:id="@id/ll_profile_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="11.3dp"
@@ -276,7 +276,7 @@
                 <!-- Email -->
 
                 <RelativeLayout
-                    android:id="@id/ll_profile_friend_list"
+                    android:id="@id/ll_profile_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="11.3dp"
@@ -317,7 +317,7 @@
                 <!-- QQ -->
 
                 <RelativeLayout
-                    android:id="@id/ll_profile_friend_list"
+                    android:id="@id/ll_profile_qq"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="11.3dp"
@@ -357,7 +357,7 @@
 
                 <!-- Weibo -->
                 <RelativeLayout
-                    android:id="@id/ll_profile_friend_list"
+                    android:id="@id/ll_profile_weibo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="11.3dp"

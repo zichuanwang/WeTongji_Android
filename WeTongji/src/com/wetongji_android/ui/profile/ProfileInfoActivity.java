@@ -6,12 +6,19 @@ import com.wetongji_android.R;
 import com.wetongji_android.data.User;
 import com.wetongji_android.util.date.DateParser;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.content.ClipboardManager;
 import android.content.Intent;
 
-public class ProfileInfoActivity extends SherlockFragmentActivity {
+public class ProfileInfoActivity extends SherlockFragmentActivity 
+implements OnClickListener{
 
 	public static final int REQUEST_CODE_EDIT_PROFILE = 9201;
 	
@@ -56,6 +63,15 @@ public class ProfileInfoActivity extends SherlockFragmentActivity {
 		tvQQ = (TextView) findViewById(R.id.text_profile_qq);
 		tvWeibo = (TextView) findViewById(R.id.text_profile_weibo);
 		tvDorm = (TextView) findViewById(R.id.text_profile_dorm);
+		
+		RelativeLayout layoutPhone = (RelativeLayout) findViewById(R.id.ll_profile_phone);
+		RelativeLayout layoutEmail = (RelativeLayout) findViewById(R.id.ll_profile_email);
+		RelativeLayout layoutQQ = (RelativeLayout) findViewById(R.id.ll_profile_qq);
+		RelativeLayout layoutWeibo = (RelativeLayout) findViewById(R.id.ll_profile_weibo);
+		layoutPhone.setOnClickListener(this);
+		layoutEmail.setOnClickListener(this);
+		layoutQQ.setOnClickListener(this);
+		layoutWeibo.setOnClickListener(this);
 		
 		setUserData();
 	}
@@ -127,6 +143,41 @@ public class ProfileInfoActivity extends SherlockFragmentActivity {
 		if (requestCode == REQUEST_CODE_EDIT_PROFILE && resultCode == RESULT_OK) {
 			mUser = data.getParcelableExtra(ProfileFragment.BUNDLE_USER);
 			setUserData();
+		}
+	}
+
+	@Override
+	public void onClick(View view) {
+		switch(view.getId()) {
+		case R.id.ll_profile_phone: {
+			String uri = "tel:" + tvPhone.getText().toString().trim() ;
+			Intent intent = new Intent(Intent.ACTION_DIAL);
+			intent.setData(Uri.parse(uri));
+			startActivity(intent);
+			break;
+		}
+		case R.id.ll_profile_email: {
+			Intent intent = new Intent(Intent.ACTION_SEND); 
+			intent.setType("message/rfc822");
+			intent.putExtra(Intent.EXTRA_EMAIL, new String[]{tvEmail.getText().toString()}); 
+			intent.putExtra(Intent.EXTRA_SUBJECT,""); 
+			intent.putExtra(Intent.EXTRA_TEXT,""); 
+			startActivity(Intent.createChooser(intent, 
+					getString(R.string.title_choose_app_send_email)));
+			break;
+		}
+		case R.id.ll_profile_qq: {
+			ClipboardManager cmb = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+			cmb.setText(tvQQ.getText().toString());
+			Toast.makeText(this, R.string.msg_content_copied, Toast.LENGTH_SHORT).show();
+			break;
+		}
+		case R.id.ll_profile_weibo: {
+			ClipboardManager cmb = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+			cmb.setText(tvWeibo.getText().toString());
+			Toast.makeText(this, R.string.msg_content_copied, Toast.LENGTH_SHORT).show();
+			break;
+		}
 		}
 	}
 	

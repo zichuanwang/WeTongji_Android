@@ -216,4 +216,8 @@
     <item name="text_profile_motto" type="id" />
     <item name="text_profile_weibo" type="id">false</item>
     <item name="action_profile_edit" type="id">false</item>
+    <item name="ll_profile_phone" type="id">false</item>
+    <item name="ll_profile_email" type="id">false</item>
+    <item name="ll_profile_qq" type="id">false</item>
+    <item name="ll_profile_weibo" type="id">false</item>
 </resources>
