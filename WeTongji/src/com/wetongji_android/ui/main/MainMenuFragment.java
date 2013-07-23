@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.wetongji_android.R;
 import com.wetongji_android.ui.event.EventsFragment;
+import com.wetongji_android.ui.event.EventsFragment.StartMode;
 import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.ui.now.NowFragment;
 import com.wetongji_android.ui.profile.ProfileFragment;
@@ -150,7 +151,7 @@ public class MainMenuFragment extends Fragment {
 				newContent = new InformationsFragment();
 				break;
 			case 2:
-				newContent = new EventsFragment();
+				newContent = EventsFragment.newInstance(StartMode.BASIC);
 				break;
 			case 3:
 				newContent = NowFragment.newInstance();

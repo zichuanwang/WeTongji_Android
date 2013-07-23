@@ -40,6 +40,7 @@ import com.wetongji_android.util.net.HttpRequestResult;
 public class EventsFragment extends WTBaseFragment implements LoaderCallbacks<HttpRequestResult>,
 OnScrollListener{
 	
+	public static final String BUNDLE_KEY_START_MODE = "bundle_key_start_mode";
 	public static final String BUNDLE_KEY_ACTIVITY = "bundle_key_activity";
 	public static final String BUNDLE_KEY_ACTIVITY_LIST = "bundle_key_activity_list";
 	public static final String BUNDLE_KEY_LOAD_FROM_DB_FINISHED = "bundle_key_load_from_db_finished";
@@ -48,6 +49,7 @@ OnScrollListener{
 	public static final String PREFERENCE_EVENT_SORT = "EventSort";
 	public static final String PREFERENCE_EVENT_TYPE = "EventType";
 	
+	private StartMode mStartMode;
 	public ListView mListActivity;
 	public EventListAdapter mAdapter;
 	private int mCurrentPage = 0;
@@ -58,6 +60,27 @@ OnScrollListener{
 	private boolean mExpire = true;
 	private int mSortType = 1;
 	private int mSelectedType = 15;
+	
+	public static enum StartMode {
+		BASIC, USERS, LIKE
+	}
+	public static EventsFragment newInstance(StartMode startMode) {
+		EventsFragment f = new EventsFragment();
+		Bundle bundle = new Bundle();
+		switch(startMode) {
+		case BASIC:
+			bundle.putInt(BUNDLE_KEY_START_MODE, 1);
+			break;
+		case USERS:
+			bundle.putInt(BUNDLE_KEY_START_MODE, 2);
+			break;
+		case LIKE:
+			bundle.putInt(BUNDLE_KEY_START_MODE, 3);
+			break;
+		}
+		f.setArguments(bundle);
+		return f;
+	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,7 +103,13 @@ OnScrollListener{
 		
 		switch(getCurrentState(savedInstanceState)) {
 		case FIRST_TIME_START:
-			mAdapter.loadDataFromDB(getQueryArgs());
+			if (mStartMode == StartMode.BASIC) {
+				mAdapter.loadDataFromDB(getQueryArgs());
+			} else if (mStartMode == StartMode.USERS) {
+				
+			} else {
+				
+			}
 			break;
 		case SCREEN_ROTATE:
 			break;
@@ -96,6 +125,13 @@ OnScrollListener{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Bundle b = getArguments();
+		if (b != null) {
+			int modeCode = b.getInt(BUNDLE_KEY_START_MODE);
+			mStartMode = (modeCode == 1) ? StartMode.BASIC : 
+				((modeCode == 2) ? StartMode.USERS : StartMode.LIKE);
+		}
+		
 		setRetainInstance(true);
 		
 		setHasOptionsMenu(true);

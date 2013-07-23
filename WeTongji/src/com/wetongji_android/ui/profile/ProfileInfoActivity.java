@@ -8,13 +8,13 @@ import com.wetongji_android.util.date.DateParser;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.ClipboardManager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.content.ClipboardManager;
 import android.content.Intent;
 
 public class ProfileInfoActivity extends SherlockFragmentActivity 
@@ -33,7 +33,6 @@ implements OnClickListener{
 	private TextView tvQQ;
 	private TextView tvWeibo;
 	private TextView tvDorm;
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -118,11 +117,8 @@ implements OnClickListener{
 			break;
 		}
 		}
-
 		return super.onOptionsItemSelected(item);
 	}
-
-	
 	
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
@@ -146,6 +142,7 @@ implements OnClickListener{
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onClick(View view) {
 		switch(view.getId()) {
