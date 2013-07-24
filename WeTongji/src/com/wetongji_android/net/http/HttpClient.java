@@ -49,12 +49,13 @@ public class HttpClient {
 	private static final int CONNECT_TIMEOUT = 10 * 1000;
 	private static final int READ_TIMEOUT = 10 * 1000;
 	private static final int UPLOAD_FILE_READ_TIMEOUT = 5 * 15 * 1000;
-	// private static final String API_DOMAIN =
-	// "http://we.tongji.edu.cn/api/call";
+	//private static final String API_DOMAIN = "http://we.tongji.edu.cn/api/call";
 	private static final String API_DOMAIN = "http://leiz.name:8080/api/call";
 	// private static String API_DOMAIN;
 
 	private static final String HTTP_TIMEOUT = "HttpTimeout";
+	
+	private static final String UPLOAD_FILE_NAME = "upload_avatar.jpg";
 
 	private String strCurrentMethod;
 
@@ -161,6 +162,9 @@ public class HttpClient {
 			setRequestProperty(urlConnection);
 			putBodyData(urlConnection, body);
 
+			if (body.containsKey("Image")) {
+				//return new HttpRequestResult(200, "");
+			}
 			return handleResponse(urlConnection);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -188,74 +192,64 @@ public class HttpClient {
 			outStream.flush();
 			outStream.close();
 		} else if (body.containsKey("Image")) {
-			// urlConnection.setRequestProperty("Content-Type",
-			// "binary/octet-stream");
 
 			// set read timeout
 			urlConnection.setReadTimeout(UPLOAD_FILE_READ_TIMEOUT);
-			
-			String BOUNDARYSTR = getBoundry();
-			String path = body.getString("Image");
-			File targetFile = new File(path);
-			byte[] barry = null;
-			int contentLength = 0;
-			String sendStr = "";
+			DataInputStream inStream = null;
+			// Is this the place are you doing something wrong.
 
-			try {
-				barry = ("--" + BOUNDARYSTR + "--\r\n").getBytes("UTF-8");
-				sendStr = getBoundaryMessage(BOUNDARYSTR, "Image",
-						"upload_avatar.jpg", "image/*");
-				contentLength = sendStr.getBytes("UTF-8").length
-						+ (int) targetFile.length() + 2 * barry.length;
-			} catch (UnsupportedEncodingException e) {
+			String lineEnd = "\r\n";
+			String twoHyphens = "--";
+			String boundary = "*****";
+
+			int bytesRead, bytesAvailable, bufferSize;
+			byte[] buffer;
+			int maxBufferSize = 1 * 1024 * 1024;
+			String filePath = body.getString("Image");
+			
+			FileInputStream fileInputStream = new FileInputStream(
+					new File(filePath));
+			urlConnection.setRequestProperty("Content-Type", 
+					"multipart/form-data;boundary="+boundary);
+			DataOutputStream outStream = new DataOutputStream(
+					urlConnection.getOutputStream());
+			outStream.writeBytes(twoHyphens + boundary + lineEnd);
+			outStream.writeBytes("Content-Disposition: form-data; name=\"Image\"; filename=\""
+					+ UPLOAD_FILE_NAME +"\"" + lineEnd);
+			outStream.writeBytes("Content-Type: " + "image/*" +  lineEnd);
+			outStream.writeBytes(lineEnd);
+			
+			bytesAvailable = fileInputStream.available();
+			bufferSize = Math.min(bytesAvailable, maxBufferSize);
+			buffer = new byte[bufferSize];
+			
+			
+			bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+
+			while (bytesRead > 0) {
+				outStream.write(buffer, 0, bufferSize);
+				bytesAvailable = fileInputStream.available();
+				bufferSize = Math.min(bytesAvailable, maxBufferSize);
+				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 			}
-			int totalSent = 0;
-			String lenstr = Integer.toString(contentLength);
-			BufferedOutputStream out = null;
-			FileInputStream fis = null;
-			urlConnection.setRequestProperty("Content-type",
-					"multipart/form-data;boundary=" + BOUNDARYSTR);
-			urlConnection.setRequestProperty("Content-Length", lenstr);
-			urlConnection.setFixedLengthStreamingMode(contentLength);
-			urlConnection.connect();
-			
-			out = new BufferedOutputStream(urlConnection.getOutputStream());
-            out.write(sendStr.getBytes("UTF-8"));
-            totalSent += sendStr.getBytes("UTF-8").length;
-            fis = new FileInputStream(targetFile);
-            int bytesRead;
-            int bytesAvailable;
-            int bufferSize;
-            byte[] buffer;
-            int maxBufferSize = 1 * 1024;
 
-            bytesAvailable = fis.available();
-            bufferSize = Math.min(bytesAvailable, maxBufferSize);
-            buffer = new byte[bufferSize];
-            bytesRead = fis.read(buffer, 0, bufferSize);
-            long transferred = 0;
-            final Thread thread = Thread.currentThread();
-            while (bytesRead > 0) {
+			outStream.writeBytes(lineEnd);
 
-                if (thread.isInterrupted()) {
-                    targetFile.delete();
-                    throw new InterruptedIOException();
-                }
-                out.write(buffer, 0, bufferSize);
-                bytesAvailable = fis.available();
-                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                bytesRead = fis.read(buffer, 0, bufferSize);
-                transferred += bytesRead;
-                if (transferred % 50 == 0)
-                    out.flush();
+			outStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
-            }
-            out.write(barry);
-            totalSent += barry.length;
-            out.write(barry);
-            totalSent += barry.length;
-            out.flush();
-            out.close();
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					urlConnection.getInputStream()));
+			String inputLine;
+
+			while ((inputLine = in.readLine()) != null) {
+//				tv.append(inputLine);
+			}
+
+			// close streams
+			fileInputStream.close();
+			outStream.flush();
+			outStream.close();
+
 		}
 		
 	}
@@ -342,7 +336,7 @@ public class HttpClient {
 			return sbError.toString();
 		} catch (IOException e) {
 			e.printStackTrace();
-			throw new WTException(HTTP_TIMEOUT, e);
+			throw new WTException("IOException", e);
 		} finally {
 			WTUtility.closeResource(is);
 			WTUtility.closeResource(bfReader);
@@ -350,29 +344,4 @@ public class HttpClient {
 		}
 	}
 
-	private static String getBoundry() {
-		StringBuffer _sb = new StringBuffer();
-		for (int t = 1; t < 12; t++) {
-			long time = System.currentTimeMillis() + t;
-			if (time % 3 == 0) {
-				_sb.append((char) time % 9);
-			} else if (time % 3 == 1) {
-				_sb.append((char) (65 + time % 26));
-			} else {
-				_sb.append((char) (97 + time % 26));
-			}
-		}
-		return _sb.toString();
-	}
-
-	private String getBoundaryMessage(String boundary, String fileField,
-			String fileName, String fileType) {
-		StringBuffer res = new StringBuffer("--").append(boundary).append(
-				"\r\n");
-		res.append("Content-Disposition: form-data; name=\"").append(fileField)
-				.append("\"; filename=\"").append(fileName).append("\"\r\n")
-				.append("Content-Type: ").append(fileType).append("\r\n\r\n");
-
-		return res.toString();
-	}
 }
