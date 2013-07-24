@@ -52,7 +52,7 @@ public class TodayFactory {
 			JSONObject outer = new JSONObject(jsonStr);
 			result.add(personFactory.createObject(outer.getString("Person")));
 			result.add(accountFactory.createObjects(outer
-					.getString("AccountPopulor")));
+					.getString("AccountPopular")));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
