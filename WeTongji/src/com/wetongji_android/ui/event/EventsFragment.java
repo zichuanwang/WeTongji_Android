@@ -49,6 +49,7 @@ OnScrollListener{
 	public static final String PREFERENCE_EVENT_EXPIRE = "EventExpire";
 	public static final String PREFERENCE_EVENT_SORT = "EventSort";
 	public static final String PREFERENCE_EVENT_TYPE = "EventType";
+	private static final int USER_SELECT_TYPE = 15;
 	
 	private StartMode mStartMode;
 	//mUID may be used in USERS mode
@@ -114,7 +115,7 @@ OnScrollListener{
 			if (mStartMode == StartMode.BASIC) {
 				mAdapter.loadDataFromDB(getQueryArgs());
 			} else if (mStartMode == StartMode.USERS) {
-				
+				loadDataByUser(1);
 			} else {
 				
 			}
@@ -233,7 +234,8 @@ OnScrollListener{
 		isRefresh = false;
 		mAdapter.setIsLoadingData(true);
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle args = apiHelper.getActivityByUser(mUID, page, mSelectedType, mSortType, mExpire);
+		Bundle args = apiHelper.getActivityByUser(mUID, page, USER_SELECT_TYPE,
+												ApiHelper.API_ARGS_SORT_BY_PUBLISH_DESC, true);
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	
