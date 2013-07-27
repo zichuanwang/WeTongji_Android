@@ -27,6 +27,7 @@ import com.wetongji_android.data.Event;
 import com.wetongji_android.factory.EventFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.course.CourseDetailActivity;
 import com.wetongji_android.ui.event.EventDetailActivity;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.util.common.WTApplication;

@@ -158,7 +158,7 @@
                 <!-- Participated Course -->
 
                 <RelativeLayout
-                    android:id="@id/ll_profile_friend_list"
+                    android:id="@id/ll_profile_course_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="11.3dp"

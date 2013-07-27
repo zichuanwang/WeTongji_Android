@@ -553,4 +553,14 @@ public class ApiHelper {
 		bundle.putString(API_ARGS_METHOD, "Activities.Get.ByUser");
 		return bundle;
 	}
+	
+	public Bundle getCourseByUser(String uid, int page) {
+		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		bundle.putString(API_ARGS_USER_ID, uid);
+		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
+		bundle.putString(API_ARGS_METHOD, "CourseSections.Get.ByUser");
+		return bundle;
+	}
 }

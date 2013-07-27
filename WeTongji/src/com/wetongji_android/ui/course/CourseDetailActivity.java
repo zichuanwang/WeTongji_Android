@@ -1,4 +1,4 @@
-package com.wetongji_android.ui.now;
+package com.wetongji_android.ui.course;
 
 import android.content.Intent;
 import android.os.Bundle;

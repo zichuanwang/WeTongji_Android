@@ -113,7 +113,7 @@
         </activity>
 
         <!-- Course Detail Activity -->
-        <activity android:name="com.wetongji_android.ui.now.CourseDetailActivity" >
+        <activity android:name="com.wetongji_android.ui.course.CourseDetailActivity" >
              android:label="@string/activity_label_schedule""
             <!--
             intent-filter>
@@ -137,6 +137,10 @@
         
         <activity
             android:name="com.wetongji_android.ui.event.EventsListActivity">
+        </activity>
+        
+        <activity
+            android:name="com.wetongji_android.ui.course.CourseListActivity">
         </activity>
     </application>
 

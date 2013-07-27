@@ -38,6 +38,7 @@ import com.wetongji_android.data.User;
 import com.wetongji_android.factory.UserFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.course.CourseListActivity;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.event.EventsListActivity;
 import com.wetongji_android.ui.friend.FriendListActivity;
@@ -76,6 +77,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	private RelativeLayout rlFriendsList;
 	private RelativeLayout rlMyProfile;
 	private RelativeLayout rlParActivities;
+	private RelativeLayout rlParCourses;
 	private ImageView mIvAvatar;
 	private Button mBtnChangeAvatar;
 	
@@ -164,6 +166,10 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		
 		rlParActivities = (RelativeLayout) v.findViewById(R.id.ll_profile_activity_list);
 		rlParActivities.setOnClickListener(mClickListener);
+		
+		rlParCourses = (RelativeLayout) v.findViewById(R.id.ll_profile_course_list);
+		rlParCourses.setOnClickListener(mClickListener);
+		
 	}
 	
 	private void setWidgets() {
@@ -310,6 +316,12 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 			} else if (v.getId() == R.id.ll_profile_activity_list) {
 				Intent intent = new Intent(mActivity, EventsListActivity.class);
 				intent.putExtra(EventsFragment.BUNDLE_KEY_UID, mUser.getUID());
+				startActivity(intent);
+				mActivity.overridePendingTransition(R.anim.slide_right_in,
+						R.anim.slide_left_out);
+			} else if (v.getId() == R.id.ll_profile_course_list) {
+				Intent intent = new Intent(mActivity, CourseListActivity.class);
+				intent.putExtra(CourseListActivity.BUNDLE_KEY_UID, mUser.getUID());
 				startActivity(intent);
 				mActivity.overridePendingTransition(R.anim.slide_right_in,
 						R.anim.slide_left_out);

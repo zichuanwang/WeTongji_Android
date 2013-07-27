@@ -221,4 +221,9 @@
     <item name="ll_profile_qq" type="id">false</item>
     <item name="ll_profile_weibo" type="id">false</item>
     <item name="ll_profile_activity_list" type="id">false</item>
+    <item type="id" name="lv_my_courses">false</item>
+    <item name="text_mycourses_name" type="id" />
+    <item name="text_mycourses_teacher" type="id" />
+    <item name="layout_mycourse_bg" type="id" />
+    <item name="ll_profile_course_list" type="id" />
 </resources>
