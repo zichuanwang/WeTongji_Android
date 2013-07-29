@@ -24,6 +24,7 @@ public class WTBaseDetailActivity extends SherlockActivity
 	private LinearLayout mLayoutInvite;
 	private LinearLayout mLayoutFriends;
 	private LinearLayout mLayoutAttend;
+	private LinearLayout mLayoutBottomBlank;
 	
 	public static final String IMAGE_URL = "ImageUrl";
 	public static final String IMAGE_WIDTH = "ImageWidth";
@@ -95,6 +96,8 @@ public class WTBaseDetailActivity extends SherlockActivity
 	{
 		mLayoutBottomAB = (LinearLayout)findViewById(R.id.bottom_action_bar);
 		mLayoutBottomAB.setVisibility(View.VISIBLE);
+		mLayoutBottomBlank = (LinearLayout)findViewById(R.id.ll_base_detail_blank);
+		mLayoutBottomBlank.setVisibility(View.VISIBLE);
 		
 		setBottomActionBar();
 	}

@@ -104,10 +104,13 @@
                     
                     <!-- this blank layout resolves conflict with 'bottom actionbar' -->
                     <LinearLayout
+                        android:id="@id/ll_base_detail_blank"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        tools:ignore="UselessLeaf" >
+                        tools:ignore="UselessLeaf"
+                        android:visibility="gone">
                     </LinearLayout>
+                    
                 </LinearLayout>
             </ScrollView>
 
@@ -115,8 +118,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/action_bar_shadow" >
+                android:background="@drawable/action_bar_shadow">
             </LinearLayout>
+            
         </FrameLayout>
     </RelativeLayout>
 

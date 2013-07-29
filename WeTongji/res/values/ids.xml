@@ -226,4 +226,5 @@
     <item name="text_mycourses_teacher" type="id" />
     <item name="layout_mycourse_bg" type="id" />
     <item name="ll_profile_course_list" type="id" />
+    <item name="ll_base_detail_blank" type="id">false</item>
 </resources>
