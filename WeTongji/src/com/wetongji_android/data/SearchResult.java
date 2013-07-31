@@ -6,6 +6,7 @@ public class SearchResult
 	private String avatar;
 	private String title;
 	private String desc;
+	private Object content;
 	
 	public SearchResult()
 	{
@@ -42,4 +43,13 @@ public class SearchResult
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
+
+	public Object getContent() {
+		return content;
+	}
+
+	public void setContent(Object content) {
+		this.content = content;
+	}
+	
 }

@@ -1,6 +1,9 @@
 package com.wetongji_android.ui.search;
 
 import java.sql.SQLException;
+import java.util.List;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
@@ -34,9 +38,10 @@ import com.wetongji_android.data.Account;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.data.Person;
-import com.wetongji_android.data.Search;
+import com.wetongji_android.data.SearchHistory;
 import com.wetongji_android.data.SearchResult;
 import com.wetongji_android.data.User;
+import com.wetongji_android.factory.SearchFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.event.EventDetailActivity;
@@ -51,6 +56,7 @@ import com.wetongji_android.ui.people.PersonDetailActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.DbHelper;
 import com.wetongji_android.util.data.search.SearchUtil;
+import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
@@ -115,7 +121,7 @@ public class SearchFragment extends SherlockFragment implements
 				if (position == mAdapter.getCount() - 1) {
 					startClearTask();
 				} else {
-					Search search = (Search) arg0.getItemAtPosition(position);
+					SearchHistory search = (SearchHistory) arg0.getItemAtPosition(position);
 					doSearch(search.getType(), search.getKeywords());
 					mEtSearch.setText(search.getKeywords());
 					mEtSearch.setSelection(mEtSearch.getText().length());
@@ -153,11 +159,10 @@ public class SearchFragment extends SherlockFragment implements
 		mTipAdapter = new SearchTipsAdapter(this);
 		mLvSearchTips.setAdapter(mTipAdapter);
 		
-		// show software keyboards
-		/*InputMethodManager imm = (InputMethodManager) getActivity()
+		InputMethodManager imm = (InputMethodManager) getActivity()
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,
-				InputMethodManager.HIDE_NOT_ALWAYS);*/
+				InputMethodManager.HIDE_NOT_ALWAYS);
 		return view;
 	}
 
@@ -250,8 +255,7 @@ public class SearchFragment extends SherlockFragment implements
 		getLoaderManager().restartLoader(
 				WTApplication.NETWORK_LOADER_SEARCH, b,
 				SearchFragment.this);
-		//TODO
-		//saveSearchHistory(type, content);
+		saveSearchHistory(type, content);
 	}
 
 	@Override
@@ -290,7 +294,7 @@ public class SearchFragment extends SherlockFragment implements
 			if (result.getResponseCode() == 0) {
 				processSearchResult(result.getStrResponseCon());
 			} else {
-				// Network Error
+				ExceptionToast.show(getActivity(), result.getResponseCode());
 			}
 		}
 	}
@@ -304,9 +308,8 @@ public class SearchFragment extends SherlockFragment implements
 		mResultAdapter.notifyDataSetChanged();
 	}
 
-	//TODO
-	/*private void saveSearchHistory(int type, String keywords) {
-		Search search = new Search();
+	private void saveSearchHistory(int type, String keywords) {
+		SearchHistory search = new SearchHistory();
 		search.setType(type);
 		search.setKeywords(keywords);
 
@@ -314,10 +317,10 @@ public class SearchFragment extends SherlockFragment implements
 			mAdapter.addObject(search);
 		}
 
-		List<Search> history = mAdapter.getData();
+		List<SearchHistory> history = mAdapter.getData();
 		SearchFactory searchFactory = new SearchFactory(this, history);
 		searchFactory.saveSearch(true);
-	}*/
+	}
 
 	private void startClearTask() {
 		mClearTask = new ClearHistoryTask();
@@ -332,7 +335,7 @@ public class SearchFragment extends SherlockFragment implements
 
 			try {
 				TableUtils.clearTable(dbHelper.getConnectionSource(),
-						Search.class);
+						SearchHistory.class);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

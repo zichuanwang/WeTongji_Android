@@ -5,13 +5,13 @@ import java.util.List;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import com.wetongji_android.data.Search;
+import com.wetongji_android.data.SearchHistory;
 import com.wetongji_android.util.common.WTApplication;
 
-public class SearchFactory extends BaseFactory<Search, String> {
+public class SearchFactory extends BaseFactory<SearchHistory, String> {
 
-	public SearchFactory(Fragment fragment, List<Search> data) {
-		super(fragment, Search.class, WTApplication.SEARCH_SAVER);
+	public SearchFactory(Fragment fragment, List<SearchHistory> data) {
+		super(fragment, SearchHistory.class, WTApplication.SEARCH_SAVER);
 		this.list = data;
 	}
 	

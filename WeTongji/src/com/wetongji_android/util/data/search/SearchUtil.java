@@ -8,7 +8,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.wetongji_android.data.Account;
+import com.wetongji_android.data.Activity;
+import com.wetongji_android.data.Course;
+import com.wetongji_android.data.Information;
+import com.wetongji_android.data.Person;
 import com.wetongji_android.data.SearchResult;
+import com.wetongji_android.data.User;
 
 import android.util.Pair;
 
@@ -45,6 +53,7 @@ public class SearchUtil
 	
 	private static List<SearchResult> generateListResult(String key, JSONArray array) throws JSONException
 	{
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 		List<SearchResult> results = new ArrayList<SearchResult>();
 		
 		if(key.equals("Information"))
@@ -57,6 +66,8 @@ public class SearchUtil
 				result.setAvatar(json.getString("OrganizerAvatar"));
 				result.setTitle(json.getString("Title"));
 				result.setDesc(json.getString("Summary"));
+				Information info = gson.fromJson(json.toString(), Information.class);
+				result.setContent(info);
 				results.add(result);
 			}
 		}else if(key.equals("Accounts"))
@@ -69,6 +80,8 @@ public class SearchUtil
 				result.setAvatar(json.getString("Image"));
 				result.setDesc(json.getString("Description"));
 				result.setTitle(json.getString("Title"));
+				Account account = gson.fromJson(json.toString(), Account.class);
+				result.setContent(account);
 				results.add(result);
 			}
 		}else if(key.equals("Users"))
@@ -81,6 +94,8 @@ public class SearchUtil
 				result.setAvatar(json.getString("Avatar"));
 				result.setTitle(json.getString("DisplayName"));
 				result.setDesc(json.getString("Department"));
+				User user = gson.fromJson(json.toString(), User.class);
+				result.setContent(user);
 				results.add(result);
 			}
 		}else if(key.equals("Courses"))
@@ -93,6 +108,8 @@ public class SearchUtil
 				result.setAvatar(json.getString("Teacher"));
 				result.setTitle(json.getString("Name"));
 				result.setDesc(json.getString("Teacher"));
+				Course course = gson.fromJson(json.toString(), Course.class);
+				result.setContent(course);
 				results.add(result);
 			}
 		}else if(key.equals("Activities"))
@@ -105,10 +122,13 @@ public class SearchUtil
 				result.setAvatar(json.getString("OrganizerAvatar"));
 				result.setTitle(json.getString("Title"));
 				result.setDesc(json.getString("Description"));
+				Activity activity = gson.fromJson(json.toString(), Activity.class);
+				result.setContent(activity);
 				results.add(result);
 			}
 		}else
 		{
+			// Stars
 			for(int i = 0; i < array.length(); i++)
 			{
 				SearchResult result = new SearchResult();
@@ -117,6 +137,8 @@ public class SearchUtil
 				result.setAvatar(json.getString("Avatar"));
 				result.setTitle(json.getString("Title"));
 				result.setDesc(json.getString("Words"));
+				Person person = gson.fromJson(json.toString(), Person.class);
+				result.setContent(person);
 				results.add(result);
 			}
 		}

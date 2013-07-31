@@ -2,7 +2,7 @@ package com.wetongji_android.data;
 
 import com.j256.ormlite.field.DatabaseField;
 
-public class Search {
+public class SearchHistory {
 	@DatabaseField
 	private int Type;
 	@DatabaseField(id=true)
@@ -11,10 +11,10 @@ public class Search {
 	
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof Search)) {
+		if (!(o instanceof SearchHistory)) {
 			return false;
 		}
-		Search obj = (Search)o;
+		SearchHistory obj = (SearchHistory)o;
 		if (this.Type == obj.getType() && this.Keywords.equals(obj.getKeywords())) {
 			return true;
 		}

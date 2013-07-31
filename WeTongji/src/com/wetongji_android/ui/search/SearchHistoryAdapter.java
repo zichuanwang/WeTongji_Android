@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.wetongji_android.R;
-import com.wetongji_android.data.Search;
+import com.wetongji_android.data.SearchHistory;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.loader.SearchLoader;
 
@@ -21,16 +21,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class SearchHistoryAdapter extends BaseAdapter implements
-		LoaderCallbacks<List<Search>> {
+		LoaderCallbacks<List<SearchHistory>> {
 
 	private static final int MAX_SIZE = 9;
 	private Fragment mFragment;
-	private List<Search> mData;
+	private List<SearchHistory> mData;
 	private int hasClearRow = 1;
 
 	public SearchHistoryAdapter(Fragment fragment) {
 		mFragment = fragment;
-		mData = new ArrayList<Search>();
+		mData = new ArrayList<SearchHistory>();
 		mFragment.getLoaderManager().initLoader(WTApplication.SEARCH_LOADER,
 				null, this);
 	}
@@ -42,24 +42,26 @@ public class SearchHistoryAdapter extends BaseAdapter implements
 	}
 
 	@Override
-	public Loader<List<Search>> onCreateLoader(int loaderId, Bundle bundle) {
+	public Loader<List<SearchHistory>> onCreateLoader(int loaderId, Bundle bundle) {
 		if (loaderId != WTApplication.SEARCH_LOADER) {
 			return null;
 		}
-		Loader<List<Search>> loader;
+		Loader<List<SearchHistory>> loader;
 		loader = new SearchLoader(mFragment.getActivity());
 		return loader;
 	}
 
 	@Override
-	public void onLoadFinished(Loader<List<Search>> loader, List<Search> result) {
-		mData.addAll(result);
+	public void onLoadFinished(Loader<List<SearchHistory>> loader, List<SearchHistory> result) {
+		if (result != null) {
+			mData.addAll(result);
+		}
 		notifyDataSetChanged();
 		mFragment.getLoaderManager().destroyLoader(WTApplication.SEARCH_LOADER);
 	}
 
 	@Override
-	public void onLoaderReset(Loader<List<Search>> result) {
+	public void onLoaderReset(Loader<List<SearchHistory>> result) {
 	}
 
 	@Override
@@ -99,7 +101,7 @@ public class SearchHistoryAdapter extends BaseAdapter implements
 			}
 			return view;
 		}
-		Search search = (Search) getItem(position);
+		SearchHistory search = (SearchHistory) getItem(position);
 		ViewHolder holder = null;
 		
 		holder = new ViewHolder();
@@ -150,7 +152,7 @@ public class SearchHistoryAdapter extends BaseAdapter implements
 		return view;
 	}
 	
-	public void addObject(Search search) {
+	public void addObject(SearchHistory search) {
 		if (mData.contains(search)) {
 			return;
 		}
@@ -163,7 +165,7 @@ public class SearchHistoryAdapter extends BaseAdapter implements
 		notifyDataSetChanged();
 	}
 
-	public List<Search> getData() {
+	public List<SearchHistory> getData() {
 		return mData;
 	}
 	

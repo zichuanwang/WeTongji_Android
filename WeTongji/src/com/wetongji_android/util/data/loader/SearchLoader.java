@@ -5,17 +5,17 @@ import java.util.List;
 
 import android.content.Context;
 
-import com.wetongji_android.data.Search;
+import com.wetongji_android.data.SearchHistory;
 import com.wetongji_android.util.data.DbListLoader;
 
-public class SearchLoader extends DbListLoader<Search, String>{
+public class SearchLoader extends DbListLoader<SearchHistory, String>{
 
 	public SearchLoader(Context context) {
-		super(context, Search.class);
+		super(context, SearchHistory.class);
 	}
 
 	@Override
-	public List<Search> loadInBackground() 
+	public List<SearchHistory> loadInBackground() 
 	{
 		try 
 		{

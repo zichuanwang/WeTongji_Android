@@ -6,8 +6,15 @@ import java.util.List;
 import com.androidquery.AQuery;
 import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.R;
+import com.wetongji_android.data.Account;
+import com.wetongji_android.data.Activity;
+import com.wetongji_android.data.Course;
+import com.wetongji_android.data.Information;
+import com.wetongji_android.data.Person;
 import com.wetongji_android.data.SearchResult;
+import com.wetongji_android.data.User;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.date.DateParser;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
@@ -30,16 +37,37 @@ public class SearchResultAdapter extends AmazingAdapter {
 	private AQuery mListAq;
 	private AQuery mShouldDelayAq;
 	private BitmapDrawable mBmDefaultThumbnails;
-	
+
 	private List<Pair<String, List<SearchResult>>> mData;
-	
+
 	public static class ViewHolder {
-		ImageView iv_pic;
-		TextView tv_title;
-		TextView tv_description;
-		RelativeLayout rl_item;
+		// Information
+		TextView tvInfoType;
+		TextView tvInfoTitle;
+		TextView tvInfoDescription;
+		// Account
+		TextView tvAccountName;
+		TextView tvAccountDesc;
+		ImageView ivAccountThumb;
+		// User
+		TextView tvFriendName;
+		TextView tvFriendDepart;
+		ImageView imgFriendAvatar;
+		// Course
+		TextView tvCourseTitle;
+		TextView tvCourseTeacher;
+		// Activity
+		TextView tvEventTitle;
+		TextView tvEventTime;
+		TextView tvEventLocation;
+		ImageView ivEventThumb;
+		// People
+		TextView tvPeopleName;
+		TextView tvPeopleVol;
+		TextView tvPeopleWords;
+		ImageView ivPeopleAvatar;
 	}
-	
+
 	public SearchResultAdapter(Fragment fragment) {
 		mFragment = fragment;
 		mContext = fragment.getActivity();
@@ -50,32 +78,29 @@ public class SearchResultAdapter extends AmazingAdapter {
 				.getDrawable(R.drawable.event_list_thumbnail_place_holder);
 		mData = new ArrayList<Pair<String, List<SearchResult>>>();
 	}
-	
+
 	@Override
 	public int getCount() {
 		int count = 0;
-		for(int i = 0; i < mData.size(); i++)
-		{
+		for (int i = 0; i < mData.size(); i++) {
 			count += mData.get(i).second.size();
 		}
-		
+
 		return count;
 	}
 
 	@Override
 	public Object getItem(int position) {
 		int pos = 0;
-		
-		for(int i = 0; i < mData.size(); i++)
-		{
-			if(position >= pos && position < pos + mData.get(i).second.size())
-			{
+
+		for (int i = 0; i < mData.size(); i++) {
+			if (position >= pos && position < pos + mData.get(i).second.size()) {
 				return mData.get(i).second.get(position - pos);
 			}
-			
+
 			pos += mData.get(i).second.size();
 		}
-		
+
 		return null;
 	}
 
@@ -86,7 +111,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 
 	@Override
 	protected void onNextPageRequested(int page) {
-		
+
 	}
 
 	@Override
@@ -100,73 +125,124 @@ public class SearchResultAdapter extends AmazingAdapter {
 			view.findViewById(R.id.layout_information_header).setVisibility(
 					View.GONE);
 		}
-		
+
 	}
 
 	private void configureHeader(View view, int position) {
-		TextView tvSectionHeader = 
-				(TextView) view.findViewById(R.id.information_list_header);
+		TextView tvSectionHeader = (TextView) view
+				.findViewById(R.id.information_list_header);
 		String header = mData.get(getSectionForPosition(position)).first;
 		tvSectionHeader.setText(header);
-		Log.d("data", header);
-		//tvSectionHeader.setText(getSections()[getSectionForPosition(position)]);
 	}
 
 	@Override
 	public View getAmazingView(int position, View convertView, ViewGroup parent) {
-		
+
+		SearchResult result = (SearchResult) getItem(position);
 		ViewHolder holder;
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = mInflater.inflate(
-					R.layout.row_search_result, parent, false);
-			holder.iv_pic = (ImageView) convertView
-					.findViewById(R.id.search_result_pic);
-			holder.tv_title = (TextView) convertView
-					.findViewById(R.id.search_result_name);
-			holder.tv_description = (TextView) convertView
-					.findViewById(R.id.search_result_sub_name);
-			holder.rl_item = (RelativeLayout)convertView.findViewById(R.id.search_result_item);
+			switch (result.getType()) {
+			case 1:
+				convertView = mInflater.inflate(R.layout.information_list_item,
+						parent, false);
+				holder.tvInfoTitle = (TextView) convertView
+						.findViewById(R.id.information_list_item_title);
+				holder.tvInfoDescription = (TextView) convertView
+						.findViewById(R.id.information_list_item_description);
+				holder.tvInfoType = (TextView) convertView
+						.findViewById(R.id.information_list_item_type);
+				break;
+			case 2:
+				convertView = mInflater.inflate(R.layout.row_search_result,
+						parent, false);
+				holder.tvAccountName = (TextView) convertView
+						.findViewById(R.id.search_result_name);
+				holder.tvAccountDesc = (TextView) convertView
+						.findViewById(R.id.search_result_sub_name);
+				holder.ivAccountThumb = (ImageView) convertView
+						.findViewById(R.id.search_result_pic);
+				break;
+			case 3:
+				convertView = mInflater.inflate(R.layout.row_friend, parent,
+						false);
+				holder.tvFriendName = (TextView) convertView
+						.findViewById(R.id.friend_name);
+				holder.tvFriendDepart = (TextView) convertView
+						.findViewById(R.id.friend_department);
+				holder.imgFriendAvatar = (ImageView) convertView
+						.findViewById(R.id.friend_avatar);
+				break;
+			case 4:
+				convertView = mInflater.inflate(R.layout.row_my_courses,
+						parent, false);
+				holder.tvCourseTitle = (TextView) convertView
+						.findViewById(R.id.text_mycourses_name);
+				holder.tvCourseTeacher = (TextView) convertView
+						.findViewById(R.id.text_mycourses_teacher);
+				break;
+			case 5:
+				convertView = mInflater.inflate(R.layout.row_event, parent,
+						false);
+				holder.tvEventTitle = (TextView) convertView
+						.findViewById(R.id.tv_event_title);
+				holder.tvEventTime = (TextView) convertView
+						.findViewById(R.id.tv_event_time);
+				holder.tvEventLocation = (TextView) convertView
+						.findViewById(R.id.tv_event_location);
+				holder.ivEventThumb = (ImageView) convertView
+						.findViewById(R.id.img_event_thumbnails);
+				break;
+			case 6:
+				convertView = mInflater.inflate(R.layout.row_people,
+						parent, false);
+				holder.tvPeopleName = (TextView) convertView
+						.findViewById(R.id.tv_people_name);
+				holder.tvPeopleVol = (TextView) convertView
+						.findViewById(R.id.tv_people_vol_num);
+				holder.tvPeopleWords = (TextView) convertView
+						.findViewById(R.id.tv_people_words);
+				holder.ivPeopleAvatar = (ImageView) convertView
+						.findViewById(R.id.img_people_avatar);
+				break;
+			}
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
 		Drawable gender = null;
-		SearchResult sr = (SearchResult)getItem(position);
 		int section = getSectionForPosition(position);
 		int pos = getPositionForSection(section);
-		
-		if((position - pos) % 2 == 0)
-		{
-			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row1));
-		}else
-		{
-			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row2));
+
+//		if ((position - pos) % 2 == 0) {
+//			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(
+//					R.color.information_list_row1));
+//		} else {
+//			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(
+//					R.color.information_list_row2));
+//		}
+
+		switch(result.getType()) {
+		case 1:
+			setInfoWidgets(holder, result);
+			break;
+		case 2:
+			setAccountWidgets(holder, result, convertView);
+			break;
+		case 3:
+			setUserWidgets(holder, result);
+			break;
+		case 4:
+			setCourseWidgets(holder, result);
+			break;
+		case 5:
+			setEventWidgets(holder, result);
+			break;
+		case 6:
+			setPeopleWidgets(holder, result);
+			break;
 		}
-		holder.tv_title.setText(sr.getTitle());
-		holder.tv_description.setText(sr.getDesc());
-		
-		gender = mFragment.getActivity().getResources()
-				.getDrawable(R.drawable.ic_profile_gender_female);
-		holder.tv_description.setCompoundDrawables(gender, null, null, null);
-		//add image
-		mShouldDelayAq = mListAq.recycle(convertView);
-		if (!sr.getAvatar().equals(WTApplication.MISSING_IMAGE_URL)) {
-			if (mShouldDelayAq.shouldDelay(position, convertView, parent,
-					sr.getAvatar())) {
-				mShouldDelayAq.id(holder.iv_pic)
-				.image(mBmDefaultThumbnails);
-			} else {
-				mShouldDelayAq.id(holder.iv_pic).image(sr.getAvatar(), true,
-						true, 360,
-						R.drawable.event_list_thumbnail_place_holder, null,
-						AQuery.FADE_IN_NETWORK, 1.0f);
-			}
-		} else {
-			mShouldDelayAq.id(holder.iv_pic).image(mBmDefaultThumbnails);
-		}
-		
 		return convertView;
 	}
 
@@ -177,56 +253,109 @@ public class SearchResultAdapter extends AmazingAdapter {
 
 	@Override
 	public int getPositionForSection(int section) {
-		if(section < 0) section = 0;
-		if(section >= mData.size()) section = mData.size() - 1;
-		
+		if (section < 0)
+			section = 0;
+		if (section >= mData.size())
+			section = mData.size() - 1;
+
 		int c = 0;
-		
-		for(int i = 0; i < mData.size(); i++)
-		{
-			if(section == i)
-			{
+
+		for (int i = 0; i < mData.size(); i++) {
+			if (section == i) {
 				return c;
 			}
-			
+
 			c += mData.get(i).second.size();
 		}
-		
+
 		return 0;
 	}
 
 	@Override
 	public int getSectionForPosition(int position) {
-		int c= 0;
-		
-		for(int i = 0; i < mData.size(); i++)
-		{
-			if(position >= c && position < c + mData.get(i).second.size())
-			{
+		int c = 0;
+
+		for (int i = 0; i < mData.size(); i++) {
+			if (position >= c && position < c + mData.get(i).second.size()) {
 				return i;
 			}
-			
+
 			c += mData.get(i).second.size();
 		}
-		
+
 		return -1;
 	}
 
 	@Override
 	public String[] getSections() {
 		String[] sections = new String[mData.size()];
-		
-		for(int i = 0; i < mData.size(); i++)
-		{
+
+		for (int i = 0; i < mData.size(); i++) {
 			sections[i] = mData.get(i).first;
 		}
-		
+
 		return sections;
 	}
-	public void setSearchResult(List<Pair<String, List<SearchResult>>> search)
-	{
+
+	public void setSearchResult(List<Pair<String, List<SearchResult>>> search) {
 		this.mData.clear();
 		this.mData = search;
 		notifyDataSetChanged();
+	}
+	
+	private void setInfoWidgets(ViewHolder holder, SearchResult result) {
+		Information info = (Information) result.getContent();
+		holder.tvInfoTitle.setText(info.getTitle());
+		holder.tvInfoDescription.setText(info.getSummary());
+		holder.tvInfoType.setText(info.getCategory());
+	}
+	
+	private void setAccountWidgets(ViewHolder holder, SearchResult result, View convertView) {
+		Account account = (Account) result.getContent();
+		holder.tvAccountName.setText(account.getName());
+		holder.tvAccountDesc.setText(account.getDescription());
+		String strUrl = account.getImage();
+		mListAq.id(holder.ivAccountThumb).image(strUrl, true, true,
+	        			300, R.drawable.event_list_thumbnail_place_holder,
+	        			null, AQuery.FADE_IN_NETWORK, 1f);
+	}
+	
+	private void setUserWidgets(ViewHolder holder, SearchResult result) {
+		User user = (User) result.getContent();
+		holder.tvFriendName.setText(user.getName());
+		holder.tvFriendDepart.setText(user.getDepartment());
+		String strUrl = user.getAvatar();
+		mListAq.id(holder.imgFriendAvatar).image(strUrl, true, true,
+    			300, R.drawable.event_list_thumbnail_place_holder,
+    			null, AQuery.FADE_IN_NETWORK, 1f);
+	}
+	
+	private void setCourseWidgets(ViewHolder holder, SearchResult result) {
+		Course course = (Course) result.getContent();
+		holder.tvCourseTitle.setText(course.getTitle());
+		holder.tvCourseTeacher.setText(course.getTeacher());
+	}
+	
+	private void setEventWidgets(ViewHolder holder, SearchResult result) {
+		Activity activity = (Activity) result.getContent();
+		holder.tvEventTitle.setText(activity.getTitle());
+		holder.tvEventTime.setText(DateParser.getEventTime(mContext,
+				activity.getBegin(), activity.getEnd()));
+		holder.tvEventLocation.setText(activity.getLocation());
+		String strUrl = activity.getImage();
+		mListAq.id(holder.ivEventThumb).image(strUrl, true, true,
+				300, R.drawable.event_list_thumbnail_place_holder,
+    			null, AQuery.FADE_IN_NETWORK, 1f);
+	}
+	
+	private void setPeopleWidgets(ViewHolder holder, SearchResult result) {
+		Person person = (Person) result.getContent();
+		holder.tvPeopleName.setText(person.getName());
+		holder.tvPeopleVol.setText(String.valueOf(person.getNO()));
+		holder.tvPeopleWords.setText(person.getWords());
+		String strUrl = person.getAvatar();
+		mListAq.id(holder.ivPeopleAvatar).image(strUrl, true, true,
+    			300, R.drawable.event_list_thumbnail_place_holder,
+    			null, AQuery.FADE_IN_NETWORK, 1f);
 	}
 }
