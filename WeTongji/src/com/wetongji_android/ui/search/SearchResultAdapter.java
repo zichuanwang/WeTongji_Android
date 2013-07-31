@@ -13,6 +13,7 @@ import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,8 +106,10 @@ public class SearchResultAdapter extends AmazingAdapter {
 	private void configureHeader(View view, int position) {
 		TextView tvSectionHeader = 
 				(TextView) view.findViewById(R.id.information_list_header);
-		
-		tvSectionHeader.setText(getSections()[getSectionForPosition(position)]);
+		String header = mData.get(getSectionForPosition(position)).first;
+		tvSectionHeader.setText(header);
+		Log.d("data", header);
+		//tvSectionHeader.setText(getSections()[getSectionForPosition(position)]);
 	}
 
 	@Override
@@ -127,40 +130,41 @@ public class SearchResultAdapter extends AmazingAdapter {
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
-			Drawable gender = null;
-			SearchResult sr = (SearchResult)getItem(position);
-			int section = getSectionForPosition(position);
-			int pos = getPositionForSection(section);
-			
-			if((position - pos) % 2 == 0)
-			{
-				holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row1));
-			}else
-			{
-				holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row2));
-			}
-			holder.tv_title.setText(sr.getTitle());
-			holder.tv_description.setText(sr.getDesc());
+		}
 
-			gender = mFragment.getActivity().getResources()
-					.getDrawable(R.drawable.ic_profile_gender_female);
-			holder.tv_description.setCompoundDrawables(gender, null, null, null);
-			//add image
-			mShouldDelayAq = mListAq.recycle(convertView);
-			if (!sr.getAvatar().equals(WTApplication.MISSING_IMAGE_URL)) {
-				if (mShouldDelayAq.shouldDelay(position, convertView, parent,
-						sr.getAvatar())) {
-					mShouldDelayAq.id(holder.iv_pic)
-							.image(mBmDefaultThumbnails);
-				} else {
-					mShouldDelayAq.id(holder.iv_pic).image(sr.getAvatar(), true,
-							true, 360,
-							R.drawable.event_list_thumbnail_place_holder, null,
-							AQuery.FADE_IN_NETWORK, 1.0f);
-				}
+		Drawable gender = null;
+		SearchResult sr = (SearchResult)getItem(position);
+		int section = getSectionForPosition(position);
+		int pos = getPositionForSection(section);
+		
+		if((position - pos) % 2 == 0)
+		{
+			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row1));
+		}else
+		{
+			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row2));
+		}
+		holder.tv_title.setText(sr.getTitle());
+		holder.tv_description.setText(sr.getDesc());
+		
+		gender = mFragment.getActivity().getResources()
+				.getDrawable(R.drawable.ic_profile_gender_female);
+		holder.tv_description.setCompoundDrawables(gender, null, null, null);
+		//add image
+		mShouldDelayAq = mListAq.recycle(convertView);
+		if (!sr.getAvatar().equals(WTApplication.MISSING_IMAGE_URL)) {
+			if (mShouldDelayAq.shouldDelay(position, convertView, parent,
+					sr.getAvatar())) {
+				mShouldDelayAq.id(holder.iv_pic)
+				.image(mBmDefaultThumbnails);
 			} else {
-				mShouldDelayAq.id(holder.iv_pic).image(mBmDefaultThumbnails);
+				mShouldDelayAq.id(holder.iv_pic).image(sr.getAvatar(), true,
+						true, 360,
+						R.drawable.event_list_thumbnail_place_holder, null,
+						AQuery.FADE_IN_NETWORK, 1.0f);
 			}
+		} else {
+			mShouldDelayAq.id(holder.iv_pic).image(mBmDefaultThumbnails);
 		}
 		
 		return convertView;
