@@ -36,6 +36,7 @@ import com.j256.ormlite.table.TableUtils;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Account;
 import com.wetongji_android.data.Activity;
+import com.wetongji_android.data.Course;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.data.Person;
 import com.wetongji_android.data.SearchHistory;
@@ -44,6 +45,8 @@ import com.wetongji_android.data.User;
 import com.wetongji_android.factory.SearchFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.account.AccountDetailActivity;
+import com.wetongji_android.ui.course.CourseDetailActivity;
 import com.wetongji_android.ui.event.EventDetailActivity;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.friend.FriendDetailActivity;
@@ -355,34 +358,45 @@ public class SearchFragment extends SherlockFragment implements
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 				long id) {
-			Log.d("data", "click");
 			Intent intent = new Intent();
 			Bundle b = new Bundle();
 			SearchResult item = (SearchResult)mResultAdapter.getItem(position);
 			
-			//This part has some questions
-			/*if (item instanceof User) {
-				User user = (User) item;
-				intent.setClass(getActivity(), FriendDetailActivity.class);
-				b.putParcelable(FriendListFragment.BUNDLE_KEY_USER, user);
-			} else if (item instanceof Account) {
-				// TODO enter account detail
-			} else if (item instanceof Activity) {
-				Activity activity = (Activity) item;
-				intent.setClass(getActivity(), EventDetailActivity.class);
-				b.putParcelable(EventsFragment.BUNDLE_KEY_ACTIVITY, activity);
-			} else if (item instanceof Information) {
-				Information info = (Information) item;
+			switch (item.getType()) {
+			case 1:
+				Information info = (Information) item.getContent();
 				intent.setClass(getActivity(), InformationDetailActivity.class);
 				b.putParcelable(InformationsFragment.BUNDLE_KEY_INFORMATION, info);
-			} else if (item instanceof Person) {
-				Person person = (Person) item;
+				break;
+			case 2:
+				Account account = (Account) item.getContent();
+				intent.setClass(getActivity(), AccountDetailActivity.class);
+				b.putParcelable(AccountDetailActivity.BUNDLE_KEY_ACCOUNT, account);
+				break;
+			case 3:
+				User user = (User) item.getContent();
+				intent.setClass(getActivity(), FriendDetailActivity.class);
+				b.putParcelable(FriendListFragment.BUNDLE_KEY_USER, user);
+				break;
+			case 4:
+				Course course = (Course) item.getContent();
+				intent.setClass(getActivity(), CourseDetailActivity.class);
+				b.putParcelable(CourseDetailActivity.BUNDLE_COURSE, course);
+				break;
+			case 5:
+				Activity activity = (Activity) item.getContent();
+				intent.setClass(getActivity(), EventDetailActivity.class);
+				b.putParcelable(EventsFragment.BUNDLE_KEY_ACTIVITY, activity);
+				break;
+			case 6:
+				Person person = (Person) item.getContent();
 				intent.setClass(getActivity(), PersonDetailActivity.class);
 				b.putParcelable(PeopleListFragment.BUNDLE_KEY_PERSON, person);
+				break;
 			}
 			
 			intent.putExtras(b);
-			startActivity(intent);*/
+			startActivity(intent);
 		}
 		
 	};

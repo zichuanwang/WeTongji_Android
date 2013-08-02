@@ -227,4 +227,10 @@
     <item name="layout_mycourse_bg" type="id" />
     <item name="ll_profile_course_list" type="id" />
     <item name="ll_base_detail_blank" type="id">false</item>
+    <item name="tag_search_result_info" type="id"/>
+    <item name="tag_search_result_account" type="id"/>
+    <item name="tag_search_result_user" type="id"/>
+    <item name="tag_search_result_course" type="id"/>
+    <item name="tag_search_result_activity" type="id"/>
+    <item name="tag_search_result_people" type="id"/>
 </resources>

@@ -139,10 +139,9 @@ public class SearchResultAdapter extends AmazingAdapter {
 	public View getAmazingView(int position, View convertView, ViewGroup parent) {
 
 		SearchResult result = (SearchResult) getItem(position);
-		ViewHolder holder;
-		if (convertView == null) {
-			holder = new ViewHolder();
-			switch (result.getType()) {
+		ViewHolder holder = new ViewHolder();
+		
+		switch (result.getType()) {
 			case 1:
 				convertView = mInflater.inflate(R.layout.information_list_item,
 						parent, false);
@@ -152,6 +151,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 						.findViewById(R.id.information_list_item_description);
 				holder.tvInfoType = (TextView) convertView
 						.findViewById(R.id.information_list_item_type);
+				setInfoWidgets(holder, result);
 				break;
 			case 2:
 				convertView = mInflater.inflate(R.layout.row_search_result,
@@ -162,9 +162,10 @@ public class SearchResultAdapter extends AmazingAdapter {
 						.findViewById(R.id.search_result_sub_name);
 				holder.ivAccountThumb = (ImageView) convertView
 						.findViewById(R.id.search_result_pic);
+				setAccountWidgets(holder, result, convertView);
 				break;
 			case 3:
-				convertView = mInflater.inflate(R.layout.row_friend, parent,
+				convertView = mInflater.inflate(R.layout.row_friend_search, parent,
 						false);
 				holder.tvFriendName = (TextView) convertView
 						.findViewById(R.id.friend_name);
@@ -172,17 +173,19 @@ public class SearchResultAdapter extends AmazingAdapter {
 						.findViewById(R.id.friend_department);
 				holder.imgFriendAvatar = (ImageView) convertView
 						.findViewById(R.id.friend_avatar);
+				setUserWidgets(holder, result);
 				break;
 			case 4:
-				convertView = mInflater.inflate(R.layout.row_my_courses,
+				convertView = mInflater.inflate(R.layout.row_my_courses_search,
 						parent, false);
 				holder.tvCourseTitle = (TextView) convertView
 						.findViewById(R.id.text_mycourses_name);
 				holder.tvCourseTeacher = (TextView) convertView
 						.findViewById(R.id.text_mycourses_teacher);
+				setCourseWidgets(holder, result);
 				break;
 			case 5:
-				convertView = mInflater.inflate(R.layout.row_event, parent,
+				convertView = mInflater.inflate(R.layout.row_event_search, parent,
 						false);
 				holder.tvEventTitle = (TextView) convertView
 						.findViewById(R.id.tv_event_title);
@@ -192,6 +195,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 						.findViewById(R.id.tv_event_location);
 				holder.ivEventThumb = (ImageView) convertView
 						.findViewById(R.id.img_event_thumbnails);
+				setEventWidgets(holder, result);
 				break;
 			case 6:
 				convertView = mInflater.inflate(R.layout.row_people,
@@ -204,45 +208,21 @@ public class SearchResultAdapter extends AmazingAdapter {
 						.findViewById(R.id.tv_people_words);
 				holder.ivPeopleAvatar = (ImageView) convertView
 						.findViewById(R.id.img_people_avatar);
+				setPeopleWidgets(holder, result);
 				break;
-			}
-			convertView.setTag(holder);
-		} else {
-			holder = (ViewHolder) convertView.getTag();
 		}
-
-		Drawable gender = null;
+		
 		int section = getSectionForPosition(position);
 		int pos = getPositionForSection(section);
 
-//		if ((position - pos) % 2 == 0) {
-//			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(
-//					R.color.information_list_row1));
-//		} else {
-//			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(
-//					R.color.information_list_row2));
-//		}
-
-		switch(result.getType()) {
-		case 1:
-			setInfoWidgets(holder, result);
-			break;
-		case 2:
-			setAccountWidgets(holder, result, convertView);
-			break;
-		case 3:
-			setUserWidgets(holder, result);
-			break;
-		case 4:
-			setCourseWidgets(holder, result);
-			break;
-		case 5:
-			setEventWidgets(holder, result);
-			break;
-		case 6:
-			setPeopleWidgets(holder, result);
-			break;
+		if ((position - pos) % 2 == 0) {
+			convertView.setBackgroundColor(mContext.getResources().getColor(
+					R.color.information_list_row1));
+		} else {
+			convertView.setBackgroundColor(mContext.getResources().getColor(
+					R.color.information_list_row2));
 		}
+
 		return convertView;
 	}
 

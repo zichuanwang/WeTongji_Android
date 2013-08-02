@@ -11,8 +11,7 @@
     <RelativeLayout
 	    android:id="@id/search_result_item"
 	    android:layout_width="match_parent"
-	    android:layout_height="100dp"
-	    android:background="@color/layout_event_list_row1">
+	    android:layout_height="100dp" >
 	    
 		<ImageView 
 		    android:id="@id/search_result_pic"

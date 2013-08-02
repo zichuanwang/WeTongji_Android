@@ -25,7 +25,7 @@ public class CourseDetailActivity extends WTBaseDetailActivity{
 
 	private void recieveData() {
 		Intent intent = this.getIntent();
-		mCourse = intent.getExtras().getParcelable(BUNDLE_COURSE);
+		mCourse = (Course)(intent.getExtras().getParcelable(BUNDLE_COURSE));
 	}
 	
 	private void setUpUI() {

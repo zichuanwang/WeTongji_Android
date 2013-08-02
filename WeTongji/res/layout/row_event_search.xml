@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/layout_event_row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <include layout="@layout/information_list_header" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@id/img_event_thumbnails"
+            style="@style/EventLstThumbnails"
+            android:layout_width="48dip"
+            android:layout_height="64dip"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5.0dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:orientation="vertical"
+            android:padding="1.5dip" >
+
+            <TextView
+                android:id="@id/tv_event_title"
+                style="@style/EventLstTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="3dp" />
+
+            <TextView
+                android:id="@id/tv_event_time"
+                style="@style/EventLstTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/tv_event_location"
+                android:layout_marginTop="2.0dp" />
+
+            <TextView
+                android:id="@id/tv_event_location"
+                style="@style/EventLstLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="2.5dp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

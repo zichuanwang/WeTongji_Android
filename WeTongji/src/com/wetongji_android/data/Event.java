@@ -84,8 +84,12 @@ public class Event implements Comparable<Event>, Parcelable{
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(Id);
-		dest.writeLong(Begin.getTime());
-		dest.writeLong(End.getTime());
+		if (Begin != null) {
+			dest.writeLong(Begin.getTime());
+		}
+		if (End != null) {
+			dest.writeLong(End.getTime());
+		}
 		dest.writeString(Title);
 		dest.writeString(Location);
 	}

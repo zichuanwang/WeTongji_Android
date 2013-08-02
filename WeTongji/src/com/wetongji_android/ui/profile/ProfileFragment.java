@@ -195,7 +195,6 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	private void setAvatarFromUrl() {
 		String strUrl = mUser.getAvatar() != null ? 
 				HttpUtil.replaceURL(mUser.getAvatar()) : "";
-		WTUtility.log("data", strUrl);
 		AQuery aq = WTApplication.getInstance().getAq(getActivity());
 		aq.id(R.id.img_profile_avatar).image(strUrl, true, true, 0, 0, 
 				new BitmapAjaxCallback() {

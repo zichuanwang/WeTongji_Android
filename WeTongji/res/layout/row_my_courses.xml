@@ -12,13 +12,15 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="8dp"
         style="@style/MyCoursesName"/>
     
     <TextView
         android:id="@id/text_mycourses_teacher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"       
         style="@style/MyCourseTeacher" />
 
 </LinearLayout>
