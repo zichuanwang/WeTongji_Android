@@ -50,6 +50,4 @@ public class LikeCounts implements Serializable{
 	public void setPerson(int person) {
 		Person = person;
 	}
-	
-	
 }
