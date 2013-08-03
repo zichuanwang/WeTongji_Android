@@ -142,6 +142,11 @@
         <activity
             android:name="com.wetongji_android.ui.course.CourseListActivity">
         </activity>
+        
+        <activity
+            android:name="com.wetongji_android.util.common.WTLikeListActivity">
+        </activity>
+        
     </application>
 
 </manifest>

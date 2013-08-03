@@ -43,12 +43,42 @@ OnScrollListener{
 	private PersonFactory mFactory;
 	private int mNextPager = 1;
 	
+	public static PeopleListFragment newInstance(StartMode startMode, Bundle args){
+		PeopleListFragment f = new PeopleListFragment();
+		Bundle bundle;
+		
+		if(args != null){
+			bundle = args;
+		}else{
+			bundle = new Bundle();
+		}
+		
+		switch(startMode) {
+		case BASIC:
+			bundle.putInt(BUNDLE_KEY_START_MODE, 1);
+			break;
+		case USERS:
+			bundle.putInt(BUNDLE_KEY_START_MODE, 2);
+			break;
+		case LIKE:
+		    bundle.putInt(BUNDLE_KEY_START_MODE, 3);
+			break;
+		}
+		
+		f.setArguments(bundle);
+		return f;
+	}
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		
 		switch(getCurrentState(savedInstanceState)) {
 		case FIRST_TIME_START:
-			mAdapter.loadDataFromDB();
+			if(mStartMode == StartMode.BASIC){
+				mAdapter.loadDataFromDB();
+			}else{
+				loadDataLiked(1);
+			}
 			break;
 		case SCREEN_ROTATE:
 			break;
@@ -69,6 +99,13 @@ OnScrollListener{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Bundle b = getArguments();
+		if (b != null) {
+			int modeCode = b.getInt(BUNDLE_KEY_START_MODE);
+			mStartMode = (modeCode == 1) ? StartMode.BASIC : 
+				((modeCode == 2) ? StartMode.USERS : StartMode.LIKE);
+		}
+		
 		setRetainInstance(true);
 		
 		setHasOptionsMenu(true);
@@ -93,6 +130,14 @@ OnScrollListener{
 		getLoaderManager().destroyLoader(WTApplication.PERSON_LOADER);
 	}
 
+	private void loadDataLiked(int page){
+		isRefresh = false;
+		mAdapter.setIsLoadingData(true);
+		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, 3);
+		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
+	}
+	
 	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle args) {
 		return new NetworkLoader(getActivity(), HttpMethod.Get, args);
@@ -209,5 +254,4 @@ OnScrollListener{
 		Bundle args = apiHelper.getPeople(mCurrentPage);
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
-	
 }

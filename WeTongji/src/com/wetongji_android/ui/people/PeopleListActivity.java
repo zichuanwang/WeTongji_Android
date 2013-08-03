@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
+import com.wetongji_android.util.common.WTBaseFragment.StartMode;
 
 public class PeopleListActivity extends SherlockFragmentActivity{
 
@@ -19,7 +20,7 @@ public class PeopleListActivity extends SherlockFragmentActivity{
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setIcon(R.drawable.img_wt_logo);
 		
-		PeopleListFragment fragment = new PeopleListFragment();
+		PeopleListFragment fragment = PeopleListFragment.newInstance(StartMode.BASIC, null);
 		getSupportFragmentManager().beginTransaction()
 			.add(R.id.fragment_container, fragment, TAG_ORG_FRAGMENT)
 			.commit();
@@ -33,7 +34,4 @@ public class PeopleListActivity extends SherlockFragmentActivity{
 		
 		return super.onOptionsItemSelected(item);
 	}
-	
-	
-	
 }

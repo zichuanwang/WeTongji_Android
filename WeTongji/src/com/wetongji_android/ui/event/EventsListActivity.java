@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.wetongji_android.R;
-import com.wetongji_android.ui.event.EventsFragment.StartMode;
+import com.wetongji_android.util.common.WTBaseFragment.StartMode;
 
 public class EventsListActivity extends SherlockFragmentActivity {
 
@@ -14,8 +14,16 @@ public class EventsListActivity extends SherlockFragmentActivity {
 		super.onCreate(arg0);
 		setContentView(R.layout.content_frame);
 		
+		Fragment f;
 		Bundle b = getIntent().getExtras();
-		Fragment f = EventsFragment.newInstance(StartMode.USERS, b);
+		if(b.getBoolean(EventsFragment.BUNDLE_KEY_LIKE, false))
+		{
+			f = EventsFragment.newInstance(StartMode.LIKE, b);
+		}else
+		{
+			f = EventsFragment.newInstance(StartMode.USERS, b);
+		}
+		
 		getSupportFragmentManager().beginTransaction()
 			.replace(R.id.content_frame, f).commit();
 	}

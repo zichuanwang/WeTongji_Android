@@ -39,9 +39,6 @@ import com.wetongji_android.util.net.HttpRequestResult;
 
 public class EventsFragment extends WTBaseFragment implements LoaderCallbacks<HttpRequestResult>,
 OnScrollListener{
-	
-	public static final String BUNDLE_KEY_UID = "bundle_key_uid";
-	public static final String BUNDLE_KEY_START_MODE = "bundle_key_start_mode";
 	public static final String BUNDLE_KEY_ACTIVITY = "bundle_key_activity";
 	public static final String BUNDLE_KEY_ACTIVITY_LIST = "bundle_key_activity_list";
 	public static final String BUNDLE_KEY_LOAD_FROM_DB_FINISHED = "bundle_key_load_from_db_finished";
@@ -50,8 +47,7 @@ OnScrollListener{
 	public static final String PREFERENCE_EVENT_SORT = "EventSort";
 	public static final String PREFERENCE_EVENT_TYPE = "EventType";
 	private static final int USER_SELECT_TYPE = 15;
-	
-	private StartMode mStartMode;
+
 	//mUID may be used in USERS mode
 	private String mUID;
 	public ListView mListActivity;
@@ -65,17 +61,16 @@ OnScrollListener{
 	private int mSortType = 1;
 	private int mSelectedType = 15;
 	
-	public static enum StartMode {
-		BASIC, USERS, LIKE
-	}
 	public static EventsFragment newInstance(StartMode startMode, Bundle args) {
 		EventsFragment f = new EventsFragment();
 		Bundle bundle;
-		if (args != null) {
+		
+		if(args != null){
 			bundle = args;
-		} else {
+		}else{
 			bundle = new Bundle();
 		}
+		
 		switch(startMode) {
 		case BASIC:
 			bundle.putInt(BUNDLE_KEY_START_MODE, 1);
@@ -84,9 +79,10 @@ OnScrollListener{
 			bundle.putInt(BUNDLE_KEY_START_MODE, 2);
 			break;
 		case LIKE:
-			bundle.putInt(BUNDLE_KEY_START_MODE, 3);
+		    bundle.putInt(BUNDLE_KEY_START_MODE, 3);
 			break;
 		}
+		
 		f.setArguments(bundle);
 		return f;
 	}
@@ -117,7 +113,7 @@ OnScrollListener{
 			} else if (mStartMode == StartMode.USERS) {
 				loadDataByUser(1);
 			} else {
-				
+				loadDataLiked(1);
 			}
 			break;
 		case SCREEN_ROTATE:
@@ -239,7 +235,14 @@ OnScrollListener{
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	
-
+	private void loadDataLiked(int page){
+		isRefresh = false;
+		mAdapter.setIsLoadingData(true);
+		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, 1);
+		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
+	}
+	
 	@Override
 	public void onPause() {
 		super.onPause();

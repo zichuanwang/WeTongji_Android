@@ -186,5 +186,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="profile_edit">Edit</string>
     <string name="title_choose_app_send_email">Please choose an application to send email </string>
     <string name="msg_content_copied">The content has been copied</string>
-
+	<string name="profile_no_like_events">You have no liked events</string>
+	<string name="profile_no_like_information">You have no liked info</string>
+	<string name="profile_no_like_people">You have no liked people</string>
 </resources>
