@@ -8,7 +8,6 @@ import java.util.Set;
 
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
-import com.wetongji_android.util.net.HttpUtil;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;

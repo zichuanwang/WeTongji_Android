@@ -51,7 +51,7 @@ public class TodayFactory {
 		try {
 			JSONObject outer = new JSONObject(jsonStr);
 			result.add(personFactory.createObject(outer.getString("Person")));
-			result.add(accountFactory.createObjects(outer
+			result.add(accountFactory.createObject(outer
 					.getString("AccountPopular")));
 		} catch (JSONException e) {
 			e.printStackTrace();

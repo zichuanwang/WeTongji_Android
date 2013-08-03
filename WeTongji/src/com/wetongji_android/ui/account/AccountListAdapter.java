@@ -1,14 +1,6 @@
-package com.wetongji_android.ui.event;
+package com.wetongji_android.ui.account;
 
 import java.util.List;
-
-import com.androidquery.AQuery;
-import com.wetongji_android.R;
-import com.wetongji_android.data.Activity;
-import com.wetongji_android.ui.EndlessListAdapter;
-import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.data.activity.ActivitiesLoader;
-import com.wetongji_android.util.date.DateParser;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,8 +17,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class EventListAdapter extends EndlessListAdapter<Activity> implements LoaderCallbacks<List<Activity>>{
+import com.androidquery.AQuery;
+import com.wetongji_android.R;
+import com.wetongji_android.data.Account;
+import com.wetongji_android.ui.EndlessListAdapter;
+import com.wetongji_android.util.common.WTApplication;
 
+public class AccountListAdapter extends EndlessListAdapter<Account> implements
+		LoaderCallbacks<List<Account>> 
+{	
 	private static final float LIST_THUMBNAILS_TARGET_WIDTH_FACTOR = 3;
 	private static int LIST_THUMBNAILS_TARGET_WIDTH = 300;
 	
@@ -40,16 +39,17 @@ public class EventListAdapter extends EndlessListAdapter<Activity> implements Lo
 	
 	static class ViewHolder {
 		TextView tvEventTitle;
-		TextView tvEventTime;
-		TextView tvEventLocation;
+		TextView tvEventDescription;
 		ImageView ivEventThumb;	
 		LinearLayout llEventRow;
 	}
 	
-	public EventListAdapter(Fragment fragment, AbsListView listView) {
+	public AccountListAdapter(Fragment fragment, AbsListView listView)
+	{
 		super(fragment.getActivity(), listView, R.layout.amazing_lst_view_loading_view);
-		mInflater = LayoutInflater.from(fragment.getActivity());
-		mContext = fragment.getActivity();
+		mFragment = fragment;
+		mContext = mFragment.getActivity();
+		mInflater = LayoutInflater.from(mContext);
 		mListAq = WTApplication.getInstance().getAq(fragment.getActivity());
 		mFragment = fragment;
 		mBmDefaultThumbnails = (BitmapDrawable) mContext.getResources()
@@ -62,25 +62,41 @@ public class EventListAdapter extends EndlessListAdapter<Activity> implements Lo
 			LIST_THUMBNAILS_TARGET_WIDTH = (int)(dm.widthPixels / LIST_THUMBNAILS_TARGET_WIDTH_FACTOR);
 		}
 	}
+	
+	@Override
+	public Loader<List<Account>> onCreateLoader(int arg0, Bundle arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void onLoadFinished(Loader<List<Account>> arg0, List<Account> arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onLoaderReset(Loader<List<Account>> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	protected View doGetView(int position, View convertView, ViewGroup parent) {
-		
+		// TODO Auto-generated method stub
 		ViewHolder holder;
 		
 		if(convertView==null){
 			holder=new ViewHolder();
 			convertView=mInflater.inflate(R.layout.row_event, parent, false);
 			holder.tvEventTitle=
-					(TextView)convertView.findViewById(R.id.tv_event_title);
-			holder.tvEventTime=
-					(TextView)convertView.findViewById(R.id.tv_event_time);
-			holder.tvEventLocation = 
-					(TextView)convertView.findViewById(R.id.tv_event_location);
+					(TextView)convertView.findViewById(R.id.tv_account_title);
+			holder.tvEventDescription = 
+					(TextView)convertView.findViewById(R.id.tv_account_description);
 			holder.ivEventThumb=
-					(ImageView)convertView.findViewById(R.id.img_event_thumbnails);
+					(ImageView)convertView.findViewById(R.id.img_account_thumbnails);
 			holder.llEventRow = 
-					(LinearLayout)convertView.findViewById(R.id.layout_event_row);
+					(LinearLayout)convertView.findViewById(R.id.layout_account_row);
 			convertView.setTag(holder);
 		}
 		else {
@@ -96,21 +112,11 @@ public class EventListAdapter extends EndlessListAdapter<Activity> implements Lo
 					getResources().getColor(R.color.layout_event_list_row2));
 		}
 		
-		Activity event=getItem(position);
+		Account event = getItem(position);
 		
 		holder.tvEventTitle.setText(event.getTitle());
-		holder.tvEventTime.setText(
-				DateParser.getEventTime(mContext, event.getBegin(), event.getEnd()));
 		
-		if(DateParser.isNow(event.getBegin(), event.getEnd())) {
-			int timeColor = mContext.getResources().getColor(R.color.tv_eventlst_time_now);
-			holder.tvEventTime.setTextColor(timeColor);
-		}else {
-			int timeColor = mContext.getResources().getColor(R.color.tv_eventlst_time);
-			holder.tvEventTime.setTextColor(timeColor);
-		}
-		
-		holder.tvEventLocation.setText(event.getLocation());
+		holder.tvEventDescription.setText(event.getDescription());
 		
 		// Set thumbnails
 		String strUrl = event.getImage();
@@ -132,31 +138,5 @@ public class EventListAdapter extends EndlessListAdapter<Activity> implements Lo
 		}
 		
 		return convertView;
-	}
-
-	@Override
-	public Loader<List<Activity>> onCreateLoader(int arg0, Bundle arg1) {
-		return new ActivitiesLoader(mContext, arg1);
-	}
-
-	@Override
-	public void onLoadFinished(Loader<List<Activity>> arg0, List<Activity> arg1) {
-		if (arg1 != null && arg1.size() != 0) {
-			getData().addAll(arg1);
-			setIsLoadingData(false);
-			notifyDataSetChanged();
-		} else {
-			((EventsFragment)mFragment).refreshData();
-		}
-		
-	}
-
-	@Override
-	public void onLoaderReset(Loader<List<Activity>> arg0) {
-	}
-	
-	public void loadDataFromDB(Bundle bundle) {
-		mFragment.getLoaderManager().initLoader(WTApplication.ACTIVITIES_LOADER, bundle, this);
-		setIsLoadingData(true);
 	}
 }

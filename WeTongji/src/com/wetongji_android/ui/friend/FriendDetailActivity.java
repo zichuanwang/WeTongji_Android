@@ -72,7 +72,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		tvFriendDepartment = (TextView)findViewById(R.id.text_profile_gender);
 		tvFriendDepartment.setText(mUser.getDepartment());
 		ibFriend = (Button)findViewById(R.id.btn_profile_action);
-		ibFriend.setText("UnFriend");
+		ibFriend.setText("Friend");
 		ibFriend.setOnClickListener(new ClickListener());
 		//Set Avatar
 		mAq.id(R.id.img_profile_avatar).image(mUser.getAvatar(), true, true, 0, 0, new BitmapAjaxCallback() 

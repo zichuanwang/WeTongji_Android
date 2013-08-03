@@ -134,7 +134,6 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 		{
 		case FIRST_TIME_START:
 			if(mStartMode == StartMode.BASIC){
-				WTUtility.log("test", "u");
 				mAdapter.loadDataFromDB(getQueryArgs());
 			}else{
 				loadDataLiked(1);

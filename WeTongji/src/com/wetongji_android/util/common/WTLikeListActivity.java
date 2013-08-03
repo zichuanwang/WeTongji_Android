@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.wetongji_android.R;
+import com.wetongji_android.ui.account.AccountListFragment;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.ui.people.PeopleListFragment;
@@ -16,7 +17,6 @@ public class WTLikeListActivity extends SherlockFragmentActivity
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
-		// TODO Auto-generated method stub
 		super.onCreate(arg0);
 		setContentView(R.layout.content_frame);
 		
@@ -42,7 +42,11 @@ public class WTLikeListActivity extends SherlockFragmentActivity
 				fragment = PeopleListFragment.newInstance(StartMode.USERS, bundle);
 			}
 		}else{
-			
+			if(bundle.getBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, false)){
+				fragment = AccountListFragment.newInstance(StartMode.LIKE, bundle);
+			}else{
+				fragment = AccountListFragment.newInstance(StartMode.USERS, bundle);
+			}
 		}
 		
 		getSupportFragmentManager().beginTransaction()
