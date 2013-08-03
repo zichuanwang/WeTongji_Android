@@ -162,7 +162,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 						.findViewById(R.id.search_result_sub_name);
 				holder.ivAccountThumb = (ImageView) convertView
 						.findViewById(R.id.search_result_pic);
-				setAccountWidgets(holder, result, convertView);
+				setAccountWidgets(holder, result);
 				break;
 			case 3:
 				convertView = mInflater.inflate(R.layout.row_friend_search, parent,
@@ -290,7 +290,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 		holder.tvInfoType.setText(info.getCategory());
 	}
 	
-	private void setAccountWidgets(ViewHolder holder, SearchResult result, View convertView) {
+	private void setAccountWidgets(ViewHolder holder, SearchResult result) {
 		Account account = (Account) result.getContent();
 		holder.tvAccountName.setText(account.getName());
 		holder.tvAccountDesc.setText(account.getDescription());
@@ -304,6 +304,13 @@ public class SearchResultAdapter extends AmazingAdapter {
 		User user = (User) result.getContent();
 		holder.tvFriendName.setText(user.getName());
 		holder.tvFriendDepart.setText(user.getDepartment());
+		int gendarResourceId = user.getGender().equals("ÄÐ") ?
+				R.drawable.ic_profile_gender_male :
+				R.drawable.ic_profile_gender_female;
+		Drawable gendar = mContext.getResources().getDrawable(gendarResourceId);
+		holder.tvFriendDepart.setCompoundDrawablesWithIntrinsicBounds(
+				gendar, null, null, null);
+
 		String strUrl = user.getAvatar();
 		mListAq.id(holder.imgFriendAvatar).image(strUrl, true, true,
     			300, R.drawable.event_list_thumbnail_place_holder,
@@ -325,7 +332,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 		String strUrl = activity.getImage();
 		mListAq.id(holder.ivEventThumb).image(strUrl, true, true,
 				300, R.drawable.event_list_thumbnail_place_holder,
-    			null, AQuery.FADE_IN_NETWORK, 1f);
+    			null, AQuery.FADE_IN_NETWORK, 1.33f);
 	}
 	
 	private void setPeopleWidgets(ViewHolder holder, SearchResult result) {

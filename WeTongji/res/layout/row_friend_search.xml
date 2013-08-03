@@ -38,8 +38,9 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/friend_name"
             android:layout_below="@id/friend_name"
-            android:layout_marginTop="10dp" >
-        </TextView>
+            android:layout_marginTop="10dp"
+            android:drawablePadding="5dp"
+            android:textColor="#b1b1b1" />
     </RelativeLayout>
 
 </LinearLayout>

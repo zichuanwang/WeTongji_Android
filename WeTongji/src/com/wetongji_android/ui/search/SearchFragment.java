@@ -12,7 +12,6 @@ import android.support.v4.content.Loader;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,6 +75,7 @@ public class SearchFragment extends SherlockFragment implements
 	private ClearHistoryTask mClearTask;
 	private EditText mEtSearch;
 	private TextView mTvHistoryTitle;
+	private ProgressBar mProgressBar;
 
 	public static SearchFragment newInstance() {
 		SearchFragment f = new SearchFragment();
@@ -102,6 +103,7 @@ public class SearchFragment extends SherlockFragment implements
 		View view = inflater
 				.inflate(R.layout.fragment_search, container, false);
 
+		mProgressBar = (ProgressBar) view.findViewById(R.id.pb_search);
 		mTvHistoryTitle = (TextView) view
 				.findViewById(R.id.text_search_history_title);
 		mLvSearchHistory = (ListView) view
@@ -124,6 +126,8 @@ public class SearchFragment extends SherlockFragment implements
 				if (position == mAdapter.getCount() - 1) {
 					startClearTask();
 				} else {
+					mLvSearchTips.setVisibility(View.GONE);
+					mProgressBar.setVisibility(View.VISIBLE);
 					SearchHistory search = (SearchHistory) arg0.getItemAtPosition(position);
 					doSearch(search.getType(), search.getKeywords());
 					mEtSearch.setText(search.getKeywords());
@@ -251,6 +255,8 @@ public class SearchFragment extends SherlockFragment implements
 	}
 	
 	private void doSearch(int type, String content) {
+		mProgressBar.setVisibility(View.VISIBLE);
+		mLvSearchTips.setVisibility(View.GONE);
 		ApiHelper apiHelper = ApiHelper
 				.getInstance(getActivity());
 		Bundle b = apiHelper
@@ -298,6 +304,7 @@ public class SearchFragment extends SherlockFragment implements
 				processSearchResult(result.getStrResponseCon());
 			} else {
 				ExceptionToast.show(getActivity(), result.getResponseCode());
+				mLvSearchTips.setVisibility(View.VISIBLE);
 			}
 		}
 	}
@@ -309,6 +316,7 @@ public class SearchFragment extends SherlockFragment implements
 	private void processSearchResult(String jsonStr) {
 		mResultAdapter.setSearchResult(SearchUtil.generateSearchResults(jsonStr));
 		mResultAdapter.notifyDataSetChanged();
+		mProgressBar.setVisibility(View.GONE);
 	}
 
 	private void saveSearchHistory(int type, String keywords) {

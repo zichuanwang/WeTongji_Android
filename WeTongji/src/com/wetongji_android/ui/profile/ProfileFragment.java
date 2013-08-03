@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -197,7 +198,11 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		if (!TextUtils.isEmpty(mUser.getWords())) {
 			mTvWords.setText("\"" + mUser.getWords() + "\"");
 		}
-		
+		int gendarRid = mUser.getGender().equals("ÄÐ") ?
+				R.drawable.ic_profile_gender_male :
+					R.drawable.ic_profile_gender_female;
+		Drawable gendarDrawable = getResources().getDrawable(gendarRid);
+		mTvCollege.setCompoundDrawables(gendarDrawable, null, null, null);
 		mTvCollege.setText(mUser.getDepartment());
 		String fmt = getResources().getString(R.string.text_friends_counter);
 		mTvFriendsNum.setText(String.format(fmt, mUser.getFriendCount()));
