@@ -233,4 +233,5 @@
     <item name="tag_search_result_course" type="id"/>
     <item name="tag_search_result_activity" type="id"/>
     <item name="tag_search_result_people" type="id"/>
+    <item name="pb_search" type="id" />
 </resources>

@@ -42,7 +42,6 @@
 		    android:layout_below="@id/search_result_name"
 		    android:layout_alignLeft="@id/search_result_name"
 		    android:layout_marginTop="10dp"
-		    android:drawableLeft="@drawable/ic_profile_gender_male"
 		    android:textIsSelectable="false"
 		    style="@style/FriendMajor"/>
 		
