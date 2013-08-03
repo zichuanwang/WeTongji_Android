@@ -79,6 +79,11 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	private RelativeLayout rlMyProfile;
 	private RelativeLayout rlParActivities;
 	private RelativeLayout rlParCourses;
+	private RelativeLayout rlLikeEvents;
+	private RelativeLayout rlLikeInfos;
+	private RelativeLayout rlLikePeople;
+	private RelativeLayout rlLikeOrganizations;
+	
 	private ImageView mIvAvatar;
 	private Button mBtnChangeAvatar;
 	
@@ -171,6 +176,17 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		rlParCourses = (RelativeLayout) v.findViewById(R.id.ll_profile_course_list);
 		rlParCourses.setOnClickListener(mClickListener);
 		
+		rlLikeEvents = (RelativeLayout)v.findViewById(R.id.ll_profile_events_like);
+		rlLikeEvents.setOnClickListener(mClickListener);
+		
+		rlLikeInfos = (RelativeLayout)v.findViewById(R.id.ll_profile_news_like);
+		rlLikeInfos.setOnClickListener(mClickListener);
+		
+		rlLikePeople = (RelativeLayout)v.findViewById(R.id.ll_profile_people_like);
+		rlLikePeople.setOnClickListener(mClickListener);
+		
+		rlLikeOrganizations = (RelativeLayout)v.findViewById(R.id.ll_profile_org_like);
+		rlLikeOrganizations.setOnClickListener(mClickListener);
 	}
 	
 	private void setWidgets() {
@@ -191,8 +207,8 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		mTvNewsLikes.setText(String.format(format, mUser.getLikeCount().getInformation()));
 		mTvPeopleLikes.setText(String.format(format, mUser.getLikeCount().getPerson()));
 		mTvOrgsLikes.setText(String.format(format, mUser.getLikeCount().getAccount()));
-		/*mTvParActivities.setText(String.format(format, user.get));
-		mTvParCourse.setText(String.format(format, user));*/
+		mTvParActivities.setText(String.format(format, mUser.getScheduleCount().getActivity()));
+		mTvParCourse.setText(String.format(format, mUser.getScheduleCount().getCourse()));
 		
 		((MainActivity)mActivity).getSupportActionBar().setTitle(mUser.getName());
 	}
@@ -329,6 +345,14 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 				startActivity(intent);
 				mActivity.overridePendingTransition(R.anim.slide_right_in,
 						R.anim.slide_left_out);
+			} else if(v.getId() == R.id.ll_profile_events_like){
+			
+			} else if(v.getId() == R.id.ll_profile_news_like){
+			
+			} else if(v.getId() == R.id.ll_profile_people_like){
+				
+			} else if(v.getId() == R.id.ll_profile_org_like){
+				
 			}
 		}
 	}

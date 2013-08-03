@@ -46,6 +46,8 @@ public class User implements Parcelable
 	private String Room;
 	@DatabaseField(dataType=DataType.SERIALIZABLE)
 	private LikeCounts LikeCount;
+	@DatabaseField(dataType=DataType.SERIALIZABLE)
+	private ScheduleCounts ScheduleCount;
 	@DatabaseField
 	private boolean IsFriend;
 	@DatabaseField
@@ -243,6 +245,14 @@ public class User implements Parcelable
 		LikeCount = likeCount;
 	}
 
+	public ScheduleCounts getScheduleCount() {
+		return ScheduleCount;
+	}
+
+	public void setScheduleCount(ScheduleCounts scheduleCount) {
+		ScheduleCount = scheduleCount;
+	}
+
 	public boolean isIsFriend() {
 		return IsFriend;
 	}
@@ -289,6 +299,7 @@ public class User implements Parcelable
 		dest.writeString(Words);
 		dest.writeString(Room);
 		dest.writeSerializable(LikeCount);
+		dest.writeSerializable(ScheduleCount);
 		dest.writeByte((byte)(IsFriend?1:0));
 		dest.writeInt(FriendCount);
 		dest.writeString(Avatar);
@@ -315,6 +326,7 @@ public class User implements Parcelable
 		Words = source.readString();
 		Room = source.readString();
 		LikeCount = (LikeCounts) source.readSerializable();
+		ScheduleCount = (ScheduleCounts)source.readSerializable();
 		IsFriend = source.readByte() == 1;
 		FriendCount = source.readInt();
 		Avatar = source.readString();
