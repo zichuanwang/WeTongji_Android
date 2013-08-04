@@ -15,7 +15,6 @@ import com.androidquery.AQuery;
 import com.viewpagerindicator.UnderlinePageIndicator;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Person;
-import com.wetongji_android.ui.event.EventDetailActivity;
 import com.wetongji_android.util.common.WTApplication;
 
 public class PersonDetailActivity extends SherlockFragmentActivity {

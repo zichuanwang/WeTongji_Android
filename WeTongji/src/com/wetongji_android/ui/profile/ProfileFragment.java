@@ -7,26 +7,22 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -34,7 +30,6 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
 import com.androidquery.callback.BitmapAjaxCallback;
 import com.wetongji_android.R;
-import com.wetongji_android.data.ActivityList;
 import com.wetongji_android.data.User;
 import com.wetongji_android.factory.UserFactory;
 import com.wetongji_android.net.NetworkLoader;
@@ -46,7 +41,7 @@ import com.wetongji_android.ui.friend.FriendListActivity;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseFragment;
-import com.wetongji_android.util.common.WTUtility;
+import com.wetongji_android.util.common.WTLikeListActivity;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.image.ImageUtil;
 import com.wetongji_android.util.net.ApiHelper;
@@ -91,6 +86,12 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	
 	private OnClickListener mClickListener = new ClickListener();
 	
+	public static ProfileFragment newInstance(){
+		ProfileFragment fragment = new ProfileFragment();
+		
+		return fragment;
+	}
+	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -123,8 +124,6 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		
 		return mContentView;
 	}
-	
-	
 	
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
@@ -346,13 +345,65 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 				mActivity.overridePendingTransition(R.anim.slide_right_in,
 						R.anim.slide_left_out);
 			} else if(v.getId() == R.id.ll_profile_events_like){
-			
+				if(mUser.getLikeCount().getActivity() == 0){
+					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_events), 
+							Toast.LENGTH_SHORT).show();
+				}else{
+					Intent intent = new Intent(mActivity, WTLikeListActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+					bundle.putBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, true);
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "Activity");
+					intent.putExtras(bundle);
+					startActivity(intent);
+					mActivity.overridePendingTransition(R.anim.slide_right_in,
+							R.anim.slide_left_out);
+				}
 			} else if(v.getId() == R.id.ll_profile_news_like){
-			
+				if(mUser.getLikeCount().getInformation() == 0){
+					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_information), 
+							Toast.LENGTH_SHORT).show();
+				}else{
+					Intent intent = new Intent(mActivity, WTLikeListActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+					bundle.putBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, true);
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "Info");
+					intent.putExtras(bundle);
+					startActivity(intent);
+					mActivity.overridePendingTransition(R.anim.slide_right_in,
+							R.anim.slide_left_out);
+				}
 			} else if(v.getId() == R.id.ll_profile_people_like){
-				
+				if(mUser.getLikeCount().getPerson() == 0){
+					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_people), 
+							Toast.LENGTH_SHORT).show();
+				}else{
+					Intent intent = new Intent(mActivity, WTLikeListActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+					bundle.putBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, true);
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "People");
+					intent.putExtras(bundle);
+					startActivity(intent);
+					mActivity.overridePendingTransition(R.anim.slide_right_in,
+							R.anim.slide_left_out);
+				}
 			} else if(v.getId() == R.id.ll_profile_org_like){
-				
+				if(mUser.getLikeCount().getAccount() == 0){
+					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_accounts), 
+							Toast.LENGTH_SHORT).show();
+				}else{
+					Intent intent = new Intent(mActivity, WTLikeListActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+					bundle.putBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, true);
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "Account");
+					intent.putExtras(bundle);
+					startActivity(intent);
+					mActivity.overridePendingTransition(R.anim.slide_right_in,
+							R.anim.slide_left_out);
+				}
 			}
 		}
 	}

@@ -2,7 +2,6 @@ package com.wetongji_android.ui.informations;
 
 import java.util.List;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -15,6 +14,7 @@ import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.data.information.InformationUtil;
@@ -37,7 +37,7 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class InformationsFragment extends SherlockFragment implements LoaderCallbacks<HttpRequestResult> 
+public class InformationsFragment extends WTBaseFragment implements LoaderCallbacks<HttpRequestResult> 
 {	
 	private static final String TAG = "InformationsFragment";
 	public static final String BUNDLE_KEY_INFORMATION = "bundle_key_information";
@@ -49,22 +49,51 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 	private LayoutInflater mInflater;
 	private Activity mActivity;
 	
-	private boolean isFirstTimeToStart = true;
-	private final int FIRST_TIME_START = 0; //when activity is first time start
-	private final int SCREEN_ROTATE = 1;    //when activity is destroyed and recreated because a configuration change, see setRetainInstance(boolean retain)
-	private final int ACTIVITY_DESTROY_AND_CREATE = 2; 
-	
 	private static final String INFORMATION_LIST = "INFORMATIONS";
 	public static final String SHARED_PREFERENCE_INFORMATION = "InfoSetting";
 	public static final String PREFERENCE_INFO_TYPE = "InfoType";
 	
 	private int mSelectType = 15;
 	
+	public static InformationsFragment newInstance(StartMode startMode, Bundle args)
+	{
+		InformationsFragment fragment = new InformationsFragment();
+		Bundle bundle;
+		
+		if(args != null){
+			bundle = args;
+		}else{
+			bundle = new Bundle();
+		}
+		
+		switch(startMode) {
+		case BASIC:
+			bundle.putInt(BUNDLE_KEY_START_MODE, 1);
+			break;
+		case USERS:
+			bundle.putInt(BUNDLE_KEY_START_MODE, 2);
+			break;
+		case LIKE:
+		    bundle.putInt(BUNDLE_KEY_START_MODE, 3);
+			break;
+		}
+		
+		fragment.setArguments(bundle);
+		return fragment;
+	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		Bundle bundle = getArguments();
+		if(bundle != null){
+			int modeCode = bundle.getInt(BUNDLE_KEY_START_MODE);
+			mStartMode = (modeCode == 1) ? StartMode.BASIC : 
+				((modeCode == 2) ? StartMode.USERS : StartMode.LIKE);
+		}
+		
 		setRetainInstance(true);
 		
 		setHasOptionsMenu(true);
@@ -104,8 +133,11 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		switch(getCurrentState(savedInstanceState))
 		{
 		case FIRST_TIME_START:
-			WTUtility.log(TAG, "First Time Start");
-			mAdapter.loadDataFromDB(getQueryArgs());
+			if(mStartMode == StartMode.BASIC){
+				mAdapter.loadDataFromDB(getQueryArgs());
+			}else{
+				loadDataLiked(1);
+			}
 		case SCREEN_ROTATE:
 			break;
 		case ACTIVITY_DESTROY_AND_CREATE:
@@ -148,6 +180,14 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		getLoaderManager().destroyLoader(WTApplication.INFORMATION_LOADER);
 	}
 
+	private void loadDataLiked(int page)
+	{
+		mAdapter.setLoadingData(true);
+		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, 2);
+		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
+	}
+	
 	private OnItemClickListener onItemClickListener = new OnItemClickListener() 
 	{
 		@Override
@@ -214,22 +254,6 @@ public class InformationsFragment extends SherlockFragment implements LoaderCall
 		//By default we fetch all kind of informations from the server
 		Bundle args = apiHelper.getInformations(1, mSelectType);
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
-	}
-	
-	private int getCurrentState(Bundle savedInstanceState)
-	{
-		if (savedInstanceState != null) 
-		{
-            isFirstTimeToStart = false;
-            return ACTIVITY_DESTROY_AND_CREATE;
-        }
-
-        if (!isFirstTimeToStart) {
-            return SCREEN_ROTATE;
-        }
-
-        isFirstTimeToStart = false;
-        return FIRST_TIME_START;
 	}
 
 	@Override

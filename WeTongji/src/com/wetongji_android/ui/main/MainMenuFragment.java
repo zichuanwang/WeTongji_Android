@@ -18,13 +18,13 @@ import android.widget.TextView;
 
 import com.wetongji_android.R;
 import com.wetongji_android.ui.event.EventsFragment;
-import com.wetongji_android.ui.event.EventsFragment.StartMode;
 import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.ui.now.NowFragment;
 import com.wetongji_android.ui.profile.ProfileFragment;
 import com.wetongji_android.ui.search.SearchFragment;
 import com.wetongji_android.ui.setting.DevSettingActivity;
 import com.wetongji_android.ui.today.TodayFragment;
+import com.wetongji_android.util.common.WTBaseFragment.StartMode;
 
 public class MainMenuFragment extends Fragment {
 
@@ -147,7 +147,7 @@ public class MainMenuFragment extends Fragment {
 				newContent = TodayFragment.newInstance();
 				break;
 			case 1:
-				newContent = new InformationsFragment();
+				newContent = InformationsFragment.newInstance(StartMode.BASIC, null);
 				break;
 			case 2:
 				newContent = EventsFragment.newInstance(StartMode.BASIC, null);
@@ -159,7 +159,7 @@ public class MainMenuFragment extends Fragment {
 				newContent = SearchFragment.newInstance();
 				break;
 			case 6:
-				newContent = new ProfileFragment();
+				newContent = ProfileFragment.newInstance();
 				break;
 			default:
 				break;

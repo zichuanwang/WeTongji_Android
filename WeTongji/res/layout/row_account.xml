@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="96dp"
+    android:orientation="horizontal"
+    android:gravity="center_horizontal"
+    android:id="@id/layout_event_row"
+    >
+    
+    <ImageView 
+        android:id="@id/img_account_thumbnails"
+        android:layout_width="48dip"
+        android:layout_height="64dip"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="10dp"
+        style="@style/EventLstThumbnails"
+        android:contentDescription="@string/img_content_description"
+        />
+   
+    <RelativeLayout 
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5.0dp"
+        android:padding="1.5dip"
+        android:background="@android:color/transparent">
+        
+        <TextView 
+            android:id="@id/tv_account_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+        	android:layout_marginTop="3dp"
+            style="@style/EventLstTitle"
+            android:textIsSelectable="false"
+            />
+        
+        <TextView
+            android:id="@id/tv_account_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2.0dp"
+            android:layout_above="@id/tv_event_location"
+            style="@style/EventLstTime"
+            android:textIsSelectable="false"
+           	/>        
+    </RelativeLayout>
+    
+</LinearLayout>

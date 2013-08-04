@@ -237,4 +237,9 @@
     <item name="cb_event_expired" type="id" />
     <item name="text_event_sort_type" type="id" />
     <item type="id" name="rg_dialog_events_sort"/>
+    <item name="lst_accounts" type="id">false</item>
+    <item name="layout_account_row" type="id">false</item>
+    <item name="img_account_thumbnails" type="id">false</item>
+    <item name="tv_account_title" type="id">false</item>
+    <item name="tv_account_description" type="id">false</item>
 </resources>

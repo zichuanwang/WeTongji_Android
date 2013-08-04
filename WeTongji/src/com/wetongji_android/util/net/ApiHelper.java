@@ -78,6 +78,7 @@ public class ApiHelper {
 	private static final String API_ARGS_UNREAD = "OnlyNew";
 	private static final String API_ARGS_KEYWORDS = "Keywords";
 	private static final String API_ARGS_CATEGORY = "Type";
+	private static final String API_ARGS_MODEL = "Model";
 	
 	public static final int API_ARGS_SORT_BY_PUBLISH_DESC = 1;
 	public static final int API_ARGS_SORT_BY_PUBLISH_ASC = 2;
@@ -561,6 +562,25 @@ public class ApiHelper {
 		bundle.putString(API_ARGS_USER_ID, uid);
 		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
 		bundle.putString(API_ARGS_METHOD, "CourseSections.Get.ByUser");
+		return bundle;
+	}
+	
+	public Bundle getLikedObjectsListWithModelType(int page, int modelType){
+		Bundle bundle = new Bundle();
+		
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
+		bundle.putString(API_ARGS_METHOD, "Like.List");
+		
+		if(modelType == 1)
+		{
+			bundle.putString(API_ARGS_MODEL, "Activity");
+		}else if(modelType == 2)
+		{
+			bundle.putString(API_ARGS_MODEL, "Information");
+		}
+		
 		return bundle;
 	}
 }
