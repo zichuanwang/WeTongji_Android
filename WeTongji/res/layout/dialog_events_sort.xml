@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff" >
+    
+    <RadioGroup
+        android:id="@id/rg_dialog_events_sort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        
+        <RadioButton
+            android:text="Publish time"
+            android:id="@+id/sort_rb_publish"
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:paddingTop="8dp"
+        	android:paddingBottom="8dp"
+        	android:button="@null"
+        	android:drawableRight="@drawable/btn_radio_holo_light"
+        	android:layout_marginRight="12dp"
+        	android:layout_marginLeft="8dp"
+        	/>
+        
+        <View 
+            android:layout_width="match_parent"
+        	android:layout_height="1dp"
+        	android:background="@color/eventlst_divider"/>
+        
+        <RadioButton
+            android:text="Popularity"
+            android:id="@+id/sort_rb_popularity"
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:paddingTop="8dp"
+        	android:paddingBottom="8dp"
+        	android:button="@null"
+        	android:drawableRight="@drawable/btn_radio_holo_light"
+        	android:layout_marginRight="12dp"
+        	android:layout_marginLeft="8dp"
+        	/>
+        
+        <View 
+            android:layout_width="match_parent"
+        	android:layout_height="1dp"
+        	android:background="@color/eventlst_divider"/>
+        
+        <RadioButton
+            android:text="Activity start date"
+            android:id="@+id/sort_rb_start_date"
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content"
+        	android:paddingTop="8dp"
+        	android:paddingBottom="8dp"
+        	android:button="@null"
+        	android:drawableRight="@drawable/btn_radio_holo_light"
+        	android:layout_marginRight="12dp"
+        	android:layout_marginLeft="8dp"
+        	/>
+        
+        <View 
+            android:layout_width="match_parent"
+        	android:layout_height="1dp"
+        	android:background="@color/eventlst_divider"/>
+    </RadioGroup>
+    
+    <LinearLayout
+        android:id="@+id/btn_sort_dialog_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+       	android:layout_below="@id/rg_dialog_events_sort"
+        android:gravity="center"
+        android:background="@drawable/selectable_background_wttheme"
+        android:clickable="true"
+        >
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_cancel"/>"
+    </LinearLayout>
+
+</RelativeLayout>

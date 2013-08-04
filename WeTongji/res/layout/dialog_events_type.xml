@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <CheckBox
+        android:id="@id/cb_academic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:drawableRight="@drawable/btn_check_holo_light"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/text_event_channel_id_1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/eventlst_divider" />
+
+    <CheckBox
+        android:id="@id/cb_competition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:drawableRight="@drawable/btn_check_holo_light"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/text_event_channel_id_2" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/eventlst_divider" />
+
+    <CheckBox
+        android:id="@id/cb_entertainment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:drawableRight="@drawable/btn_check_holo_light"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/text_event_channel_id_3" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/eventlst_divider" />
+
+    <CheckBox
+        android:id="@id/cb_employ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:drawableRight="@drawable/btn_check_holo_light"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/text_event_channel_id_4" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/eventlst_divider" />
+
+    <LinearLayout
+        android:id="@+id/btn_sort_dialog_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@drawable/selectable_background_wttheme"
+        android:clickable="true"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_confirm" />
+    </LinearLayout>
+
+</LinearLayout>

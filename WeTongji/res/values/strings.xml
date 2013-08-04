@@ -88,7 +88,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="text_most_popular_account">Most Popluar Account</string>
     <string name="text_u_like_this_activity">You have liked this activity</string>
     <string name="text_u_like_this_information">You have liked this information</string>
-    <string name="menu_event_sort_order">Sort Order</string>
+    <string name="menu_event_sort_order">Sort</string>
     <string name="menu_event_filter_expired">Filter Expired</string>
     <string name="menu_more">More</string>
     <string name="menu_activity_type">Type</string>
@@ -186,5 +186,13 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="profile_edit">Edit</string>
     <string name="title_choose_app_send_email">Please choose an application to send email </string>
     <string name="msg_content_copied">The content has been copied</string>
+    <string name="events_sort_dialog_title">Sort by</string>
+    <string name="events_type_dialog_title">Select types</string> 
+    <string name="text_confirm">Confirm</string>   
+    <string-array name="events_sort_types">
+        <item >Publish Time</item>
+        <item >Popularity</item>
+        <item >Activity start date</item>
+    </string-array>
 
 </resources>

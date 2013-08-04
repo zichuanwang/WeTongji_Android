@@ -234,4 +234,7 @@
     <item name="tag_search_result_activity" type="id"/>
     <item name="tag_search_result_people" type="id"/>
     <item name="pb_search" type="id" />
+    <item name="cb_event_expired" type="id" />
+    <item name="text_event_sort_type" type="id" />
+    <item type="id" name="rg_dialog_events_sort"/>
 </resources>

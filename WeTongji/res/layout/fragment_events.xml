@@ -1,21 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_app_base">
-    
-    <!--com.foound.widget.AmazingListView
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_app_base" >
+
+        <!--
+        com.foound.widget.AmazingListView
         android:id="@+id/lst_events"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@color/eventlst_divider"
-        android:dividerHeight="0.33dp"/ -->
+        android:dividerHeight="0.33dp"/
+        -->
+
+        <ListView
+            android:id="@+id/lst_events"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/eventlst_divider"
+            android:dividerHeight="0.33dp" />
         
-    <ListView
-        android:id="@+id/lst_events"
+        <LinearLayout
+            android:layout_below="@id/lst_events"
+            android:layout_width="match_parent"
+        	android:layout_height="48dp"/>
+    </RelativeLayout>
+
+    <!-- Bottom actionbar -->
+
+    <LinearLayout
+        android:id="@id/bottom_action_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/eventlst_divider"
-        android:dividerHeight="0.33dp"/>    
-        
-</RelativeLayout>
+        android:layout_height="48dp"
+        android:layout_gravity="bottom"
+        android:background="@color/bg_event_detail_bottom_actionbar"
+        android:visibility="visible" 
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:id="@id/btn_event_detail_invite"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:background="@drawable/event_detail_buttom_action_selector"
+            android:clickable="true" >
+            
+            <TextView
+                style="@style/EventDetailBottomActionbarText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="8dp"
+                android:drawableLeft="@drawable/events_action_sort"
+                android:drawablePadding="5dp"
+                android:text="@string/menu_event_sort_order" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="23.33dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/bg_bottom_actionbar_divider" />
+
+        <LinearLayout
+            android:id="@id/btn_event_detail_friends"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="20"
+            android:background="@drawable/event_detail_buttom_action_selector"
+            android:clickable="true" >
+
+            <TextView
+                style="@style/EventDetailBottomActionbarText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+              	android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="8dp"
+              	android:drawableLeft="@drawable/events_action_type"
+              	android:drawablePadding="5dp"
+                android:text="@string/menu_activity_type" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="23.33dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/bg_bottom_actionbar_divider" />
+
+        <LinearLayout
+            android:id="@id/btn_event_detail_attend"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="50"
+            android:gravity="right"
+            android:background="@drawable/event_detail_buttom_action_selector"
+            android:clickable="true" >
+
+            <CheckBox
+                android:id="@id/cb_event_expired"
+                style="@style/EventDetailBottomActionbarText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp"
+                android:text="@string/menu_event_filter_expired" />
+        </LinearLayout>
+    </LinearLayout>
+    <!-- End of Bottom actionbar -->
+
+</FrameLayout>
