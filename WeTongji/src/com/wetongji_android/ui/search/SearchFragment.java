@@ -127,12 +127,9 @@ public class SearchFragment extends SherlockFragment implements
 				if (position == mAdapter.getCount() - 1) {
 					startClearTask();
 				} else {
-					mLvSearchTips.setVisibility(View.GONE);
-					mProgressBar.setVisibility(View.VISIBLE);
+					showProgress();
 					SearchHistory search = (SearchHistory) arg0.getItemAtPosition(position);
 					doSearch(search.getType(), search.getKeywords());
-					mEtSearch.setText(search.getKeywords());
-					mEtSearch.setSelection(mEtSearch.getText().length());
 				}
 			}
 		});
@@ -234,17 +231,11 @@ public class SearchFragment extends SherlockFragment implements
 					int count) {
 				if (mEtSearch.getText().length() == 0 &&
 						mLvSearchHistory.getVisibility() == View.GONE) {
-					mLvSearchTips.setVisibility(View.GONE);
-					mLvSearchHistory.setVisibility(View.VISIBLE);
-					mTvHistoryTitle.setVisibility(View.VISIBLE);
-					mLvSearchResult.setVisibility(View.GONE);
+					showHistory();
 				}
 				if (mEtSearch.getText().length() > 0 && 
 						mLvSearchTips.getVisibility() == View.GONE) {
-					mLvSearchTips.setVisibility(View.VISIBLE);
-					mLvSearchHistory.setVisibility(View.GONE);
-					mTvHistoryTitle.setVisibility(View.GONE);
-					mLvSearchResult.setVisibility(View.GONE);
+					showTips();
 				}
 				if (mTipAdapter != null) {
 					mTipAdapter.setKeywords(mEtSearch.getText().toString());
@@ -256,8 +247,7 @@ public class SearchFragment extends SherlockFragment implements
 	}
 	
 	private void doSearch(int type, String content) {
-		mProgressBar.setVisibility(View.VISIBLE);
-		mLvSearchTips.setVisibility(View.GONE);
+		showProgress();
 		ApiHelper apiHelper = ApiHelper
 				.getInstance(getActivity());
 		Bundle b = apiHelper
@@ -298,14 +288,13 @@ public class SearchFragment extends SherlockFragment implements
 			HttpRequestResult result) {
 		
 		mResultAdapter.notifyMayHaveMorePages();
-		mLvSearchResult.setVisibility(View.VISIBLE);
-		mLvSearchTips.setVisibility(View.GONE);
+		showResults();
 		if (loader.getId() == WTApplication.NETWORK_LOADER_SEARCH) {
 			if (result.getResponseCode() == 0) {
 				processSearchResult(result.getStrResponseCon());
 			} else {
 				ExceptionToast.show(getActivity(), result.getResponseCode());
-				mLvSearchTips.setVisibility(View.VISIBLE);
+				showTips();
 			}
 		}
 	}
@@ -317,7 +306,7 @@ public class SearchFragment extends SherlockFragment implements
 	private void processSearchResult(String jsonStr) {
 		mResultAdapter.setSearchResult(SearchUtil.generateSearchResults(jsonStr));
 		mResultAdapter.notifyDataSetChanged();
-		mProgressBar.setVisibility(View.GONE);
+		showResults();
 	}
 
 	private void saveSearchHistory(int type, String keywords) {
@@ -409,5 +398,37 @@ public class SearchFragment extends SherlockFragment implements
 		}
 		
 	};
-
+	
+	private void showHistory() {
+		mLvSearchHistory.setVisibility(View.VISIBLE);
+		mTvHistoryTitle.setVisibility(View.VISIBLE);
+		mLvSearchTips.setVisibility(View.GONE);
+		mProgressBar.setVisibility(View.GONE);
+		mLvSearchResult.setVisibility(View.GONE);
+	}
+	
+	private void showProgress() {
+		mLvSearchHistory.setVisibility(View.GONE);
+		mTvHistoryTitle.setVisibility(View.GONE);
+		mLvSearchTips.setVisibility(View.GONE);
+		mProgressBar.setVisibility(View.VISIBLE);
+		mLvSearchResult.setVisibility(View.GONE);
+	}
+	
+	private void showTips() {
+		mLvSearchHistory.setVisibility(View.GONE);
+		mTvHistoryTitle.setVisibility(View.GONE);
+		mLvSearchTips.setVisibility(View.VISIBLE);
+		mProgressBar.setVisibility(View.GONE);
+		mLvSearchResult.setVisibility(View.GONE);
+	}
+	
+	private void showResults() {
+		mLvSearchHistory.setVisibility(View.GONE);
+		mTvHistoryTitle.setVisibility(View.GONE);
+		mLvSearchTips.setVisibility(View.GONE);
+		mProgressBar.setVisibility(View.GONE);
+		mLvSearchResult.setVisibility(View.VISIBLE);
+	}
+	
 }
