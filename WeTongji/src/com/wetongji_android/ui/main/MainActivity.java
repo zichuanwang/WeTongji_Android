@@ -66,7 +66,7 @@ public class MainActivity extends UpdateBaseActivity {
 		sm.setShadowDrawable(R.drawable.shadow);
 		sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 		sm.setFadeDegree(0.35f);
-		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
 
 		// set left menu
 		setBehindContentView(R.layout.menu_frame);
