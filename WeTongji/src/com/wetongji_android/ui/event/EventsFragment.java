@@ -295,8 +295,6 @@ OnScrollListener{
 		inflater.inflate(R.menu.menu_eventlist, menu);
 		
 		readPreference();
-		setMenuStatus(menu);
-		
 	}
 
 
@@ -315,54 +313,7 @@ OnScrollListener{
 						Toast.LENGTH_SHORT).show();
 			}
 			break;
-		case R.id.cb_event_sort_publish_time_reverse_order:
-			item.setChecked(true);
-			mSortType = ApiHelper.API_ARGS_SORT_BY_PUBLISH_DESC;
-			break;
-		case R.id.cb_activity_sort_like_all:
-			item.setChecked(true);
-			mSortType = ApiHelper.API_ARGS_SORT_BY_LIKE_DESC;
-			break;
-		case R.id.cb_event_sort_publish_time_order:
-			item.setChecked(true);
-			mSortType = ApiHelper.API_ARGS_SORT_BY_PUBLISH_ASC;
-			break;
-		case R.id.cb_academic:
-			item.setChecked(!item.isChecked());
-			if (item.isChecked()) {
-				mSelectedType += ApiHelper.API_ARGS_CHANNEL_ACADEMIC_MASK;
-			} else {
-				mSelectedType -= ApiHelper.API_ARGS_CHANNEL_ACADEMIC_MASK;
-			}
-			break;
-		case R.id.cb_competition:
-			item.setChecked(!item.isChecked());
-			if (item.isChecked()) {
-				mSelectedType += ApiHelper.API_ARGS_CHANNEL_COMPETITION_MASK;
-			} else {
-				mSelectedType -= ApiHelper.API_ARGS_CHANNEL_COMPETITION_MASK;
-			}
-			break;
-		case R.id.cb_entertainment:
-			item.setChecked(!item.isChecked());
-			if (item.isChecked()) {
-				mSelectedType += ApiHelper.API_ARGS_CHANNEL_ENTERTAINMENT_MASK;
-			} else {
-				mSelectedType -= ApiHelper.API_ARGS_CHANNEL_ENTERTAINMENT_MASK;
-			}
-			break;
-		case R.id.cb_employ:
-			item.setChecked(!item.isChecked());
-			if (item.isChecked()) {
-				mSelectedType += ApiHelper.API_ARGS_CHANNEL_EMPLOYMENT_MASK;
-			} else {
-				mSelectedType -= ApiHelper.API_ARGS_CHANNEL_EMPLOYMENT_MASK;
-			}
-			break;
-		case R.id.cb_event_expired:
-			item.setChecked(!item.isChecked());
-			mExpire = !item.isChecked();
-			break;
+		
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -393,27 +344,6 @@ OnScrollListener{
 		edit.putInt(PREFERENCE_EVENT_TYPE, mSelectedType);
 		
 		edit.commit();
-	}
-	
-	private void setMenuStatus(Menu menu) {
-		if (mSortType == ApiHelper.API_ARGS_SORT_BY_PUBLISH_DESC) {
-			menu.getItem(1).getSubMenu().getItem(0).getSubMenu().getItem(0).setChecked(true);
-		} else if (mSortType == ApiHelper.API_ARGS_SORT_BY_LIKE_DESC) {
-			menu.getItem(1).getSubMenu().getItem(0).getSubMenu().getItem(2).setChecked(true);
-		} else if (mSortType == ApiHelper.API_ARGS_SORT_BY_PUBLISH_ASC) {
-			menu.getItem(1).getSubMenu().getItem(0).getSubMenu().getItem(1).setChecked(true);
-		}
-		
-		menu.getItem(1).getSubMenu().getItem(1).getSubMenu().getItem(0).setChecked(
-				(mSelectedType & ApiHelper.API_ARGS_CHANNEL_ACADEMIC_MASK) != 0);
-		menu.getItem(1).getSubMenu().getItem(1).getSubMenu().getItem(1).setChecked(
-				(mSelectedType & ApiHelper.API_ARGS_CHANNEL_COMPETITION_MASK) != 0);
-		menu.getItem(1).getSubMenu().getItem(1).getSubMenu().getItem(2).setChecked(
-				(mSelectedType & ApiHelper.API_ARGS_CHANNEL_ENTERTAINMENT_MASK) != 0);
-		menu.getItem(1).getSubMenu().getItem(1).getSubMenu().getItem(3).setChecked(
-				(mSelectedType & ApiHelper.API_ARGS_CHANNEL_EMPLOYMENT_MASK) != 0);
-
-		menu.getItem(1).getSubMenu().getItem(2).setChecked(!mExpire);
 	}
 	
 	private Bundle getQueryArgs() {
