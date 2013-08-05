@@ -103,12 +103,14 @@
 		               android:layout_height="wrap_content" />
                     
                     <!-- this blank layout resolves conflict with 'bottom actionbar' -->
+
                     <LinearLayout
                         android:id="@id/ll_base_detail_blank"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        tools:ignore="UselessLeaf"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:ignore="UselessLeaf,Orientation" >
+
                     </LinearLayout>
                     
                 </LinearLayout>
@@ -145,7 +147,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="26dp"
                 android:layout_marginBottom="0dp"
-                android:layout_marginLeft="4dp"
+                android:layout_marginRight="0dp"
                 android:layout_marginTop="1dp"
                 android:paddingBottom="-2dp" />
 
