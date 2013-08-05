@@ -55,6 +55,7 @@ public class ApiHelper {
 	private static final String API_ARGS_VERSION="V";
 	private static final String API_ARGS_UID="U";
 	private static final String API_ARGS_USER_ID = "UID";
+	private static final String API_ARGS_USERS_ID = "UIDs";
 	private static final String API_ARGS_PAGE="P";
 	private static final String API_ARGS_SESSION="S";
 	private static final String API_ARGS_NO="NO";
@@ -596,7 +597,7 @@ public class ApiHelper {
 			bundle.putString(API_ARGS_METHOD, "Friend.Invite");
 		}
 		
-		bundle.putString(API_ARGS_USER_ID, uid);
+		bundle.putString(API_ARGS_USERS_ID, uid);
 		return bundle;
 	}
 }
