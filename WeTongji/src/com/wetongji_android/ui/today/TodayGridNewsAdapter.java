@@ -15,7 +15,6 @@ import com.wetongji_android.data.Information;
 import com.wetongji_android.ui.informations.InformationDetailActivity;
 import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.net.HttpUtil;
 
 public class TodayGridNewsAdapter extends TodayGridBaseAdapter<Information> {
 
@@ -73,8 +72,7 @@ public class TodayGridNewsAdapter extends TodayGridBaseAdapter<Information> {
 			} else {
 				holder.ivGridImage.setVisibility(View.VISIBLE);
 				AQuery aq = gridAq.recycle(convertView);
-				aq.id(holder.ivGridImage).image(
-						HttpUtil.replaceURL(info.getImages().get(0)), true,
+				aq.id(holder.ivGridImage).image(info.getImages().get(0), true,
 						true, 300, 0, null, AQuery.FADE_IN_NETWORK, 1f);
 
 				holder.ivGridImageMask.setVisibility(View.VISIBLE);

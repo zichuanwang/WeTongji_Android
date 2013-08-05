@@ -39,7 +39,6 @@ import com.wetongji_android.util.data.event.EventLoader;
 import com.wetongji_android.util.data.event.EventUtil;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
-import com.wetongji_android.util.net.HttpUtil;
 
 public class TodayFragment extends SherlockFragment {
 
@@ -141,7 +140,7 @@ public class TodayFragment extends SherlockFragment {
 			String strUrl = ((Activity) event).getImage();
 			AQuery aq = new AQuery(context);
 			if (!strUrl.equals(WTApplication.MISSING_IMAGE_URL)) {
-				aq.id(ivNowThumb).image(HttpUtil.replaceURL(strUrl), true,
+				aq.id(ivNowThumb).image(strUrl, true,
 						true, 300,
 						R.drawable.event_list_thumbnail_place_holder, null,
 						AQuery.FADE_IN_NETWORK, 1.33f);

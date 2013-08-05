@@ -46,7 +46,6 @@ import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.image.ImageUtil;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
-import com.wetongji_android.util.net.HttpUtil;
 
 public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<HttpRequestResult>{
 
@@ -213,8 +212,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	}
 	
 	private void setAvatarFromUrl() {
-		String strUrl = mUser.getAvatar() != null ? 
-				HttpUtil.replaceURL(mUser.getAvatar()) : "";
+		String strUrl = mUser.getAvatar() != null ? mUser.getAvatar() : "";
 		AQuery aq = WTApplication.getInstance().getAq(getActivity());
 		aq.id(R.id.img_profile_avatar).image(strUrl, true, true, 0, 0, 
 				new BitmapAjaxCallback() {

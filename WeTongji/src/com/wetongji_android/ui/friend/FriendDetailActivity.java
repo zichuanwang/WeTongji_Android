@@ -6,14 +6,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
@@ -36,7 +35,6 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	private Button ibFriend;
 	private RelativeLayout rlFriendList;
 	private TextView tvFriendNum;
-	private ImageButton ibFriendAdd;
 	private RelativeLayout rlPartEvents;
 	private TextView tvEventsNum;
 	private TextView tvMajor;
@@ -98,8 +96,6 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		StringBuilder sb = new StringBuilder();
 		sb.append(mUser.getFriendCount()).append("Friends");
 		tvFriendNum.setText(sb.toString());
-		ibFriendAdd = (ImageButton)findViewById(R.id.btn_detail_friend_add);
-		ibFriendAdd.setOnClickListener(new ClickListener());
 		rlPartEvents = (RelativeLayout)findViewById(R.id.ll_friend_detail_part_events);
 		rlPartEvents.setOnClickListener(new ClickListener());
 		tvEventsNum = (TextView)findViewById(R.id.tv_detail_friend_part_events_num);
@@ -112,6 +108,21 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		tvGrade.setText(mUser.getYear());
 		tvEmail = (TextView)findViewById(R.id.tv_friend_detail_email);
 		tvEmail.setText(mUser.getEmail());
+	}
+	
+	private void updateWidget()
+	{
+		if(bIsFriend)
+		{
+			ibFriend.setText("UnFriend");
+			Toast.makeText(this, this.getResources().getString(R.string.add_friend_request), 
+					Toast.LENGTH_SHORT).show();
+		}else
+		{
+			ibFriend.setText("Friend");
+			Toast.makeText(this, this.getResources().getString(R.string.remove_friend_request), 
+					Toast.LENGTH_SHORT).show();
+		}
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -147,7 +158,15 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 			HttpRequestResult result) 
 	{
 		if(result.getResponseCode() == 0){
-			Log.v("te", "success");
+			if(bIsFriend)
+			{
+				bIsFriend = false;
+			}else
+			{
+				bIsFriend = true;
+			}
+			
+			updateWidget();
 		}
 	}
 
