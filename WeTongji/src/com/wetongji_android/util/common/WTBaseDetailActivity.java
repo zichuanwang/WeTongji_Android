@@ -10,11 +10,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.wetongji_android.R;
 import com.wetongji_android.ui.friend.FriendInviteActivity;
 
-public class WTBaseDetailActivity extends SherlockActivity 
+public class WTBaseDetailActivity extends SherlockFragmentActivity 
 {
 
 	protected ViewStub mVsContent;

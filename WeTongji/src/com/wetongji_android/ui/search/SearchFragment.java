@@ -79,6 +79,7 @@ public class SearchFragment extends SherlockFragment implements
 
 	public static SearchFragment newInstance() {
 		SearchFragment f = new SearchFragment();
+		
 		return f;
 	}
 

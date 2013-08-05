@@ -255,6 +255,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 				}
 				UserFactory factory = new UserFactory(this);
 				mUser = factory.createSingleObject(strUser);
+				
 				setWidgets();
 				setAvatarFromUrl();
 			}

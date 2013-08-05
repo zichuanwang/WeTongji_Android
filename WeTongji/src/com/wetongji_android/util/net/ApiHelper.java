@@ -26,10 +26,6 @@ import android.util.Log;
  * @author John
  * Helper class for easy api access
  */
-/**
- * @author John
- *
- */
 public class ApiHelper {
 	
 	private String session="";
@@ -579,8 +575,28 @@ public class ApiHelper {
 		}else if(modelType == 2)
 		{
 			bundle.putString(API_ARGS_MODEL, "Information");
+		}else if(modelType == 3){
+			bundle.putString(API_ARGS_MODEL, "Person");
+		}else{
+			bundle.putString(API_ARGS_MODEL, "Account");
 		}
 		
+		return bundle;
+	}
+	
+	public Bundle friendOpWithStatus(String uid, boolean isFriend){
+		Bundle bundle = new Bundle();
+		
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		if(isFriend){
+			bundle.putString(API_ARGS_METHOD, "Friend.Remove");
+		}else{
+			bundle.putString(API_ARGS_METHOD, "Friend.Invite");
+		}
+		
+		bundle.putString(API_ARGS_USER_ID, uid);
 		return bundle;
 	}
 }

@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -19,9 +20,12 @@ import com.androidquery.callback.AjaxStatus;
 import com.androidquery.callback.BitmapAjaxCallback;
 import com.wetongji_android.R;
 import com.wetongji_android.data.User;
+import com.wetongji_android.net.NetworkLoader;
+import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.image.ImageUtil;
+import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 public class FriendDetailActivity extends WTBaseDetailActivity implements
@@ -47,7 +51,6 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	@Override
 	protected void onCreate(Bundle arg0) 
 	{
-		// TODO Auto-generated method stub
 		super.onCreate(arg0);
 
 		setContentView(R.layout.activity_friend_detail);
@@ -65,14 +68,18 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	
 	private void initWidget()
 	{
-		bIsFriend = true;
 		mAq = WTApplication.getInstance().getAq(this);
 		tvFriendWords = (TextView)findViewById(R.id.text_profile_words);
 		tvFriendWords.setText(mUser.getWords());
 		tvFriendDepartment = (TextView)findViewById(R.id.text_profile_gender);
 		tvFriendDepartment.setText(mUser.getDepartment());
 		ibFriend = (Button)findViewById(R.id.btn_profile_action);
-		ibFriend.setText("Friend");
+		bIsFriend = mUser.isIsFriend();
+		if(bIsFriend){
+			ibFriend.setText("UnFriend");
+		}else{
+			ibFriend.setText("Friend");
+		}
 		ibFriend.setOnClickListener(new ClickListener());
 		//Set Avatar
 		mAq.id(R.id.img_profile_avatar).image(mUser.getAvatar(), true, true, 0, 0, new BitmapAjaxCallback() 
@@ -80,7 +87,6 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 			@Override
 			protected void callback(String url, ImageView iv, Bitmap bm, AjaxStatus status) 
 			{
-				// TODO Auto-generated method stub
 				//super.callback(url, iv, bm, status);
 				iv.setImageBitmap(bm);
 				setHeadBluredBg(bm);
@@ -90,7 +96,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		rlFriendList.setOnClickListener(new ClickListener());
 		tvFriendNum = (TextView)findViewById(R.id.tv_detail_friend_num);
 		StringBuilder sb = new StringBuilder();
-		sb.append(mUser.getFriendCount()).append(" Friends");
+		sb.append(mUser.getFriendCount()).append("Friends");
 		tvFriendNum.setText(sb.toString());
 		ibFriendAdd = (ImageButton)findViewById(R.id.btn_detail_friend_add);
 		ibFriendAdd.setOnClickListener(new ClickListener());
@@ -121,47 +127,48 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	@Override
 	protected void onPause() 
 	{
-		// TODO Auto-generated method stub
 		super.onPause();
 	}
 	
 	@Override
 	protected void onResume() 
 	{
-		// TODO Auto-generated method stub
 		super.onResume();
 	}
 
 	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new NetworkLoader(this, HttpMethod.Get, arg1);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
-			HttpRequestResult arg1) 
+			HttpRequestResult result) 
 	{
-		// TODO Auto-generated method stub
-		
+		if(result.getResponseCode() == 0){
+			Log.v("te", "success");
+		}
 	}
 
 	@Override
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) 
 	{
-		// TODO Auto-generated method stub
 		
 	}
 	
 	private void addFriend(String id)
 	{
-		
+		ApiHelper apiHelper = ApiHelper.getInstance(this);
+		Bundle bundle = apiHelper.friendOpWithStatus(id, bIsFriend);
+		getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
 	}
 	
 	private void removeFriend(String id)
 	{
-		
+		ApiHelper apiHelper = ApiHelper.getInstance(this);
+		Bundle bundle = apiHelper.friendOpWithStatus(id, bIsFriend);
+		getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
 	}
 	
 	class ClickListener implements OnClickListener
@@ -169,7 +176,6 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		@Override
 		public void onClick(View v) 
 		{
-			// TODO Auto-generated method stub
 			if(v.getId() == R.id.ll_friend_detail_list)
 			{
 				

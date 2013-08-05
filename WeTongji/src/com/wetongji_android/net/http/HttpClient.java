@@ -3,32 +3,24 @@
  */
 package com.wetongji_android.net.http;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.InterruptedIOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URL;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.zip.GZIPInputStream;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.wetongji_android.ui.setting.DevSettingActivity;
-import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.exception.WTException;
 import com.wetongji_android.util.net.ApiHelper;
@@ -37,7 +29,6 @@ import com.wetongji_android.util.net.HttpUtil;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 /**
  * @author nankonami
