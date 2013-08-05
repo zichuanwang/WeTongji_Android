@@ -3,6 +3,7 @@ package com.wetongji_android.ui.event;
 import java.util.List;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,8 +12,15 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
@@ -23,6 +31,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
+import com.wetongji_android.R.id;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.ActivityList;
 import com.wetongji_android.factory.ActivityFactory;
@@ -61,6 +70,11 @@ OnScrollListener{
 	private int mSortType = 1;
 	private int mSelectedType = 15;
 	
+	// Widgets on bottom actionbar
+	private LinearLayout llActionSort;
+	private LinearLayout llActionType;
+	private CheckBox cbActionExpired;
+	
 	public static EventsFragment newInstance(StartMode startMode, Bundle args) {
 		EventsFragment f = new EventsFragment();
 		Bundle bundle;
@@ -90,6 +104,14 @@ OnScrollListener{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_events, null);
+		
+		llActionSort = (LinearLayout) view.findViewById(R.id.btn_event_detail_invite);
+		llActionType = (LinearLayout) view.findViewById(R.id.btn_event_detail_friends);
+		cbActionExpired = (CheckBox) view.findViewById(R.id.cb_event_expired);
+		llActionSort.setOnClickListener(bottomActionItemClikListener);
+		llActionType.setOnClickListener(bottomActionItemClikListener);
+		readPreference();
+		cbActionExpired.setChecked(mExpire);
 		
 		mListActivity = (ListView) view.findViewById(R.id.lst_events);
 		mAdapter = new EventListAdapter(this, mListActivity);
@@ -274,6 +296,7 @@ OnScrollListener{
 		
 		readPreference();
 		setMenuStatus(menu);
+		
 	}
 
 
@@ -417,4 +440,141 @@ OnScrollListener{
 				hasCH1, hasCH2, hasCH3, hasCH4);
 		return b;
 	}
+	
+	private OnClickListener bottomActionItemClikListener = new OnClickListener() {
+		@Override
+		public void onClick(View view) {
+			if (view.getId() == R.id.btn_event_detail_invite) {
+				openSortDialog();
+			} else if (view.getId() == R.id.btn_event_detail_friends) {
+				openTypeSelectDailog();
+			}
+		}
+
+	};
+	
+	private void openSortDialog() {
+		final Dialog dialog = new Dialog(getSherlockActivity());
+		dialog.setTitle(R.string.events_sort_dialog_title);
+		dialog.setContentView(R.layout.dialog_events_sort);
+		dialog.setCanceledOnTouchOutside(true);
+		LinearLayout llCancel = (LinearLayout) dialog
+				.findViewById(R.id.btn_sort_dialog_cancel);
+		llCancel.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+			}
+		});
+		RadioGroup rgSort = (RadioGroup) dialog
+				.findViewById(R.id.rg_dialog_events_sort);
+		int checkedId = 0;
+		switch (mSortType) {
+			case ApiHelper.API_ARGS_SORT_BY_PUBLISH_DESC:
+				checkedId = R.id.sort_rb_publish;
+				break;
+			case ApiHelper.API_ARGS_SORT_BY_LIKE_DESC:
+				checkedId = R.id.sort_rb_popularity;
+				break;
+			case ApiHelper.API_ARGS_SORT_BY_BEGIN_DESC:
+				checkedId = R.id.sort_rb_start_date;
+				break;
+		}
+		rgSort.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				switch (checkedId) {
+				case R.id.sort_rb_publish:
+					mSortType = ApiHelper.API_ARGS_SORT_BY_PUBLISH_DESC;
+					break;
+				case R.id.sort_rb_popularity:
+					mSortType = ApiHelper.API_ARGS_SORT_BY_LIKE_DESC;
+					break;
+				case R.id.sort_rb_start_date:
+					mSortType = ApiHelper.API_ARGS_SORT_BY_BEGIN_DESC;
+					break;
+				}
+				dialog.dismiss();
+				writePreference();
+			}
+		});
+		rgSort.check(checkedId);
+		dialog.show();
+	}
+	
+	private void openTypeSelectDailog() {
+		final Dialog dialog = new Dialog(getSherlockActivity());
+		dialog.setTitle(R.string.events_type_dialog_title);
+		dialog.setContentView(R.layout.dialog_events_type);
+		dialog.setCanceledOnTouchOutside(true);
+		LinearLayout llCancel = (LinearLayout) dialog
+				.findViewById(R.id.btn_sort_dialog_cancel);
+		llCancel.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+			}
+		});
+		CheckBox cbAcademic = (CheckBox) dialog.findViewById(R.id.cb_academic);
+		CheckBox cbCompetition = (CheckBox) dialog.findViewById(R.id.cb_competition);
+		CheckBox cbEnter = (CheckBox) dialog.findViewById(R.id.cb_entertainment);
+		CheckBox cbEmploy = (CheckBox) dialog.findViewById(R.id.cb_employ);
+		cbAcademic.setChecked((mSelectedType &
+				ApiHelper.API_ARGS_CHANNEL_ACADEMIC_MASK) != 0);
+		cbCompetition.setChecked((mSelectedType &
+				ApiHelper.API_ARGS_CHANNEL_COMPETITION_MASK) != 0);
+		cbEnter.setChecked((mSelectedType & 
+				ApiHelper.API_ARGS_CHANNEL_ENTERTAINMENT_MASK) != 0);
+		cbEmploy.setChecked((mSelectedType & 
+				ApiHelper.API_ARGS_CHANNEL_EMPLOYMENT_MASK) != 0);
+		OnTypeCheckedListener onCheckedListener = new OnTypeCheckedListener();
+		cbAcademic.setOnCheckedChangeListener(onCheckedListener);
+		cbCompetition.setOnCheckedChangeListener(onCheckedListener);
+		cbEnter.setOnCheckedChangeListener(onCheckedListener);
+		cbEmploy.setOnCheckedChangeListener(onCheckedListener);
+		dialog.show();
+	}
+	
+	private class OnTypeCheckedListener 
+	implements android.widget.CompoundButton.OnCheckedChangeListener {
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			switch (buttonView.getId()) {
+			case R.id.cb_academic:
+				if (buttonView.isChecked()) {
+					mSelectedType += ApiHelper.API_ARGS_CHANNEL_ACADEMIC_MASK;
+				} else {
+					mSelectedType -= ApiHelper.API_ARGS_CHANNEL_ACADEMIC_MASK;
+				}
+				break;
+			case R.id.cb_competition:
+				if (buttonView.isChecked()) {
+					mSelectedType += ApiHelper.API_ARGS_CHANNEL_COMPETITION_MASK;
+				} else {
+					mSelectedType -= ApiHelper.API_ARGS_CHANNEL_COMPETITION_MASK;
+				}
+				break;
+			case R.id.cb_entertainment:
+				if (buttonView.isChecked()) {
+					mSelectedType += ApiHelper.API_ARGS_CHANNEL_ENTERTAINMENT_MASK;
+				} else {
+					mSelectedType -= ApiHelper.API_ARGS_CHANNEL_ENTERTAINMENT_MASK;
+				}
+				break;
+			case R.id.cb_employ:
+				if (buttonView.isChecked()) {
+					mSelectedType += ApiHelper.API_ARGS_CHANNEL_EMPLOYMENT_MASK;
+				} else {
+					mSelectedType -= ApiHelper.API_ARGS_CHANNEL_EMPLOYMENT_MASK;
+				}
+				break;
+			case R.id.cb_event_expired:
+				mExpire = buttonView.isChecked();
+				break;
+			}
+			
+			writePreference();
+		}
+	}
+	
 }
