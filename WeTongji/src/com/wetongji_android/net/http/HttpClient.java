@@ -4,7 +4,6 @@
 package com.wetongji_android.net.http;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -40,9 +39,7 @@ public class HttpClient {
 	private static final int CONNECT_TIMEOUT = 10 * 1000;
 	private static final int READ_TIMEOUT = 10 * 1000;
 	private static final int UPLOAD_FILE_READ_TIMEOUT = 5 * 15 * 1000;
-	//private static final String API_DOMAIN = "http://we.tongji.edu.cn/api/call";
-	private static final String API_DOMAIN = "http://leiz.name:8080/api/call";
-	// private static String API_DOMAIN;
+	private static final String API_DOMAIN = "http://we.tongji.edu.cn/api/call";
 
 	private static final String HTTP_TIMEOUT = "HttpTimeout";
 	
@@ -186,7 +183,7 @@ public class HttpClient {
 
 			// set read timeout
 			urlConnection.setReadTimeout(UPLOAD_FILE_READ_TIMEOUT);
-			DataInputStream inStream = null;
+			//DataInputStream inStream = null;
 			// Is this the place are you doing something wrong.
 
 			String lineEnd = "\r\n";
@@ -228,13 +225,13 @@ public class HttpClient {
 
 			outStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
-			BufferedReader in = new BufferedReader(new InputStreamReader(
+			/*BufferedReader in = new BufferedReader(new InputStreamReader(
 					urlConnection.getInputStream()));
 			String inputLine;
 
 			while ((inputLine = in.readLine()) != null) {
 //				tv.append(inputLine);
-			}
+			}*/
 
 			// close streams
 			fileInputStream.close();

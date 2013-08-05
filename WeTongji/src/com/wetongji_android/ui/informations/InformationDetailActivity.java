@@ -26,7 +26,6 @@ import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTFullScreenActivity;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.net.ApiHelper;
-import com.wetongji_android.util.net.HttpUtil;
 
 public class InformationDetailActivity extends WTBaseDetailActivity 
 {
@@ -57,8 +56,7 @@ public class InformationDetailActivity extends WTBaseDetailActivity
 
 		mAq = WTApplication.getInstance().getAq(this);
 		// Set the organization avatar
-		mAq.id(R.id.info_detail_avatar).image(
-				HttpUtil.replaceURL(mInfo.getOrganizerAvatar()), false, true,
+		mAq.id(R.id.info_detail_avatar).image(mInfo.getOrganizerAvatar(), false, true,
 				0, R.drawable.image_place_holder, null, AQuery.FADE_IN, 1.0f);
 
 		Drawable drawable = getResources().getDrawable(

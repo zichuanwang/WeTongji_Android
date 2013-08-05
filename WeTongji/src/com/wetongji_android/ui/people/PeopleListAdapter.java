@@ -24,7 +24,6 @@ import com.wetongji_android.data.Person;
 import com.wetongji_android.ui.EndlessListAdapter;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.people.PeopleLoader;
-import com.wetongji_android.util.net.HttpUtil;
 
 public class PeopleListAdapter extends EndlessListAdapter<Person> implements LoaderCallbacks<List<Person>>{
 
@@ -114,8 +113,7 @@ public class PeopleListAdapter extends EndlessListAdapter<Person> implements Loa
 		}
 		
 		// Set avatar
-		//TODO replaceURL
-		String strUrl = HttpUtil.replaceURL(person.getAvatar());
+		String strUrl = person.getAvatar();
 		mShouldDelayAq = mListAq.recycle(convertView);
 		if(!strUrl.equals(WTApplication.MISSING_IMAGE_URL)){
 			

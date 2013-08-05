@@ -21,7 +21,6 @@ import com.wetongji_android.data.Information;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.date.DateParser;
-import com.wetongji_android.util.net.HttpUtil;
 import com.wetongji_android.ui.today.TodayFragment;
 
 public class InformationFactory extends BaseFactory<Information, Integer> 
@@ -145,12 +144,20 @@ public class InformationFactory extends BaseFactory<Information, Integer>
 			info.setOrganizer(jsonObject.getString("Organizer"));
 			info.setOrganizerAvatar(jsonObject.getString("OrganizerAvatar"));
 			
-			JSONArray jsonImage=jsonObject.getJSONArray("Images");
+			
 			ArrayList<String> images=new ArrayList<String>();
-			for(int i=0;i!=jsonImage.length();i++)
+			JSONArray jsonImage = jsonObject.optJSONArray("Images");
+			if(jsonImage.length() == 0)
 			{
-				images.add(HttpUtil.replaceURL(jsonImage.getString(i)));
+				images.add(WTApplication.MISSING_IMAGE_URL);
+			}else
+			{
+				for(int i=0;i!=jsonImage.length();i++)
+				{
+					images.add(jsonImage.getString(i));
+				}
 			}
+		
 			info.setImages(images);
 		} catch (JSONException e) {
 			e.printStackTrace();

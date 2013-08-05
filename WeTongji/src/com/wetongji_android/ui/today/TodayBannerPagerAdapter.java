@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Banner;
-import com.wetongji_android.util.net.HttpUtil;
 
 public class TodayBannerPagerAdapter extends PagerAdapter {
 	private List<Banner> banners;
@@ -50,7 +49,7 @@ public class TodayBannerPagerAdapter extends PagerAdapter {
 
 		ImageView ivBanner = (ImageView) view
 				.findViewById(R.id.iv_banner_image);
-		aq.id(ivBanner).image(HttpUtil.replaceURL(banner.getImage()), true,
+		aq.id(ivBanner).image(banner.getImage(), true,
 				true, 300, 0, null, AQuery.FADE_IN_NETWORK,
 				AQuery.RATIO_PRESERVE);
 		ImageView ivBannerMask = (ImageView) view
