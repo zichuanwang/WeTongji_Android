@@ -599,4 +599,22 @@ public class ApiHelper {
 		bundle.putString(API_ARGS_USER_ID, uid);
 		return bundle;
 	}
+	
+	public Bundle acceptFriendInvitation(String invitaionId) {
+		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		bundle.putString(API_ARGS_METHOD, "Friend.Invite.Accept");
+		bundle.putString(API_ARGS_ID, invitaionId);
+		return bundle;
+	}
+	
+	public Bundle ignoreFriendInvitation(String invitaionId) {
+		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		bundle.putString(API_ARGS_METHOD, "Friend.Invite.Reject");
+		bundle.putString(API_ARGS_ID, invitaionId);
+		return bundle;
+	}
 }

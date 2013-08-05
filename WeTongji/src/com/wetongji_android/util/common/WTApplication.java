@@ -62,6 +62,9 @@ public class WTApplication extends Application
 	public static final int UPLOAD_AVATAR_LOADER = 26;
 	
 	public static final int NETWORK_LOADER_INVITE = 27;
+	
+	public static final int NETWORK_LOADER_ACCEPT_FRIEND = 28;
+	public static final int NETWORK_LOADER_IGNORE_FRIEDN = 29;
 
 	public static final String FLURRY_API_KEY = "GN5KJMW6XWCSD5DTCWRW";
 	public static final String MISSING_IMAGE_URL = "http://we.tongji.edu.cn/images/original/missing.png";

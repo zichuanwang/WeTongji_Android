@@ -19,6 +19,7 @@ import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -146,6 +147,31 @@ public class NotificationListAdapter extends BaseAdapter implements LoaderCallba
 			holder.btn_notification_accept.setText("Accept");
 		}
 		
+		OnClickListener onClickListener = 
+				new OnNotifActionClickListener(notification);
+		holder.btn_notification_accept.setOnClickListener(onClickListener);
+		holder.btn_notification_ignore.setOnClickListener(onClickListener);
+		
 		return view;
 	}
+	
+	private class OnNotifActionClickListener implements OnClickListener {
+		private Notification mNotification;
+		
+		public OnNotifActionClickListener(Notification notif) {
+			super();
+			mNotification = notif;
+		}
+		@Override
+		public void onClick(View view) {
+			NotificationFragment fragment = (NotificationFragment) mFragment;
+			if (view.getId() == R.id.btn_notification_ignore) {
+				fragment.startIngoreAction(mNotification);
+			} else if (view.getId() == R.id.btn_notification_yes) {
+				fragment.startAcceptAction(mNotification);
+				
+			}
+		}
+		
+	};
 }

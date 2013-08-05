@@ -39,7 +39,6 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 	}
 
@@ -47,7 +46,6 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) 
 	{
-		// TODO Auto-generated method stub
 		if(container == null)
 		{
 			return null;
@@ -62,7 +60,6 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) 
 	{
-		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		
 		//set list adapter
@@ -83,7 +80,6 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 	@Override
 	public void onAttach(Activity activity)
 	{
-		// TODO Auto-generated method stub
 		super.onAttach(activity);
 		
 		mActivity = activity;
@@ -92,14 +88,12 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 	@Override
 	public void onPause() 
 	{
-		// TODO Auto-generated method stub
 		super.onPause();
 	}
 
 	@Override
-	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) 
+	public Loader<HttpRequestResult> onCreateLoader(int loadId, Bundle arg1) 
 	{
-		// TODO Auto-generated method stub
 		return new NetworkLoader(getActivity(), HttpMethod.Get, arg1);
 	}
 
@@ -107,7 +101,6 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
 			HttpRequestResult result) 
 	{
-		// TODO Auto-generated method stub
 		hideProgressDialog();
 		
 		if(result.getResponseCode() == 0)
@@ -127,7 +120,6 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 	@Override
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) 
 	{
-		// TODO Auto-generated method stub
 	}
 	
 	public void loadNotifications()
@@ -156,5 +148,23 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 			mProDialog.dismiss();
 			mProDialog = null;
 		}
+	}
+	
+	public void startAcceptAction(Notification notifcation) {
+		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		Bundle bundle = apiHelper.acceptFriendInvitation(
+				String.valueOf(notifcation.getSourceId()));
+		getLoaderManager().restartLoader(
+					WTApplication.NETWORK_LOADER_ACCEPT_FRIEND,
+					bundle, this);
+	}
+	
+	public void startIngoreAction(Notification notifcation) {
+		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		Bundle bundle = apiHelper.ignoreFriendInvitation(
+				String.valueOf(notifcation.getSourceId()));
+		getLoaderManager().restartLoader(
+				WTApplication.NETWORK_LOADER_IGNORE_FRIEDN,
+				bundle, this);
 	}
 }
