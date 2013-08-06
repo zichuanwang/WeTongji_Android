@@ -151,6 +151,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="search_tip_activity">Search activities for </string>
     <string name="search_tip_news">Search information for</string>
     <string name="search_tip_stars">Search stars for </string>
+    <string name="search_tip_course">Search course for </string>
     <string name="type_users">User</string>
     <string name="type_org">Organization</string>
     <string name="type_activities">Activity</string>

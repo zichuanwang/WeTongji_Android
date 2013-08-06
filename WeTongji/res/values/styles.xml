@@ -267,6 +267,10 @@
  	<style name="SearchTip" parent="@style/SearchHistoryTitle">
  	    <item name="android:maxLines">2</item>
     </style>
+    
+ 	<style name="SearchTipKeywords" parent="@style/SearchTip">
+ 	    <item name="android:textStyle">bold</item>
+    </style>
  	    
  	<style name="FriendName">
  	    <item name="android:textColor">@color/tv_eventlst_title</item>

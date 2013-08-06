@@ -26,10 +26,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
 import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.foound.widget.AmazingListView;
 import com.j256.ormlite.table.TableUtils;
@@ -156,6 +158,9 @@ public class SearchFragment extends SherlockFragment implements
 				case 5:
 					type = 5;
 					break;
+				case 6:
+					type = 6;
+					break;
 				}
 				doSearch(type, mTipAdapter.getmKeywords());
 			}
@@ -184,17 +189,31 @@ public class SearchFragment extends SherlockFragment implements
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 
-		getSherlockActivity().getSupportActionBar()
-				.setDisplayShowCustomEnabled(true);
-
+		final ActionBar ab = getSherlockActivity().getSupportActionBar();
+		ab.setDisplayShowCustomEnabled(true);
+		
 		inflater.inflate(R.menu.menu_search, menu);
 		mEtSearch = (EditText) menu.findItem(R.id.menu_search_edit)
 				.getActionView();
 		menu.getItem(0).expandActionView();
+		ab.setIcon(R.drawable.ic_home);
 		menu.getItem(0).setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				mEtSearch.forceLayout();
+				return true;
+			}
+		});
+		
+		menu.getItem(0).setOnActionExpandListener(new OnActionExpandListener() {
+			@Override
+			public boolean onMenuItemActionExpand(MenuItem item) {
+				ab.setIcon(R.drawable.ic_home);
+				return true;
+			}
+
+			@Override
+			public boolean onMenuItemActionCollapse(MenuItem item) {
 				return true;
 			}
 		});

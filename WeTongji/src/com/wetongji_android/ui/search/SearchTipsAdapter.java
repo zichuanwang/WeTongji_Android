@@ -3,6 +3,9 @@ package com.wetongji_android.ui.search;
 import com.wetongji_android.R;
 
 import android.support.v4.app.Fragment;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class SearchTipsAdapter extends BaseAdapter {
-	private static final int COUNT = 6;
+	private static final int COUNT = 7;
 	
 	private String mTipAll;
 	private String mTipUser;
@@ -19,6 +22,7 @@ public class SearchTipsAdapter extends BaseAdapter {
 	private String mTipActivity;
 	private String mTipNews;
 	private String mTipStars;
+	private String mTipCourse;
 	
 	private String mKeywords = "";
 	
@@ -32,6 +36,7 @@ public class SearchTipsAdapter extends BaseAdapter {
 		mTipActivity = mFragment.getString(R.string.search_tip_activity);
 		mTipNews = mFragment.getString(R.string.search_tip_news);
 		mTipStars = mFragment.getString(R.string.search_tip_stars);
+		mTipCourse = mFragment.getString(R.string.search_tip_course);
 	}
 	
 	@Override
@@ -75,9 +80,19 @@ public class SearchTipsAdapter extends BaseAdapter {
 		case 5:
 			sb.append(mTipStars);
 			break;
+		case 6:
+			sb.append(mTipCourse);
+			break;
 		}
 		sb.append(" ").append(mKeywords);
-		tvTip.setText(sb.toString());
+		SpannableString spanStr = new SpannableString(sb.toString());
+		spanStr.setSpan(new TextAppearanceSpan(mFragment.getActivity(), 
+				R.style.SearchTip), 0, sb.length() - mKeywords.length() + 1, 
+				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		spanStr.setSpan(new TextAppearanceSpan(mFragment.getActivity(), 
+				R.style.SearchTipKeywords), sb.length() - mKeywords.length(), 
+				sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		tvTip.setText(spanStr, TextView.BufferType.SPANNABLE);
 		
 		LinearLayout llRow = (LinearLayout) view.findViewById(R.id.ll_search_tip);
 		if (position % 2 != 0) {

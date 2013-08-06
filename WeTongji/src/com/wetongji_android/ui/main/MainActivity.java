@@ -194,6 +194,14 @@ public class MainActivity extends UpdateBaseActivity {
 		}
 	}
 	
+	public void showLeftMenu() {
+		if (getSlidingMenu().isShown()) {
+			getSlidingMenu().showContent();
+		} else {
+			showMenu();
+		}
+	}
+	
 	public void doClickProfile() {
 		ProfileFragment f = (ProfileFragment) mContent;
 		startActivityForResult(f.getSeeProfileIntent(this), ProfileFragment.REQUEST_CODE_PROFILE);
