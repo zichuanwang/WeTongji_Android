@@ -457,13 +457,13 @@ public class ApiHelper {
 		return bundle;
 	}
 
-	public Bundle getNotifications(boolean read)
+	public Bundle getNotifications(boolean onlyNew)
 	{
 		Bundle bundle = new Bundle();
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "Notifications.Get");
-		bundle.putString(API_ARGS_UNREAD, read ? String.valueOf(1) : String.valueOf(0));
+		bundle.putString(API_ARGS_UNREAD, onlyNew ? String.valueOf(1) : String.valueOf(0));
 		return bundle;
 	}
 	
