@@ -73,7 +73,7 @@ public class FriendInviteActivity extends SherlockFragmentActivity implements
 		
 		ApiHelper helper = ApiHelper.getInstance(this);
 		int id = getIntent().getIntExtra(WTBaseDetailActivity.CHILD_ID, 0);
-		getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_INVITE, helper.getActivityInviate(id, fragment.getiSelectedId()), this);
+		getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_INVITE, helper.activityInvite(id, fragment.getiSelectedId()), this);
 	}
 
 	@Override
