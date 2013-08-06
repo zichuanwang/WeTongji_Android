@@ -89,11 +89,9 @@ public class EventListAdapter extends EndlessListAdapter<Activity> implements Lo
 		
 		//Set background color
 		if(position % 2 != 0) {
-			holder.llEventRow.setBackgroundColor(mContext.
-					getResources().getColor(R.color.layout_event_list_row1));
+			holder.llEventRow.setBackgroundResource(R.drawable.listview_selector_1);
 		}else {
-			holder.llEventRow.setBackgroundColor(mContext.
-					getResources().getColor(R.color.layout_event_list_row2));
+			holder.llEventRow.setBackgroundResource(R.drawable.listview_selector_2);
 		}
 		
 		Activity event=getItem(position);
