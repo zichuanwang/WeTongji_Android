@@ -13,7 +13,9 @@ import com.wetongji_android.data.Activity;
 import com.wetongji_android.util.common.WTApplication;
 
 public class ActivityFactory extends BaseFactory<Activity, Integer>{
-
+	
+	private int nextPage;
+	
 	public ActivityFactory(Fragment fragment) {
 		super(fragment, Activity.class, WTApplication.ACTIVITIES_SAVER);
 	}
@@ -23,6 +25,7 @@ public class ActivityFactory extends BaseFactory<Activity, Integer>{
 		List<Activity> result=new ArrayList<Activity>();
 		try {
 			JSONObject outer=new JSONObject(jsonStr);
+			nextPage = outer.getInt("NextPager");
 			result = bRefresh ? super.createObjects(outer.getString("Activities"),bRefresh)
 					: super.unserializeObjects(outer.getString("Activities"));
 		} catch (JSONException e) {
@@ -40,6 +43,14 @@ public class ActivityFactory extends BaseFactory<Activity, Integer>{
 			e.printStackTrace();
 			return new ArrayList<Activity>();
 		}
+	}
+
+	public int getNextPage() {
+		return nextPage;
+	}
+
+	public void setNextPage(int nextPage) {
+		this.nextPage = nextPage;
 	}
 	
 }

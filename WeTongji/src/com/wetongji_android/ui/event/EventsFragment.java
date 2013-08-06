@@ -27,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.androidquery.AQuery;
@@ -64,6 +65,7 @@ OnScrollListener{
 	private int mCurrentPage = 0;
 	private boolean isRefresh = false;
 	private ActivityFactory mFactory;
+	private boolean mShouldRequest = true;
 	
 	/** Sort preferences by default**/
 	private boolean mExpire = true;
@@ -71,6 +73,7 @@ OnScrollListener{
 	private int mSelectedType = 15;
 	
 	// Widgets on bottom actionbar
+	private LinearLayout llBottomActionbar;
 	private LinearLayout llActionSort;
 	private LinearLayout llActionType;
 	private CheckBox cbActionExpired;
@@ -105,6 +108,7 @@ OnScrollListener{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_events, null);
 		
+		llBottomActionbar = (LinearLayout) view.findViewById(R.id.bottom_action_bar);
 		llActionSort = (LinearLayout) view.findViewById(R.id.btn_event_detail_invite);
 		llActionType = (LinearLayout) view.findViewById(R.id.btn_event_detail_friends);
 		cbActionExpired = (CheckBox) view.findViewById(R.id.cb_event_expired);
@@ -145,6 +149,10 @@ OnScrollListener{
 				.getSerializable(BUNDLE_KEY_ACTIVITY_LIST);
 			mAdapter.addAll(activityList.getList());
 			break;
+		}
+		
+		if (mStartMode != StartMode.BASIC) {
+			llBottomActionbar.setVisibility(View.GONE);
 		}
 		
 	}
@@ -200,6 +208,9 @@ OnScrollListener{
 
 			mCurrentPage++;
 			mAdapter.setIsLoadingData(false);
+			if (mFactory.getNextPage() == 0) {
+				mShouldRequest = false;
+			}
 		}
 		else{
 			ExceptionToast.show(getActivity(), result.getResponseCode());
@@ -274,7 +285,7 @@ OnScrollListener{
 
 	@Override
 	public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) {
-		if(mAdapter.shouldRequestNextPage(arg1, arg2, arg3)) {
+		if(mAdapter.shouldRequestNextPage(arg1, arg2, arg3) && mShouldRequest) {
 			if (mStartMode == StartMode.BASIC) {
 				loadMoreData(mCurrentPage + 1);
 			} else if (mStartMode == StartMode.USERS) {
@@ -292,7 +303,14 @@ OnScrollListener{
 			com.actionbarsherlock.view.MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		
-		inflater.inflate(R.menu.menu_eventlist, menu);
+		if (mStartMode == StartMode.BASIC) {
+			inflater.inflate(R.menu.menu_eventlist, menu);
+		} else {
+			inflater.inflate(R.menu.menu_eventlist_nonotification, menu);
+			
+			ActionBar ab = getSherlockActivity().getSupportActionBar();
+			ab.setDisplayHomeAsUpEnabled(true);
+		}
 		
 		readPreference();
 	}
@@ -313,7 +331,9 @@ OnScrollListener{
 						Toast.LENGTH_SHORT).show();
 			}
 			break;
-		
+		case android.R.id.home:
+			getActivity().finish();
+			break;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

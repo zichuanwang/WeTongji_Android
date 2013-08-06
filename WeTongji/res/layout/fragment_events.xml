@@ -30,10 +30,6 @@
             android:divider="@color/eventlst_divider"
             android:dividerHeight="0.33dp" />
         
-        <LinearLayout
-            android:layout_below="@id/lst_events"
-            android:layout_width="match_parent"
-        	android:layout_height="48dp"/>
     </RelativeLayout>
 
     <!-- Bottom actionbar -->
