@@ -97,6 +97,7 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 		setRetainInstance(true);
 		
 		setHasOptionsMenu(true);
+		getSherlockActivity().getSupportActionBar().setTitle(R.string.search_type_information);
 	}
 
 	@Override

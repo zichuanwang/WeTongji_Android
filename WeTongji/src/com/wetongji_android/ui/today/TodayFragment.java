@@ -68,6 +68,7 @@ public class TodayFragment extends SherlockFragment {
 		super.onCreate(savedInstanceState);
 		context = getActivity();
 		setHasOptionsMenu(true);
+		getSherlockActivity().getSupportActionBar().setTitle(R.string.text_today);
 	}
 
 	@Override

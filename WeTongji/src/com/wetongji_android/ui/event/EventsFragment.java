@@ -171,6 +171,9 @@ OnScrollListener{
 		setRetainInstance(true);
 		
 		setHasOptionsMenu(true);
+		
+		getSherlockActivity().getSupportActionBar().setTitle(R.string.title_mainmenu_events);
+
 	}
 
 	@Override

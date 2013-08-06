@@ -98,6 +98,8 @@ public class SearchFragment extends SherlockFragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
+		getSherlockActivity().getSupportActionBar().setTitle(R.string.title_mainmenu_search);
+
 	}
 
 	@Override

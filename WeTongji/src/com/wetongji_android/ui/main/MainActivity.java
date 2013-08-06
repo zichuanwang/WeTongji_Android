@@ -38,7 +38,7 @@ public class MainActivity extends UpdateBaseActivity {
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.content_frame, mContent).commit();
 
-		getSupportActionBar().setDisplayShowTitleEnabled(false);
+		//getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 		setSlidingMenu();
 	}
