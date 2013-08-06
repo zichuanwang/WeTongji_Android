@@ -81,11 +81,9 @@ public class SearchTipsAdapter extends BaseAdapter {
 		
 		LinearLayout llRow = (LinearLayout) view.findViewById(R.id.ll_search_tip);
 		if (position % 2 != 0) {
-			llRow.setBackgroundColor(mFragment.getActivity().
-					getResources().getColor(R.color.layout_event_list_row1));
+			llRow.setBackgroundResource(R.drawable.listview_selector_1);
 		} else {
-			llRow.setBackgroundColor(mFragment.getActivity().
-					getResources().getColor(R.color.layout_event_list_row2));
+			llRow.setBackgroundResource(R.drawable.listview_selector_2);
 		}
 		
 		return view;

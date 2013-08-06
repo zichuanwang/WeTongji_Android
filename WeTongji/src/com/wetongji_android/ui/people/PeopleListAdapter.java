@@ -89,11 +89,9 @@ public class PeopleListAdapter extends EndlessListAdapter<Person> implements Loa
 		
 		//Set background color
 		if(position % 2 != 0) {
-			holder.llPeopleRow.setBackgroundColor(mContext.
-					getResources().getColor(R.color.layout_event_list_row1));
+			holder.llPeopleRow.setBackgroundResource(R.drawable.listview_selector_1);
 		}else {
-			holder.llPeopleRow.setBackgroundColor(mContext.
-					getResources().getColor(R.color.layout_event_list_row2));
+			holder.llPeopleRow.setBackgroundResource(R.drawable.listview_selector_2);
 		}
 		
 		Person person = getItem(position);

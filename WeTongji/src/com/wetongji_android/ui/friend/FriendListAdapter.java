@@ -108,12 +108,10 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 		//Set background color
 		if(position % 2 == 0)
 		{
-			holder.rlFriendItem.setBackgroundColor(mContext.
-					getResources().getColor(R.color.layout_event_list_row1));
+			holder.rlFriendItem.setBackgroundResource(R.drawable.listview_selector_1);
 		}else
 		{
-			holder.rlFriendItem.setBackgroundColor(mContext.
-					getResources().getColor(R.color.layout_event_list_row2));
+			holder.rlFriendItem.setBackgroundResource(R.drawable.listview_selector_2);
 		}
 		
 		//Set text view

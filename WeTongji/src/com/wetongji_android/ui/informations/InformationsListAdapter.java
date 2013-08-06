@@ -146,10 +146,10 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		int pos = getPositionForSection(section);
 		if((position - pos) % 2 == 0)
 		{
-			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row1));
+			holder.rl_item.setBackgroundResource(R.drawable.listview_selector_1);
 		}else
 		{
-			holder.rl_item.setBackgroundColor(mContext.getResources().getColor(R.color.information_list_row2));
+			holder.rl_item.setBackgroundResource(R.drawable.listview_selector_2);
 		}
 		holder.tv_type.setText(information.getCategory());
 		holder.tv_title.setText(information.getTitle());

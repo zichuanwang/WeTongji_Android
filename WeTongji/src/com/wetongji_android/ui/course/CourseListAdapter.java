@@ -51,11 +51,9 @@ public class CourseListAdapter extends EndlessListAdapter<Course> {
 		
 		// Set background color
 		if (position % 2 != 0) {
-			holder.layoutCourseBg.setBackgroundColor(mContext.getResources()
-					.getColor(R.color.layout_event_list_row1));
+			holder.layoutCourseBg.setBackgroundResource(R.drawable.listview_selector_1);
 		} else {
-			holder.layoutCourseBg.setBackgroundColor(mContext.getResources()
-					.getColor(R.color.layout_event_list_row2));
+			holder.layoutCourseBg.setBackgroundResource(R.drawable.listview_selector_2);
 		}
 		holder.tvCourseTitle.setText(course.getTitle());
 		holder.tvTeacherName.setText(course.getTeacher());

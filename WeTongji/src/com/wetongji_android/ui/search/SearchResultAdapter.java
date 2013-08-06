@@ -216,11 +216,9 @@ public class SearchResultAdapter extends AmazingAdapter {
 		int pos = getPositionForSection(section);
 
 		if ((position - pos) % 2 == 0) {
-			convertView.setBackgroundColor(mContext.getResources().getColor(
-					R.color.information_list_row1));
+			convertView.setBackgroundResource(R.drawable.listview_selector_1);
 		} else {
-			convertView.setBackgroundColor(mContext.getResources().getColor(
-					R.color.information_list_row2));
+			convertView.setBackgroundResource(R.drawable.listview_selector_2);
 		}
 
 		return convertView;
