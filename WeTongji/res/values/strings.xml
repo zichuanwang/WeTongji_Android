@@ -202,4 +202,5 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="profile_no_like_accounts">You have no liked account</string>
 	<string name="add_friend_request">Friend Add Request has been sent</string>
 	<string name="remove_friend_request">Remove Friend Success</string>
+	<string name="no_results">No results.</string>
 </resources>

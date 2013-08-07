@@ -47,5 +47,16 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone"/>
+    
+    <TextView 
+        android:id="@id/text_search_no_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:text="@string/no_results"
+        android:visibility="gone"
+        style="@style/SearchNoResult" />
 
 </RelativeLayout>
