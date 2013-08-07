@@ -309,4 +309,9 @@
  	    <item name="android:textSize">16sp</item>
  	    <item name="android:textColor">#b1b1b1</item>
  	</style>
+ 	
+ 	<style name="SearchNoResult" parent="@style/EventLstTime">
+ 	    <item name="android:textSize">18sp</item>
+ 	    <item name="android:textColor">#6a6a6a</item>
+ 	</style>
 </resources>

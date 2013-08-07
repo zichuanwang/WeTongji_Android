@@ -12,6 +12,7 @@ import android.support.v4.content.Loader;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,6 +79,7 @@ public class SearchFragment extends SherlockFragment implements
 	private EditText mEtSearch;
 	private TextView mTvHistoryTitle;
 	private ProgressBar mProgressBar;
+	private TextView mTvNoResult;
 
 	public static SearchFragment newInstance() {
 		SearchFragment f = new SearchFragment();
@@ -108,6 +110,7 @@ public class SearchFragment extends SherlockFragment implements
 		View view = inflater
 				.inflate(R.layout.fragment_search, container, false);
 
+		mTvNoResult = (TextView) view.findViewById(R.id.text_search_no_result);
 		mProgressBar = (ProgressBar) view.findViewById(R.id.pb_search);
 		mTvHistoryTitle = (TextView) view
 				.findViewById(R.id.text_search_history_title);
@@ -325,9 +328,23 @@ public class SearchFragment extends SherlockFragment implements
 	}
 	
 	private void processSearchResult(String jsonStr) {
-		mResultAdapter.setSearchResult(SearchUtil.generateSearchResults(jsonStr));
-		mResultAdapter.notifyDataSetChanged();
-		showResults();
+		List<Pair<String, List<SearchResult>>> result = SearchUtil.generateSearchResults(jsonStr);
+		if (resultIsEmpty(result)) {
+			showNoResults();
+		} else {
+			mResultAdapter.setSearchResult(result);
+			mResultAdapter.notifyDataSetChanged();
+			showResults();
+		}
+	}
+	
+	private boolean resultIsEmpty(List<Pair<String, List<SearchResult>>> result) {
+		for (int i = 0; i < result.size(); i++) {
+			if (!result.get(i).second.isEmpty()) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private void saveSearchHistory(int type, String keywords) {
@@ -426,6 +443,7 @@ public class SearchFragment extends SherlockFragment implements
 		mLvSearchTips.setVisibility(View.GONE);
 		mProgressBar.setVisibility(View.GONE);
 		mLvSearchResult.setVisibility(View.GONE);
+		mTvNoResult.setVisibility(View.GONE);
 	}
 	
 	private void showProgress() {
@@ -434,6 +452,7 @@ public class SearchFragment extends SherlockFragment implements
 		mLvSearchTips.setVisibility(View.GONE);
 		mProgressBar.setVisibility(View.VISIBLE);
 		mLvSearchResult.setVisibility(View.GONE);
+		mTvNoResult.setVisibility(View.GONE);
 	}
 	
 	private void showTips() {
@@ -442,6 +461,7 @@ public class SearchFragment extends SherlockFragment implements
 		mLvSearchTips.setVisibility(View.VISIBLE);
 		mProgressBar.setVisibility(View.GONE);
 		mLvSearchResult.setVisibility(View.GONE);
+		mTvNoResult.setVisibility(View.GONE);
 	}
 	
 	private void showResults() {
@@ -450,6 +470,16 @@ public class SearchFragment extends SherlockFragment implements
 		mLvSearchTips.setVisibility(View.GONE);
 		mProgressBar.setVisibility(View.GONE);
 		mLvSearchResult.setVisibility(View.VISIBLE);
+		mTvNoResult.setVisibility(View.GONE);
+	}
+	
+	private void showNoResults() {
+		mLvSearchHistory.setVisibility(View.GONE);
+		mTvHistoryTitle.setVisibility(View.GONE);
+		mLvSearchTips.setVisibility(View.GONE);
+		mProgressBar.setVisibility(View.GONE);
+		mLvSearchResult.setVisibility(View.GONE);
+		mTvNoResult.setVisibility(View.VISIBLE);
 	}
 	
 }

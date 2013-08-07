@@ -242,4 +242,5 @@
     <item name="img_account_thumbnails" type="id">false</item>
     <item name="tv_account_title" type="id">false</item>
     <item name="tv_account_description" type="id">false</item>
+    <item name="text_search_no_result" type="id" />
 </resources>
