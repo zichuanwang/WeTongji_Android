@@ -44,6 +44,8 @@ public class FriendListFragment extends WTBaseFragment implements
 	
 	private String iSelectedId;
 	
+	private StringBuilder selectedIdsBuilder = new StringBuilder();
+	
 	@Override
 	public void onAttach(Activity activity) 
 	{
@@ -154,7 +156,7 @@ public class FriendListFragment extends WTBaseFragment implements
 	}
 	
 	public String getiSelectedId() {
-		return iSelectedId;
+		return selectedIdsBuilder.toString();
 	}
 
 	public void setiSelectedId(String iSelectedId) {
@@ -174,6 +176,7 @@ public class FriendListFragment extends WTBaseFragment implements
 				holder.cbFriendInvite.toggle();
 				FriendListAdapter.getIsSelected().put(position, holder.cbFriendInvite.isChecked());
 				iSelectedId = mAdapter.getItem(position).getUID();
+				selectedIdsBuilder.append(iSelectedId).append(",");
 			}else
 			{
 				Intent intent = new Intent(mActivity, FriendDetailActivity.class);

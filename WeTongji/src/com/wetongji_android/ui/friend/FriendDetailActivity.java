@@ -94,7 +94,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		rlFriendList.setOnClickListener(new ClickListener());
 		tvFriendNum = (TextView)findViewById(R.id.tv_detail_friend_num);
 		StringBuilder sb = new StringBuilder();
-		sb.append(mUser.getFriendCount()).append("Friends");
+		sb.append(mUser.getFriendCount()).append(" Friends");
 		tvFriendNum.setText(sb.toString());
 		rlPartEvents = (RelativeLayout)findViewById(R.id.ll_friend_detail_part_events);
 		rlPartEvents.setOnClickListener(new ClickListener());
@@ -110,16 +110,14 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		tvEmail.setText(mUser.getEmail());
 	}
 	
-	private void updateWidget()
+	private void showToast()
 	{
 		if(bIsFriend)
 		{
-			ibFriend.setText("UnFriend");
 			Toast.makeText(this, this.getResources().getString(R.string.add_friend_request), 
 					Toast.LENGTH_SHORT).show();
 		}else
 		{
-			ibFriend.setText("Friend");
 			Toast.makeText(this, this.getResources().getString(R.string.remove_friend_request), 
 					Toast.LENGTH_SHORT).show();
 		}
@@ -166,7 +164,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 				bIsFriend = true;
 			}
 			
-			updateWidget();
+			showToast();
 		}
 	}
 

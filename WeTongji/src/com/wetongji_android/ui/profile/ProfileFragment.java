@@ -323,10 +323,15 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		@Override
 		public void onClick(View v) {
 			if (v.getId() == R.id.ll_profile_friend_list) {
-				Intent intent = new Intent(mActivity, FriendListActivity.class);
-				startActivity(intent);
-				mActivity.overridePendingTransition(R.anim.slide_right_in,
-						R.anim.slide_left_out);
+				if(mUser.getFriendCount() == 0){
+					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_events), 
+							Toast.LENGTH_SHORT).show();
+				}else{
+					Intent intent = new Intent(mActivity, FriendListActivity.class);
+					startActivity(intent);
+					mActivity.overridePendingTransition(R.anim.slide_right_in,
+							R.anim.slide_left_out);
+				}
 			} else if (v.getId() == R.id.layout_profile_my_profile) {
 				((MainActivity) getActivity()).doClickProfile();
 			} else if (v.getId() == R.id.btn_profile_action) {

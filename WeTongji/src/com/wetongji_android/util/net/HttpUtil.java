@@ -158,23 +158,12 @@ public class HttpUtil
 		return bConnected;
 	}
 	
-	public static String generateUserIDArrayString(String[] ids)
+	public static String generateUserIDArrayString(String ids)
 	{
-		StringBuilder sb = new StringBuilder();
-		
-		if(ids.length == 0)
-		{
+		if(ids == null){
 			return null;
+		}else{
+			return ids.substring(0, ids.length() - 2);
 		}
-		else
-		{
-			for(int i = 0; i < ids.length; i++)
-			{
-				sb.append(ids[i]).append(",");
-			}
-		}
-		
-		
-		return sb.toString().substring(0, sb.length() - 2);
 	}
 }

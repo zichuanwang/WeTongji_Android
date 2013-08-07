@@ -19,6 +19,7 @@ import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
+import com.wetongji_android.util.net.HttpUtil;
 
 public class FriendInviteActivity extends SherlockFragmentActivity implements
 		OnClickListener, OnCheckedChangeListener, LoaderCallbacks<HttpRequestResult> 
@@ -73,7 +74,8 @@ public class FriendInviteActivity extends SherlockFragmentActivity implements
 		
 		ApiHelper helper = ApiHelper.getInstance(this);
 		int id = getIntent().getIntExtra(WTBaseDetailActivity.CHILD_ID, 0);
-		getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_INVITE, helper.activityInvite(id, fragment.getiSelectedId()), this);
+		getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_INVITE, helper.activityInvite(id, 
+				HttpUtil.generateUserIDArrayString(fragment.getiSelectedId())), this);
 	}
 
 	@Override
