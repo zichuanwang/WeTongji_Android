@@ -530,7 +530,7 @@ public class ApiHelper {
 		return bundle;
 	}
 	
-	public Bundle getActivityInviate(int id, String uid)
+	public Bundle activityInvite(int id, String uid)
 	{
 		Bundle bundle = new Bundle();
 		putBasicArgs(bundle);
@@ -538,7 +538,7 @@ public class ApiHelper {
 		
 		bundle.putString(API_ARGS_METHOD, "Activity.Invite");
 		bundle.putString(API_ARGS_ID, String.valueOf(id));
-		bundle.putString(API_ARGS_USER_ID, uid);
+		bundle.putString(API_ARGS_USERS_ID, uid);
 		
 		return bundle;
 	}
@@ -559,6 +559,17 @@ public class ApiHelper {
 		bundle.putString(API_ARGS_USER_ID, uid);
 		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
 		bundle.putString(API_ARGS_METHOD, "CourseSections.Get.ByUser");
+		return bundle;
+	}
+	
+	public Bundle courseInvite(int id, String uid){
+		Bundle bundle = new Bundle();
+		
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		bundle.putString(API_ARGS_METHOD, "Course.Invite");
+		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		bundle.putString(API_ARGS_USERS_ID, uid);
 		return bundle;
 	}
 	
