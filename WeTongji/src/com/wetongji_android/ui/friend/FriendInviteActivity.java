@@ -3,10 +3,10 @@ package com.wetongji_android.ui.friend;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ToggleButton;
 
@@ -74,8 +74,16 @@ public class FriendInviteActivity extends SherlockFragmentActivity implements
 		
 		ApiHelper helper = ApiHelper.getInstance(this);
 		int id = getIntent().getIntExtra(WTBaseDetailActivity.CHILD_ID, 0);
-		getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_INVITE, helper.activityInvite(id, 
-				HttpUtil.generateUserIDArrayString(fragment.getiSelectedId())), this);
+		String type = getIntent().getStringExtra(WTBaseDetailActivity.CHILD_TYPE);
+		if(type.equals("CourseDetailActivity"))
+		{
+			getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_INVITE, helper.courseInvite(id, 
+					HttpUtil.generateUserIDArrayString(fragment.getiSelectedId())), this);
+		}else
+		{
+			getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_INVITE, helper.activityInvite(id, 
+					HttpUtil.generateUserIDArrayString(fragment.getiSelectedId())), this);
+		}
 	}
 
 	@Override
@@ -96,7 +104,8 @@ public class FriendInviteActivity extends SherlockFragmentActivity implements
 	{
 		if(result.getResponseCode() == 0)
 		{
-			Log.v("test", "hah");
+			btnInvite.setChecked(false);
+			Toast.makeText(this, getResources().getString(R.string.invite_request), Toast.LENGTH_SHORT).show();
 		}
 	}
 

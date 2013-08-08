@@ -56,6 +56,7 @@ public class ApiHelper {
 	private static final String API_ARGS_UID="U";
 	private static final String API_ARGS_USER_ID = "UID";
 	private static final String API_ARGS_USERS_ID = "UIDs";
+	private static final String API_ARGS_COURSE_ID = "UNO";
 	private static final String API_ARGS_PAGE="P";
 	private static final String API_ARGS_SESSION="S";
 	private static final String API_ARGS_NO="NO";
@@ -337,6 +338,18 @@ public class ApiHelper {
 		return bundle;
 	}
 	
+	public Bundle setActivityScheduled(boolean scheduled, int id)
+	{
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		String method = scheduled ? "Activity.UnSchedule" : "Activity.Schedule";
+		bundle.putString(API_ARGS_METHOD, method);
+		return bundle;
+	}
+	
 	public Bundle favorite(int id) {
 		Bundle bundle=new Bundle();
 		putBasicArgs(bundle);
@@ -518,6 +531,45 @@ public class ApiHelper {
 		return bundle;
 	}
 	
+	public Bundle getFriendsOfUser(String uid)
+	{
+		Bundle bundle = new Bundle();
+		
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_USER_ID, uid);
+		bundle.putString(API_ARGS_METHOD, "Friends.Get.ByUser");
+		
+		return bundle;
+	}
+	
+	public Bundle getFriendsWithSameActivity(String aid)
+	{
+		Bundle bundle = new Bundle();
+		
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_USER_ID, aid);
+		bundle.putString(API_ARGS_METHOD, "Friends.Get.WithSameActivity");
+		
+		return bundle;
+	}
+	
+	public Bundle getFriendsWithSameCourse(String cid)
+	{
+		Bundle bundle = new Bundle();
+		
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_USER_ID, cid);
+		bundle.putString(API_ARGS_METHOD, "Friends.Get.WithSameCourse");
+		
+		return bundle;
+	}
+	
 	public Bundle getSearchResult(int category, String keywords) {
 		Bundle bundle = new Bundle();
 		putBasicArgs(bundle);
@@ -568,8 +620,20 @@ public class ApiHelper {
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "Course.Invite");
-		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		bundle.putString(API_ARGS_COURSE_ID, String.valueOf(id));
 		bundle.putString(API_ARGS_USERS_ID, uid);
+		return bundle;
+	}
+	
+	public Bundle setCourseScheduled(boolean scheduled, int id)
+	{
+		Bundle bundle=new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		String method = scheduled ? "Course.UnSchedule" : "Course.Schedule";
+		bundle.putString(API_ARGS_METHOD, method);
 		return bundle;
 	}
 	

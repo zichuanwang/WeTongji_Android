@@ -8,6 +8,7 @@ import android.view.ViewStub;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
@@ -25,14 +26,17 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 	private LinearLayout mLayoutFriends;
 	private LinearLayout mLayoutAttend;
 	private LinearLayout mLayoutBottomBlank;
+	private TextView mTextView;
 	
 	public static final String IMAGE_URL = "ImageUrl";
 	public static final String IMAGE_WIDTH = "ImageWidth";
 	public static final String IMAGE_HEIGHT = "ImageHeight";
 	public static final String CHILD_ID = "ChildId";
+	public static final String CHILD_TYPE = "ChildType";
 	
 	private int iChildId;
-	
+	private String type;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -89,6 +93,14 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 		mLayoutFriends.setOnClickListener(new BottomABClickListener());
 		mLayoutAttend = (LinearLayout)findViewById(R.id.btn_event_detail_attend);
 		mLayoutAttend.setOnClickListener(new BottomABClickListener());
+		mTextView = (TextView)findViewById(R.id.activity_detail_bottom_text);
+		if(type.equals("CourseDetailActivity"))
+		{
+			mTextView.setText("AUDIT");
+		}else
+		{
+			mTextView.setText("ATTEND");
+		}
 	}
 	
 	//Display the bottom action bar
@@ -119,6 +131,11 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 		this.iChildId = iChildId;
 	}
 
+	protected void setType(String type) 
+	{
+		this.type = type;
+	}
+	
 	class BottomABClickListener implements OnClickListener
 	{
 		@Override
@@ -131,6 +148,7 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 				{
 					Intent intent = new Intent(WTBaseDetailActivity.this, FriendInviteActivity.class);
 					intent.putExtra(CHILD_ID, iChildId);
+					intent.putExtra(CHILD_TYPE, type);
 					startActivity(intent);
 				}else
 				{

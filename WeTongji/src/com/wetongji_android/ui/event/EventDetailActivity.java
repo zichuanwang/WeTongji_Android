@@ -62,6 +62,7 @@ public class EventDetailActivity extends WTBaseDetailActivity
 		Intent intent = this.getIntent();
 		mEvent = intent.getParcelableExtra(EventsFragment.BUNDLE_KEY_ACTIVITY);
 		setiChildId(mEvent.getId());
+		setType(this.getClass().getSimpleName());
 	}
 
 	private void setPicture() {
@@ -140,8 +141,13 @@ public class EventDetailActivity extends WTBaseDetailActivity
 	@Override
 	protected void setiChildId(int iChildId) 
 	{
-		// TODO Auto-generated method stub
 		super.setiChildId(iChildId);
+	}
+	
+	@Override
+	protected void setType(String type) 
+	{
+		super.setType(type);
 	}
 
 	private void likeEvent(boolean isLike) {
