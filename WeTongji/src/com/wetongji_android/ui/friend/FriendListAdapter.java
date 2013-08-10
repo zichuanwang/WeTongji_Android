@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,7 +85,6 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 	@Override
 	protected View doGetView(int position, View convertView, ViewGroup parent) 
 	{
-		// TODO Auto-generated method stub
 		ViewHolder holder;
 		
 		if(convertView ==  null)
@@ -154,14 +152,12 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 	@Override
 	public Loader<List<User>> onCreateLoader(int arg0, Bundle arg1) 
 	{
-		// TODO Auto-generated method stub
 		return new UserLoader(mContext);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<List<User>> arg0, List<User> arg1) 
 	{
-		// TODO Auto-generated method stub
 		if(arg1 != null && arg1.size() > 1)
 		{
 			getData().addAll(arg1);
@@ -178,13 +174,11 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 	@Override
 	public void onLoaderReset(Loader<List<User>> arg0) 
 	{
-		// TODO Auto-generated method stub
 		
 	}
 	
 	public void loadDataFromDB() 
 	{
-		Log.v("db", "load");
 		mFragment.getLoaderManager().initLoader(WTApplication.USER_LOADER, null, this);
 		setIsLoadingData(true);
 	}

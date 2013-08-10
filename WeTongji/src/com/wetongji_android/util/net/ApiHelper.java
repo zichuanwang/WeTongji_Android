@@ -551,7 +551,7 @@ public class ApiHelper {
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
 		
-		bundle.putString(API_ARGS_USER_ID, aid);
+		bundle.putString(API_ARGS_ID, aid);
 		bundle.putString(API_ARGS_METHOD, "Friends.Get.WithSameActivity");
 		
 		return bundle;
@@ -564,7 +564,7 @@ public class ApiHelper {
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
 		
-		bundle.putString(API_ARGS_USER_ID, cid);
+		bundle.putString(API_ARGS_COURSE_ID, cid);
 		bundle.putString(API_ARGS_METHOD, "Friends.Get.WithSameCourse");
 		
 		return bundle;

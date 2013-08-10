@@ -33,6 +33,6 @@ public class WTBaseFragment extends SherlockFragment {
     }
 	
 	public static enum StartMode {
-		BASIC, USERS, LIKE
+		BASIC, USERS, LIKE, FRIENDS, ATTEND
 	}
 }

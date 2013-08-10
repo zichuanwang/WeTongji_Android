@@ -328,6 +328,10 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 							Toast.LENGTH_SHORT).show();
 				}else{
 					Intent intent = new Intent(mActivity, FriendListActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "ProfileFragment");
+					intent.putExtras(bundle);
 					startActivity(intent);
 					mActivity.overridePendingTransition(R.anim.slide_right_in,
 							R.anim.slide_left_out);

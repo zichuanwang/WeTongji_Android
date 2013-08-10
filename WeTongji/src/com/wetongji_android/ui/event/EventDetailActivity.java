@@ -92,7 +92,8 @@ public class EventDetailActivity extends WTBaseDetailActivity
 		TextView tvEventLocation = (TextView) findViewById(R.id.tv_event_detail_location);
 		TextView tvEventOrganization = (TextView) findViewById(R.id.text_event_detail_org_name);
 		TextView tvEventContent = (TextView) findViewById(R.id.tv_event_detail_content);
-
+		TextView tvEventFriends = (TextView)findViewById(R.id.tv_event_detail_friends);
+		
 		tvEventTitle.setText(mEvent.getTitle());
 		tvEventLocation.setText(mEvent.getLocation());
 		tvEventOrganization.setText(mEvent.getOrganizer());
@@ -107,6 +108,7 @@ public class EventDetailActivity extends WTBaseDetailActivity
 		}
 		tvEventTime.setText(DateParser.getEventTime(this, mEvent.getBegin(),
 				mEvent.getEnd()));
+		tvEventFriends.setText("3");
 	}
 	
 	private void setLikeCheckbox() {
