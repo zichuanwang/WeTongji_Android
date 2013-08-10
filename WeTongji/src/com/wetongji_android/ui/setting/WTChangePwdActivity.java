@@ -1,5 +1,8 @@
 package com.wetongji_android.ui.setting;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -89,14 +92,14 @@ public class WTChangePwdActivity extends SherlockFragmentActivity implements
 
 	@Override
 	public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-		if(checkIntegrity()){
+		if(isParameterValid()){
 			ApiHelper apiHelper = ApiHelper.getInstance(this);
 			getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, 
 					apiHelper.userUpdatePassword(edtOld.getText().toString(), edtConfirm.getText().toString()), this);
 		}
 	}
 	
-	private boolean checkIntegrity(){
+	private boolean isParameterValid(){
 		boolean result = true;
 		
 		if(edtOld.getText().toString().equals("")){
@@ -105,14 +108,31 @@ public class WTChangePwdActivity extends SherlockFragmentActivity implements
 		}else if(edtNew.getText().toString().equals("")){
 			result = false;
 			Toast.makeText(this, getResources().getString(R.string.password_error3), Toast.LENGTH_SHORT).show();
-		}else if(!edtNew.getText().toString().equals(edtConfirm.getText().toString())){
-			result = false;
-			Toast.makeText(this, getResources().getString(R.string.password_error1), Toast.LENGTH_SHORT).show();
 		}else if(edtConfirm.getText().toString().equals("")){
 			result = false;
 			Toast.makeText(this, getResources().getString(R.string.password_error4), Toast.LENGTH_SHORT).show();
+		}else if(!edtNew.getText().toString().equals(edtConfirm.getText().toString())){
+			result = false;
+			Toast.makeText(this, getResources().getString(R.string.password_error1), Toast.LENGTH_SHORT).show();
+		}else if(!isSyntaxWrong(edtNew.getText().toString()) || !isSyntaxWrong(edtConfirm.getText().toString())){
+			result = false;
+			Toast.makeText(this, getResources().getString(R.string.password_syntax_wrong), Toast.LENGTH_SHORT).show();
 		}
-			
+		
+		return result;
+	}
+	
+	private boolean isSyntaxWrong(String password){
+		boolean result = false;
+		
+		String strRegex = "^\\w{6,}$";
+    	Pattern p = Pattern.compile(strRegex);
+    	
+    	Matcher m = p.matcher(password);
+    	
+    	if(m.matches())
+    		result = true;
+    	
 		return result;
 	}
 }

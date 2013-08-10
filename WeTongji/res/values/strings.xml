@@ -233,4 +233,5 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="password_error3">Please input the new password</string>
 	<string name="password_error4">Please input the confirm password</string>
 	<string name="update_password_success">Update Password Success</string>
+	<string name="password_syntax_wrong">Password Syntax Wrong</string>
 </resources>
