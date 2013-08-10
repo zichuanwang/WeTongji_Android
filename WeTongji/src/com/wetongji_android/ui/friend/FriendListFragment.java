@@ -35,6 +35,8 @@ public class FriendListFragment extends WTBaseFragment implements
 {
 	public static final String BUNDLE_KEY_USER = "User";
 	
+	private String mUID;
+	private boolean event = true;
 	private View mView;
 	private Activity mActivity;
 	private UserFactory mFactory;
@@ -46,24 +48,74 @@ public class FriendListFragment extends WTBaseFragment implements
 	
 	private StringBuilder selectedIdsBuilder = new StringBuilder();
 	
+	public static FriendListFragment newInstance(StartMode startMode, Bundle args)
+	{
+		FriendListFragment fragment = new FriendListFragment();
+		Bundle bundle;
+		
+		if(args != null){
+			bundle = args;
+		}else{
+			bundle = new Bundle();
+		}
+		
+		switch(startMode) {
+		case BASIC:
+			bundle.putInt(BUNDLE_KEY_START_MODE, 1);
+			break;
+		case USERS:
+			break;
+		case LIKE:
+			break;
+		case FRIENDS:
+			bundle.putInt(BUNDLE_KEY_START_MODE, 4);
+			break;
+		case ATTEND:
+			bundle.putInt(BUNDLE_KEY_START_MODE, 5);
+			break;
+		}
+		
+		fragment.setArguments(bundle);
+		return fragment;
+	}
+	
 	@Override
 	public void onAttach(Activity activity) 
 	{
-		// TODO Auto-generated method stub
 		super.onAttach(activity);
 		
 		mActivity = activity;
 	}
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) 
+	{
+		super.onCreate(savedInstanceState);
+		Bundle b = getArguments();
+		
+		if(b != null){
+			int modeCode = b.getInt(BUNDLE_KEY_START_MODE);
+			mStartMode = (modeCode == 1) ? StartMode.BASIC : 
+				((modeCode == 4) ? StartMode.FRIENDS : StartMode.ATTEND);
+			mUID = b.getString(WTBaseFragment.BUNDLE_KEY_UID);
+			event = b.getBoolean(FriendListActivity.TAG_COURSE, false);
+		}
+	}
+
+	@Override
 	public void onActivityCreated(Bundle savedInstanceState) 
 	{
-		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		switch(getCurrentState(savedInstanceState))
 		{
 		case FIRST_TIME_START:
-			mAdapter.loadDataFromDB();
+			if(mStartMode == StartMode.BASIC){
+				mAdapter.loadDataFromDB();
+			}else if(mStartMode == StartMode.FRIENDS){
+				getFriendsListOfUser();
+			}else{
+				getFriendsListOfAttend();
+			}
 			break;
 		case SCREEN_ROTATE:
 			break;
@@ -76,7 +128,6 @@ public class FriendListFragment extends WTBaseFragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) 
 	{
-		// TODO Auto-generated method stub
 		mView = inflater.inflate(R.layout.fragment_friend, null);
 		lstFriends = (ListView)mView.findViewById(R.id.lst_friends);
 		mAdapter = new FriendListAdapter(this, lstFriends);
@@ -89,29 +140,25 @@ public class FriendListFragment extends WTBaseFragment implements
 	@Override
 	public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) 
 	{
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void onScrollStateChanged(AbsListView arg0, int arg1) 
 	{
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) 
 	{
-		// TODO Auto-generated method stub
-		return new NetworkLoader(getActivity(), HttpMethod.Get, arg1);
+		return new NetworkLoader(mActivity, HttpMethod.Get, arg1);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
 			HttpRequestResult result) 
 	{
-		// TODO Auto-generated method stub
 		if(result.getResponseCode() == 0)
 		{
 			if(mFactory == null)
@@ -129,7 +176,7 @@ public class FriendListFragment extends WTBaseFragment implements
 				userStr = json.getString("Users");
 			} catch (JSONException e) 
 			{
-				// TODO Auto-generated catch block
+	
 			}
 			
 			List<User> users = mFactory.createObjects(userStr, true);
@@ -145,21 +192,44 @@ public class FriendListFragment extends WTBaseFragment implements
 	@Override
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) 
 	{
-		// TODO Auto-generated method stub
 		
 	}
 	
 	public void refreshData()
 	{
-		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		ApiHelper apiHelper = ApiHelper.getInstance(mActivity);
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, apiHelper.getFriends(), this);
 	}
 	
-	public String getiSelectedId() {
+	private void getFriendsListOfUser()
+	{
+		mAdapter.setIsLoadingData(true);
+		ApiHelper apiHelper = ApiHelper.getInstance(mActivity);
+		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, apiHelper.getFriendsOfUser(mUID), this);
+	}
+	
+	private void getFriendsListOfAttend()
+	{
+		mAdapter.setIsLoadingData(true);
+		ApiHelper apiHelper = ApiHelper.getInstance(mActivity);
+		if(event)
+		{
+			getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, 
+					apiHelper.getFriendsWithSameActivity(mUID), this);
+		}else
+		{
+			getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, 
+					apiHelper.getFriendsWithSameCourse(mUID), this);
+		}
+	}
+	
+	public String getiSelectedId() 
+	{
 		return selectedIdsBuilder.toString();
 	}
 
-	public void setiSelectedId(String iSelectedId) {
+	public void setiSelectedId(String iSelectedId) 
+	{
 		this.iSelectedId = iSelectedId;
 	}
 

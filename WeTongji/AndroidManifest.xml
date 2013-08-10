@@ -128,8 +128,6 @@
         </activity>
         <activity android:name="com.wetongji_android.ui.profile.ProfileUpdateActivity" >
         </activity>
-        <activity android:name="com.wetongji_android.ui.setting.DevSettingActivity" >
-        </activity>
         <activity
             android:name="com.wetongji_android.ui.profile.ProfileInfoActivity"
             android:label="@string/title_activity_profile_info" >
@@ -145,6 +143,20 @@
         
         <activity
             android:name="com.wetongji_android.util.common.WTLikeListActivity">
+        </activity>
+        
+        <activity 
+            android:name="com.wetongji_android.ui.setting.WTSettingActivity"
+            android:label="@string/setting_label">
+        </activity>
+        
+        <activity 
+            android:name="com.wetongji_android.ui.setting.WTChangePwdActivity"
+            android:label="@string/change_pwd_label">
+        </activity>
+        
+        <activity 
+            android:name="com.wetongji_android.util.common.WTAboutActivity">
         </activity>
         
     </application>

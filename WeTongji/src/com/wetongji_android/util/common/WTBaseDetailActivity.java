@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.wetongji_android.R;
 import com.wetongji_android.ui.friend.FriendInviteActivity;
+import com.wetongji_android.ui.friend.FriendListActivity;
 
 public class WTBaseDetailActivity extends SherlockFragmentActivity 
 {
@@ -159,8 +160,12 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 			{
 				if(WTApplication.getInstance().hasAccount)
 				{
-					Toast.makeText(WTBaseDetailActivity.this, getResources().getText(R.string.no_account_error), 
-							Toast.LENGTH_SHORT).show();
+					Intent intent = new Intent(WTBaseDetailActivity.this, FriendListActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, type);
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, String.valueOf(iChildId));
+					intent.putExtras(bundle);
+					startActivity(intent);
 				}else
 				{
 					Toast.makeText(WTBaseDetailActivity.this, getResources().getText(R.string.no_account_error), 

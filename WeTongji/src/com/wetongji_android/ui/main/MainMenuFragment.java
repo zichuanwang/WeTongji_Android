@@ -22,7 +22,7 @@ import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.ui.now.NowFragment;
 import com.wetongji_android.ui.profile.ProfileFragment;
 import com.wetongji_android.ui.search.SearchFragment;
-import com.wetongji_android.ui.setting.DevSettingActivity;
+import com.wetongji_android.ui.setting.WTSettingActivity;
 import com.wetongji_android.ui.today.TodayFragment;
 import com.wetongji_android.util.common.WTBaseFragment.StartMode;
 
@@ -58,7 +58,7 @@ public class MainMenuFragment extends Fragment {
 		btnSetting.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				startActivity(new Intent(getActivity(), DevSettingActivity.class));
+				startActivity(new Intent(getActivity(), WTSettingActivity.class));
 			}
 		});
 		
@@ -139,7 +139,6 @@ public class MainMenuFragment extends Fragment {
 			mCurrentItemNu = position;
 			mMenuListAdapter.notifyDataSetChanged();
 
-			// TODO Change the fragment
 			switch (position) {
 			case 0:
 				newContent = TodayFragment.newInstance();

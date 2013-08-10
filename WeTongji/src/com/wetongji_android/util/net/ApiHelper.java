@@ -225,7 +225,7 @@ public class ApiHelper {
 		return bundle;
 	}
 	
-	public Bundle getUserUpdatePassword(String pwOld,String pwNew){
+	public Bundle userUpdatePassword(String pwOld,String pwNew){
 		Bundle bundle=new Bundle();
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
@@ -235,7 +235,7 @@ public class ApiHelper {
 		return bundle;
 	}
 	
-	public Bundle getUserResetPassword(String no,String name){
+	public Bundle userResetPassword(String no,String name){
 		Bundle bundle=new Bundle();
 		putBasicArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "User.Reset.Password");
@@ -551,7 +551,7 @@ public class ApiHelper {
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
 		
-		bundle.putString(API_ARGS_USER_ID, aid);
+		bundle.putString(API_ARGS_ID, aid);
 		bundle.putString(API_ARGS_METHOD, "Friends.Get.WithSameActivity");
 		
 		return bundle;
@@ -564,7 +564,7 @@ public class ApiHelper {
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
 		
-		bundle.putString(API_ARGS_USER_ID, cid);
+		bundle.putString(API_ARGS_COURSE_ID, cid);
 		bundle.putString(API_ARGS_METHOD, "Friends.Get.WithSameCourse");
 		
 		return bundle;

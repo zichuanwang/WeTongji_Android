@@ -13,7 +13,6 @@ import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Course;
 import com.wetongji_android.data.Notification;
 import com.wetongji_android.data.User;
-import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.date.DateParser;
 
 public class NotificationFactory 
@@ -42,7 +41,6 @@ public class NotificationFactory
 			}
 		} catch (JSONException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

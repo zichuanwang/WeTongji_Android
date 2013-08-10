@@ -177,6 +177,4 @@ implements OnClickListener{
 		}
 		}
 	}
-	
-	
 }

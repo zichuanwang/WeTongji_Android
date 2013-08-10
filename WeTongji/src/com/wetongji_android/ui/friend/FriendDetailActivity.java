@@ -23,6 +23,7 @@ import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
+import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.image.ImageUtil;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
@@ -195,7 +196,13 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		{
 			if(v.getId() == R.id.ll_friend_detail_list)
 			{
-				
+				Intent intent = new Intent(FriendDetailActivity.this, FriendListActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+				bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, FriendDetailActivity.this.getClass().getSimpleName());
+				intent.putExtras(bundle);
+				startActivity(intent);
+				overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 			}else if(v.getId() == R.id.btn_profile_action)
 			{
 				if(bIsFriend)

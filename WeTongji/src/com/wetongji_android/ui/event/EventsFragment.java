@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -28,11 +27,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
-import com.wetongji_android.R.id;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.ActivityList;
 import com.wetongji_android.factory.ActivityFactory;
@@ -97,6 +94,10 @@ OnScrollListener{
 			break;
 		case LIKE:
 		    bundle.putInt(BUNDLE_KEY_START_MODE, 3);
+			break;
+		case FRIENDS:
+			break;
+		case ATTEND:
 			break;
 		}
 		
@@ -173,7 +174,6 @@ OnScrollListener{
 		setHasOptionsMenu(true);
 		
 		getSherlockActivity().getSupportActionBar().setTitle(R.string.title_mainmenu_events);
-
 	}
 
 	@Override

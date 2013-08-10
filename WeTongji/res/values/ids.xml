@@ -43,6 +43,8 @@
     <item name="img_event_detail_org_avatar" type="id">false</item>
     <item name="text_event_detail_org_name" type="id">false</item>
     <item name="tv_event_detail_content" type="id">false</item>
+    <item name="tv_event_detail_friends" type="id">false</item>
+    <item name="tv_event_detail_friends_img" type="id">false</item>
     <item name="lst_information" type="id">false</item>
     <item type="id" name="layout_information_header">false</item>
     <item name="layout_event_row" type="id">false</item>
@@ -249,4 +251,25 @@
     <item name="ll_notification_row" type="id" />
     <item name="img_notification_mark" type="id" />
     <item name="fl_notification_thumbnail_container" type="id" />
+    <!-- Setting Part -->
+    <item name="ll_setting_change_pwd" type="id">false</item>
+    <item name="ll_setting_clear_cache" type="id">false</item>
+    <item name="ll_setting_about" type="id">false</item>
+    <item name="btn_setting_log_out" type="id">false</item>
+    <item name="text_setting_clear_cache" type="id">false</item>
+    <item name="text_setting_cache" type="id">false</item>
+    <!-- About part -->
+    <item name="text_about_rate" type="id">false</item>
+    <item name="text_about_share" type="id">false</item>
+    <item name="text_about_feedback" type="id">false</item>
+    <item name="text_about_visit" type="id">false</item>
+    <item name="ll_about_rate" type="id">false</item>
+    <item name="ll_about_share" type="id">false</item>
+    <item name="ll_about_feedback" type="id">false</item>
+    <item name="ll_about_visit" type="id">false</item>
+    <!-- Change Password Part -->
+    <item name="edt_old_password" type="id">false</item>
+    <item name="edt_new_password" type="id">false</item>
+    <item name="edt_confirm_password" type="id">false</item>
+    <item name="btn_on_confirm" type="id">false</item>
 </resources>

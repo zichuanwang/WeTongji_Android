@@ -160,7 +160,6 @@
         </LinearLayout>
 
         <!-- Bottom actionbar -->
-
         <LinearLayout
             android:id="@id/bottom_action_bar"
             android:layout_width="match_parent"
@@ -201,20 +200,61 @@
                 android:layout_weight="440"
                 android:background="@drawable/event_detail_buttom_action_selector"
                 android:clickable="true" >
-
-                <ImageView
+				
+                <RelativeLayout 
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical">
+                    
+                    <ImageView
+                        android:id="@id/tv_event_detail_friends_img"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_marginLeft="12dp"
+	                    android:layout_marginRight="10dp"
+	                    android:contentDescription="@string/img_content_description"
+	                    android:src="@drawable/img_event_detail_friends" />
+                    
+                    <TextView 
+	                    android:id="@id/tv_event_detail_friends"
+	                    android:layout_width="wrap_content"
+	                    android:layout_height="wrap_content"
+	                    android:layout_below="@id/tv_event_detail_friends_img"
+	                    android:layout_marginLeft="16dp"
+	                    android:layout_marginRight="10dp"
+	                    android:textColor="#ffffff"
+	                    android:textSize="12sp"
+	                    android:textStyle="normal"
+	                    android:textIsSelectable="false"/>
+                    
+                </RelativeLayout>
+                
+                <!-- TextView 
+                    android:id="@id/tv_event_detail_friends"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/img_event_detail_friends"
+                    android:drawablePadding="0dp"
+                    
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="10dp"
+                    android:textIsSelectable="false"
+                    style="@style/EventDetailBottomActionbarText"/-->
+                
+                <!--ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="10dp"
                     android:contentDescription="@string/img_content_description"
-                    android:src="@drawable/img_event_detail_friends" />
+                    android:src="@drawable/img_event_detail_friends" /-->
 
                 <TextView
                     style="@style/EventDetailBottomActionbarText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
                     android:layout_gravity="center_vertical"
                     android:text="@string/text_event_detail_friends" />
             </LinearLayout>

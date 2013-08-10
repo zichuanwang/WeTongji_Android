@@ -76,6 +76,10 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 		case LIKE:
 		    bundle.putInt(BUNDLE_KEY_START_MODE, 3);
 			break;
+		case FRIENDS:
+			break;
+		case ATTEND:
+			break;
 		}
 		
 		fragment.setArguments(bundle);
