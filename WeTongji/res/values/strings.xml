@@ -227,9 +227,10 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="old_password">Old password&#8230;</string>
 	<string name="new_password">New password&#8230;</string>
 	<string name="confirm_password">Confirm password&#8230;</string>
-	<string name="confirm_title">Confrim</string>
+	<string name="confirm_title">Confirm</string>
 	<string name="password_error1">The two passwords are not the same</string>
 	<string name="password_error2">Please input the old password</string>
 	<string name="password_error3">Please input the new password</string>
 	<string name="password_error4">Please input the confirm password</string>
+	<string name="update_password_success">Update Password Success</string>
 </resources>

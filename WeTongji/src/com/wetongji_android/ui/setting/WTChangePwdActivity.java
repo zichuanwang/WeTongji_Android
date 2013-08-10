@@ -1,5 +1,8 @@
 package com.wetongji_android.ui.setting;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -64,7 +67,16 @@ public class WTChangePwdActivity extends SherlockFragmentActivity implements
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
 			HttpRequestResult result) {
 		if(result.getResponseCode() == 0){
-			
+			try {
+				WTApplication application = WTApplication.getInstance();
+				JSONObject json = new JSONObject(result.getStrResponseCon());
+				application.session = json.getString("Session");
+				Toast.makeText(this, getResources().getString(R.string.update_password_success), 
+						Toast.LENGTH_SHORT).show();
+				btnConfirm.setChecked(false);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		}else if(result.getResponseCode() == 13){
 			
 		}

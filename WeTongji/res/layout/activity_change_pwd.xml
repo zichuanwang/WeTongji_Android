@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_app_base"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -42,7 +43,7 @@
             android:inputType="textPassword"
             android:textColor="@color/et_text"
             android:textColorHint="@color/et_text_hint"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <View
             android:layout_width="match_parent"
@@ -93,7 +94,7 @@
             android:inputType="textPassword"
             android:textColor="@color/et_text"
             android:textColorHint="@color/et_text_hint"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <View
             android:layout_width="match_parent"
@@ -114,7 +115,7 @@
             android:inputType="textPassword"
             android:textColor="@color/et_text"
             android:textColorHint="@color/et_text_hint"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <View
             android:layout_width="match_parent"
