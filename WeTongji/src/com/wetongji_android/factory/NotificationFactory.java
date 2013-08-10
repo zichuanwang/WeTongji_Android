@@ -7,7 +7,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.text.TextUtils;
+
 import com.wetongji_android.data.Notification;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.date.DateParser;
 
 public class NotificationFactory 
@@ -59,7 +62,11 @@ public class NotificationFactory
 				notification.setType(1);
 			}else if(type.equals("FriendInvite"))
 			{
-				notification.setType(2);
+				if (notification.getTitle().contains("已经接受")) {
+					notification.setType(4);
+				} else {
+					notification.setType(2);
+				}
 			}else
 			{
 				notification.setType(3);
@@ -67,12 +74,16 @@ public class NotificationFactory
 			notification.setSourceId(json.getInt("SourceId"));
 			JSONObject detail = json.getJSONObject("SourceDetails");
 			notification.setSentAt(DateParser.parseDateAndTime(detail.getString("SentAt")));
-			notification.setAcceptedAt(DateParser.parseDateAndTime(detail.getString("SentAt")));
-			notification.setRejectedAt(DateParser.parseDateAndTime(detail.getString("SentAt")));
+			notification
+				.setAcceptedAt(detail.getString("AcceptedAt").equals("null") ? null
+						: DateParser.parseDateAndTime(detail
+								.getString("AcceptedAt")));
+			
+			notification.setAccepted(!detail.getString("AcceptedAt").equals("null"));
+			notification.setRejectedAt(DateParser.parseDateAndTime(detail.getString("RejectedAt")));
 			notification.setFrom(detail.getString("From"));
 		} catch (JSONException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

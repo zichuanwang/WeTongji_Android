@@ -1,10 +1,12 @@
 package com.wetongji_android.ui.notification;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.wetongji_android.R;
 import com.wetongji_android.data.Notification;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.notification.NotificationsLoader;
 import com.wetongji_android.util.date.DateParser;
 
@@ -24,6 +26,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class NotificationListAdapter extends BaseAdapter implements LoaderCallbacks<List<Notification>>
@@ -106,6 +110,8 @@ public class NotificationListAdapter extends BaseAdapter implements LoaderCallba
 		ImageView img_notification_thumbnails;
 		Button btn_notification_ignore;
 		Button btn_notification_accept;
+		LinearLayout ll_notification_buttonbar;
+		RelativeLayout rl_notification_accept;
 	}
 	
 	@Override
@@ -122,6 +128,10 @@ public class NotificationListAdapter extends BaseAdapter implements LoaderCallba
 			holder.tv_notification_time = (TextView)view.findViewById(R.id.tv_notification_time);
 			holder.btn_notification_ignore  = (Button)view.findViewById(R.id.btn_notification_ignore);
 			holder.btn_notification_accept = (Button)view.findViewById(R.id.btn_notification_yes);
+			holder.ll_notification_buttonbar = (LinearLayout) view
+					.findViewById(R.id.ll_notification_buttonbar);
+			holder.rl_notification_accept = (RelativeLayout) view
+					.findViewById(R.id.rl_notification_accept);
 			view.setTag(holder);
 		}else
 		{
@@ -139,16 +149,31 @@ public class NotificationListAdapter extends BaseAdapter implements LoaderCallba
 		holder.tv_notification_content.setText(spanStr, TextView.BufferType.SPANNABLE);
 		holder.tv_notification_time.setText(DateParser.parseDateForNotification(notification.getSentAt()));
 		holder.btn_notification_ignore.setText("Ignore");
+		holder.ll_notification_buttonbar.setVisibility(View.VISIBLE);
+		
+		// check if the notification is accepted
+		if (notification.isAccepted()) {
+			holder.rl_notification_accept.setVisibility(View.VISIBLE);
+			holder.ll_notification_buttonbar.setVisibility(View.GONE);
+			return view;
+		} else {
+			holder.rl_notification_accept.setVisibility(View.GONE);
+			holder.ll_notification_buttonbar.setVisibility(View.VISIBLE);
+		}
+		
 		if(notification.getType() == 3)
 		{
 			holder.btn_notification_accept.setText("Learn More");
-		}else
+		} else if (notification.getType() == 4){
+			holder.ll_notification_buttonbar.setVisibility(View.GONE);
+		}
+		else
 		{
 			holder.btn_notification_accept.setText("Accept");
 		}
 		
 		OnClickListener onClickListener = 
-				new OnNotifActionClickListener(notification);
+				new OnNotifActionClickListener(notification, arg0);
 		holder.btn_notification_accept.setOnClickListener(onClickListener);
 		holder.btn_notification_ignore.setOnClickListener(onClickListener);
 		
@@ -157,21 +182,33 @@ public class NotificationListAdapter extends BaseAdapter implements LoaderCallba
 	
 	private class OnNotifActionClickListener implements OnClickListener {
 		private Notification mNotification;
+		private int mPosition;
 		
-		public OnNotifActionClickListener(Notification notif) {
+		public OnNotifActionClickListener(Notification notif, int pos) {
 			super();
 			mNotification = notif;
+			mPosition = pos;
 		}
 		@Override
 		public void onClick(View view) {
 			NotificationFragment fragment = (NotificationFragment) mFragment;
 			if (view.getId() == R.id.btn_notification_ignore) {
-				fragment.startIngoreAction(mNotification);
+				fragment.startIngoreAction(mNotification, mPosition);
 			} else if (view.getId() == R.id.btn_notification_yes) {
-				fragment.startAcceptAction(mNotification);
-				
+				fragment.startAcceptAction(mNotification, mPosition);
 			}
 		}
 		
+	}
+
+	public void remove(int mIgnorePos) {
+		mListNotifications.remove(mIgnorePos);
+		this.notifyDataSetChanged();
+	}
+
+	public void acceptNotification(int mAcceptPos) {
+		Notification notif = mListNotifications.get(mAcceptPos);
+		notif.setAccepted(true);
+		notifyDataSetChanged();
 	};
 }

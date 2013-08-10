@@ -243,6 +243,8 @@
     <item name="tv_account_title" type="id">false</item>
     <item name="tv_account_description" type="id">false</item>
     <item name="text_search_no_result" type="id" />
+    <item name="ll_notification_buttonbar" type="id"/>
+    <item name="rl_notification_accept" type="id" />
     <item name="activity_detail_bottom_text" type="id">false</item>
     <!-- Setting Part -->
     <item name="ll_setting_change_pwd" type="id">false</item>

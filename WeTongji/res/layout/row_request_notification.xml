@@ -3,84 +3,108 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-	<RelativeLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content" >
-    
-		<ImageView
-		    android:id="@id/img_notification_thumbnails" 
-		    android:layout_alignParentLeft="true"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_marginLeft="18dp"
-		    android:layout_marginTop="12dp"
-		    android:src="@drawable/notification_thumb"
-		    android:contentDescription="@string/img_content_description"/>
-		
-		<LinearLayout 
-		    android:orientation="vertical"
-		    android:layout_toRightOf="@id/img_notification_thumbnails"
-		    android:layout_alignTop="@id/img_notification_thumbnails"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_marginLeft="5dp">
-		    
-		  	<TextView
-	            android:id="@id/tv_notification_content"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:textIsSelectable="false"/>
-		    
-		    <TextView
-		        android:id="@id/tv_notification_time"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_marginTop="3dp"
-		        android:textIsSelectable="false"
-		        style="@style/NotificationItemTime"/>
-		    
-		</LinearLayout>
-	
-	</RelativeLayout>
 
-	<LinearLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginLeft="20dp"
-	    android:layout_marginRight="10dp"
-	    android:layout_marginTop="12dp"
-	    android:layout_marginBottom="12dp"
-	    android:orientation="horizontal">
-	    
-	    <Button 
-	        android:id="@id/btn_notification_ignore"
-	        android:layout_width="0dp"
-	        android:layout_height="40dp"
-	        android:layout_weight="1"
-	        android:textColor="@android:color/white"
-	        android:textSize="18sp"
-	        android:shadowColor="#33000000"
-	        android:shadowDx="0"
-	        android:shadowDy="1.5"
-	        android:shadowRadius="1.5"
-	        android:background="@drawable/notification_button_bg"/>
-	    
-	     <requestFocus />
-	     <Button 
-	        android:id="@id/btn_notification_yes"
-	        android:layout_width="0dp"
-	        android:layout_height="40dp"
-	        android:layout_marginLeft="10dp"
-	        android:layout_weight="1"
-	        android:textColor="@android:color/white"
-	        android:shadowColor="#33000000"
-	        android:shadowDx="0"
-	        android:shadowDy="1"
-	        android:shadowRadius="1"
-	        android:background="@drawable/notification_button_bg"
-	        android:focusable="true"/>
-	     
-	</LinearLayout>
-	
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@id/img_notification_thumbnails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="12dp"
+                android:contentDescription="@string/img_content_description"
+                android:src="@drawable/notification_thumb" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/img_notification_thumbnails"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/img_notification_thumbnails"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@id/tv_notification_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textIsSelectable="false" />
+
+                <TextView
+                    android:id="@id/tv_notification_time"
+                    style="@style/NotificationItemTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:textIsSelectable="false" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@id/rl_notification_accept"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:background="#66000000" >
+
+            <com.wetongji_android.ui.widgets.RotateTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="18dp"
+                android:padding="10dp"
+                android:text="@string/text_accepted"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@id/ll_notification_buttonbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@id/btn_notification_ignore"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/notification_button_bg"
+            android:shadowColor="#33000000"
+            android:shadowDx="0"
+            android:shadowDy="1.5"
+            android:shadowRadius="1.5"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <requestFocus />
+
+        <Button
+            android:id="@id/btn_notification_yes"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/notification_button_bg"
+            android:focusable="true"
+            android:shadowColor="#33000000"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
 </LinearLayout>

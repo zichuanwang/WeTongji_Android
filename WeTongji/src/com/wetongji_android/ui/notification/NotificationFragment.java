@@ -36,6 +36,9 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 	
 	private NotificationFactory mFactory;
 	
+	private int mIgnorePos = -1;
+	private int mAcceptPos = -1;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -98,22 +101,23 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 	}
 
 	@Override
-	public void onLoadFinished(Loader<HttpRequestResult> arg0,
+	public void onLoadFinished(Loader<HttpRequestResult> loader,
 			HttpRequestResult result) 
 	{
 		hideProgressDialog();
-		
-		if(result.getResponseCode() == 0)
-		{
-			if(mFactory == null)
-				mFactory = new NotificationFactory();
-			
-			List<Notification> results = mFactory.createObjects(result.getStrResponseCon());
-			mAdapter.setContentList(results);
-			Log.v(TAG, "" + results.size());
-		}else
-		{
-			
+		if (loader.getId() == WTApplication.NETWORK_LOADER_ACCEPT_FRIEND) {
+			mAdapter.acceptNotification(mAcceptPos);
+		} else if (loader.getId() == WTApplication.NETWORK_LOADER_IGNORE_FRIEDN) {
+			mAdapter.remove(mIgnorePos);
+		} else {
+			if(result.getResponseCode() == 0) {
+				if(mFactory == null)
+					mFactory = new NotificationFactory();
+				
+				List<Notification> results = mFactory.createObjects(result.getStrResponseCon());
+				mAdapter.setContentList(results);
+				Log.v(TAG, "" + results.size());
+			}
 		}
 	}
 
@@ -126,7 +130,7 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 	{
 		//init loader(this loader is used for loading data from network)
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle bundle = apiHelper.getNotifications(false);
+		Bundle bundle = apiHelper.getNotifications(true);
 		showProgressDialog();
 		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
 	}
@@ -150,19 +154,45 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 		}
 	}
 	
-	public void startAcceptAction(Notification notifcation) {
+	public void startAcceptAction(Notification notification, int pos) {
+		mAcceptPos = pos;
+		int id = notification.getSourceId();
+		Bundle bundle = null;
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle bundle = apiHelper.acceptFriendInvitation(
-				String.valueOf(notifcation.getSourceId()));
+		switch (notification.getType()) {
+		case 1:
+			bundle = apiHelper.acceptCourseInvitation(String.valueOf(id));
+			break;
+		case 2:
+		case 4:
+			bundle = apiHelper.acceptFriendInvitation(String.valueOf(id));
+			break;
+		case 3:
+			bundle = apiHelper.acceptActivityInvitation(String.valueOf(id));
+			break;
+		}
 		getLoaderManager().restartLoader(
 					WTApplication.NETWORK_LOADER_ACCEPT_FRIEND,
 					bundle, this);
 	}
 	
-	public void startIngoreAction(Notification notifcation) {
+	public void startIngoreAction(Notification notification, int pos) {
+		mIgnorePos = pos;
+		int id = notification.getSourceId();
+		Bundle bundle = null;
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle bundle = apiHelper.ignoreFriendInvitation(
-				String.valueOf(notifcation.getSourceId()));
+		switch (notification.getType()) {
+		case 1:
+			bundle = apiHelper.ignoreCourseInvitation(String.valueOf(id));
+			break;
+		case 2:
+		case 4:
+			bundle = apiHelper.ignoreFriendInvitation(String.valueOf(id));
+			break;
+		case 3:
+			bundle = apiHelper.ignoreActivityInvitation(String.valueOf(id));
+			break;
+		}
 		getLoaderManager().restartLoader(
 				WTApplication.NETWORK_LOADER_IGNORE_FRIEDN,
 				bundle, this);

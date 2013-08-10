@@ -12,6 +12,14 @@ public class Notification
 	private String Title;
 	@DatabaseField
 	private String Description;
+	
+	/**
+	 * Type: 
+	 * 1 CourseInvite
+	 * 2 FriendInvite
+	 * 3 ActivityInvite
+	 * 4 FriendInviteConfirm
+	 */
 	@DatabaseField
 	private int Type;
 	@DatabaseField
@@ -26,7 +34,9 @@ public class Notification
 	private Date AcceptedAt;
 	@DatabaseField
 	private Date RejectedAt;
+	private boolean isAccepted;
 	
+
 	public Notification()
 	{
 		
@@ -47,6 +57,14 @@ public class Notification
 		this.RejectedAt = reject;
 	}
 
+	public boolean isAccepted() {
+		return isAccepted;
+	}
+	
+	public void setAccepted(boolean isAccepted) {
+		this.isAccepted = isAccepted;
+	}
+	
 	public int getId() {
 		return Id;
 	}
