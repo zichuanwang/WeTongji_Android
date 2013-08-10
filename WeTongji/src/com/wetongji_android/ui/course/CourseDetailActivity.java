@@ -21,11 +21,14 @@ public class CourseDetailActivity extends WTBaseDetailActivity{
 		setContentView(R.layout.activity_course_detail);
 		recieveData();
 		setUpUI();
+		showBottomActionBar();
 	}
 
 	private void recieveData() {
 		Intent intent = this.getIntent();
 		mCourse = (Course)(intent.getExtras().getParcelable(BUNDLE_COURSE));
+		setiChildId(mCourse.getId());
+		setType(this.getClass().getSimpleName());
 	}
 	
 	private void setUpUI() {
@@ -56,5 +59,14 @@ public class CourseDetailActivity extends WTBaseDetailActivity{
 		tvHours.setText(String.valueOf(mCourse.getHours()));
 		tvType.setText(mCourse.isRequired());
 	}
-	
+
+	@Override
+	protected void setiChildId(int iChildId) {
+		super.setiChildId(iChildId);
+	}
+
+	@Override
+	protected void setType(String type) {
+		super.setType(type);
+	}
 }

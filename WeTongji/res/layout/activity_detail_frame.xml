@@ -244,6 +244,7 @@
                     android:src="@drawable/img_event_detail_attend" />
 
                 <TextView
+                    android:id="@id/activity_detail_bottom_text"
                     style="@style/EventDetailBottomActionbarText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

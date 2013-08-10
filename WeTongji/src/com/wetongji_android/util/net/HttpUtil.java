@@ -163,7 +163,7 @@ public class HttpUtil
 		if(ids == null){
 			return null;
 		}else{
-			return ids.substring(0, ids.length() - 2);
+			return ids.substring(0, ids.length() - 1);
 		}
 	}
 }

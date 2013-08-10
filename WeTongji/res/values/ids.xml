@@ -245,4 +245,5 @@
     <item name="text_search_no_result" type="id" />
     <item name="ll_notification_buttonbar" type="id"/>
     <item name="rl_notification_accept" type="id" />
+    <item name="activity_detail_bottom_text" type="id">false</item>
 </resources>
