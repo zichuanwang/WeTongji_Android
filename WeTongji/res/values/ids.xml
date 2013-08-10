@@ -258,4 +258,8 @@
     <item name="text_about_share" type="id">false</item>
     <item name="text_about_feedback" type="id">false</item>
     <item name="text_about_visit" type="id">false</item>
+    <item name="ll_about_rate" type="id">false</item>
+    <item name="ll_about_share" type="id">false</item>
+    <item name="ll_about_feedback" type="id">false</item>
+    <item name="ll_about_visit" type="id">false</item>
 </resources>
