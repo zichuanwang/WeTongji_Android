@@ -83,4 +83,5 @@
     <color name="notification_item_content">#b1b1b1</color>
     <color name="notification_item_time">#6a6a6a</color>
     <color name="tv_friend_major_color">#b1b1b1</color>
+    <color name="setting_button_bg">#E14D4D</color>
 </resources>

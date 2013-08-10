@@ -15,13 +15,16 @@ import com.wetongji_android.R;
 import com.wetongji_android.ui.auth.AuthActivity;
 import com.wetongji_android.util.common.WTApplication;
 
-public class DevSettingActivity extends SherlockPreferenceActivity 
+public class SettingActivity extends SherlockPreferenceActivity 
 implements OnSharedPreferenceChangeListener, OnPreferenceClickListener{
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.dev_settings);
+		addPreferencesFromResource(R.xml.settings);
+		
+		getListView().setBackgroundResource(R.drawable.bg_app_base);
 	}
 
 	@Override
@@ -58,8 +61,4 @@ implements OnSharedPreferenceChangeListener, OnPreferenceClickListener{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-	
-
-	
 }

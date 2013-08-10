@@ -74,38 +74,6 @@
                         android:layout_marginTop="3dp"
                         android:textIsSelectable="false" />
 
-                    <!--
-                    View
-                        android:layout_width="1dp"
-                        android:layout_height="26.7dp"
-                        android:layout_marginTop="23dp"
-                        android:layout_toLeftOf="@id/ll_profile_friend_add"
-                        android:background="@color/profile_vertical_divider" />
-                    
-                    <LinearLayout
-                        android:id="@id/ll_profile_friend_add"
-                        android:layout_width="wrap_content"
-                        android:layout_height="fill_parent"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="7.3dp"
-                        android:layout_marginTop="15.7dp"
-                        android:addStatesFromChildren="true"
-                        android:background="@drawable/selectable_background_wttheme"
-                        android:clickable="true"
-                        android:gravity="center" >
-                        
-	                    <ImageButton
-	                        android:id="@id/btn_profile_friend_add"
-	                        android:layout_width="wrap_content"
-	                        android:layout_height="wrap_content"
-	                        android:src="@drawable/ic_profile_friend_add"
-	                        android:scaleType="fitCenter"
-	                        android:background="@null" 
-	                        android:contentDescription="@string/img_content_description"/>
-                        
-                    </LinearLayout
-                    -->
-
                 </RelativeLayout>
 
                 <View

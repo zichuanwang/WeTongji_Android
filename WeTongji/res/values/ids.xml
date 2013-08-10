@@ -244,4 +244,16 @@
     <item name="tv_account_description" type="id">false</item>
     <item name="text_search_no_result" type="id" />
     <item name="activity_detail_bottom_text" type="id">false</item>
+    <!-- Setting Part -->
+    <item name="ll_setting_change_pwd" type="id">false</item>
+    <item name="ll_setting_clear_cache" type="id">false</item>
+    <item name="ll_setting_about" type="id">false</item>
+    <item name="btn_setting_log_out" type="id">false</item>
+    <item name="text_setting_clear_cache" type="id">false</item>
+    <item name="text_setting_cache" type="id">false</item>
+    <!-- About part -->
+    <item name="text_about_rate" type="id">false</item>
+    <item name="text_about_share" type="id">false</item>
+    <item name="text_about_feedback" type="id">false</item>
+    <item name="text_about_visit" type="id">false</item>
 </resources>

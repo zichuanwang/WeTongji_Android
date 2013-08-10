@@ -195,7 +195,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
         <item >Popularity</item>
         <item >Activity start date</item>
     </string-array>
-
 	<string name="profile_no_like_events">You have no liked events</string>
 	<string name="profile_no_like_information">You have no liked info</string>
 	<string name="profile_no_like_people">You have no liked people</string>
@@ -204,4 +203,20 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="invite_request">Your request has been sent</string>
 	<string name="remove_friend_request">Remove Friend Success</string>
 	<string name="no_results">No results.</string>
+	<!-- Setting Part -->
+	<string name="pref_clear_cache">Clear photo cache</string>
+	<string name="pref_clear_cache_summary">Total 56KB</string>
+	<string name="pref_change_pwd">Change password</string>
+	<string name="pref_about">About</string>
+	<string name="pref_about_we">About WeTongji</string>
+	<string name="pref_general">General</string>
+	<string name="pref_log_out">Lou out</string>
+	<string name="setting_label">Settings</string>
+	<!-- About part -->
+	<string name="about_rate_we">Rate WeTongji!</string>
+	<string name="about_share">Share with friends</string>
+	<string name="about_feedback">Feedback</string>
+	<string name="about_feedback_tips">Give suggestions to us for improvements</string>
+	<string name="about_visit">Visit official website</string>
+	<string name="about_terms_use">Terms of Use</string>
 </resources>
