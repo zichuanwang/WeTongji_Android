@@ -35,6 +35,9 @@ public class Notification
 	@DatabaseField
 	private Date RejectedAt;
 	private boolean isAccepted;
+	private String thumbnail;
+	private Object content;
+	private boolean isConfirmed;
 	
 
 	public Notification()
@@ -55,6 +58,22 @@ public class Notification
 		this.SentAt = sent;
 		this.AcceptedAt = accept;
 		this.RejectedAt = reject;
+	}
+
+	public boolean isConfirmed() {
+		return isConfirmed;
+	}
+
+	public void setConfirmed(boolean isConfirmed) {
+		this.isConfirmed = isConfirmed;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	public boolean isAccepted() {
@@ -144,4 +163,13 @@ public class Notification
 	public void setRejectedAt(Date rejectedAt) {
 		RejectedAt = rejectedAt;
 	}
+
+	public Object getContent() {
+		return content;
+	}
+
+	public void setContent(Object content) {
+		this.content = content;
+	}
+	
 }

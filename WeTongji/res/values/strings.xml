@@ -221,6 +221,10 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="about_visit">Visit official website</string>
 	<string name="about_terms_use">Terms of Use</string>
 	<string name="text_accepted">ACCEPTED</string>
+	<string name="text_notificaiton_ignore">Ignore</string>
+	<string name="text_notification_accept">Accept</string>
+	<string name="text_notification_dismiss">Dismiss</string>
+	
 	<!-- Change Password Part -->
 	<string name="old_password_section">OLD PASSWORD</string>
 	<string name="new_password_section">NEW PASSWORD</string>

@@ -248,6 +248,9 @@
     <item name="ll_notification_buttonbar" type="id"/>
     <item name="rl_notification_accept" type="id" />
     <item name="activity_detail_bottom_text" type="id">false</item>
+    <item name="ll_notification_row" type="id" />
+    <item name="img_notification_mark" type="id" />
+    <item name="fl_notification_thumbnail_container" type="id" />
     <!-- Setting Part -->
     <item name="ll_setting_change_pwd" type="id">false</item>
     <item name="ll_setting_clear_cache" type="id">false</item>
