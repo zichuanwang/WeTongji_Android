@@ -278,26 +278,6 @@ public class ApiHelper {
 		return bundle;
 	}
 	
-	public Bundle schedule(int id) {
-		Bundle bundle=new Bundle();
-		putBasicArgs(bundle);
-		putLoginArgs(bundle);
-		
-		bundle.putString(API_ARGS_ID, String.valueOf(id));
-		bundle.putString(API_ARGS_METHOD, "Activity.Schedule");
-		return bundle;
-	}
-	
-	public Bundle unSchedule(int id) {
-		Bundle bundle=new Bundle();
-		putBasicArgs(bundle);
-		putLoginArgs(bundle);
-		
-		bundle.putString(API_ARGS_ID, String.valueOf(id));
-		bundle.putString(API_ARGS_METHOD, "Activity.UnSchedule");
-		return bundle;
-	}
-	
 	public Bundle setActivityScheduled(boolean scheduled, int id)
 	{
 		Bundle bundle=new Bundle();
