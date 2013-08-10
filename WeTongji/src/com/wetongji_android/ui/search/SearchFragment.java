@@ -174,10 +174,10 @@ public class SearchFragment extends SherlockFragment implements
 		mTipAdapter = new SearchTipsAdapter(this);
 		mLvSearchTips.setAdapter(mTipAdapter);
 		
-		InputMethodManager imm = (InputMethodManager) getActivity()
+		/*InputMethodManager imm = (InputMethodManager) getActivity()
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,
-				InputMethodManager.HIDE_NOT_ALWAYS);
+				InputMethodManager.HIDE_NOT_ALWAYS);*/
 		return view;
 	}
 
