@@ -48,7 +48,9 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 			if(v.getId() == R.id.ll_setting_change_pwd){
-				
+				Intent intent = new Intent(WTSettingActivity.this, WTChangePwdActivity.class);
+				startActivity(intent);
+				overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 			}else if(v.getId() == R.id.ll_setting_clear_cache){
 				
 			}else if(v.getId() == R.id.ll_setting_about){

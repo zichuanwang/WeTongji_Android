@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="fill_horizontal" >
+    
+    <ToggleButton
+        android:id="@id/btn_on_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:background="@drawable/btn_cab_done_reversed_wttheme"
+        android:textOn="@string/confirm_title"
+        android:textOff="@string/confirm_title"
+        android:textSize="16sp"
+        android:textColor="@drawable/btn_text_cab_done_wttheme"
+        android:shadowColor="#33000000"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="1"/>
+
+</RelativeLayout>

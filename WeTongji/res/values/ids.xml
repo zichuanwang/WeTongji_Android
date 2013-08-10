@@ -262,4 +262,9 @@
     <item name="ll_about_share" type="id">false</item>
     <item name="ll_about_feedback" type="id">false</item>
     <item name="ll_about_visit" type="id">false</item>
+    <!-- Change Password Part -->
+    <item name="edt_old_password" type="id">false</item>
+    <item name="edt_new_password" type="id">false</item>
+    <item name="edt_confirm_password" type="id">false</item>
+    <item name="btn_on_confirm" type="id">false</item>
 </resources>
