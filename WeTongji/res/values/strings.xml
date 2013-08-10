@@ -205,5 +205,8 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="remove_friend_request">Remove Friend Success</string>
 	<string name="no_results">No results.</string>
 	<string name="text_accepted">ACCEPTED</string>
+	<string name="text_notificaiton_ignore">Ignore</string>
+	<string name="text_notification_accept">Accept</string>
+	<string name="text_notification_dismiss">Dismiss</string>
 	
 </resources>

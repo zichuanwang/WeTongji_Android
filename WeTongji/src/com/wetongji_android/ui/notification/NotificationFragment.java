@@ -3,16 +3,25 @@ package com.wetongji_android.ui.notification;
 import java.util.List;
 
 import com.wetongji_android.R;
+import com.wetongji_android.data.Activity;
+import com.wetongji_android.data.Course;
 import com.wetongji_android.data.Notification;
+import com.wetongji_android.data.User;
 import com.wetongji_android.factory.NotificationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.course.CourseDetailActivity;
+import com.wetongji_android.ui.event.EventDetailActivity;
+import com.wetongji_android.ui.event.EventsFragment;
+import com.wetongji_android.ui.friend.FriendDetailActivity;
+import com.wetongji_android.ui.friend.FriendListFragment;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -21,16 +30,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-public class NotificationFragment extends Fragment implements LoaderCallbacks<HttpRequestResult>
-{
+public class NotificationFragment extends Fragment implements
+		LoaderCallbacks<HttpRequestResult>, OnItemClickListener {
 	private static final String TAG = "NotificationFragment";
 	
 	private View mView;
 	private ListView mListNotifications;
 	private NotificationListAdapter mAdapter;
-	private Activity mActivity;
+	private android.app.Activity mActivity;
 	
 	private ProgressDialog mProDialog = null;
 	
@@ -67,6 +78,7 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 		
 		//set list adapter
 		mListNotifications = (ListView)mView.findViewById(R.id.lst_notification);
+		mListNotifications.setOnItemClickListener(this);
 		mAdapter = new NotificationListAdapter(this);
 		mListNotifications.setAdapter(mAdapter);
 		
@@ -81,7 +93,7 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 	}
 	
 	@Override
-	public void onAttach(Activity activity)
+	public void onAttach(android.app.Activity activity)
 	{
 		super.onAttach(activity);
 		
@@ -164,7 +176,6 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 			bundle = apiHelper.acceptCourseInvitation(String.valueOf(id));
 			break;
 		case 2:
-		case 4:
 			bundle = apiHelper.acceptFriendInvitation(String.valueOf(id));
 			break;
 		case 3:
@@ -186,7 +197,6 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 			bundle = apiHelper.ignoreCourseInvitation(String.valueOf(id));
 			break;
 		case 2:
-		case 4:
 			bundle = apiHelper.ignoreFriendInvitation(String.valueOf(id));
 			break;
 		case 3:
@@ -196,5 +206,35 @@ public class NotificationFragment extends Fragment implements LoaderCallbacks<Ht
 		getLoaderManager().restartLoader(
 				WTApplication.NETWORK_LOADER_IGNORE_FRIEDN,
 				bundle, this);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+		Notification notification = (Notification) mAdapter.getItem(position);
+		Intent intent = null;
+		Bundle bundle = new Bundle();
+		switch (notification.getType()) {
+		case 1:
+			intent = new Intent(getActivity(),
+					CourseDetailActivity.class);
+			bundle.putParcelable(EventsFragment.BUNDLE_KEY_ACTIVITY,
+					(Course) notification.getContent());
+			break;
+		case 2:
+			intent = new Intent(getActivity(),
+					FriendDetailActivity.class);
+			bundle.putParcelable(FriendListFragment.BUNDLE_KEY_USER,
+					(User) notification.getContent());
+			break;
+		case 3:
+			intent = new Intent(getActivity(),
+					EventDetailActivity.class);
+			bundle.putParcelable(EventsFragment.BUNDLE_KEY_ACTIVITY,
+					(Activity) notification.getContent());
+			break;
+		}
+		intent.putExtras(bundle);
+		startActivity(intent);
+
 	}
 }
