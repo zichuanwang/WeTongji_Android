@@ -629,4 +629,40 @@ public class ApiHelper {
 		bundle.putString(API_ARGS_ID, invitaionId);
 		return bundle;
 	}
+	
+	public Bundle acceptActivityInvitation(String invitationId) {
+		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		bundle.putString(API_ARGS_METHOD, "Activity.Invite.Reject");
+		bundle.putString(API_ARGS_ID, invitationId);
+		return bundle;
+	}
+	
+	public Bundle ignoreActivityInvitation(String invitaionId) {
+		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		bundle.putString(API_ARGS_METHOD, "Activity.Invite.Reject");
+		bundle.putString(API_ARGS_ID, invitaionId);
+		return bundle;
+	}
+	
+	public Bundle acceptCourseInvitation(String invitationId) {
+		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		bundle.putString(API_ARGS_METHOD, "Course.Invite.Reject");
+		bundle.putString(API_ARGS_ID, invitationId);
+		return bundle;
+	}
+	
+	public Bundle ignoreCourseInvitation(String invitaionId) {
+		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		bundle.putString(API_ARGS_METHOD, "Course.Invite.Reject");
+		bundle.putString(API_ARGS_ID, invitaionId);
+		return bundle;
+	}
 }
