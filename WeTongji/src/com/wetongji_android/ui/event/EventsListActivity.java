@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
 import com.wetongji_android.util.common.WTBaseFragment.StartMode;
 
@@ -27,8 +26,5 @@ public class EventsListActivity extends SherlockFragmentActivity {
 		
 		getSupportFragmentManager().beginTransaction()
 			.replace(R.id.content_frame, f).commit();
-		
 	}
-	
-
 }

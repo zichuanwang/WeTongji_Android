@@ -2,6 +2,8 @@ package com.wetongji_android.util.common;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewStub;
@@ -13,8 +15,12 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.wetongji_android.R;
+import com.wetongji_android.net.NetworkLoader;
+import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.friend.FriendInviteActivity;
 import com.wetongji_android.ui.friend.FriendListActivity;
+import com.wetongji_android.util.net.ApiHelper;
+import com.wetongji_android.util.net.HttpRequestResult;
 
 public class WTBaseDetailActivity extends SherlockFragmentActivity 
 {
@@ -37,6 +43,7 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 	
 	private int iChildId;
 	private String type;
+	private boolean bSchedule;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -136,7 +143,11 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 	{
 		this.type = type;
 	}
-	
+
+	protected void setbSchedule(boolean bSchedule) {
+		this.bSchedule = bSchedule;
+	}
+
 	class BottomABClickListener implements OnClickListener
 	{
 		@Override
@@ -175,8 +186,14 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 			{
 				if(WTApplication.getInstance().hasAccount)
 				{
-					Toast.makeText(WTBaseDetailActivity.this, getResources().getText(R.string.no_account_error), 
-							Toast.LENGTH_SHORT).show();
+					ApiHelper apiHelper = ApiHelper.getInstance(WTBaseDetailActivity.this);
+					if(type.equals("EventDetailActivity")){
+						getSupportLoaderManager().restartLoader(WTApplication.SCHEDUL_LOADER, 
+								apiHelper.setActivityScheduled(bSchedule, iChildId), new LoadCallback());
+					}else{
+						getSupportLoaderManager().restartLoader(WTApplication.SCHEDUL_LOADER, 
+								apiHelper.setCourseScheduled(bSchedule, iChildId), new LoadCallback());
+					}
 				}else
 				{
 					Toast.makeText(WTBaseDetailActivity.this, getResources().getText(R.string.no_account_error), 
@@ -184,5 +201,26 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 				}
 			}
 		}
+	}
+	
+	class LoadCallback implements LoaderCallbacks<HttpRequestResult>{
+		@Override
+		public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
+			return new NetworkLoader(WTBaseDetailActivity.this, HttpMethod.Get, arg1);
+		}
+
+		@Override
+		public void onLoadFinished(Loader<HttpRequestResult> arg0,
+				HttpRequestResult result) {
+			if(result.getResponseCode() == 0){
+				
+			}
+		}
+
+		@Override
+		public void onLoaderReset(Loader<HttpRequestResult> arg0) {
+			
+		}
+		
 	}
 }

@@ -56,6 +56,10 @@ public class AccountListFragment extends WTBaseFragment implements
 		case LIKE:
 		    bundle.putInt(BUNDLE_KEY_START_MODE, 3);
 			break;
+		case FRIENDS:
+			break;
+		case ATTEND:
+			break;
 		}
 		
 		f.setArguments(bundle);

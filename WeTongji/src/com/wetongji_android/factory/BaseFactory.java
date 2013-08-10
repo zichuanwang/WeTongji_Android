@@ -49,6 +49,7 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 	public void saveObjects(FragmentActivity activity, List<T> data) {
 		Bundle args=new Bundle();
 		args.putBoolean(ARG_NEED_TO_REFRESH, false);
+		list = data;
 		if (fragment == null) 
 		{
 			this.context = activity;

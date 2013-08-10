@@ -8,6 +8,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
@@ -21,13 +23,17 @@ import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.factory.InformationFactory;
+import com.wetongji_android.net.NetworkLoader;
+import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTFullScreenActivity;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.net.ApiHelper;
+import com.wetongji_android.util.net.HttpRequestResult;
 
-public class InformationDetailActivity extends WTBaseDetailActivity 
+public class InformationDetailActivity extends WTBaseDetailActivity
+	implements LoaderCallbacks<HttpRequestResult>
 {
 	private Information mInfo;
 
@@ -136,12 +142,10 @@ public class InformationDetailActivity extends WTBaseDetailActivity
 
 	private void likeInfo(boolean isLike) 
 	{
-		ApiHelper apihelper = ApiHelper
+		ApiHelper apiHelper = ApiHelper
 				.getInstance(InformationDetailActivity.this);
-		Bundle bundle = isLike ? apihelper.likeInfo(mInfo.getId()) : apihelper
-				.unLikeInfo(mInfo.getId());
-		//getSupportLoaderManager().restartLoader(
-				//WTApplication.INFORMATION_LIKE_LOADER, bundle, this);
+		getSupportLoaderManager().restartLoader(WTApplication.INFORMATION_LIKE_LOADER, 
+				apiHelper.setObjectLikedWithModelType(isLike, mInfo.getId(), "Information"), this);
 	}
 
 	private void updateInfoInDB() 
@@ -152,7 +156,7 @@ public class InformationDetailActivity extends WTBaseDetailActivity
 		info.setLike(info.getLike() + (mCbLike.isChecked() ? 1 : -1));
 		info.setCanLike(!mCbLike.isChecked());
 		infos.add(info);
-		//infoFactory.saveObjects(InformationDetailActivity.this, infos);
+		infoFactory.saveObjects(InformationDetailActivity.this, infos);
 	}
 	
 	private class OnPicClickListener implements OnClickListener
@@ -182,5 +186,23 @@ public class InformationDetailActivity extends WTBaseDetailActivity
 			startActivity(intent);
 			InformationDetailActivity.this.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}
+	}
+
+	@Override
+	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
+		return new NetworkLoader(this, HttpMethod.Get, arg1);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<HttpRequestResult> arg0,
+			HttpRequestResult result) {
+		if(result.getResponseCode() == 0){
+			updateInfoInDB();
+			Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 	}
 }

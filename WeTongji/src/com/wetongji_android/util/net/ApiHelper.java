@@ -278,46 +278,6 @@ public class ApiHelper {
 		return bundle;
 	}
 	
-	public Bundle likeInfo(int id) {
-		Bundle bundle = new Bundle();
-		putBasicArgs(bundle);
-		putLoginArgs(bundle);
-		
-		bundle.putString(API_ARGS_ID, String.valueOf(id));
-		bundle.putString(API_ARGS_METHOD, "Information.Like");
-		return bundle;
-	}
-	
-	public Bundle unLikeInfo(int id) {
-		Bundle bundle = new Bundle();
-		putBasicArgs(bundle);
-		putLoginArgs(bundle);
-		
-		bundle.putString(API_ARGS_ID, String.valueOf(id));
-		bundle.putString(API_ARGS_METHOD, "Information.UnLike");
-		return bundle;
-	}
-	
-	public Bundle likeActivity(int id) {
-		Bundle bundle=new Bundle();
-		putBasicArgs(bundle);
-		putLoginArgs(bundle);
-		
-		bundle.putString(API_ARGS_ID, String.valueOf(id));
-		bundle.putString(API_ARGS_METHOD, "Activity.Like");
-		return bundle;
-	}
-	
-	public Bundle unlikeActivity(int id) {
-		Bundle bundle=new Bundle();
-		putBasicArgs(bundle);
-		putLoginArgs(bundle);
-		
-		bundle.putString(API_ARGS_ID, String.valueOf(id));
-		bundle.putString(API_ARGS_METHOD, "Activity.UnLike");
-		return bundle;
-	}
-	
 	public Bundle schedule(int id) {
 		Bundle bundle=new Bundle();
 		putBasicArgs(bundle);
@@ -656,6 +616,23 @@ public class ApiHelper {
 		}else{
 			bundle.putString(API_ARGS_MODEL, "Account");
 		}
+		
+		return bundle;
+	}
+	
+	public Bundle setObjectLikedWithModelType(boolean like, int id, String modelType){
+		Bundle bundle = new Bundle();
+		
+		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
+		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		if(like){
+			bundle.putString(API_ARGS_METHOD, "Like.Add");
+		}else{
+			bundle.putString(API_ARGS_METHOD, "Like.Remove");
+		}
+		bundle.putString(API_ARGS_MODEL, modelType);
 		
 		return bundle;
 	}

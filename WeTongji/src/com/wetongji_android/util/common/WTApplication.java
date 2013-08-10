@@ -52,6 +52,7 @@ public class WTApplication extends Application
 	public static final int INFORMATION_LIKE_LOADER = 17;
 	public static final int EVENT_LOADER = 18;
 	public static final int EVENT_Like_LOADER = 19;
+	public static final int SCHEDUL_LOADER = 20;
 	public static final int USER_SAVER = 20;
 	public static final int USER_LOADER = 21;
 	public static final int PERSON_LOADER = 22;

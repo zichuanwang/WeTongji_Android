@@ -26,8 +26,8 @@ public class CourseListAdapter extends EndlessListAdapter<Course> {
 	
 	public CourseListAdapter(Activity activity, AbsListView listView) {
 		super(activity, listView, R.layout.amazing_lst_view_loading_view);
-		mInflater = LayoutInflater.from(activity);
 		mContext = activity;
+		mInflater = LayoutInflater.from(mContext);
 	}
 
 	@Override
@@ -60,5 +60,4 @@ public class CourseListAdapter extends EndlessListAdapter<Course> {
 		
 		return null;
 	}
-
 }

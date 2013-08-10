@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
@@ -20,13 +22,17 @@ import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.factory.ActivityFactory;
+import com.wetongji_android.net.NetworkLoader;
+import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTFullScreenActivity;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.net.ApiHelper;
+import com.wetongji_android.util.net.HttpRequestResult;
 
-public class EventDetailActivity extends WTBaseDetailActivity  
+public class EventDetailActivity extends WTBaseDetailActivity implements
+		LoaderCallbacks<HttpRequestResult>
 {
 
 	private Activity mEvent;
@@ -63,6 +69,7 @@ public class EventDetailActivity extends WTBaseDetailActivity
 		mEvent = intent.getParcelableExtra(EventsFragment.BUNDLE_KEY_ACTIVITY);
 		setiChildId(mEvent.getId());
 		setType(this.getClass().getSimpleName());
+		setbSchedule(mEvent.isCanSchedule());
 	}
 
 	private void setPicture() {
@@ -152,11 +159,15 @@ public class EventDetailActivity extends WTBaseDetailActivity
 		super.setType(type);
 	}
 
+	@Override
+	protected void setbSchedule(boolean bSchedule) {
+		super.setbSchedule(bSchedule);
+	}
+
 	private void likeEvent(boolean isLike) {
 		ApiHelper apiHelper = ApiHelper.getInstance(EventDetailActivity.this);
-		int id = mEvent.getId();
-		Bundle bundle = isLike ? apiHelper.likeActivity(id) : apiHelper
-				.unlikeActivity(id);
+		getSupportLoaderManager().restartLoader(WTApplication.EVENT_Like_LOADER, 
+				apiHelper.setObjectLikedWithModelType(isLike, mEvent.getId(), "Activity"), this);
 	}
 
 	private void updateEventInDB() {
@@ -167,7 +178,7 @@ public class EventDetailActivity extends WTBaseDetailActivity
 				+ (mCbLike.isChecked() ? 1 : -1));
 		newActivity.setCanLike(!mCbLike.isChecked());
 		lstTask.add(newActivity);
-		//factory.saveObjects(this, lstTask);
+		factory.saveObjects(this, lstTask);
 	}
 	
 	private class OnPicClickListener implements OnClickListener
@@ -175,7 +186,6 @@ public class EventDetailActivity extends WTBaseDetailActivity
 		@Override
 		public void onClick(View v) 
 		{
-			// TODO Auto-generated method stub
 			Intent intent = new Intent(EventDetailActivity.this, WTFullScreenActivity.class);
 			Bundle bundle = new Bundle();
 			bundle.putString(IMAGE_URL, mEvent.getImage());
@@ -197,5 +207,24 @@ public class EventDetailActivity extends WTBaseDetailActivity
 			startActivity(intent);
 			EventDetailActivity.this.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}	
+	}
+
+	@Override
+	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
+		return new NetworkLoader(this, HttpMethod.Get, arg1);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<HttpRequestResult> arg0,
+			HttpRequestResult result) {
+		if(result.getResponseCode() == 0){
+			updateEventInDB();
+			Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
+		
 	}
 }
