@@ -272,4 +272,5 @@
     <item name="edt_new_password" type="id">false</item>
     <item name="edt_confirm_password" type="id">false</item>
     <item name="btn_on_confirm" type="id">false</item>
+    <item name="text_about_version" type="id"/>
 </resources>

@@ -1,153 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_app_base"
-    android:orientation="vertical" >
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:contentDescription="@string/img_content_description"
-        android:src="@drawable/ic_launcher" />
+    android:layout_height="wrap_content"
+    android:scrollbars="none" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/profile_section_bg"
+        android:background="@drawable/bg_app_base"
         android:orientation="vertical" >
 
-        <RelativeLayout
-            android:id="@id/ll_about_rate"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/img_content_description"
+            android:src="@drawable/about_logo_wetongji" />
+
+        <TextView
+            android:id="@id/text_about_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="18dp"
+            style="@style/ProfileFriendList" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:paddingBottom="25dp"
-            android:background="@drawable/selectable_background_wttheme"
-            android:clickable="true" >
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/profile_section_bg"
+            android:orientation="vertical" >
 
-            <!-- Rate Wetongji -->
-            <TextView
-                android:id="@id/text_about_rate"
-                style="@style/ProfileFriendList"
+           	<!-- Rate Wetongji -->
+           	
+            <RelativeLayout
+                android:id="@id/ll_about_rate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginLeft="7dp"
-                android:text="@string/about_rate_we" />
-        </RelativeLayout>
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@drawable/selectable_background_wttheme"
+                android:clickable="true"
+                android:paddingBottom="25dp" >
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:background="@color/profile_divider_thin" />
+                <TextView
+                    android:id="@id/text_about_rate"
+                    style="@style/ProfileFriendList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/about_rate_we" />
+            </RelativeLayout>
 
-        <!-- Share -->
-        <RelativeLayout
-            android:id="@id/ll_about_share"
-            android:layout_width="match_parent"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@color/profile_divider_thin" />
+
+            <!-- Share -->
+
+            <RelativeLayout
+                android:id="@id/ll_about_share"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@drawable/selectable_background_wttheme"
+                android:clickable="true"
+                android:paddingBottom="25dp" >
+
+                <TextView
+                    android:id="@id/text_about_share"
+                    style="@style/ProfileFriendList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/about_share" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@color/profile_divider_thin" />
+
+            <!-- Feedback -->
+
+            <RelativeLayout
+                android:id="@id/ll_about_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@drawable/selectable_background_wttheme"
+                android:clickable="true" >
+
+                <TextView
+                    android:id="@id/text_about_feedback"
+                    style="@style/ProfileFriendList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="18.3dp"
+                    android:text="@string/about_feedback" />
+
+                <TextView
+                    style="@style/FeedbackSubtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_about_feedback"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="2dp"
+                    android:paddingBottom="18dp"
+                    android:text="@string/about_feedback_tips" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@color/profile_divider_thin" />
+
+            <!-- Visit -->
+
+            <RelativeLayout
+                android:id="@id/ll_about_visit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@drawable/selectable_background_wttheme"
+                android:clickable="true"
+                android:paddingBottom="25dp" >
+
+                <TextView
+                    android:id="@id/text_about_visit"
+                    style="@style/ProfileFriendList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/about_visit" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@color/profile_divider_thin" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:paddingBottom="25dp"
-            android:background="@drawable/selectable_background_wttheme"
-            android:clickable="true" >
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16.7dp"
+            android:text="@string/about_terms_use" />
 
-            <TextView
-                android:id="@id/text_about_share"
-                style="@style/ProfileFriendList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginLeft="7dp"
-                android:text="@string/about_share" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:background="@color/profile_divider_thin" />
-
-        <!-- Feedback -->
-        <RelativeLayout
-            android:id="@id/ll_about_feedback"
-            android:layout_width="match_parent"
+        <TextView
+            style="@style/AboutAllRightReserved"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:background="@drawable/selectable_background_wttheme"
-            android:clickable="true" >
-
-            <TextView
-                android:id="@id/text_about_feedback"
-                style="@style/ProfileFriendList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="18.3dp"
-                android:text="@string/about_feedback" />
-
-            <TextView
-                android:layout_below="@id/text_about_feedback"
-                style="@style/ProfileFriendList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="8.3dp"
-                android:text="@string/about_feedback_tips" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:background="@color/profile_divider_thin" />
-
-        <!-- Visit -->
-        <RelativeLayout
-            android:id="@id/ll_about_visit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:background="@drawable/selectable_background_wttheme"
-            android:paddingBottom="25dp"
-            android:clickable="true" >
-
-            <TextView
-                android:id="@id/text_about_visit"
-                style="@style/ProfileFriendList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginLeft="7dp"
-                android:text="@string/about_visit" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:background="@color/profile_divider_thin" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/wetongji_all_rights" />
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16.7dp"
-        android:text="@string/about_terms_use" />
-
-</LinearLayout>
+</ScrollView>

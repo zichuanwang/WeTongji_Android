@@ -314,4 +314,13 @@
  	    <item name="android:textSize">18sp</item>
  	    <item name="android:textColor">#6a6a6a</item>
  	</style>
+ 	
+ 	<style name="AboutAllRightReserved">
+ 	    <item name="android:textColor">#6a6a6a</item>
+ 	    <item name="android:textSize">9.3sp</item>
+ 	</style>
+ 	
+ 	<style name="FeedbackSubtitle" parent="@style/AboutAllRightReserved">
+ 	    <item name="android:textSize">14sp</item>
+ 	</style>
 </resources>

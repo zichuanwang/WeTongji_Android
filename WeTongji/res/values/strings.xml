@@ -219,7 +219,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="about_feedback">Feedback</string>
 	<string name="about_feedback_tips">Give suggestions to us for improvements</string>
 	<string name="about_visit">Visit official website</string>
-	<string name="about_terms_use">Terms of Use</string>
+	<string name="about_terms_use"><u>Terms of Use</u></string>
 	<string name="text_accepted">ACCEPTED</string>
 	<string name="text_notificaiton_ignore">Ignore</string>
 	<string name="text_notification_accept">Accept</string>
@@ -238,4 +238,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="password_error4">Please input the confirm password</string>
 	<string name="update_password_success">Update Password Success</string>
 	<string name="password_syntax_wrong">Password Syntax Wrong</string>
+	<string name="wetongji_version_number">WeTongji </string>
+	<string name="wetongji_all_rights">Copyright © 2012-2013 WeTongji.All Rights Reserved.</string>
 </resources>
