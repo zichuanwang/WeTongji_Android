@@ -13,13 +13,11 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.Pair;
 
 import com.google.gson.JsonSyntaxException;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.ui.today.TodayFragment;
 
@@ -40,8 +38,6 @@ public class InformationFactory extends BaseFactory<Information, Integer>
 			JSONObject outer=new JSONObject(jsonStr);
 			nextPager=outer.getInt("NextPager");
 			setNextPage(nextPager);
-			WTUtility.log("Information Factory", "Next Page: " + nextPager);
-			WTUtility.log("Information Factory", "Current Page: " + currentPage);
 			if(currentPage!=1)
 			{
 				result=createObjects(jsonStr,false);
@@ -67,7 +63,6 @@ public class InformationFactory extends BaseFactory<Information, Integer>
 		try {
 			outer=new JSONObject(jsonStr);
 			array = outer.getJSONArray("Information");
-			WTUtility.log("Information Factory", " " + array.length());
 			for(int i=0;i!=array.length();i++){
 				Information info=createObject(array.getString(i));
 				list.add(info);
@@ -78,13 +73,11 @@ public class InformationFactory extends BaseFactory<Information, Integer>
 			e.printStackTrace();
 		}
 		
-		WTUtility.log("Information Factory", "" + needToRefresh);
 		if(fragment instanceof TodayFragment)
 		{
 			
 		}else
 		{
-			Log.v("Information Factory", "store into db");
 			Bundle args=new Bundle();
 			args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
 			fragment.getLoaderManager().initLoader(WTApplication.INFORMATION_SAVER, args, this).forceLoad();

@@ -9,7 +9,6 @@
         android:layout_height="match_parent" >
 
         <!-- actionbar container -->
-
         <RelativeLayout
             android:id="@id/layout_event_detail_top_actionbar"
             style="?attr/actionBarStyle"
@@ -89,7 +88,6 @@
             android:background="@drawable/bg_app_base" >
 
             <!-- main content -->
-
             <com.wetongji_android.ui.widgets.WTScrollViewWithVP
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
@@ -113,7 +111,8 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="18dp"
                             android:layout_marginTop="20dp"
-                            android:background="@drawable/bg_people_avatar_cover" />
+                            android:background="@drawable/bg_people_avatar_cover"
+                            android:contentDescription="@string/img_content_description"/>
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -220,7 +219,6 @@
             </com.wetongji_android.ui.widgets.WTScrollViewWithVP>
 
             <!-- actionbar shadow -->
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -234,7 +232,6 @@
         android:layout_height="match_parent" >
 
         <!-- Like checkbox -->
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -260,6 +257,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textIsSelectable="true" />
+            
         </LinearLayout>
     </RelativeLayout>
 

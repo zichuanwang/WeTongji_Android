@@ -55,11 +55,15 @@ public class InformationDetailActivity extends WTBaseDetailActivity
 
 		initWidget();
 	}
+	
+	@Override
+	protected void setShareContent(String shareContent) {
+		super.setShareContent(shareContent);
+	}
 
 	private void initWidget() 
 	{
 		//getSupportActionBar().setDisplayShowTitleEnabled(false);
-
 		mAq = WTApplication.getInstance().getAq(this);
 		// Set the organization avatar
 		mAq.id(R.id.info_detail_avatar).image(mInfo.getOrganizerAvatar(), false, true,
@@ -100,6 +104,7 @@ public class InformationDetailActivity extends WTBaseDetailActivity
 		Intent intent = getIntent();
 		mInfo = intent
 				.getParcelableExtra(InformationsFragment.BUNDLE_KEY_INFORMATION);
+		setShareContent(mInfo.getTitle());
 	}
 
 	private void setLikeCheckbox() 
@@ -130,11 +135,8 @@ public class InformationDetailActivity extends WTBaseDetailActivity
 				} else 
 				{
 					mCbLike.setChecked(false);
-					Toast.makeText(
-							InformationDetailActivity.this,
-							getResources().getString(
-									R.string.need_account_login),
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(InformationDetailActivity.this,
+							getResources().getString(R.string.need_account_login), Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -164,7 +166,6 @@ public class InformationDetailActivity extends WTBaseDetailActivity
 		@Override
 		public void onClick(View v) 
 		{
-			// TODO Auto-generated method stub
 			Intent intent = new Intent(InformationDetailActivity.this, WTFullScreenActivity.class);
 			Bundle bundle = new Bundle();
 			bundle.putString(IMAGE_URL, mInfo.getImages().get(0));
@@ -198,7 +199,11 @@ public class InformationDetailActivity extends WTBaseDetailActivity
 			HttpRequestResult result) {
 		if(result.getResponseCode() == 0){
 			updateInfoInDB();
-			Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+			if(mCbLike.isChecked()){
+				Toast.makeText(this, "Like Success", Toast.LENGTH_SHORT).show();
+			}else{
+				Toast.makeText(this, "DisLike Success", Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 

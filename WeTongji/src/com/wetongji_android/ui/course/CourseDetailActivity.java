@@ -2,6 +2,7 @@ package com.wetongji_android.ui.course;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.wetongji_android.R;
@@ -14,11 +15,16 @@ public class CourseDetailActivity extends WTBaseDetailActivity{
 	public static final String BUNDLE_COURSE = "BUNDLE_COURSE";
 	private Course mCourse;
 	
+	private CheckBox mCbLike;
+	private boolean isRestCheckBox = false;
+	private TextView mTvLikeNum;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.activity_course_detail);
+		
 		recieveData();
 		setUpUI();
 		showBottomActionBar();
@@ -28,7 +34,8 @@ public class CourseDetailActivity extends WTBaseDetailActivity{
 		Intent intent = this.getIntent();
 		mCourse = (Course)(intent.getExtras().getParcelable(BUNDLE_COURSE));
 		setiChildId(mCourse.getId());
-		setType(this.getClass().getSimpleName());
+		setType("Course");
+		setShareContent(mCourse.getTitle());
 	}
 	
 	private void setUpUI() {
@@ -68,5 +75,15 @@ public class CourseDetailActivity extends WTBaseDetailActivity{
 	@Override
 	protected void setType(String type) {
 		super.setType(type);
+	}
+
+	@Override
+	protected void setbSchedule(boolean bSchedule) {
+		super.setbSchedule(bSchedule);
+	}
+
+	@Override
+	protected void setShareContent(String shareContent) {
+		super.setShareContent(shareContent);
 	}
 }

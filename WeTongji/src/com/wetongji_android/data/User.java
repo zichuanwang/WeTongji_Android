@@ -53,6 +53,10 @@ public class User implements Parcelable
 	@DatabaseField
 	private int FriendCount;
 	@DatabaseField
+	private int Like;
+	@DatabaseField
+	private boolean CanLike;
+	@DatabaseField
 	private String Avatar;
 	
 	public User() {
@@ -63,7 +67,7 @@ public class User implements Parcelable
 			String displayName, String major, String nativePlace,
 			String degree, String gender, String year, String birthday,
 			String plan, String sinaWeibo, String qQ, String department,
-			String email, int friendCount, String avatar) {
+			String email, int friendCount, int like, boolean canLike, String avatar) {
 		super();
 		NO = nO;
 		Name = name;
@@ -82,6 +86,8 @@ public class User implements Parcelable
 		Department = department;
 		Email = email;
 		FriendCount = friendCount;
+		Like = like;
+		CanLike = canLike;
 		Avatar = avatar;
 	}
 
@@ -269,17 +275,31 @@ public class User implements Parcelable
 		FriendCount = friendCount;
 	}
 
+	public int getLike() {
+		return Like;
+	}
+
+	public void setLike(int like) {
+		Like = like;
+	}
+
+	public boolean isCanLike() {
+		return CanLike;
+	}
+
+	public void setCanLike(boolean canLike) {
+		CanLike = canLike;
+	}
+
 	@Override
 	public int describeContents() 
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) 
 	{
-		// TODO Auto-generated method stub
 		dest.writeString(NO);
 		dest.writeString(Name);
 		dest.writeString(UID);
@@ -302,6 +322,8 @@ public class User implements Parcelable
 		dest.writeSerializable(ScheduleCount);
 		dest.writeByte((byte)(IsFriend?1:0));
 		dest.writeInt(FriendCount);
+		dest.writeInt(Like);
+		dest.writeByte((byte)(CanLike?1:0));
 		dest.writeString(Avatar);
 	}
 	
@@ -329,6 +351,8 @@ public class User implements Parcelable
 		ScheduleCount = (ScheduleCounts)source.readSerializable();
 		IsFriend = source.readByte() == 1;
 		FriendCount = source.readInt();
+		Like = source.readInt();
+		CanLike = source.readByte() == 1;
 		Avatar = source.readString();
 	}
 	
@@ -337,14 +361,12 @@ public class User implements Parcelable
 		@Override
 		public User createFromParcel(Parcel source) 
 		{
-			// TODO Auto-generated method stub
 			return new User(source);
 		}
 
 		@Override
 		public User[] newArray(int size) 
 		{
-			// TODO Auto-generated method stub
 			return new User[size];
 		}
 	};
