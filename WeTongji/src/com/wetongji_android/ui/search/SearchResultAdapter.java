@@ -130,6 +130,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 		TextView tvSectionHeader = (TextView) view
 				.findViewById(R.id.information_list_header);
 		String header = mData.get(getSectionForPosition(position)).first;
+		if (header.equals("Account"))
 		tvSectionHeader.setText(header);
 	}
 
@@ -288,7 +289,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 	
 	private void setAccountWidgets(ViewHolder holder, SearchResult result) {
 		Account account = (Account) result.getContent();
-		holder.tvAccountName.setText(account.getName());
+		holder.tvAccountName.setText(account.getDisplay());
 		holder.tvAccountDesc.setText(account.getDescription());
 		String strUrl = account.getImage();
 		mListAq.id(holder.ivAccountThumb).image(strUrl, true, true,
