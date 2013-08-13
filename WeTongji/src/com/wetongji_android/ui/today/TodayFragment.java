@@ -37,6 +37,7 @@ import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.data.event.EventLoader;
 import com.wetongji_android.util.data.event.EventUtil;
@@ -154,7 +155,10 @@ public class TodayFragment extends SherlockFragment {
 		gvEvents = (GridView) view.findViewById(R.id.gv_today_activities);
 		gvFeatures = (GridView) view.findViewById(R.id.gv_today_features);
 		Bundle bundle = ApiHelper.getInstance(context).getHome();
-		if (previousResultStr == null) {
+
+		if (!WTUtility.isWifi(context)) {
+			this.executeLoader(previousResultStr);
+		} else if ((previousResultStr == null) && WTUtility.isWifi(context)) {
 			getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT,
 					bundle, new NetwordLoaderCallbacks());
 		} else {
@@ -163,6 +167,8 @@ public class TodayFragment extends SherlockFragment {
 	}
 
 	public void executeLoader(String strResult) {
+		if (strResult == null)
+			return;
 		TodayFactory factory = new TodayFactory(TodayFragment.this);
 		List<Banner> banners = factory.createBanners(strResult);
 		List<Activity> activities = factory.createActivities(strResult);
@@ -241,8 +247,7 @@ public class TodayFragment extends SherlockFragment {
 			if (result.getResponseCode() == 0) {
 				executeLoader(result.getStrResponseCon());
 				insertToDatabase(previousResultStr);
-			}
-			else
+			} else
 				executeLoader(getDatabaseData());
 		}
 
