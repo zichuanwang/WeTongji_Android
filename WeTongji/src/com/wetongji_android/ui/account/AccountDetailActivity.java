@@ -50,7 +50,7 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 		tvClubNewsNum.setText(String.format(getString(R.string.format_items),
 				mAccount.getInformationCount()));
 		tvClubAbout.setText(mAccount.getDescription());
-		tvAccountName.setText(mAccount.getName());
+		tvAccountName.setText(mAccount.getDisplay());
 		tvAccountLikeCount.setText(String.valueOf(mAccount.getLike()));
 		mAq.id(R.id.img_profile_avatar).image(mAccount.getImage(), true, true, 
 				0, 0);
