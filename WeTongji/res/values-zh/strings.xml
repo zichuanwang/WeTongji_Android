@@ -220,7 +220,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="about_feedback_tips">Give suggestions to us for improvements</string>
 	<string name="about_visit">Visit official website</string>
 	<string name="about_terms_use"><u>Terms of Use</u></string>
-	<string name="titile_terms_of_use">Terms of Use</string>
 	<string name="text_accepted">ACCEPTED</string>
 	<string name="text_notificaiton_ignore">Ignore</string>
 	<string name="text_notification_accept">Accept</string>
@@ -241,7 +240,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="password_syntax_wrong">Password Syntax Wrong</string>
 	<string name="wetongji_version_number">WeTongji </string>
 	<string name="wetongji_all_rights">Copyright © 2012-2013 WeTongji.All Rights Reserved.</string>
-	<string name="toast_no_market">Sorry, we did not find a market on your device</string>
-	<string name="toast_no_email_app">Sorry, we did not find an email application on your device</string>
-	<string name="share_wetongji">I am using @WeTongji . Go to the official website. http://we.tongji.edu.cn</string>
+	<string name="toast_no_market">Sorry, we can not find a market on your device</string>
+	<string name="share_wetongji">我正在使用 @WeTongji 。快去官网下载吧~ http://we.tongji.edu.cn</string>
 </resources>

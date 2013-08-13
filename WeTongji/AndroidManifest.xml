@@ -159,6 +159,10 @@
             android:name="com.wetongji_android.util.common.WTAboutActivity">
         </activity>
         
+        <activity
+            android:name="com.wetongji_android.ui.setting.WTTermsOfUseActivity"
+            android:label="@string/titile_terms_of_use">
+        </activity>
     </application>
 
 </manifest>

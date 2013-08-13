@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
 import com.wetongji_android.ui.auth.AuthActivity;
 import com.wetongji_android.util.common.WTAboutActivity;
@@ -70,4 +71,14 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 			}
 		}
 	};
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			finish();
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	
 }
