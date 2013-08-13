@@ -48,7 +48,7 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 	
 	public void saveObjects(FragmentActivity activity, List<T> data) {
 		Bundle args=new Bundle();
-		args.putBoolean(ARG_NEED_TO_REFRESH, false);
+		args.putBoolean(ARG_NEED_TO_REFRESH, true);
 		list = data;
 		if (fragment == null) 
 		{
@@ -113,5 +113,4 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 	@Override
 	public void onLoaderReset(Loader<Void> arg0) {
 	}
-	
 }

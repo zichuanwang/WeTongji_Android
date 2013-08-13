@@ -32,6 +32,10 @@ public class Person implements Parcelable{
 	private int Like;
 	@DatabaseField
 	private boolean CanLike;
+	@DatabaseField
+	private int Favorite;
+	@DatabaseField
+	private boolean CanFavorite;
 	@DatabaseField(dataType=DataType.SERIALIZABLE)
 	private HashMap<String, String> Images;
 	
@@ -41,7 +45,8 @@ public class Person implements Parcelable{
 
 	public Person(int id, String name, String jobTitle, String words,
 			int nO, String avatar, String title, String description,
-			int read, int like, boolean canLike, HashMap<String, String> images) {
+			int read, int like, boolean canLike, int favorite, boolean canFavorite,
+			HashMap<String, String> images) {
 		super();
 		Id = id;
 		Name = name;
@@ -54,6 +59,8 @@ public class Person implements Parcelable{
 		Read = read;
 		Like = like;
 		CanLike = canLike;
+		Favorite = favorite;
+		CanFavorite = canFavorite;
 		Images = images;
 	}
 
@@ -153,6 +160,22 @@ public class Person implements Parcelable{
 	public void setImages(HashMap<String, String> images) {
 		Images = images;
 	}
+	
+	public int getFavorite() {
+		return Favorite;
+	}
+
+	public void setFavorite(int favorite) {
+		Favorite = favorite;
+	}
+
+	public boolean isCanFavorite() {
+		return CanFavorite;
+	}
+
+	public void setCanFavorite(boolean canFavorite) {
+		CanFavorite = canFavorite;
+	}
 
 	@Override
 	public int describeContents() {
@@ -172,6 +195,8 @@ public class Person implements Parcelable{
 		dest.writeInt(Read);
 		dest.writeInt(Like);
 		dest.writeByte((byte)(CanLike?1:0));
+		dest.writeInt(Favorite);
+		dest.writeByte((byte)(CanFavorite?1:0));
 		dest.writeMap(Images);
 	}
 	
@@ -188,6 +213,8 @@ public class Person implements Parcelable{
 		Read=source.readInt();
 		Like=source.readInt();
 		CanLike=source.readByte()==1;
+		Favorite=source.readInt();
+		CanFavorite=source.readByte()==1;
 		Images=source.readHashMap(HashMap.class.getClassLoader());
 	}
 	
@@ -203,5 +230,4 @@ public class Person implements Parcelable{
 			return new Person(source);
 		}
 	};
-
 }

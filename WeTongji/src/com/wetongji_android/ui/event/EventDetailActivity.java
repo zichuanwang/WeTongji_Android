@@ -55,6 +55,11 @@ public class EventDetailActivity extends WTBaseDetailActivity implements
 		showBottomActionBar();
 	}
 
+	@Override
+	protected void setShareContent(String shareContent) {
+		super.setShareContent(shareContent);
+	}
+
 	private void setUpUI() 
 	{
 		setPicture();
@@ -68,8 +73,9 @@ public class EventDetailActivity extends WTBaseDetailActivity implements
 		Intent intent = this.getIntent();
 		mEvent = intent.getParcelableExtra(EventsFragment.BUNDLE_KEY_ACTIVITY);
 		setiChildId(mEvent.getId());
-		setType(this.getClass().getSimpleName());
+		setType("Activity");
 		setbSchedule(mEvent.isCanSchedule());
+		setShareContent(mEvent.getTitle());
 	}
 
 	private void setPicture() {
@@ -137,11 +143,8 @@ public class EventDetailActivity extends WTBaseDetailActivity implements
 					mTvLikeNum.setText(String.valueOf(mEvent.getLike() + delta));
 				} else {
 					mCbLike.setChecked(false);
-					Toast.makeText(
-							EventDetailActivity.this,
-							getResources().getString(
-									R.string.need_account_login),
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(EventDetailActivity.this,
+							getResources().getString(R.string.need_account_login), Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -219,7 +222,11 @@ public class EventDetailActivity extends WTBaseDetailActivity implements
 			HttpRequestResult result) {
 		if(result.getResponseCode() == 0){
 			updateEventInDB();
-			Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+			if(mCbLike.isChecked()){
+				Toast.makeText(this, "Like Success", Toast.LENGTH_SHORT).show();
+			}else{
+				Toast.makeText(this, "DisLike Success", Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 

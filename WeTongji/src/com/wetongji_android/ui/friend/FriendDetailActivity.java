@@ -9,10 +9,13 @@ import android.support.v4.content.Loader;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
@@ -47,6 +50,11 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	
 	private boolean bIsFriend;
 	
+	private CheckBox mCbLike;
+	private TextView mTvLikeNum;
+
+	private boolean isRestCheckBox = false;
+	
 	@Override
 	protected void onCreate(Bundle arg0) 
 	{
@@ -59,14 +67,23 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		initWidget();
 	}
 
+	@Override
+	protected void setShareContent(String shareContent) {
+		super.setShareContent(shareContent);
+	}
+
+
 	private void receiveData()
 	{
 		Intent intent = getIntent();
 		mUser = intent.getExtras().getParcelable(FriendListFragment.BUNDLE_KEY_USER);
+		setShareContent("My friend--" + mUser.getName());
 	}
 	
 	private void initWidget()
 	{
+		setLikeCheckbox();
+		
 		mAq = WTApplication.getInstance().getAq(this);
 		tvFriendWords = (TextView)findViewById(R.id.text_profile_words);
 		tvFriendWords.setText(mUser.getWords());
@@ -111,6 +128,47 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		tvEmail.setText(mUser.getEmail());
 	}
 	
+	private void setLikeCheckbox() 
+	{
+		mCbLike = (CheckBox) findViewById(R.id.cb_like);
+		mTvLikeNum = (TextView) findViewById(R.id.tv_like_number);
+
+		mCbLike.setChecked(!mUser.isCanLike());
+		mTvLikeNum.setText(String.valueOf(mUser.getLike()));
+
+		mCbLike.setOnCheckedChangeListener(new OnCheckedChangeListener() 
+		{
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) 
+			{
+				if (WTApplication.getInstance().hasAccount)
+				{
+					if (isRestCheckBox) 
+					{
+						return;
+					}
+
+					int delat = isChecked ? 1 : -1;
+					mTvLikeNum.setText(String.valueOf(mUser.getLike() + delat));
+
+					likeUser(isChecked);
+				} else 
+				{
+					mCbLike.setChecked(false);
+					Toast.makeText(FriendDetailActivity.this,
+							getResources().getString(R.string.need_account_login), Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+	}
+	
+	private void likeUser(boolean bLike){
+		ApiHelper apiHelper = ApiHelper.getInstance(this);
+		getSupportLoaderManager().restartLoader(WTApplication.USER_LIKE_LOADER, 
+				apiHelper.setObjectLikedWithModelType(bLike, Integer.valueOf(mUser.getUID()), "User"), new LoadCallback());
+	}
+	
 	private void showToast()
 	{
 		if(bIsFriend)
@@ -134,18 +192,6 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		rl.setBackgroundDrawable(new BitmapDrawable(getResources(), bg));
 	}
 	
-	@Override
-	protected void onPause() 
-	{
-		super.onPause();
-	}
-	
-	@Override
-	protected void onResume() 
-	{
-		super.onResume();
-	}
-
 	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) 
 	{
@@ -213,6 +259,30 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 					addFriend(mUser.getUID());
 				}
 			}
+		}
+	}
+	
+	class LoadCallback implements LoaderCallbacks<HttpRequestResult>{
+		@Override
+		public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
+			return new NetworkLoader(FriendDetailActivity.this, HttpMethod.Get, arg1);
+		}
+
+		@Override
+		public void onLoadFinished(Loader<HttpRequestResult> arg0,
+				HttpRequestResult result) {
+			if(result.getResponseCode() == 0){
+				if(mCbLike.isChecked()){
+					Toast.makeText(FriendDetailActivity.this, "Like Success", Toast.LENGTH_SHORT).show();
+				}else{
+					Toast.makeText(FriendDetailActivity.this, "DisLike Success", Toast.LENGTH_SHORT).show();
+				}
+			}
+		}
+
+		@Override
+		public void onLoaderReset(Loader<HttpRequestResult> arg0) {
+			
 		}
 	}
 }

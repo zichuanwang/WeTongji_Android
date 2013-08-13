@@ -22,7 +22,7 @@ import com.wetongji_android.ui.friend.FriendListActivity;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
-public class WTBaseDetailActivity extends SherlockFragmentActivity 
+public class WTBaseDetailActivity extends SherlockFragmentActivity
 {
 
 	protected ViewStub mVsContent;
@@ -42,15 +42,17 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 	public static final String CHILD_TYPE = "ChildType";
 	
 	private int iChildId;
-	private String type;
 	private boolean bSchedule;
-
+	private String shareContent;
+	private String type;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		iChildId = 0;
+		bSchedule = false;
 	}
 	
 	@Override
@@ -86,8 +88,7 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 			@Override
 			public void onClick(View v) 
 			{
-				// TODO Auto-generated method stub
-				showShareDialog("Coming From WeTongji...");
+				showShareDialog(shareContent);
 			}
 		});
 	}
@@ -148,12 +149,15 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 		this.bSchedule = bSchedule;
 	}
 
+	protected void setShareContent(String shareContent) {
+		this.shareContent = shareContent;
+	}
+
 	class BottomABClickListener implements OnClickListener
 	{
 		@Override
 		public void onClick(View v) 
 		{
-			// TODO Auto-generated method stub
 			if(v.getId() == R.id.btn_event_detail_invite)
 			{
 				if(WTApplication.getInstance().hasAccount)
@@ -221,6 +225,5 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 		public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 			
 		}
-		
 	}
 }
