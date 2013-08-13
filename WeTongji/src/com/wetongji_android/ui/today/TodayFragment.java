@@ -3,7 +3,10 @@ package com.wetongji_android.ui.today;
 import java.util.Calendar;
 import java.util.List;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -42,12 +45,15 @@ import com.wetongji_android.util.net.HttpRequestResult;
 
 public class TodayFragment extends SherlockFragment {
 
+	public static String previousResultStr = null;
+	private static SQLiteDatabase thedb = null;
+
 	private View view;
 	private Context context;
 	private ViewPager vpBanner;
 	private UnderlinePageIndicator indicator;
 	private GridView gvNews, gvEvents, gvFeatures;
-	
+
 	/**
 	 * Use this factory method to create a new instance of this fragment using
 	 * the provided parameters.
@@ -63,12 +69,43 @@ public class TodayFragment extends SherlockFragment {
 		// Required empty public constructor
 	}
 
+	private void initDatabase() {
+		if (thedb == null) {
+			thedb = context.openOrCreateDatabase("WeTongjiDB",
+					Context.MODE_PRIVATE, null);
+			thedb.execSQL("CREATE TABLE IF NOT EXISTS TodayFragment('_id' INTEGER PRIMARY KEY, 'TodayResult' VARCHAR(40000) NOT NULL UNIQUE);");
+		}
+	}
+
+	private boolean insertToDatabase(String str) {
+		Cursor c = thedb.rawQuery("select COUNT(*) from TodayFragment", null);
+		if (c.getCount() != 0)
+			thedb.execSQL("delete from TodayFragment;");
+		ContentValues v = new ContentValues();
+		v.put("TodayResult", str);
+		if (thedb.insert("TodayFragment", "NULL", v) > 0)
+			return true;
+		else
+			return false;
+	}
+
+	private String getDatabaseData() {
+		Cursor c = thedb.query("TodayFragment", new String[] { "TodayResult" },
+				null, null, null, null, null);
+		if (c.getCount() == 0)
+			return null;
+		c.moveToFirst();
+		return c.getString(0);
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = getActivity();
 		setHasOptionsMenu(true);
-		getSherlockActivity().getSupportActionBar().setTitle(R.string.text_today);
+		getSherlockActivity().getSupportActionBar().setTitle(
+				R.string.text_today);
+		initDatabase();
 	}
 
 	@Override
@@ -117,8 +154,47 @@ public class TodayFragment extends SherlockFragment {
 		gvEvents = (GridView) view.findViewById(R.id.gv_today_activities);
 		gvFeatures = (GridView) view.findViewById(R.id.gv_today_features);
 		Bundle bundle = ApiHelper.getInstance(context).getHome();
-		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT,
-				bundle, new NetwordLoaderCallbacks());
+		if (previousResultStr == null) {
+			getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT,
+					bundle, new NetwordLoaderCallbacks());
+		} else {
+			this.executeLoader(previousResultStr);
+		}
+	}
+
+	public void executeLoader(String strResult) {
+		TodayFactory factory = new TodayFactory(TodayFragment.this);
+		List<Banner> banners = factory.createBanners(strResult);
+		List<Activity> activities = factory.createActivities(strResult);
+		List<Information> infomation = factory.createInfos(strResult);
+		List<Object> features = factory.createFeatures(strResult);
+
+		TodayBannerPagerAdapter bannerAdapter = new TodayBannerPagerAdapter(
+				banners, context);
+		setTodayBanner(view, bannerAdapter);
+
+		TodayGridNewsAdapter newsAdapter = new TodayGridNewsAdapter(context,
+				infomation);
+		view.findViewById(R.id.pb_today_information).setVisibility(View.GONE);
+		gvNews.setAdapter(newsAdapter);
+		gvNews.setVisibility(View.VISIBLE);
+		gvNews.setOnItemClickListener(newsAdapter);
+
+		TodayGridEventAdapter eventAdapter = new TodayGridEventAdapter(context,
+				activities);
+		view.findViewById(R.id.pb_today_activities).setVisibility(View.GONE);
+		gvEvents.setAdapter(eventAdapter);
+		gvEvents.setOnItemClickListener(eventAdapter);
+		gvEvents.setVisibility(View.VISIBLE);
+
+		TodayGridFeatureAdapter featureAdapter = new TodayGridFeatureAdapter(
+				context, features);
+		view.findViewById(R.id.pb_today_features).setVisibility(View.GONE);
+		gvFeatures.setAdapter(featureAdapter);
+		gvFeatures.setOnItemClickListener(featureAdapter);
+		gvFeatures.setVisibility(View.VISIBLE);
+
+		previousResultStr = strResult;
 	}
 
 	private void setTodayNowContent(Event event) {
@@ -141,8 +217,7 @@ public class TodayFragment extends SherlockFragment {
 			String strUrl = ((Activity) event).getImage();
 			AQuery aq = new AQuery(context);
 			if (!strUrl.equals(WTApplication.MISSING_IMAGE_URL)) {
-				aq.id(ivNowThumb).image(strUrl, true,
-						true, 300,
+				aq.id(ivNowThumb).image(strUrl, true, true, 300,
 						R.drawable.event_list_thumbnail_place_holder, null,
 						AQuery.FADE_IN_NETWORK, 1.33f);
 			}
@@ -164,41 +239,11 @@ public class TodayFragment extends SherlockFragment {
 		public void onLoadFinished(Loader<HttpRequestResult> arg0,
 				HttpRequestResult result) {
 			if (result.getResponseCode() == 0) {
-				TodayFactory factory = new TodayFactory(TodayFragment.this);
-				String strResult = result.getStrResponseCon();
-				List<Banner> banners = factory.createBanners(strResult);
-				List<Activity> activities = factory.createActivities(strResult);
-				List<Information> infomation = factory.createInfos(strResult);
-				List<Object> features = factory.createFeatures(strResult);
-
-				TodayBannerPagerAdapter bannerAdapter = new TodayBannerPagerAdapter(
-						banners, context);
-				setTodayBanner(view, bannerAdapter);
-
-				TodayGridNewsAdapter newsAdapter = new TodayGridNewsAdapter(
-						context, infomation);
-				view.findViewById(R.id.pb_today_information).setVisibility(
-						View.GONE);
-				gvNews.setAdapter(newsAdapter);
-				gvNews.setVisibility(View.VISIBLE);
-				gvNews.setOnItemClickListener(newsAdapter);
-
-				TodayGridEventAdapter eventAdapter = new TodayGridEventAdapter(
-						context, activities);
-				view.findViewById(R.id.pb_today_activities).setVisibility(
-						View.GONE);
-				gvEvents.setAdapter(eventAdapter);
-				gvEvents.setOnItemClickListener(eventAdapter);
-				gvEvents.setVisibility(View.VISIBLE);
-
-				TodayGridFeatureAdapter featureAdapter = new TodayGridFeatureAdapter(
-						context, features);
-				view.findViewById(R.id.pb_today_features).setVisibility(
-						View.GONE);
-				gvFeatures.setAdapter(featureAdapter);
-				gvFeatures.setOnItemClickListener(featureAdapter);
-				gvFeatures.setVisibility(View.VISIBLE);
+				executeLoader(result.getStrResponseCon());
+				insertToDatabase(previousResultStr);
 			}
+			else
+				executeLoader(getDatabaseData());
 		}
 
 		@Override
@@ -244,26 +289,25 @@ public class TodayFragment extends SherlockFragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// TODO Auto-generated method stub
 		super.onCreateOptionsMenu(menu, inflater);
-		
+
 		inflater.inflate(R.menu.menu_today, menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
-		switch(item.getItemId())
-		{
+		switch (item.getItemId()) {
 		case R.id.notification_button_today:
-			if(WTApplication.getInstance().hasAccount)
-			{
-				((MainActivity)context).showRightMenu();
-			}else
-			{
-				Toast.makeText(context, getResources().getText(R.string.no_account_error), Toast.LENGTH_SHORT).show();
+			if (WTApplication.getInstance().hasAccount) {
+				((MainActivity) context).showRightMenu();
+			} else {
+				Toast.makeText(context,
+						getResources().getText(R.string.no_account_error),
+						Toast.LENGTH_SHORT).show();
 			}
 			return true;
 		}
-		
+
 		return super.onOptionsItemSelected(item);
 	}
 }
