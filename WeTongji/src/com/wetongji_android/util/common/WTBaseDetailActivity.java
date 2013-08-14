@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewStub;
 import android.view.Window;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,8 +25,16 @@ import com.wetongji_android.ui.friend.FriendListActivity;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
-public class WTBaseDetailActivity extends SherlockFragmentActivity
+public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 {
+	public static final String IMAGE_URL = "ImageUrl";
+	public static final String IMAGE_WIDTH = "ImageWidth";
+	public static final String IMAGE_HEIGHT = "ImageHeight";
+	public static final String CHILD_ID = "ChildId";
+	public static final String CHILD_TYPE = "ChildType";
+	public static final String KEY_OBJECT_ID = "key_object_id";
+	public static final String KEY_CAN_LIKE = "key_object_can_like";
+	public static final String KEY_LIKE_NUMBER = "key_object_like_num";
 
 	protected ViewStub mVsContent;
 	private LinearLayout mLayoutBack;
@@ -34,24 +45,24 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 	private LinearLayout mLayoutAttend;
 	private LinearLayout mLayoutBottomBlank;
 	private TextView mTextView;
+	private CheckBox mCbLike;
+	private TextView mTvLikeNumber;
 	
-	public static final String IMAGE_URL = "ImageUrl";
-	public static final String IMAGE_WIDTH = "ImageWidth";
-	public static final String IMAGE_HEIGHT = "ImageHeight";
-	public static final String CHILD_ID = "ChildId";
-	public static final String CHILD_TYPE = "ChildType";
 	
-	private int iChildId;
+	private String iChildId;
 	private boolean bSchedule;
 	private String shareContent;
 	private String type;
+	private boolean canLike;
+	private int like;
+	private String modelType;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		iChildId = 0;
+		iChildId = "";
 		bSchedule = false;
 	}
 	
@@ -89,6 +100,30 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 			public void onClick(View v) 
 			{
 				showShareDialog(shareContent);
+			}
+		});
+		
+		// set up the like CheckBox
+		mTvLikeNumber = (TextView) findViewById(R.id.tv_like_number);
+		mTvLikeNumber.setText(String.valueOf(like));
+		
+		mCbLike = (CheckBox) findViewById(R.id.cb_like);
+		mCbLike.setChecked(!canLike);
+		mCbLike.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean checked) {
+				if (WTApplication.getInstance().hasAccount) {
+					setContentLiked(checked);
+					like += (checked ? 1 : -1);
+					canLike = !canLike;
+					mTvLikeNumber.setText(String.valueOf(like));
+				} else {
+					mCbLike.setChecked(!checked);
+					Toast.makeText(WTBaseDetailActivity.this,
+							getResources().getString(
+									R.string.need_account_login),
+							Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 	}
@@ -135,7 +170,7 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 		startActivity(Intent.createChooser(intent, share));
 	}
 	
-	protected void setiChildId(int iChildId) 
+	protected void setiChildId(String iChildId) 
 	{
 		this.iChildId = iChildId;
 	}
@@ -152,6 +187,32 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 	protected void setShareContent(String shareContent) {
 		this.shareContent = shareContent;
 	}
+	
+	protected boolean isCanLike() {
+		return canLike;
+	}
+
+	protected void setCanLike(boolean canLike) {
+		this.canLike = canLike;
+	}
+
+	protected int getLike() {
+		return like;
+	}
+
+	protected void setLike(int like) {
+		this.like = like;
+	}
+	
+	public String getModelType() {
+		return modelType;
+	}
+
+	public void setModelType(String modelType) {
+		this.modelType = modelType;
+	}
+
+
 
 	class BottomABClickListener implements OnClickListener
 	{
@@ -193,10 +254,10 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 					ApiHelper apiHelper = ApiHelper.getInstance(WTBaseDetailActivity.this);
 					if(type.equals("EventDetailActivity")){
 						getSupportLoaderManager().restartLoader(WTApplication.SCHEDUL_LOADER, 
-								apiHelper.setActivityScheduled(bSchedule, iChildId), new LoadCallback());
+								apiHelper.setActivityScheduled(bSchedule, String.valueOf(iChildId)), new LoadCallback());
 					}else{
 						getSupportLoaderManager().restartLoader(WTApplication.SCHEDUL_LOADER, 
-								apiHelper.setCourseScheduled(bSchedule, iChildId), new LoadCallback());
+								apiHelper.setCourseScheduled(bSchedule, String.valueOf(iChildId)), new LoadCallback());
 					}
 				}else
 				{
@@ -226,4 +287,38 @@ public class WTBaseDetailActivity extends SherlockFragmentActivity
 			
 		}
 	}
+	
+	protected void setContentLiked(boolean like) {
+		ApiHelper apiHelper = ApiHelper.getInstance(this);
+		getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER_LIKE, 
+				apiHelper.setObjectLikedWithModelType(like, String.valueOf(iChildId), modelType), new LoadCallback() {
+			@Override
+			public void onLoadFinished(Loader<HttpRequestResult> arg0,
+					HttpRequestResult result) {
+				if (result.getResponseCode() == 0){
+					Toast.makeText(WTBaseDetailActivity.this,
+							R.string.toast_like_success,
+							Toast.LENGTH_SHORT).show();
+					updateObjectInDB();
+				} else {
+					Toast.makeText(WTBaseDetailActivity.this,
+							R.string.toast_like_failed,
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+	}
+	
+	@Override
+	public void finish() {
+		Intent intent = getIntent();
+		intent.putExtra(KEY_OBJECT_ID, iChildId);
+		intent.putExtra(KEY_CAN_LIKE, canLike);
+		intent.putExtra(KEY_LIKE_NUMBER, like);
+		setResult(RESULT_OK, intent);
+		
+		super.finish();
+	}
+
+	abstract protected void updateObjectInDB();
 }

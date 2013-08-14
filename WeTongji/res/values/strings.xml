@@ -245,4 +245,12 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="toast_no_market">Sorry, we did not find a market on your device</string>
 	<string name="toast_no_email_app">Sorry, we did not find an email application on your device</string>
 	<string name="share_wetongji">I am using @WeTongji . Go to the official website. http://we.tongji.edu.cn</string>
+	
+	<!-- Friend -->
+	<string name="button_friend">Friend</string>
+	<string name="button_unfriend">UnFriend</string>
+		
+	<!-- Toast message -->
+	<string name="toast_like_success">Operation Success</string>
+	<string name="toast_like_failed">Operation failed</string>
 </resources>

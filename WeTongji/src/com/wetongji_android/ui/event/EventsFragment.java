@@ -37,6 +37,7 @@ import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.exception.ExceptionToast;
@@ -235,7 +236,7 @@ OnScrollListener{
 			Bundle bundle = new Bundle();
 			bundle.putParcelable(BUNDLE_KEY_ACTIVITY, activity);
 			intent.putExtras(bundle);
-			startActivity(intent);
+			startActivityForResult(intent, 1);
 			getActivity().overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}
 		
@@ -301,6 +302,24 @@ OnScrollListener{
 	public void onScrollStateChanged(AbsListView arg0, int arg1) {
 	}
 	
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		int id = data.getIntExtra(WTBaseDetailActivity.KEY_OBJECT_ID, 0);
+		int like = data.getIntExtra(WTBaseDetailActivity.KEY_LIKE_NUMBER, 0);
+		boolean canLike = data.getBooleanExtra(WTBaseDetailActivity.KEY_CAN_LIKE, true);
+		
+		for (int i = 0; i < mAdapter.getCount(); i++) {
+			Activity activity = (Activity) mAdapter.getItem(i);
+			if (activity.getId() == id) {
+				activity.setLike(like);
+				activity.setCanLike(canLike);
+				mAdapter.setObjectAtPosition(i, activity);
+			}
+		}
+	}
+
 	@Override
 	public void onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu,
 			com.actionbarsherlock.view.MenuInflater inflater) {

@@ -278,13 +278,13 @@ public class ApiHelper {
 		return bundle;
 	}
 	
-	public Bundle setActivityScheduled(boolean scheduled, int id)
+	public Bundle setActivityScheduled(boolean scheduled, String id)
 	{
 		Bundle bundle=new Bundle();
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
 		
-		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		bundle.putString(API_ARGS_ID, id);
 		String method = scheduled ? "Activity.UnSchedule" : "Activity.Schedule";
 		bundle.putString(API_ARGS_METHOD, method);
 		return bundle;
@@ -565,13 +565,13 @@ public class ApiHelper {
 		return bundle;
 	}
 	
-	public Bundle setCourseScheduled(boolean scheduled, int id)
+	public Bundle setCourseScheduled(boolean scheduled, String id)
 	{
 		Bundle bundle=new Bundle();
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
 		
-		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		bundle.putString(API_ARGS_ID, id);
 		String method = scheduled ? "Course.UnSchedule" : "Course.Schedule";
 		bundle.putString(API_ARGS_METHOD, method);
 		return bundle;
@@ -600,13 +600,13 @@ public class ApiHelper {
 		return bundle;
 	}
 	
-	public Bundle setObjectLikedWithModelType(boolean like, int id, String modelType){
+	public Bundle setObjectLikedWithModelType(boolean like, String id, String modelType){
 		Bundle bundle = new Bundle();
 		
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
 		
-		bundle.putString(API_ARGS_ID, String.valueOf(id));
+		bundle.putString(API_ARGS_ID, id);
 		if(like){
 			bundle.putString(API_ARGS_METHOD, "Like.Add");
 		}else{

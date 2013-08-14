@@ -46,7 +46,7 @@ public class ActivityFactory extends BaseFactory<Activity, Integer>{
 			return new ArrayList<Activity>();
 		}
 	}
-
+	
 	public int getNextPage() {
 		return nextPage;
 	}

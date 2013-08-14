@@ -157,4 +157,9 @@ public class EventListAdapter extends EndlessListAdapter<Activity> implements Lo
 		mFragment.getLoaderManager().initLoader(WTApplication.ACTIVITIES_LOADER, bundle, this);
 		setIsLoadingData(true);
 	}
+	
+	public void setObjectAtPosition(int position, Activity activity) {
+		getData().set(position, activity);
+		notifyDataSetChanged();
+	}
 }

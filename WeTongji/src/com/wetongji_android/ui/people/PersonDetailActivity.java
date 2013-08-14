@@ -28,20 +28,20 @@ import com.wetongji_android.factory.PersonFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
-public class PersonDetailActivity extends SherlockFragmentActivity
-		implements LoaderCallbacks<HttpRequestResult>
-{
+public class PersonDetailActivity extends SherlockFragmentActivity implements
+		LoaderCallbacks<HttpRequestResult> {
 
 	private Person mPerson;
 	private boolean mIsCurrent;
-	
+
 	private CheckBox mCbLike;
 	private boolean isRestCheckBox = false;
 	private TextView mTvLikeNum;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,33 +52,29 @@ public class PersonDetailActivity extends SherlockFragmentActivity
 	private void setUpUI() {
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_person_detail);
-		
+
 		setBackButton();
-		
+
 		setLikeCheckbox();
-		
+
 		setImages();
-		
-		setTextViews();	
+
+		setTextViews();
 	}
 
-	private void setLikeCheckbox(){
+	private void setLikeCheckbox() {
 		mCbLike = (CheckBox) findViewById(R.id.cb_like);
 		mTvLikeNum = (TextView) findViewById(R.id.tv_like_number);
-		
+
 		mCbLike.setChecked(!mPerson.isCanLike());
 		mTvLikeNum.setText(String.valueOf(mPerson.getLike()));
-		
-		mCbLike.setOnCheckedChangeListener(new OnCheckedChangeListener() 
-		{
+
+		mCbLike.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) 
-			{
-				if (WTApplication.getInstance().hasAccount)
-				{
-					if (isRestCheckBox) 
-					{
+					boolean isChecked) {
+				if (WTApplication.getInstance().hasAccount) {
+					if (isRestCheckBox) {
 						return;
 					}
 
@@ -86,54 +82,59 @@ public class PersonDetailActivity extends SherlockFragmentActivity
 					mTvLikeNum.setText(String.valueOf(mPerson.getLike() + delat));
 
 					likePerson(isChecked);
-				} else 
-				{
+				} else {
 					mCbLike.setChecked(false);
-					Toast.makeText(PersonDetailActivity.this,
-							getResources().getString(R.string.need_account_login), Toast.LENGTH_SHORT).show();
+					Toast.makeText(
+							PersonDetailActivity.this,
+							getResources().getString(
+									R.string.need_account_login),
+							Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
 	}
-	
+
 	private void recieveData() {
 		Intent intent = getIntent();
-		mPerson = intent.getParcelableExtra(PeopleListFragment.BUNDLE_KEY_PERSON);
-		mIsCurrent = intent.getBooleanExtra(PeopleListFragment.BUNDLE_KEY_IS_CURRENT, false);
+		mPerson = intent
+				.getParcelableExtra(PeopleListFragment.BUNDLE_KEY_PERSON);
+		mIsCurrent = intent.getBooleanExtra(
+				PeopleListFragment.BUNDLE_KEY_IS_CURRENT, false);
 	}
-	
+
 	private void setTextViews() {
 		TextView tvPersonName = (TextView) findViewById(R.id.tv_person_name);
 		TextView tvPersonVol = (TextView) findViewById(R.id.tv_person_detail_vol);
 		TextView tvPersonWords = (TextView) findViewById(R.id.tv_person_words);
 		TextView tvPersonTitle = (TextView) findViewById(R.id.text_person_detail_title_name);
 		TextView tvPersonContent = (TextView) findViewById(R.id.tv_person_detail_content);
-		
+
 		tvPersonName.setText(mPerson.getName());
 		if (mIsCurrent) {
-			tvPersonVol.setTextColor(getResources().getColor(R.color.tv_people_current_vol));
+			tvPersonVol.setTextColor(getResources().getColor(
+					R.color.tv_people_current_vol));
 		} else {
-			tvPersonVol.setText(String.format(getString(R.string.people_vol), mPerson.getNO()));
+			tvPersonVol.setText(String.format(getString(R.string.people_vol),
+					mPerson.getNO()));
 		}
 		tvPersonWords.setText(mPerson.getWords());
 		tvPersonTitle.setText(mPerson.getJobTitle());
 		tvPersonContent.setText(mPerson.getDescription());
 	}
-	
+
 	private void setImages() {
 		ViewPager vpPics = (ViewPager) findViewById(R.id.vp_person_images);
-		PersonDetailPicPagerAdapter adapter = 
-				new PersonDetailPicPagerAdapter(mPerson.getImages(), this);
+		PersonDetailPicPagerAdapter adapter = new PersonDetailPicPagerAdapter(
+				mPerson.getImages(), this);
 		vpPics.setAdapter(adapter);
-		UnderlinePageIndicator indicator = 
-				(UnderlinePageIndicator) findViewById(R.id.vp_indicator_person);
+		UnderlinePageIndicator indicator = (UnderlinePageIndicator) findViewById(R.id.vp_indicator_person);
 		indicator.setViewPager(vpPics);
 		indicator.setFades(false);
-		
+
 		AQuery aq = WTApplication.getInstance().getAq(this);
-		aq.id(R.id.img_people_detail_avatar).image(mPerson.getAvatar(),true, true,
-    			300, R.drawable.event_list_thumbnail_place_holder,
-    			null, AQuery.FADE_IN_NETWORK, 1.0f);
+		aq.id(R.id.img_people_detail_avatar).image(mPerson.getAvatar(), true,
+				true, 300, R.drawable.event_list_thumbnail_place_holder, null,
+				AQuery.FADE_IN_NETWORK, 1.0f);
 	}
 
 	private void setBackButton() {
@@ -151,11 +152,12 @@ public class PersonDetailActivity extends SherlockFragmentActivity
 		btnShare.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				showShareDialog("Tongji University Every Week Person--" + mPerson.getTitle());
+				showShareDialog("Tongji University Every Week Person--"
+						+ mPerson.getTitle());
 			}
 		});
 	}
-	
+
 	private void showShareDialog(String content) {
 		String sourceDesc = getResources().getString(R.string.share_from_we);
 		String share = getResources().getString(R.string.test_share);
@@ -166,44 +168,57 @@ public class PersonDetailActivity extends SherlockFragmentActivity
 		intent.setType("image/*");
 		startActivity(Intent.createChooser(intent, share));
 	}
-	
-	private void likePerson(boolean isLike){
+
+	private void likePerson(boolean isLike) {
 		ApiHelper apiHelper = ApiHelper.getInstance(this);
-		getSupportLoaderManager().restartLoader(WTApplication.PERSON_LIKE_LOADER, 
-				apiHelper.setObjectLikedWithModelType(isLike, mPerson.getId(), "Person"), this);
+		getSupportLoaderManager().restartLoader(
+				WTApplication.PERSON_LIKE_LOADER,
+				apiHelper.setObjectLikedWithModelType(isLike,
+						String.valueOf(mPerson.getId()), "Person"), this);
 	}
-	
-	private void updatePersonInDB(){
+
+	private void updatePersonInDB() {
 		PersonFactory personFactory = new PersonFactory(null);
 		List<Person> people = new ArrayList<Person>();
 		Person person = mPerson;
 		person.setLike(mPerson.getLike() + (mCbLike.isChecked() ? 1 : -1));
 		person.setCanLike(!mCbLike.isChecked());
 		people.add(person);
-		personFactory.saveObjects(PersonDetailActivity.this, people);
+		personFactory.saveObjects(PersonDetailActivity.this, people, false);
 	}
-	
+
 	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
 		return new NetworkLoader(this, HttpMethod.Get, arg1);
 	}
 
-
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
 			HttpRequestResult result) {
-		if(result.getResponseCode() == 0){
+		if (result.getResponseCode() == 0) {
 			updatePersonInDB();
-			if(mCbLike.isChecked()){
+			if (mCbLike.isChecked()) {
 				Toast.makeText(this, "Like Success", Toast.LENGTH_SHORT).show();
-			}else{
-				Toast.makeText(this, "DisLike Success", Toast.LENGTH_SHORT).show();
+			} else {
+				Toast.makeText(this, "DisLike Success", Toast.LENGTH_SHORT)
+						.show();
 			}
 		}
 	}
 
 	@Override
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
-		
+
+	}
+
+	@Override
+	public void finish() {
+		Intent intent = getIntent();
+		intent.putExtra(WTBaseDetailActivity.KEY_CAN_LIKE, !mCbLike.isChecked());
+		intent.putExtra(WTBaseDetailActivity.KEY_OBJECT_ID, mPerson.getId());
+		intent.putExtra(WTBaseDetailActivity.KEY_LIKE_NUMBER,
+				Integer.valueOf(mTvLikeNum.getText().toString()));
+		this.setResult(RESULT_OK, intent);
+		super.finish();
 	}
 }
