@@ -1,68 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LinearLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/layout_people_row"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:background="@color/layout_event_list_row1"
     android:gravity="center_horizontal"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
 
-    <include 
-        layout="@layout/information_list_header"/>
-    
-    <ImageView
-        android:id="@id/img_people_avatar"
-        style="@style/EventLstThumbnails"
-        android:layout_width="66.6dip"
-        android:layout_height="66.6dip"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="16.7dp"
-        android:background="@drawable/bg_people_avatar_cover"
-        tools:ignore="ContentDescription" />
+    <include layout="@layout/information_list_header" />
 
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="0dip"
-        android:layout_marginRight="5.0dp"
-        android:layout_marginTop="14.7dp"
-        android:layout_weight="1"
-        android:background="@android:color/transparent"
-        android:orientation="vertical"
-        android:padding="1.5dip" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp" >
 
-        <TextView
-            android:id="@id/tv_people_name"
-            style="@style/PeopleName"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@id/img_people_avatar"
+            style="@style/EventLstThumbnails"
+            android:layout_width="66.6dip"
+            android:layout_height="66.6dip"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="16.7dp"
+            android:background="@drawable/bg_people_avatar_cover"
+            tools:ignore="ContentDescription" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="3dp"
-            tools:ignore="SelectableText" />
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="0dip"
+            android:layout_marginRight="5.0dp"
+            android:layout_marginTop="14.7dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:orientation="vertical"
+            android:padding="1.5dip" >
 
-        <TextView
-            android:id="@id/tv_people_vol_num"
-            style="@style/EventLstLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="2.0dp"
-            tools:ignore="SelectableText" />
+            <TextView
+                android:id="@id/tv_people_name"
+                style="@style/PeopleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="3dp"
+                tools:ignore="SelectableText" />
 
-        <TextView
-            android:id="@id/tv_people_words"
-            style="@style/PeopleWords"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_people_name"
-            android:layout_marginTop="8dp"
-            tools:ignore="SelectableText" />
+            <TextView
+                android:id="@id/tv_people_vol_num"
+                style="@style/EventLstLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="2.0dp"
+                tools:ignore="SelectableText" />
 
-    </RelativeLayout>
-
+            <TextView
+                android:id="@id/tv_people_words"
+                style="@style/PeopleWords"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_people_name"
+                android:layout_marginTop="8dp"
+                tools:ignore="SelectableText" />
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
