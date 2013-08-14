@@ -147,7 +147,7 @@ public class InformationDetailActivity extends WTBaseDetailActivity
 		ApiHelper apiHelper = ApiHelper
 				.getInstance(InformationDetailActivity.this);
 		getSupportLoaderManager().restartLoader(WTApplication.LIKE_LOADER, 
-				apiHelper.setObjectLikedWithModelType(isLike, mInfo.getId(), "Information"), this);
+				apiHelper.setObjectLikedWithModelType(isLike, String.valueOf(mInfo.getId()), "Information"), this);
 	}
 
 	private void updateInfoInDB() 
@@ -158,7 +158,7 @@ public class InformationDetailActivity extends WTBaseDetailActivity
 		info.setLike(info.getLike() + (mCbLike.isChecked() ? 1 : -1));
 		info.setCanLike(!mCbLike.isChecked());
 		infos.add(info);
-		infoFactory.saveObjects(InformationDetailActivity.this, infos);
+		infoFactory.saveObjects(InformationDetailActivity.this, infos, false);
 	}
 	
 	private class OnPicClickListener implements OnClickListener
@@ -209,5 +209,10 @@ public class InformationDetailActivity extends WTBaseDetailActivity
 
 	@Override
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
+	}
+
+	@Override
+	protected void updateObjectInDB() {
+		
 	}
 }

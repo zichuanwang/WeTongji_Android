@@ -68,22 +68,8 @@ public class CourseDetailActivity extends WTBaseDetailActivity{
 	}
 
 	@Override
-	protected void setiChildId(int iChildId) {
-		super.setiChildId(iChildId);
-	}
-
-	@Override
-	protected void setType(String type) {
-		super.setType(type);
-	}
-
-	@Override
-	protected void setbSchedule(boolean bSchedule) {
-		super.setbSchedule(bSchedule);
-	}
-
-	@Override
-	protected void setShareContent(String shareContent) {
-		super.setShareContent(shareContent);
+	protected void updateObjectInDB() {
+		// TODO Auto-generated method stub
+		
 	}
 }

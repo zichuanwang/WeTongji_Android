@@ -20,60 +20,54 @@ import com.wetongji_android.data.User;
 
 import android.util.Pair;
 
-public class SearchUtil 
-{
+public class SearchUtil {
 	@SuppressWarnings("unchecked")
-	public static List<Pair<String, List<SearchResult>>> generateSearchResults(String jsonStr)
-	{
+	public static List<Pair<String, List<SearchResult>>> generateSearchResults(
+			String jsonStr) {
 		List<Pair<String, List<SearchResult>>> re = new ArrayList<Pair<String, List<SearchResult>>>();
-		
-		try 
-		{
+
+		try {
 			JSONObject json = new JSONObject(jsonStr);
-			Iterator<String> keyIterator = (Iterator<String>)json.keys();
-			while(keyIterator.hasNext())
-			{
+			Iterator<String> keyIterator = (Iterator<String>) json.keys();
+			while (keyIterator.hasNext()) {
 				String key = keyIterator.next();
 				JSONArray array = json.getJSONArray(key);
 				re.add(generateResultPair(key, array));
 			}
-		} catch (JSONException e) 
-		{
-			// TODO Auto-generated catch block
+		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
+
 		return re;
 	}
-	
-	private static Pair<String, List<SearchResult>> generateResultPair(String key, JSONArray array) throws JSONException
-	{
-		return new Pair<String, List<SearchResult>>(key, generateListResult(key, array));
+
+	private static Pair<String, List<SearchResult>> generateResultPair(
+			String key, JSONArray array) throws JSONException {
+		return new Pair<String, List<SearchResult>>(key, generateListResult(
+				key, array));
 	}
-	
-	private static List<SearchResult> generateListResult(String key, JSONArray array) throws JSONException
-	{
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+
+	private static List<SearchResult> generateListResult(String key,
+			JSONArray array) throws JSONException {
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+				.create();
 		List<SearchResult> results = new ArrayList<SearchResult>();
-		
-		if(key.equals("Information"))
-		{
-			for(int i = 0; i < array.length(); i++)
-			{
+
+		if (key.equals("Information")) {
+			for (int i = 0; i < array.length(); i++) {
 				SearchResult result = new SearchResult();
 				result.setType(1);
 				JSONObject json = array.getJSONObject(i);
 				result.setAvatar(json.getString("OrganizerAvatar"));
 				result.setTitle(json.getString("Title"));
 				result.setDesc(json.getString("Summary"));
-				Information info = gson.fromJson(json.toString(), Information.class);
+				Information info = gson.fromJson(json.toString(),
+						Information.class);
 				result.setContent(info);
 				results.add(result);
 			}
-		}else if(key.equals("Accounts"))
-		{
-			for(int i = 0; i < array.length(); i++)
-			{
+		} else if (key.equals("Accounts")) {
+			for (int i = 0; i < array.length(); i++) {
 				SearchResult result = new SearchResult();
 				result.setType(2);
 				JSONObject json = array.getJSONObject(i);
@@ -84,10 +78,8 @@ public class SearchUtil
 				result.setContent(account);
 				results.add(result);
 			}
-		}else if(key.equals("Users"))
-		{
-			for(int i = 0; i < array.length(); i++)
-			{
+		} else if (key.equals("Users")) {
+			for (int i = 0; i < array.length(); i++) {
 				SearchResult result = new SearchResult();
 				result.setType(3);
 				JSONObject json = array.getJSONObject(i);
@@ -98,10 +90,8 @@ public class SearchUtil
 				result.setContent(user);
 				results.add(result);
 			}
-		}else if(key.equals("Courses"))
-		{
-			for(int i = 0; i < array.length(); i++)
-			{
+		} else if (key.equals("Courses")) {
+			for (int i = 0; i < array.length(); i++) {
 				SearchResult result = new SearchResult();
 				result.setType(4);
 				JSONObject json = array.getJSONObject(i);
@@ -112,37 +102,31 @@ public class SearchUtil
 				result.setContent(course);
 				results.add(result);
 			}
-		}else if(key.equals("Activities"))
-		{
-			for(int i = 0; i < array.length(); i++)
-			{
+		} else if (key.equals("Activities")) {
+			for (int i = 0; i < array.length(); i++) {
 				SearchResult result = new SearchResult();
 				result.setType(5);
 				JSONObject json = array.getJSONObject(i);
 				result.setAvatar(json.getString("OrganizerAvatar"));
 				result.setTitle(json.getString("Title"));
 				result.setDesc(json.getString("Description"));
-				Activity activity = gson.fromJson(json.toString(), Activity.class);
+				Activity activity = gson.fromJson(json.toString(),
+						Activity.class);
 				result.setContent(activity);
 				results.add(result);
 			}
-		}else
-		{
+		} else if (key.equals("Person")) {
 			// Stars
-			for(int i = 0; i < array.length(); i++)
-			{
+			for (int i = 0; i < array.length(); i++) {
 				SearchResult result = new SearchResult();
 				result.setType(6);
 				JSONObject json = array.getJSONObject(i);
-				result.setAvatar(json.getString("Avatar"));
-				result.setTitle(json.getString("Title"));
-				result.setDesc(json.getString("Words"));
 				Person person = gson.fromJson(json.toString(), Person.class);
 				result.setContent(person);
 				results.add(result);
 			}
 		}
-		
+
 		return results;
 	}
 }

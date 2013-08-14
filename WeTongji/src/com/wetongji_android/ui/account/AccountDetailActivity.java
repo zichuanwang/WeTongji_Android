@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,10 +28,10 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		recieveData();
 		setContentView(R.layout.activity_account_detail);
 		
 		mAq = WTApplication.getInstance().getAq(this);
-		recieveData();
 		setUpUI();
 	}
 	
@@ -41,8 +40,6 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 		TextView tvClubNewsNum = (TextView) findViewById(R.id.text_club_news_num);
 		TextView tvClubAbout = (TextView) findViewById(R.id.text_account_detail_about);
 		TextView tvAccountName = (TextView) findViewById(R.id.text_profile_words);
-		TextView tvAccountLikeCount = (TextView) findViewById(R.id.tv_like_number);
-		Button tvAccountContact = (Button) findViewById(R.id.btn_profile_action);
 		// set the gender text invisible
 		((TextView) findViewById(R.id.text_profile_gender)).setVisibility(View.GONE);
 		tvAccountActivityNum.setText(String.format(getString(R.string.format_items),
@@ -50,8 +47,7 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 		tvClubNewsNum.setText(String.format(getString(R.string.format_items),
 				mAccount.getInformationCount()));
 		tvClubAbout.setText(mAccount.getDescription());
-		tvAccountName.setText(mAccount.getName());
-		tvAccountLikeCount.setText(String.valueOf(mAccount.getLike()));
+		tvAccountName.setText(mAccount.getDisplay());
 		mAq.id(R.id.img_profile_avatar).image(mAccount.getImage(), true, true, 
 				0, 0);
 		mAq.image(mAccount.getBackground(), true, true, 0, 0, new BitmapAjaxCallback() {
@@ -60,12 +56,15 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 				setHeadBluredBg(bm);
 			}
 		});
-		tvAccountContact.setText(R.string.account_contact);
 	}
 
 	private void recieveData() {
 		Intent intent = getIntent();
 		mAccount = intent.getParcelableExtra(BUNDLE_KEY_ACCOUNT);
+		setiChildId(mAccount.getId());
+		setCanLike(mAccount.isCanLike());
+		setLike(mAccount.getLike());
+		setModelType("Account");
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -75,6 +74,11 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 		Bitmap bm = Bitmap.createBitmap(resource, 0, (100 - tH / 2), 200, tH);
 		Bitmap bg = ImageUtil.fastblur(bm, 10);
 		rl.setBackgroundDrawable(new BitmapDrawable(getResources(), bg));
+	}
+
+	@Override
+	protected void updateObjectInDB() {
+		// Here we need not store data in DB
 	}
 	
 }

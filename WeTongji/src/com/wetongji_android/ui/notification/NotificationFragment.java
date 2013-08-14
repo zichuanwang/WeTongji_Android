@@ -88,7 +88,7 @@ public class NotificationFragment extends Fragment implements
 			ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
 			Bundle bundle = apiHelper.getNotifications(false);
 			//showProgressDialog();
-			getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
+			getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_3, bundle, this);
 		}
 	}
 	
@@ -121,7 +121,7 @@ public class NotificationFragment extends Fragment implements
 			mAdapter.acceptNotification(mAcceptPos);
 		} else if (loader.getId() == WTApplication.NETWORK_LOADER_IGNORE_FRIEDN) {
 			mAdapter.remove(mIgnorePos);
-		} else {
+		} else if (loader.getId() == WTApplication.NETWORK_LOADER_3){
 			if(result.getResponseCode() == 0) {
 				if(mFactory == null)
 					mFactory = new NotificationFactory();

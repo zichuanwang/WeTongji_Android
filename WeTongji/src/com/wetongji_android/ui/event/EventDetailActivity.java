@@ -7,50 +7,33 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.Loader;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.factory.ActivityFactory;
-import com.wetongji_android.net.NetworkLoader;
-import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTFullScreenActivity;
 import com.wetongji_android.util.date.DateParser;
-import com.wetongji_android.util.net.ApiHelper;
-import com.wetongji_android.util.net.HttpRequestResult;
 
-public class EventDetailActivity extends WTBaseDetailActivity implements
-		LoaderCallbacks<HttpRequestResult>
-{
+public class EventDetailActivity extends WTBaseDetailActivity {
 
 	private Activity mEvent;
-
-	private CheckBox mCbLike;
-	private boolean isRestCheckBox = false;
-	private TextView mTvLikeNum;
-
 	private AQuery mAq;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		recieveActivity();
 
 		setContentView(R.layout.activity_event_detail);
 		
-		recieveActivity();
 		setUpUI();
 		showBottomActionBar();
 	}
@@ -64,8 +47,6 @@ public class EventDetailActivity extends WTBaseDetailActivity implements
 	{
 		setPicture();
 		
-		setLikeCheckbox();
-
 		setTextViews();
 	}
 
@@ -73,9 +54,11 @@ public class EventDetailActivity extends WTBaseDetailActivity implements
 		Intent intent = this.getIntent();
 		mEvent = intent.getParcelableExtra(EventsFragment.BUNDLE_KEY_ACTIVITY);
 		setiChildId(mEvent.getId());
-		setType("Activity");
+		setModelType("Activity");
 		setbSchedule(mEvent.isCanSchedule());
 		setShareContent(mEvent.getTitle());
+		setLike(mEvent.getLike());
+		setCanLike(mEvent.isCanLike());
 	}
 
 	private void setPicture() {
@@ -123,32 +106,6 @@ public class EventDetailActivity extends WTBaseDetailActivity implements
 				mEvent.getEnd()));
 		tvEventFriends.setText("3");
 	}
-	
-	private void setLikeCheckbox() {
-		mCbLike = (CheckBox) findViewById(R.id.cb_like);
-		mTvLikeNum = (TextView) findViewById(R.id.tv_like_number);
-		mCbLike.setChecked(!mEvent.isCanLike());
-		mTvLikeNum.setText(String.valueOf(mEvent.getLike()));
-
-		mCbLike.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton button,
-					boolean isChecked) {
-				if (WTApplication.getInstance().hasAccount) {
-					if (isRestCheckBox) {
-						return;
-					}
-					likeEvent(isChecked);
-					int delta = isChecked ? 1 : -1;
-					mTvLikeNum.setText(String.valueOf(mEvent.getLike() + delta));
-				} else {
-					mCbLike.setChecked(false);
-					Toast.makeText(EventDetailActivity.this,
-							getResources().getString(R.string.need_account_login), Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
-	}
 
 	@Override
 	protected void setiChildId(int iChildId) 
@@ -167,23 +124,6 @@ public class EventDetailActivity extends WTBaseDetailActivity implements
 		super.setbSchedule(bSchedule);
 	}
 
-	private void likeEvent(boolean isLike) {
-		ApiHelper apiHelper = ApiHelper.getInstance(EventDetailActivity.this);
-		getSupportLoaderManager().restartLoader(WTApplication.LIKE_LOADER, 
-				apiHelper.setObjectLikedWithModelType(isLike, mEvent.getId(), "Activity"), this);
-	}
-
-	private void updateEventInDB() {
-		ActivityFactory factory = new ActivityFactory(null);
-		ArrayList<Activity> lstTask = new ArrayList<Activity>();
-		Activity newActivity = mEvent;
-		newActivity.setLike(newActivity.getLike()
-				+ (mCbLike.isChecked() ? 1 : -1));
-		newActivity.setCanLike(!mCbLike.isChecked());
-		lstTask.add(newActivity);
-		factory.saveObjects(this, lstTask);
-	}
-	
 	private class OnPicClickListener implements OnClickListener
 	{
 		@Override
@@ -213,25 +153,12 @@ public class EventDetailActivity extends WTBaseDetailActivity implements
 	}
 
 	@Override
-	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
-		return new NetworkLoader(this, HttpMethod.Get, arg1);
-	}
-
-	@Override
-	public void onLoadFinished(Loader<HttpRequestResult> arg0,
-			HttpRequestResult result) {
-		if(result.getResponseCode() == 0){
-			updateEventInDB();
-			if(mCbLike.isChecked()){
-				Toast.makeText(this, "Like Success", Toast.LENGTH_SHORT).show();
-			}else{
-				Toast.makeText(this, "DisLike Success", Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	@Override
-	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
-		
+	protected void updateObjectInDB() {
+		ArrayList<Activity> data = new ArrayList<Activity>(1);
+		mEvent.setLike(getLike());
+		mEvent.setCanLike(!isCanLike());
+		data.add(mEvent);
+		ActivityFactory factory = new ActivityFactory(null);
+		factory.saveObjects(this, data, false);
 	}
 }

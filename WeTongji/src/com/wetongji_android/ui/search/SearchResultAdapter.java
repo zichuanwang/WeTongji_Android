@@ -130,7 +130,19 @@ public class SearchResultAdapter extends AmazingAdapter {
 		TextView tvSectionHeader = (TextView) view
 				.findViewById(R.id.information_list_header);
 		String header = mData.get(getSectionForPosition(position)).first;
-		tvSectionHeader.setText(header);
+		if (header.equals("Accounts")) {
+			tvSectionHeader.setText(R.string.type_org);
+		} else if (header.equals("Users")){
+			tvSectionHeader.setText(R.string.type_users);
+		} else if (header.equals("Information")) {
+			tvSectionHeader.setText(R.string.type_information);
+		} else if (header.equals("Courses")) {
+			tvSectionHeader.setText(R.string.type_courses);
+		} else if (header.equals("Person")) {
+			tvSectionHeader.setText(R.string.type_stars);
+		} else {
+			tvSectionHeader.setText(R.string.type_activities);
+		}
 	}
 
 	@Override
@@ -196,7 +208,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 				setEventWidgets(holder, result);
 				break;
 			case 6:
-				convertView = mInflater.inflate(R.layout.row_people,
+				convertView = mInflater.inflate(R.layout.row_people_search,
 						parent, false);
 				holder.tvPeopleName = (TextView) convertView
 						.findViewById(R.id.tv_people_name);
@@ -288,7 +300,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 	
 	private void setAccountWidgets(ViewHolder holder, SearchResult result) {
 		Account account = (Account) result.getContent();
-		holder.tvAccountName.setText(account.getName());
+		holder.tvAccountName.setText(account.getDisplay());
 		holder.tvAccountDesc.setText(account.getDescription());
 		String strUrl = account.getImage();
 		mListAq.id(holder.ivAccountThumb).image(strUrl, true, true,

@@ -26,6 +26,7 @@ import com.wetongji_android.factory.PersonFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
@@ -229,12 +230,27 @@ OnScrollListener{
 			bundle.putParcelable(BUNDLE_KEY_PERSON, person);
 			bundle.putBoolean(BUNDLE_KEY_IS_CURRENT, (position == 0));
 			intent.putExtras(bundle);
-			startActivity(intent);
+			startActivityForResult(intent, 1);
 			getActivity().overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}
 		
 	};
 	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		int id = data.getIntExtra(WTBaseDetailActivity.KEY_OBJECT_ID, 0);
+	    int like = data.getIntExtra(WTBaseDetailActivity.KEY_LIKE_NUMBER, 0);
+	    boolean canLike = data.getBooleanExtra(WTBaseDetailActivity.KEY_CAN_LIKE, true);
+	    for (int i = 0; i < mAdapter.getCount(); i++) {
+	        Person person = (Person) mAdapter.getItem(i);
+	        if (person.getId() == id) {
+	        	person.setLike(like);
+	        	person.setCanLike(canLike);
+	            mAdapter.setObjectAtPosition(i, person);
+	        }
+	    }
+	}
 	public void refreshData() {
 		isRefresh = true;
 		

@@ -46,9 +46,9 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 		}
 	}
 	
-	public void saveObjects(FragmentActivity activity, List<T> data) {
+	public void saveObjects(FragmentActivity activity, List<T> data, boolean refresh) {
 		Bundle args=new Bundle();
-		args.putBoolean(ARG_NEED_TO_REFRESH, true);
+		args.putBoolean(ARG_NEED_TO_REFRESH, refresh);
 		list = data;
 		if (fragment == null) 
 		{

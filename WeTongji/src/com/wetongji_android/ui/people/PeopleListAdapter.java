@@ -156,4 +156,9 @@ public class PeopleListAdapter extends EndlessListAdapter<Person> implements Loa
 		mFragment.getLoaderManager().initLoader(WTApplication.PERSON_LOADER, null, this);
 		setIsLoadingData(true);
 	}
+	
+	public void setObjectAtPosition(int position, Person person) {
+		getData().set(position, person);
+		notifyDataSetChanged();
+	}
 }
