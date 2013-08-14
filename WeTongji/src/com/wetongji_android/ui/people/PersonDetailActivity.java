@@ -172,7 +172,7 @@ public class PersonDetailActivity extends SherlockFragmentActivity implements
 	private void likePerson(boolean isLike) {
 		ApiHelper apiHelper = ApiHelper.getInstance(this);
 		getSupportLoaderManager().restartLoader(
-				WTApplication.LIKE_LOADER,
+				WTApplication.NETWORK_LOADER_LIKE,
 				apiHelper.setObjectLikedWithModelType(isLike,
 						String.valueOf(mPerson.getId()), "Person"), this);
 	}
