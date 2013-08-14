@@ -1,4 +1,4 @@
-package com.wetongji_android.util.common;
+package com.wetongji_android.ui.setting;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
-import com.wetongji_android.ui.setting.WTTermsOfUseActivity;
 
 public class WTAboutActivity extends SherlockFragmentActivity implements OnClickListener{
 

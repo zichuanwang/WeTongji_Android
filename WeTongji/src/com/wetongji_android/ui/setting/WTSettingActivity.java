@@ -13,7 +13,6 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
 import com.wetongji_android.ui.auth.AuthActivity;
-import com.wetongji_android.util.common.WTAboutActivity;
 import com.wetongji_android.util.common.WTApplication;
 
 public class WTSettingActivity extends SherlockFragmentActivity {
