@@ -146,7 +146,7 @@ public class InformationDetailActivity extends WTBaseDetailActivity
 	{
 		ApiHelper apiHelper = ApiHelper
 				.getInstance(InformationDetailActivity.this);
-		getSupportLoaderManager().restartLoader(WTApplication.INFORMATION_LIKE_LOADER, 
+		getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_LIKE, 
 				apiHelper.setObjectLikedWithModelType(isLike, String.valueOf(mInfo.getId()), "Information"), this);
 	}
 
@@ -213,7 +213,6 @@ public class InformationDetailActivity extends WTBaseDetailActivity
 
 	@Override
 	protected void updateObjectInDB() {
-		// TODO Auto-generated method stub
 		
 	}
 }

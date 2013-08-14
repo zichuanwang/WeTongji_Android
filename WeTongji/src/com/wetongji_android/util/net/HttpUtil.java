@@ -8,6 +8,7 @@ import java.net.URLEncoder;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -165,5 +166,19 @@ public class HttpUtil
 		}else{
 			return ids.substring(0, ids.length() - 1);
 		}
+	}
+	
+	public static int getFriendsCountWithResponse(String response){
+		int result = 0;
+		
+		try {
+			JSONObject json = new JSONObject(response);
+			JSONArray users = json.getJSONArray("Users");
+			result = users.length();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }

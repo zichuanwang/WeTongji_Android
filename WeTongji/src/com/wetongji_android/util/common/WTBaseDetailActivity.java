@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,12 +48,12 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	private TextView mTextView;
 	private CheckBox mCbLike;
 	private TextView mTvLikeNumber;
+	private TextView mTvInvite;
+	private ImageView mIvSchedule;
 	
-	
-	private String iChildId;
+	private int iChildId;
 	private boolean bSchedule;
 	private String shareContent;
-	private String type;
 	private boolean canLike;
 	private int like;
 	private String modelType;
@@ -62,7 +63,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	{
 		super.onCreate(savedInstanceState);
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		iChildId = "";
+		iChildId = 0;
 		bSchedule = false;
 	}
 	
@@ -129,21 +130,38 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	}
 	
 	//Set up the bottom action bar event handling
+	@SuppressWarnings("deprecation")
 	private void setBottomActionBar()
 	{
+		//Set the invite tab
 		mLayoutInvite = (LinearLayout)findViewById(R.id.btn_event_detail_invite);
-		mLayoutInvite.setOnClickListener(new BottomABClickListener());
+		mTvInvite = (TextView)findViewById(R.id.tv_event_detail_friends_invite);
+		if(bSchedule){
+			mLayoutInvite.setBackgroundColor(getResources().getColor(R.color.bg_now_tab));
+			mLayoutInvite.setClickable(false);
+			mTvInvite.setTextColor(getResources().getColor(R.color.tv_friend_can_not_invite));
+		}else{
+			mLayoutInvite.setOnClickListener(new BottomABClickListener());
+		}
+		
+		//Set the friends tab
 		mLayoutFriends = (LinearLayout)findViewById(R.id.btn_event_detail_friends);
 		mLayoutFriends.setOnClickListener(new BottomABClickListener());
+		
+		//Set the schedule tab
 		mLayoutAttend = (LinearLayout)findViewById(R.id.btn_event_detail_attend);
 		mLayoutAttend.setOnClickListener(new BottomABClickListener());
 		mTextView = (TextView)findViewById(R.id.activity_detail_bottom_text);
-		if(type.equals("CourseDetailActivity"))
+		if(modelType.equals("Course"))
 		{
 			mTextView.setText("AUDIT");
-		}else
-		{
-			mTextView.setText("ATTEND");
+		}else if(modelType.equals("Activity") && bSchedule){
+			mTextView.setText("ATTENDED");
+			mTextView.setTextColor(getResources().getColor(R.color.tv_event_detail_location));
+		}
+		mIvSchedule = (ImageView)findViewById(R.id.tv_event_detail_schedule);
+		if(!bSchedule){
+			mIvSchedule.setBackgroundDrawable(getResources().getDrawable(R.drawable.img_event_detail_attended));
 		}
 	}
 	
@@ -158,6 +176,11 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		setBottomActionBar();
 	}
 	
+	//Update the bottom action bar when the schedule is clicked
+	private void updateBottomActionBar(){
+		
+	}
+	
 	private void showShareDialog(String content) 
 	{
 		String sourceDesc = getResources().getString(R.string.share_from_we);
@@ -170,14 +193,9 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		startActivity(Intent.createChooser(intent, share));
 	}
 	
-	protected void setiChildId(String iChildId) 
+	protected void setiChildId(int iChildId) 
 	{
 		this.iChildId = iChildId;
-	}
-
-	protected void setType(String type) 
-	{
-		this.type = type;
 	}
 
 	protected void setbSchedule(boolean bSchedule) {
@@ -212,8 +230,6 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		this.modelType = modelType;
 	}
 
-
-
 	class BottomABClickListener implements OnClickListener
 	{
 		@Override
@@ -225,7 +241,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 				{
 					Intent intent = new Intent(WTBaseDetailActivity.this, FriendInviteActivity.class);
 					intent.putExtra(CHILD_ID, iChildId);
-					intent.putExtra(CHILD_TYPE, type);
+					intent.putExtra(CHILD_TYPE, modelType);
 					startActivity(intent);
 				}else
 				{
@@ -238,7 +254,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 				{
 					Intent intent = new Intent(WTBaseDetailActivity.this, FriendListActivity.class);
 					Bundle bundle = new Bundle();
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, type);
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, modelType);
 					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, String.valueOf(iChildId));
 					intent.putExtras(bundle);
 					startActivity(intent);
@@ -252,7 +268,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 				if(WTApplication.getInstance().hasAccount)
 				{
 					ApiHelper apiHelper = ApiHelper.getInstance(WTBaseDetailActivity.this);
-					if(type.equals("EventDetailActivity")){
+					if(modelType.equals("Activity")){
 						getSupportLoaderManager().restartLoader(WTApplication.SCHEDUL_LOADER, 
 								apiHelper.setActivityScheduled(bSchedule, String.valueOf(iChildId)), new LoadCallback());
 					}else{
@@ -278,7 +294,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		public void onLoadFinished(Loader<HttpRequestResult> arg0,
 				HttpRequestResult result) {
 			if(result.getResponseCode() == 0){
-				
+				updateBottomActionBar();
 			}
 		}
 
@@ -308,7 +324,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 			}
 		});
 	}
-	
+
 	@Override
 	public void finish() {
 		Intent intent = getIntent();

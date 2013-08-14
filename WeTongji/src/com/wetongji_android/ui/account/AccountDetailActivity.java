@@ -61,7 +61,7 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 	private void recieveData() {
 		Intent intent = getIntent();
 		mAccount = intent.getParcelableExtra(BUNDLE_KEY_ACCOUNT);
-		setiChildId(String.valueOf(mAccount.getId()));
+		setiChildId(mAccount.getId());
 		setCanLike(mAccount.isCanLike());
 		setLike(mAccount.getLike());
 		setModelType("Account");

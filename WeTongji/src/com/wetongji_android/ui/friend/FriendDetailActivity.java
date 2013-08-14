@@ -47,8 +47,6 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	
 	private boolean bIsFriend;
 	
-	private boolean isRestCheckBox = false;
-	
 	@Override
 	protected void onCreate(Bundle arg0) 
 	{
@@ -72,7 +70,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		Intent intent = getIntent();
 		mUser = intent.getExtras().getParcelable(FriendListFragment.BUNDLE_KEY_USER);
 		setShareContent("My friend--" + mUser.getName());
-		setiChildId(mUser.getUID());
+		setiChildId(Integer.valueOf(mUser.getUID()));
 		setModelType("User");
 		setCanLike(mUser.isCanLike());
 		setLike(mUser.getLike());
@@ -218,7 +216,6 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	
 	@Override
 	protected void updateObjectInDB() {
-		// TODO Auto-generated method stub
 		
 	}
 }

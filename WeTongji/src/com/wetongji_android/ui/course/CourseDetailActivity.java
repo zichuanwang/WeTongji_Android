@@ -2,22 +2,28 @@ package com.wetongji_android.ui.course;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.CheckBox;
+import android.support.v4.app.LoaderManager.LoaderCallbacks;
+import android.support.v4.content.Loader;
 import android.widget.TextView;
 
 import com.wetongji_android.R;
 import com.wetongji_android.data.Course;
+import com.wetongji_android.net.NetworkLoader;
+import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.date.DateParser;
+import com.wetongji_android.util.net.ApiHelper;
+import com.wetongji_android.util.net.HttpRequestResult;
+import com.wetongji_android.util.net.HttpUtil;
 
-public class CourseDetailActivity extends WTBaseDetailActivity{
+public class CourseDetailActivity extends WTBaseDetailActivity
+		implements LoaderCallbacks<HttpRequestResult> {
 
 	public static final String BUNDLE_COURSE = "BUNDLE_COURSE";
 	private Course mCourse;
 	
-	private CheckBox mCbLike;
-	private boolean isRestCheckBox = false;
-	private TextView mTvLikeNum;
+	private TextView mFriendNumber;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +39,16 @@ public class CourseDetailActivity extends WTBaseDetailActivity{
 	private void recieveData() {
 		Intent intent = this.getIntent();
 		mCourse = (Course)(intent.getExtras().getParcelable(BUNDLE_COURSE));
-		setiChildId(String.valueOf(mCourse.getId()));
-		setType("Course");
+		setiChildId(Integer.valueOf(mCourse.getNO()));
+		setModelType("Course");
 		setShareContent(mCourse.getTitle());
+		
+		//Get friends number with the same course
+		if(WTApplication.getInstance().hasAccount){
+			ApiHelper apiHelper = ApiHelper.getInstance(this);
+			getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_FRIENDS, 
+					apiHelper.getFriendsWithSameCourse(mCourse.getNO()), this);
+		}
 	}
 	
 	private void setUpUI() {
@@ -47,6 +60,7 @@ public class CourseDetailActivity extends WTBaseDetailActivity{
 		TextView tvCredit = (TextView) findViewById(R.id.text_course_credit_value);
 		TextView tvHours = (TextView) findViewById(R.id.text_course_hours_value);
 		TextView tvType = (TextView) findViewById(R.id.text_course_type_name);
+		mFriendNumber = (TextView)findViewById(R.id.tv_event_detail_friends);
 		
 		tvTitle.setText(mCourse.getTitle());
 		
@@ -65,11 +79,29 @@ public class CourseDetailActivity extends WTBaseDetailActivity{
 		tvCredit.setText(String.valueOf(mCourse.getPoint()));
 		tvHours.setText(String.valueOf(mCourse.getHours()));
 		tvType.setText(mCourse.isRequired());
+		mFriendNumber.setText("0");
 	}
 
 	@Override
 	protected void updateObjectInDB() {
-		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
+		return new NetworkLoader(this, HttpMethod.Get, arg1);
+	}
+
+	@Override
+	public void onLoadFinished(Loader<HttpRequestResult> arg0,
+			HttpRequestResult result) {
+		if(result.getResponseCode() == 0){
+			mFriendNumber.setText(String.valueOf(HttpUtil.getFriendsCountWithResponse(result.getStrResponseCon())));
+		}
+	}
+
+	@Override
+	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 		
 	}
 }

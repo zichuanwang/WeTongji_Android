@@ -21,6 +21,7 @@
                 android:layout_marginTop="13dp"
                 android:layout_marginLeft="15dp"
                 style="@style/CourseDetailTitle"
+                android:textIsSelectable="true"
                 />
             
             <TextView 
@@ -30,6 +31,7 @@
                 android:layout_marginTop="9dp"
                 android:layout_marginLeft="15dp"
                 style="@style/CourseDetailTime"
+                android:textIsSelectable="true"
                 />
             
             <TextView 
@@ -42,6 +44,7 @@
                 android:drawablePadding="6dp"
                 android:drawableRight="@drawable/event_detail_arrow"
                 style="@style/EventDetailLocation"
+                android:textIsSelectable="true"
                 />
         </LinearLayout>
     </LinearLayout>
@@ -74,7 +77,6 @@
             android:background="@color/profile_divider" />
 
         <!-- Teacher -->
-
         <RelativeLayout
             android:id="@id/ll_profile_events_like"
             android:layout_width="match_parent"
@@ -116,7 +118,6 @@
             android:background="@color/profile_divider_thin" />
         
         <!-- Course No.-->
-
         <RelativeLayout
             android:id="@id/ll_profile_events_like"
             android:layout_width="match_parent"
@@ -157,7 +158,6 @@
             android:background="@color/profile_divider_thin" />
         
         <!-- Credit-->
-
         <RelativeLayout
             android:id="@id/ll_profile_events_like"
             android:layout_width="match_parent"

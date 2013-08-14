@@ -178,6 +178,7 @@
                 android:gravity="center" >
 
                 <TextView
+                    android:id="@id/tv_event_detail_friends_invite"
                     style="@style/EventDetailBottomActionbarText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -274,6 +275,7 @@
                 android:clickable="true" >
 
                 <ImageView
+                    android:id="@id/tv_event_detail_schedule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
