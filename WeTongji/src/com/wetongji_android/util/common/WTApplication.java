@@ -49,15 +49,12 @@ public class WTApplication extends Application
 	public static final int INFORMATION_SAVER = 14;
 	public static final int PERSON_SAVER = 15;
 	public static final int INFORMATION_LOADER = 16;
-	public static final int INFORMATION_LIKE_LOADER = 17;
+	public static final int LIKE_LOADER = 17;
 	public static final int EVENT_LOADER = 18;
-	public static final int EVENT_Like_LOADER = 19;
-	public static final int SCHEDUL_LOADER = 20;
+	public static final int SCHEDUL_LOADER = 19;
 	public static final int USER_SAVER = 20;
 	public static final int USER_LOADER = 21;
-	public static final int USER_LIKE_LOADER = 31;
 	public static final int PERSON_LOADER = 22;
-	public static final int PERSON_LIKE_LOADER = 30;
 	
 	public static final int NETWORK_LOADER_SEARCH = 23;
 	public static final int SEARCH_SAVER = 24;
@@ -72,7 +69,7 @@ public class WTApplication extends Application
 	public static final String FLURRY_API_KEY = "GN5KJMW6XWCSD5DTCWRW";
 	public static final String MISSING_IMAGE_URL = "http://we.tongji.edu.cn/images/original/missing.png";
 
-	// singleton
+	//singleton
 	private static WTApplication application = null;
 
 	private DbHelper dbHelper;

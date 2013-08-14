@@ -169,7 +169,7 @@ public class EventDetailActivity extends WTBaseDetailActivity implements
 
 	private void likeEvent(boolean isLike) {
 		ApiHelper apiHelper = ApiHelper.getInstance(EventDetailActivity.this);
-		getSupportLoaderManager().restartLoader(WTApplication.EVENT_Like_LOADER, 
+		getSupportLoaderManager().restartLoader(WTApplication.LIKE_LOADER, 
 				apiHelper.setObjectLikedWithModelType(isLike, mEvent.getId(), "Activity"), this);
 	}
 

@@ -165,7 +165,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	
 	private void likeUser(boolean bLike){
 		ApiHelper apiHelper = ApiHelper.getInstance(this);
-		getSupportLoaderManager().restartLoader(WTApplication.USER_LIKE_LOADER, 
+		getSupportLoaderManager().restartLoader(WTApplication.LIKE_LOADER, 
 				apiHelper.setObjectLikedWithModelType(bLike, Integer.valueOf(mUser.getUID()), "User"), new LoadCallback());
 	}
 	

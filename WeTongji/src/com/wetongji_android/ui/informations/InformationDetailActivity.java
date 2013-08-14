@@ -146,7 +146,7 @@ public class InformationDetailActivity extends WTBaseDetailActivity
 	{
 		ApiHelper apiHelper = ApiHelper
 				.getInstance(InformationDetailActivity.this);
-		getSupportLoaderManager().restartLoader(WTApplication.INFORMATION_LIKE_LOADER, 
+		getSupportLoaderManager().restartLoader(WTApplication.LIKE_LOADER, 
 				apiHelper.setObjectLikedWithModelType(isLike, mInfo.getId(), "Information"), this);
 	}
 
