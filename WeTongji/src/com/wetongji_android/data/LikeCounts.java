@@ -10,8 +10,8 @@ public class LikeCounts implements Serializable{
 	private static final long serialVersionUID = -7702648493522927089L;
 	private int Account;
 	private int Information;
-	private int Story;
 	private int User;
+	private int Course;
 	private int Activity;
 	private int Person;
 	public int getAccount() {
@@ -25,12 +25,6 @@ public class LikeCounts implements Serializable{
 	}
 	public void setInformation(int information) {
 		Information = information;
-	}
-	public int getStory() {
-		return Story;
-	}
-	public void setStory(int story) {
-		Story = story;
 	}
 	public int getUser() {
 		return User;
@@ -49,5 +43,11 @@ public class LikeCounts implements Serializable{
 	}
 	public void setPerson(int person) {
 		Person = person;
+	}
+	public int getCourse() {
+		return Course;
+	}
+	public void setCourse(int course) {
+		Course = course;
 	}
 }
