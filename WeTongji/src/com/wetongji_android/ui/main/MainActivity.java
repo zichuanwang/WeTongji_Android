@@ -1,7 +1,12 @@
 package com.wetongji_android.ui.main;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -117,19 +122,13 @@ public class MainActivity extends UpdateBaseActivity {
         {  
             case PHOTO_PICKED_WITH_DATA: 
             {    
-                final Bitmap bm = data.getParcelableExtra("data");
-                saveBitmap(bm);
-                
-                ProfileFragment fragment = (ProfileFragment) mContent;
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("cropedImage", bm);
-                bundle.putString("imagePath", UPLOAD_AVATAR.getPath());
-                fragment.setAvatar(bundle);
+            	Uri selectedImage = data.getData();
+            	doCropPhoto(selectedImage, mUriTemp);
                 break;  
             }
             case CAMERA_WITH_DATA:
             {
-                doCropPhoto();
+                doCropPhoto(mUriTemp, mUriTemp);
                 break;
             }
             case  PHOTO_CROPED_WITH_DATA: {

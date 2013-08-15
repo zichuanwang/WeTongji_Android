@@ -262,8 +262,9 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 			if (result.getResponseCode() == 0 || result.getResponseCode() == 200) {
 				Toast.makeText(getActivity(), R.string.text_save_success,
 						Toast.LENGTH_SHORT).show();
-				return;
 			}
+			getLoaderManager().destroyLoader(WTApplication.UPLOAD_AVATAR_LOADER);
+			return;
 		}
 		if (result.getResponseCode() != 0) {
 				ExceptionToast.show(getActivity(), result.getResponseCode());
@@ -308,7 +309,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		mIvAvatar.setImageBitmap(bmAvatar);
 		setHeadBluredBg(bmAvatar);
 		
-		getLoaderManager().initLoader(WTApplication.UPLOAD_AVATAR_LOADER, bundle, this);
+		getLoaderManager().restartLoader(WTApplication.UPLOAD_AVATAR_LOADER, bundle, this);
 	}
 	
 	public Intent getSeeProfileIntent(Context context) {

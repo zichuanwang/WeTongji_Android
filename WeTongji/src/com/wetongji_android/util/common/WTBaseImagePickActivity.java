@@ -111,7 +111,7 @@ public class WTBaseImagePickActivity extends SlidingFragmentActivity {
 	protected void doPickPhotoFromGallery() {
 		try {
 			// Launch picker to choose photo for selected contact
-			final Intent intent = PickImageIntentWrapper.getPhotoPickIntent();
+			final Intent intent = PickImageIntentWrapper.getPhotoPickIntent(mUriTemp);
 			startActivityForResult(intent, PHOTO_PICKED_WITH_DATA);
 		} catch (ActivityNotFoundException e) {
 
@@ -131,8 +131,8 @@ public class WTBaseImagePickActivity extends SlidingFragmentActivity {
 		}
 	}
 
-	protected void doCropPhoto() {
-		Intent intent = PickImageIntentWrapper.getCropImageIntent(mUriTemp);
+	protected void doCropPhoto(Uri uri, Uri outUri) {
+		Intent intent = PickImageIntentWrapper.getCropImageIntent(uri, outUri);
 		if (intent != null) {
 			startActivityForResult(intent, PHOTO_CROPED_WITH_DATA);
 		} else {

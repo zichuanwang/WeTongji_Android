@@ -205,14 +205,16 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="no_results">No results.</string>
 	<!-- Setting Part -->
 	<string name="pref_clear_cache">Clear photo cache</string>
-	<string name="pref_clear_cache_summary">Total 56KB</string>
+	<string name="pref_clear_cache_summary">Total %dKB</string>
 	<string name="pref_change_pwd">Change password</string>
 	<string name="pref_about">About</string>
 	<string name="pref_about_we">About WeTongji</string>
 	<string name="pref_general">General</string>
-	<string name="pref_log_out">Lou out</string>
+	<string name="pref_log_out">Log out</string>
 	<string name="setting_label">Settings</string>
 	<string name="change_pwd_label">Change Password</string>
+	<string name="title_clearcache_progress_dialog">Please wait</string>
+	<string name="msg_clearcache_progress_dialog">clearing cache...</string>
 	<!-- About part -->
 	<string name="about_rate_we">Rate WeTongji!</string>
 	<string name="about_share">Share with friends</string>

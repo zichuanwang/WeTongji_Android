@@ -2,6 +2,7 @@ package com.wetongji_android.ui.auth;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -94,19 +95,12 @@ public class AuthActivity extends BaseAuthActivity implements OnClickListener, O
          {  
              case PHOTO_PICKED_WITH_DATA: 
              {    
-                 final Bitmap bm = data.getParcelableExtra("data");
-                 saveBitmap(bm);
-                 
-                 RegisterFragment fragment = (RegisterFragment) getSupportFragmentManager()
-					.findFragmentByTag(TAG_REGISTER_FRAGMENT);
-                 Bundle bundle = new Bundle();
-                 bundle.putParcelable("cropedImage", bm);
-                 bundle.putString("imagePath", UPLOAD_AVATAR.getPath());
-                 fragment.setAvatar(bundle);
-                 break;  
+				Uri selectedImage = data.getData();
+				doCropPhoto(selectedImage, mUriTemp);
+                break;  
              }
              case CAMERA_WITH_DATA: {
-                 doCropPhoto();
+                 doCropPhoto(mUriTemp, mUriTemp);
                  break;
              }
              case PHOTO_CROPED_WITH_DATA: {

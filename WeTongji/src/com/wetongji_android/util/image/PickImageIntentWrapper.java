@@ -7,14 +7,10 @@ import android.provider.MediaStore;
 
 public class PickImageIntentWrapper {
 
-	public static Intent getPhotoPickIntent() {
-		Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+	public static Intent getPhotoPickIntent(Uri uri) {
+		Intent intent = new Intent(Intent.ACTION_GET_CONTENT,
+				android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 		intent.setType("image/*");
-		intent.putExtra("crop", "true");
-		intent.putExtra("aspectX", 1);
-		intent.putExtra("aspectY", 1);
-		intent.putExtra("outputX", 200);
-		intent.putExtra("outputY", 200);
 		return intent;
 	}
 
@@ -25,7 +21,7 @@ public class PickImageIntentWrapper {
 		return intent;
 	}
 
-	public static Intent getCropImageIntent(Uri photoUri) {
+	public static Intent getCropImageIntent(Uri photoUri, Uri outUri) {
 		Intent intent = new Intent("com.android.camera.action.CROP");
 		//intent.setClassName("com.android.camera", "com.android.camera.CropImage");
 		intent.setDataAndType(photoUri, "image/*");
@@ -37,7 +33,7 @@ public class PickImageIntentWrapper {
 		intent.putExtra("outputX", 200);
 		intent.putExtra("outputY", 200);
 		intent.putExtra("return-data", false);
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri);
 		intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
 		return intent;
 
