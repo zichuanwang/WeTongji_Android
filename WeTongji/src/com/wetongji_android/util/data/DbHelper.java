@@ -63,5 +63,20 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 	public void close(){
 		super.close();
 	}
+	
+	public void clearCache() {
+		try {
+			TableUtils.clearTable(getConnectionSource(), Activity.class);
+			TableUtils.clearTable(getConnectionSource(), Course.class);
+			TableUtils.clearTable(getConnectionSource(), Exam.class);
+			TableUtils.clearTable(getConnectionSource(), Event.class);
+			TableUtils.clearTable(getConnectionSource(), Information.class);
+			TableUtils.clearTable(getConnectionSource(), Person.class);
+			TableUtils.clearTable(getConnectionSource(), SearchHistory.class);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 }

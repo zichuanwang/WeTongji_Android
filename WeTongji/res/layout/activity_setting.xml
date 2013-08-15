@@ -1,179 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg_app_base"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content"
+    android:scrollbars="none" >
 
-    <!-- General -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8.7dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/profile_section_bg"
-        android:orientation="vertical"
-        android:visibility="visible" >
+        android:background="@drawable/bg_app_base"
+        android:orientation="vertical" >
 
-        <TextView
-            style="@style/ProfileInfoHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="6.7dp"
-            android:layout_marginLeft="18.3dp"
-            android:layout_marginTop="13.3dp"
-            android:text="@string/pref_general" />
+        <!-- General -->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1.7dp"
-            android:layout_marginBottom="0dp"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:background="@color/profile_divider" />
-
-        <RelativeLayout
-            android:id="@id/ll_setting_change_pwd"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:background="@drawable/selectable_background_wttheme"
-            android:clickable="true"
-            android:paddingBottom="20dp" >
+            android:layout_marginBottom="8.7dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/profile_section_bg"
+            android:orientation="vertical"
+            android:visibility="visible" >
 
             <TextView
-                style="@style/ProfileFriendList"
+                style="@style/ProfileInfoHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/pref_change_pwd" />
-            
-        </RelativeLayout>
+                android:layout_marginBottom="6.7dp"
+                android:layout_marginLeft="18.3dp"
+                android:layout_marginTop="13.3dp"
+                android:text="@string/pref_general" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:background="@color/profile_divider_thin" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.7dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@color/profile_divider" />
 
-        <RelativeLayout
-            android:id="@id/ll_setting_clear_cache"
+            <RelativeLayout
+                android:id="@id/ll_setting_change_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@drawable/selectable_background_wttheme"
+                android:clickable="true"
+                android:paddingBottom="20dp" >
+
+                <TextView
+                    style="@style/ProfileFriendList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/pref_change_pwd" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@color/profile_divider_thin" />
+
+            <RelativeLayout
+                android:id="@id/ll_setting_clear_cache"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@drawable/selectable_background_wttheme"
+                android:clickable="true"
+                android:paddingBottom="12dp" >
+
+                <TextView
+                    android:id="@id/text_setting_clear_cache"
+                    style="@style/ProfileFriendList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/pref_clear_cache" />
+
+                <TextView
+                    android:id="@id/text_setting_cache"
+                    style="@style/ProfileFriendNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_setting_clear_cache"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="3dp"
+                    android:textIsSelectable="false" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="13.3dp"
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@color/profile_divider_thin" />
+        </LinearLayout>
+
+        <!-- About -->
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:background="@drawable/selectable_background_wttheme"
-            android:clickable="true"
-            android:paddingBottom="12dp" >
+            android:layout_marginBottom="8.7dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/profile_section_bg"
+            android:orientation="vertical"
+            android:visibility="visible" >
 
             <TextView
-                android:id="@id/text_setting_clear_cache"
-                style="@style/ProfileFriendList"
+                style="@style/ProfileInfoHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="15dp"
-                android:text="@string/pref_clear_cache" />
+                android:layout_marginBottom="6.7dp"
+                android:layout_marginLeft="18.3dp"
+                android:layout_marginTop="13.3dp"
+                android:text="@string/pref_about" />
 
-            <TextView
-                android:id="@id/text_setting_cache"
-                style="@style/ProfileFriendNum"
-                android:layout_width="wrap_content"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.7dp"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@color/profile_divider" />
+
+            <RelativeLayout
+                android:id="@id/ll_setting_about"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/text_setting_clear_cache"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="3dp"
-                android:text="@string/pref_clear_cache_summary"
-                android:textIsSelectable="false" />
-            
-        </RelativeLayout>
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@drawable/selectable_background_wttheme"
+                android:clickable="true"
+                android:paddingBottom="20dp" >
 
-        <View
+                <TextView
+                    style="@style/ProfileFriendList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/pref_about_we" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="13.3dp"
+                android:layout_marginLeft="11.3dp"
+                android:layout_marginRight="11.3dp"
+                android:background="@color/profile_divider_thin" />
+        </LinearLayout>
+
+        <Button
+            android:id="@id/btn_setting_log_out"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:layout_marginBottom="13.3dp"
-            android:background="@color/profile_divider_thin" />
-        
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/setting_button_bg"
+            android:text="@string/pref_log_out"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
-    <!-- About -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8.7dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/profile_section_bg"
-        android:orientation="vertical"
-        android:visibility="visible" >
-
-        <TextView
-            style="@style/ProfileInfoHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="6.7dp"
-            android:layout_marginLeft="18.3dp"
-            android:layout_marginTop="13.3dp"
-            android:text="@string/pref_about" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1.7dp"
-            android:layout_marginBottom="0dp"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:background="@color/profile_divider" />
-
-        <RelativeLayout
-            android:id="@id/ll_setting_about"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:background="@drawable/selectable_background_wttheme"
-            android:clickable="true"
-            android:paddingBottom="20dp" >
-
-            <TextView
-                style="@style/ProfileFriendList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="@string/pref_about_we" />
-            
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:background="@color/profile_divider_thin"
-            android:layout_marginBottom="13.3dp"/>
-        
-    </LinearLayout>
-
-    <Button 
-        android:id="@id/btn_setting_log_out"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/pref_log_out"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@color/setting_button_bg"
-        android:textColor="@android:color/white"/>
-    
-</LinearLayout>
+</ScrollView>
