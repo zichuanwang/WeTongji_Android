@@ -152,16 +152,20 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		mLayoutAttend = (LinearLayout)findViewById(R.id.btn_event_detail_attend);
 		mLayoutAttend.setOnClickListener(new BottomABClickListener());
 		mTextView = (TextView)findViewById(R.id.activity_detail_bottom_text);
-		if(modelType.equals("Course"))
+		if(modelType.equals("Course") && bSchedule)
 		{
 			mTextView.setText("AUDIT");
-		}else if(modelType.equals("Activity") && bSchedule){
+		}else if(modelType.equals("Activity") && !bSchedule){
 			mTextView.setText("ATTENDED");
 			mTextView.setTextColor(getResources().getColor(R.color.tv_event_detail_location));
+		}else if(modelType.equals("Course") && !bSchedule){
+			mTextView.setText("REGISTERED");
 		}
 		mIvSchedule = (ImageView)findViewById(R.id.tv_event_detail_schedule);
 		if(!bSchedule){
 			mIvSchedule.setBackgroundDrawable(getResources().getDrawable(R.drawable.img_event_detail_attended));
+		}else{
+			mIvSchedule.setBackgroundDrawable(getResources().getDrawable(R.drawable.img_event_detail_attend));
 		}
 	}
 	
@@ -177,8 +181,27 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	}
 	
 	//Update the bottom action bar when the schedule is clicked
+	@SuppressWarnings("deprecation")
 	private void updateBottomActionBar(){
-		
+		if(bSchedule){
+			if(modelType.equals("Course")){
+				mTextView.setText("REGISTERED");
+			}else{
+				mTextView.setText("ATTENDED");
+			}
+			mTextView.setTextColor(getResources().getColor(R.color.tv_event_detail_location));
+			mIvSchedule.setBackgroundDrawable(getResources().getDrawable(R.drawable.img_event_detail_attended));
+			mLayoutInvite.setBackgroundColor(getResources().getColor(R.color.bg_event_detail_bottom_actionbar));
+			mLayoutInvite.setClickable(true);
+			mTvInvite.setTextColor(getResources().getColor(android.R.color.white));
+		}else{
+			mTextView.setText("ATTEND");
+			mTextView.setTextColor(getResources().getColor(android.R.color.white));
+			mIvSchedule.setBackgroundDrawable(getResources().getDrawable(R.drawable.img_event_detail_attend));
+			mLayoutInvite.setBackgroundColor(getResources().getColor(R.color.bg_now_tab));
+			mLayoutInvite.setClickable(false);
+			mTvInvite.setTextColor(getResources().getColor(R.color.tv_friend_can_not_invite));
+		}
 	}
 	
 	private void showShareDialog(String content) 
