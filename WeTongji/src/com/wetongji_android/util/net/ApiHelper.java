@@ -285,7 +285,7 @@ public class ApiHelper {
 		putLoginArgs(bundle);
 		
 		bundle.putString(API_ARGS_ID, id);
-		String method = scheduled ? "Activity.UnSchedule" : "Activity.Schedule";
+		String method = scheduled ? "Activity.Schedule" : "Activity.UnSchedule";
 		bundle.putString(API_ARGS_METHOD, method);
 		return bundle;
 	}

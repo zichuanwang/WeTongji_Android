@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="178dp"
+    android:layout_width="match_parent"
     android:layout_height="178dp"
     android:background="@drawable/bg_today_grid">
     

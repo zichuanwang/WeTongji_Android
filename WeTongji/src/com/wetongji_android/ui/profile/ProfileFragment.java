@@ -66,6 +66,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	private TextView mTvNewsLikes;
 	private TextView mTvPeopleLikes;
 	private TextView mTvOrgsLikes;
+	private TextView mTvUserLikes;
 	private TextView mTvParActivities;
 	private TextView mTvParCourse;
 	
@@ -77,6 +78,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	private RelativeLayout rlLikeInfos;
 	private RelativeLayout rlLikePeople;
 	private RelativeLayout rlLikeOrganizations;
+	private RelativeLayout rlLikeUsers;
 	
 	private ImageView mIvAvatar;
 	private Button mBtnChangeAvatar;
@@ -155,6 +157,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		mTvNewsLikes = (TextView) v.findViewById(R.id.text_profile_news_num);
 		mTvPeopleLikes = (TextView) v.findViewById(R.id.text_profile_people_num);
 		mTvOrgsLikes = (TextView) v.findViewById(R.id.text_profile_orgs_num);
+		mTvUserLikes = (TextView)v.findViewById(R.id.text_profile_user_num);
 		mTvParActivities = (TextView) v
 				.findViewById(R.id.text_profile_par_activities_num);
 		mTvParCourse = (TextView) v.findViewById(R.id.text_profile_par_course_num);
@@ -185,6 +188,9 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		
 		rlLikeOrganizations = (RelativeLayout)v.findViewById(R.id.ll_profile_org_like);
 		rlLikeOrganizations.setOnClickListener(mClickListener);
+		
+		rlLikeUsers = (RelativeLayout)v.findViewById(R.id.ll_profile_user_like);
+		rlLikeUsers.setOnClickListener(mClickListener);
 	}
 	
 	private void setWidgets() {
@@ -205,6 +211,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		mTvNewsLikes.setText(String.format(format, mUser.getLikeCount().getInformation()));
 		mTvPeopleLikes.setText(String.format(format, mUser.getLikeCount().getPerson()));
 		mTvOrgsLikes.setText(String.format(format, mUser.getLikeCount().getAccount()));
+		mTvUserLikes.setText(String.format(format, mUser.getLikeCount().getUser()));
 		mTvParActivities.setText(String.format(format, mUser.getScheduleCount().getActivity()));
 		mTvParCourse.setText(String.format(format, mUser.getScheduleCount().getCourse()));
 		
@@ -408,6 +415,21 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
 					bundle.putBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, true);
 					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "Account");
+					intent.putExtras(bundle);
+					startActivity(intent);
+					mActivity.overridePendingTransition(R.anim.slide_right_in,
+							R.anim.slide_left_out);
+				}
+			}else if(v.getId() == R.id.ll_profile_user_like){
+				if(mUser.getLikeCount().getAccount() == 0){
+					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_accounts), 
+							Toast.LENGTH_SHORT).show();
+				}else{
+					Intent intent = new Intent(mActivity, WTLikeListActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+					bundle.putBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, true);
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "User");
 					intent.putExtras(bundle);
 					startActivity(intent);
 					mActivity.overridePendingTransition(R.anim.slide_right_in,

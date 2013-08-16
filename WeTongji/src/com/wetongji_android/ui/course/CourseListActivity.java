@@ -90,6 +90,4 @@ implements LoaderCallbacks<HttpRequestResult>, OnScrollListener{
 				WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 		
 	}
-
-	
 }
