@@ -2,12 +2,12 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_app_base"
     android:scrollbars="none" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_app_base"
         android:orientation="vertical" >
 
         <!-- General -->
@@ -40,32 +40,39 @@
                 android:layout_marginRight="11.3dp"
                 android:background="@color/profile_divider" />
 
-            <RelativeLayout
-                android:id="@id/ll_setting_change_pwd"
+            <LinearLayout
+                android:id="@id/ll_setting_change_pwd_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="11.3dp"
-                android:layout_marginRight="11.3dp"
-                android:background="@drawable/selectable_background_wttheme"
-                android:clickable="true"
-                android:paddingBottom="20dp" >
+                android:orientation="vertical" >
 
-                <TextView
-                    style="@style/ProfileFriendList"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@id/ll_setting_change_pwd"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginLeft="7dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/pref_change_pwd" />
-            </RelativeLayout>
+                    android:layout_marginLeft="11.3dp"
+                    android:layout_marginRight="11.3dp"
+                    android:background="@drawable/selectable_background_wttheme"
+                    android:clickable="true"
+                    android:paddingBottom="20dp" >
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="11.3dp"
-                android:layout_marginRight="11.3dp"
-                android:background="@color/profile_divider_thin" />
+                    <TextView
+                        style="@style/ProfileFriendList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/pref_change_pwd" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="11.3dp"
+                    android:layout_marginRight="11.3dp"
+                    android:background="@color/profile_divider_thin" />
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@id/ll_setting_clear_cache"

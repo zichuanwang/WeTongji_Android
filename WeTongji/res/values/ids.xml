@@ -276,4 +276,5 @@
     <item name="btn_on_confirm" type="id">false</item>
     <item name="text_about_version" type="id"/>
     <item name="text_about_terms" type="id"/>
+    <item name="ll_setting_change_pwd_area" type="id" />
 </resources>

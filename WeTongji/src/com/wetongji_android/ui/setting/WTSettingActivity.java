@@ -4,12 +4,12 @@ import java.io.File;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,6 +25,7 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 	private RelativeLayout rlChangePwd;
 	private RelativeLayout rlClearCache;
 	private RelativeLayout rlAboutWe;
+	private LinearLayout llChangePwdArea;
 	private Button btnLogOut;
 	private TextView tvCacheAmount;
 
@@ -47,7 +48,14 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 		rlAboutWe.setOnClickListener(clickListener);
 		btnLogOut = (Button) findViewById(R.id.btn_setting_log_out);
 		btnLogOut.setOnClickListener(clickListener);
+		llChangePwdArea = (LinearLayout) findViewById(R.id.ll_setting_change_pwd_area);
 
+		// check if the use is logined
+		if (!WTApplication.getInstance().hasAccount) {
+			llChangePwdArea.setVisibility(View.GONE);
+			btnLogOut.setVisibility(View.GONE);
+		}
+		
 		// set cache amount
 		tvCacheAmount = (TextView) findViewById(R.id.text_setting_cache);
 		File cacheDir = getExternalFilesDir("imgCache");
@@ -80,6 +88,7 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 				if (accounts.length != 0) {
 					am.removeAccount(accounts[0], null, null);
 				}
+				WTApplication.getInstance().hasAccount = false;
 				Intent intent = new Intent();
 				intent.setClass(WTSettingActivity.this, AuthActivity.class);
 				startActivity(intent);
