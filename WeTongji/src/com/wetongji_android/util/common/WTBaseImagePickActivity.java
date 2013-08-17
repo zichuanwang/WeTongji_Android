@@ -47,7 +47,7 @@ public class WTBaseImagePickActivity extends SlidingFragmentActivity {
 	public void doPickPhotoAction() {
 
 		final Context dialogContext = new ContextThemeWrapper(this,
-				R.style.Theme_Sherlock_Light_Dialog);
+				R.style.Theme_Sherlock_Light);
 
 		String[] choices;
 		choices = new String[2];

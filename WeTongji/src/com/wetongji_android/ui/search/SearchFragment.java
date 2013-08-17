@@ -9,19 +9,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Pair;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -33,7 +28,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
-import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
+import com.actionbarsherlock.widget.SearchView;
+import com.actionbarsherlock.widget.SearchView.OnQueryTextListener;
 import com.foound.widget.AmazingListView;
 import com.j256.ormlite.table.TableUtils;
 import com.wetongji_android.R;
@@ -67,7 +63,7 @@ import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 public class SearchFragment extends SherlockFragment implements
-		LoaderCallbacks<HttpRequestResult> {
+		LoaderCallbacks<HttpRequestResult>, OnQueryTextListener {
 
 	private SearchHistoryAdapter mAdapter;
 	private SearchTipsAdapter mTipAdapter;
@@ -76,14 +72,14 @@ public class SearchFragment extends SherlockFragment implements
 	private ListView mLvSearchTips;
 	private AmazingListView mLvSearchResult;
 	private ClearHistoryTask mClearTask;
-	private EditText mEtSearch;
 	private TextView mTvHistoryTitle;
 	private ProgressBar mProgressBar;
 	private TextView mTvNoResult;
+	private SearchView mSearchView;
 
 	public static SearchFragment newInstance() {
 		SearchFragment f = new SearchFragment();
-		
+
 		return f;
 	}
 
@@ -100,7 +96,8 @@ public class SearchFragment extends SherlockFragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
-		getSherlockActivity().getSupportActionBar().setTitle(R.string.title_mainmenu_search);
+		getSherlockActivity().getSupportActionBar().setTitle(
+				R.string.title_mainmenu_search);
 
 	}
 
@@ -117,12 +114,12 @@ public class SearchFragment extends SherlockFragment implements
 		mLvSearchHistory = (ListView) view
 				.findViewById(R.id.lst_search_history);
 		mLvSearchTips = (ListView) view.findViewById(R.id.lst_search_tips);
-		mLvSearchResult = (AmazingListView) view.findViewById(R.id.lst_search_result);
+		mLvSearchResult = (AmazingListView) view
+				.findViewById(R.id.lst_search_result);
 		mResultAdapter = new SearchResultAdapter(this);
 		mLvSearchResult.setAdapter(mResultAdapter);
-		mLvSearchResult.setPinnedHeaderView(
-				inflater.inflate(R.layout.information_list_header,
-				mLvSearchResult, false));
+		mLvSearchResult.setPinnedHeaderView(inflater.inflate(
+				R.layout.information_list_header, mLvSearchResult, false));
 		mLvSearchResult.setOnItemClickListener(mOnResultClickListener);
 		mAdapter = new SearchHistoryAdapter(this);
 		mLvSearchHistory.setAdapter(mAdapter);
@@ -135,49 +132,33 @@ public class SearchFragment extends SherlockFragment implements
 					startClearTask();
 				} else {
 					showProgress();
-					SearchHistory search = (SearchHistory) arg0.getItemAtPosition(position);
+					SearchHistory search = (SearchHistory) arg0
+							.getItemAtPosition(position);
 					doSearch(search.getType(), search.getKeywords());
 				}
 			}
 		});
-		
+
 		mLvSearchTips.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long id) {
 				int type = 0;
-				
-				switch (position) {
-				case 1:
-					type = 1;
-					break;
-				case 2:
-					type = 2;
-					break;
-				case 3:
-					type = 3;
-					break;
-				case 4:
-					type = 4;
-					break;
-				case 5:
-					type = 5;
-					break;
-				case 6:
-					type = 6;
-					break;
-				}
+				type = position;
+
 				doSearch(type, mTipAdapter.getmKeywords());
 			}
 		});
 
 		mTipAdapter = new SearchTipsAdapter(this);
 		mLvSearchTips.setAdapter(mTipAdapter);
-		
-		/*InputMethodManager imm = (InputMethodManager) getActivity()
-				.getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,
-				InputMethodManager.HIDE_NOT_ALWAYS);*/
+
+		/*
+		 * InputMethodManager imm = (InputMethodManager) getActivity()
+		 * .getSystemService(Context.INPUT_METHOD_SERVICE);
+		 * imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,
+		 * InputMethodManager.HIDE_NOT_ALWAYS);
+		 */
 		return view;
 	}
 
@@ -196,89 +177,40 @@ public class SearchFragment extends SherlockFragment implements
 
 		final ActionBar ab = getSherlockActivity().getSupportActionBar();
 		ab.setDisplayShowCustomEnabled(true);
-		
+
 		inflater.inflate(R.menu.menu_search, menu);
-		mEtSearch = (EditText) menu.findItem(R.id.menu_search_edit)
-				.getActionView();
 		menu.getItem(0).expandActionView();
 		ab.setIcon(R.drawable.ic_home);
-		menu.getItem(0).setOnMenuItemClickListener(new OnMenuItemClickListener() {
-			@Override
-			public boolean onMenuItemClick(MenuItem item) {
-				mEtSearch.forceLayout();
-				return true;
-			}
-		});
-		
+
 		menu.getItem(0).setOnActionExpandListener(new OnActionExpandListener() {
 			@Override
 			public boolean onMenuItemActionExpand(MenuItem item) {
-				ab.setIcon(R.drawable.ic_home);
 				return true;
 			}
 
 			@Override
 			public boolean onMenuItemActionCollapse(MenuItem item) {
-				return true;
+				InputMethodManager imm = (InputMethodManager) getActivity()
+						.getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(
+						item.getActionView().getWindowToken(), 0);
+				
+				((MainActivity) getActivity()).getSlidingMenu().toggle(true);
+				return false;
 			}
 		});
 
-		mEtSearch.setText(null);
-		mEtSearch
-				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-					@Override
-					public boolean onEditorAction(TextView arg0, int actionId,
-							KeyEvent arg2) {
-						if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-							String content = mEtSearch.getText().toString();
-							if (!TextUtils.isEmpty(content)) {
-								doSearch(0, content);
-							}
-							return true;
-						}
-						return false;
-					}
-				});
-
-		mEtSearch.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void afterTextChanged(Editable arg0) {
-			}
-
-			@Override
-			public void beforeTextChanged(CharSequence arg0, int arg1,
-					int arg2, int arg3) {
-			}
-
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				if (mEtSearch.getText().length() == 0 &&
-						mLvSearchHistory.getVisibility() == View.GONE) {
-					showHistory();
-				}
-				if (mEtSearch.getText().length() > 0 && 
-						mLvSearchTips.getVisibility() == View.GONE) {
-					showTips();
-				}
-				if (mTipAdapter != null) {
-					mTipAdapter.setKeywords(mEtSearch.getText().toString());
-				}
-
-			}
-		});
-
+		mSearchView = (SearchView) menu.findItem(R.id.menu_search_edit)
+				.getActionView();
+		mSearchView.setOnQueryTextListener(this);
 	}
-	
+
 	private void doSearch(int type, String content) {
 		showProgress();
-		ApiHelper apiHelper = ApiHelper
-				.getInstance(getActivity());
-		Bundle b = apiHelper
-				.getSearchResult(type, content);
-		getLoaderManager().restartLoader(
-				WTApplication.NETWORK_LOADER_SEARCH, b,
-				SearchFragment.this);
+		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		Bundle b = apiHelper.getSearchResult(type, content);
+		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_SEARCH,
+				b, SearchFragment.this);
 		saveSearchHistory(type, content);
 	}
 
@@ -310,7 +242,7 @@ public class SearchFragment extends SherlockFragment implements
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> loader,
 			HttpRequestResult result) {
-		
+
 		mResultAdapter.notifyMayHaveMorePages();
 		showResults();
 		if (loader.getId() == WTApplication.NETWORK_LOADER_SEARCH) {
@@ -326,9 +258,10 @@ public class SearchFragment extends SherlockFragment implements
 	@Override
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 	}
-	
+
 	private void processSearchResult(String jsonStr) {
-		List<Pair<String, List<SearchResult>>> result = SearchUtil.generateSearchResults(jsonStr);
+		List<Pair<String, List<SearchResult>>> result = SearchUtil
+				.generateSearchResults(jsonStr);
 		if (resultIsEmpty(result)) {
 			showNoResults();
 		} else {
@@ -337,7 +270,7 @@ public class SearchFragment extends SherlockFragment implements
 			showResults();
 		}
 	}
-	
+
 	private boolean resultIsEmpty(List<Pair<String, List<SearchResult>>> result) {
 		for (int i = 0; i < result.size(); i++) {
 			if (!result.get(i).second.isEmpty()) {
@@ -388,7 +321,7 @@ public class SearchFragment extends SherlockFragment implements
 		}
 
 	}
-	
+
 	private OnItemClickListener mOnResultClickListener = new OnItemClickListener() {
 
 		@Override
@@ -396,18 +329,20 @@ public class SearchFragment extends SherlockFragment implements
 				long id) {
 			Intent intent = new Intent();
 			Bundle b = new Bundle();
-			SearchResult item = (SearchResult)mResultAdapter.getItem(position);
-			
+			SearchResult item = (SearchResult) mResultAdapter.getItem(position);
+
 			switch (item.getType()) {
 			case 1:
 				Information info = (Information) item.getContent();
 				intent.setClass(getActivity(), InformationDetailActivity.class);
-				b.putParcelable(InformationsFragment.BUNDLE_KEY_INFORMATION, info);
+				b.putParcelable(InformationsFragment.BUNDLE_KEY_INFORMATION,
+						info);
 				break;
 			case 2:
 				Account account = (Account) item.getContent();
 				intent.setClass(getActivity(), AccountDetailActivity.class);
-				b.putParcelable(AccountDetailActivity.BUNDLE_KEY_ACCOUNT, account);
+				b.putParcelable(AccountDetailActivity.BUNDLE_KEY_ACCOUNT,
+						account);
 				break;
 			case 3:
 				User user = (User) item.getContent();
@@ -430,13 +365,13 @@ public class SearchFragment extends SherlockFragment implements
 				b.putParcelable(PeopleListFragment.BUNDLE_KEY_PERSON, person);
 				break;
 			}
-			
+
 			intent.putExtras(b);
 			startActivity(intent);
 		}
-		
+
 	};
-	
+
 	private void showHistory() {
 		mLvSearchHistory.setVisibility(View.VISIBLE);
 		mTvHistoryTitle.setVisibility(View.VISIBLE);
@@ -445,7 +380,7 @@ public class SearchFragment extends SherlockFragment implements
 		mLvSearchResult.setVisibility(View.GONE);
 		mTvNoResult.setVisibility(View.GONE);
 	}
-	
+
 	private void showProgress() {
 		mLvSearchHistory.setVisibility(View.GONE);
 		mTvHistoryTitle.setVisibility(View.GONE);
@@ -454,7 +389,7 @@ public class SearchFragment extends SherlockFragment implements
 		mLvSearchResult.setVisibility(View.GONE);
 		mTvNoResult.setVisibility(View.GONE);
 	}
-	
+
 	private void showTips() {
 		mLvSearchHistory.setVisibility(View.GONE);
 		mTvHistoryTitle.setVisibility(View.GONE);
@@ -463,7 +398,7 @@ public class SearchFragment extends SherlockFragment implements
 		mLvSearchResult.setVisibility(View.GONE);
 		mTvNoResult.setVisibility(View.GONE);
 	}
-	
+
 	private void showResults() {
 		mLvSearchHistory.setVisibility(View.GONE);
 		mTvHistoryTitle.setVisibility(View.GONE);
@@ -472,7 +407,7 @@ public class SearchFragment extends SherlockFragment implements
 		mLvSearchResult.setVisibility(View.VISIBLE);
 		mTvNoResult.setVisibility(View.GONE);
 	}
-	
+
 	private void showNoResults() {
 		mLvSearchHistory.setVisibility(View.GONE);
 		mTvHistoryTitle.setVisibility(View.GONE);
@@ -481,5 +416,28 @@ public class SearchFragment extends SherlockFragment implements
 		mLvSearchResult.setVisibility(View.GONE);
 		mTvNoResult.setVisibility(View.VISIBLE);
 	}
-	
+
+	@Override
+	public boolean onQueryTextSubmit(String query) {
+		if (!TextUtils.isEmpty(query)) {
+			doSearch(0, query);
+		}
+		return true;
+	}
+
+	@Override
+	public boolean onQueryTextChange(String newText) {
+		if (newText.length() == 0
+				&& mLvSearchHistory.getVisibility() == View.GONE) {
+			showHistory();
+		}
+		if (newText.length() > 0 && mLvSearchTips.getVisibility() == View.GONE) {
+			showTips();
+		}
+		if (mTipAdapter != null) {
+			mTipAdapter.setKeywords(newText);
+		}
+		return true;
+	}
+
 }

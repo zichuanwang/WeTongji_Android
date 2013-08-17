@@ -88,6 +88,8 @@ public class MainMenuFragment extends Fragment {
 		super.onResume();
 		mCurrentItemNu = 0;
 		mMenuListAdapter.notifyDataSetChanged();
+		switchFragment(TodayFragment.newInstance());
+		
 	}
 
 

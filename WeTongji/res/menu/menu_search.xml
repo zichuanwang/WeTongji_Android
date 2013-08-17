@@ -6,7 +6,7 @@
         android:id="@+id/menu_search_edit"
         android:title="@string/search"
         android:showAsAction="always|collapseActionView"
-        android:actionLayout="@layout/collapsible_search_edittext"/>
+        android:actionViewClass="com.actionbarsherlock.widget.SearchView"/>
         
     
     

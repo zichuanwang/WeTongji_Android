@@ -46,14 +46,6 @@ public class MainActivity extends UpdateBaseActivity {
 	}
 	
 	@Override
-	protected void onRestart() {
-		super.onRestart();
-		switchContent(TodayFragment.newInstance());
-	}
-
-
-
-	@Override
 	protected void onStart() {
 		super.onStart();
 		FlurryAgent.onStartSession(this, WTApplication.FLURRY_API_KEY);
