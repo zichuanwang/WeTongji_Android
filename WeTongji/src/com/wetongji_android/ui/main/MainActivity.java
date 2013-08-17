@@ -1,11 +1,7 @@
 package com.wetongji_android.ui.main;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

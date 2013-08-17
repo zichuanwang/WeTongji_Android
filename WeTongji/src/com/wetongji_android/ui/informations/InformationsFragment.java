@@ -29,6 +29,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -196,7 +197,7 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 			Bundle bundle = new Bundle();
 			bundle.putParcelable(BUNDLE_KEY_INFORMATION, information);
 			intent.putExtras(bundle);
-			startActivity(intent);
+			startActivityForResult(intent, 1);
 			mActivity.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}
 	};

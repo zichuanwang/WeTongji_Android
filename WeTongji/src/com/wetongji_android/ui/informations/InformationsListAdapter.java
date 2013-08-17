@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	@Override
 	public int getCount() 
 	{
-		// TODO Auto-generated method stub
 		int res = 0;
 		for(int i = 0; i < mListInfos.size(); i++)
 		{
@@ -64,7 +64,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	@Override
 	public Object getItem(int position) 
 	{
-		// TODO Auto-generated method stub
 		int res = 0;
 		
 		for(int i = 0; i < mListInfos.size(); i++)
@@ -83,14 +82,12 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	@Override
 	public long getItemId(int position) 
 	{
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	protected void onNextPageRequested(int page) 
 	{
-		// TODO Auto-generated method stub
 		if(page != this.nextPage)
 		{
 			this.notifyNoMorePages();
@@ -102,7 +99,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	protected void bindSectionHeader(View view, int position,
 			boolean displaySectionHeader) 
 	{	
-		// TODO Auto-generated method stub
 		if(displaySectionHeader)
 		{
 			view.findViewById(R.id.layout_information_header).setVisibility(View.VISIBLE);
@@ -124,7 +120,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	@Override
 	public View getAmazingView(int position, View convertView, ViewGroup parent) 
 	{
-		// TODO Auto-generated method stub
 		ViewHolder holder;
 	
 		if(convertView == null)
@@ -169,7 +164,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	@Override
 	public void configurePinnedHeader(View header, int position, int alpha) 
 	{
-		// TODO Auto-generated method stub
 		configureHeader(header, position);
 	}
 
@@ -188,7 +182,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	@Override
 	public int getPositionForSection(int section) 
 	{
-		// TODO Auto-generated method stub
 		if(section < 0) section = 0;
 		if(section >= mListInfos.size()) section = mListInfos.size() - 1;
 		
@@ -209,7 +202,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	@Override
 	public int getSectionForPosition(int position) 
 	{
-		// TODO Auto-generated method stub
 		int c = 0;
 		for(int i = 0; i < mListInfos.size(); i++)
 		{
@@ -245,7 +237,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	@Override
 	public void onLoadFinished(Loader<List<Information>> arg0, List<Information> list) 
 	{
-		// TODO Auto-generated method stub
 		if(list != null && list.size() != 0)
 		{
 			if(list.size() < 20)
@@ -262,7 +253,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	@Override
 	public void onLoaderReset(Loader<List<Information>> arg0) 
 	{
-		// TODO Auto-generated method stub
 		
 	}
 

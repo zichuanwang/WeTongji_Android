@@ -28,8 +28,7 @@ public class EventDetailActivity extends WTBaseDetailActivity {
 	private AQuery mAq;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) 
-	{
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		recieveActivity();
 
@@ -39,13 +38,7 @@ public class EventDetailActivity extends WTBaseDetailActivity {
 		showBottomActionBar();
 	}
 
-	@Override
-	protected void setShareContent(String shareContent) {
-		super.setShareContent(shareContent);
-	}
-
-	private void setUpUI() 
-	{
+	private void setUpUI() {
 		setPicture();
 		
 		setTextViews();
