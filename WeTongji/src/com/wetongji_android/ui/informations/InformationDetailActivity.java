@@ -28,9 +28,9 @@ public class InformationDetailActivity extends WTBaseDetailActivity {
 	{
 		super.onCreate(arg0);
 		
-		setContentView(R.layout.activity_information_detail);
-
 		receiveInformation();
+		
+		setContentView(R.layout.activity_information_detail);
 
 		initWidget();
 	}
@@ -112,10 +112,5 @@ public class InformationDetailActivity extends WTBaseDetailActivity {
 	@Override
 	protected void updateObjectInDB() {
 		
-	}
-
-	@Override
-	protected void setLike(int like) {
-		super.setLike(like);
 	}
 }
