@@ -213,6 +213,7 @@ OnScrollListener{
 		
 		menu.clear();
 		inflater.inflate(R.menu.menu_people, menu);
+		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
