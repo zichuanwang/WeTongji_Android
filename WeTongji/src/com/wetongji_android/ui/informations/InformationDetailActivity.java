@@ -74,7 +74,7 @@ public class InformationDetailActivity extends WTBaseDetailActivity {
 	{
 		Intent intent = getIntent();
 		mInfo = intent.getParcelableExtra(InformationsFragment.BUNDLE_KEY_INFORMATION);
-		setiChildId(mInfo.getId());
+		setiChildId(String.valueOf(mInfo.getId()));
 		setModelType("Information");
 		setShareContent(mInfo.getTitle());
 		setLike(mInfo.getLike());

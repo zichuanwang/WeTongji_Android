@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,6 +36,8 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 	}
 	
 	private void setUpUI() {
+		Button button = (Button)findViewById(R.id.btn_profile_action);
+		button.setText("Contact");
 		TextView tvAccountActivityNum = (TextView) findViewById(R.id.text_account_activity_num);
 		TextView tvClubNewsNum = (TextView) findViewById(R.id.text_club_news_num);
 		TextView tvClubAbout = (TextView) findViewById(R.id.text_account_detail_about);
@@ -46,11 +50,13 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 				mAccount.getInformationCount()));
 		tvClubAbout.setText(mAccount.getDescription());
 		tvAccountName.setText(mAccount.getDisplay());
-		mAq.id(R.id.img_profile_avatar).image(mAccount.getImage(), true, true, 
-				0, 0);
-		mAq.image(mAccount.getBackground(), true, true, 0, 0, new BitmapAjaxCallback() {
+		
+		//mAq.id(R.id.img_profile_avatar).image(mAccount.getImage(), true, true, 
+				//0, 0);
+		mAq.id(R.id.img_profile_avatar).image(mAccount.getImage(), true, true, 0, 0, new BitmapAjaxCallback() {
 			@Override
 			protected void callback(String url, ImageView iv, Bitmap bm, AjaxStatus status) {
+				iv.setImageBitmap(bm);
 				setHeadBluredBg(bm);
 			}
 		});
@@ -59,7 +65,8 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 	private void recieveData() {
 		Intent intent = getIntent();
 		mAccount = intent.getParcelableExtra(BUNDLE_KEY_ACCOUNT);
-		setiChildId(mAccount.getId());
+		setiChildId(String.valueOf(mAccount.getId()));
+		Log.v("canlike", "" + mAccount.isCanLike());
 		setCanLike(mAccount.isCanLike());
 		setLike(mAccount.getLike());
 		setModelType("Account");

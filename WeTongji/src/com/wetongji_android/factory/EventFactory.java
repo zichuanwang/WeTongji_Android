@@ -45,7 +45,4 @@ public class EventFactory extends BaseFactory<Event, Integer>{
 		
 		return list;
 	}
-	
-	
-	
 }

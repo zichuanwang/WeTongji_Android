@@ -425,7 +425,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_accounts), 
 							Toast.LENGTH_SHORT).show();
 				}else{
-					Intent intent = new Intent(mActivity, WTLikeListActivity.class);
+					Intent intent = new Intent(mActivity, FriendListActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
 					bundle.putBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, true);

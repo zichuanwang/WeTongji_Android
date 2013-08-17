@@ -47,7 +47,7 @@ public class EventDetailActivity extends WTBaseDetailActivity {
 	private void recieveActivity() {
 		Intent intent = this.getIntent();
 		mEvent = intent.getParcelableExtra(EventsFragment.BUNDLE_KEY_ACTIVITY);
-		setiChildId(mEvent.getId());
+		setiChildId(String.valueOf(mEvent.getId()));
 		setModelType("Activity");
 		setbSchedule(mEvent.isCanSchedule());
 		setShareContent(mEvent.getTitle());

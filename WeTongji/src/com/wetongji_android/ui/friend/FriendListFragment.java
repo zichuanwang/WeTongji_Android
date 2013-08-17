@@ -2,9 +2,6 @@ package com.wetongji_android.ui.friend;
 
 import java.util.List;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -66,6 +63,7 @@ public class FriendListFragment extends WTBaseFragment implements
 		case USERS:
 			break;
 		case LIKE:
+			bundle.putInt(BUNDLE_KEY_START_MODE, 2);
 			break;
 		case FRIENDS:
 			bundle.putInt(BUNDLE_KEY_START_MODE, 4);
@@ -95,8 +93,21 @@ public class FriendListFragment extends WTBaseFragment implements
 		
 		if(b != null){
 			int modeCode = b.getInt(BUNDLE_KEY_START_MODE);
-			mStartMode = (modeCode == 1) ? StartMode.BASIC : 
-				((modeCode == 4) ? StartMode.FRIENDS : StartMode.ATTEND);
+			switch(modeCode){
+			case 1:
+				mStartMode = StartMode.BASIC;
+				break;
+			case 2:
+				mStartMode = StartMode.LIKE;
+				break;
+			case 4:
+				mStartMode = StartMode.FRIENDS;
+				break;
+			case 5:
+				mStartMode = StartMode.ATTEND;
+				break;
+			}
+			
 			mUID = b.getString(WTBaseFragment.BUNDLE_KEY_UID);
 			event = b.getBoolean(FriendListActivity.TAG_COURSE, false);
 		}
@@ -106,15 +117,19 @@ public class FriendListFragment extends WTBaseFragment implements
 	public void onActivityCreated(Bundle savedInstanceState) 
 	{
 		super.onActivityCreated(savedInstanceState);
+		
 		switch(getCurrentState(savedInstanceState))
 		{
 		case FIRST_TIME_START:
 			if(mStartMode == StartMode.BASIC){
-				mAdapter.loadDataFromDB();
+				//mAdapter.loadDataFromDB();
+				refreshData();
 			}else if(mStartMode == StartMode.FRIENDS){
 				getFriendsListOfUser();
-			}else{
+			}else if(mStartMode == StartMode.ATTEND){
 				getFriendsListOfAttend();
+			}else{
+				getLikedFriends(1);
 			}
 			break;
 		case SCREEN_ROTATE:
@@ -126,8 +141,7 @@ public class FriendListFragment extends WTBaseFragment implements
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) 
-	{
+			Bundle savedInstanceState) {
 		mView = inflater.inflate(R.layout.fragment_friend, null);
 		lstFriends = (ListView)mView.findViewById(R.id.lst_friends);
 		mAdapter = new FriendListAdapter(this, lstFriends);
@@ -138,48 +152,29 @@ public class FriendListFragment extends WTBaseFragment implements
 	}
 
 	@Override
-	public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) 
-	{
+	public void onScroll(AbsListView arg0, int arg1, int arg2, int arg3) {
 
 	}
 
 	@Override
-	public void onScrollStateChanged(AbsListView arg0, int arg1) 
-	{
+	public void onScrollStateChanged(AbsListView arg0, int arg1) {
 
 	}
 
 	@Override
-	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) 
-	{
+	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
 		return new NetworkLoader(mActivity, HttpMethod.Get, arg1);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
-			HttpRequestResult result) 
-	{
-		if(result.getResponseCode() == 0)
-		{
-			if(mFactory == null)
-			{
+			HttpRequestResult result) {
+		if(result.getResponseCode() == 0) {
+			if(mFactory == null) {
 				mFactory = new UserFactory(this);
 			}
 			
-			String data = result.getStrResponseCon();
-			JSONObject json = null;
-			String userStr = null;
-			
-			try 
-			{
-				json = new JSONObject(data);
-				userStr = json.getString("Users");
-			} catch (JSONException e) 
-			{
-	
-			}
-			
-			List<User> users = mFactory.createObjects(userStr, true);
+			List<User> users = mFactory.createObjects(result.getStrResponseCon(), false);
 			mAdapter.getData().clear();
 			mAdapter.addAll(users);
 			mAdapter.setIsLoadingData(false);
@@ -190,26 +185,23 @@ public class FriendListFragment extends WTBaseFragment implements
 	}
 
 	@Override
-	public void onLoaderReset(Loader<HttpRequestResult> arg0) 
-	{
+	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 		
 	}
 	
-	public void refreshData()
-	{
+	public void refreshData() {
+		mAdapter.setIsLoadingData(true);
 		ApiHelper apiHelper = ApiHelper.getInstance(mActivity);
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, apiHelper.getFriends(), this);
 	}
 	
-	private void getFriendsListOfUser()
-	{
+	private void getFriendsListOfUser() {
 		mAdapter.setIsLoadingData(true);
 		ApiHelper apiHelper = ApiHelper.getInstance(mActivity);
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, apiHelper.getFriendsOfUser(mUID), this);
 	}
 	
-	private void getFriendsListOfAttend()
-	{
+	private void getFriendsListOfAttend() {
 		mAdapter.setIsLoadingData(true);
 		ApiHelper apiHelper = ApiHelper.getInstance(mActivity);
 		if(event)
@@ -223,32 +215,32 @@ public class FriendListFragment extends WTBaseFragment implements
 		}
 	}
 	
-	public String getiSelectedId() 
-	{
+	private void getLikedFriends(int page) {
+		mAdapter.setIsLoadingData(true);
+		ApiHelper apiHelper = ApiHelper.getInstance(mActivity);
+		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, apiHelper.getLikedObjectsListWithModelType(page, "User"), this);
+	}
+	
+	public String getiSelectedId() {
 		return selectedIdsBuilder.toString();
 	}
 
-	public void setiSelectedId(String iSelectedId) 
-	{
+	public void setiSelectedId(String iSelectedId) {
 		this.iSelectedId = iSelectedId;
 	}
 
-	class ItemClickListener implements OnItemClickListener
-	{
+	class ItemClickListener implements OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View view, int position,
-				long arg3) 
-		{
+				long arg3) {
 			// TODO Auto-generated method stub
-			if(mActivity instanceof FriendInviteActivity)
-			{
+			if(mActivity instanceof FriendInviteActivity) {
 				ViewHolder holder = (ViewHolder)view.getTag();
 				holder.cbFriendInvite.toggle();
 				FriendListAdapter.getIsSelected().put(position, holder.cbFriendInvite.isChecked());
 				iSelectedId = mAdapter.getItem(position).getUID();
 				selectedIdsBuilder.append(iSelectedId).append(",");
-			}else
-			{
+			}else {
 				Intent intent = new Intent(mActivity, FriendDetailActivity.class);
 				Bundle  bundle = new Bundle();
 				bundle.putParcelable(BUNDLE_KEY_USER, mAdapter.getItem(position));

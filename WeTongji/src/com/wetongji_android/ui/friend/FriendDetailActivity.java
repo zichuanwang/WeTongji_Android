@@ -70,7 +70,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		Intent intent = getIntent();
 		mUser = intent.getExtras().getParcelable(FriendListFragment.BUNDLE_KEY_USER);
 		setShareContent("My friend--" + mUser.getName());
-		setiChildId(Integer.valueOf(mUser.getUID()));
+		setiChildId(mUser.getUID());
 		setModelType("User");
 		setCanLike(mUser.isCanLike());
 		setLike(mUser.getLike());
