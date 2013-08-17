@@ -86,9 +86,13 @@ public class MainMenuFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		mCurrentItemNu = 0;
-		mMenuListAdapter.notifyDataSetChanged();
-		switchFragment(TodayFragment.newInstance());
+		if (mCurrentItemNu == 5) {
+			switchFragment(ProfileFragment.newInstance());
+			mMenuListAdapter.notifyDataSetChanged();
+		} else if (mCurrentItemNu == 3) {
+			switchFragment(NowFragment.newInstance());
+			mMenuListAdapter.notifyDataSetChanged();
+		}
 		
 	}
 
