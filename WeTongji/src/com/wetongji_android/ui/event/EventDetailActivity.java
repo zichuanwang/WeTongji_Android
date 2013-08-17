@@ -7,8 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.Loader;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -18,23 +16,15 @@ import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.factory.ActivityFactory;
-import com.wetongji_android.net.NetworkLoader;
-import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTFullScreenActivity;
 import com.wetongji_android.util.date.DateParser;
-import com.wetongji_android.util.net.ApiHelper;
-import com.wetongji_android.util.net.HttpRequestResult;
-import com.wetongji_android.util.net.HttpUtil;
 
-public class EventDetailActivity extends WTBaseDetailActivity 
-		implements LoaderCallbacks<HttpRequestResult> {
+public class EventDetailActivity extends WTBaseDetailActivity {
 
 	private Activity mEvent;
 	private AQuery mAq;
-	
-	private TextView mFriendNumber;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -69,13 +59,7 @@ public class EventDetailActivity extends WTBaseDetailActivity
 		setShareContent(mEvent.getTitle());
 		setLike(mEvent.getLike());
 		setCanLike(mEvent.isCanLike());
-		
-		//Get the friends number with the same activity
-		if(WTApplication.getInstance().hasAccount){
-			ApiHelper apiHelper = ApiHelper.getInstance(this);
-			getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER_FRIENDS, 
-					apiHelper.getFriendsWithSameActivity(String.valueOf(mEvent.getId())), this);
-		}
+		setiFriendsCount(mEvent.getFriendsCount());
 	}
 
 	private void setPicture() {
@@ -105,7 +89,6 @@ public class EventDetailActivity extends WTBaseDetailActivity
 		TextView tvEventLocation = (TextView) findViewById(R.id.tv_event_detail_location);
 		TextView tvEventOrganization = (TextView) findViewById(R.id.text_event_detail_org_name);
 		TextView tvEventContent = (TextView) findViewById(R.id.tv_event_detail_content);
-		mFriendNumber = (TextView)findViewById(R.id.tv_event_detail_friends);
 		
 		tvEventTitle.setText(mEvent.getTitle());
 		tvEventLocation.setText(mEvent.getLocation());
@@ -121,7 +104,6 @@ public class EventDetailActivity extends WTBaseDetailActivity
 		}
 		tvEventTime.setText(DateParser.getEventTime(this, mEvent.getBegin(),
 				mEvent.getEnd()));
-		mFriendNumber.setText("0");
 	}
 
 	private class OnPicClickListener implements OnClickListener
@@ -160,23 +142,5 @@ public class EventDetailActivity extends WTBaseDetailActivity
 		data.add(mEvent);
 		ActivityFactory factory = new ActivityFactory(null);
 		factory.saveObjects(this, data, false);
-	}
-
-	@Override
-	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
-		return new NetworkLoader(this, HttpMethod.Get, arg1);
-	}
-
-	@Override
-	public void onLoadFinished(Loader<HttpRequestResult> arg0,
-			HttpRequestResult result) {
-		if(result.getResponseCode() == 0){
-			mFriendNumber.setText(String.valueOf(HttpUtil.getFriendsCountWithResponse(result.getStrResponseCon())));
-		}
-	}
-
-	@Override
-	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
-		
 	}
 }

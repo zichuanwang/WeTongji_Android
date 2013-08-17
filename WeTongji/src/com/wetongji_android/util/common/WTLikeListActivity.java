@@ -29,7 +29,7 @@ public class WTLikeListActivity extends SherlockFragmentActivity
 			}else{
 				fragment = EventsFragment.newInstance(StartMode.USERS, bundle);
 			}
-		}else if(type.equals("Info")){
+		}else if(type.equals("Information")){
 			if(bundle.getBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, false)){
 				fragment = InformationsFragment.newInstance(StartMode.LIKE, bundle);
 			}else{
@@ -41,12 +41,14 @@ public class WTLikeListActivity extends SherlockFragmentActivity
 			}else{
 				fragment = PeopleListFragment.newInstance(StartMode.USERS, bundle);
 			}
-		}else{
+		}else if(type.equals("Account")){
 			if(bundle.getBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, false)){
 				fragment = AccountListFragment.newInstance(StartMode.LIKE, bundle);
 			}else{
 				fragment = AccountListFragment.newInstance(StartMode.USERS, bundle);
 			}
+		}else{
+			
 		}
 		
 		getSupportFragmentManager().beginTransaction()

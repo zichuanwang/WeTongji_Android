@@ -162,6 +162,7 @@ OnScrollListener{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		Bundle b = getArguments();
 		if (b != null) {
 			int modeCode = b.getInt(BUNDLE_KEY_START_MODE);
@@ -276,7 +277,7 @@ OnScrollListener{
 		isRefresh = false;
 		mAdapter.setIsLoadingData(true);
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, 1);
+		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, "Activity");
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	

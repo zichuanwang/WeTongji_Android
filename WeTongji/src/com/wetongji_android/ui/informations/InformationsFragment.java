@@ -189,7 +189,7 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 	{
 		mAdapter.setLoadingData(true);
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, 2);
+		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, "Information");
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	

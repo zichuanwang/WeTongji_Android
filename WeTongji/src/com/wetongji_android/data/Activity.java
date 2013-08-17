@@ -5,6 +5,7 @@ import java.util.Date;
 
 import android.os.Parcel;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
 public class Activity extends Event implements Serializable{
@@ -32,13 +33,20 @@ public class Activity extends Event implements Serializable{
 	private int Schedule;
 	@DatabaseField
 	private boolean CanSchedule;
+	@DatabaseField
+	private int FriendsCount;
+	@DatabaseField
+	private int AccountId;
+	@DatabaseField(dataType=DataType.SERIALIZABLE)
+	private AccountDetails AccountDetails;
 	
 	public Activity() {
 	}
 	
 	public Activity(int channel_Id, String organizer, String organizerAvatar,
 			String status, String image, Date createdAt, String description,
-			int like, boolean canLike, int schedule, boolean canSchedule) {
+			int like, boolean canLike, int schedule, boolean canSchedule,
+			int friendsCount, int accountId) {
 		super();
 		Channel_Id = channel_Id;
 		Organizer = organizer;
@@ -51,6 +59,8 @@ public class Activity extends Event implements Serializable{
 		CanLike = canLike;
 		Schedule = schedule;
 		CanSchedule = canSchedule;
+		FriendsCount = friendsCount;
+		AccountId = accountId;
 	}
 
 	public int getChannel_Id() {
@@ -141,6 +151,30 @@ public class Activity extends Event implements Serializable{
 		CanSchedule = canSchedule;
 	}
 
+	public int getFriendsCount() {
+		return FriendsCount;
+	}
+
+	public void setFriendsCount(int friendsCount) {
+		FriendsCount = friendsCount;
+	}
+
+	public int getAccountId() {
+		return AccountId;
+	}
+
+	public void setAccountId(int accountId) {
+		AccountId = accountId;
+	}
+
+	public AccountDetails getAccountDetails() {
+		return AccountDetails;
+	}
+
+	public void setAccountDetails(AccountDetails accountDetails) {
+		AccountDetails = accountDetails;
+	}
+
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		super.writeToParcel(dest, flags);
@@ -155,6 +189,9 @@ public class Activity extends Event implements Serializable{
 		dest.writeByte((byte)(CanLike?1:0));
 		dest.writeInt(Schedule);
 		dest.writeByte((byte)(CanSchedule?1:0));
+		dest.writeInt(FriendsCount);
+		dest.writeInt(AccountId);
+		dest.writeSerializable(AccountDetails);
 	}
 	
 	private Activity(Parcel source) {
@@ -170,6 +207,9 @@ public class Activity extends Event implements Serializable{
 		CanLike=source.readByte()==1;
 		Schedule=source.readInt();
 		CanSchedule=source.readByte()==1;
+		FriendsCount=source.readInt();
+		AccountId=source.readInt();
+		AccountDetails=(AccountDetails)source.readSerializable();
 	}
 	
 	public static final Creator<Activity> CREATOR=new Creator<Activity>() {

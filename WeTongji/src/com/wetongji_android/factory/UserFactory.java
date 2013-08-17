@@ -13,7 +13,7 @@ import com.wetongji_android.util.common.WTApplication;
 
 public class UserFactory extends BaseFactory<User, String>
 {	
-	private Gson gson=new Gson();
+	private Gson gson = new Gson();
 
 	public UserFactory(Fragment fragment) 
 	{

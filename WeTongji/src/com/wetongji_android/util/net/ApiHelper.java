@@ -577,25 +577,14 @@ public class ApiHelper {
 		return bundle;
 	}
 	
-	public Bundle getLikedObjectsListWithModelType(int page, int modelType){
+	public Bundle getLikedObjectsListWithModelType(int page, String modelType){
 		Bundle bundle = new Bundle();
 		
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
 		bundle.putString(API_ARGS_METHOD, "Like.List");
-		
-		if(modelType == 1)
-		{
-			bundle.putString(API_ARGS_MODEL, "Activity");
-		}else if(modelType == 2)
-		{
-			bundle.putString(API_ARGS_MODEL, "Information");
-		}else if(modelType == 3){
-			bundle.putString(API_ARGS_MODEL, "Person");
-		}else{
-			bundle.putString(API_ARGS_MODEL, "Account");
-		}
+		bundle.putString(API_ARGS_MODEL, modelType);
 		
 		return bundle;
 	}

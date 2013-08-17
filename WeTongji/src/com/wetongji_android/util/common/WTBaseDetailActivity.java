@@ -50,6 +50,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	private TextView mTvLikeNumber;
 	private TextView mTvInvite;
 	private ImageView mIvSchedule;
+	private TextView mTvFriendsNumber;
 	
 	private int iChildId;
 	private boolean bSchedule;
@@ -57,6 +58,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	private boolean canLike;
 	private int like;
 	private String modelType;
+	private int iFriendsCount;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -147,6 +149,8 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		//Set the friends tab
 		mLayoutFriends = (LinearLayout)findViewById(R.id.btn_event_detail_friends);
 		mLayoutFriends.setOnClickListener(new BottomABClickListener());
+		mTvFriendsNumber = (TextView)findViewById(R.id.tv_event_detail_friends);
+		mTvFriendsNumber.setText(String.valueOf(iFriendsCount));
 		
 		//Set the schedule tab
 		mLayoutAttend = (LinearLayout)findViewById(R.id.btn_event_detail_attend);
@@ -253,6 +257,10 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		this.modelType = modelType;
 	}
 
+	public void setiFriendsCount(int iFriendsCount) {
+		this.iFriendsCount = iFriendsCount;
+	}
+	
 	class BottomABClickListener implements OnClickListener
 	{
 		@Override
