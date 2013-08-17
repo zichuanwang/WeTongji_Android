@@ -36,7 +36,8 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	public static final String KEY_OBJECT_ID = "key_object_id";
 	public static final String KEY_CAN_LIKE = "key_object_can_like";
 	public static final String KEY_LIKE_NUMBER = "key_object_like_num";
-
+	public static final String BUNDLE_KEY_ACCOUNT = "BUNDLE_KEY_ACCOUNT";
+	
 	protected ViewStub mVsContent;
 	private LinearLayout mLayoutBack;
 	private ImageButton mBtnShare;

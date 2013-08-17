@@ -20,8 +20,6 @@ import com.wetongji_android.util.image.ImageUtil;
 
 public class AccountDetailActivity extends WTBaseDetailActivity {
 
-	public static final String BUNDLE_KEY_ACCOUNT = "BUNDLE_KEY_ACCOUNT";
-
 	private Account mAccount;
 	private AQuery mAq;
 	@Override
@@ -80,5 +78,4 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 	protected void updateObjectInDB() {
 		// Here we need not store data in DB
 	}
-	
 }

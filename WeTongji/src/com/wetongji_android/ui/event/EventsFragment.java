@@ -70,7 +70,7 @@ OnScrollListener{
 	private int mSortType = 1;
 	private int mSelectedType = 15;
 	
-	// Widgets on bottom actionbar
+	// Widgets on bottom action bar
 	private LinearLayout llBottomActionbar;
 	private LinearLayout llActionSort;
 	private LinearLayout llActionType;

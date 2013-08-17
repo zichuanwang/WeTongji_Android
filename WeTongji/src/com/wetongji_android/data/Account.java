@@ -11,6 +11,7 @@ public class Account implements Parcelable, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private int Id;
 	private String Name;
 	private String Display;

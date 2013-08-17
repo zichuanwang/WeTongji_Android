@@ -16,6 +16,7 @@ import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.factory.ActivityFactory;
+import com.wetongji_android.ui.account.AccountDetailActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTFullScreenActivity;
@@ -67,7 +68,18 @@ public class EventDetailActivity extends WTBaseDetailActivity {
 		mAq.id(R.id.img_event_detail_org_avatar).image(
 				mEvent.getOrganizerAvatar(), false, true, 0,
 				R.drawable.image_place_holder, null, AQuery.FADE_IN, 1.0f);
-
+		ImageView ivOrganizer = (ImageView)findViewById(R.id.img_event_detail_org_avatar);
+		ivOrganizer.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(EventDetailActivity.this, AccountDetailActivity.class);
+				Bundle bundle = new Bundle();
+				bundle.putParcelable(BUNDLE_KEY_ACCOUNT, mEvent.getAccountDetails());
+				intent.putExtras(bundle);
+				startActivity(intent);
+			}
+		});
+		
 		Drawable drawable = getResources().getDrawable(
 				R.drawable.image_place_holder);
 		Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();

@@ -89,7 +89,6 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		Bundle bundle = getArguments();
 		if(bundle != null){
@@ -108,7 +107,6 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) 
 	{
-		// TODO Auto-generated method stub
 		if(container == null)
 		{
 			return null;
@@ -123,7 +121,6 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) 
 	{
-		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		
 		mInflater = LayoutInflater.from(getActivity());
@@ -157,7 +154,6 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 	@Override
 	public void onAttach(Activity activity) 
 	{
-		// TODO Auto-generated method stub
 		super.onAttach(activity);
 		
 		mActivity = activity;
@@ -166,10 +162,7 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 	
 	@Override
 	public void onSaveInstanceState(Bundle outState) 
-	{
-		// TODO Auto-generated method stub
-		WTUtility.log(TAG, "saveinstance state");
-		
+	{	
 		super.onSaveInstanceState(outState);
 		InformationList informations = new InformationList();
 		informations.setInformations(mAdapter.getOriginList());
@@ -179,7 +172,6 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 	@Override
 	public void onPause() 
 	{
-		// TODO Auto-generated method stub
 		super.onPause();
 		getLoaderManager().destroyLoader(WTApplication.NETWORK_LOADER_DEFAULT);
 		getLoaderManager().destroyLoader(WTApplication.INFORMATION_LOADER);
@@ -199,7 +191,6 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) 
 		{
-			// TODO Auto-generated method stub
 			Intent intent = new Intent(mActivity, InformationDetailActivity.class);
 			Information information = (Information)mAdapter.getItem(arg2);
 			Bundle bundle = new Bundle();
@@ -213,7 +204,6 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) 
 	{
-		// TODO Auto-generated method stub
 		return new NetworkLoader(getActivity(), HttpMethod.Get, arg1);
 	}
 
@@ -221,7 +211,6 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
 			HttpRequestResult result) 
 	{
-		// TODO Auto-generated method stub
 		if(result.getResponseCode() != 0)
 		{
 			ExceptionToast.show(mActivity, result.getResponseCode());
@@ -244,7 +233,6 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 	@Override
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) 
 	{
-		// TODO Auto-generated method stub
 		
 	}
 	

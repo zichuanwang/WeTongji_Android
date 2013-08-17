@@ -2,7 +2,10 @@ package com.wetongji_android.data;
 
 import java.io.Serializable;
 
-public class AccountDetails implements Serializable {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class AccountDetails implements Parcelable, Serializable {
 
 	/**
 	 * 
@@ -116,5 +119,54 @@ public class AccountDetails implements Serializable {
 
 	public void setTitle(String title) {
 		Title = title;
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(Name);
+		dest.writeInt(Id);
+		dest.writeString(Display);
+		dest.writeString(Description);
+		dest.writeString(Image);
+		dest.writeString(Email);
+		dest.writeInt(InformationCount);
+		dest.writeInt(ActivitiesCount);
+		dest.writeString(Background);
+		dest.writeInt(Like);
+		dest.writeString(Title);
+		dest.writeByte((byte)(CanLike?1:0));
+	}
+	
+	public static final Creator<Account> CREATOR = new Creator<Account>() {
+		
+		@Override
+		public Account[] newArray(int size) {
+			return new Account[size];
+		}
+		
+		@Override
+		public Account createFromParcel(Parcel source) {
+			return new Account(source);
+		}
+	};
+
+	public AccountDetails(Parcel source) {
+		this.Name = source.readString();
+		this.Id = source.readInt();
+		this.Display = source.readString();
+		this.Description = source.readString();
+		this.Image = source.readString();
+		this.Email = source.readString();
+		this.InformationCount = source.readInt();
+		this.ActivitiesCount = source.readInt();
+		this.Background = source.readString();
+		this.Like = source.readInt();
+		this.Title = source.readString();
+		this.CanLike = source.readByte() == 1;
 	}
 }
