@@ -70,7 +70,7 @@ OnScrollListener{
 	private int mSortType = 1;
 	private int mSelectedType = 15;
 	
-	// Widgets on bottom actionbar
+	// Widgets on bottom action bar
 	private LinearLayout llBottomActionbar;
 	private LinearLayout llActionSort;
 	private LinearLayout llActionType;
@@ -162,6 +162,7 @@ OnScrollListener{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		Bundle b = getArguments();
 		if (b != null) {
 			int modeCode = b.getInt(BUNDLE_KEY_START_MODE);
@@ -276,7 +277,7 @@ OnScrollListener{
 		isRefresh = false;
 		mAdapter.setIsLoadingData(true);
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, 1);
+		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, "Activity");
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	

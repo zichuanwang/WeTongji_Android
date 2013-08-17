@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
 
+@SuppressWarnings("deprecation")
 public class ProfileInfoActivity extends SherlockFragmentActivity 
 implements OnClickListener{
 
@@ -142,7 +143,6 @@ implements OnClickListener{
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void onClick(View view) {
 		switch(view.getId()) {

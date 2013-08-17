@@ -384,7 +384,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 					Bundle bundle = new Bundle();
 					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
 					bundle.putBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, true);
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "Info");
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "Information");
 					intent.putExtras(bundle);
 					startActivity(intent);
 					mActivity.overridePendingTransition(R.anim.slide_right_in,
@@ -421,7 +421,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 							R.anim.slide_left_out);
 				}
 			}else if(v.getId() == R.id.ll_profile_user_like){
-				if(mUser.getLikeCount().getAccount() == 0){
+				if(mUser.getLikeCount().getUser() == 0){
 					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_accounts), 
 							Toast.LENGTH_SHORT).show();
 				}else{

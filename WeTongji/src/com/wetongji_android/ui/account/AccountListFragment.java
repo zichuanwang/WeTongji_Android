@@ -118,7 +118,7 @@ public class AccountListFragment extends WTBaseFragment implements
 	{
 		mAdapter.setIsLoadingData(true);
 		ApiHelper apiHelper = ApiHelper.getInstance(mActivity);
-		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, 4);
+		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, "Account");
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	
@@ -181,7 +181,6 @@ public class AccountListFragment extends WTBaseFragment implements
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) 
 		{
-			// TODO Auto-generated method stub
 			
 		}
 	};

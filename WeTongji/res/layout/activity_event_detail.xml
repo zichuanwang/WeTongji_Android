@@ -90,6 +90,7 @@
 	        android:layout_marginLeft="1dp"
 	        android:padding="1dp"
 	        android:background="@drawable/image_cover"
+	        android:clickable="true"
 	        android:contentDescription="@string/img_content_description"/>
 	    
 	    <TextView 

@@ -135,7 +135,7 @@ OnScrollListener{
 		isRefresh = false;
 		mAdapter.setIsLoadingData(true);
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, 3);
+		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, "People");
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	

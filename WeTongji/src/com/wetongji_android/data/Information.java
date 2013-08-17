@@ -17,6 +17,7 @@ Serializable
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	@DatabaseField(id=true)
 	private int Id;
 	@DatabaseField
@@ -51,6 +52,10 @@ Serializable
 	private String OrganizerAvatar;
 	@DatabaseField(dataType=DataType.SERIALIZABLE)
 	private ArrayList<String> Images;
+	@DatabaseField(dataType=DataType.SERIALIZABLE)
+	private AccountDetails AccountDetails;
+	@DatabaseField
+	private int AccountId;
 	
 	public Information() 
 	{
@@ -61,7 +66,7 @@ Serializable
 			String summary, String contact, String location, boolean hasTicket,
 			String ticketService, int read, Date createdAt, String category,
 			int like, boolean canLike, String organizer,
-			String organizerAvatar, ArrayList<String> images) {
+			String organizerAvatar, ArrayList<String> images, int accountId) {
 		super();
 		Id = id;
 		Title = title;
@@ -80,6 +85,7 @@ Serializable
 		Organizer = organizer;
 		OrganizerAvatar = organizerAvatar;
 		Images = images;
+		AccountId = accountId;
 	}
 
 	public int getId() {
@@ -218,11 +224,27 @@ Serializable
 		Images = images;
 	}
 
+	public AccountDetails getAccountDetails() {
+		return AccountDetails;
+	}
+
+	public void setAccountDetails(AccountDetails accountDetails) {
+		AccountDetails = accountDetails;
+	}
+	
+	public int getAccountId() {
+		return AccountId;
+	}
+
+	public void setAccountId(int accountId) {
+		AccountId = accountId;
+	}
+
 	@Override
 	public int describeContents() {
 		return 0;
 	}
-
+	
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(Id);
@@ -242,6 +264,7 @@ Serializable
 		dest.writeString(Organizer);
 		dest.writeString(OrganizerAvatar);
 		dest.writeList(Images);
+		dest.writeSerializable(AccountDetails);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -263,6 +286,7 @@ Serializable
 		Organizer=source.readString();
 		OrganizerAvatar=source.readString();
 		Images=source.readArrayList(ArrayList.class.getClassLoader());
+		AccountDetails=(AccountDetails)source.readSerializable();
 	}
 	
 	public static final Creator<Information> CREATOR=new Creator<Information>() {

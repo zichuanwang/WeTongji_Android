@@ -5,62 +5,32 @@ import java.io.Serializable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Account implements Parcelable, Serializable {
+public class AccountDetails implements Parcelable, Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private int Id;
+
+	private boolean CanLike;
 	private String Name;
-	private String Display;
 	private String Description;
-	private String Image;
 	private String Email;
 	private int InformationCount;
 	private int ActivitiesCount;
+	private String Image;
+	private String Display;
 	private String Background;
+	private int Id;
 	private int Like;
 	private String Title;
-	private boolean CanLike;
-	
-	public Account(){
+
+	public boolean isCanLike() {
+		return CanLike;
 	}
 
-	public Account(int id, String name, String display, String description) {
-		super();
-		Id = id;
-		Name = name;
-		Display = display;
-		Description = description;
-	}
-
-	public Account(int id, String name, String display, String description,
-			String image, String email, int informationCount,
-			int activitiesCount, String background, int like, String title,
-			boolean canLike) {
-		super();
-		Id = id;
-		Name = name;
-		Display = display;
-		Description = description;
-		Image = image;
-		Email = email;
-		InformationCount = informationCount;
-		ActivitiesCount = activitiesCount;
-		Background = background;
-		Like = like;
-		Title = title;
+	public void setCanLike(boolean canLike) {
 		CanLike = canLike;
-	}
-
-	public int getId() {
-		return Id;
-	}
-
-	public void setId(int id) {
-		Id = id;
 	}
 
 	public String getName() {
@@ -71,28 +41,12 @@ public class Account implements Parcelable, Serializable {
 		Name = name;
 	}
 
-	public String getDisplay() {
-		return Display;
-	}
-
-	public void setDisplay(String display) {
-		Display = display;
-	}
-
 	public String getDescription() {
 		return Description;
 	}
 
 	public void setDescription(String description) {
 		Description = description;
-	}
-
-	public String getImage() {
-		return Image;
-	}
-
-	public void setImage(String image) {
-		Image = image;
 	}
 
 	public String getEmail() {
@@ -119,12 +73,36 @@ public class Account implements Parcelable, Serializable {
 		ActivitiesCount = activitiesCount;
 	}
 
+	public String getImage() {
+		return Image;
+	}
+
+	public void setImage(String image) {
+		Image = image;
+	}
+
+	public String getDisplay() {
+		return Display;
+	}
+
+	public void setDisplay(String display) {
+		Display = display;
+	}
+
 	public String getBackground() {
 		return Background;
 	}
 
 	public void setBackground(String background) {
 		Background = background;
+	}
+
+	public int getId() {
+		return Id;
+	}
+
+	public void setId(int id) {
+		Id = id;
 	}
 
 	public int getLike() {
@@ -143,14 +121,6 @@ public class Account implements Parcelable, Serializable {
 		Title = title;
 	}
 
-	public boolean isCanLike() {
-		return CanLike;
-	}
-
-	public void setCanLike(boolean canLike) {
-		CanLike = canLike;
-	}
-	
 	@Override
 	public int describeContents() {
 		return 0;
@@ -185,7 +155,7 @@ public class Account implements Parcelable, Serializable {
 		}
 	};
 
-	public Account(Parcel source) {
+	public AccountDetails(Parcel source) {
 		this.Name = source.readString();
 		this.Id = source.readInt();
 		this.Display = source.readString();
