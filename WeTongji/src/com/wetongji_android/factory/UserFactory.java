@@ -4,16 +4,20 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.wetongji_android.data.User;
 import com.wetongji_android.util.common.WTApplication;
 
 public class UserFactory extends BaseFactory<User, String>
 {	
-	private Gson gson = new Gson();
+	private int nextPage = 0;
+	private Gson gson = new GsonBuilder().
+			setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
 	public UserFactory(Fragment fragment) 
 	{
@@ -44,15 +48,21 @@ public class UserFactory extends BaseFactory<User, String>
 		list.clear();
 		JSONArray array;
 		
-		try 
-		{
-			array = new JSONArray(jsonStr);
-			for(int i = 0; i < array.length(); i++)
-			{
-				list.add(createObject(array.getString(i)));
+		try {
+			JSONObject json = new JSONObject(jsonStr);
+			nextPage = json.optInt("NextPager");
+			if(json.has("Like")){
+				array = json.getJSONArray("Like");
+				for(int i = 0; i < array.length(); i++){
+					list.add(createObject(array.getJSONObject(i).getJSONObject("ModelDetails").toString()));
+				}
+			}else{
+				array = json.getJSONArray("Users");
+				for(int j = 0; j < array.length(); j++){
+					list.add(createObject(array.getJSONObject(j).toString()));
+				}
 			}
-		} catch (JSONException e) 
-		{
+		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 		
@@ -61,5 +71,13 @@ public class UserFactory extends BaseFactory<User, String>
 		fragment.getLoaderManager().initLoader(WTApplication.USER_SAVER, args, this).forceLoad();
 		
 		return list;
+	}
+
+	public int getNextPage() {
+		return nextPage;
+	}
+
+	public void setNextPage(int nextPage) {
+		this.nextPage = nextPage;
 	}
 }

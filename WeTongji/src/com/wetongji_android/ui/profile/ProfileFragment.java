@@ -35,7 +35,6 @@ import com.wetongji_android.factory.UserFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.course.CourseListActivity;
-import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.event.EventsListActivity;
 import com.wetongji_android.ui.friend.FriendListActivity;
 import com.wetongji_android.ui.main.MainActivity;
@@ -349,17 +348,29 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 			} else if (v.getId() == R.id.btn_profile_action) {
 				((MainActivity) getActivity()).doPickPhotoAction();
 			} else if (v.getId() == R.id.ll_profile_activity_list) {
-				Intent intent = new Intent(mActivity, EventsListActivity.class);
-				intent.putExtra(EventsFragment.BUNDLE_KEY_UID, mUser.getUID());
-				startActivity(intent);
-				mActivity.overridePendingTransition(R.anim.slide_right_in,
-						R.anim.slide_left_out);
+				if(mUser.getScheduleCount().getActivity() == 0){
+					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_attend_events), 
+							Toast.LENGTH_SHORT).show();
+				}else{
+					Intent intent = new Intent(mActivity, EventsListActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+					intent.putExtras(bundle);
+					startActivity(intent);
+					mActivity.overridePendingTransition(R.anim.slide_right_in,
+							R.anim.slide_left_out);
+				}
 			} else if (v.getId() == R.id.ll_profile_course_list) {
-				Intent intent = new Intent(mActivity, CourseListActivity.class);
-				intent.putExtra(CourseListActivity.BUNDLE_KEY_UID, mUser.getUID());
-				startActivity(intent);
-				mActivity.overridePendingTransition(R.anim.slide_right_in,
-						R.anim.slide_left_out);
+				if(mUser.getScheduleCount().getCourse() == 0){
+					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_attend_courses), 
+							Toast.LENGTH_SHORT).show();
+				}else{
+					Intent intent = new Intent(mActivity, CourseListActivity.class);
+					intent.putExtra(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+					startActivity(intent);
+					mActivity.overridePendingTransition(R.anim.slide_right_in,
+							R.anim.slide_left_out);
+				}
 			} else if(v.getId() == R.id.ll_profile_events_like){
 				if(mUser.getLikeCount().getActivity() == 0){
 					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_events), 
@@ -425,7 +436,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_accounts), 
 							Toast.LENGTH_SHORT).show();
 				}else{
-					Intent intent = new Intent(mActivity, WTLikeListActivity.class);
+					Intent intent = new Intent(mActivity, FriendListActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
 					bundle.putBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, true);

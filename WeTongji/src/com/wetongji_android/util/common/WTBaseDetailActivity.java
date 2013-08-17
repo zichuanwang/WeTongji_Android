@@ -53,7 +53,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	private ImageView mIvSchedule;
 	private TextView mTvFriendsNumber;
 	
-	private int iChildId;
+	private String iChildId;
 	private boolean bSchedule;
 	private String shareContent;
 	private boolean canLike;
@@ -66,7 +66,6 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	{
 		super.onCreate(savedInstanceState);
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		iChildId = 0;
 		bSchedule = false;
 	}
 	
@@ -221,7 +220,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		startActivity(Intent.createChooser(intent, share));
 	}
 	
-	protected void setiChildId(int iChildId) 
+	protected void setiChildId(String iChildId) 
 	{
 		this.iChildId = iChildId;
 	}
@@ -339,7 +338,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	protected void setContentLiked(boolean like) {
 		ApiHelper apiHelper = ApiHelper.getInstance(this);
 		getSupportLoaderManager().initLoader(WTApplication.NETWORK_LOADER_LIKE, 
-				apiHelper.setObjectLikedWithModelType(like, String.valueOf(iChildId), modelType), new LoadCallback() {
+				apiHelper.setObjectLikedWithModelType(like, iChildId, modelType), new LoadCallback() {
 			@Override
 			public void onLoadFinished(Loader<HttpRequestResult> arg0,
 					HttpRequestResult result) {

@@ -1,6 +1,5 @@
 package com.wetongji_android.ui.main;
 
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;

@@ -38,9 +38,9 @@ public class FriendListActivity extends SherlockFragmentActivity
 		{
 			bundle.putBoolean(TAG_COURSE, true);
 			fragment = FriendListFragment.newInstance(StartMode.ATTEND, bundle);
-		}else
+		}else if(type.equals("User"))
 		{
-			fragment = FriendListFragment.newInstance(StartMode.ATTEND, bundle);
+			fragment = FriendListFragment.newInstance(StartMode.LIKE, bundle);
 		}
 		
 		getSupportFragmentManager().beginTransaction()

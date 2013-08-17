@@ -39,7 +39,7 @@ public class CourseDetailActivity extends WTBaseDetailActivity
 	private void recieveData() {
 		Intent intent = this.getIntent();
 		mCourse = (Course)(intent.getExtras().getParcelable(BUNDLE_COURSE));
-		setiChildId(Integer.valueOf(mCourse.getNO()));
+		setiChildId(mCourse.getNO());
 		setModelType("Course");
 		setShareContent(mCourse.getTitle());
 		

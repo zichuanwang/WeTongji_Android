@@ -196,7 +196,7 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 			Bundle bundle = new Bundle();
 			bundle.putParcelable(BUNDLE_KEY_INFORMATION, information);
 			intent.putExtras(bundle);
-			startActivity(intent);
+			startActivityForResult(intent, 1);
 			mActivity.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}
 	};

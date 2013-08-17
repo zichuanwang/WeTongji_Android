@@ -15,15 +15,18 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Pair;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.ui.today.TodayFragment;
 
 public class InformationFactory extends BaseFactory<Information, Integer> 
 {
 	private int nextPage;
+	private Gson gson = new GsonBuilder().
+			setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 	
 	public InformationFactory(Fragment fragment) {
 		super(fragment, Information.class, WTApplication.INFORMATION_SAVER);
@@ -60,12 +63,22 @@ public class InformationFactory extends BaseFactory<Information, Integer>
 		list.clear();
 		JSONArray array;
 		JSONObject outer;
+		
 		try {
 			outer=new JSONObject(jsonStr);
-			array = outer.getJSONArray("Information");
-			for(int i=0;i!=array.length();i++){
-				Information info=createObject(array.getString(i));
-				list.add(info);
+			if(outer.has("Like")){
+				needToRefresh = false;
+				array = outer.getJSONArray("Like");
+				for(int j = 0; j != array.length(); j++){
+					JSONObject json = array.getJSONObject(j);
+					list.add(createObject(json.getJSONObject("ModelDetails").toString()));
+				}
+			}else{
+				array = outer.getJSONArray("Information");
+				for(int i = 0; i != array.length(); i++) {
+					Information info = createObject(array.getString(i));
+					list.add(info);
+				}
 			}
 		} catch (JsonSyntaxException e) {
 			e.printStackTrace();
@@ -78,86 +91,20 @@ public class InformationFactory extends BaseFactory<Information, Integer>
 			
 		}else
 		{
-			Bundle args=new Bundle();
-			args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
-			fragment.getLoaderManager().initLoader(WTApplication.INFORMATION_SAVER, args, this).forceLoad();
+			if(needToRefresh){
+				Bundle args=new Bundle();
+				args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
+				fragment.getLoaderManager().initLoader(WTApplication.INFORMATION_SAVER, args, this).forceLoad();
+			}
 		}
 		
 		return list;
 	}
 	
-	private Information createObject(String jsonStr){
-		Information info=new Information();
-		try {
-			JSONObject jsonObject=new JSONObject(jsonStr);
-			info.setId(jsonObject.getInt("Id"));
-			info.setTitle(jsonObject.getString("Title"));
-			info.setContext(jsonObject.getString("Context"));
-			if(jsonObject.has("Source")){
-				info.setSource(jsonObject.getString("Source"));
-			}
-			else{
-				info.setSource("");
-			}
-			if(jsonObject.has("Summary")){
-				info.setSummary(jsonObject.getString("Summary"));
-			}
-			else{
-				info.setSummary("");
-			}
-			if(jsonObject.has("Contact")){
-				info.setContact(jsonObject.getString("Contact"));
-			}
-			else{
-				info.setContact("");
-			}
-			if(jsonObject.has("Location")){
-				info.setLocation(jsonObject.getString("Location"));
-			}
-			else{
-				info.setLocation("");
-			}
-			if(jsonObject.has("HasTicket")&&!jsonObject.isNull("HasTicket")){
-				info.setHasTicket(jsonObject.getBoolean("HasTicket"));
-			}
-			else{
-				info.setHasTicket(false);
-			}
-			if(jsonObject.has("TicketService")){
-				info.setTicketService(jsonObject.getString("TicketService"));
-			}
-			else{
-				info.setTicketService("");
-			}
-			info.setRead(jsonObject.getInt("Read"));
-			info.setCreatedAt(DateParser.parseDateAndTime(jsonObject.getString("CreatedAt")));
-			info.setCategory(jsonObject.getString("Category"));
-			info.setLike(jsonObject.getInt("Like"));
-			info.setCanLike(jsonObject.getBoolean("CanLike"));
-			info.setOrganizer(jsonObject.getString("Organizer"));
-			info.setOrganizerAvatar(jsonObject.getString("OrganizerAvatar"));
-			
-			
-			ArrayList<String> images=new ArrayList<String>();
-			JSONArray jsonImage = jsonObject.optJSONArray("Images");
-			if(jsonImage.length() == 0)
-			{
-				images.add(WTApplication.MISSING_IMAGE_URL);
-			}else
-			{
-				for(int i=0;i!=jsonImage.length();i++)
-				{
-					images.add(jsonImage.getString(i));
-				}
-			}
-		
-			info.setImages(images);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return info;
+	public Information createObject(String jsonStr){
+		return gson.fromJson(jsonStr, Information.class);
 	}
-
+	
 	public int getNextPage() {
 		return nextPage;
 	}

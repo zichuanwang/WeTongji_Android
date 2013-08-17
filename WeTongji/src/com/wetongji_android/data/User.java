@@ -58,6 +58,8 @@ public class User implements Parcelable
 	private boolean CanLike;
 	@DatabaseField
 	private String Avatar;
+	@DatabaseField
+	private String UserType;
 	
 	public User() {
 		super();
@@ -67,7 +69,7 @@ public class User implements Parcelable
 			String displayName, String major, String nativePlace,
 			String degree, String gender, String year, String birthday,
 			String plan, String sinaWeibo, String qQ, String department,
-			String email, int friendCount, int like, boolean canLike, String avatar) {
+			String email, int friendCount, int like, boolean canLike, String avatar, String userType) {
 		super();
 		NO = nO;
 		Name = name;
@@ -89,6 +91,7 @@ public class User implements Parcelable
 		Like = like;
 		CanLike = canLike;
 		Avatar = avatar;
+		UserType = userType;
 	}
 
 	public String getAvatar() {
@@ -291,6 +294,14 @@ public class User implements Parcelable
 		CanLike = canLike;
 	}
 
+	public String getUserType() {
+		return UserType;
+	}
+
+	public void setUserType(String userType) {
+		UserType = userType;
+	}
+
 	@Override
 	public int describeContents() 
 	{
@@ -325,6 +336,7 @@ public class User implements Parcelable
 		dest.writeInt(Like);
 		dest.writeByte((byte)(CanLike?1:0));
 		dest.writeString(Avatar);
+		dest.writeString(UserType);
 	}
 	
 	private User(Parcel source)
@@ -354,6 +366,7 @@ public class User implements Parcelable
 		Like = source.readInt();
 		CanLike = source.readByte() == 1;
 		Avatar = source.readString();
+		UserType = source.readString();
 	}
 	
 	public static final Creator<User> CREATOR = new Creator<User>()
