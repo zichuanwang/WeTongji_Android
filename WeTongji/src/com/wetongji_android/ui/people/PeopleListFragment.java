@@ -63,6 +63,9 @@ OnScrollListener{
 			break;
 		case LIKE:
 		    bundle.putInt(BUNDLE_KEY_START_MODE, 3);
+		case FRIENDS:
+			break;
+		case ATTEND:
 			break;
 		}
 		
@@ -135,7 +138,7 @@ OnScrollListener{
 		isRefresh = false;
 		mAdapter.setIsLoadingData(true);
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, "People");
+		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, "Person");
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	
@@ -155,15 +158,22 @@ OnScrollListener{
 			
 			JSONObject json = null;
 			String strPeople = null;
+			boolean like = false;
+			
 			try {
 				json = new JSONObject(result.getStrResponseCon());
-				strPeople = json.getString("People");
+				if(json.has("Like")){
+					strPeople = json.getString("Like");
+					like = true;
+				}else{
+					strPeople = json.getString("People");
+				}
 				mNextPager = json.getInt("NextPager");
 			} catch (JSONException e) {
 			}
 			
 			List<Person> people = 
-					mFactory.createObjects(strPeople, isRefresh);
+					mFactory.createObjects(strPeople, isRefresh, like);
 			
 			if(mCurrentPage == 0) {
 				mAdapter.getData().clear();

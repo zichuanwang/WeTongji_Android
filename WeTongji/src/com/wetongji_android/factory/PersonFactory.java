@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,14 +22,21 @@ public class PersonFactory extends BaseFactory<Person, Integer> {
 		super(fragment, Person.class, WTApplication.PERSON_SAVER);
 	}
 	
-	@Override
-	public List<Person> createObjects(String jsonStr, boolean needToRefresh){
+	public List<Person> createObjects(String jsonStr, boolean needToRefresh, boolean like){
 		list.clear();
 		JSONArray array;
+		
 		try {
 			array = new JSONArray(jsonStr);
-			for(int i=0;i!=array.length();i++){
-				Person person=createObject(array.getString(i));
+			for(int i = 0; i != array.length(); i++) {
+				Person person = new Person();
+				if(like){
+					JSONObject json = array.getJSONObject(i);
+					person = createObject(json.getString("ModelDetails"));
+				}else{
+					person=createObject(array.getString(i));
+				}
+				
 				list.add(person);
 			}
 		} catch (JsonSyntaxException e) {
@@ -36,9 +44,13 @@ public class PersonFactory extends BaseFactory<Person, Integer> {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		Bundle args=new Bundle();
-		args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
-		fragment.getLoaderManager().initLoader(WTApplication.PERSON_SAVER, args, this).forceLoad();
+		
+		if(!like){
+			Bundle args=new Bundle();
+			args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
+			fragment.getLoaderManager().initLoader(WTApplication.PERSON_SAVER, args, this).forceLoad();
+		}
+		
 		return list;
 	}
 	
