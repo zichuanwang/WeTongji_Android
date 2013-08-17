@@ -75,7 +75,7 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 		
 		selectedPage=0;
 		weekNumber=8;
-		//apiHelper=ApiHelper.getInstance(getActivity());
+		//apiHelper=ApiHelper.getInstance(mActivity);
 		//Bundle args=apiHelper.getTimetable();
 		//getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
@@ -116,14 +116,14 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 		}
 		Calendar cal=DateParser.parseDateAndTime(dateFromServer);
 		@SuppressWarnings("deprecation")
-		String time=DateUtils.formatDateTime(getActivity(), cal.getTimeInMillis(),
+		String time=DateUtils.formatDateTime(mActivity, cal.getTimeInMillis(),
 				DateUtils.FORMAT_24HOUR|DateUtils.FORMAT_SHOW_TIME);
 		tvNowTime.setText(time);
 	}
 
 	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle args) {
-		return new NetworkLoader(getActivity(), HttpMethod.Get, args);
+		return new NetworkLoader(mActivity, HttpMethod.Get, args);
 	}
 
 	@Override
@@ -132,7 +132,7 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 		if(result.getResponseCode()==0){
 		}
 		else{
-			ExceptionToast.show(getActivity(), result.getResponseCode());
+			ExceptionToast.show(mActivity, result.getResponseCode());
 		}
 	}
 
@@ -194,9 +194,9 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.notification_button_now) {
 			if (WTApplication.getInstance().hasAccount) {
-				((MainActivity)getActivity()).showRightMenu();
+				((MainActivity)mActivity).showRightMenu();
 			} else {
-				Toast.makeText(getActivity(), getResources().getText(R.string.no_account_error),
+				Toast.makeText(mActivity, getResources().getText(R.string.no_account_error),
 						Toast.LENGTH_SHORT).show();
 			}
 			return true;

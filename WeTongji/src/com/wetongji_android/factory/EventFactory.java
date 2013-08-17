@@ -20,18 +20,18 @@ public class EventFactory extends BaseFactory<Event, Integer>{
 
 	public EventFactory(Fragment fragment) {
 		super(fragment, Event.class, WTApplication.EVENTS_SAVER);
-		actFactory=new ActivityFactory(fragment);
-		courseFactory=new CourseFactory(fragment);
-		examFactory=new ExamFactory(fragment);
+		actFactory = new ActivityFactory(fragment);
+		courseFactory = new CourseFactory(fragment);
+		examFactory = new ExamFactory(fragment);
 	}
 
 	@Override
 	public List<Event> createObjects(String jsonStr, boolean needToRefresh) {
 		list.clear();
 		
-		List<Activity> acts=actFactory.createObjects(jsonStr);
-		List<Course> courses=courseFactory.createObjects(jsonStr);
-		List<Exam> exams=examFactory.createObjects(jsonStr);
+		List<Activity> acts =actFactory.createObjects(jsonStr);
+		List<Course> courses = courseFactory.createObjects(jsonStr);
+		List<Exam> exams = examFactory.createObjects(jsonStr);
 		
 		list.addAll(acts);
 		list.addAll(courses);
@@ -39,7 +39,7 @@ public class EventFactory extends BaseFactory<Event, Integer>{
 		
 		Collections.sort(list);
 
-		Bundle args=new Bundle();
+		Bundle args = new Bundle();
 		args.putBoolean(ARG_NEED_TO_REFRESH, needToRefresh);
 		fragment.getLoaderManager().initLoader(WTApplication.EVENTS_SAVER, args, this).forceLoad();
 		
