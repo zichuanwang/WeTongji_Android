@@ -131,8 +131,6 @@ public class BaseAuthActivity extends WTBaseImagePickActivity implements
 			final Intent intent=new Intent(BaseAuthActivity.this, MainActivity.class);
 			intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mUsername);
 			intent.putExtra(AccountManager.KEY_ACCOUNT_TYPE, WTApplication.ACCOUNT_TYPE);
-			//setAccountAuthenticatorResult(intent.getExtras());
-			//setResult(RESULT_OK, intent);
 			startActivity(intent);
 			finish();
 			

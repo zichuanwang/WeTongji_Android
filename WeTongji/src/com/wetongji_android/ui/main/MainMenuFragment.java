@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.wetongji_android.R;
+import com.wetongji_android.ui.auth.AuthActivity;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.ui.now.NowFragment;
@@ -24,6 +25,7 @@ import com.wetongji_android.ui.profile.ProfileFragment;
 import com.wetongji_android.ui.search.SearchFragment;
 import com.wetongji_android.ui.setting.WTSettingActivity;
 import com.wetongji_android.ui.today.TodayFragment;
+import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseFragment.StartMode;
 
 public class MainMenuFragment extends Fragment {
@@ -78,6 +80,17 @@ public class MainMenuFragment extends Fragment {
 		lstViewMenu.setAdapter(mMenuListAdapter);
 		lstViewMenu.setOnItemClickListener(new MainMenuListItemClickListener());
 	}
+	
+	
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		mCurrentItemNu = 0;
+		mMenuListAdapter.notifyDataSetChanged();
+	}
+
+
 
 	public class MainMenuListAdapter extends BaseAdapter {
 		private LayoutInflater mInflater;
@@ -130,15 +143,12 @@ public class MainMenuFragment extends Fragment {
 				long arg3) {
 			if (getActivity() == null)
 				return;
-
-			((MainActivity) getActivity()).getSlidingMenu().showContent();
-
+			
 			Fragment newContent = null;
-
-			// Change item background
-			mCurrentItemNu = position;
-			mMenuListAdapter.notifyDataSetChanged();
-
+			if (mCurrentItemNu == position) {
+				((MainActivity) getActivity()).getSlidingMenu().showContent();
+				return ;
+			}
 			switch (position) {
 			case 0:
 				newContent = TodayFragment.newInstance();
@@ -150,17 +160,32 @@ public class MainMenuFragment extends Fragment {
 				newContent = EventsFragment.newInstance(StartMode.BASIC, null);
 				break;
 			case 3:
-				newContent = NowFragment.newInstance();
+				if (WTApplication.getInstance().hasAccount) {
+					newContent = NowFragment.newInstance();
+				} else {
+					startActivity(new Intent(getActivity(), AuthActivity.class));
+					return;
+				}
 				break;
 			case 4:
 				newContent = SearchFragment.newInstance();
 				break;
 			case 5:
-				newContent = ProfileFragment.newInstance();
+				if (WTApplication.getInstance().hasAccount) {
+					newContent = ProfileFragment.newInstance();
+				} else {
+					startActivity(new Intent(getActivity(), AuthActivity.class));
+					return;
+				}
 				break;
 			default:
 				break;
 			}
+			((MainActivity) getActivity()).getSlidingMenu().showContent();
+			
+			// Change item background
+			mCurrentItemNu = position;
+			mMenuListAdapter.notifyDataSetChanged();
 
 			if (newContent != null) {
 				switchFragment(newContent);

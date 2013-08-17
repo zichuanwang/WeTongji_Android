@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -22,6 +24,7 @@ import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
@@ -74,14 +77,19 @@ public class WTChangePwdActivity extends SherlockFragmentActivity implements
 				WTApplication application = WTApplication.getInstance();
 				JSONObject json = new JSONObject(result.getStrResponseCon());
 				application.session = json.getString("Session");
+				AccountManager am = AccountManager.get(this);
+				Account[] ac = am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
+				am.setAuthToken(ac[0], WTApplication.AUTHTOKEN_TYPE, application.session);
 				Toast.makeText(this, getResources().getString(R.string.update_password_success), 
 						Toast.LENGTH_SHORT).show();
 				btnConfirm.setChecked(false);
+				ApiHelper.getInstance(this).setSession(application.session);
+				finish();
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-		}else if(result.getResponseCode() == 13){
-			
+		}else {
+			ExceptionToast.show(this, result.getResponseCode());
 		}
 	}
 

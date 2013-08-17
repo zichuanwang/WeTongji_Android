@@ -1,11 +1,8 @@
 package com.wetongji_android.ui.main;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -35,8 +32,8 @@ public class MainActivity extends UpdateBaseActivity {
 		if (savedInstanceState != null)
 			mContent = getSupportFragmentManager().getFragment(
 					savedInstanceState, "mContent");
-		if (mContent == null)
-			mContent = new TodayFragment();
+		
+		mContent = TodayFragment.newInstance();
 
 		// set the above view
 		setContentView(R.layout.content_frame);
@@ -47,6 +44,14 @@ public class MainActivity extends UpdateBaseActivity {
 
 		setSlidingMenu();
 	}
+	
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		switchContent(TodayFragment.newInstance());
+	}
+
+
 
 	@Override
 	protected void onStart() {
