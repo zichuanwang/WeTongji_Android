@@ -194,6 +194,8 @@ read and agree to the <u><b>Term of Use</b></u></string>
         <item >Popularity</item>
         <item >Activity start date</item>
     </string-array>
+    <string name="profile_no_attend_events">You have no participated Activities</string>
+    <string name="profile_no_attend_courses">You have no participated Courses</string>
 	<string name="profile_no_like_events">You have no liked events</string>
 	<string name="profile_no_like_information">You have no liked info</string>
 	<string name="profile_no_like_people">You have no liked people</string>
