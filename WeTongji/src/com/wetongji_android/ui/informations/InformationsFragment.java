@@ -30,6 +30,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,8 +43,9 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class InformationsFragment extends WTBaseFragment implements LoaderCallbacks<HttpRequestResult> 
-{	
+public class InformationsFragment extends WTBaseFragment 
+		implements LoaderCallbacks<HttpRequestResult> {
+	
 	private static final String TAG = "InformationsFragment";
 	public static final String BUNDLE_KEY_INFORMATION = "bundle_key_information";
 	
@@ -59,6 +61,7 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 	public static final String PREFERENCE_INFO_TYPE = "InfoType";
 	
 	private int mSelectType = 15;
+	private int currentPage = 0;
 	
 	public static InformationsFragment newInstance(StartMode startMode, Bundle args)
 	{
@@ -224,12 +227,18 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 			if(mFactory == null)
 				mFactory = new InformationFactory(this);
 			
-			int currentPage = mAdapter.getPage();
+			if(currentPage == 0){
+				mAdapter.clear();
+			}
+			
+			currentPage ++;
+			Log.v("currentpage", "" + currentPage);
 			Pair<Integer, List<Information>> informations = mFactory.createObjects(result.getStrResponseCon(), currentPage);
 			List<Information> lists = informations.second;
 			
 			mAdapter.setLoadingData(false);
 			mAdapter.setNextPage(mFactory.getNextPage());
+			Log.v("nextpage", "" + mFactory.getNextPage());
 			mAdapter.setInformations(InformationUtil.getSectionedInformationList(lists));
 			mAdapter.setOriginList(lists);
 		}
@@ -254,6 +263,16 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 
+	/*public void loadMoreData(int page){
+		mAdapter.setLoadingData(true);
+		mAdapter.notifyMayHaveMorePages();
+		
+		ApiHelper apiHelper = ApiHelper.getInstance(mActivity);
+		//By default we fetch all kind of informations from the server
+		Bundle args = apiHelper.getInformations(page, mSelectType);
+		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
+	}*/
+	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) 
 	{

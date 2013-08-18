@@ -20,7 +20,6 @@ import com.wetongji_android.R;
 import com.wetongji_android.data.Account;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
-import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.image.ImageUtil;
 
 public class AccountDetailActivity extends WTBaseDetailActivity {

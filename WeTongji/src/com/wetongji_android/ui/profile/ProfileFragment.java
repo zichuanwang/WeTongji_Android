@@ -214,10 +214,10 @@ public class ProfileFragment extends WTBaseFragment implements
 		if (!TextUtils.isEmpty(mUser.getWords())) {
 			mTvWords.setText("\"" + mUser.getWords() + "\"");
 		}
-		int gendarRid = mUser.getGender().equals("ç”·") ? R.drawable.ic_profile_gender_male
+		int gendarRid = mUser.getGender().equals("ÄÐ") ? R.drawable.ic_profile_gender_male
 				: R.drawable.ic_profile_gender_female;
 		Drawable gendarDrawable = getResources().getDrawable(gendarRid);
-		mTvCollege.setCompoundDrawablesRelativeWithIntrinsicBounds(
+		mTvCollege.setCompoundDrawablesWithIntrinsicBounds(
 				gendarDrawable, null, null, null);
 		mTvCollege.setText(mUser.getDepartment());
 		String fmt = getResources().getString(R.string.text_friends_counter);

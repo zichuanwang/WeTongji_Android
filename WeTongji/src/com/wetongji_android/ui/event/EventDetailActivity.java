@@ -21,7 +21,6 @@ import com.wetongji_android.ui.account.AccountDetailActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTFullScreenActivity;
-import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.date.DateParser;
 
 public class EventDetailActivity extends WTBaseDetailActivity {

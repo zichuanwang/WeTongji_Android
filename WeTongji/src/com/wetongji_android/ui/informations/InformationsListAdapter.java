@@ -5,10 +5,12 @@ import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,15 +18,20 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Information;
+import com.wetongji_android.factory.InformationFactory;
+import com.wetongji_android.net.WTClient;
+import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.information.InformationLoader;
 import com.wetongji_android.util.data.information.InformationUtil;
 import com.wetongji_android.util.date.DateParser;
+import com.wetongji_android.util.exception.WTException;
+import com.wetongji_android.util.net.ApiHelper;
+import com.wetongji_android.util.net.HttpRequestResult;
 
 public class InformationsListAdapter extends AmazingAdapter implements
 		LoaderCallbacks<List<Information>> 
@@ -37,6 +44,8 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	private boolean isLoadingData;
 	private int nextPage;
 	
+	private AsyncTask<Integer, Void, List<Pair<Date, List<Information>>>> backgroundTask;
+	
 	public InformationsListAdapter(Fragment fragment, AbsListView listView)
 	{
 		this.mFragment = fragment;
@@ -45,7 +54,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		this.isLoadingData = true;
 		mListInfos = new ArrayList<Pair<Date, List<Information>>>();
 		setOriginList(new ArrayList<Information>());
-		setNextPage(2);
 	}
 	
 	@Override
@@ -87,11 +95,54 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	@Override
 	protected void onNextPageRequested(int page) 
 	{
-		if(page != this.nextPage)
+		Log.v("page", "" + "call this method" + page);
+		/*if(page != this.nextPage)
 		{
 			this.notifyNoMorePages();
 			Toast.makeText(mContext, "No More Data", Toast.LENGTH_SHORT).show();
+		}else{
+			((InformationsFragment)mFragment).loadMoreData(page);
+		}*/
+		
+		if(backgroundTask != null){
+			backgroundTask.cancel(false);
 		}
+		
+		backgroundTask = new AsyncTask<Integer, Void, List<Pair<Date, List<Information>>>>(){
+
+			@Override
+			protected List<Pair<Date, List<Information>>> doInBackground(
+					Integer... params) {
+				int p = params[0];
+				WTClient client = WTClient.getInstance();
+				ApiHelper apiHelper = ApiHelper.getInstance(mContext);
+				try {
+					HttpRequestResult result = client.execute(HttpMethod.Get, apiHelper.getInformations(p, 15));
+					InformationFactory factory = new InformationFactory(mFragment);
+					Pair<Integer, List<Information>> infos = factory.createObjects(result.getStrResponseCon(), 1);
+					List<Information> lists = infos.second;
+					return InformationUtil.getSectionedInformationList(lists);
+				} catch (WTException e) {
+					e.printStackTrace();
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(
+					List<Pair<Date, List<Information>>> result) {
+				if(isCancelled()) return;
+				
+				if(result != null){
+					mListInfos.addAll(result);
+					nextPage();
+					notifyDataSetChanged();
+				}else{
+					notifyNoMorePages();
+				}
+			}
+			
+		}.execute(page);
 	}
 
 	@Override
@@ -262,7 +313,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 
 	public void setInformations(List<Pair<Date, List<Information>>> mListNews) 
 	{
-		this.mListInfos.clear();
 		this.mListInfos.addAll(mListNews);
 		notifyDataSetChanged();
 	}
