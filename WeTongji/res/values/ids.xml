@@ -66,6 +66,7 @@
     <item type="id" name="info_detail_image">false</item>
     <item type="id" name="info_detail_content">false</item>
     <item type="id" name="menu_informationlist_reload">false</item>
+    <item type="id" name="menu_informationlist_type">false</item>
     <item type="id" name="cb_academic">false</item>
     <item type="id" name="cb_competition">false</item>
     <item type="id" name="cb_entertainment">false</item>
@@ -281,4 +282,6 @@
     <item name="text_about_terms" type="id"/>
     <item name="ll_setting_change_pwd_area" type="id" />
     <item type="id" name="img_account_background_temp"/>
+    <!-- Dialog -->
+    <item type="id" name="btn_sort_dialog_cancel">false</item>
 </resources>
