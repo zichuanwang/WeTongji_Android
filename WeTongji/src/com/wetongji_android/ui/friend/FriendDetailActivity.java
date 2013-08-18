@@ -75,6 +75,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	}
 
 	private void initWidget() {
+		setTitle(mUser.getName());
 		mAq = WTApplication.getInstance().getAq(this);
 		tvFriendWords = (TextView) findViewById(R.id.text_profile_words);
 		tvFriendWords.setText(mUser.getWords());

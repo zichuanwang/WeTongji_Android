@@ -644,7 +644,7 @@ public class ApiHelper {
 		Bundle bundle = new Bundle();
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
-		bundle.putString(API_ARGS_METHOD, "Activity.Invite.Reject");
+		bundle.putString(API_ARGS_METHOD, "Activity.Invite.Accept");
 		bundle.putString(API_ARGS_ID, invitationId);
 		return bundle;
 	}
@@ -662,7 +662,7 @@ public class ApiHelper {
 		Bundle bundle = new Bundle();
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
-		bundle.putString(API_ARGS_METHOD, "Course.Invite.Reject");
+		bundle.putString(API_ARGS_METHOD, "Course.Invite.Accept");
 		bundle.putString(API_ARGS_ID, invitationId);
 		return bundle;
 	}

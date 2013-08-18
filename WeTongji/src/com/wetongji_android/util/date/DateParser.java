@@ -55,6 +55,9 @@ public class DateParser {
 	public static Date parseDateAndTime(String dateStr){
 		Date date=new Date();
 		try {
+			if (dateStr.equals("null")) {
+				return null;
+			}
 			date=serverSourse.parse(dateStr);
 		} catch (ParseException e) {
 			e.printStackTrace();
