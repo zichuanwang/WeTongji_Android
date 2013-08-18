@@ -46,10 +46,11 @@ import com.wetongji_android.util.image.ImageUtil;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
-public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<HttpRequestResult>{
+public class ProfileFragment extends WTBaseFragment implements
+		LoaderCallbacks<HttpRequestResult> {
 
 	public static final String BUNDLE_USER = "BUNDLE_USER";
-	
+
 	public static final int REQUEST_CODE_PROFILE = 9912;
 
 	public static final String BUNDLE_MOTTO = "BUNDLE_MOTTO";
@@ -57,7 +58,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	private User mUser;
 	private String mStrImgLocalPath;
 	private View mContentView;
-	
+
 	private TextView mTvWords;
 	private TextView mTvCollege;
 	private TextView mTvFriendsNum;
@@ -68,7 +69,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	private TextView mTvUserLikes;
 	private TextView mTvParActivities;
 	private TextView mTvParCourse;
-	
+
 	private RelativeLayout rlFriendsList;
 	private RelativeLayout rlMyProfile;
 	private RelativeLayout rlParActivities;
@@ -78,27 +79,28 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	private RelativeLayout rlLikePeople;
 	private RelativeLayout rlLikeOrganizations;
 	private RelativeLayout rlLikeUsers;
-	
+
 	private ImageView mIvAvatar;
 	private Button mBtnChangeAvatar;
-	
+
 	private Activity mActivity;
-	
+
 	private OnClickListener mClickListener = new ClickListener();
-	
-	public static ProfileFragment newInstance(){
+
+	public static ProfileFragment newInstance() {
 		ProfileFragment fragment = new ProfileFragment();
-		
+
 		return fragment;
 	}
-	
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
-		switch(getCurrentState(savedInstanceState)) {
+
+		switch (getCurrentState(savedInstanceState)) {
 		case FIRST_TIME_START:
-			getLoaderManager().initLoader(WTApplication.USER_LOADER, null, this);
+			getLoaderManager()
+					.initLoader(WTApplication.USER_LOADER, null, this);
 			break;
 		case SCREEN_ROTATE:
 		case ACTIVITY_DESTROY_AND_CREATE:
@@ -111,7 +113,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setHasOptionsMenu(true);
 	}
 
@@ -119,12 +121,13 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mContentView = inflater.inflate(R.layout.fragment_profile, null);
-		mIvAvatar = (ImageView) mContentView.findViewById(R.id.img_profile_avatar);
+		mIvAvatar = (ImageView) mContentView
+				.findViewById(R.id.img_profile_avatar);
 		initWidgets(mContentView);
-		
+
 		return mContentView;
 	}
-	
+
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -134,100 +137,124 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		
+
 		mActivity = activity;
-		((MainActivity)mActivity).getSupportActionBar().setDisplayShowTitleEnabled(true);
+		((MainActivity) mActivity).getSupportActionBar()
+				.setDisplayShowTitleEnabled(true);
 	}
 
 	@SuppressWarnings("deprecation")
 	private void setHeadBluredBg(Bitmap source) {
-		RelativeLayout rl = (RelativeLayout) mContentView.findViewById(R.id.layout_profile_header);
-		int tH =  (496 * 200 / 1080);
+		RelativeLayout rl = (RelativeLayout) mContentView
+				.findViewById(R.id.layout_profile_header);
+		int tH = (496 * 200 / 1080);
 		Bitmap bm = Bitmap.createBitmap(source, 0, (100 - tH / 2), 200, tH);
 		Bitmap bg = ImageUtil.fastblur(bm, 10);
-		rl.setBackgroundDrawable(new BitmapDrawable(getActivity().getResources(), bg));
+		rl.setBackgroundDrawable(new BitmapDrawable(getActivity()
+				.getResources(), bg));
 	}
-	
+
 	private void initWidgets(View v) {
 		mTvWords = (TextView) v.findViewById(R.id.text_profile_words);
 		mTvCollege = (TextView) v.findViewById(R.id.text_profile_gender);
 		mTvFriendsNum = (TextView) v.findViewById(R.id.text_profile_friend_num);
-		mTvEventsLikes = (TextView) v.findViewById(R.id.text_profile_events_num);
+		mTvEventsLikes = (TextView) v
+				.findViewById(R.id.text_profile_events_num);
 		mTvNewsLikes = (TextView) v.findViewById(R.id.text_profile_news_num);
-		mTvPeopleLikes = (TextView) v.findViewById(R.id.text_profile_people_num);
+		mTvPeopleLikes = (TextView) v
+				.findViewById(R.id.text_profile_people_num);
 		mTvOrgsLikes = (TextView) v.findViewById(R.id.text_profile_orgs_num);
-		mTvUserLikes = (TextView)v.findViewById(R.id.text_profile_user_num);
+		mTvUserLikes = (TextView) v.findViewById(R.id.text_profile_user_num);
 		mTvParActivities = (TextView) v
 				.findViewById(R.id.text_profile_par_activities_num);
-		mTvParCourse = (TextView) v.findViewById(R.id.text_profile_par_course_num);
-		
-		rlFriendsList = (RelativeLayout)v.findViewById(R.id.ll_profile_friend_list);
+		mTvParCourse = (TextView) v
+				.findViewById(R.id.text_profile_par_course_num);
+
+		rlFriendsList = (RelativeLayout) v
+				.findViewById(R.id.ll_profile_friend_list);
 		rlFriendsList.setOnClickListener(new ClickListener());
-		
-		rlMyProfile = (RelativeLayout) v.findViewById(R.id.layout_profile_my_profile);
+
+		rlMyProfile = (RelativeLayout) v
+				.findViewById(R.id.layout_profile_my_profile);
 		rlMyProfile.setOnClickListener(mClickListener);
-		
+
 		mBtnChangeAvatar = (Button) v.findViewById(R.id.btn_profile_action);
 		mBtnChangeAvatar.setOnClickListener(mClickListener);
-		
-		rlParActivities = (RelativeLayout) v.findViewById(R.id.ll_profile_activity_list);
+
+		rlParActivities = (RelativeLayout) v
+				.findViewById(R.id.ll_profile_activity_list);
 		rlParActivities.setOnClickListener(mClickListener);
-		
-		rlParCourses = (RelativeLayout) v.findViewById(R.id.ll_profile_course_list);
+
+		rlParCourses = (RelativeLayout) v
+				.findViewById(R.id.ll_profile_course_list);
 		rlParCourses.setOnClickListener(mClickListener);
-		
-		rlLikeEvents = (RelativeLayout)v.findViewById(R.id.ll_profile_events_like);
+
+		rlLikeEvents = (RelativeLayout) v
+				.findViewById(R.id.ll_profile_events_like);
 		rlLikeEvents.setOnClickListener(mClickListener);
-		
-		rlLikeInfos = (RelativeLayout)v.findViewById(R.id.ll_profile_news_like);
+
+		rlLikeInfos = (RelativeLayout) v
+				.findViewById(R.id.ll_profile_news_like);
 		rlLikeInfos.setOnClickListener(mClickListener);
-		
-		rlLikePeople = (RelativeLayout)v.findViewById(R.id.ll_profile_people_like);
+
+		rlLikePeople = (RelativeLayout) v
+				.findViewById(R.id.ll_profile_people_like);
 		rlLikePeople.setOnClickListener(mClickListener);
-		
-		rlLikeOrganizations = (RelativeLayout)v.findViewById(R.id.ll_profile_org_like);
+
+		rlLikeOrganizations = (RelativeLayout) v
+				.findViewById(R.id.ll_profile_org_like);
 		rlLikeOrganizations.setOnClickListener(mClickListener);
-		
-		rlLikeUsers = (RelativeLayout)v.findViewById(R.id.ll_profile_user_like);
+
+		rlLikeUsers = (RelativeLayout) v
+				.findViewById(R.id.ll_profile_user_like);
 		rlLikeUsers.setOnClickListener(mClickListener);
 	}
-	
+
 	private void setWidgets() {
 		if (!TextUtils.isEmpty(mUser.getWords())) {
 			mTvWords.setText("\"" + mUser.getWords() + "\"");
 		}
-		int gendarRid = mUser.getGender().equals("ÄÐ") ?
-				R.drawable.ic_profile_gender_male :
-					R.drawable.ic_profile_gender_female;
+		int gendarRid = mUser.getGender().equals("ç”·") ? R.drawable.ic_profile_gender_male
+				: R.drawable.ic_profile_gender_female;
 		Drawable gendarDrawable = getResources().getDrawable(gendarRid);
-		mTvCollege.setCompoundDrawables(gendarDrawable, null, null, null);
+		mTvCollege.setCompoundDrawablesRelativeWithIntrinsicBounds(
+				gendarDrawable, null, null, null);
 		mTvCollege.setText(mUser.getDepartment());
 		String fmt = getResources().getString(R.string.text_friends_counter);
 		mTvFriendsNum.setText(String.format(fmt, mUser.getFriendCount()));
-		
+
 		String format = getResources().getString(R.string.format_likes);
-		mTvEventsLikes.setText(String.format(format, mUser.getLikeCount().getActivity()));
-		mTvNewsLikes.setText(String.format(format, mUser.getLikeCount().getInformation()));
-		mTvPeopleLikes.setText(String.format(format, mUser.getLikeCount().getPerson()));
-		mTvOrgsLikes.setText(String.format(format, mUser.getLikeCount().getAccount()));
-		mTvUserLikes.setText(String.format(format, mUser.getLikeCount().getUser()));
-		mTvParActivities.setText(String.format(format, mUser.getScheduleCount().getActivity()));
-		mTvParCourse.setText(String.format(format, mUser.getScheduleCount().getCourse()));
-		
-		((MainActivity)mActivity).getSupportActionBar().setTitle(mUser.getName());
+		mTvEventsLikes.setText(String.format(format, mUser.getLikeCount()
+				.getActivity()));
+		mTvNewsLikes.setText(String.format(format, mUser.getLikeCount()
+				.getInformation()));
+		mTvPeopleLikes.setText(String.format(format, mUser.getLikeCount()
+				.getPerson()));
+		mTvOrgsLikes.setText(String.format(format, mUser.getLikeCount()
+				.getAccount()));
+		mTvUserLikes.setText(String.format(format, mUser.getLikeCount()
+				.getUser()));
+		mTvParActivities.setText(String.format(format, mUser.getScheduleCount()
+				.getActivity()));
+		mTvParCourse.setText(String.format(format, mUser.getScheduleCount()
+				.getCourse()));
+
+		((MainActivity) mActivity).getSupportActionBar().setTitle(
+				mUser.getName());
 	}
-	
+
 	private void setAvatarFromUrl() {
 		String strUrl = mUser.getAvatar() != null ? mUser.getAvatar() : "";
 		AQuery aq = WTApplication.getInstance().getAq(getActivity());
-		aq.id(R.id.img_profile_avatar).image(strUrl, true, true, 0, 0, 
+		aq.id(R.id.img_profile_avatar).image(strUrl, true, true, 0, 0,
 				new BitmapAjaxCallback() {
-			@Override
-			protected void callback(String url, ImageView iv, Bitmap bm, AjaxStatus status) {
-				iv.setImageBitmap(bm);
-				setHeadBluredBg(bm);
-			}	
-		});
+					@Override
+					protected void callback(String url, ImageView iv,
+							Bitmap bm, AjaxStatus status) {
+						iv.setImageBitmap(bm);
+						setHeadBluredBg(bm);
+					}
+				});
 	}
 
 	@Override
@@ -236,7 +263,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		if (loaderId == WTApplication.USER_LOADER) {
 			Bundle bundle = ApiHelper.getInstance(getActivity()).getUserGet();
 			loader = new NetworkLoader(getActivity(), HttpMethod.Get, bundle);
-		} else if (loaderId == WTApplication.UPLOAD_AVATAR_LOADER){
+		} else if (loaderId == WTApplication.UPLOAD_AVATAR_LOADER) {
 			Bundle bundle = ApiHelper.getInstance(getActivity())
 					.postUserUpdateAvatar(mStrImgLocalPath);
 			loader = new NetworkLoader(getActivity(), HttpMethod.Post, bundle);
@@ -246,8 +273,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> loader,
-			HttpRequestResult result) 
-	{
+			HttpRequestResult result) {
 		if (loader.getId() == WTApplication.USER_LOADER) {
 			JSONObject json = null;
 			String strUser = null;
@@ -259,21 +285,23 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 				}
 				UserFactory factory = new UserFactory(this);
 				mUser = factory.createSingleObject(strUser);
-				
+
 				setWidgets();
 				setAvatarFromUrl();
 			}
 			getLoaderManager().destroyLoader(WTApplication.USER_LOADER);
 		} else if (loader.getId() == WTApplication.UPLOAD_AVATAR_LOADER) {
-			if (result.getResponseCode() == 0 || result.getResponseCode() == 200) {
+			if (result.getResponseCode() == 0
+					|| result.getResponseCode() == 200) {
 				Toast.makeText(getActivity(), R.string.text_save_success,
 						Toast.LENGTH_SHORT).show();
 			}
-			getLoaderManager().destroyLoader(WTApplication.UPLOAD_AVATAR_LOADER);
+			getLoaderManager()
+					.destroyLoader(WTApplication.UPLOAD_AVATAR_LOADER);
 			return;
 		}
 		if (result.getResponseCode() != 0) {
-				ExceptionToast.show(getActivity(), result.getResponseCode());
+			ExceptionToast.show(getActivity(), result.getResponseCode());
 		}
 	}
 
@@ -284,7 +312,7 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		
+
 		inflater.inflate(R.menu.menu_profile, menu);
 	}
 
@@ -292,19 +320,20 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.notification_button_profile) {
 			if (WTApplication.getInstance().hasAccount) {
-				((MainActivity)getActivity()).showRightMenu();
+				((MainActivity) getActivity()).showRightMenu();
 			} else {
-				Toast.makeText(getActivity(), getResources().getText(R.string.no_account_error),
+				Toast.makeText(getActivity(),
+						getResources().getText(R.string.no_account_error),
 						Toast.LENGTH_SHORT).show();
 			}
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	public void updateMotto(String strNewMotto) {
 		if (strNewMotto != null && !strNewMotto.equals(mUser.getWords())) {
-			mTvWords.setText(strNewMotto); 
+			mTvWords.setText(strNewMotto);
 			mUser.setWords(strNewMotto);
 		}
 	}
@@ -314,10 +343,11 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		mStrImgLocalPath = bundle.getString("imagePath");
 		mIvAvatar.setImageBitmap(bmAvatar);
 		setHeadBluredBg(bmAvatar);
-		
-		getLoaderManager().restartLoader(WTApplication.UPLOAD_AVATAR_LOADER, bundle, this);
+
+		getLoaderManager().restartLoader(WTApplication.UPLOAD_AVATAR_LOADER,
+				bundle, this);
 	}
-	
+
 	public Intent getSeeProfileIntent(Context context) {
 		Intent intent = new Intent(context, ProfileInfoActivity.class);
 		Bundle bundle = new Bundle();
@@ -325,19 +355,25 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 		intent.putExtras(bundle);
 		return intent;
 	}
-	
+
 	class ClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
 			if (v.getId() == R.id.ll_profile_friend_list) {
-				if(mUser.getFriendCount() == 0){
-					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_events), 
+				if (mUser.getFriendCount() == 0) {
+					Toast.makeText(
+							mActivity,
+							mActivity.getResources().getString(
+									R.string.profile_no_like_events),
 							Toast.LENGTH_SHORT).show();
-				}else{
-					Intent intent = new Intent(mActivity, FriendListActivity.class);
+				} else {
+					Intent intent = new Intent(mActivity,
+							FriendListActivity.class);
 					Bundle bundle = new Bundle();
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "ProfileFragment");
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID,
+							mUser.getUID());
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE,
+							"ProfileFragment");
 					intent.putExtras(bundle);
 					startActivity(intent);
 					mActivity.overridePendingTransition(R.anim.slide_right_in,
@@ -348,99 +384,139 @@ public class ProfileFragment extends WTBaseFragment implements LoaderCallbacks<H
 			} else if (v.getId() == R.id.btn_profile_action) {
 				((MainActivity) getActivity()).doPickPhotoAction();
 			} else if (v.getId() == R.id.ll_profile_activity_list) {
-				if(mUser.getScheduleCount().getActivity() == 0){
-					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_attend_events), 
+				if (mUser.getScheduleCount().getActivity() == 0) {
+					Toast.makeText(
+							mActivity,
+							mActivity.getResources().getString(
+									R.string.profile_no_attend_events),
 							Toast.LENGTH_SHORT).show();
-				}else{
-					Intent intent = new Intent(mActivity, EventsListActivity.class);
+				} else {
+					Intent intent = new Intent(mActivity,
+							EventsListActivity.class);
 					Bundle bundle = new Bundle();
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID,
+							mUser.getUID());
 					intent.putExtras(bundle);
 					startActivity(intent);
 					mActivity.overridePendingTransition(R.anim.slide_right_in,
 							R.anim.slide_left_out);
 				}
 			} else if (v.getId() == R.id.ll_profile_course_list) {
-				if(mUser.getScheduleCount().getCourse() == 0){
-					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_attend_courses), 
+				if (mUser.getScheduleCount().getCourse() == 0) {
+					Toast.makeText(
+							mActivity,
+							mActivity.getResources().getString(
+									R.string.profile_no_attend_courses),
 							Toast.LENGTH_SHORT).show();
-				}else{
-					Intent intent = new Intent(mActivity, CourseListActivity.class);
-					intent.putExtra(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+				} else {
+					Intent intent = new Intent(mActivity,
+							CourseListActivity.class);
+					intent.putExtra(WTBaseFragment.BUNDLE_KEY_UID,
+							mUser.getUID());
 					startActivity(intent);
 					mActivity.overridePendingTransition(R.anim.slide_right_in,
 							R.anim.slide_left_out);
 				}
-			} else if(v.getId() == R.id.ll_profile_events_like){
-				if(mUser.getLikeCount().getActivity() == 0){
-					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_events), 
+			} else if (v.getId() == R.id.ll_profile_events_like) {
+				if (mUser.getLikeCount().getActivity() == 0) {
+					Toast.makeText(
+							mActivity,
+							mActivity.getResources().getString(
+									R.string.profile_no_like_events),
 							Toast.LENGTH_SHORT).show();
-				}else{
-					Intent intent = new Intent(mActivity, WTLikeListActivity.class);
+				} else {
+					Intent intent = new Intent(mActivity,
+							WTLikeListActivity.class);
 					Bundle bundle = new Bundle();
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID,
+							mUser.getUID());
 					bundle.putBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, true);
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "Activity");
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE,
+							"Activity");
 					intent.putExtras(bundle);
 					startActivity(intent);
 					mActivity.overridePendingTransition(R.anim.slide_right_in,
 							R.anim.slide_left_out);
 				}
-			} else if(v.getId() == R.id.ll_profile_news_like){
-				if(mUser.getLikeCount().getInformation() == 0){
-					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_information), 
+			} else if (v.getId() == R.id.ll_profile_news_like) {
+				if (mUser.getLikeCount().getInformation() == 0) {
+					Toast.makeText(
+							mActivity,
+							mActivity.getResources().getString(
+									R.string.profile_no_like_information),
 							Toast.LENGTH_SHORT).show();
-				}else{
-					Intent intent = new Intent(mActivity, WTLikeListActivity.class);
+				} else {
+					Intent intent = new Intent(mActivity,
+							WTLikeListActivity.class);
 					Bundle bundle = new Bundle();
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID,
+							mUser.getUID());
 					bundle.putBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, true);
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "Information");
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE,
+							"Information");
 					intent.putExtras(bundle);
 					startActivity(intent);
 					mActivity.overridePendingTransition(R.anim.slide_right_in,
 							R.anim.slide_left_out);
 				}
-			} else if(v.getId() == R.id.ll_profile_people_like){
-				if(mUser.getLikeCount().getPerson() == 0){
-					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_people), 
+			} else if (v.getId() == R.id.ll_profile_people_like) {
+				if (mUser.getLikeCount().getPerson() == 0) {
+					Toast.makeText(
+							mActivity,
+							mActivity.getResources().getString(
+									R.string.profile_no_like_people),
 							Toast.LENGTH_SHORT).show();
-				}else{
-					Intent intent = new Intent(mActivity, WTLikeListActivity.class);
+				} else {
+					Intent intent = new Intent(mActivity,
+							WTLikeListActivity.class);
 					Bundle bundle = new Bundle();
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID,
+							mUser.getUID());
 					bundle.putBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, true);
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "People");
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE,
+							"People");
 					intent.putExtras(bundle);
 					startActivity(intent);
 					mActivity.overridePendingTransition(R.anim.slide_right_in,
 							R.anim.slide_left_out);
 				}
-			} else if(v.getId() == R.id.ll_profile_org_like){
-				if(mUser.getLikeCount().getAccount() == 0){
-					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_accounts), 
+			} else if (v.getId() == R.id.ll_profile_org_like) {
+				if (mUser.getLikeCount().getAccount() == 0) {
+					Toast.makeText(
+							mActivity,
+							mActivity.getResources().getString(
+									R.string.profile_no_like_accounts),
 							Toast.LENGTH_SHORT).show();
-				}else{
-					Intent intent = new Intent(mActivity, WTLikeListActivity.class);
+				} else {
+					Intent intent = new Intent(mActivity,
+							WTLikeListActivity.class);
 					Bundle bundle = new Bundle();
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID,
+							mUser.getUID());
 					bundle.putBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, true);
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "Account");
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE,
+							"Account");
 					intent.putExtras(bundle);
 					startActivity(intent);
 					mActivity.overridePendingTransition(R.anim.slide_right_in,
 							R.anim.slide_left_out);
 				}
-			}else if(v.getId() == R.id.ll_profile_user_like){
-				if(mUser.getLikeCount().getUser() == 0){
-					Toast.makeText(mActivity, mActivity.getResources().getString(R.string.profile_no_like_accounts), 
+			} else if (v.getId() == R.id.ll_profile_user_like) {
+				if (mUser.getLikeCount().getUser() == 0) {
+					Toast.makeText(
+							mActivity,
+							mActivity.getResources().getString(
+									R.string.profile_no_like_accounts),
 							Toast.LENGTH_SHORT).show();
-				}else{
-					Intent intent = new Intent(mActivity, FriendListActivity.class);
+				} else {
+					Intent intent = new Intent(mActivity,
+							FriendListActivity.class);
 					Bundle bundle = new Bundle();
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID,
+							mUser.getUID());
 					bundle.putBoolean(WTBaseFragment.BUNDLE_KEY_LIKE, true);
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "User");
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE,
+							"User");
 					intent.putExtras(bundle);
 					startActivity(intent);
 					mActivity.overridePendingTransition(R.anim.slide_right_in,
