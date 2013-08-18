@@ -90,7 +90,7 @@ public class BaseAuthActivity extends WTBaseImagePickActivity implements
 
 		showProgress();
 		Bundle args = apiHelper.getUserLogOn(mUsername, mPassword);
-		getSupportLoaderManager().initLoader(
+		getSupportLoaderManager().restartLoader(
 				WTApplication.NETWORK_LOADER_DEFAULT, args, this).forceLoad();
 	}
 
