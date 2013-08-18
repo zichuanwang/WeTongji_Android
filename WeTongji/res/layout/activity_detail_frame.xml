@@ -82,7 +82,7 @@
         <!-- main content -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@id/layout_event_detail_top_actionbar"
             android:background="@drawable/bg_app_base" >
 

@@ -280,4 +280,5 @@
     <item name="text_about_version" type="id"/>
     <item name="text_about_terms" type="id"/>
     <item name="ll_setting_change_pwd_area" type="id" />
+    <item type="id" name="img_account_background_temp"/>
 </resources>

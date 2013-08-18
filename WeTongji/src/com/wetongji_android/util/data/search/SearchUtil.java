@@ -60,7 +60,6 @@ public class SearchUtil {
 				JSONObject json = array.getJSONObject(i);
 				result.setAvatar(json.getString("OrganizerAvatar"));
 				result.setTitle(json.getString("Title"));
-				result.setDesc(json.getString("Summary"));
 				Information info = gson.fromJson(json.toString(),
 						Information.class);
 				result.setContent(info);
