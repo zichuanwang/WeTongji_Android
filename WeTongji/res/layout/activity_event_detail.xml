@@ -53,6 +53,7 @@
 	    android:id="@id/iv_event_detail_image"
 	    android:layout_width="match_parent"
 	    android:layout_height="147dp"
+	    android:layout_marginTop="-2dp"
 	    android:background="@drawable/image_cover"
 	    android:scaleType="centerCrop"
 	    android:paddingTop="0dp"

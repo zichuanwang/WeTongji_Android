@@ -3,6 +3,7 @@ package com.wetongji_android.ui.friend;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -29,8 +30,7 @@ import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 public class FriendDetailActivity extends WTBaseDetailActivity implements
-	LoaderCallbacks<HttpRequestResult>
-{
+		LoaderCallbacks<HttpRequestResult> {
 	private TextView tvFriendWords;
 	private TextView tvFriendDepartment;
 	private Button ibFriend;
@@ -41,21 +41,20 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	private TextView tvMajor;
 	private TextView tvGrade;
 	private TextView tvEmail;
-	
+
 	private User mUser;
 	private AQuery mAq;
-	
+
 	private boolean bIsFriend;
-	
+
 	@Override
-	protected void onCreate(Bundle arg0) 
-	{
+	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 
 		receiveData();
-		
+
 		setContentView(R.layout.activity_friend_detail);
-		
+
 		initWidget();
 	}
 
@@ -64,158 +63,153 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		super.setShareContent(shareContent);
 	}
 
-
-	private void receiveData()
-	{
+	private void receiveData() {
 		Intent intent = getIntent();
-		mUser = intent.getExtras().getParcelable(FriendListFragment.BUNDLE_KEY_USER);
+		mUser = intent.getExtras().getParcelable(
+				FriendListFragment.BUNDLE_KEY_USER);
 		setShareContent("My friend--" + mUser.getName());
 		setiChildId(mUser.getUID());
 		setModelType("User");
 		setCanLike(mUser.isCanLike());
 		setLike(mUser.getLike());
 	}
-	
-	private void initWidget()
-	{
+
+	private void initWidget() {
 		mAq = WTApplication.getInstance().getAq(this);
-		tvFriendWords = (TextView)findViewById(R.id.text_profile_words);
+		tvFriendWords = (TextView) findViewById(R.id.text_profile_words);
 		tvFriendWords.setText(mUser.getWords());
-		tvFriendDepartment = (TextView)findViewById(R.id.text_profile_gender);
+		tvFriendDepartment = (TextView) findViewById(R.id.text_profile_gender);
+		int gendarRid = mUser.getGender().equals("男") ? R.drawable.ic_profile_gender_male
+				: R.drawable.ic_profile_gender_female;
+		Drawable gendarDrawable = getResources().getDrawable(gendarRid);
+		tvFriendDepartment.setCompoundDrawablesRelativeWithIntrinsicBounds(
+				gendarDrawable, null, null, null);
 		tvFriendDepartment.setText(mUser.getDepartment());
-		ibFriend = (Button)findViewById(R.id.btn_profile_action);
+		ibFriend = (Button) findViewById(R.id.btn_profile_action);
 		bIsFriend = mUser.isIsFriend();
-		if(bIsFriend){
+		if (bIsFriend) {
 			ibFriend.setText(R.string.button_unfriend);
-		}else{
+		} else {
 			ibFriend.setText(R.string.button_friend);
 		}
 		ibFriend.setOnClickListener(new ClickListener());
-		//Set Avatar
-		mAq.id(R.id.img_profile_avatar).image(mUser.getAvatar(), true, true, 0, 0, new BitmapAjaxCallback() 
-		{
-			@Override
-			protected void callback(String url, ImageView iv, Bitmap bm, AjaxStatus status) 
-			{
-				iv.setImageBitmap(bm);
-				setHeadBluredBg(bm);
-			}	
-		});
-		rlFriendList = (RelativeLayout)findViewById(R.id.ll_friend_detail_list);
+		// Set Avatar
+		mAq.id(R.id.img_profile_avatar).image(mUser.getAvatar(), true, true, 0,
+				0, new BitmapAjaxCallback() {
+					@Override
+					protected void callback(String url, ImageView iv,
+							Bitmap bm, AjaxStatus status) {
+						iv.setImageBitmap(bm);
+						setHeadBluredBg(bm);
+					}
+				});
+		rlFriendList = (RelativeLayout) findViewById(R.id.ll_friend_detail_list);
 		rlFriendList.setOnClickListener(new ClickListener());
-		tvFriendNum = (TextView)findViewById(R.id.tv_detail_friend_num);
+		tvFriendNum = (TextView) findViewById(R.id.tv_detail_friend_num);
 		StringBuilder sb = new StringBuilder();
 		sb.append(mUser.getFriendCount()).append(" Friends");
 		tvFriendNum.setText(sb.toString());
-		rlPartEvents = (RelativeLayout)findViewById(R.id.ll_friend_detail_part_events);
+		rlPartEvents = (RelativeLayout) findViewById(R.id.ll_friend_detail_part_events);
 		rlPartEvents.setOnClickListener(new ClickListener());
-		tvEventsNum = (TextView)findViewById(R.id.tv_detail_friend_part_events_num);
+		tvEventsNum = (TextView) findViewById(R.id.tv_detail_friend_part_events_num);
 		sb.delete(0, sb.length());
 		sb.append(mUser.getLikeCount().getActivity()).append(" Events");
 		tvEventsNum.setText(sb.toString());
-		tvMajor = (TextView)findViewById(R.id.tv_friend_detail_major);
+		tvMajor = (TextView) findViewById(R.id.tv_friend_detail_major);
 		tvMajor.setText(mUser.getMajor());
-		tvGrade = (TextView)findViewById(R.id.tv_friend_detail_grade);
+		tvGrade = (TextView) findViewById(R.id.tv_friend_detail_grade);
 		tvGrade.setText(mUser.getYear());
-		tvEmail = (TextView)findViewById(R.id.tv_friend_detail_email);
+		tvEmail = (TextView) findViewById(R.id.tv_friend_detail_email);
 		tvEmail.setText(mUser.getEmail());
 	}
-	
-	private void showToast()
-	{
-		if(bIsFriend)
-		{
-			Toast.makeText(this, this.getResources().getString(R.string.add_friend_request), 
+
+	private void showToast() {
+		if (bIsFriend) {
+			Toast.makeText(this,
+					this.getResources().getString(R.string.add_friend_request),
 					Toast.LENGTH_SHORT).show();
-		}else
-		{
-			Toast.makeText(this, this.getResources().getString(R.string.remove_friend_request), 
-					Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(
+					this,
+					this.getResources().getString(
+							R.string.remove_friend_request), Toast.LENGTH_SHORT)
+					.show();
 		}
 	}
-	
+
 	@SuppressWarnings("deprecation")
-	private void setHeadBluredBg(Bitmap resource)
-	{
-		RelativeLayout rl = (RelativeLayout)findViewById(R.id.layout_profile_header);
-		int tH =  (496 * 200 / 1080);
+	private void setHeadBluredBg(Bitmap resource) {
+		RelativeLayout rl = (RelativeLayout) findViewById(R.id.layout_profile_header);
+		int tH = (496 * 200 / 1080);
 		Bitmap bm = Bitmap.createBitmap(resource, 0, (100 - tH / 2), 200, tH);
 		Bitmap bg = ImageUtil.fastblur(bm, 10);
 		rl.setBackgroundDrawable(new BitmapDrawable(getResources(), bg));
 	}
-	
+
 	@Override
-	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) 
-	{
+	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
 		return new NetworkLoader(this, HttpMethod.Get, arg1);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
-			HttpRequestResult result) 
-	{
-		if(result.getResponseCode() == 0){
-			if(bIsFriend)
-			{
+			HttpRequestResult result) {
+		if (result.getResponseCode() == 0) {
+			if (bIsFriend) {
 				bIsFriend = false;
-			}else
-			{
+			} else {
 				bIsFriend = true;
 			}
-			
+
 			showToast();
 		}
 	}
 
 	@Override
-	public void onLoaderReset(Loader<HttpRequestResult> arg0) 
-	{
-		
+	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
+
 	}
-	
-	private void addFriend(String id)
-	{
+
+	private void addFriend(String id) {
 		ApiHelper apiHelper = ApiHelper.getInstance(this);
 		Bundle bundle = apiHelper.friendOpWithStatus(id, bIsFriend);
-		getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
+		getSupportLoaderManager().restartLoader(
+				WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
 	}
-	
-	private void removeFriend(String id)
-	{
+
+	private void removeFriend(String id) {
 		ApiHelper apiHelper = ApiHelper.getInstance(this);
 		Bundle bundle = apiHelper.friendOpWithStatus(id, bIsFriend);
-		getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
+		getSupportLoaderManager().restartLoader(
+				WTApplication.NETWORK_LOADER_DEFAULT, bundle, this);
 	}
-	
-	class ClickListener implements OnClickListener
-	{
+
+	class ClickListener implements OnClickListener {
 		@Override
-		public void onClick(View v) 
-		{
-			if(v.getId() == R.id.ll_friend_detail_list)
-			{
-				Intent intent = new Intent(FriendDetailActivity.this, FriendListActivity.class);
+		public void onClick(View v) {
+			if (v.getId() == R.id.ll_friend_detail_list) {
+				Intent intent = new Intent(FriendDetailActivity.this,
+						FriendListActivity.class);
 				Bundle bundle = new Bundle();
 				bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
-				bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, FriendDetailActivity.this.getClass().getSimpleName());
+				bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE,
+						FriendDetailActivity.this.getClass().getSimpleName());
 				intent.putExtras(bundle);
 				startActivity(intent);
-				overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
-			}else if(v.getId() == R.id.btn_profile_action)
-			{
-				if(bIsFriend)
-				{
+				overridePendingTransition(R.anim.slide_right_in,
+						R.anim.slide_left_out);
+			} else if (v.getId() == R.id.btn_profile_action) {
+				if (bIsFriend) {
 					removeFriend(mUser.getUID());
-				}else
-				{
+				} else {
 					addFriend(mUser.getUID());
 				}
 			}
 		}
 	}
-	
+
 	@Override
 	protected void updateObjectInDB() {
-		
+
 	}
 }
