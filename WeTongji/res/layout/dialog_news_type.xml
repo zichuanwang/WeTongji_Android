@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <CheckBox
+        android:id="@id/info_menu_cat1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:drawableRight="@drawable/btn_check_holo_light"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:layout_marginLeft="-5dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/text_news_category_1"
+        android:textSize="14sp"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:background="@color/eventlst_divider" />
+
+    <CheckBox
+        android:id="@id/info_menu_cat2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:drawableRight="@drawable/btn_check_holo_light"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/text_news_category_2" 
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:background="@color/eventlst_divider" />
+
+    <CheckBox
+        android:id="@id/info_menu_cat3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:drawableRight="@drawable/btn_check_holo_light"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/text_news_category_3" 
+        android:textSize="14sp" 
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:background="@color/eventlst_divider" />
+
+    <CheckBox
+        android:id="@id/info_menu_cat4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:drawableRight="@drawable/btn_check_holo_light"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/text_news_category_4" 
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:background="@color/eventlst_divider" />
+
+    <LinearLayout
+        android:id="@id/btn_sort_dialog_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@drawable/dialog_bottom_selector"
+        android:clickable="true"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_confirm" />
+        
+    </LinearLayout>
+
+</LinearLayout>

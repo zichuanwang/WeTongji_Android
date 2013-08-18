@@ -23,6 +23,7 @@ import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,7 +34,11 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -257,7 +262,6 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 		inflater.inflate(R.menu.menu_informationlist, menu);
 		
 		readPreference();
-		setMenuStatus(menu);
 	}
 
 	private void readPreference()
@@ -273,18 +277,6 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 		editor.commit();
 	}
 	
-	private void setMenuStatus(Menu menu)
-	{
-		menu.getItem(1).getSubMenu().getItem(0).setChecked(
-				(mSelectType & ApiHelper.API_ARGS_INFO_CAMPUS) != 0);
-		menu.getItem(1).getSubMenu().getItem(1).setChecked(
-				(mSelectType & ApiHelper.API_ARGS_INFO_ADMINISTRATIVE) != 0);
-		menu.getItem(1).getSubMenu().getItem(2).setChecked(
-				(mSelectType & ApiHelper.API_ARGS_INFO_CLUB) != 0);
-		menu.getItem(1).getSubMenu().getItem(3).setChecked(
-				(mSelectType & ApiHelper.API_ARGS_INFO_LOCAL) != 0);
-	}
-	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) 
 	{
@@ -292,6 +284,9 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 		{
 		case R.id.menu_informationlist_reload:
 			refreshData();
+			break;
+		case R.id.menu_informationlist_type:
+			openTypeDialog();
 			break;
 		case R.id.notification_button_info:
 			if (WTApplication.getInstance().hasAccount) {
@@ -301,55 +296,84 @@ public class InformationsFragment extends WTBaseFragment implements LoaderCallba
 						Toast.LENGTH_SHORT).show();
 			}
 			break;
-		case R.id.info_menu_cat1:
-			item.setChecked(!item.isChecked());
-			if(item.isChecked())
-			{
-				mSelectType += ApiHelper.API_ARGS_INFO_CAMPUS;
-			}else
-			{
-				mSelectType -= ApiHelper.API_ARGS_INFO_CAMPUS;
-			}
-			break;
-		case R.id.info_menu_cat2:
-			item.setChecked(!item.isChecked());
-			if(item.isChecked())
-			{
-				mSelectType += ApiHelper.API_ARGS_INFO_ADMINISTRATIVE;
-			}else
-			{
-				mSelectType -= ApiHelper.API_ARGS_INFO_ADMINISTRATIVE;
-			}
-			break;
-		case R.id.info_menu_cat3:
-			item.setChecked(!item.isChecked());
-			if(item.isChecked())
-			{
-				mSelectType += ApiHelper.API_ARGS_INFO_CLUB;
-			}else
-			{
-				mSelectType -= ApiHelper.API_ARGS_INFO_CLUB;
-			}
-			break;
-		case R.id.info_menu_cat4:
-			item.setChecked(!item.isChecked());
-			if(item.isChecked())
-			{
-				mSelectType += ApiHelper.API_ARGS_INFO_LOCAL;
-			}else
-			{
-				mSelectType -= ApiHelper.API_ARGS_INFO_LOCAL;
-			}
-			break;
 		default:
 			return super.onOptionsItemSelected(item);
 				
 		}
 
-		writePreference();
 		return true;
 	}
 
+	private void openTypeDialog(){
+		final Dialog dialog = new Dialog(mActivity);
+		dialog.setTitle(R.string.events_type_dialog_title);
+		dialog.setContentView(R.layout.dialog_news_type);
+		dialog.setCanceledOnTouchOutside(true);
+		LinearLayout llCancel = (LinearLayout) dialog
+				.findViewById(R.id.btn_sort_dialog_cancel);
+		llCancel.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				dialog.dismiss();
+			}
+		});
+		
+		CheckBox ckCampus = (CheckBox)dialog.findViewById(R.id.info_menu_cat1);
+		CheckBox ckAdmin = (CheckBox)dialog.findViewById(R.id.info_menu_cat2);
+		CheckBox ckClub = (CheckBox)dialog.findViewById(R.id.info_menu_cat3);
+		CheckBox ckLocal = (CheckBox)dialog.findViewById(R.id.info_menu_cat4);
+		ckCampus.setChecked((mSelectType & ApiHelper.API_ARGS_INFO_CAMPUS) != 0);
+		ckAdmin.setChecked((mSelectType & ApiHelper.API_ARGS_INFO_ADMINISTRATIVE) != 0);
+		ckClub.setChecked((mSelectType & ApiHelper.API_ARGS_INFO_CLUB) != 0);
+		ckLocal.setChecked((mSelectType & ApiHelper.API_ARGS_INFO_LOCAL) != 0);
+		OnTypeChangedListener typeChangedListener = new OnTypeChangedListener();
+		ckCampus.setOnCheckedChangeListener(typeChangedListener);
+		ckAdmin.setOnCheckedChangeListener(typeChangedListener);
+		ckClub.setOnCheckedChangeListener(typeChangedListener);
+		ckLocal.setOnCheckedChangeListener(typeChangedListener);
+		dialog.show();
+	}
+	
+	private class OnTypeChangedListener 
+	implements android.widget.CompoundButton.OnCheckedChangeListener {
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
+			switch(buttonView.getId()){
+			case R.id.info_menu_cat1:
+				if(buttonView.isChecked()){
+					mSelectType += ApiHelper.API_ARGS_INFO_CAMPUS;
+				}else{
+					mSelectType -= ApiHelper.API_ARGS_INFO_CAMPUS;
+				}
+				break;
+			case R.id.info_menu_cat2:
+				if(buttonView.isChecked()){
+					mSelectType += ApiHelper.API_ARGS_INFO_ADMINISTRATIVE;
+				}else{
+					mSelectType -= ApiHelper.API_ARGS_INFO_ADMINISTRATIVE;
+				}
+				break;
+			case R.id.info_menu_cat3:
+				if(buttonView.isChecked()){
+					mSelectType += ApiHelper.API_ARGS_INFO_CLUB;
+				}else{
+					mSelectType -= ApiHelper.API_ARGS_INFO_CLUB;
+				}
+				break;
+			case R.id.info_menu_cat4:
+				if(buttonView.isChecked()){
+					mSelectType += ApiHelper.API_ARGS_INFO_LOCAL;
+				}else{
+					mSelectType -= ApiHelper.API_ARGS_INFO_LOCAL;
+				}
+				break;
+			}
+			
+			writePreference();
+		}
+	}
+	
 	private Bundle getQueryArgs()
 	{
 		boolean hasCampus = (mSelectType & ApiHelper.API_ARGS_INFO_CAMPUS) != 0;

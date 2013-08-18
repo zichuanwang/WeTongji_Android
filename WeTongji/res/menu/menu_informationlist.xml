@@ -8,51 +8,10 @@
         android:icon="@drawable/abs_event_reload"/>
     
     <item
+        android:id="@id/menu_informationlist_type"
         android:title="@string/menu_more"
 	    android:showAsAction="always"
-	    android:icon="@drawable/ab_news_type">
-
-		<menu>
-
-			<group
-			    android:checkableBehavior="single">
-			    
-			    <item
-			        android:id="@id/info_menu_cat1"
-			        android:showAsAction="never"
-			        android:checkable="true"
-			        android:checked="true"
-			        android:title="@string/text_news_category_1"
-			        />
-			    
-			    <item
-			        android:id="@id/info_menu_cat2"
-			        android:showAsAction="never"
-			        android:checkable="true"
-			        android:checked="true"
-			        android:title="@string/text_news_category_2"
-			        />
-			    
-			    <item
-			        android:id="@id/info_menu_cat3"
-			        android:showAsAction="never"
-			        android:checkable="true"
-			        android:checked="true"
-			        android:title="@string/text_news_category_3"
-			        />
-			    
-			    <item
-			        android:id="@id/info_menu_cat4"
-			        android:showAsAction="never"
-			        android:checkable="true"
-			        android:checked="true"
-			        android:title="@string/text_news_category_4"
-			        />
-			</group>
-			
-		</menu>
-		
-	</item>
+	    android:icon="@drawable/ab_news_type"/>
 	
     <item 
         android:id="@id/notification_button_info" 
