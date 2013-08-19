@@ -13,9 +13,10 @@
         android:drawableRight="@drawable/btn_check_holo_light"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="-23dp"
         android:layout_marginRight="10dp"
-        android:text="@string/text_event_channel_id_1" />
+        android:text="@string/text_event_channel_id_1" 
+        style="@style/DialogTextStyle" />
 
     <View
         android:layout_width="match_parent"
@@ -30,9 +31,10 @@
         android:drawableRight="@drawable/btn_check_holo_light"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="-23dp"
         android:layout_marginRight="10dp"
-        android:text="@string/text_event_channel_id_2" />
+        android:text="@string/text_event_channel_id_2"
+        style="@style/DialogTextStyle" />
 
     <View
         android:layout_width="match_parent"
@@ -47,9 +49,10 @@
         android:drawableRight="@drawable/btn_check_holo_light"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="-23dp"
         android:layout_marginRight="10dp"
-        android:text="@string/text_event_channel_id_3" />
+        android:text="@string/text_event_channel_id_3"
+        style="@style/DialogTextStyle" />
 
     <View
         android:layout_width="match_parent"
@@ -64,14 +67,16 @@
         android:drawableRight="@drawable/btn_check_holo_light"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="-23dp"
         android:layout_marginRight="10dp"
-        android:text="@string/text_event_channel_id_4" />
+        android:text="@string/text_event_channel_id_4"
+        style="@style/DialogTextStyle" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/eventlst_divider" />
+        android:background="@color/eventlst_divider"
+        style="@style/DialogTextStyle" />
 
     <LinearLayout
         android:id="@+id/btn_sort_dialog_cancel"
@@ -84,7 +89,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_confirm" />
+            android:text="@string/text_confirm"
+            android:textSize="12sp"
+            android:textColor="@android:color/black" />
     </LinearLayout>
 
 </LinearLayout>

@@ -91,9 +91,9 @@ public class ApiHelper {
 	public static final int API_ARGS_CHANNEL_ENTERTAINMENT_MASK = 8;
 	
 	public static final int API_ARGS_INFO_CAMPUS = 1;
-	public static final int API_ARGS_INFO_ADMINISTRATIVE = 2;
-	public static final int API_ARGS_INFO_CLUB = 4;
-	public static final int API_ARGS_INFO_LOCAL = 8;
+	public static final int API_ARGS_INFO_CLUB = 2;
+	public static final int API_ARGS_INFO_LOCAL = 4;
+	public static final int API_ARGS_INFO_ADMINISTRATIVE = 8;
 	
 	private void putBasicArgs(Bundle bundle){
 		bundle.putString(API_ARGS_DEVICE, WTApplication.API_DEVICE);
@@ -389,15 +389,15 @@ public class ApiHelper {
 		{
 			sb.append("1 ");
 		}
-		if((infoType & API_ARGS_INFO_ADMINISTRATIVE) != 0)
+		if((infoType & API_ARGS_INFO_CLUB) != 0)
 		{
 			sb.append("2 ");
 		}
-		if((infoType & API_ARGS_INFO_CLUB) != 0)
+		if((infoType & API_ARGS_INFO_LOCAL) != 0)
 		{
 			sb.append("3 ");
 		}
-		if((infoType & API_ARGS_INFO_LOCAL) != 0)
+		if((infoType & API_ARGS_INFO_ADMINISTRATIVE) != 0)
 		{
 			sb.append("4 ");
 		}
@@ -513,6 +513,8 @@ public class ApiHelper {
 	public Bundle getSearchResult(int category, String keywords) {
 		Bundle bundle = new Bundle();
 		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
 		bundle.putString(API_ARGS_METHOD, "Search");
 		bundle.putString(API_ARGS_KEYWORDS, keywords);
 		if (category != 0) {

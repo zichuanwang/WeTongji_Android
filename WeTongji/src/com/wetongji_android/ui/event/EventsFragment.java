@@ -489,6 +489,7 @@ OnScrollListener{
 			public void onClick(View arg0) {
 				refreshData();
 				dialog.dismiss();
+				refreshData();
 			}
 		});
 		CheckBox cbAcademic = (CheckBox) dialog.findViewById(R.id.cb_academic);

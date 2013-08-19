@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.R;
@@ -42,7 +42,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	private LayoutInflater mInflater;
 	private List<Information> originList;
 	private boolean isLoadingData;
-	private int nextPage;
+	private int iSelectType;
 	
 	private AsyncTask<Integer, Void, List<Pair<Date, List<Information>>>> backgroundTask;
 	
@@ -95,7 +95,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	@Override
 	protected void onNextPageRequested(int page) 
 	{
-		Log.v("page", "" + "call this method" + page);
 		/*if(page != this.nextPage)
 		{
 			this.notifyNoMorePages();
@@ -117,7 +116,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 				WTClient client = WTClient.getInstance();
 				ApiHelper apiHelper = ApiHelper.getInstance(mContext);
 				try {
-					HttpRequestResult result = client.execute(HttpMethod.Get, apiHelper.getInformations(p, 15));
+					HttpRequestResult result = client.execute(HttpMethod.Get, apiHelper.getInformations(p, iSelectType));
 					InformationFactory factory = new InformationFactory(mFragment);
 					Pair<Integer, List<Information>> infos = factory.createObjects(result.getStrResponseCon(), 1);
 					List<Information> lists = infos.second;
@@ -139,6 +138,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 					notifyDataSetChanged();
 				}else{
 					notifyNoMorePages();
+					Toast.makeText(mContext, "No More Data", Toast.LENGTH_SHORT).show();
 				}
 			}
 			
@@ -289,8 +289,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	{
 		if(list != null && list.size() != 0)
 		{
-			if(list.size() < 20)
-				this.setNextPage(0);
 			this.setInformations(InformationUtil.getSectionedInformationList(list));
 			this.setOriginList(list);
 			this.setLoadingData(false);
@@ -320,6 +318,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public void clear()
 	{
 		this.mListInfos.clear();
+		notifyDataSetChanged();
 	}
 	
 	public void loadDataFromDB(Bundle bundle)
@@ -335,11 +334,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		this.originList = originList;
 	}
 
-	public int getNextPage() {
-		return nextPage;
-	}
-
-	public void setNextPage(int nextPage) {
-		this.nextPage = nextPage;
+	public void setiSelectType(int iSelectType) {
+		this.iSelectType = iSelectType;
 	}
 }

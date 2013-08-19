@@ -234,7 +234,6 @@ public class InformationsFragment extends WTBaseFragment
 			List<Information> lists = informations.second;
 			
 			mAdapter.setLoadingData(false);
-			mAdapter.setNextPage(mFactory.getNextPage());
 			mAdapter.setInformations(InformationUtil.getSectionedInformationList(lists));
 			mAdapter.setOriginList(lists);
 		}
@@ -249,6 +248,7 @@ public class InformationsFragment extends WTBaseFragment
 	public void refreshData()
 	{	
 		mAdapter.clear();
+		currentPage = 0;
 		mAdapter.setLoadingData(true);
 		mAdapter.notifyMayHaveMorePages();
 		mListNews.setSelection(0);
@@ -330,6 +330,7 @@ public class InformationsFragment extends WTBaseFragment
 			@Override
 			public void onClick(View arg0) {
 				dialog.dismiss();
+				refreshData();
 			}
 		});
 		
