@@ -16,7 +16,6 @@ import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.friend.FriendDetailActivity;
 import com.wetongji_android.ui.friend.FriendListFragment;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 

@@ -65,30 +65,26 @@ public class AccountListAdapter extends EndlessListAdapter<Account> implements
 	
 	@Override
 	public Loader<List<Account>> onCreateLoader(int arg0, Bundle arg1) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void onLoadFinished(Loader<List<Account>> arg0, List<Account> arg1) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onLoaderReset(Loader<List<Account>> arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected View doGetView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
 		ViewHolder holder;
 		
 		if(convertView==null){
 			holder=new ViewHolder();
-			convertView=mInflater.inflate(R.layout.row_event, parent, false);
+			convertView=mInflater.inflate(R.layout.row_account, parent, false);
 			holder.tvEventTitle=
 					(TextView)convertView.findViewById(R.id.tv_account_title);
 			holder.tvEventDescription = 

@@ -5,7 +5,7 @@
     android:layout_height="96dp"
     android:orientation="horizontal"
     android:gravity="center_horizontal"
-    android:id="@id/layout_event_row"
+    android:id="@id/layout_account_row"
     >
     
     <ImageView 
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2.0dp"
-            android:layout_above="@id/tv_event_location"
+            android:layout_below="@id/tv_account_title"
             style="@style/EventLstTime"
             android:textIsSelectable="false"
            	/>        

@@ -1,31 +1,17 @@
 package com.wetongji_android.ui.notification;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxStatus;
-import com.androidquery.callback.BitmapAjaxCallback;
 import com.androidquery.callback.ImageOptions;
 import com.wetongji_android.R;
-import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Notification;
-import com.wetongji_android.data.User;
-import com.wetongji_android.ui.course.CourseDetailActivity;
-import com.wetongji_android.ui.event.EventDetailActivity;
-import com.wetongji_android.ui.event.EventsFragment;
-import com.wetongji_android.ui.friend.FriendDetailActivity;
-import com.wetongji_android.ui.friend.FriendListFragment;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.notification.NotificationsLoader;
 import com.wetongji_android.util.date.DateParser;
-import com.wetongji_android.util.image.ImageUtil;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,8 +20,6 @@ import android.support.v4.content.Loader;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.TextAppearanceSpan;
-import android.util.Log;
-import android.util.EventLog.Event;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;

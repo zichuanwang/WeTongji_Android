@@ -3,6 +3,7 @@ package com.wetongji_android.ui.account;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -126,7 +127,6 @@ public class AccountListFragment extends WTBaseFragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) 
 	{
-		// TODO Auto-generated method stub
 		if(container == null)
 		{
 			return null;
@@ -181,7 +181,12 @@ public class AccountListFragment extends WTBaseFragment implements
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) 
 		{
-			
+			Intent intent = new Intent(mActivity, AccountDetailActivity.class);
+			Bundle bundle = new Bundle();
+			bundle.putParcelable(AccountDetailActivity.BUNDLE_KEY_ACCOUNT, mAdapter.getItem(arg2));
+			intent.putExtras(bundle);
+			startActivity(intent);
+			mActivity.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 		}
 	};
 }
