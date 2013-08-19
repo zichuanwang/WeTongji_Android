@@ -118,6 +118,7 @@ OnScrollListener{
 		llActionType.setOnClickListener(bottomActionItemClikListener);
 		readPreference();
 		cbActionExpired.setChecked(mExpire);
+		cbActionExpired.setOnCheckedChangeListener(new OnTypeCheckedListener());
 		
 		mListActivity = (ListView) view.findViewById(R.id.lst_events);
 		mAdapter = new EventListAdapter(this, mListActivity);
@@ -467,6 +468,7 @@ OnScrollListener{
 					mSortType = ApiHelper.API_ARGS_SORT_BY_BEGIN_DESC;
 					break;
 				}
+				refreshData();
 				dialog.dismiss();
 				writePreference();
 			}
@@ -485,6 +487,7 @@ OnScrollListener{
 		llCancel.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				refreshData();
 				dialog.dismiss();
 			}
 		});
@@ -543,6 +546,7 @@ OnScrollListener{
 				break;
 			case R.id.cb_event_expired:
 				mExpire = buttonView.isChecked();
+				refreshData();
 				break;
 			}
 			

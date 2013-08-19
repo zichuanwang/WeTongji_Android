@@ -11,7 +11,7 @@
     <string name="msg_dialog_update_found">New version %1$s found.\n%2$s</string>
     <string name="title_activity_authenticator">AuthenticatorActivity</string>
     <string name="title_mainmenu_today">Today</string>
-    <string name="title_mainmenu_news">Informations</string>
+    <string name="title_mainmenu_news">News</string>
     <string name="title_mainmenu_events">Events</string>
     <string name="title_mainmenu_now">Now</string>
     <string name="title_mainmenu_search">Search</string>
