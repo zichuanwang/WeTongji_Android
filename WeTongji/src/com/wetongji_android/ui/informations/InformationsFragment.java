@@ -30,7 +30,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -131,14 +130,13 @@ public class InformationsFragment extends WTBaseFragment
 	{
 		super.onActivityCreated(savedInstanceState);
 		
-		mInflater = LayoutInflater.from(getActivity());
+		mInflater = LayoutInflater.from(mActivity);
 		mListNews = (AmazingListView)mView.findViewById(R.id.lst_information);
 		mListNews.setPinnedHeaderView(mInflater.inflate(R.layout.information_list_header, mListNews, false));
 		mAdapter = new InformationsListAdapter(this, mListNews);
 		mListNews.setAdapter(mAdapter); 
 		mListNews.setLoadingView(mInflater.inflate(R.layout.amazing_lst_view_loading_view, mListNews, false));
 		mListNews.setOnItemClickListener(onItemClickListener);
-		mAdapter.notifyMayHaveMorePages();
 		
 		switch(getCurrentState(savedInstanceState))
 		{
@@ -232,13 +230,11 @@ public class InformationsFragment extends WTBaseFragment
 			}
 			
 			currentPage ++;
-			Log.v("currentpage", "" + currentPage);
 			Pair<Integer, List<Information>> informations = mFactory.createObjects(result.getStrResponseCon(), currentPage);
 			List<Information> lists = informations.second;
 			
 			mAdapter.setLoadingData(false);
 			mAdapter.setNextPage(mFactory.getNextPage());
-			Log.v("nextpage", "" + mFactory.getNextPage());
 			mAdapter.setInformations(InformationUtil.getSectionedInformationList(lists));
 			mAdapter.setOriginList(lists);
 		}

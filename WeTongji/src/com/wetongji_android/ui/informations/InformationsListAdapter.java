@@ -320,7 +320,6 @@ public class InformationsListAdapter extends AmazingAdapter implements
 	public void clear()
 	{
 		this.mListInfos.clear();
-		notifyDataSetChanged();
 	}
 	
 	public void loadDataFromDB(Bundle bundle)
