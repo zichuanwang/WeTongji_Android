@@ -513,6 +513,8 @@ public class ApiHelper {
 	public Bundle getSearchResult(int category, String keywords) {
 		Bundle bundle = new Bundle();
 		putBasicArgs(bundle);
+		putLoginArgs(bundle);
+		
 		bundle.putString(API_ARGS_METHOD, "Search");
 		bundle.putString(API_ARGS_KEYWORDS, keywords);
 		if (category != 0) {
