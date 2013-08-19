@@ -215,7 +215,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="setting_label">Settings</string>
 	<string name="change_pwd_label">Change Password</string>
 	<string name="title_clearcache_progress_dialog">Please wait</string>
-	<string name="msg_clearcache_progress_dialog">clearing cache...</string>
+	<string name="msg_clearcache_progress_dialog">clearing cache&#8230;</string>
 	<!-- About part -->
 	<string name="about_rate_we">Rate WeTongji!</string>
 	<string name="about_share">Share with friends</string>
@@ -255,4 +255,8 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<!-- Toast message -->
 	<string name="toast_like_success">Operation Success</string>
 	<string name="toast_like_failed">Operation failed</string>
+	<!-- Dialog part -->
+	<string name="publish_time">Publish time</string>
+	<string name="popularity">Popularity</string>
+	<string name="start_date">Activity start date</string>
 </resources>
