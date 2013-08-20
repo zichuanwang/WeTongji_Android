@@ -15,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -294,24 +296,41 @@ public class TodayFragment extends SherlockFragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// TODO Auto-generated method stub
 		super.onCreateOptionsMenu(menu, inflater);
-
-		inflater.inflate(R.menu.menu_today, menu);
+		getSherlockActivity().getSupportActionBar().setDisplayShowCustomEnabled(true);
+		getSherlockActivity().getSupportActionBar().setCustomView(R.layout.customized_actionbar);
+		getActivity().findViewById(R.id.notification_button_today).setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+//				Animation anim=AnimationUtils.loadAnimation(context, R.anim.notification_activated);
+//				View bg_view=getActivity().findViewById(R.id.notification_button_today_bg);
+//				bg_view.setVisibility(View.VISIBLE);
+//				bg_view.startAnimation(anim);
+				if (WTApplication.getInstance().hasAccount) {
+					((MainActivity) context).showRightMenu();
+				} else {
+					Toast.makeText(context,
+							getResources().getText(R.string.no_account_error),
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+//		inflater.inflate(R.menu.menu_today, menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
-		switch (item.getItemId()) {
-		case R.id.notification_button_today:
-			if (WTApplication.getInstance().hasAccount) {
-				((MainActivity) context).showRightMenu();
-			} else {
-				Toast.makeText(context,
-						getResources().getText(R.string.no_account_error),
-						Toast.LENGTH_SHORT).show();
-			}
-			return true;
-		}
+//		switch (item.getItemId()) {
+//		case R.id.notification_button_today:
+//			if (WTApplication.getInstance().hasAccount) {
+//				((MainActivity) context).showRightMenu();
+//			} else {
+//				Toast.makeText(context,
+//						getResources().getText(R.string.no_account_error),
+//						Toast.LENGTH_SHORT).show();
+//			}
+//			return true;
+//		}
 
 		return super.onOptionsItemSelected(item);
 	}
