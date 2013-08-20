@@ -3,6 +3,7 @@ package com.wetongji_android.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,11 +90,7 @@ public class MainMenuFragment extends Fragment {
 		if (mCurrentItemNu == 5) {
 			switchFragment(ProfileFragment.newInstance());
 			mMenuListAdapter.notifyDataSetChanged();
-		} else if (mCurrentItemNu == 3) {
-			switchFragment(NowFragment.newInstance());
-			mMenuListAdapter.notifyDataSetChanged();
 		}
-		
 	}
 
 
@@ -194,6 +191,13 @@ public class MainMenuFragment extends Fragment {
 			mMenuListAdapter.notifyDataSetChanged();
 
 			if (newContent != null) {
+				// delay some time to switch fragment
+				Handler handler = new Handler();
+				handler.postDelayed(new Runnable() {
+					@Override
+					public void run() {}
+				}, 500);
+				
 				switchFragment(newContent);
 			}
 		}
