@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,8 @@ import com.wetongji_android.util.common.WTBaseFragment.StartMode;
 
 public class MainMenuFragment extends Fragment {
 
+	public static final int MSG_SWITCH_CONTENT = 2313;
+	
 	public static final String KEY_MAIN_MENU_ICON = "icon";
 	public static final String KEY_MAIN_MENU_TEXT = "text";
 	private static final int MAIN_MENU_ICON_RES[] = { R.drawable.ic_main_today,
@@ -147,7 +150,7 @@ public class MainMenuFragment extends Fragment {
 			if (getActivity() == null)
 				return;
 			
-			Fragment newContent = null;
+			final Fragment newContent;
 			if (mCurrentItemNu == position) {
 				((MainActivity) getActivity()).getSlidingMenu().showContent();
 				return ;
@@ -182,6 +185,7 @@ public class MainMenuFragment extends Fragment {
 				}
 				break;
 			default:
+				newContent = null;
 				break;
 			}
 			((MainActivity) getActivity()).getSlidingMenu().showContent();
@@ -192,13 +196,25 @@ public class MainMenuFragment extends Fragment {
 
 			if (newContent != null) {
 				// delay some time to switch fragment
-				Handler handler = new Handler();
-				handler.postDelayed(new Runnable() {
+				final Handler handler = new Handler() {
 					@Override
-					public void run() {}
-				}, 500);
+					public void handleMessage(Message msg) {
+						if (msg.what == MSG_SWITCH_CONTENT) {
+							switchFragment(newContent);
+						}
+					}
+				};
+				Runnable runnable = new Runnable() {
+					@Override
+					public void run() {
+						Message msg = new Message();
+						msg.what = MSG_SWITCH_CONTENT;
+						handler.sendMessage(msg);
+						handler.removeCallbacks(this);
+					}
+				};
+				handler.postDelayed(runnable, 300);
 				
-				switchFragment(newContent);
 			}
 		}
 

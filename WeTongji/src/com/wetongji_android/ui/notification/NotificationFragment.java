@@ -119,7 +119,7 @@ public class NotificationFragment extends Fragment implements
 		@Override
 		public void run() {
 			setStopped(false);
-			while (!mIsStopped) {
+			while (!isStopped()) {
 				Message msg = new Message();
 				msg.what = 990;
 				mHandler.sendMessage(msg);
