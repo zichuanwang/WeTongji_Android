@@ -55,6 +55,8 @@
     <string name="text_tomorrow">Tomorrow</string>
     <string name="text_evnet_detail_organization">ORGANIZATION</string>
     <string name="text_event_about">ABOUT</string>
+    <string name="text_event_time_1">Time 1</string>
+    <string name="text_event_time_2">Time 2</string>
     <string name="text_week">WEEK</string>
     <string name="text_event_invite">INVITE</string>
     <string name="text_event_detail_friends">FRIENDS</string>
@@ -165,6 +167,9 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="course_section_credit">Credit</string>
     <string name="course_section_hours">Hours</string>
     <string name="course_section_type">Type</string>
+    <string name="course_section_class_time">Class time</string>
+    <string name="course_section_time_type">Type</string>
+    <string name="course_section_location">Location</string>
     <string name="course_required">必修</string>
     <string name="course_not_required">选修</string>
     <string name="account_detail_activities">Activities</string>

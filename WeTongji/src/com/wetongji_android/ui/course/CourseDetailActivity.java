@@ -17,20 +17,20 @@ import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 import com.wetongji_android.util.net.HttpUtil;
 
-public class CourseDetailActivity extends WTBaseDetailActivity
-		implements LoaderCallbacks<HttpRequestResult> {
+public class CourseDetailActivity extends WTBaseDetailActivity implements
+		LoaderCallbacks<HttpRequestResult> {
 
 	public static final String BUNDLE_COURSE = "BUNDLE_COURSE";
 	private Course mCourse;
-	
+
 	private TextView mFriendNumber;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.activity_course_detail);
-		
+
 		recieveData();
 		setUpUI();
 		showBottomActionBar();
@@ -38,19 +38,20 @@ public class CourseDetailActivity extends WTBaseDetailActivity
 
 	private void recieveData() {
 		Intent intent = this.getIntent();
-		mCourse = (Course)(intent.getExtras().getParcelable(BUNDLE_COURSE));
+		mCourse = (Course) (intent.getExtras().getParcelable(BUNDLE_COURSE));
 		setiChildId(mCourse.getNO());
 		setModelType("Course");
 		setShareContent(mCourse.getTitle());
-		
-		//Get friends number with the same course
-		if(WTApplication.getInstance().hasAccount){
+
+		// Get friends number with the same course
+		if (WTApplication.getInstance().hasAccount) {
 			ApiHelper apiHelper = ApiHelper.getInstance(this);
-			getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_FRIENDS, 
+			getSupportLoaderManager().restartLoader(
+					WTApplication.NETWORK_LOADER_FRIENDS,
 					apiHelper.getFriendsWithSameCourse(mCourse.getNO()), this);
 		}
 	}
-	
+
 	private void setUpUI() {
 		TextView tvTitle = (TextView) findViewById(R.id.text_course_detail_title);
 		TextView tvTime = (TextView) findViewById(R.id.text_course_detail_time);
@@ -60,12 +61,19 @@ public class CourseDetailActivity extends WTBaseDetailActivity
 		TextView tvCredit = (TextView) findViewById(R.id.text_course_credit_value);
 		TextView tvHours = (TextView) findViewById(R.id.text_course_hours_value);
 		TextView tvType = (TextView) findViewById(R.id.text_course_type_name);
-		mFriendNumber = (TextView)findViewById(R.id.tv_event_detail_friends);
-		
+		TextView tvTime1 = (TextView) findViewById(R.id.text_course_class_time_1_value);
+		TextView tvTimeType1 = (TextView) findViewById(R.id.text_course_time_type_1_value);
+		TextView tvLocation1 = (TextView) findViewById(R.id.text_course_location_1_value);
+		TextView tvTime2 = (TextView) findViewById(R.id.text_course_class_time_2_value);
+		TextView tvTimeType2 = (TextView) findViewById(R.id.text_course_time_type_2_value);
+		TextView tvLocation2 = (TextView) findViewById(R.id.text_course_location_2_value);
+		mFriendNumber = (TextView) findViewById(R.id.tv_event_detail_friends);
+
 		tvTitle.setText(mCourse.getTitle());
-		
+
 		if (DateParser.isNow(mCourse.getBegin(), mCourse.getEnd())) {
-			int timeColor = getResources().getColor(R.color.tv_eventlst_time_now);
+			int timeColor = getResources().getColor(
+					R.color.tv_eventlst_time_now);
 			tvTime.setTextColor(timeColor);
 		} else {
 			int timeColor = getResources().getColor(R.color.tv_eventlst_time);
@@ -84,7 +92,7 @@ public class CourseDetailActivity extends WTBaseDetailActivity
 
 	@Override
 	protected void updateObjectInDB() {
-		
+
 	}
 
 	@Override
@@ -95,13 +103,14 @@ public class CourseDetailActivity extends WTBaseDetailActivity
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
 			HttpRequestResult result) {
-		if(result.getResponseCode() == 0){
-			mFriendNumber.setText(String.valueOf(HttpUtil.getFriendsCountWithResponse(result.getStrResponseCon())));
+		if (result.getResponseCode() == 0) {
+			mFriendNumber.setText(String.valueOf(HttpUtil
+					.getFriendsCountWithResponse(result.getStrResponseCon())));
 		}
 	}
 
 	@Override
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
-		
+
 	}
 }
