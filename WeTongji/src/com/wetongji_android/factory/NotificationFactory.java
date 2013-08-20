@@ -89,7 +89,13 @@ public class NotificationFactory {
 			notification.setRejectedAt(DateParser.parseDateAndTime(detail
 					.getString("RejectedAt")));
 			notification.setFrom(detail.getString("From"));
-			JSONObject user = detail.getJSONObject("UserDetails");
+			
+			JSONObject user;
+			if (notification.isConfirmed()) {
+				user = detail.getJSONObject("ToUserDetails");
+			} else {
+				user = detail.getJSONObject("UserDetails");
+			}
 			notification.setThumbnail(user.getString("Avatar"));
 		} catch (JSONException e) {
 			e.printStackTrace();
