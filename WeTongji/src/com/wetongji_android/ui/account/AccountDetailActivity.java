@@ -6,7 +6,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -65,7 +64,6 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 		Intent intent = getIntent();
 		mAccount = intent.getParcelableExtra(BUNDLE_KEY_ACCOUNT);
 		setiChildId(String.valueOf(mAccount.getId()));
-		Log.v("canlike", "" + mAccount.isCanLike());
 		setCanLike(mAccount.isCanLike());
 		setLike(mAccount.getLike());
 		setModelType("Account");

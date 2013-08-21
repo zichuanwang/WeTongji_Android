@@ -103,6 +103,7 @@ public class WTAboutActivity extends SherlockFragmentActivity implements OnClick
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == android.R.id.home) {
 			finish();
+			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
 		}
 		return super.onOptionsItemSelected(item);
 	}
