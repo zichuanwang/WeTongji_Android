@@ -6,6 +6,7 @@
     <include layout="@layout/include_profile_header" />
 
     <!-- Friend Info Section -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,7 +65,8 @@
                 android:layout_marginTop="3dp"
                 android:textIsSelectable="false" />
 
-            <!--View
+            <!--
+            View
                 android:layout_width="1dp"
                 android:layout_height="26.7dp"
                 android:layout_marginTop="23dp"
@@ -91,8 +93,9 @@
                     android:contentDescription="@string/img_content_description"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_profile_friend_add" />
-            </LinearLayout -->
-            
+            </LinearLayout
+            -->
+
         </RelativeLayout>
 
         <View
@@ -281,6 +284,88 @@
                 android:layout_marginLeft="7dp"
                 android:layout_marginTop="3dp"
                 android:textIsSelectable="false" />
+
+            <ImageView
+                android:id="@id/img_send_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="7dp"
+                android:contentDescription="@string/img_content_description"
+                android:src="@drawable/ic_email" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin"
+            android:visibility="visible" />
+
+        <!-- Phone -->
+
+        <RelativeLayout
+            android:id="@id/ll_friend_detail_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="false"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/tv_friend_detail_phone_title"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/friend_detail_phone" />
+
+            <TextView
+                android:id="@id/tv_friend_detail_phone"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_friend_detail_phone_title"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="7dp"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@id/img_make_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:contentDescription="@string/img_content_description"
+                    android:src="@drawable/ic_phone" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/profile_divider_thin"
+                    android:visibility="visible" />
+                
+                <ImageView
+                    android:id="@id/img_send_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:contentDescription="@string/img_content_description"
+                    android:src="@drawable/ic_message" />
+            </LinearLayout>
         </RelativeLayout>
 
         <View

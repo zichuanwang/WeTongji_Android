@@ -1,16 +1,20 @@
 package com.wetongji_android.ui.account;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxStatus;
@@ -40,6 +44,25 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 	private void setUpUI() {
 		Button button = (Button) findViewById(R.id.btn_profile_action);
 		button.setText("Contact");
+		button.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				if(mAccount.getEmail().equals("")) {
+					
+				} else {
+					Uri emailUri = Uri.parse("mailto:" + mAccount.getEmail());
+					Intent intent = new Intent(Intent.ACTION_SENDTO, emailUri);
+					intent.putExtra(Intent.EXTRA_SUBJECT, "WeTongji");
+					try {
+						startActivity(intent);
+					} catch (ActivityNotFoundException e) {
+						Toast.makeText(AccountDetailActivity.this, R.string.toast_no_email_app, Toast.LENGTH_LONG).show();
+					}
+				}
+			}
+			
+		});
+		
 		TextView tvAccountActivityNum = (TextView) findViewById(R.id.text_account_activity_num);
 		TextView tvClubNewsNum = (TextView) findViewById(R.id.text_club_news_num);
 		TextView tvClubAbout = (TextView) findViewById(R.id.text_account_detail_about);

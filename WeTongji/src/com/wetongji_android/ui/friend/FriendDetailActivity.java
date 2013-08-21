@@ -1,9 +1,11 @@
 package com.wetongji_android.ui.friend;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -41,7 +43,8 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	private TextView tvMajor;
 	private TextView tvGrade;
 	private TextView tvEmail;
-
+	private TextView tvPhone;
+	
 	private User mUser;
 	private AQuery mAq;
 
@@ -122,6 +125,14 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		tvGrade.setText(mUser.getYear());
 		tvEmail = (TextView) findViewById(R.id.tv_friend_detail_email);
 		tvEmail.setText(mUser.getEmail());
+		tvPhone = (TextView)findViewById(R.id.tv_friend_detail_phone);
+		tvPhone.setText(mUser.getPhone());
+		ImageView ivEmail = (ImageView) findViewById(R.id.img_send_email);
+		ivEmail.setOnClickListener(new ClickListener());
+		ImageView ivMsg = (ImageView) findViewById(R.id.img_send_msg);
+		ivMsg.setOnClickListener(new ClickListener());
+		ImageView ivPhone = (ImageView) findViewById(R.id.img_make_call);
+		ivPhone.setOnClickListener(new ClickListener());
 	}
 
 	private void showToast() {
@@ -204,6 +215,32 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 					removeFriend(mUser.getUID());
 				} else {
 					addFriend(mUser.getUID());
+				}
+			} else if (v.getId() == R.id.img_send_email) {
+				Uri emailUri = Uri.parse("mailto:" + mUser.getEmail());
+		        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, emailUri);                                   
+		        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "WeTongji Android Feedbacks");
+		        try {
+		        	startActivity(emailIntent);
+		        } catch (ActivityNotFoundException e) {
+		        	Toast.makeText(FriendDetailActivity.this, R.string.toast_no_email_app, Toast.LENGTH_LONG).show();
+		        }
+			} else if (v.getId() == R.id.img_send_msg) {
+				Uri msgUri = Uri.parse("sms:" + mUser.getPhone());
+				Intent msgIntent = new Intent(Intent.ACTION_VIEW, msgUri);
+				msgIntent.putExtra("sms_body", "I am using WeTongji");
+				try {
+					startActivity(msgIntent);
+				} catch (ActivityNotFoundException e) {
+					Toast.makeText(FriendDetailActivity.this, R.string.toast_no_email_app, Toast.LENGTH_LONG).show();
+				}
+			} else if (v.getId() == R.id.img_make_call) {
+				Uri phoneUri = Uri.parse("tel:" + mUser.getPhone());
+				Intent phoneIntent = new Intent(Intent.ACTION_CALL, phoneUri);
+				try {
+					startActivity(phoneIntent);
+				} catch (ActivityNotFoundException e) {
+					Toast.makeText(FriendDetailActivity.this, R.string.toast_no_email_app, Toast.LENGTH_LONG).show();
 				}
 			}
 		}
