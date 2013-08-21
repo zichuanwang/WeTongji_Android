@@ -1,5 +1,5 @@
 #
-# generated on 2013/06/14 10:28:29
+# generated on 2013/08/21 01:55:23
 #
 # --table-start--
 dataClass=com.wetongji_android.data.Notification
@@ -7,6 +7,7 @@ tableName=notification
 # --table-fields-start--
 # --field-start--
 fieldName=Id
+id=true
 # --field-end--
 # --field-start--
 fieldName=Title
@@ -18,85 +19,49 @@ fieldName=Description
 fieldName=Type
 # --field-end--
 # --field-start--
-fieldName=Status
+fieldName=Read
 # --field-end--
 # --field-start--
 fieldName=SourceId
+# --field-end--
+# --field-start--
+fieldName=From
+# --field-end--
+# --field-start--
+fieldName=SentAt
+# --field-end--
+# --field-start--
+fieldName=AcceptedAt
+# --field-end--
+# --field-start--
+fieldName=RejectedAt
+# --field-end--
+# --field-start--
+fieldName=IsAccepted
+# --field-end--
+# --field-start--
+fieldName=Thumbnail
+# --field-end--
+# --field-start--
+fieldName=Content
+dataPersister=SERIALIZABLE
+# --field-end--
+# --field-start--
+fieldName=IsConfirmed
 # --field-end--
 # --table-fields-end--
 # --table-end--
 #################################
 # --table-start--
-dataClass=com.wetongji_android.data.User
-tableName=user
+dataClass=com.wetongji_android.data.SearchHistory
+tableName=searchhistory
 # --table-fields-start--
 # --field-start--
-fieldName=NO
+fieldName=Type
 # --field-end--
 # --field-start--
-fieldName=Name
-# --field-end--
-# --field-start--
-fieldName=UID
+fieldName=Keywords
 id=true
-# --field-end--
-# --field-start--
-fieldName=Phone
-# --field-end--
-# --field-start--
-fieldName=DisplayName
-# --field-end--
-# --field-start--
-fieldName=Major
-# --field-end--
-# --field-start--
-fieldName=NativePlace
-# --field-end--
-# --field-start--
-fieldName=Degree
-# --field-end--
-# --field-start--
-fieldName=Gender
-# --field-end--
-# --field-start--
-fieldName=Year
-# --field-end--
-# --field-start--
-fieldName=Birthday
-# --field-end--
-# --field-start--
-fieldName=Plan
-# --field-end--
-# --field-start--
-fieldName=SinaWeibo
-# --field-end--
-# --field-start--
-fieldName=QQ
-# --field-end--
-# --field-start--
-fieldName=Department
-# --field-end--
-# --field-start--
-fieldName=Email
-# --field-end--
-# --field-start--
-fieldName=Words
-# --field-end--
-# --field-start--
-fieldName=Room
-# --field-end--
-# --field-start--
-fieldName=LikeCount
-dataPersister=SERIALIZABLE
-# --field-end--
-# --field-start--
-fieldName=IsFriend
-# --field-end--
-# --field-start--
-fieldName=FriendCount
-# --field-end--
-# --field-start--
-fieldName=Avatar
 # --field-end--
 # --table-fields-end--
 # --table-end--

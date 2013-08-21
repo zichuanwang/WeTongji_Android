@@ -7,19 +7,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Course;
 import com.wetongji_android.data.Notification;
 import com.wetongji_android.data.User;
+import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.date.DateParser;
 
-public class NotificationFactory {
+public class NotificationFactory extends BaseFactory<Notification, Integer>{
 	private int nextPage;
 
-	public NotificationFactory() {
-
+	public NotificationFactory(Fragment fragment) {
+		super(fragment, Notification.class, WTApplication.EVENTS_SAVER);
 	}
 
 	public List<Notification> createObjects(String jsonStr) {
@@ -38,6 +42,11 @@ public class NotificationFactory {
 			e.printStackTrace();
 		}
 
+		list.clear();
+		list.addAll(results);
+		Bundle args = new Bundle();
+		args.putBoolean(ARG_NEED_TO_REFRESH, false);
+		fragment.getLoaderManager().initLoader(WTApplication.NOTIFICCATOINS_SAVER, args, this).forceLoad();
 		return results;
 	}
 
@@ -53,7 +62,7 @@ public class NotificationFactory {
 			String type = json.getString("SourceType");
 			notification.setSourceId(json.getInt("SourceId"));
 			JSONObject detail = json.getJSONObject("SourceDetails");
-			notification.setConfirmed(notification.getTitle().contains("已经接受"));
+			notification.setIsConfirmed(notification.getTitle().contains("已经接受"));
 
 			if (type.equals("CourseInvite")) {
 				notification.setType(1);
@@ -63,7 +72,7 @@ public class NotificationFactory {
 			} else if (type.equals("FriendInvite")) {
 				notification.setType(2);
 				User user;
-				if (!notification.isConfirmed()) {
+				if (!notification.isIsConfirmed()) {
 					user = gson.fromJson(detail.getString("UserDetails"),
 							User.class);
 				} else {
@@ -91,7 +100,7 @@ public class NotificationFactory {
 			notification.setFrom(detail.getString("From"));
 			
 			JSONObject user;
-			if (notification.isConfirmed()) {
+			if (notification.isIsConfirmed()) {
 				user = detail.getJSONObject("ToUserDetails");
 			} else {
 				user = detail.getJSONObject("UserDetails");

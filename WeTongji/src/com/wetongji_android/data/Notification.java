@@ -1,12 +1,14 @@
 package com.wetongji_android.data;
 
+import java.io.Serializable;
 import java.util.Date;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
 public class Notification 
 {
-	@DatabaseField
+	@DatabaseField(id=true)
 	private int Id;
 	@DatabaseField
 	private String Title;
@@ -34,10 +36,14 @@ public class Notification
 	private Date AcceptedAt;
 	@DatabaseField
 	private Date RejectedAt;
-	private boolean isAccepted;
-	private String thumbnail;
-	private Object content;
-	private boolean isConfirmed;
+	@DatabaseField
+	private boolean IsAccepted;
+	@DatabaseField
+	private String Thumbnail;
+	@DatabaseField(dataType=DataType.SERIALIZABLE)
+	private Serializable Content;
+	@DatabaseField
+	private boolean IsConfirmed;
 	
 
 	public Notification()
@@ -60,28 +66,20 @@ public class Notification
 		this.RejectedAt = reject;
 	}
 
-	public boolean isConfirmed() {
-		return isConfirmed;
-	}
-
-	public void setConfirmed(boolean isConfirmed) {
-		this.isConfirmed = isConfirmed;
-	}
-
 	public String getThumbnail() {
-		return thumbnail;
+		return Thumbnail;
 	}
 
 	public void setThumbnail(String thumbnail) {
-		this.thumbnail = thumbnail;
+		this.Thumbnail = thumbnail;
 	}
 
 	public boolean isAccepted() {
-		return isAccepted;
+		return IsAccepted;
 	}
 	
 	public void setAccepted(boolean isAccepted) {
-		this.isAccepted = isAccepted;
+		this.IsAccepted = isAccepted;
 	}
 	
 	public int getId() {
@@ -164,12 +162,28 @@ public class Notification
 		RejectedAt = rejectedAt;
 	}
 
-	public Object getContent() {
-		return content;
+	public boolean isIsAccepted() {
+		return IsAccepted;
 	}
 
-	public void setContent(Object content) {
-		this.content = content;
+	public void setIsAccepted(boolean isAccepted) {
+		IsAccepted = isAccepted;
+	}
+
+	public Serializable getContent() {
+		return Content;
+	}
+
+	public void setContent(Serializable content) {
+		Content = content;
+	}
+
+	public boolean isIsConfirmed() {
+		return IsConfirmed;
+	}
+
+	public void setIsConfirmed(boolean isConfirmed) {
+		IsConfirmed = isConfirmed;
 	}
 	
 }
