@@ -1,18 +1,22 @@
 package com.wetongji_android.ui.notification;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
+import com.j256.ormlite.dao.Dao;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Notification;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.data.DbHelper;
 import com.wetongji_android.util.data.notification.NotificationsLoader;
 import com.wetongji_android.util.date.DateParser;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -40,6 +44,8 @@ public class NotificationListAdapter extends BaseAdapter implements
 	private AQuery mShouldDelayAq;
 	private AQuery mListAq;
 	private BitmapDrawable mBmDefaultThumbnails;
+	private DbHelper mDbHelper;
+	private Dao<Notification, Integer> mDao;
 
 	public NotificationListAdapter(Fragment fragment) {
 		this.mFragment = fragment;
@@ -51,6 +57,12 @@ public class NotificationListAdapter extends BaseAdapter implements
 				.getDrawable(R.drawable.notification_thumb);
 		mFragment.getLoaderManager().initLoader(
 				WTApplication.NOTIFICATIONS_LOADER, null, this);
+		mDbHelper = WTApplication.getInstance().getDbHelper();
+		try {
+			mDao = mDbHelper.getDao(Notification.class);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -240,13 +252,44 @@ public class NotificationListAdapter extends BaseAdapter implements
 	}
 
 	public void remove(int mIgnorePos) {
+		int id = mListNotifications.get(mIgnorePos).getId();
 		mListNotifications.remove(mIgnorePos);
 		this.notifyDataSetChanged();
+		new DeleteNotificationTask().execute(id);
 	}
 
 	public void acceptNotification(int mAcceptPos) {
 		Notification notif = mListNotifications.get(mAcceptPos);
 		notif.setAccepted(true);
 		notifyDataSetChanged();
+		new UpdateNotificationTask().execute(notif);
 	};
+	
+	private class UpdateNotificationTask extends AsyncTask<Notification, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Notification... arg0) {
+			try {
+				mDao.update(arg0[0]);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+	}
+	
+	private class DeleteNotificationTask extends AsyncTask<Integer, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Integer... arg0) {
+			try {
+				mDao.deleteById(arg0[0]);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+	}
 }
