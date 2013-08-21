@@ -10,6 +10,7 @@ import com.wetongji_android.data.User;
 import com.wetongji_android.factory.NotificationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.auth.AuthActivity;
 import com.wetongji_android.ui.course.CourseDetailActivity;
 import com.wetongji_android.ui.event.EventDetailActivity;
 import com.wetongji_android.ui.event.EventsFragment;
@@ -30,6 +31,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -85,11 +87,6 @@ public class NotificationFragment extends Fragment implements
 		mAdapter = new NotificationListAdapter(this);
 		mListNotifications.setAdapter(mAdapter);
 
-		if (WTApplication.getInstance().hasAccount) {
-			// init loader(this loader is used for loading data from network)
-			ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-			mBundle = apiHelper.getNotifications(false);
-		}
 
 		mHandler = new Handler() {
 			@Override
@@ -103,8 +100,22 @@ public class NotificationFragment extends Fragment implements
 
 		};
 		
-		mRunnable = new StoppableRunnable();
-		mHandler.postDelayed(mRunnable, 1);
+		if (WTApplication.getInstance().hasAccount) {
+			// init loader(this loader is used for loading data from network)
+			ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+			mBundle = apiHelper.getNotifications(false);
+			mRunnable = new StoppableRunnable();
+			mHandler.postDelayed(mRunnable, 1);
+		} else {
+			mListNotifications.setVisibility(View.GONE);
+			mView.findViewById(R.id.notificaion_login_area).setVisibility(View.VISIBLE);
+			mView.findViewById(R.id.btn_notification_login).setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					startActivity(new Intent(getActivity(), AuthActivity.class));
+				}
+			});
+		}
 			
 	}
 		
@@ -145,8 +156,10 @@ public class NotificationFragment extends Fragment implements
 
 	@Override
 	public void onPause() {
-		((StoppableRunnable) mRunnable).stop();
-		mHandler.removeCallbacks(mRunnable);
+		if (mRunnable != null) {
+			((StoppableRunnable) mRunnable).stop();
+			mHandler.removeCallbacks(mRunnable);
+		}
 		super.onPause();
 	}
 

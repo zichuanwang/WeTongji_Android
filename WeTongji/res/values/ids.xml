@@ -284,4 +284,6 @@
     <item type="id" name="img_account_background_temp"/>
     <!-- Dialog -->
     <item type="id" name="btn_sort_dialog_cancel">false</item>
+    <item name="notificaion_login_area" type="id" />
+    <item name="btn_notification_login" type="id"/>
 </resources>
