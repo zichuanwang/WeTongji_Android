@@ -2,38 +2,67 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/notification_bg_color">
-	
+    android:background="@color/notification_bg_color" >
+
     <FrameLayout
-        android:id="@id/notification_top_title" 
-        android:layout_alignParentTop="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
-         <TextView
-		    android:layout_width="match_parent"
-		    android:layout_height="50dp"
-		    android:paddingLeft="24dp"
-		  	android:paddingTop="12dp"
-		    android:text="@string/notification_title"
-		    android:background="@drawable/notification_title_bg_shadow"
-		    style="@style/NotificationTitleStyle"/>
-         
-         <View 
-             android:layout_width="match_parent"
-             android:layout_height="0.8dp"
-             android:background="@color/notification_title_bg_inner_shadow"/>
-         
-    </FrameLayout>
-    
-	<ListView 
-	    android:id="@id/lst_notification"
-	    android:layout_below="@id/notification_top_title"
+        android:id="@id/notification_top_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" >
+
+        <TextView
+            style="@style/NotificationTitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/notification_title_bg_shadow"
+            android:paddingLeft="24dp"
+            android:paddingTop="12dp"
+            android:text="@string/notification_title" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.8dp"
+            android:background="@color/notification_title_bg_inner_shadow" />
+    </FrameLayout>
+
+    <ListView
+        android:id="@id/lst_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/notification_top_title"
         android:cacheColorHint="#00000000"
-        android:listSelector="#00000000"
-        android:divider="@drawable/mainmenu_lst_separator">
-	</ListView>
-	
+        android:divider="@drawable/mainmenu_lst_separator"
+        android:listSelector="#00000000" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@id/notificaion_login_area"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/text_error_request_login"
+            style="@style/NotificationLoginTips" />
+        
+        <Button
+            android:id="@id/btn_notification_login"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:shadowColor="#33000000"
+            android:shadowDx="0"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:text="@string/text_login"
+            android:textColor="@color/btn_text"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
 </RelativeLayout>

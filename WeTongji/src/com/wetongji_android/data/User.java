@@ -1,13 +1,19 @@
 package com.wetongji_android.data;
 
+import java.io.Serializable;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 
-public class User implements Parcelable
+public class User implements Parcelable, Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2309411520291683279L;
 	@DatabaseField
 	private String NO;
 	@DatabaseField

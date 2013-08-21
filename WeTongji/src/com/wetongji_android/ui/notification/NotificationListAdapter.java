@@ -49,49 +49,57 @@ public class NotificationListAdapter extends BaseAdapter implements
 		mListAq = WTApplication.getInstance().getAq(mFragment.getActivity());
 		mBmDefaultThumbnails = (BitmapDrawable) mContext.getResources()
 				.getDrawable(R.drawable.notification_thumb);
+		mFragment.getLoaderManager().initLoader(
+				WTApplication.NOTIFICATIONS_LOADER, null, this);
 	}
 
-	public void setContentList(List<Notification> notifications) {
+	/**
+	 * set ListView content and return if there are new notificaiton
+	 * @param notifications
+	 * @return
+	 */
+	public boolean setContentList(List<Notification> notifications) {
+		boolean hasNew = false;
+		for (int i = 0; i < notifications.size(); i++) {
+			if (mListNotifications.contains(notifications.get(i))) {
+				hasNew = true;
+				break;
+			}
+		}
 		this.mListNotifications.clear();
 		this.mListNotifications.addAll(notifications);
 		notifyDataSetChanged();
+		return hasNew;
 	}
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return this.mListNotifications.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return this.mListNotifications.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public Loader<List<Notification>> onCreateLoader(int arg0, Bundle arg1) {
-		// TODO Auto-generated method stub
-		return new NotificationsLoader(mContext, null);
+		return new NotificationsLoader(mContext);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<List<Notification>> arg0,
 			List<Notification> notifications) {
-		// TODO Auto-generated method stub
 		setContentList(notifications);
 	}
 
 	@Override
 	public void onLoaderReset(Loader<List<Notification>> arg0) {
-		// TODO Auto-generated method stub
-
 	}
 
 	static class InformViewHolder {
@@ -114,7 +122,6 @@ public class NotificationListAdapter extends BaseAdapter implements
 
 	@Override
 	public View getView(int arg0, View view, ViewGroup parent) {
-		// TODO Auto-generated method stub
 		final ConsultViewHolder holder;
 
 		if (view == null) {
@@ -185,13 +192,13 @@ public class NotificationListAdapter extends BaseAdapter implements
 		}
 
 		// check if the notification is confirmed
-		if (notification.isConfirmed()) {
+		if (notification.isIsConfirmed()) {
 			holder.img_notification_mark
 					.setImageResource(R.drawable.ic_notification_mark_done);
 			holder.ll_notification_buttonbar.setVisibility(View.GONE);
 		} else {
 			holder.img_notification_mark
-				.setImageResource(R.drawable.ic_notification_mark_ask);
+					.setImageResource(R.drawable.ic_notification_mark_ask);
 			// check if the notification is accepted
 			if (notification.isAccepted()) {
 				holder.ll_notification_buttonbar.setVisibility(View.GONE);

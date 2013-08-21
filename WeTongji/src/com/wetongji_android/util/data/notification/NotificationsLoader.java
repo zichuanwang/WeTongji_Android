@@ -11,10 +11,9 @@ import com.wetongji_android.util.data.DbListLoader;
 public class NotificationsLoader extends DbListLoader<Notification, Integer> 
 {
 	
-	public NotificationsLoader(Context context, Class<Notification> clazz) 
+	public NotificationsLoader(Context context) 
 	{
-		super(context, clazz);
-		// TODO Auto-generated constructor stub
+		super(context, Notification.class);
 	}
 
 	@Override

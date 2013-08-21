@@ -10,6 +10,7 @@ import com.wetongji_android.data.User;
 import com.wetongji_android.factory.NotificationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.auth.AuthActivity;
 import com.wetongji_android.ui.course.CourseDetailActivity;
 import com.wetongji_android.ui.event.EventDetailActivity;
 import com.wetongji_android.ui.event.EventsFragment;
@@ -19,6 +20,7 @@ import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,18 +29,17 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class NotificationFragment extends Fragment implements
 		LoaderCallbacks<HttpRequestResult>, OnItemClickListener {
-	private static final String TAG = "NotificationFragment";
+	private static final int MSG_REFRSH_NOTIFICATION = 990;
 
 	private View mView;
 	private ListView mListNotifications;
@@ -74,6 +75,7 @@ public class NotificationFragment extends Fragment implements
 		return mView;
 	}
 
+	@SuppressLint("HandlerLeak")
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
@@ -85,23 +87,12 @@ public class NotificationFragment extends Fragment implements
 		mAdapter = new NotificationListAdapter(this);
 		mListNotifications.setAdapter(mAdapter);
 
-		if (WTApplication.getInstance().hasAccount) {
-			// init loader(this loader is used for loading data from network)
-			ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-			mBundle = apiHelper.getNotifications(false);
-			// showProgressDialog();
-			// TODO startLoader
-			// getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_3,
-			// mBundle, this);
-		}
 
 		mHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
-				if (msg.what == 990) {
-					Toast.makeText(getActivity(), "Notification refreshed", Toast.LENGTH_SHORT)
-							.show();
+				if (msg.what == MSG_REFRSH_NOTIFICATION) {
 					getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_3,
 							mBundle, NotificationFragment.this);
 				}
@@ -109,8 +100,22 @@ public class NotificationFragment extends Fragment implements
 
 		};
 		
-		mRunnable = new StoppableRunnable();
-		mHandler.postDelayed(mRunnable, 1);
+		if (WTApplication.getInstance().hasAccount) {
+			// init loader(this loader is used for loading data from network)
+			ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+			mBundle = apiHelper.getNotifications(false);
+			mRunnable = new StoppableRunnable();
+			mHandler.postDelayed(mRunnable, 1);
+		} else {
+			mListNotifications.setVisibility(View.GONE);
+			mView.findViewById(R.id.notificaion_login_area).setVisibility(View.VISIBLE);
+			mView.findViewById(R.id.btn_notification_login).setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View view) {
+					startActivity(new Intent(getActivity(), AuthActivity.class));
+				}
+			});
+		}
 			
 	}
 		
@@ -121,7 +126,7 @@ public class NotificationFragment extends Fragment implements
 			setStopped(false);
 			while (!isStopped()) {
 				Message msg = new Message();
-				msg.what = 990;
+				msg.what = MSG_REFRSH_NOTIFICATION;
 				mHandler.sendMessage(msg);
 				mHandler.postDelayed(this, 1000 * 15);
 				
@@ -151,17 +156,11 @@ public class NotificationFragment extends Fragment implements
 
 	@Override
 	public void onPause() {
-		((StoppableRunnable) mRunnable).stop();
-		mHandler.removeCallbacks(mRunnable);
-//		mRunnable
+		if (mRunnable != null) {
+			((StoppableRunnable) mRunnable).stop();
+			mHandler.removeCallbacks(mRunnable);
+		}
 		super.onPause();
-	}
-
-	
-	@Override
-	public void onDestroy() {
-		//mHandler.removeCallbacks(mRunnable);
-		super.onDestroy();
 	}
 
 	@Override
@@ -180,12 +179,13 @@ public class NotificationFragment extends Fragment implements
 		} else if (loader.getId() == WTApplication.NETWORK_LOADER_3) {
 			if (result.getResponseCode() == 0) {
 				if (mFactory == null)
-					mFactory = new NotificationFactory();
+					mFactory = new NotificationFactory(this);
 
 				List<Notification> results = mFactory.createObjects(result
 						.getStrResponseCon());
-				mAdapter.setContentList(results);
-				Log.v(TAG, "" + results.size());
+				if (mAdapter.setContentList(results)) {
+					// TODO start notification animation
+				}
 			}
 		}
 	}

@@ -41,7 +41,6 @@ public class WTApplication extends Application
 	public static final int EXAMS_SAVER = 10;
 	public static final int ACTIVITIES_LOADER = 11;
 	public static final int EVENTS_LOADER = 12;
-	public static final int NOTIFICATIONS_LOADER = 13;
 	public static final int INFORMATION_SAVER = 14;
 	public static final int PERSON_SAVER = 15;
 	public static final int INFORMATION_LOADER = 16;
@@ -52,6 +51,8 @@ public class WTApplication extends Application
 	public static final int PERSON_LOADER = 21;	
 	public static final int SEARCH_SAVER = 22;
 	public static final int SEARCH_LOADER = 23;
+	public static final int NOTIFICCATOINS_SAVER = 31;
+	public static final int NOTIFICATIONS_LOADER = 13;
 	
 	// network loader IDs
 	public static final int NETWORK_LOADER_DEFAULT = 1;

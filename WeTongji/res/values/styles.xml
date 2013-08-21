@@ -52,7 +52,8 @@
     </style>
     
     <style name="EventLikeCheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">
-        <item name="android:button">@drawable/cb_event_like</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawableTop">@drawable/cb_event_like</item>
     </style>
     
     <style name="EventLikeNumber" parent="@style/TextWithShadow">
@@ -213,6 +214,10 @@
  	    <item name="android:textColor">@color/tv_notification_title</item>
  	    <item name="android:textSize">18sp</item>
  	    <item name="android:textStyle">normal</item>
+ 	</style>
+ 	
+ 	<style name="NotificationLoginTips" parent="NotificationTitleStyle">
+ 	    <item name="android:textSize">14sp</item>
  	</style>
  	
  	<style name="NotificationItemFrom">
