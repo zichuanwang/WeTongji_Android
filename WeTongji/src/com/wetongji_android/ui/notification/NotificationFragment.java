@@ -181,6 +181,10 @@ public class NotificationFragment extends Fragment implements
 				if (mFactory == null)
 					mFactory = new NotificationFactory(this);
 
+				if (mListNotifications.getVisibility() == View.GONE) {
+					mListNotifications.setVisibility(View.VISIBLE);
+					mView.findViewById(R.id.btn_notification_login).setVisibility(View.GONE);
+				}
 				List<Notification> results = mFactory.createObjects(result
 						.getStrResponseCon());
 				if (mAdapter.setContentList(results)) {

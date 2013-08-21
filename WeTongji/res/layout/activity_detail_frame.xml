@@ -136,7 +136,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="16dp"
             android:background="@drawable/bg_event_like"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:orientation="vertical" >
 
             <CheckBox
@@ -145,9 +145,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="26dp"
                 android:layout_marginBottom="0dp"
-                android:layout_marginTop="1dp"
+                android:layout_marginTop="12dp"
                 android:layout_gravity="center_horizontal"
-                android:paddingBottom="-2dp" />
+                android:padding="2dp" />
 
             <TextView
                 android:id="@id/tv_like_number"
