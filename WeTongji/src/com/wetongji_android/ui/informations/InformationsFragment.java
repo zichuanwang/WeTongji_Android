@@ -2,6 +2,7 @@ package com.wetongji_android.ui.informations;
 
 import java.util.List;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -48,6 +49,7 @@ public class InformationsFragment extends WTBaseFragment
 	private static final String TAG = "InformationsFragment";
 	public static final String BUNDLE_KEY_INFORMATION = "bundle_key_information";
 	
+	private String mUID;
 	private View mView;
 	private AmazingListView mListNews;
 	private InformationsListAdapter mAdapter;
@@ -84,6 +86,7 @@ public class InformationsFragment extends WTBaseFragment
 		    bundle.putInt(BUNDLE_KEY_START_MODE, 3);
 			break;
 		case FRIENDS:
+			bundle.putInt(BUNDLE_KEY_START_MODE, 4);
 			break;
 		case ATTEND:
 			break;
@@ -100,8 +103,22 @@ public class InformationsFragment extends WTBaseFragment
 		Bundle bundle = getArguments();
 		if(bundle != null){
 			int modeCode = bundle.getInt(BUNDLE_KEY_START_MODE);
-			mStartMode = (modeCode == 1) ? StartMode.BASIC : 
-				((modeCode == 2) ? StartMode.USERS : StartMode.LIKE);
+			switch(modeCode) {
+			case 1:
+				mStartMode = StartMode.BASIC;
+				break;
+			case 2:
+				mStartMode = StartMode.USERS;
+				break;
+			case 3:
+				mStartMode = StartMode.LIKE;
+				break;
+			case 4:
+				mStartMode = StartMode.ATTEND;
+				break;
+			}
+			
+			mUID = bundle.getString(BUNDLE_KEY_UID);
 		}
 		
 		setRetainInstance(true);
@@ -141,10 +158,12 @@ public class InformationsFragment extends WTBaseFragment
 		switch(getCurrentState(savedInstanceState))
 		{
 		case FIRST_TIME_START:
-			if(mStartMode == StartMode.BASIC){
+			if(mStartMode == StartMode.BASIC) {
 				mAdapter.loadDataFromDB(getQueryArgs());
-			}else{
+			} else if (mStartMode == StartMode.LIKE) {
 				loadDataLiked(1);
+			} else {
+				loadDataByAccount(1);
 			}
 		case SCREEN_ROTATE:
 			break;
@@ -186,8 +205,17 @@ public class InformationsFragment extends WTBaseFragment
 	private void loadDataLiked(int page)
 	{
 		mAdapter.setLoadingData(true);
+		mAdapter.notifyMayHaveMorePages();
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
 		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, "Information");
+		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
+	}
+	
+	private void loadDataByAccount(int page) {
+		mAdapter.setLoadingData(true);
+		mAdapter.notifyMayHaveMorePages();
+		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		Bundle args = apiHelper.getInformationsByAccount(mUID, page, 15);
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	
@@ -234,6 +262,9 @@ public class InformationsFragment extends WTBaseFragment
 			List<Information> lists = informations.second;
 			
 			mAdapter.setLoadingData(false);
+			if(mFactory.getNextPage() == 0) {
+				mAdapter.notifyNoMorePages();
+			}
 			mAdapter.setInformations(InformationUtil.getSectionedInformationList(lists));
 			mAdapter.setOriginList(lists);
 		}
@@ -258,23 +289,20 @@ public class InformationsFragment extends WTBaseFragment
 		Bundle args = apiHelper.getInformations(1, mSelectType);
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
-
-	/*public void loadMoreData(int page){
-		mAdapter.setLoadingData(true);
-		mAdapter.notifyMayHaveMorePages();
-		
-		ApiHelper apiHelper = ApiHelper.getInstance(mActivity);
-		//By default we fetch all kind of informations from the server
-		Bundle args = apiHelper.getInformations(page, mSelectType);
-		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
-	}*/
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) 
 	{
 		super.onCreateOptionsMenu(menu, inflater);
 		
-		inflater.inflate(R.menu.menu_informationlist, menu);
+		if(mStartMode == StartMode.BASIC) {
+			inflater.inflate(R.menu.menu_informationlist, menu);
+		} else {
+			inflater.inflate(R.menu.menu_informationlist_nonotification, menu);
+			
+			ActionBar ab = getSherlockActivity().getSupportActionBar();
+			ab.setDisplayHomeAsUpEnabled(true);
+		}
 		
 		readPreference();
 	}
@@ -310,6 +338,9 @@ public class InformationsFragment extends WTBaseFragment
 				Toast.makeText(getActivity(), getResources().getText(R.string.no_account_error),
 						Toast.LENGTH_SHORT).show();
 			}
+			break;
+		case android.R.id.home:
+			getActivity().finish();
 			break;
 		default:
 			return super.onOptionsItemSelected(item);

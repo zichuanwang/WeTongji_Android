@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,8 +21,11 @@ import com.androidquery.callback.AjaxStatus;
 import com.androidquery.callback.BitmapAjaxCallback;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Account;
+import com.wetongji_android.ui.event.EventsListActivity;
+import com.wetongji_android.ui.informations.InformationListActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
+import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.image.ImageUtil;
 
 public class AccountDetailActivity extends WTBaseDetailActivity {
@@ -31,8 +33,8 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 	private Account mAccount;
 	private AQuery mAq;
 
-	private LinearLayout lyActivity;
-	private LinearLayout lyNews;
+	private RelativeLayout rlActivity;
+	private RelativeLayout rlNews;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +69,10 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 			
 		});
 		
-		lyActivity = (LinearLayout) findViewById(R.id.ll_profile_events_like);
-		lyActivity.setOnClickListener(clickListener);
-		lyNews = (LinearLayout) findViewById(R.id.ll_profile_news_like);
-		lyNews.setOnClickListener(clickListener);
+		rlActivity = (RelativeLayout) findViewById(R.id.ll_profile_events_like);
+		rlActivity.setOnClickListener(clickListener);
+		rlNews = (RelativeLayout) findViewById(R.id.ll_profile_news_like);
+		rlNews.setOnClickListener(clickListener);
 		
 		TextView tvAccountActivityNum = (TextView) findViewById(R.id.text_account_activity_num);
 		TextView tvClubNewsNum = (TextView) findViewById(R.id.text_club_news_num);
@@ -103,8 +105,35 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 
 	private OnClickListener clickListener = new OnClickListener() {
 		@Override
-		public void onClick(View arg0) {
-			
+		public void onClick(View v) {
+			if(v.getId() == R.id.ll_profile_events_like) {
+				if(mAccount.getActivitiesCount() == 0) {
+					Toast.makeText(AccountDetailActivity.this, "No Activity", 
+							Toast.LENGTH_SHORT).show();
+				} else {
+					Intent intent = new Intent(AccountDetailActivity.this, EventsListActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, String.valueOf(mAccount.getId()));
+					bundle.putBoolean(WTBaseFragment.BUNDLE_KEY_ACCOUNT, true);
+					intent.putExtras(bundle);
+					startActivity(intent);
+					overridePendingTransition(R.anim.slide_right_in,
+							R.anim.slide_left_out);
+				}
+			}else if(v.getId() == R.id.ll_profile_news_like) {
+				if(mAccount.getInformationCount() == 0) {
+					Toast.makeText(AccountDetailActivity.this, "No Activity", 
+							Toast.LENGTH_SHORT).show();
+				} else {
+					Intent intent = new Intent(AccountDetailActivity.this, InformationListActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, String.valueOf(mAccount.getId()));
+					intent.putExtras(bundle);
+					startActivity(intent);
+					overridePendingTransition(R.anim.slide_right_in,
+							R.anim.slide_left_out);
+				}
+			}
 		}
 	};
 	
