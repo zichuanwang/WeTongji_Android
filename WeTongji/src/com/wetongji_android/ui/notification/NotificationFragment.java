@@ -16,6 +16,7 @@ import com.wetongji_android.ui.event.EventDetailActivity;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.friend.FriendDetailActivity;
 import com.wetongji_android.ui.friend.FriendListFragment;
+import com.wetongji_android.ui.main.NotificationHandler;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
@@ -189,6 +190,7 @@ public class NotificationFragment extends Fragment implements
 						.getStrResponseCon());
 				if (mAdapter.setContentList(results)) {
 					// TODO start notification animation
+					NotificationHandler.getInstance().inform();
 				}
 			}
 		}

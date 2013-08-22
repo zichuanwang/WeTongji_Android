@@ -189,25 +189,25 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		getSherlockActivity().getSupportActionBar()
-		.setDisplayShowCustomEnabled(true);
-getSherlockActivity().getSupportActionBar().setCustomView(
-		R.layout.actionbar_today);
-getActivity().findViewById(R.id.notification_button)
-		.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				 NotificationHandler.getInstance().finish();
-				if (WTApplication.getInstance().hasAccount) {
-					((MainActivity) getActivity()).showRightMenu();
-				} else {
-					Toast.makeText(
-							getActivity(),
-							getResources().getText(
-									R.string.no_account_error),
-							Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
+				.setDisplayShowCustomEnabled(true);
+		getSherlockActivity().getSupportActionBar().setCustomView(
+				R.layout.actionbar_today);
+		getActivity().findViewById(R.id.notification_button)
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						NotificationHandler.getInstance().finish();
+						if (WTApplication.getInstance().hasAccount) {
+							((MainActivity) getActivity()).showRightMenu();
+						} else {
+							Toast.makeText(
+									getActivity(),
+									getResources().getText(
+											R.string.no_account_error),
+									Toast.LENGTH_SHORT).show();
+						}
+					}
+				});
 	}
 
 //	@Override

@@ -186,6 +186,7 @@ public class MainActivity extends UpdateBaseActivity {
 		}else
 		{
 			showSecondaryMenu();
+			NotificationHandler.getInstance().finish();
 		}
 	}
 	
