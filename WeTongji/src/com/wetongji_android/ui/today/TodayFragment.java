@@ -304,17 +304,17 @@ public class TodayFragment extends SherlockFragment {
 		getSherlockActivity().getSupportActionBar()
 				.setDisplayShowCustomEnabled(true);
 		getSherlockActivity().getSupportActionBar().setCustomView(
-				R.layout.customized_actionbar);
-		getActivity().findViewById(R.id.notification_button_today)
+				R.layout.actionbar_today);
+		getActivity().findViewById(R.id.notification_button)
 				.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						 NotificationHandler.getInstance().finish();
 						if (WTApplication.getInstance().hasAccount) {
-							((MainActivity) context).showRightMenu();
+							((MainActivity) getActivity()).showRightMenu();
 						} else {
 							Toast.makeText(
-									context,
+									getActivity(),
 									getResources().getText(
 											R.string.no_account_error),
 									Toast.LENGTH_SHORT).show();
@@ -322,23 +322,5 @@ public class TodayFragment extends SherlockFragment {
 					}
 				});
 		// inflater.inflate(R.menu.menu_today, menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		// switch (item.getItemId()) {
-		// case R.id.notification_button_today:
-		// if (WTApplication.getInstance().hasAccount) {
-		// ((MainActivity) context).showRightMenu();
-		// } else {
-		// Toast.makeText(context,
-		// getResources().getText(R.string.no_account_error),
-		// Toast.LENGTH_SHORT).show();
-		// }
-		// return true;
-		// }
-
-		return super.onOptionsItemSelected(item);
 	}
 }
