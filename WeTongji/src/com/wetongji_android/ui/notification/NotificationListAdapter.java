@@ -214,7 +214,7 @@ public class NotificationListAdapter extends BaseAdapter implements
 			holder.img_notification_mark
 					.setImageResource(R.drawable.ic_notification_mark_ask);
 			// check if the notification is accepted
-			if (notification.isAccepted()) {
+			if (notification.isAccepted() && !notification.isIsConfirmed()) {
 				holder.ll_notification_buttonbar.setVisibility(View.GONE);
 				holder.rl_notification_accept.setVisibility(View.VISIBLE);
 			} else {
