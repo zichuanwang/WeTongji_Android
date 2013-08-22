@@ -6,6 +6,11 @@ import android.os.Parcel;
 
 public class Exam extends Course {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Exam() {
 		super();
 	}
