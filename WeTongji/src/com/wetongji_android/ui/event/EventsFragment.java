@@ -99,6 +99,7 @@ OnScrollListener{
 		case FRIENDS:
 			break;
 		case ATTEND:
+			bundle.putInt(BUNDLE_KEY_START_MODE, 4);
 			break;
 		}
 		
@@ -141,8 +142,10 @@ OnScrollListener{
 				mAdapter.loadDataFromDB(getQueryArgs());
 			} else if (mStartMode == StartMode.USERS) {
 				loadDataByUser(1);
-			} else {
+			} else if(mStartMode == StartMode.LIKE) {
 				loadDataLiked(1);
+			} else {
+				loadDataByAccount(1);
 			}
 			break;
 		case SCREEN_ROTATE:
@@ -167,8 +170,21 @@ OnScrollListener{
 		Bundle b = getArguments();
 		if (b != null) {
 			int modeCode = b.getInt(BUNDLE_KEY_START_MODE);
-			mStartMode = (modeCode == 1) ? StartMode.BASIC : 
-				((modeCode == 2) ? StartMode.USERS : StartMode.LIKE);
+			switch(modeCode) {
+			case 1:
+				mStartMode = StartMode.BASIC;
+				break;
+			case 2:
+				mStartMode = StartMode.USERS;
+				break;
+			case 3:
+				mStartMode = StartMode.LIKE;
+				break;
+			case 4:
+				mStartMode = StartMode.ATTEND;
+				break;
+			}
+			
 			mUID = b.getString(BUNDLE_KEY_UID);
 		}
 		
@@ -279,6 +295,15 @@ OnScrollListener{
 		mAdapter.setIsLoadingData(true);
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
 		Bundle args = apiHelper.getLikedObjectsListWithModelType(page, "Activity");
+		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
+	}
+	
+	private void loadDataByAccount(int page) {
+		isRefresh = false;
+		mAdapter.setIsLoadingData(true);
+		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		Bundle args = apiHelper.getActivityByAccount(mUID, page, USER_SELECT_TYPE,
+												ApiHelper.API_ARGS_SORT_BY_PUBLISH_DESC, true);
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 	}
 	

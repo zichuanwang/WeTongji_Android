@@ -9,6 +9,7 @@ public class WTBaseFragment extends SherlockFragment {
 	public static final String BUNDLE_KEY_LIKE = "bundle_key_like";
 	public static final String BUNDLE_KEY_MODEL_TYPE = "bundle_key_model";
 	public static final String BUNDLE_KEY_START_MODE = "bundle_key_start_mode";
+	public static final String BUNDLE_KEY_ACCOUNT = "bundle_key_account";
 	
 	protected boolean isFirstTimeStartFlag = true;
 	public static final int FIRST_TIME_START = 0; //when activity is first time start

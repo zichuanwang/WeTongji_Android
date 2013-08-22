@@ -140,11 +140,12 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="search_type_information">Information</string>
     <string name="search_history_clear">Clear History</string>
     <string name="friend_activity_name">Friends</string>
-    <string name="friend_detail_part_events">Participated Events</string>
+    <string name="friend_detail_part_events">Participated Activities</string>
     <string name="friend_detail_about">About</string>
     <string name="friend_detail_major">Major</string>
     <string name="friend_detail_grade">Grade</string>
     <string name="friend_detail_email">Email</string>
+    <string name="friend_detail_phone">Phone</string>
     <string name="search_tip_all">Search all</string>
     <string name="search_tip_users">Search users for </string>
     <string name="search_tip_org">Search organizations for </string>
@@ -251,6 +252,8 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="wetongji_all_rights">Copyright © 2012&#8821;2013 WeTongji.All Rights Reserved.</string>
 	<string name="toast_no_market">Sorry, we did not find a market on your device</string>
 	<string name="toast_no_email_app">Sorry, we did not find an email application on your device</string>
+	<string name="toast_no_msg_app">Sorry, we did not find an message application on your device</string>
+	<string name="toast_no_phone_app">Sorry, we did not find an phone application on your device</string>
 	<string name="share_wetongji">I am using @WeTongji . Go to the official website. http://we.tongji.edu.cn</string>
 	
 	<!-- Friend -->

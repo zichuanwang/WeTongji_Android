@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <ImageView
-        android:id="@+id/notification_button_today_bg"
+        android:id="@id/notification_button_bg"
         android:layout_width="50dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
@@ -14,7 +14,7 @@
         android:visibility="gone" />
 
     <ImageView
-        android:id="@+id/notification_button_today"
+        android:id="@id/notification_button"
         android:layout_width="50dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"

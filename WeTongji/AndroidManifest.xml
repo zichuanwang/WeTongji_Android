@@ -20,7 +20,9 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+	<uses-permission android:name="android.permission.CALL_PHONE" />
+	<uses-permission android:name="android.permission.SEND_SMS" />
+	
     <application
         android:name="com.wetongji_android.util.common.WTApplication"
         android:allowBackup="true"
@@ -135,6 +137,10 @@
         
         <activity
             android:name="com.wetongji_android.ui.event.EventsListActivity">
+        </activity>
+        
+        <activity 
+            android:name="com.wetongji_android.ui.informations.InformationListActivity">
         </activity>
         
         <activity
