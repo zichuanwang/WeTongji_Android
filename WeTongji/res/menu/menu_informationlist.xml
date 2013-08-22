@@ -1,24 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     
-    <item
-        android:id="@id/menu_informationlist_reload"
-        android:showAsAction="always"
-        android:title="@string/text_menu_reload"
-        android:icon="@drawable/abs_event_reload"/>
-    
-    <item
-        android:id="@id/menu_informationlist_type"
-        android:title="@string/menu_more"
-	    android:showAsAction="always"
-	    android:icon="@drawable/ab_news_type"/>
-	
-    <item 
-        android:id="@id/notification_button_info" 
-	    android:icon="@drawable/notification_button" 
-	    android:title="@string/notification_title" 
-	    android:titleCondensed="@string/notification_title" 
-	    android:visible="true"
-	    android:showAsAction="always"/>
-    
 </menu>
