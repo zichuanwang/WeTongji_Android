@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,9 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 	private Account mAccount;
 	private AQuery mAq;
 
+	private LinearLayout lyActivity;
+	private LinearLayout lyNews;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,6 +67,11 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 			
 		});
 		
+		lyActivity = (LinearLayout) findViewById(R.id.ll_profile_events_like);
+		lyActivity.setOnClickListener(clickListener);
+		lyNews = (LinearLayout) findViewById(R.id.ll_profile_news_like);
+		lyNews.setOnClickListener(clickListener);
+		
 		TextView tvAccountActivityNum = (TextView) findViewById(R.id.text_account_activity_num);
 		TextView tvClubNewsNum = (TextView) findViewById(R.id.text_club_news_num);
 		TextView tvClubAbout = (TextView) findViewById(R.id.text_account_detail_about);
@@ -92,6 +101,13 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 		setModelType("Account");
 	}
 
+	private OnClickListener clickListener = new OnClickListener() {
+		@Override
+		public void onClick(View arg0) {
+			
+		}
+	};
+	
 	private void fetchBackground() {
 		if (!TextUtils.isEmpty(mAccount.getBackground())) {
 			mAq.id(R.id.img_account_background_temp).image(
