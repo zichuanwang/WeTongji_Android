@@ -27,6 +27,8 @@ public class MainActivity extends UpdateBaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		NotificationHandler.init(this);
 
 		if (savedInstanceState != null)
 			mContent = getSupportFragmentManager().getFragment(
