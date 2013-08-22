@@ -57,7 +57,7 @@
     <item type="id" name="information_list_item_title">false</item>
     <item type="id" name="information_list_item_description">false</item>
     <item type="id" name="information_list_item">false</item>
-    <item type="id" name="menu_eventlist_reload">false</item>
+    <item type="id" name="eventlist_reload_button">false</item>
     <!-- Information Detail Part -->
     <item type="id" name="info_detail_title">false</item>
     <item type="id" name="info_detail_avatar">false</item>
@@ -65,8 +65,9 @@
     <item type="id" name="info_detail_time">false</item>
     <item type="id" name="info_detail_image">false</item>
     <item type="id" name="info_detail_content">false</item>
-    <item type="id" name="menu_informationlist_reload">false</item>
-    <item type="id" name="menu_informationlist_type">false</item>
+    <item type="id" name="informationlist_reload_button">false</item>
+    <item type="id" name="menu_eventlist_reload">false</item>
+    <item type="id" name="informationlist_type_button">false</item>
     <item type="id" name="cb_academic">false</item>
     <item type="id" name="cb_competition">false</item>
     <item type="id" name="cb_entertainment">false</item>
@@ -110,7 +111,6 @@
     <item name="tv_people_words" type="id" />
     <item name="layout_people_row" type="id" />
     <item type="id" name="notification_button_event">false</item>
-    <item type="id" name="notification_button_info">false</item>
     <item type="id" name="notification_button_profile">false</item>
     <item type="id" name="notification_top_title">false</item>
     <item name="img_people_detail_avatar" type="id" />

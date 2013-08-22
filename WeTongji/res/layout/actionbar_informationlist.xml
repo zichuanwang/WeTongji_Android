@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@id/notification_button_bg"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:scaleType="center"
+        android:src="@drawable/notification_activated"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@id/notification_button"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/actionbar_icon_bg_chg"
+        android:clickable="true"
+        android:scaleType="center"
+        android:src="@drawable/notification_button" />
+
+    <ImageView
+        android:id="@id/informationlist_reload_button"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/notification_button"
+        android:background="@drawable/actionbar_icon_bg_chg"
+        android:clickable="true"
+        android:scaleType="center"
+        android:src="@drawable/abs_event_reload" />
+
+    <ImageView
+        android:id="@id/informationlist_type_button"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/informationlist_reload_button"
+        android:background="@drawable/actionbar_icon_bg_chg"
+        android:clickable="true"
+        android:scaleType="center"
+        android:src="@drawable/ab_news_type" />
+
+</RelativeLayout>

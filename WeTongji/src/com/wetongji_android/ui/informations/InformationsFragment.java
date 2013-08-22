@@ -14,6 +14,7 @@ import com.wetongji_android.factory.InformationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.main.MainActivity;
+import com.wetongji_android.ui.main.NotificationHandler;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.common.WTUtility;
@@ -291,19 +292,45 @@ public class InformationsFragment extends WTBaseFragment
 	}
 	
 	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) 
-	{
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		
-		if(mStartMode == StartMode.BASIC) {
-			inflater.inflate(R.menu.menu_informationlist, menu);
-		} else {
-			inflater.inflate(R.menu.menu_informationlist_nonotification, menu);
-			
-			ActionBar ab = getSherlockActivity().getSupportActionBar();
-			ab.setDisplayHomeAsUpEnabled(true);
-		}
-		
+
+		inflater.inflate(R.menu.menu_informationlist, menu);
+		getSherlockActivity().getSupportActionBar()
+				.setDisplayShowCustomEnabled(true);
+		getSherlockActivity().getSupportActionBar().setCustomView(
+				R.layout.actionbar_informationlist);
+		getActivity().findViewById(R.id.notification_button)
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						NotificationHandler.getInstance().finish();
+						if (WTApplication.getInstance().hasAccount) {
+							((MainActivity) getActivity()).showRightMenu();
+						} else {
+							Toast.makeText(
+									getActivity(),
+									getResources().getText(
+											R.string.no_account_error),
+									Toast.LENGTH_SHORT).show();
+						}
+					}
+				});
+		getActivity().findViewById(R.id.informationlist_reload_button)
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						refreshData();
+					}
+				});
+		getActivity().findViewById(R.id.informationlist_type_button)
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						openTypeDialog();
+					}
+				});
+
 		readPreference();
 	}
 
@@ -325,20 +352,6 @@ public class InformationsFragment extends WTBaseFragment
 	{
 		switch (item.getItemId()) 
 		{
-		case R.id.menu_informationlist_reload:
-			refreshData();
-			break;
-		case R.id.menu_informationlist_type:
-			openTypeDialog();
-			break;
-		case R.id.notification_button_info:
-			if (WTApplication.getInstance().hasAccount) {
-				((MainActivity)getActivity()).showRightMenu();
-			} else {
-				Toast.makeText(getActivity(), getResources().getText(R.string.no_account_error),
-						Toast.LENGTH_SHORT).show();
-			}
-			break;
 		case android.R.id.home:
 			getActivity().finish();
 			break;
@@ -437,5 +450,10 @@ public class InformationsFragment extends WTBaseFragment
 
 	public void setmListNews(AmazingListView mListNews) {
 		this.mListNews = mListNews;
+	}
+	
+	public void onResume() {
+		super.onResume();
+		NotificationHandler.getInstance().checkNotification();
 	}
 }

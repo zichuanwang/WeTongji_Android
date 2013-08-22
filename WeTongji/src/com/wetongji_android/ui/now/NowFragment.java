@@ -225,7 +225,6 @@ getActivity().findViewById(R.id.notification_button)
 //	}
 	public void onResume() {
 		super.onResume();
-		System.out.println("TodayFragmengOnResume");
 		NotificationHandler.getInstance().checkNotification();
 	}
 	
