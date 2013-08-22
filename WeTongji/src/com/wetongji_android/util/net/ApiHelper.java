@@ -57,6 +57,7 @@ public class ApiHelper {
 	private static final String API_ARGS_USER_ID = "UID";
 	private static final String API_ARGS_USERS_ID = "UIDs";
 	private static final String API_ARGS_COURSE_ID = "UNO";
+	private static final String API_ARGS_ACCOUNT_ID = "Account_Id";
 	private static final String API_ARGS_PAGE="P";
 	private static final String API_ARGS_SESSION="S";
 	private static final String API_ARGS_NO="NO";
@@ -543,6 +544,19 @@ public class ApiHelper {
 		bundle.putString(API_ARGS_USER_ID, uid);
 		bundle.remove(API_ARGS_METHOD);
 		bundle.putString(API_ARGS_METHOD, "Activities.Get.ByUser");
+		return bundle;
+	}
+	
+	public Bundle getActivityByAccount(String uid, int page, int channelIdsMask, 
+			int sortType, boolean expire) {
+		Bundle bundle = getActivities(page, channelIdsMask, sortType, true);
+		bundle.putString(API_ARGS_ACCOUNT_ID, uid);
+		return bundle;
+	}
+	
+	public Bundle getInformationsByAccount(String id, int page, int channelIdsMask) {
+		Bundle bundle = getInformations(page, channelIdsMask);
+		bundle.putString(API_ARGS_ACCOUNT_ID, id);
 		return bundle;
 	}
 	

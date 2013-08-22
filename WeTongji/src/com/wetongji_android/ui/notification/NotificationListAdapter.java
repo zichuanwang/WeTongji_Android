@@ -2,6 +2,7 @@ package com.wetongji_android.ui.notification;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.androidquery.AQuery;
@@ -66,7 +67,7 @@ public class NotificationListAdapter extends BaseAdapter implements
 	}
 
 	/**
-	 * set ListView content and return if there are new notificaiton
+	 * set ListView content and return if there are new notification
 	 * @param notifications
 	 * @return
 	 */
@@ -107,6 +108,7 @@ public class NotificationListAdapter extends BaseAdapter implements
 	@Override
 	public void onLoadFinished(Loader<List<Notification>> arg0,
 			List<Notification> notifications) {
+		Collections.reverse(notifications);
 		setContentList(notifications);
 	}
 

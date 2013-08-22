@@ -224,7 +224,7 @@ public class NotificationFragment extends Fragment implements
 
 	public void startAcceptAction(Notification notification, int pos) {
 		mAcceptPos = pos;
-		int id = notification.getSourceId();
+		int id = notification.getId();
 		Bundle bundle = null;
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
 		switch (notification.getType()) {
@@ -244,7 +244,7 @@ public class NotificationFragment extends Fragment implements
 
 	public void startIngoreAction(Notification notification, int pos) {
 		mIgnorePos = pos;
-		int id = notification.getSourceId();
+		int id = notification.getId();
 		Bundle bundle = null;
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
 		switch (notification.getType()) {

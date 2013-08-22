@@ -139,6 +139,10 @@
             android:name="com.wetongji_android.ui.event.EventsListActivity">
         </activity>
         
+        <activity 
+            android:name="com.wetongji_android.ui.informations.InformationListActivity">
+        </activity>
+        
         <activity
             android:name="com.wetongji_android.ui.course.CourseListActivity">
         </activity>
