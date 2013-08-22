@@ -50,13 +50,13 @@ public class NotificationHandler extends Handler {
 		switch (msg.what) {
 		case 1:
 			notificationBg = mActivity
-					.findViewById(R.id.notification_button_today_bg);
+					.findViewById(R.id.notification_button_bg);
 			if (notificationBg == null)
 				break;
 			if (anim == null)
 				break;
 			View notificationImage = mActivity
-					.findViewById(R.id.notification_button_today);
+					.findViewById(R.id.notification_button);
 			if (notificationImage == null)
 				break;
 			notificationBg.setVisibility(View.VISIBLE);
@@ -64,7 +64,7 @@ public class NotificationHandler extends Handler {
 			break;
 		case 0:
 			notificationBg = mActivity
-					.findViewById(R.id.notification_button_today_bg);
+					.findViewById(R.id.notification_button_bg);
 			if (notificationBg == null)
 				break;
 			notificationBg.setVisibility(View.GONE);

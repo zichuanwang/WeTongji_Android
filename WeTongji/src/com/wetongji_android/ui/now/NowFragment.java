@@ -11,6 +11,7 @@ import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.main.MainActivity;
+import com.wetongji_android.ui.main.NotificationHandler;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.exception.ExceptionToast;
@@ -187,21 +188,45 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.menu_now, menu);
+		getSherlockActivity().getSupportActionBar()
+		.setDisplayShowCustomEnabled(true);
+getSherlockActivity().getSupportActionBar().setCustomView(
+		R.layout.actionbar_today);
+getActivity().findViewById(R.id.notification_button)
+		.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				 NotificationHandler.getInstance().finish();
+				if (WTApplication.getInstance().hasAccount) {
+					((MainActivity) getActivity()).showRightMenu();
+				} else {
+					Toast.makeText(
+							getActivity(),
+							getResources().getText(
+									R.string.no_account_error),
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.notification_button_now) {
-			if (WTApplication.getInstance().hasAccount) {
-				((MainActivity)mActivity).showRightMenu();
-			} else {
-				Toast.makeText(mActivity, getResources().getText(R.string.no_account_error),
-						Toast.LENGTH_SHORT).show();
-			}
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+//	@Override
+//	public boolean onOptionsItemSelected(MenuItem item) {
+//		if (item.getItemId() == R.id.notification_button) {
+//			if (WTApplication.getInstance().hasAccount) {
+//				((MainActivity)mActivity).showRightMenu();
+//			} else {
+//				Toast.makeText(mActivity, getResources().getText(R.string.no_account_error),
+//						Toast.LENGTH_SHORT).show();
+//			}
+//			return true;
+//		}
+//		return super.onOptionsItemSelected(item);
+//	}
+	public void onResume() {
+		super.onResume();
+		System.out.println("TodayFragmengOnResume");
+		NotificationHandler.getInstance().checkNotification();
 	}
 	
 	
