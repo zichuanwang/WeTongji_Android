@@ -6,7 +6,6 @@ import java.util.Date;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -48,7 +47,6 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 	private TextView tvNowTime;
 	private ViewPager vpWeeks;
 	private NowPagerAdapter adapter;
-	//private ApiHelper apiHelper;
 	
 	private Activity mActivity;
 	

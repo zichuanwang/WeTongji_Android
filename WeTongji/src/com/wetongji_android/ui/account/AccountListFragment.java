@@ -61,6 +61,8 @@ public class AccountListFragment extends WTBaseFragment implements
 			break;
 		case ATTEND:
 			break;
+		case TODAY:
+			break;
 		}
 		
 		f.setArguments(bundle);

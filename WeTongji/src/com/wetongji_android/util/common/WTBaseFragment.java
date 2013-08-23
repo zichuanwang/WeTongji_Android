@@ -10,6 +10,7 @@ public class WTBaseFragment extends SherlockFragment {
 	public static final String BUNDLE_KEY_MODEL_TYPE = "bundle_key_model";
 	public static final String BUNDLE_KEY_START_MODE = "bundle_key_start_mode";
 	public static final String BUNDLE_KEY_ACCOUNT = "bundle_key_account";
+	public static final String BUNDLE_KEY_SELECT_TYPE = "bundle_key_select";
 	
 	protected boolean isFirstTimeStartFlag = true;
 	public static final int FIRST_TIME_START = 0; //when activity is first time start
@@ -34,6 +35,6 @@ public class WTBaseFragment extends SherlockFragment {
     }
 	
 	public static enum StartMode {
-		BASIC, USERS, LIKE, FRIENDS, ATTEND
+		BASIC, USERS, LIKE, FRIENDS, ATTEND, TODAY
 	}
 }
