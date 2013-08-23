@@ -214,7 +214,7 @@ public class ProfileFragment extends WTBaseFragment implements
 		if (!TextUtils.isEmpty(mUser.getWords())) {
 			mTvWords.setText("\"" + mUser.getWords() + "\"");
 		}
-		int gendarRid = mUser.getGender().equals("ÄÐ") ? R.drawable.ic_profile_gender_male
+		int gendarRid = mUser.getGender().equals("ï¿½ï¿½") ? R.drawable.ic_profile_gender_male
 				: R.drawable.ic_profile_gender_female;
 		Drawable gendarDrawable = getResources().getDrawable(gendarRid);
 		mTvCollege.setCompoundDrawablesWithIntrinsicBounds(
@@ -380,7 +380,11 @@ public class ProfileFragment extends WTBaseFragment implements
 							R.anim.slide_left_out);
 				}
 			} else if (v.getId() == R.id.layout_profile_my_profile) {
-				((MainActivity) getActivity()).doClickProfile();
+				if (mUser != null) {
+					((MainActivity) getActivity()).doClickProfile();
+				} else {
+					//TODO toast message: no data
+				}
 			} else if (v.getId() == R.id.btn_profile_action) {
 				((MainActivity) getActivity()).doPickPhotoAction();
 			} else if (v.getId() == R.id.ll_profile_activity_list) {

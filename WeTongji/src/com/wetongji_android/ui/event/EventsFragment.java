@@ -36,6 +36,7 @@ import com.wetongji_android.factory.ActivityFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.main.MainActivity;
+import com.wetongji_android.ui.main.NotificationHandler;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTBaseFragment;
@@ -333,13 +334,13 @@ OnScrollListener{
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		int id = data.getIntExtra(WTBaseDetailActivity.KEY_OBJECT_ID, 0);
+		String id = data.getStringExtra(WTBaseDetailActivity.KEY_OBJECT_ID);
 		int like = data.getIntExtra(WTBaseDetailActivity.KEY_LIKE_NUMBER, 0);
 		boolean canLike = data.getBooleanExtra(WTBaseDetailActivity.KEY_CAN_LIKE, true);
 		
 		for (int i = 0; i < mAdapter.getCount(); i++) {
 			Activity activity = (Activity) mAdapter.getItem(i);
-			if (activity.getId() == id) {
+			if (activity.getId() == Integer.valueOf(id)) {
 				activity.setLike(like);
 				activity.setCanLike(canLike);
 				mAdapter.setObjectAtPosition(i, activity);

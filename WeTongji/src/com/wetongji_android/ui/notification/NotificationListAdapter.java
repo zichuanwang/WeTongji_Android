@@ -213,14 +213,19 @@ public class NotificationListAdapter extends BaseAdapter implements
 		} else {
 			holder.img_notification_mark
 					.setImageResource(R.drawable.ic_notification_mark_ask);
-			// check if the notification is accepted
-			if (notification.isAccepted() && !notification.isIsConfirmed()) {
-				holder.ll_notification_buttonbar.setVisibility(View.GONE);
-				holder.rl_notification_accept.setVisibility(View.VISIBLE);
-			} else {
-				holder.ll_notification_buttonbar.setVisibility(View.VISIBLE);
-				holder.rl_notification_accept.setVisibility(View.GONE);
-			}
+		}
+		
+		// check if the notification is accepted
+		if (notification.isAccepted()) {
+			holder.ll_notification_buttonbar.setVisibility(View.GONE);
+		} else {
+			holder.ll_notification_buttonbar.setVisibility(View.VISIBLE);
+		}
+		
+		if (notification.isAccepted() && !notification.isIsConfirmed()) {
+			holder.rl_notification_accept.setVisibility(View.VISIBLE);
+		} else {
+			holder.rl_notification_accept.setVisibility(View.GONE);
 		}
 
 		OnClickListener onClickListener = new OnNotifActionClickListener(
