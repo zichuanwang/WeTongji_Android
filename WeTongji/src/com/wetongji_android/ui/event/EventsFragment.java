@@ -36,7 +36,6 @@ import com.wetongji_android.factory.ActivityFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.main.MainActivity;
-import com.wetongji_android.ui.main.NotificationHandler;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTBaseFragment;

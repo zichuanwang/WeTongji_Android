@@ -122,7 +122,6 @@ public class FriendListFragment extends WTBaseFragment implements
 		{
 		case FIRST_TIME_START:
 			if(mStartMode == StartMode.BASIC){
-				//mAdapter.loadDataFromDB();
 				refreshData();
 			}else if(mStartMode == StartMode.FRIENDS){
 				getFriendsListOfUser();

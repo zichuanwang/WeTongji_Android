@@ -150,7 +150,11 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		mLayoutFriends = (LinearLayout)findViewById(R.id.btn_event_detail_friends);
 		mLayoutFriends.setOnClickListener(new BottomABClickListener());
 		mTvFriendsNumber = (TextView)findViewById(R.id.tv_event_detail_friends);
-		mTvFriendsNumber.setText(String.valueOf(iFriendsCount));
+		if(WTApplication.getInstance().hasAccount) {
+			mTvFriendsNumber.setText(String.valueOf(iFriendsCount));
+		} else {
+			mTvFriendsNumber.setText("0");
+		}
 		
 		//Set the schedule tab
 		mLayoutAttend = (LinearLayout)findViewById(R.id.btn_event_detail_attend);
@@ -197,6 +201,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 			mIvSchedule.setBackgroundDrawable(getResources().getDrawable(R.drawable.img_event_detail_attended));
 			mLayoutInvite.setBackgroundColor(getResources().getColor(R.color.bg_event_detail_bottom_actionbar));
 			mLayoutInvite.setClickable(true);
+			mLayoutInvite.setOnClickListener(new BottomABClickListener());
 			mTvInvite.setTextColor(getResources().getColor(android.R.color.white));
 		}else{
 			mTextView.setText("ATTEND");
@@ -271,9 +276,12 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 				if(WTApplication.getInstance().hasAccount)
 				{
 					Intent intent = new Intent(WTBaseDetailActivity.this, FriendInviteActivity.class);
-					intent.putExtra(CHILD_ID, iChildId);
-					intent.putExtra(CHILD_TYPE, modelType);
+					Bundle bundle = new Bundle();
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, iChildId);
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, modelType);
+					intent.putExtras(bundle);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 				}else
 				{
 					Toast.makeText(WTBaseDetailActivity.this, getResources().getText(R.string.no_account_error), 
@@ -289,6 +297,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, String.valueOf(iChildId));
 					intent.putExtras(bundle);
 					startActivity(intent);
+					overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 				}else
 				{
 					Toast.makeText(WTBaseDetailActivity.this, getResources().getText(R.string.no_account_error), 
