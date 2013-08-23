@@ -18,7 +18,9 @@
     <string name="title_mainmenu_profile">Profile</string>
     <string name="text_student_id">Student ID</string>
     <string name="text_password">Password</string>
+    <string name="text_name">Name</string>
     <string name="text_login">Log In</string>
+    <string name="msg_progress_registering">Registering</string>
     <string name="xlistview_footer_hint_ready">Pull to refresh</string>
     <string name="xlistview_footer_hint_loading">Loading more…</string>
     <string name="xlistview_footer_hint_normal">Press to load more</string>
