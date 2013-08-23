@@ -84,7 +84,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		tvFriendWords = (TextView) findViewById(R.id.text_profile_words);
 		tvFriendWords.setText(mUser.getWords());
 		tvFriendDepartment = (TextView) findViewById(R.id.text_profile_gender);
-		int gendarRid = mUser.getGender().equals("ÄÐ") ? R.drawable.ic_profile_gender_male
+		int gendarRid = mUser.getGender().equals("ï¿½ï¿½") ? R.drawable.ic_profile_gender_male
 				: R.drawable.ic_profile_gender_female;
 		Drawable gendarDrawable = getResources().getDrawable(gendarRid);
 		tvFriendDepartment.setCompoundDrawablesWithIntrinsicBounds(
@@ -165,15 +165,15 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	}
 
 	@Override
-	public void onLoadFinished(Loader<HttpRequestResult> arg0,
+	public void onLoadFinished(Loader<HttpRequestResult> loader,
 			HttpRequestResult result) {
 		if (result.getResponseCode() == 0) {
+			getSupportLoaderManager().destroyLoader(loader.getId());
 			if (bIsFriend) {
 				bIsFriend = false;
 			} else {
 				bIsFriend = true;
 			}
-
 			showToast();
 		}
 	}

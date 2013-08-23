@@ -12,6 +12,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.flurry.android.FlurryAgent;
 import com.slidingmenu.lib.SlidingMenu;
+import com.slidingmenu.lib.SlidingMenu.OnOpenedListener;
 import com.wetongji_android.R;
 import com.wetongji_android.ui.notification.NotificationFragment;
 import com.wetongji_android.ui.now.NowFragment;
@@ -61,13 +62,23 @@ public class MainActivity extends UpdateBaseActivity {
 	 */
 	private void setSlidingMenu() {
 		// set slidingmenu properties
-		SlidingMenu sm = getSlidingMenu();
+		final SlidingMenu sm = getSlidingMenu();
 		sm.setMode(SlidingMenu.LEFT_RIGHT);
 		sm.setShadowWidthRes(R.dimen.shadow_width);
 		sm.setShadowDrawable(R.drawable.shadow);
 		sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
 		sm.setFadeDegree(0.35f);
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+		sm.setOnOpenedListener(new OnOpenedListener() {
+
+			@Override
+			public void onOpened() {
+				if (sm.isSecondaryMenuShowing()) {
+					NotificationHandler.getInstance().finish();
+				}
+			}
+			
+		});
 
 		// set left menu
 		setBehindContentView(R.layout.menu_frame);
@@ -92,7 +103,6 @@ public class MainActivity extends UpdateBaseActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -186,7 +196,6 @@ public class MainActivity extends UpdateBaseActivity {
 		}else
 		{
 			showSecondaryMenu();
-			NotificationHandler.getInstance().finish();
 		}
 	}
 	

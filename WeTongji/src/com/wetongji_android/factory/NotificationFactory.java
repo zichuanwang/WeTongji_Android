@@ -43,7 +43,11 @@ public class NotificationFactory extends BaseFactory<Notification, Integer>{
 		}
 
 		list.clear();
-		list.addAll(results);
+		for (int i = 0; i < results.size(); i++) {
+			if (!results.get(i).isIsConfirmed()) {
+				list.add(results.get(i));
+			}
+		}
 		Bundle args = new Bundle();
 		args.putBoolean(ARG_NEED_TO_REFRESH, false);
 		fragment.getLoaderManager().initLoader(WTApplication.NOTIFICCATOINS_SAVER, args, this).forceLoad();

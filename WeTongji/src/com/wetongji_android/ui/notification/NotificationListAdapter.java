@@ -84,6 +84,11 @@ public class NotificationListAdapter extends BaseAdapter implements
 		notifyDataSetChanged();
 		return hasNew;
 	}
+	
+	public void addContent(List<Notification> notifications) {
+		mListNotifications.addAll(0, notifications);
+		notifyDataSetChanged();
+	}
 
 	@Override
 	public int getCount() {
@@ -266,10 +271,11 @@ public class NotificationListAdapter extends BaseAdapter implements
 	}
 
 	public void acceptNotification(int mAcceptPos) {
+		int id = mListNotifications.get(mAcceptPos).getId();
 		Notification notif = mListNotifications.get(mAcceptPos);
 		notif.setAccepted(true);
 		notifyDataSetChanged();
-		new UpdateNotificationTask().execute(notif);
+		new DeleteNotificationTask().execute(id);
 	};
 	
 	private class UpdateNotificationTask extends AsyncTask<Notification, Void, Void> {

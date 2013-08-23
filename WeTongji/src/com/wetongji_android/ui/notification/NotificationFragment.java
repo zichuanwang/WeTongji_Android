@@ -104,7 +104,7 @@ public class NotificationFragment extends Fragment implements
 		if (WTApplication.getInstance().hasAccount) {
 			// init loader(this loader is used for loading data from network)
 			ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-			mBundle = apiHelper.getNotifications(false);
+			mBundle = apiHelper.getNotifications(true);
 			mRunnable = new StoppableRunnable();
 			mHandler.postDelayed(mRunnable, 1);
 		} else {
@@ -188,9 +188,10 @@ public class NotificationFragment extends Fragment implements
 				}
 				List<Notification> results = mFactory.createObjects(result
 						.getStrResponseCon());
-				if (mAdapter.setContentList(results)) {
-					// TODO start notification animation
+				
+				if (!results.isEmpty()) {
 					NotificationHandler.getInstance().inform();
+					mAdapter.addContent(results);
 				}
 			}
 		}
