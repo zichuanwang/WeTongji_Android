@@ -38,6 +38,7 @@ import com.wetongji_android.ui.course.CourseListActivity;
 import com.wetongji_android.ui.event.EventsListActivity;
 import com.wetongji_android.ui.friend.FriendListActivity;
 import com.wetongji_android.ui.main.MainActivity;
+import com.wetongji_android.ui.main.NotificationHandler;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.common.WTLikeListActivity;
@@ -217,8 +218,8 @@ public class ProfileFragment extends WTBaseFragment implements
 		int gendarRid = mUser.getGender().equals("��") ? R.drawable.ic_profile_gender_male
 				: R.drawable.ic_profile_gender_female;
 		Drawable gendarDrawable = getResources().getDrawable(gendarRid);
-		mTvCollege.setCompoundDrawablesWithIntrinsicBounds(
-				gendarDrawable, null, null, null);
+		mTvCollege.setCompoundDrawablesWithIntrinsicBounds(gendarDrawable,
+				null, null, null);
 		mTvCollege.setText(mUser.getDepartment());
 		String fmt = getResources().getString(R.string.text_friends_counter);
 		mTvFriendsNum.setText(String.format(fmt, mUser.getFriendCount()));
@@ -313,21 +314,30 @@ public class ProfileFragment extends WTBaseFragment implements
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 
-		inflater.inflate(R.menu.menu_profile, menu);
+		getSherlockActivity().getSupportActionBar()
+				.setDisplayShowCustomEnabled(true);
+		getSherlockActivity().getSupportActionBar().setCustomView(
+				R.layout.actionbar_profile);
+		getActivity().findViewById(R.id.notification_button)
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						NotificationHandler.getInstance().finish();
+						if (WTApplication.getInstance().hasAccount) {
+							((MainActivity) getActivity()).showRightMenu();
+						} else {
+							Toast.makeText(
+									getActivity(),
+									getResources().getText(
+											R.string.no_account_error),
+									Toast.LENGTH_SHORT).show();
+						}
+					}
+				});
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.notification_button_profile) {
-			if (WTApplication.getInstance().hasAccount) {
-				((MainActivity) getActivity()).showRightMenu();
-			} else {
-				Toast.makeText(getActivity(),
-						getResources().getText(R.string.no_account_error),
-						Toast.LENGTH_SHORT).show();
-			}
-			return true;
-		}
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -383,7 +393,7 @@ public class ProfileFragment extends WTBaseFragment implements
 				if (mUser != null) {
 					((MainActivity) getActivity()).doClickProfile();
 				} else {
-					//TODO toast message: no data
+					// TODO toast message: no data
 				}
 			} else if (v.getId() == R.id.btn_profile_action) {
 				((MainActivity) getActivity()).doPickPhotoAction();
@@ -400,6 +410,8 @@ public class ProfileFragment extends WTBaseFragment implements
 					Bundle bundle = new Bundle();
 					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID,
 							mUser.getUID());
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE,
+							"Activity");
 					intent.putExtras(bundle);
 					startActivity(intent);
 					mActivity.overridePendingTransition(R.anim.slide_right_in,
