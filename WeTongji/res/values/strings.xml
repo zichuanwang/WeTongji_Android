@@ -222,6 +222,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="change_pwd_label">Change Password</string>
 	<string name="title_clearcache_progress_dialog">Please wait</string>
 	<string name="msg_clearcache_progress_dialog">clearing cache&#8230;</string>
+	<string name="msg_progress_logout">removing user data...</string>
 	<!-- About part -->
 	<string name="about_rate_we">Rate WeTongji!</string>
 	<string name="about_share">Share with friends</string>

@@ -4,7 +4,9 @@ import java.io.File;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +21,7 @@ import com.androidquery.util.AQUtility;
 import com.wetongji_android.R;
 import com.wetongji_android.ui.auth.AuthActivity;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.data.DbHelper;
 
 public class WTSettingActivity extends SherlockFragmentActivity {
 
@@ -28,6 +31,7 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 	private LinearLayout llChangePwdArea;
 	private Button btnLogOut;
 	private TextView tvCacheAmount;
+	private ProgressDialog progressDialog;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -35,7 +39,7 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_setting);
-
+		
 		initWidget();
 	}
 
@@ -83,17 +87,7 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 				overridePendingTransition(R.anim.slide_right_in,
 						R.anim.slide_left_out);
 			} else {
-				AccountManager am = AccountManager.get(WTSettingActivity.this);
-				Account[] accounts = am
-						.getAccountsByType(WTApplication.ACCOUNT_TYPE);
-				if (accounts.length != 0) {
-					am.removeAccount(accounts[0], null, null);
-				}
-				WTApplication.getInstance().hasAccount = false;
-				Intent intent = new Intent();
-				intent.setClass(WTSettingActivity.this, AuthActivity.class);
-				startActivity(intent);
-				finish();
+				doLogout();
 			}
 		}
 	};
@@ -127,5 +121,53 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 			}
 		}
 		return size;
+	}
+	
+	private void doLogout() {
+		AccountManager am = AccountManager.get(WTSettingActivity.this);
+		Account[] accounts = am
+				.getAccountsByType(WTApplication.ACCOUNT_TYPE);
+		if (accounts.length != 0) {
+			am.removeAccount(accounts[0], null, null);
+		}
+		WTApplication.getInstance().hasAccount = false;
+		new ClearDataTask().execute();
+		
+	}
+	
+	// clear database task
+	private class ClearDataTask extends AsyncTask<Void, Void, Void> {
+		DbHelper dbHelper;
+		
+		public ClearDataTask() {
+			super();
+			dbHelper = WTApplication.getInstance().getDbHelper();
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			progressDialog = new ProgressDialog(WTSettingActivity.this);
+			progressDialog.setMessage(getString(R.string.msg_progress_logout));
+			progressDialog.show();
+		}
+		
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			dbHelper.clearCache();
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			
+			progressDialog.dismiss();
+			Intent intent = new Intent();
+			intent.setClass(WTSettingActivity.this, AuthActivity.class);
+			startActivity(intent);
+			finish();
+		}
+		
 	}
 }

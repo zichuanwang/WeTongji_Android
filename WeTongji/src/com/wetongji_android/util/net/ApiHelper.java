@@ -630,11 +630,12 @@ public class ApiHelper {
 		
 		if(isFriend){
 			bundle.putString(API_ARGS_METHOD, "Friend.Remove");
+			bundle.putString(API_ARGS_USER_ID, uid);
 		}else{
 			bundle.putString(API_ARGS_METHOD, "Friend.Invite");
+			bundle.putString(API_ARGS_USERS_ID, uid);
 		}
 		
-		bundle.putString(API_ARGS_USERS_ID, uid);
 		return bundle;
 	}
 	
