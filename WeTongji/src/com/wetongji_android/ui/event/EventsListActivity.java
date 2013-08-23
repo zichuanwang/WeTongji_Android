@@ -19,13 +19,16 @@ public class EventsListActivity extends SherlockFragmentActivity {
 		
 		Fragment f;
 		Bundle b = getIntent().getExtras();
+		
 		if(b.getBoolean(EventsFragment.BUNDLE_KEY_LIKE, false))
 		{
 			f = EventsFragment.newInstance(StartMode.LIKE, b);
 		}else if(b.getBoolean(WTBaseFragment.BUNDLE_KEY_ACCOUNT, false))
 		{
 			f = EventsFragment.newInstance(StartMode.ATTEND, b);
-		}else {
+		} else if(b.getString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE).equals("TODAY")) {
+			f = EventsFragment.newInstance(StartMode.TODAY, b);
+		} else {
 			f = EventsFragment.newInstance(StartMode.USERS, b);
 		}
 		

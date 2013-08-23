@@ -34,7 +34,7 @@ public class FriendListActivity extends SherlockFragmentActivity
 		}else if(type.equals("FriendDetailActivity"))
 		{
 			fragment = FriendListFragment.newInstance(StartMode.FRIENDS, bundle);
-		}else if(type.equals("EventDetailActivity"))
+		}else if(type.equals("Activity"))
 		{
 			bundle.putBoolean(TAG_COURSE, true);
 			fragment = FriendListFragment.newInstance(StartMode.ATTEND, bundle);

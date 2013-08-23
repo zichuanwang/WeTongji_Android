@@ -122,7 +122,7 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 				}
 			}else if(v.getId() == R.id.ll_profile_news_like) {
 				if(mAccount.getInformationCount() == 0) {
-					Toast.makeText(AccountDetailActivity.this, "No Activity", 
+					Toast.makeText(AccountDetailActivity.this, "No News", 
 							Toast.LENGTH_SHORT).show();
 				} else {
 					Intent intent = new Intent(AccountDetailActivity.this, InformationListActivity.class);

@@ -3,6 +3,7 @@ package com.wetongji_android.ui.friend;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
@@ -12,11 +13,13 @@ import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.common.WTBaseDetailActivity;
+import com.wetongji_android.util.common.WTBaseFragment;
+import com.wetongji_android.util.common.WTBaseFragment.StartMode;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 import com.wetongji_android.util.net.HttpUtil;
@@ -36,7 +39,8 @@ public class FriendInviteActivity extends SherlockFragmentActivity implements
 		
 		setupActionBar();
 		
-		FriendListFragment fragment = new FriendListFragment();
+		Bundle bundle = getIntent().getExtras();
+		FriendListFragment fragment = FriendListFragment.newInstance(StartMode.BASIC, bundle);
 		getSupportFragmentManager().beginTransaction()
 			.add(R.id.friend_invite_list_container, fragment, TAG_FRIEND_INVITE_FRAGMENT)
 			.commit();
@@ -73,9 +77,9 @@ public class FriendInviteActivity extends SherlockFragmentActivity implements
 		FriendListFragment fragment = (FriendListFragment)getSupportFragmentManager().findFragmentByTag(TAG_FRIEND_INVITE_FRAGMENT);
 		
 		ApiHelper helper = ApiHelper.getInstance(this);
-		int id = getIntent().getIntExtra(WTBaseDetailActivity.CHILD_ID, 0);
-		String type = getIntent().getStringExtra(WTBaseDetailActivity.CHILD_TYPE);
-		if(type.equals("CourseDetailActivity"))
+		String type = getIntent().getExtras().getString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE);
+		String id = getIntent().getExtras().getString(WTBaseFragment.BUNDLE_KEY_UID);
+		if(type.equals("Course"))
 		{
 			getSupportLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_INVITE, helper.courseInvite(id, 
 					HttpUtil.generateUserIDArrayString(fragment.getiSelectedId())), this);
@@ -104,8 +108,9 @@ public class FriendInviteActivity extends SherlockFragmentActivity implements
 	{
 		if(result.getResponseCode() == 0)
 		{
-			btnInvite.setChecked(false);
 			Toast.makeText(this, getResources().getString(R.string.invite_request), Toast.LENGTH_SHORT).show();
+			finish();
+			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
 		}
 	}
 
@@ -113,5 +118,26 @@ public class FriendInviteActivity extends SherlockFragmentActivity implements
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) 
 	{
 		
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+		}
+		
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK) {
+			finish();
+			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+		}
+		
+		return super.onKeyDown(keyCode, event);
 	}
 }

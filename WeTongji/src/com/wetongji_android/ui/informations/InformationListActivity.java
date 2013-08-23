@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
+import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.common.WTBaseFragment.StartMode;
 
 public class InformationListActivity extends SherlockFragmentActivity {
@@ -18,7 +19,12 @@ public class InformationListActivity extends SherlockFragmentActivity {
 		Fragment f;
 		Bundle b = getIntent().getExtras();
 		
-		f = InformationsFragment.newInstance(StartMode.ATTEND, b);
+		if(b.getString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE).equals("Today")) {
+			f = InformationsFragment.newInstance(StartMode.TODAY, b);
+		} else {
+			f = InformationsFragment.newInstance(StartMode.ATTEND, b);
+		}
+		
 		getSupportFragmentManager().beginTransaction()
 			.replace(R.id.content_frame, f).commit();
 	}

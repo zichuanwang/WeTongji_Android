@@ -13,7 +13,6 @@
         android:drawableRight="@drawable/btn_check_holo_light"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
-        android:layout_marginLeft="-23dp"
         android:layout_marginRight="10dp"
         android:text="@string/text_news_category_1"
         style="@style/DialogTextStyle"/>
@@ -31,7 +30,6 @@
         android:drawableRight="@drawable/btn_check_holo_light"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
-        android:layout_marginLeft="-23dp"
         android:layout_marginRight="10dp"
         android:text="@string/text_news_category_2" 
         style="@style/DialogTextStyle" />
@@ -49,7 +47,6 @@
         android:drawableRight="@drawable/btn_check_holo_light"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
-        android:layout_marginLeft="-23dp"
         android:layout_marginRight="10dp"
         android:text="@string/text_news_category_3" 
        	style="@style/DialogTextStyle"/>
@@ -67,7 +64,6 @@
         android:drawableRight="@drawable/btn_check_holo_light"
         android:paddingBottom="8dp"
         android:paddingTop="8dp"
-        android:layout_marginLeft="-23dp"
         android:layout_marginRight="10dp"
         android:text="@string/text_news_category_4" 
        	style="@style/DialogTextStyle" />

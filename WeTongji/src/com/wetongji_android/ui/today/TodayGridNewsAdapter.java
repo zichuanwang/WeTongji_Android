@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
@@ -13,8 +14,10 @@ import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.ui.informations.InformationDetailActivity;
+import com.wetongji_android.ui.informations.InformationListActivity;
 import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseFragment;
 
 public class TodayGridNewsAdapter extends TodayGridBaseAdapter<Information> {
 
@@ -38,16 +41,35 @@ public class TodayGridNewsAdapter extends TodayGridBaseAdapter<Information> {
 					R.color.tv_today_red));
 			holder.tvGridContent.setText(info.getTitle());
 			int paddingLeft = holder.tvGridTitle.getPaddingLeft();
-			String strCategory = info.getCategory();
-			if (strCategory.equals("校园新闻")) {
+			final String strCategory = info.getCategory();
+			if (strCategory.equals("鏍″洯鏂伴椈")) {
 				holder.tvGridTitle.setText(R.string.text_news_category_1);
-			} else if (strCategory.equals("校务信息")) {
+			} else if (strCategory.equals("鏍″姟淇℃伅")) {
 				holder.tvGridTitle.setText(R.string.text_news_category_2);
-			} else if (strCategory.equals("社团通告")) {
+			} else if (strCategory.equals("绀惧洟閫氬憡")) {
 				holder.tvGridTitle.setText(R.string.text_news_category_3);
-			} else if (strCategory.equals("周边推荐")) {
+			} else if (strCategory.equals("鍛ㄨ竟鎺ㄨ崘")) {
 				holder.tvGridTitle.setText(R.string.text_news_category_4);
 			}
+			holder.rlSpinner.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(context, InformationListActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "Today");
+					if(strCategory.equals("鏍″洯鏂伴椈")) {
+						bundle.putInt(WTBaseFragment.BUNDLE_KEY_SELECT_TYPE, 1);
+					} else if(strCategory.equals("鏍″姟淇℃伅")) {
+						bundle.putInt(WTBaseFragment.BUNDLE_KEY_SELECT_TYPE, 8);
+					} else if(strCategory.equals("绀惧洟閫氬憡")) {
+						bundle.putInt(WTBaseFragment.BUNDLE_KEY_SELECT_TYPE, 2);
+					} else if(strCategory.equals("鍛ㄨ竟鎺ㄨ崘")) {
+						bundle.putInt(WTBaseFragment.BUNDLE_KEY_SELECT_TYPE, 4);
+					}
+					intent.putExtras(bundle);
+					context.startActivity(intent);
+				}
+			});
 			if (info.getImages() == null
 					|| info.getImages().isEmpty()
 					|| info.getImages().get(0)

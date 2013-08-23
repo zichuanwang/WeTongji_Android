@@ -71,6 +71,8 @@ public class FriendListFragment extends WTBaseFragment implements
 		case ATTEND:
 			bundle.putInt(BUNDLE_KEY_START_MODE, 5);
 			break;
+		case TODAY:
+			break;
 		}
 		
 		fragment.setArguments(bundle);
@@ -122,7 +124,6 @@ public class FriendListFragment extends WTBaseFragment implements
 		{
 		case FIRST_TIME_START:
 			if(mStartMode == StartMode.BASIC){
-				//mAdapter.loadDataFromDB();
 				refreshData();
 			}else if(mStartMode == StartMode.FRIENDS){
 				getFriendsListOfUser();
@@ -233,7 +234,6 @@ public class FriendListFragment extends WTBaseFragment implements
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View view, int position,
 				long arg3) {
-			// TODO Auto-generated method stub
 			if(mActivity instanceof FriendInviteActivity) {
 				ViewHolder holder = (ViewHolder)view.getTag();
 				holder.cbFriendInvite.toggle();

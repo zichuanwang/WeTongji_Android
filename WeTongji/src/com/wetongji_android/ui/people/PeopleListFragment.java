@@ -67,6 +67,8 @@ OnScrollListener{
 			break;
 		case ATTEND:
 			break;
+		case TODAY:
+			break;
 		}
 		
 		f.setArguments(bundle);
