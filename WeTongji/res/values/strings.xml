@@ -121,7 +121,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="need_account_login">This Needs User Login</string>
     <string name="format_likes">%d Likes</string>
     <string name="text_banner_publisher_mask">\@%1$s</string>
-    <string name="check_image">Image Overview</string>
     <string name="save_image">Store into Picture Folder</string>
     <string name="image_stored_at">Picture was stored at </string>
     <string name="image_save_failed">Save Pictrue Failed</string>

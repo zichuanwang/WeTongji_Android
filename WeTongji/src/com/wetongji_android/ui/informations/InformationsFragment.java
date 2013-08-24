@@ -15,6 +15,7 @@ import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.ui.main.NotificationHandler;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.QueryHelper;
@@ -204,6 +205,28 @@ public class InformationsFragment extends WTBaseFragment implements
 		super.onPause();
 		getLoaderManager().destroyLoader(WTApplication.NETWORK_LOADER_DEFAULT);
 		getLoaderManager().destroyLoader(WTApplication.INFORMATION_LOADER);
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		String id = data.getStringExtra(WTBaseDetailActivity.KEY_OBJECT_ID);
+		int like = data.getIntExtra(WTBaseDetailActivity.KEY_LIKE_NUMBER, 0);
+		boolean canLike = data.getBooleanExtra(
+				WTBaseDetailActivity.KEY_CAN_LIKE, true);
+		
+		List<Information> lstInfo = mAdapter.getOriginList();
+		for (int i = 0; i < lstInfo.size(); i++) {
+			Information info = lstInfo.get(i);
+			if (info.getId() == Integer.valueOf(id)) {
+				info.setLike(like);
+				info.setCanLike(canLike);
+			}
+			lstInfo.set(i, info);
+		}
+		mAdapter.setInformations(InformationUtil
+				.getSectionedInformationList(lstInfo));
+		mAdapter.setOriginList(lstInfo);
 	}
 
 	private void loadDataLiked(int page) {
