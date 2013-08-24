@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Set;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -33,8 +36,11 @@ import com.wetongji_android.data.Person;
 import com.wetongji_android.factory.PersonFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.event.EventDetailActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
+import com.wetongji_android.util.common.WTFullScreenActivity;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
@@ -47,13 +53,17 @@ public class PersonDetailActivity extends SherlockFragmentActivity implements
 	private CheckBox mCbLike;
 	private boolean isRestCheckBox = false;
 	private TextView mTvLikeNum;
+	private ViewPager vpPics;
 
 	private List<String> urls;
+	
+	private AQuery mAq;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		recieveData();
+		mAq = WTApplication.getInstance().getAq(this);
 		setUpUI();
 	}
 
@@ -131,10 +141,7 @@ public class PersonDetailActivity extends SherlockFragmentActivity implements
 	}
 
 	private void setImages() {
-		ViewPager vpPics = (ViewPager) findViewById(R.id.vp_person_images);
-		PersonDetailPicPagerAdapter adapter = new PersonDetailPicPagerAdapter(
-				mPerson.getImages(), this);
-		vpPics.setAdapter(adapter);
+		vpPics = (ViewPager) findViewById(R.id.vp_person_images);
 		Set<String> keys = mPerson.getImages().keySet();
 		List<String> lstKeys = new ArrayList<String>();
 		for(String key : keys) {
@@ -147,6 +154,10 @@ public class PersonDetailActivity extends SherlockFragmentActivity implements
 			lstImageViews.add(this.getLayoutInflater().inflate(R.layout.page_person_pic, null));
 			lstImageViews.get(i).setOnClickListener(this);
 		}
+		PersonDetailPicPagerAdapter adapter = new PersonDetailPicPagerAdapter(
+				mPerson.getImages(), this, lstImageViews);
+		vpPics.setAdapter(adapter);
+		
 		UnderlinePageIndicator indicator = (UnderlinePageIndicator) findViewById(R.id.vp_indicator_person);
 		indicator.setViewPager(vpPics);
 		indicator.setFades(false);
@@ -250,6 +261,26 @@ public class PersonDetailActivity extends SherlockFragmentActivity implements
 
 	@Override
 	public void onClick(View v) {
-		Log.v("shit", "fuck");
+		Intent intent = new Intent(PersonDetailActivity.this,
+				WTFullScreenActivity.class);
+		Bundle bundle = new Bundle();
+		String url = urls.get(vpPics.getCurrentItem());
+		bundle.putString(WTBaseDetailActivity.IMAGE_URL, url);
+		Bitmap bitmapTemp = mAq.getCachedImage(url);
+		if (bitmapTemp != null) {
+			bundle.putInt(WTBaseDetailActivity.IMAGE_WIDTH, bitmapTemp.getWidth());
+			bundle.putInt(WTBaseDetailActivity.IMAGE_HEIGHT, bitmapTemp.getHeight());
+		} else {
+			Drawable drawable = getResources().getDrawable(
+					R.drawable.image_place_holder);
+			Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+			bundle.putInt(WTBaseDetailActivity.IMAGE_WIDTH, bitmap.getWidth());
+			bundle.putInt(WTBaseDetailActivity.IMAGE_HEIGHT, bitmap.getHeight());
+		}
+
+		intent.putExtras(bundle);
+		startActivity(intent);
+		PersonDetailActivity.this.overridePendingTransition(
+				R.anim.slide_right_in, R.anim.slide_left_out);
 	}
 }

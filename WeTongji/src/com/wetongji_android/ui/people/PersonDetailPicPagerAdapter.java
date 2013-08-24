@@ -17,20 +17,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class PersonDetailPicPagerAdapter extends PagerAdapter{
+public class PersonDetailPicPagerAdapter extends PagerAdapter {
 
 	private HashMap<String, String> mPics;
-	private LayoutInflater mInflater;
 	private AQuery mAq;
 	private Context mContext;
-	
-	public PersonDetailPicPagerAdapter(HashMap<String, String> pics, Context context) {
+	private List<View> mViews;
+
+	public PersonDetailPicPagerAdapter(HashMap<String, String> pics,
+			Context context, List<View> views) {
 		mPics = pics;
 		mContext = context;
-		mInflater = LayoutInflater.from(mContext);
 		mAq = new AQuery(mContext);
+		mViews = views;
 	}
-	
+
 	@Override
 	public int getCount() {
 		return mPics.size();
@@ -40,7 +41,7 @@ public class PersonDetailPicPagerAdapter extends PagerAdapter{
 	public boolean isViewFromObject(View arg0, Object arg1) {
 		return (arg0 == arg1);
 	}
-	
+
 	@Override
 	public void destroyItem(ViewGroup container, int position, Object object) {
 		container.removeView((View) object);
@@ -48,9 +49,9 @@ public class PersonDetailPicPagerAdapter extends PagerAdapter{
 
 	@Override
 	public Object instantiateItem(ViewGroup container, int position) {
-		View view = mInflater.inflate(R.layout.page_person_pic, null);
-		
-	    String url = "";
+		View view = mViews.get(position);
+
+		String url = "";
 		String desc = "";
 		Set<String> keys = mPics.keySet();
 		List<String> lstKeys = new ArrayList<String>();
@@ -60,19 +61,18 @@ public class PersonDetailPicPagerAdapter extends PagerAdapter{
 		Collections.reverse(lstKeys);
 		url = lstKeys.get(position);
 		desc = mPics.get(url);
-		
-		ImageView ivPic = (ImageView) view.findViewById(R.id.img_person_detail_viewpager_pic);
-		mAq.id(ivPic).image(url, true,
-				true, 300, 0, null, AQuery.FADE_IN_NETWORK,
-				AQuery.RATIO_PRESERVE);
-		
-		TextView tvDesc = (TextView) view.findViewById(R.id.tv_person_detail_pic_desc);
+
+		ImageView ivPic = (ImageView) view
+				.findViewById(R.id.img_person_detail_viewpager_pic);
+		mAq.id(ivPic).image(url, true, true, 300, 0, null,
+				AQuery.FADE_IN_NETWORK, AQuery.RATIO_PRESERVE);
+
+		TextView tvDesc = (TextView) view
+				.findViewById(R.id.tv_person_detail_pic_desc);
 		tvDesc.setText(desc);
-		
+
 		container.addView(view);
 		return view;
 	}
-	
-	
 
 }

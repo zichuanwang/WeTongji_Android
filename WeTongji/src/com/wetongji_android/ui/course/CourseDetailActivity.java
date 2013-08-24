@@ -39,7 +39,7 @@ public class CourseDetailActivity extends WTBaseDetailActivity implements Loader
 		mCourse = (Course) (intent.getExtras().getParcelable(BUNDLE_COURSE));
 		setiChildId(mCourse.getNO());
 		setModelType("Course");
-		setShareContent(mCourse.getTitle() + "ÑÑ" + mCourse.getTeacher());
+		setShareContent(mCourse.getTitle() + "â€”â€”" + mCourse.getTeacher());
 		setLike(mCourse.getLike());
 		setiFriendsCount(mCourse.getFriendsCount());
 		setCanLike(mCourse.isCanLike());
