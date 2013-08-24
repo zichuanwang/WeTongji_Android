@@ -1,11 +1,7 @@
 package com.wetongji_android.util.common;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -47,6 +43,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	public static final String KEY_CAN_LIKE = "key_object_can_like";
 	public static final String KEY_LIKE_NUMBER = "key_object_like_num";
 	public static final String BUNDLE_KEY_ACCOUNT = "BUNDLE_KEY_ACCOUNT";
+	public static final String KEY_ATTEND = "BUNDLE_KEY_ATTEND";
 	
 	protected ViewStub mVsContent;
 	private LinearLayout mLayoutBack;
@@ -256,7 +253,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 				File downloadCacheDir = getExternalFilesDir("imgCache");
 				try {
 					temp = File.createTempFile(file.getName(), ".jpg", downloadCacheDir);
-					copyFile(file, temp);
+					WTUtility.copyFile(file, temp);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -450,6 +447,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		intent.putExtra(KEY_OBJECT_ID, iChildId);
 		intent.putExtra(KEY_CAN_LIKE, canLike);
 		intent.putExtra(KEY_LIKE_NUMBER, like);
+		intent.putExtra(KEY_ATTEND, bSchedule);
 		setResult(RESULT_OK, intent);
 		
 		super.finish();
@@ -461,20 +459,6 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		tvTitle.setText(title);
 	}
 	
-	private void copyFile(File src, File dst) throws IOException {
-	    InputStream in = new FileInputStream(src);
-	    OutputStream out = new FileOutputStream(dst);
-
-	    // Transfer bytes from in to out
-	    byte[] buf = new byte[1024];
-	    int len;
-	    while ((len = in.read(buf)) > 0) {
-	        out.write(buf, 0, len);
-	    }
-	    in.close();
-	    out.close();
-	}
-
 	abstract protected void updateObjectInDB();
 	
 	abstract protected void updateDB();

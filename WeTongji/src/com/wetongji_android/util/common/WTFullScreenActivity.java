@@ -43,6 +43,7 @@ public class WTFullScreenActivity extends SherlockActivity
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
+		setTitle(null);
 		setContentView(R.layout.activity_full_screen_pic);
 		getSupportActionBar().setIcon(R.drawable.ic_home);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
