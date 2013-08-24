@@ -291,4 +291,6 @@
     <item name="notificaion_login_area" type="id" />
     <item name="btn_notification_login" type="id"/>
     <item name="text_actionbar_titile" type="id" />
+    
+    <item name="menu_accountlist_reload" type="id">false</item>
 </resources>

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
 import com.wetongji_android.ui.account.AccountListFragment;
 import com.wetongji_android.ui.event.EventsFragment;
@@ -51,5 +52,16 @@ public class WTLikeListActivity extends SherlockFragmentActivity
 		
 		getSupportFragmentManager().beginTransaction()
 		.replace(R.id.content_frame, fragment).commit();
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+		if (item.getItemId() == android.R.id.home) 
+		{
+			finish();
+			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

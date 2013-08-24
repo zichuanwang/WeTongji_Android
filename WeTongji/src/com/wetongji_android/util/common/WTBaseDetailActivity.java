@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewStub;
@@ -69,6 +68,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	private String modelType;
 	private int iFriendsCount;
 	private int schedule;
+	private boolean bAudit;
 	
 	private AQuery aq;
 	
@@ -78,8 +78,6 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		super.onCreate(savedInstanceState);
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		aq = WTApplication.getInstance().getAq(this);
-		
-		Log.v("oncreate", "create");
 	}
 	
 	@Override
@@ -93,11 +91,9 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		setTopActionBar();
 	}
 	
-	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Log.v("onresume", "resume");
 	}
 
 	private void setTopActionBar()
@@ -331,6 +327,14 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		this.imagePath = imagePath;
 	}
 
+	protected boolean isbAudit() {
+		return bAudit;
+	}
+
+	protected void setbAudit(boolean bAudit) {
+		this.bAudit = bAudit;
+	}
+	
 	class BottomABClickListener implements OnClickListener
 	{
 		@Override
@@ -356,13 +360,18 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 			{
 				if(WTApplication.getInstance().hasAccount)
 				{
-					Intent intent = new Intent(WTBaseDetailActivity.this, FriendListActivity.class);
-					Bundle bundle = new Bundle();
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, modelType);
-					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, String.valueOf(iChildId));
-					intent.putExtras(bundle);
-					startActivity(intent);
-					overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
+					if(iFriendsCount == 0) {
+						Toast.makeText(WTBaseDetailActivity.this, getResources().getText(R.string.no_friends_error), 
+								Toast.LENGTH_SHORT).show();
+					} else {
+						Intent intent = new Intent(WTBaseDetailActivity.this, FriendListActivity.class);
+						Bundle bundle = new Bundle();
+						bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, modelType);
+						bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, String.valueOf(iChildId));
+						intent.putExtras(bundle);
+						startActivity(intent);
+						overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
+					}
 				}else
 				{
 					Toast.makeText(WTBaseDetailActivity.this, getResources().getText(R.string.no_account_error), 
@@ -377,8 +386,13 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 						getSupportLoaderManager().restartLoader(WTApplication.SCHEDUL_LOADER, 
 								apiHelper.setActivityScheduled(bSchedule, String.valueOf(iChildId)), new LoadCallback());
 					}else{
-						getSupportLoaderManager().restartLoader(WTApplication.SCHEDUL_LOADER, 
-								apiHelper.setCourseScheduled(bSchedule, String.valueOf(iChildId)), new LoadCallback());
+						if(bAudit) {
+							getSupportLoaderManager().restartLoader(WTApplication.SCHEDUL_LOADER, 
+									apiHelper.setCourseScheduled(bSchedule, String.valueOf(iChildId)), new LoadCallback());
+						} else {
+							Toast.makeText(WTBaseDetailActivity.this, getResources().getText(R.string.course_required_error), 
+									Toast.LENGTH_SHORT).show();
+						}
 					}
 				}else
 				{
