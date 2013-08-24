@@ -94,15 +94,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 
 	@Override
 	protected void onNextPageRequested(int page) 
-	{
-		/*if(page != this.nextPage)
-		{
-			this.notifyNoMorePages();
-			Toast.makeText(mContext, "No More Data", Toast.LENGTH_SHORT).show();
-		}else{
-			((InformationsFragment)mFragment).loadMoreData(page);
-		}*/
-		
+	{	
 		if(backgroundTask != null){
 			backgroundTask.cancel(false);
 		}
@@ -292,6 +284,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 			this.setInformations(InformationUtil.getSectionedInformationList(list));
 			this.setOriginList(list);
 			this.setLoadingData(false);
+			this.notifyMayHaveMorePages();
 		}else
 		{
 			((InformationsFragment)mFragment).refreshData();
