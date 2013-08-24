@@ -23,6 +23,7 @@ import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -101,7 +102,6 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 	
 	@Override
 	public void onAttach(Activity activity) {
-		// TODO Auto-generated method stub
 		super.onAttach(activity);
 		
 		mActivity = activity;
@@ -206,23 +206,8 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 				});
 	}
 
-//	@Override
-//	public boolean onOptionsItemSelected(MenuItem item) {
-//		if (item.getItemId() == R.id.notification_button) {
-//			if (WTApplication.getInstance().hasAccount) {
-//				((MainActivity)mActivity).showRightMenu();
-//			} else {
-//				Toast.makeText(mActivity, getResources().getText(R.string.no_account_error),
-//						Toast.LENGTH_SHORT).show();
-//			}
-//			return true;
-//		}
-//		return super.onOptionsItemSelected(item);
-//	}
 	public void onResume() {
 		super.onResume();
 		NotificationHandler.getInstance().checkNotification();
 	}
-	
-	
 }

@@ -58,13 +58,13 @@ public class NowPagerAdapter extends PagerAdapter {
 		super();
 		this.fragment = fragment;
 		context = fragment.getActivity();
-		this.inflater = fragment.getActivity().getLayoutInflater();
+		inflater = fragment.getActivity().getLayoutInflater();
 		this.viewPager = viewPager;
+		
 		initCalendars();
 		initAdapters();
 		initCallbacks();
 		Bundle args = ApiHelper.getInstance(context).getSchedule(begin, end);
-		Log.v("nowpager", "initloader");
 
 		fragment.getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_1, args, callbacks).forceLoad();
 
@@ -126,14 +126,12 @@ public class NowPagerAdapter extends PagerAdapter {
 	private void setCalendars(int pageScrolledTo) {
 		switch (pageScrolledTo) {
 		case PAGE_LEFT:
-			Log.v("setcalendar", "page left");
 			begin.add(Calendar.DAY_OF_YEAR, -7);
 			end.add(Calendar.DAY_OF_YEAR, -7);
 			if (min.after(begin))
 				min = begin;
 			break;
 		case PAGE_RIGHT:
-			Log.v("setcalendar", "page right");
 			begin.add(Calendar.DAY_OF_YEAR, 7);
 			end.add(Calendar.DAY_OF_YEAR, 7);
 			if (end.after(max))
@@ -144,12 +142,14 @@ public class NowPagerAdapter extends PagerAdapter {
 
 	public void setContent(int pageScrolledTo) {
 		if (pageScrolledTo != PAGE_MIDDILE) {
+			Log.v("nihao", "content else afhaf");
 			setCalendars(pageScrolledTo);
 			if (begin.equals(min) || end.equals(max)) {
 
 				if (!historyEventsData.containsKey(begin.get(Calendar.YEAR) + ""
 						+ begin.get(Calendar.DAY_OF_YEAR))) {
 					Bundle args = ApiHelper.getInstance(context).getSchedule(begin, end);
+					Log.v("restartloader", "restartloader");
 					fragment.getLoaderManager()
 							.restartLoader(WTApplication.NETWORK_LOADER_1, args, callbacks).forceLoad();
 				} else {
@@ -182,16 +182,16 @@ public class NowPagerAdapter extends PagerAdapter {
 
 		@Override
 		public void onLoadFinished(Loader<HttpRequestResult> arg0, HttpRequestResult result) {
+			fragment.getLoaderManager().destroyLoader(WTApplication.NETWORK_LOADER_1);
 			if (result.getResponseCode() == 0) {
-				List<Event> events;
+				List<Event> events = new ArrayList<Event>();
 				if (begin.equals(DateParser.getFirstDayOfWeek())) {
 					events = new ArrayList<Event>(factory.createObjects(result.getStrResponseCon(), true));
 				} else {
 					events = new ArrayList<Event>(factory.createObjects(result.getStrResponseCon(), false));
 				}
+				Log.v("newwork event size", events.size() + "");
 				listAdapter.setRawData(events);
-				System.out.println(begin.get(Calendar.YEAR) + "" + begin.get(Calendar.DAY_OF_YEAR)
-						+ " Calendar is saved");
 				historyEventsData
 						.put(begin.get(Calendar.YEAR) + "" + begin.get(Calendar.DAY_OF_YEAR), events);
 			} else {
@@ -222,6 +222,7 @@ public class NowPagerAdapter extends PagerAdapter {
 				bundle.putParcelable(CourseDetailActivity.BUNDLE_COURSE, event);
 				intent.putExtras(bundle);
 			}
+			
 			fragment.startActivity(intent);
 		}
 

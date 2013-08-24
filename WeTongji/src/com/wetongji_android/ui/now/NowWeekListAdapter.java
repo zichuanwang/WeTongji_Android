@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -252,7 +253,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		TextView tvWeekDay = (TextView) view
 				.findViewById(R.id.tv_now_section_bar_week_day);
 		Date date = new Date();
-		if (dates != null) {
+		/*if (dates != null) {
 			date = dates[getSectionForPosition(position)];
 			tvWeekDay.setText(DateUtils.formatDateTime(context, date.getTime(),
 					DateUtils.FORMAT_SHOW_WEEKDAY));
@@ -267,7 +268,8 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 				tvWeekDay.setTextColor(context.getResources().getColor(
 						R.color.tv_text_now_section_bar_default));
 			}
-		}
+		}*/
+		tvWeekDay.setText("nihao");
 	}
 
 	@Override
@@ -286,7 +288,9 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 
 	@Override
 	public void onLoadFinished(Loader<List<Event>> arg0, List<Event> events) {
-		this.events = EventUtil.getSectionedEventList(events);
+		Log.v("event size", events.size() + "");
+		this.events.clear();
+		this.events.addAll(EventUtil.getSectionedEventList(events));
 		notifyDataSetChanged();
 	}
 
