@@ -56,6 +56,11 @@ public class MainActivity extends UpdateBaseActivity {
 		super.onStop();
 		FlurryAgent.onEndSession(this);
 	}
+	
+	public void finish(){
+		super.finish();
+		TodayFragment.previousResultStr=null;
+	}
 
 	/**
 	 * set attributes of the sliding menu
