@@ -9,6 +9,8 @@ public class Banner {
 	private String BgColor;
 	private String Publisher;
 	private String Image;
+	private String URL;
+	private Object content;
 
 	public int getId() {
 		return Id;
@@ -48,6 +50,22 @@ public class Banner {
 
 	public void setBgColor(String bgColor) {
 		BgColor = bgColor;
+	}
+
+	public String getURL() {
+		return URL;
+	}
+
+	public void setURL(String uRL) {
+		URL = uRL;
+	}
+
+	public Object getContent() {
+		return content;
+	}
+
+	public void setContent(Object content) {
+		this.content = content;
 	}
 
 }

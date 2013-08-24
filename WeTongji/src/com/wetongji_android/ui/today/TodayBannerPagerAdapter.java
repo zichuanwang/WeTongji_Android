@@ -2,17 +2,28 @@ package com.wetongji_android.ui.today;
 
 import java.util.List;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
+import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Banner;
+import com.wetongji_android.data.Information;
+import com.wetongji_android.ui.event.EventDetailActivity;
+import com.wetongji_android.ui.event.EventsFragment;
+import com.wetongji_android.ui.informations.InformationDetailActivity;
+import com.wetongji_android.ui.informations.InformationsFragment;
 
 public class TodayBannerPagerAdapter extends PagerAdapter {
 	private List<Banner> banners;
@@ -46,7 +57,9 @@ public class TodayBannerPagerAdapter extends PagerAdapter {
 	public Object instantiateItem(ViewGroup container, int position) {
 		View view = inflater.inflate(R.layout.page_today_banner, null);
 		Banner banner = banners.get(position);
-
+		view.setTag(banner);
+		view.setOnClickListener(onPageClickListener);
+		
 		ImageView ivBanner = (ImageView) view
 				.findViewById(R.id.iv_banner_image);
 		aq.id(ivBanner).image(banner.getImage(), true,
@@ -72,4 +85,37 @@ public class TodayBannerPagerAdapter extends PagerAdapter {
 
 		return view;
 	}
+	
+	private OnClickListener onPageClickListener = new OnClickListener() {
+
+		@Override
+		public void onClick(View view) {
+			Intent intent = null;
+			Banner banner = (Banner) view.getTag();
+			if (banner.getURL() == null) {
+				if (banner.getContent() instanceof Activity) {
+					Activity activity = (Activity) banner.getContent();
+					intent = new Intent(context, EventDetailActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putParcelable(EventsFragment.BUNDLE_KEY_ACTIVITY, activity);
+					intent.putExtras(bundle);
+				} else if (banner.getContent() instanceof Information) {
+					Information info  = (Information) banner.getContent();
+					intent = new Intent(context, InformationDetailActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putParcelable(InformationsFragment.BUNDLE_KEY_INFORMATION, info);
+					intent.putExtras(bundle);
+				}
+			} else {
+				intent = new Intent(Intent.ACTION_VIEW);  
+				intent.setData(Uri.parse(banner.getURL()));  
+			}
+			
+			try {
+				context.startActivity(intent); 
+			} catch (ActivityNotFoundException e) {
+			}
+		}
+		
+	};
 }
