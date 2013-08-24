@@ -41,7 +41,7 @@ public class InformationFactory extends BaseFactory<Information, Integer>
 			JSONObject outer=new JSONObject(jsonStr);
 			nextPager=outer.getInt("NextPager");
 			setNextPage(nextPager);
-			if(currentPage!=1)
+			if(currentPage != 1)
 			{
 				result=createObjects(jsonStr,false);
 			}
