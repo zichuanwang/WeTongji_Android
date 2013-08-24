@@ -81,7 +81,6 @@ public class TodayFragment extends SherlockFragment {
 	public void onResume() {
 		super.onResume();
 		NotificationHandler.getInstance().checkNotification();
-//		NotificationHandler.getInstance().inform();
 	}
 
 	private boolean insertToDatabase(String str) {
@@ -110,8 +109,6 @@ public class TodayFragment extends SherlockFragment {
 		super.onCreate(savedInstanceState);
 		context = getActivity();
 		setHasOptionsMenu(true);
-		getSherlockActivity().getSupportActionBar().setTitle(
-				R.string.text_today);
 		initDatabase();
 	}
 
@@ -297,10 +294,9 @@ public class TodayFragment extends SherlockFragment {
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		// TODO Auto-generated method stub
 		super.onCreateOptionsMenu(menu, inflater);
 		getSherlockActivity().getSupportActionBar()
-				.setDisplayShowCustomEnabled(true);
+		.setDisplayShowCustomEnabled(true);
 		getSherlockActivity().getSupportActionBar().setCustomView(
 				R.layout.actionbar_today);
 		getActivity().findViewById(R.id.notification_button)
@@ -319,6 +315,5 @@ public class TodayFragment extends SherlockFragment {
 						}
 					}
 				});
-		// inflater.inflate(R.menu.menu_today, menu);
 	}
 }

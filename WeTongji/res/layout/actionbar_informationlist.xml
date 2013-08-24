@@ -9,10 +9,10 @@
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:contentDescription="@string/img_content_description"
         android:scaleType="center"
         android:src="@drawable/notification_activated"
-        android:visibility="gone"
-        android:contentDescription="@string/img_content_description" />
+        android:visibility="gone" />
 
     <ImageView
         android:id="@id/notification_button"
@@ -22,9 +22,9 @@
         android:layout_centerVertical="true"
         android:background="@drawable/selectable_background_wttheme"
         android:clickable="true"
+        android:contentDescription="@string/img_content_description"
         android:scaleType="center"
-        android:src="@drawable/notification_button" 
-        android:contentDescription="@string/img_content_description" />
+        android:src="@drawable/notification_button" />
 
     <ImageView
         android:id="@id/informationlist_type_button"
@@ -34,11 +34,11 @@
         android:layout_toLeftOf="@id/notification_button"
         android:background="@drawable/selectable_background_wttheme"
         android:clickable="true"
+        android:contentDescription="@string/img_content_description"
         android:scaleType="center"
-        android:src="@drawable/ab_news_type" 
-        android:contentDescription="@string/img_content_description" />
-	
-     <ImageView
+        android:src="@drawable/ab_news_type" />
+
+    <ImageView
         android:id="@id/informationlist_reload_button"
         android:layout_width="50dp"
         android:layout_height="match_parent"
@@ -46,8 +46,17 @@
         android:layout_toLeftOf="@id/informationlist_type_button"
         android:background="@drawable/selectable_background_wttheme"
         android:clickable="true"
+        android:contentDescription="@string/img_content_description"
         android:scaleType="center"
-        android:src="@drawable/abs_event_reload"
-        android:contentDescription="@string/img_content_description" />
-     
+        android:src="@drawable/abs_event_reload" />
+
+    <TextView
+        style="@style/TextAppearance.Sherlock.Widget.ActionBar.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical"
+        android:background="@drawable/selectable_background_wttheme"
+        android:text="@string/title_news" />
+
 </RelativeLayout>
