@@ -1,13 +1,19 @@
 package com.wetongji_android.ui.people;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -33,7 +39,7 @@ import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 public class PersonDetailActivity extends SherlockFragmentActivity implements
-		LoaderCallbacks<HttpRequestResult> {
+		LoaderCallbacks<HttpRequestResult>, OnClickListener {
 
 	private Person mPerson;
 	private boolean mIsCurrent;
@@ -42,6 +48,8 @@ public class PersonDetailActivity extends SherlockFragmentActivity implements
 	private boolean isRestCheckBox = false;
 	private TextView mTvLikeNum;
 
+	private List<String> urls;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -127,6 +135,18 @@ public class PersonDetailActivity extends SherlockFragmentActivity implements
 		PersonDetailPicPagerAdapter adapter = new PersonDetailPicPagerAdapter(
 				mPerson.getImages(), this);
 		vpPics.setAdapter(adapter);
+		Set<String> keys = mPerson.getImages().keySet();
+		List<String> lstKeys = new ArrayList<String>();
+		for(String key : keys) {
+			lstKeys.add(key);
+		}
+		Collections.reverse(lstKeys);
+		urls = lstKeys;
+		List<View> lstImageViews = new ArrayList<View>();
+		for(int i = 0; i < urls.size(); i++) {
+			lstImageViews.add(this.getLayoutInflater().inflate(R.layout.page_person_pic, null));
+			lstImageViews.get(i).setOnClickListener(this);
+		}
 		UnderlinePageIndicator indicator = (UnderlinePageIndicator) findViewById(R.id.vp_indicator_person);
 		indicator.setViewPager(vpPics);
 		indicator.setFades(false);
@@ -152,7 +172,7 @@ public class PersonDetailActivity extends SherlockFragmentActivity implements
 		btnShare.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				showShareDialog("Tongji University Every Week Person--"
+				showShareDialog(getString(R.string.share_person_title)
 						+ mPerson.getTitle());
 			}
 		});
@@ -162,10 +182,16 @@ public class PersonDetailActivity extends SherlockFragmentActivity implements
 		String sourceDesc = getResources().getString(R.string.share_from_we);
 		String share = getResources().getString(R.string.test_share);
 		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("image/*");
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.putExtra(Intent.EXTRA_TEXT, content + sourceDesc);
-		intent.setType("text/*");
-		intent.setType("image/*");
+		intent.putExtra(Intent.EXTRA_SUBJECT, content + sourceDesc);
+		intent.putExtra(Intent.EXTRA_TITLE, content + sourceDesc);
+		AQuery aq = WTApplication.getInstance().getAq(this);
+		File data = aq.getCachedFile(mPerson.getAvatar());
+		if (data != null) {
+			intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(data));
+		}
 		startActivity(Intent.createChooser(intent, share));
 	}
 
@@ -220,5 +246,10 @@ public class PersonDetailActivity extends SherlockFragmentActivity implements
 				Integer.valueOf(mTvLikeNum.getText().toString()));
 		this.setResult(RESULT_OK, intent);
 		super.finish();
+	}
+
+	@Override
+	public void onClick(View v) {
+		Log.v("shit", "fuck");
 	}
 }
