@@ -11,6 +11,7 @@ import com.j256.ormlite.dao.Dao;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Notification;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.DbHelper;
 import com.wetongji_android.util.data.notification.NotificationsLoader;
 import com.wetongji_android.util.date.DateParser;
@@ -259,6 +260,8 @@ public class NotificationListAdapter extends BaseAdapter implements
 				fragment.startIngoreAction(mNotification, mPosition);
 			} else if (view.getId() == R.id.btn_notification_yes) {
 				fragment.startAcceptAction(mNotification, mPosition);
+			} else if(view.getId() == R.id.ll_notification_row) {
+				fragment.viewNotificationDetail(mPosition);
 			}
 		}
 	}

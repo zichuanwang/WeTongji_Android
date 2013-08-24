@@ -40,7 +40,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class NotificationFragment extends Fragment implements
-		LoaderCallbacks<HttpRequestResult>, OnItemClickListener {
+		LoaderCallbacks<HttpRequestResult> {
 	private static final int MSG_REFRSH_NOTIFICATION = 990;
 
 	private View mView;
@@ -81,7 +81,6 @@ public class NotificationFragment extends Fragment implements
 		// set list adapter
 		mListNotifications = (ListView) mView
 				.findViewById(R.id.lst_notification);
-		mListNotifications.setOnItemClickListener(this);
 		mAdapter = new NotificationListAdapter(this);
 		mListNotifications.setAdapter(mAdapter);
 
@@ -268,10 +267,8 @@ public class NotificationFragment extends Fragment implements
 		getLoaderManager().restartLoader(
 				WTApplication.NETWORK_LOADER_IGNORE_FRIEDN, bundle, this);
 	}
-
-	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-			long arg3) {
+	
+	public void viewNotificationDetail(int position) {
 		Notification notification = (Notification) mAdapter.getItem(position);
 		Intent intent = null;
 		Bundle bundle = new Bundle();
@@ -294,6 +291,5 @@ public class NotificationFragment extends Fragment implements
 		}
 		intent.putExtras(bundle);
 		startActivity(intent);
-
 	}
 }
