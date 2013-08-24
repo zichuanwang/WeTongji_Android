@@ -272,5 +272,11 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="publish_time">Publish time</string>
 	<string name="popularity">Popularity</string>
 	<string name="start_date">Activity start date</string>
-	<string name="share_person_title">Tongji University Every Week Person--</string>
+	<string name="share_person_title">Tongji University Every Week Person&#8212;</string>
+	<!-- ActionBar Title Part -->
+	<string name="title_today">Today</string>
+	<string name="title_news">News</string>
+	<string name="title_activity">Activities</string>
+	<string name="title_now">Now</string>
+	<string name="title_profile">Profile</string>
 </resources>

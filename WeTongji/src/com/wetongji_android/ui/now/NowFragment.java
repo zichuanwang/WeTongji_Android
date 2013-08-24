@@ -69,8 +69,6 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
-		getSherlockActivity().getSupportActionBar().setTitle(R.string.text_now_indicator);
-
 		
 		selectedPage=0;
 		weekNumber=8;
@@ -189,7 +187,7 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 		getSherlockActivity().getSupportActionBar()
 				.setDisplayShowCustomEnabled(true);
 		getSherlockActivity().getSupportActionBar().setCustomView(
-				R.layout.actionbar_today);
+				R.layout.actionbar_now);
 		getActivity().findViewById(R.id.notification_button)
 				.setOnClickListener(new OnClickListener() {
 					@Override
