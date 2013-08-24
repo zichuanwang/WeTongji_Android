@@ -18,6 +18,7 @@ import com.wetongji_android.ui.friend.FriendDetailActivity;
 import com.wetongji_android.ui.friend.FriendListFragment;
 import com.wetongji_android.ui.main.NotificationHandler;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
@@ -42,6 +43,10 @@ import android.widget.Toast;
 public class NotificationFragment extends Fragment implements
 		LoaderCallbacks<HttpRequestResult> {
 	private static final int MSG_REFRSH_NOTIFICATION = 990;
+	
+	private static final int REQUEST_DELAY_WIFI = 15000;
+	private static final int REQUEST_DELAY_GPRS = 40000;
+	private static final int REQUEST_DELAY_NONE = 120000;
 
 	private View mView;
 	private ListView mListNotifications;
@@ -58,7 +63,7 @@ public class NotificationFragment extends Fragment implements
 	private Bundle mBundle;
 	private Handler mHandler;
 	private Runnable mRunnable;
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,6 +83,7 @@ public class NotificationFragment extends Fragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
+		
 		// set list adapter
 		mListNotifications = (ListView) mView
 				.findViewById(R.id.lst_notification);
@@ -136,7 +142,7 @@ public class NotificationFragment extends Fragment implements
 				Message msg = new Message();
 				msg.what = MSG_REFRSH_NOTIFICATION;
 				mHandler.sendMessage(msg);
-				mHandler.postDelayed(this, 1000 * 15);
+				mHandler.postDelayed(this, getReqeustDelay());
 				
 	            stop();
 			}
@@ -292,5 +298,15 @@ public class NotificationFragment extends Fragment implements
 		}
 		intent.putExtras(bundle);
 		startActivity(intent);
+	}
+	
+	private int getReqeustDelay() {
+		if (!WTUtility.isConnect(getActivity())) {
+			return REQUEST_DELAY_NONE;
+		}
+		if (WTUtility.isWifi(getActivity())) {
+			return REQUEST_DELAY_WIFI;
+		}
+		return REQUEST_DELAY_GPRS;
 	}
 }
