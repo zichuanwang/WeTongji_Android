@@ -80,7 +80,6 @@ public class TodayFragment extends SherlockFragment {
 
 	public void onResume() {
 		super.onResume();
-		System.out.println("TodayFragmengOnResume");
 		NotificationHandler.getInstance().checkNotification();
 //		NotificationHandler.getInstance().inform();
 	}

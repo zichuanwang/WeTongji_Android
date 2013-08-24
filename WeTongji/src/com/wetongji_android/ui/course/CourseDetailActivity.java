@@ -96,6 +96,11 @@ public class CourseDetailActivity extends WTBaseDetailActivity implements
 	}
 
 	@Override
+	protected void updateDB() {
+		
+	}
+
+	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
 		return new NetworkLoader(this, HttpMethod.Get, arg1);
 	}

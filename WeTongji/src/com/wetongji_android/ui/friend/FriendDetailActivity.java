@@ -265,4 +265,9 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	protected void updateObjectInDB() {
 
 	}
+
+	@Override
+	protected void updateDB() {
+		
+	}	
 }

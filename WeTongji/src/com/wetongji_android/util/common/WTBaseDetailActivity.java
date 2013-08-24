@@ -60,6 +60,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	private int like;
 	private String modelType;
 	private int iFriendsCount;
+	private int schedule;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -191,7 +192,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	//Update the bottom action bar when the schedule is clicked
 	@SuppressWarnings("deprecation")
 	private void updateBottomActionBar(){
-		if(bSchedule){
+		if(!bSchedule) {
 			if(modelType.equals("Course")){
 				mTextView.setText("REGISTERED");
 			}else{
@@ -203,10 +204,11 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 			mLayoutInvite.setClickable(true);
 			mLayoutInvite.setOnClickListener(new BottomABClickListener());
 			mTvInvite.setTextColor(getResources().getColor(android.R.color.white));
-		}else{
+		} else {
 			mTextView.setText("ATTEND");
 			mTextView.setTextColor(getResources().getColor(android.R.color.white));
 			mIvSchedule.setBackgroundDrawable(getResources().getDrawable(R.drawable.img_event_detail_attend));
+			mLayoutAttend.setOnClickListener(new BottomABClickListener());
 			mLayoutInvite.setBackgroundColor(getResources().getColor(R.color.bg_now_tab));
 			mLayoutInvite.setClickable(false);
 			mTvInvite.setTextColor(getResources().getColor(R.color.tv_friend_can_not_invite));
@@ -230,10 +232,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		this.iChildId = iChildId;
 	}
 
-	protected void setbSchedule(boolean bSchedule) {
-		this.bSchedule = bSchedule;
-	}
-
+	
 	protected void setShareContent(String shareContent) {
 		this.shareContent = shareContent;
 	}
@@ -254,18 +253,34 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		this.like = like;
 	}
 	
-	public String getModelType() {
+	protected String getModelType() {
 		return modelType;
 	}
 
-	public void setModelType(String modelType) {
+	protected void setModelType(String modelType) {
 		this.modelType = modelType;
 	}
 
-	public void setiFriendsCount(int iFriendsCount) {
+	protected void setiFriendsCount(int iFriendsCount) {
 		this.iFriendsCount = iFriendsCount;
 	}
 	
+	protected int getSchedule() {
+		return schedule;
+	}
+
+	protected void setSchedule(int schedule) {
+		this.schedule = schedule;
+	}
+	
+	protected boolean isbSchedule() {
+		return bSchedule;
+	}
+
+	protected void setbSchedule(boolean bSchedule) {
+		this.bSchedule = bSchedule;
+	}
+
 	class BottomABClickListener implements OnClickListener
 	{
 		@Override
@@ -333,8 +348,11 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		@Override
 		public void onLoadFinished(Loader<HttpRequestResult> arg0,
 				HttpRequestResult result) {
-			if(result.getResponseCode() == 0){
+			if(result.getResponseCode() == 0) {
+				schedule+= (bSchedule? 1: -1);
+				bSchedule = !bSchedule;
 				updateBottomActionBar();
+				updateDB();
 			}
 		}
 
@@ -377,4 +395,6 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	}
 
 	abstract protected void updateObjectInDB();
+	
+	abstract protected void updateDB();
 }
