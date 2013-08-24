@@ -290,4 +290,5 @@
     <item type="id" name="btn_sort_dialog_cancel">false</item>
     <item name="notificaion_login_area" type="id" />
     <item name="btn_notification_login" type="id"/>
+    <item name="text_actionbar_titile" type="id" />
 </resources>

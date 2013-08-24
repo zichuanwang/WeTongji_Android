@@ -20,6 +20,8 @@
     <string name="text_password">Password</string>
     <string name="text_name">Name</string>
     <string name="text_login">Log In</string>
+    <string name="dialog_title_regitster_success">Register success</string>
+    <string name="dialog_msg_need_to_active">Before you can login, you should check your @tongji.edu.cn mailbox and click the activation link. </string>
     <string name="msg_progress_registering">Registering</string>
     <string name="xlistview_footer_hint_ready">Pull to refresh</string>
     <string name="xlistview_footer_hint_loading">Loading more…</string>

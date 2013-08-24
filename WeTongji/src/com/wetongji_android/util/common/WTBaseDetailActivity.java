@@ -393,6 +393,12 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		
 		super.finish();
 	}
+	
+	@Override
+	public void setTitle(CharSequence title) {
+		TextView tvTitle = (TextView) findViewById(R.id.text_actionbar_titile);
+		tvTitle.setText(title);
+	}
 
 	abstract protected void updateObjectInDB();
 	
