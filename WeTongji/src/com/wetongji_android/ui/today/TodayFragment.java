@@ -72,8 +72,7 @@ public class TodayFragment extends SherlockFragment {
 
 	private void initDatabase() {
 		if (thedb == null) {
-			thedb = context.openOrCreateDatabase("WeTongjiDB",
-					Context.MODE_PRIVATE, null);
+			thedb = context.openOrCreateDatabase("WeTongjiDB", Context.MODE_PRIVATE, null);
 			thedb.execSQL("CREATE TABLE IF NOT EXISTS TodayFragment('_id' INTEGER PRIMARY KEY, 'TodayResult' VARCHAR(40000) NOT NULL UNIQUE);");
 		}
 	}
@@ -96,8 +95,7 @@ public class TodayFragment extends SherlockFragment {
 	}
 
 	private String getDatabaseData() {
-		Cursor c = thedb.query("TodayFragment", new String[] { "TodayResult" },
-				null, null, null, null, null);
+		Cursor c = thedb.query("TodayFragment", new String[] { "TodayResult" }, null, null, null, null, null);
 		if (c.getCount() == 0)
 			return null;
 		c.moveToFirst();
@@ -113,16 +111,15 @@ public class TodayFragment extends SherlockFragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (view == null) {
 			view = inflater.inflate(R.layout.fragment_today, container, false);
 
 			setTodayGrids(view);
 			setTodaySectionTitles(view);
 			Bundle args = QueryHelper.getEventQueryArgs(Calendar.getInstance());
-			getLoaderManager().initLoader(WTApplication.EVENT_LOADER, args,
-					new DbLoaderCallbacks()).forceLoad();
+			getLoaderManager().initLoader(WTApplication.EVENT_LOADER, args, new DbLoaderCallbacks())
+					.forceLoad();
 		}
 		return view;
 	}
@@ -134,19 +131,15 @@ public class TodayFragment extends SherlockFragment {
 		vpBanner.setAdapter(bannerAdapter);
 		vpBanner.setOffscreenPageLimit(bannerAdapter.getCount());
 		vpBanner.setClipChildren(false);
-		indicator = (UnderlinePageIndicator) view
-				.findViewById(R.id.vp_indicator_today);
+		indicator = (UnderlinePageIndicator) view.findViewById(R.id.vp_indicator_today);
 		indicator.setViewPager(vpBanner);
 		indicator.setFades(false);
 	}
 
 	private void setTodaySectionTitles(View view) {
-		TextView tvNews = (TextView) view
-				.findViewById(R.id.tv_today_information);
-		TextView tvEvents = (TextView) view
-				.findViewById(R.id.tv_today_activities);
-		TextView tvFeatures = (TextView) view
-				.findViewById(R.id.tv_today_features);
+		TextView tvNews = (TextView) view.findViewById(R.id.tv_today_information);
+		TextView tvEvents = (TextView) view.findViewById(R.id.tv_today_activities);
+		TextView tvFeatures = (TextView) view.findViewById(R.id.tv_today_features);
 		ClickListener listener = new ClickListener();
 		tvNews.setOnClickListener(listener);
 		tvEvents.setOnClickListener(listener);
@@ -160,10 +153,12 @@ public class TodayFragment extends SherlockFragment {
 		Bundle bundle = ApiHelper.getInstance(context).getHome();
 
 		if (!WTUtility.isWifi(context)) {
+			if (previousResultStr == null)
+				previousResultStr = getDatabaseData();
 			this.executeLoader(previousResultStr);
 		} else if ((previousResultStr == null) && WTUtility.isWifi(context)) {
-			getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT,
-					bundle, new NetwordLoaderCallbacks());
+			getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle,
+					new NetwordLoaderCallbacks());
 		} else {
 			this.executeLoader(previousResultStr);
 		}
@@ -178,26 +173,22 @@ public class TodayFragment extends SherlockFragment {
 		List<Information> infomation = factory.createInfos(strResult);
 		List<Object> features = factory.createFeatures(strResult);
 
-		TodayBannerPagerAdapter bannerAdapter = new TodayBannerPagerAdapter(
-				banners, context);
+		TodayBannerPagerAdapter bannerAdapter = new TodayBannerPagerAdapter(banners, context);
 		setTodayBanner(view, bannerAdapter);
 
-		TodayGridNewsAdapter newsAdapter = new TodayGridNewsAdapter(context,
-				infomation);
+		TodayGridNewsAdapter newsAdapter = new TodayGridNewsAdapter(context, infomation);
 		view.findViewById(R.id.pb_today_information).setVisibility(View.GONE);
 		gvNews.setAdapter(newsAdapter);
 		gvNews.setVisibility(View.VISIBLE);
 		gvNews.setOnItemClickListener(newsAdapter);
 
-		TodayGridEventAdapter eventAdapter = new TodayGridEventAdapter(context,
-				activities);
+		TodayGridEventAdapter eventAdapter = new TodayGridEventAdapter(context, activities);
 		view.findViewById(R.id.pb_today_activities).setVisibility(View.GONE);
 		gvEvents.setAdapter(eventAdapter);
 		gvEvents.setOnItemClickListener(eventAdapter);
 		gvEvents.setVisibility(View.VISIBLE);
 
-		TodayGridFeatureAdapter featureAdapter = new TodayGridFeatureAdapter(
-				context, features);
+		TodayGridFeatureAdapter featureAdapter = new TodayGridFeatureAdapter(context, features);
 		view.findViewById(R.id.pb_today_features).setVisibility(View.GONE);
 		gvFeatures.setAdapter(featureAdapter);
 		gvFeatures.setOnItemClickListener(featureAdapter);
@@ -208,14 +199,10 @@ public class TodayFragment extends SherlockFragment {
 
 	private void setTodayNowContent(Event event) {
 		view.findViewById(R.id.fl_now_today).setVisibility(View.VISIBLE);
-		TextView tvNowTitle = (TextView) view
-				.findViewById(R.id.tv_today_now_title);
-		TextView tvNowTime = (TextView) view
-				.findViewById(R.id.tv_today_now_time);
-		TextView tvNowLocation = (TextView) view
-				.findViewById(R.id.tv_today_now_location);
-		ImageView ivNowThumb = (ImageView) view
-				.findViewById(R.id.iv_today_now_thumb);
+		TextView tvNowTitle = (TextView) view.findViewById(R.id.tv_today_now_title);
+		TextView tvNowTime = (TextView) view.findViewById(R.id.tv_today_now_time);
+		TextView tvNowLocation = (TextView) view.findViewById(R.id.tv_today_now_location);
+		ImageView ivNowThumb = (ImageView) view.findViewById(R.id.iv_today_now_thumb);
 
 		tvNowTitle.setText(event.getTitle());
 		tvNowTime.setText(EventUtil.getEventDisplayTime(event, context));
@@ -227,8 +214,7 @@ public class TodayFragment extends SherlockFragment {
 			AQuery aq = new AQuery(context);
 			if (!strUrl.equals(WTApplication.MISSING_IMAGE_URL)) {
 				aq.id(ivNowThumb).image(strUrl, true, true, 300,
-						R.drawable.event_list_thumbnail_place_holder, null,
-						AQuery.FADE_IN_NETWORK, 1.33f);
+						R.drawable.event_list_thumbnail_place_holder, null, AQuery.FADE_IN_NETWORK, 1.33f);
 			}
 		} else {
 			ivNowThumb.setVisibility(View.GONE);
@@ -236,8 +222,7 @@ public class TodayFragment extends SherlockFragment {
 
 	}
 
-	private class NetwordLoaderCallbacks implements
-			LoaderCallbacks<HttpRequestResult> {
+	private class NetwordLoaderCallbacks implements LoaderCallbacks<HttpRequestResult> {
 
 		@Override
 		public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle args) {
@@ -245,8 +230,7 @@ public class TodayFragment extends SherlockFragment {
 		}
 
 		@Override
-		public void onLoadFinished(Loader<HttpRequestResult> arg0,
-				HttpRequestResult result) {
+		public void onLoadFinished(Loader<HttpRequestResult> arg0, HttpRequestResult result) {
 			if (result.getResponseCode() == 0) {
 				executeLoader(result.getStrResponseCon());
 				insertToDatabase(previousResultStr);
@@ -295,25 +279,19 @@ public class TodayFragment extends SherlockFragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-		getSherlockActivity().getSupportActionBar()
-		.setDisplayShowCustomEnabled(true);
-		getSherlockActivity().getSupportActionBar().setCustomView(
-				R.layout.actionbar_today);
-		getActivity().findViewById(R.id.notification_button)
-				.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						 NotificationHandler.getInstance().finish();
-						if (WTApplication.getInstance().hasAccount) {
-							((MainActivity) getActivity()).showRightMenu();
-						} else {
-							Toast.makeText(
-									getActivity(),
-									getResources().getText(
-											R.string.no_account_error),
-									Toast.LENGTH_SHORT).show();
-						}
-					}
-				});
+		getSherlockActivity().getSupportActionBar().setDisplayShowCustomEnabled(true);
+		getSherlockActivity().getSupportActionBar().setCustomView(R.layout.actionbar_today);
+		getActivity().findViewById(R.id.notification_button).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				NotificationHandler.getInstance().finish();
+				if (WTApplication.getInstance().hasAccount) {
+					((MainActivity) getActivity()).showRightMenu();
+				} else {
+					Toast.makeText(getActivity(), getResources().getText(R.string.no_account_error),
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
 	}
 }
