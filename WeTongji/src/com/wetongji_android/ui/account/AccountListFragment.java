@@ -14,6 +14,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Account;
 import com.wetongji_android.factory.AccountFactory;
@@ -115,6 +118,10 @@ public class AccountListFragment extends WTBaseFragment implements
 		setRetainInstance(true);
 		
 		setHasOptionsMenu(true);
+		
+		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSherlockActivity().getSupportActionBar().setDisplayShowTitleEnabled(true);
+		getSherlockActivity().getSupportActionBar().setTitle("Accounts");
 	}
 
 	private void loadDataLiked(int page)
@@ -146,6 +153,20 @@ public class AccountListFragment extends WTBaseFragment implements
 		super.onPause();
 	}
 
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		
+		inflater.inflate(R.menu.menu_accountlist, menu);
+		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSherlockActivity().getSupportActionBar().setDisplayShowTitleEnabled(true);
+		getSherlockActivity().getSupportActionBar().setTitle("Accounts");
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return super.onOptionsItemSelected(item);
+	}
 
 	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle args) 
@@ -157,6 +178,7 @@ public class AccountListFragment extends WTBaseFragment implements
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
 			HttpRequestResult result) 
 	{
+		getLoaderManager().destroyLoader(WTApplication.NETWORK_LOADER_DEFAULT);
 		if(result.getResponseCode() == 0)
 		{
 			if(mAccountFactory == null)

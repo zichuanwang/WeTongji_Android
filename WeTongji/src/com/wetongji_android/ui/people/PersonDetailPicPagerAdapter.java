@@ -11,7 +11,6 @@ import com.wetongji_android.R;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;

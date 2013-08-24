@@ -213,9 +213,11 @@ OnScrollListener{
 			com.actionbarsherlock.view.MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
 		
-		menu.clear();
-		inflater.inflate(R.menu.menu_people, menu);
-		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		if(mStartMode != StartMode.LIKE) {
+			menu.clear();
+			inflater.inflate(R.menu.menu_people, menu);
+			getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 	}
 
 	@Override

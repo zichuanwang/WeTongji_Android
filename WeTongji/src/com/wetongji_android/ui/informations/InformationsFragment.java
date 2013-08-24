@@ -32,7 +32,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -126,7 +125,6 @@ public class InformationsFragment extends WTBaseFragment implements
 
 			mUID = bundle.getString(BUNDLE_KEY_UID);
 			mSelectType = bundle.getInt(BUNDLE_KEY_SELECT_TYPE, 15);
-			Log.v("select", "" + mSelectType);
 		}
 
 		setRetainInstance(true);
@@ -215,6 +213,7 @@ public class InformationsFragment extends WTBaseFragment implements
 		boolean canLike = data.getBooleanExtra(
 				WTBaseDetailActivity.KEY_CAN_LIKE, true);
 		
+		mAdapter.clear();
 		List<Information> lstInfo = mAdapter.getOriginList();
 		for (int i = 0; i < lstInfo.size(); i++) {
 			Information info = lstInfo.get(i);
@@ -272,6 +271,7 @@ public class InformationsFragment extends WTBaseFragment implements
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
 			HttpRequestResult result) {
+		getLoaderManager().destroyLoader(WTApplication.NETWORK_LOADER_DEFAULT);
 		if (result.getResponseCode() != 0) {
 			ExceptionToast.show(mActivity, result.getResponseCode());
 		} else {
