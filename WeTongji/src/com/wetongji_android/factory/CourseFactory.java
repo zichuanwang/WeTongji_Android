@@ -62,7 +62,11 @@ public class CourseFactory extends BaseFactory<Course, Integer> {
 				}
 				course.setLike(jsonDetails.getInt("Like"));
 				course.setFriendsCount(jsonDetails.getInt("FriendsCount"));
-				course.setCanLike(jsonDetails.getBoolean(("CanLike")));
+				course.setCanLike(jsonDetails.getBoolean("CanLike"));
+				course.setCanSchedule(jsonDetails.getBoolean("CanSchedule"));
+				course.setIsAudit(jsonDetails.getBoolean("IsAudit"));
+				course.setUNO(jsonCourse.getString("UNO"));
+				
 				list.add(course);
 			}
 
@@ -113,7 +117,10 @@ public class CourseFactory extends BaseFactory<Course, Integer> {
 				}
 				course.setLike(jsonDetails.getInt("Like"));
 				course.setFriendsCount(jsonDetails.getInt("FriendsCount"));
-				course.setCanLike(jsonDetails.getBoolean(("CanLike")));
+				course.setCanLike(jsonDetails.getBoolean("CanLike"));
+				course.setCanSchedule(jsonDetails.getBoolean("CanSchedule"));
+				course.setIsAudit(jsonDetails.getBoolean("IsAudit"));
+				course.setUNO(jsonCourse.getString("UNO"));
 
 				list.add(course);
 			}
