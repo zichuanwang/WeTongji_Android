@@ -190,11 +190,7 @@ public class SearchFragment extends SherlockFragment implements
 
 			@Override
 			public boolean onMenuItemActionCollapse(MenuItem item) {
-				InputMethodManager imm = (InputMethodManager) getActivity()
-						.getSystemService(Context.INPUT_METHOD_SERVICE);
-				imm.hideSoftInputFromWindow(
-						item.getActionView().getWindowToken(), 0);
-				
+				hideKeyboard();
 				((MainActivity) getActivity()).getSlidingMenu().toggle(true);
 				return false;
 			}
@@ -212,6 +208,8 @@ public class SearchFragment extends SherlockFragment implements
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_SEARCH,
 				b, SearchFragment.this);
 		saveSearchHistory(type, content);
+		
+		hideKeyboard();
 	}
 
 	@Override
@@ -438,6 +436,12 @@ public class SearchFragment extends SherlockFragment implements
 			mTipAdapter.setKeywords(newText);
 		}
 		return true;
+	}
+	
+	private void hideKeyboard() {
+		InputMethodManager imm = (InputMethodManager) getActivity()
+				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(mSearchView.getWindowToken(), 0);
 	}
 
 }

@@ -9,12 +9,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Banner;
+import com.wetongji_android.data.Information;
 
 public class BannerFactory {
 
-	private Gson gson = new Gson();
+	private Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
 	public List<Banner> createObjects(String jsonStr) {
 		List<Banner> result = new ArrayList<Banner>();
@@ -50,6 +53,8 @@ public class BannerFactory {
 		result.setBgColor(Banner.DEFAULT_BG_COLOR);
 		JSONArray images = bannerJson.getJSONArray("Images");
 		result.setImage(images.get(0).toString());
+		Information information = gson.fromJson(jsonStr, Information.class);
+		result.setContent(information);
 		return result;
 	}
 
@@ -61,6 +66,8 @@ public class BannerFactory {
 		result.setPublisher(bannerJson.getString("Organizer"));
 		result.setBgColor(Banner.DEFAULT_BG_COLOR);
 		result.setImage(bannerJson.getString("Image"));
+		Activity activity = gson.fromJson(jsonStr, Activity.class);
+		result.setContent(activity);
 		return result;
 	}
 
