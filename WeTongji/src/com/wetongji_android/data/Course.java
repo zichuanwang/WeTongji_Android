@@ -127,6 +127,30 @@ public class Course extends Event implements Serializable {
 		CanLike = canLike;
 	}
 
+	public boolean isCanSchedule() {
+		return CanSchedule;
+	}
+
+	public void setCanSchedule(boolean canSchedule) {
+		CanSchedule = canSchedule;
+	}
+
+	public boolean isIsAudit() {
+		return IsAudit;
+	}
+
+	public void setIsAudit(boolean isAudit) {
+		IsAudit = isAudit;
+	}
+
+	public String getUNO() {
+		return UNO;
+	}
+
+	public void setUNO(String uNO) {
+		UNO = uNO;
+	}
+
 	@DatabaseField
 	private String S1_Begin;
 	@DatabaseField
@@ -152,6 +176,12 @@ public class Course extends Event implements Serializable {
 	private int Like;
 	@DatabaseField
 	private boolean CanLike;
+	@DatabaseField
+	private boolean CanSchedule;
+	@DatabaseField
+	private boolean IsAudit;
+	@DatabaseField
+	private String UNO;
 
 	@DatabaseField
 	private int FriendsCount;
@@ -230,7 +260,10 @@ public class Course extends Event implements Serializable {
 		dest.writeString(S2_WeekDay);
 		dest.writeInt(Like);
 		dest.writeInt(FriendsCount);
-		dest.writeByte((byte)(CanLike?1:0));
+		dest.writeByte((byte) (CanLike ? 1 : 0));
+		dest.writeByte((byte) (CanSchedule ? 1 : 0));
+		dest.writeByte((byte) (IsAudit ? 1 : 0));
+		dest.writeString(UNO);
 	}
 
 	protected Course(Parcel source) {
@@ -253,7 +286,10 @@ public class Course extends Event implements Serializable {
 		S2_WeekDay = source.readString();
 		Like = source.readInt();
 		FriendsCount = source.readInt();
-		CanLike=source.readByte()==1;
+		CanLike = source.readByte() == 1;
+		CanSchedule = source.readByte() == 1;
+		IsAudit = source.readByte() == 1;
+		UNO=source.readString();
 	}
 
 	public static final Creator<Course> CREATOR = new Creator<Course>() {
