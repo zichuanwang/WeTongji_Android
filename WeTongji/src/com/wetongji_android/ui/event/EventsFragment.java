@@ -357,10 +357,12 @@ public class EventsFragment extends WTBaseFragment implements
 		int like = data.getIntExtra(WTBaseDetailActivity.KEY_LIKE_NUMBER, 0);
 		boolean canLike = data.getBooleanExtra(
 				WTBaseDetailActivity.KEY_CAN_LIKE, true);
+		boolean bSechedule = data.getBooleanExtra(WTBaseDetailActivity.KEY_ATTEND, false);
 
 		for (int i = 0; i < mAdapter.getCount(); i++) {
 			Activity activity = (Activity) mAdapter.getItem(i);
 			if (activity.getId() == Integer.valueOf(id)) {
+				activity.setCanSchedule(bSechedule);
 				activity.setLike(like);
 				activity.setCanLike(canLike);
 				mAdapter.setObjectAtPosition(i, activity);

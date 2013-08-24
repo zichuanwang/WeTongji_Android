@@ -157,8 +157,8 @@ public class EventDetailActivity extends WTBaseDetailActivity {
 	@Override
 	protected void updateDB() {
 		ArrayList<Activity> data = new ArrayList<Activity>(1);
-		mEvent.setLike(getSchedule());
-		mEvent.setCanLike(isbSchedule());
+		mEvent.setSchedule(getSchedule());
+		mEvent.setCanSchedule(isbSchedule());
 		data.add(mEvent);
 		ActivityFactory factory = new ActivityFactory(null);
 		factory.saveObjects(this, data, false);

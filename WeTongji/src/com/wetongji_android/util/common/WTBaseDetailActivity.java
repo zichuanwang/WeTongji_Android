@@ -1,17 +1,14 @@
 package com.wetongji_android.util.common;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewStub;
@@ -46,6 +43,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	public static final String KEY_CAN_LIKE = "key_object_can_like";
 	public static final String KEY_LIKE_NUMBER = "key_object_like_num";
 	public static final String BUNDLE_KEY_ACCOUNT = "BUNDLE_KEY_ACCOUNT";
+	public static final String KEY_ATTEND = "BUNDLE_KEY_ATTEND";
 	
 	protected ViewStub mVsContent;
 	private LinearLayout mLayoutBack;
@@ -79,8 +77,9 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	{
 		super.onCreate(savedInstanceState);
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		bSchedule = false;
 		aq = WTApplication.getInstance().getAq(this);
+		
+		Log.v("oncreate", "create");
 	}
 	
 	@Override
@@ -94,6 +93,13 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		setTopActionBar();
 	}
 	
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Log.v("onresume", "resume");
+	}
+
 	private void setTopActionBar()
 	{
 		//Set up the back icon event
@@ -247,7 +253,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 				File downloadCacheDir = getExternalFilesDir("imgCache");
 				try {
 					temp = File.createTempFile(file.getName(), ".jpg", downloadCacheDir);
-					copyFile(file, temp);
+					WTUtility.copyFile(file, temp);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -392,11 +398,19 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		@Override
 		public void onLoadFinished(Loader<HttpRequestResult> arg0,
 				HttpRequestResult result) {
+			getSupportLoaderManager().destroyLoader(WTApplication.SCHEDUL_LOADER);
 			if(result.getResponseCode() == 0) {
 				schedule+= (bSchedule? 1: -1);
 				bSchedule = !bSchedule;
+				Toast.makeText(WTBaseDetailActivity.this,
+						R.string.toast_like_success,
+						Toast.LENGTH_SHORT).show();
 				updateBottomActionBar();
 				updateDB();
+			} else {
+				Toast.makeText(WTBaseDetailActivity.this,
+						R.string.toast_like_success,
+						Toast.LENGTH_SHORT).show();
 			}
 		}
 
@@ -433,6 +447,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		intent.putExtra(KEY_OBJECT_ID, iChildId);
 		intent.putExtra(KEY_CAN_LIKE, canLike);
 		intent.putExtra(KEY_LIKE_NUMBER, like);
+		intent.putExtra(KEY_ATTEND, bSchedule);
 		setResult(RESULT_OK, intent);
 		
 		super.finish();
@@ -444,20 +459,6 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		tvTitle.setText(title);
 	}
 	
-	private void copyFile(File src, File dst) throws IOException {
-	    InputStream in = new FileInputStream(src);
-	    OutputStream out = new FileOutputStream(dst);
-
-	    // Transfer bytes from in to out
-	    byte[] buf = new byte[1024];
-	    int len;
-	    while ((len = in.read(buf)) > 0) {
-	        out.write(buf, 0, len);
-	    }
-	    in.close();
-	    out.close();
-	}
-
 	abstract protected void updateObjectInDB();
 	
 	abstract protected void updateDB();
