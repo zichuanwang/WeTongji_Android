@@ -118,6 +118,10 @@ public class AccountListFragment extends WTBaseFragment implements
 		setRetainInstance(true);
 		
 		setHasOptionsMenu(true);
+		
+		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSherlockActivity().getSupportActionBar().setDisplayShowTitleEnabled(true);
+		getSherlockActivity().getSupportActionBar().setTitle("Accounts");
 	}
 
 	private void loadDataLiked(int page)
@@ -161,11 +165,6 @@ public class AccountListFragment extends WTBaseFragment implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId()) {
-		case R.id.menu_accountlist_reload:
-			break;
-		}
-		
 		return super.onOptionsItemSelected(item);
 	}
 
