@@ -128,6 +128,7 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 					Intent intent = new Intent(AccountDetailActivity.this, InformationListActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, String.valueOf(mAccount.getId()));
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "Account");
 					intent.putExtras(bundle);
 					startActivity(intent);
 					overridePendingTransition(R.anim.slide_right_in,

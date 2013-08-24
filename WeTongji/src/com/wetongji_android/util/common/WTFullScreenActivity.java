@@ -25,7 +25,6 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
-import com.wetongji_android.ui.informations.InformationDetailActivity;
 
 public class WTFullScreenActivity extends SherlockActivity 
 {
@@ -52,9 +51,9 @@ public class WTFullScreenActivity extends SherlockActivity
 		
 		Intent intent = getIntent();
 		Bundle bundle = intent.getExtras();
-		imgUrl = bundle.getString(InformationDetailActivity.IMAGE_URL);
-		int width = bundle.getInt(InformationDetailActivity.IMAGE_WIDTH);
-		int height = bundle.getInt(InformationDetailActivity.IMAGE_HEIGHT);
+		imgUrl = bundle.getString(WTBaseDetailActivity.IMAGE_URL);
+		int width = bundle.getInt(WTBaseDetailActivity.IMAGE_WIDTH);
+		int height = bundle.getInt(WTBaseDetailActivity.IMAGE_HEIGHT);
 		
 		mAq = WTApplication.getInstance().getAq(this);
 		

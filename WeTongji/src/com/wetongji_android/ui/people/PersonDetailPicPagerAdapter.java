@@ -22,11 +22,13 @@ public class PersonDetailPicPagerAdapter extends PagerAdapter{
 	private HashMap<String, String> mPics;
 	private LayoutInflater mInflater;
 	private AQuery mAq;
+	private Context mContext;
 	
 	public PersonDetailPicPagerAdapter(HashMap<String, String> pics, Context context) {
 		mPics = pics;
-		mInflater = LayoutInflater.from(context);
-		mAq = new AQuery(context);
+		mContext = context;
+		mInflater = LayoutInflater.from(mContext);
+		mAq = new AQuery(mContext);
 	}
 	
 	@Override
@@ -48,7 +50,7 @@ public class PersonDetailPicPagerAdapter extends PagerAdapter{
 	public Object instantiateItem(ViewGroup container, int position) {
 		View view = mInflater.inflate(R.layout.page_person_pic, null);
 		
-		String url = "";
+	    String url = "";
 		String desc = "";
 		Set<String> keys = mPics.keySet();
 		List<String> lstKeys = new ArrayList<String>();
