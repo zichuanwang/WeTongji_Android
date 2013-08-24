@@ -41,7 +41,7 @@ public class CourseDetailActivity extends WTBaseDetailActivity implements
 		mCourse = (Course) (intent.getExtras().getParcelable(BUNDLE_COURSE));
 		setiChildId(mCourse.getNO());
 		setModelType("Course");
-		setShareContent(mCourse.getTitle());
+		setShareContent(mCourse.getTitle() + "ÑÑ" + mCourse.getTeacher());
 
 		// Get friends number with the same course
 		if (WTApplication.getInstance().hasAccount) {

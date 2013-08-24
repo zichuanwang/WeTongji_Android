@@ -82,6 +82,8 @@ public class InformationDetailActivity extends WTBaseDetailActivity {
 		setShareContent(mInfo.getTitle());
 		setLike(mInfo.getLike());
 		setCanLike(mInfo.isCanLike());
+		String image = mInfo.getImages().isEmpty() ? null : mInfo.getImages().get(0);
+		setImagePath(image);
 	}
 	
 	private class OnPicClickListener implements OnClickListener

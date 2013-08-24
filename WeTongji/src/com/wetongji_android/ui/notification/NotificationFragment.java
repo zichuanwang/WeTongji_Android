@@ -181,6 +181,7 @@ public class NotificationFragment extends Fragment implements
 			HttpRequestResult result) {
 		hideProgressDialog();
 		if (loader.getId() == WTApplication.NETWORK_LOADER_ACCEPT_FRIEND) {
+			getLoaderManager().destroyLoader(loader.getId());
 			mAdapter.acceptNotification(mAcceptPos);
 		} else if (loader.getId() == WTApplication.NETWORK_LOADER_IGNORE_FRIEDN) {
 			mAdapter.remove(mIgnorePos);

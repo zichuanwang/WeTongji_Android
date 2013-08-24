@@ -101,6 +101,8 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 		setCanLike(mAccount.isCanLike());
 		setLike(mAccount.getLike());
 		setModelType("Account");
+		setShareContent(mAccount.getName());
+		setImagePath(mAccount.getImage());
 	}
 
 	private OnClickListener clickListener = new OnClickListener() {

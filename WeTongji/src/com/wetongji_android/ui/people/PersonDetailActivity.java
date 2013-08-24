@@ -1,9 +1,11 @@
 package com.wetongji_android.ui.people;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -152,7 +154,7 @@ public class PersonDetailActivity extends SherlockFragmentActivity implements
 		btnShare.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				showShareDialog("Tongji University Every Week Person--"
+				showShareDialog(getString(R.string.share_person_title)
 						+ mPerson.getTitle());
 			}
 		});
@@ -162,10 +164,16 @@ public class PersonDetailActivity extends SherlockFragmentActivity implements
 		String sourceDesc = getResources().getString(R.string.share_from_we);
 		String share = getResources().getString(R.string.test_share);
 		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("image/*");
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.putExtra(Intent.EXTRA_TEXT, content + sourceDesc);
-		intent.setType("text/*");
-		intent.setType("image/*");
+		intent.putExtra(Intent.EXTRA_SUBJECT, content + sourceDesc);
+		intent.putExtra(Intent.EXTRA_TITLE, content + sourceDesc);
+		AQuery aq = WTApplication.getInstance().getAq(this);
+		File data = aq.getCachedFile(mPerson.getAvatar());
+		if (data != null) {
+			intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(data));
+		}
 		startActivity(Intent.createChooser(intent, share));
 	}
 
