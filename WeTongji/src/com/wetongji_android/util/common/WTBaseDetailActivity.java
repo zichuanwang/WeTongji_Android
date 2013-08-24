@@ -1,6 +1,14 @@
 package com.wetongji_android.util.common;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
@@ -18,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -56,11 +65,14 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	private String iChildId;
 	private boolean bSchedule;
 	private String shareContent;
+	private String imagePath;
 	private boolean canLike;
 	private int like;
 	private String modelType;
 	private int iFriendsCount;
 	private int schedule;
+	
+	private AQuery aq;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -68,6 +80,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		super.onCreate(savedInstanceState);
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		bSchedule = false;
+		aq = WTApplication.getInstance().getAq(this);
 	}
 	
 	@Override
@@ -220,10 +233,29 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		String sourceDesc = getResources().getString(R.string.share_from_we);
 		String share = getResources().getString(R.string.test_share);
 		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("image/*");
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.putExtra(Intent.EXTRA_TEXT, content + sourceDesc);
-		intent.setType("text/*");
-		intent.setType("image/*");
+		intent.putExtra(Intent.EXTRA_TITLE, content + sourceDesc);
+		intent.putExtra(Intent.EXTRA_SUBJECT, content + sourceDesc);
+
+
+		if (getImagePath() != null && !getImagePath().equals(WTApplication.MISSING_IMAGE_URL)) {
+			File file = aq.getCachedFile(getImagePath());
+			if (file != null) {
+				File temp = null;
+				File downloadCacheDir = getExternalFilesDir("imgCache");
+				try {
+					temp = File.createTempFile(file.getName(), ".jpg", downloadCacheDir);
+					copyFile(file, temp);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				Uri data = Uri.fromFile(temp);
+				WTUtility.log("data", data.getPath());
+				intent.putExtra(Intent.EXTRA_STREAM, data);
+			}
+		}
 		startActivity(Intent.createChooser(intent, share));
 	}
 	
@@ -279,6 +311,18 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 
 	protected void setbSchedule(boolean bSchedule) {
 		this.bSchedule = bSchedule;
+	}
+
+	public String getShareContent() {
+		return shareContent;
+	}
+	
+	public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
 
 	class BottomABClickListener implements OnClickListener
@@ -398,6 +442,20 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	public void setTitle(CharSequence title) {
 		TextView tvTitle = (TextView) findViewById(R.id.text_actionbar_titile);
 		tvTitle.setText(title);
+	}
+	
+	private void copyFile(File src, File dst) throws IOException {
+	    InputStream in = new FileInputStream(src);
+	    OutputStream out = new FileOutputStream(dst);
+
+	    // Transfer bytes from in to out
+	    byte[] buf = new byte[1024];
+	    int len;
+	    while ((len = in.read(buf)) > 0) {
+	        out.write(buf, 0, len);
+	    }
+	    in.close();
+	    out.close();
 	}
 
 	abstract protected void updateObjectInDB();

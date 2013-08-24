@@ -425,6 +425,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/course_detail_section2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8.7dp"

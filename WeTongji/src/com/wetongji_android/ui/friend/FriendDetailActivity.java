@@ -76,6 +76,8 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		setModelType("User");
 		setCanLike(mUser.isCanLike());
 		setLike(mUser.getLike());
+		String avatar = mUser.getAvatar();
+		setImagePath(avatar);
 	}
 
 	private void initWidget() {

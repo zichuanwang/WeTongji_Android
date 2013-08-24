@@ -56,6 +56,7 @@ public class EventDetailActivity extends WTBaseDetailActivity {
 		setCanLike(mEvent.isCanLike());
 		setiFriendsCount(mEvent.getFriendsCount());
 		setSchedule(mEvent.getSchedule());
+		setImagePath(mEvent.getImage());
 	}
 
 	private void setPicture() {
