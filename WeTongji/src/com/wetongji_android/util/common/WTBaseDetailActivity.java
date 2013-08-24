@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewStub;
@@ -79,8 +80,9 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	{
 		super.onCreate(savedInstanceState);
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-		bSchedule = false;
 		aq = WTApplication.getInstance().getAq(this);
+		
+		Log.v("oncreate", "create");
 	}
 	
 	@Override
@@ -94,6 +96,13 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		setTopActionBar();
 	}
 	
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		Log.v("onresume", "resume");
+	}
+
 	private void setTopActionBar()
 	{
 		//Set up the back icon event
@@ -392,11 +401,19 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		@Override
 		public void onLoadFinished(Loader<HttpRequestResult> arg0,
 				HttpRequestResult result) {
+			getSupportLoaderManager().destroyLoader(WTApplication.SCHEDUL_LOADER);
 			if(result.getResponseCode() == 0) {
 				schedule+= (bSchedule? 1: -1);
 				bSchedule = !bSchedule;
+				Toast.makeText(WTBaseDetailActivity.this,
+						R.string.toast_like_success,
+						Toast.LENGTH_SHORT).show();
 				updateBottomActionBar();
 				updateDB();
+			} else {
+				Toast.makeText(WTBaseDetailActivity.this,
+						R.string.toast_like_success,
+						Toast.LENGTH_SHORT).show();
 			}
 		}
 
