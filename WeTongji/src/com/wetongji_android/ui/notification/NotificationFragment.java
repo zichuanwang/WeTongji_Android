@@ -37,9 +37,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class NotificationFragment extends Fragment implements
-		LoaderCallbacks<HttpRequestResult>, OnItemClickListener {
+		LoaderCallbacks<HttpRequestResult> {
 	private static final int MSG_REFRSH_NOTIFICATION = 990;
 
 	private View mView;
@@ -69,55 +70,61 @@ public class NotificationFragment extends Fragment implements
 		if (container == null) {
 			return null;
 		} else {
-			mView = inflater.inflate(R.layout.notification_frame, container,
-					false);
+			mView = inflater.inflate(R.layout.notification_frame, container, false);
 		}
-
 		return mView;
 	}
-
-	@SuppressLint("HandlerLeak")
+	
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-
+	public void onResume() {
+		super.onResume();
 		// set list adapter
 		mListNotifications = (ListView) mView
 				.findViewById(R.id.lst_notification);
-		mListNotifications.setOnItemClickListener(this);
 		mAdapter = new NotificationListAdapter(this);
 		mListNotifications.setAdapter(mAdapter);
-
 
 		mHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
 				if (msg.what == MSG_REFRSH_NOTIFICATION) {
-					getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_3,
-							mBundle, NotificationFragment.this);
+					if (WTApplication.getInstance().hasAccount) {
+						mListNotifications.setVisibility(View.VISIBLE);
+						mView.findViewById(R.id.notificaion_login_area)
+								.setVisibility(View.GONE);
+						getLoaderManager().restartLoader(
+								WTApplication.NETWORK_LOADER_3, mBundle,
+								NotificationFragment.this);
+					} else {
+						mListNotifications.setVisibility(View.GONE);
+						mView.findViewById(R.id.notificaion_login_area)
+								.setVisibility(View.VISIBLE);
+					}
 				}
 			}
 
 		};
-		
-		if (WTApplication.getInstance().hasAccount) {
-			// init loader(this loader is used for loading data from network)
-			ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-			mBundle = apiHelper.getNotifications(true);
-			mRunnable = new StoppableRunnable();
-			mHandler.postDelayed(mRunnable, 1);
-		} else {
-			mListNotifications.setVisibility(View.GONE);
-			mView.findViewById(R.id.notificaion_login_area).setVisibility(View.VISIBLE);
-			mView.findViewById(R.id.btn_notification_login).setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					startActivity(new Intent(getActivity(), AuthActivity.class));
-				}
-			});
-		}
-			
+
+		// init loader(this loader is used for loading data from network)
+		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+		mBundle = apiHelper.getNotifications(true);
+		mRunnable = new StoppableRunnable();
+		mHandler.postDelayed(mRunnable, 1);
+		mView.findViewById(R.id.btn_notification_login).setOnClickListener(
+				new OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						startActivity(new Intent(getActivity(),
+								AuthActivity.class));
+					}
+				});
+	}
+
+	@SuppressLint("HandlerLeak")
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
 	}
 		
 	private class StoppableRunnable implements Runnable {
@@ -182,10 +189,6 @@ public class NotificationFragment extends Fragment implements
 				if (mFactory == null)
 					mFactory = new NotificationFactory(this);
 
-				if (mListNotifications.getVisibility() == View.GONE) {
-					mListNotifications.setVisibility(View.VISIBLE);
-					mView.findViewById(R.id.btn_notification_login).setVisibility(View.GONE);
-				}
 				List<Notification> results = mFactory.createObjects(result
 						.getStrResponseCon());
 				
@@ -264,10 +267,8 @@ public class NotificationFragment extends Fragment implements
 		getLoaderManager().restartLoader(
 				WTApplication.NETWORK_LOADER_IGNORE_FRIEDN, bundle, this);
 	}
-
-	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int position,
-			long arg3) {
+	
+	public void viewNotificationDetail(int position) {
 		Notification notification = (Notification) mAdapter.getItem(position);
 		Intent intent = null;
 		Bundle bundle = new Bundle();
@@ -290,6 +291,5 @@ public class NotificationFragment extends Fragment implements
 		}
 		intent.putExtras(bundle);
 		startActivity(intent);
-
 	}
 }

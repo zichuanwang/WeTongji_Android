@@ -1,6 +1,8 @@
 package com.wetongji_android.ui.auth;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -117,12 +119,15 @@ public class RegisterFragment extends Fragment implements OnClickListener,
 		String no = etUserNO.getText().toString();
 		String name = etName.getText().toString();
 		String password = etPassword.getText().toString();
-		Bundle args = ApiHelper.getInstance(getActivity()).getUserActive(no, password, name);
-		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
-		
+		Bundle args = ApiHelper.getInstance(getActivity()).getUserActive(no,
+				password, name);
+		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT,
+				args, this);
+
 		if (progressDialog == null) {
 			progressDialog = new ProgressDialog(getActivity());
-			progressDialog.setMessage(getString(R.string.msg_progress_registering));
+			progressDialog
+					.setMessage(getString(R.string.msg_progress_registering));
 		} else {
 			progressDialog.show();
 		}
@@ -143,7 +148,21 @@ public class RegisterFragment extends Fragment implements OnClickListener,
 		progressDialog.dismiss();
 		if (result.getResponseCode() == 0) {
 			// jump to login
-			hander.sendEmptyMessage(2);
+			new AlertDialog.Builder(getActivity())
+					.setTitle(
+							getString(R.string.dialog_title_regitster_success))
+					.setMessage(getString(R.string.dialog_msg_need_to_active))
+					.setPositiveButton(
+							R.string.text_confirm,
+							new android.content.DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface arg0,
+										int arg1) {
+									arg0.dismiss();
+									hander.sendEmptyMessage(2);
+								}
+							}).show();
 		} else {
 			ExceptionToast.show(getActivity(), result.getResponseCode());
 		}
@@ -152,10 +171,10 @@ public class RegisterFragment extends Fragment implements OnClickListener,
 	@Override
 	public void onLoaderReset(Loader<HttpRequestResult> arg0) {
 	}
-	
-	
+
 	private void jumpToLogin() {
-		LoginFragment fragment = LoginFragment.newInstance(etUserNO.getText().toString());
+		LoginFragment fragment = LoginFragment.newInstance(etUserNO.getText()
+				.toString());
 		getFragmentManager()
 				.beginTransaction()
 				.setCustomAnimations(R.anim.slide_left_in,
@@ -163,7 +182,7 @@ public class RegisterFragment extends Fragment implements OnClickListener,
 				.add(R.id.auth_content_container, fragment,
 						AuthActivity.TAG_LOGIN_FRAGMENT).commit();
 	}
-	
+
 	private Handler hander = new Handler() {
 
 		@Override
@@ -172,7 +191,7 @@ public class RegisterFragment extends Fragment implements OnClickListener,
 				jumpToLogin();
 			}
 		}
-		
+
 	};
 
 }

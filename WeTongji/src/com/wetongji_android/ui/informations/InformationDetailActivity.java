@@ -1,5 +1,7 @@
 package com.wetongji_android.ui.informations;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Information;
+import com.wetongji_android.factory.InformationFactory;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTFullScreenActivity;
@@ -111,6 +114,21 @@ public class InformationDetailActivity extends WTBaseDetailActivity {
 
 	@Override
 	protected void updateObjectInDB() {
-		
+		ArrayList<Information> data = new ArrayList<Information>(1);
+		mInfo.setLike(getLike());
+		mInfo.setCanLike(!isCanLike());
+		data.add(mInfo);
+		InformationFactory factory = new InformationFactory(null);
+		factory.saveObjects(this, data, false);
+	}
+
+	@Override
+	protected void updateDB() {
+		ArrayList<Information> data = new ArrayList<Information>(1);
+		mInfo.setLike(getSchedule());
+		mInfo.setCanLike(isbSchedule());
+		data.add(mInfo);
+		InformationFactory factory = new InformationFactory(null);
+		factory.saveObjects(this, data, false);
 	}
 }

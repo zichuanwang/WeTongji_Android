@@ -47,6 +47,15 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/img_wt_logo" />
             </LinearLayout>
+            
+            <TextView 
+                android:id="@id/text_actionbar_titile"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_toRightOf="@id/detail_back"
+                android:gravity="center_vertical"
+                style="@style/TextAppearance.Sherlock.Widget.ActionBar.Title"
+                android:background="@drawable/selectable_background_wttheme" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -165,6 +165,11 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 		// Here we need not store data in DB
 	}
 
+	@Override
+	protected void updateDB() {
+		
+	}
+
 	private class FetchBgTask extends AsyncTask<Void, Void, Void> {
 		@Override
 		protected Void doInBackground(Void... arg0) {

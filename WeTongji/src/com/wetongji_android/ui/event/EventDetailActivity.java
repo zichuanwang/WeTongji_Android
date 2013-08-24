@@ -55,6 +55,7 @@ public class EventDetailActivity extends WTBaseDetailActivity {
 		setLike(mEvent.getLike());
 		setCanLike(mEvent.isCanLike());
 		setiFriendsCount(mEvent.getFriendsCount());
+		setSchedule(mEvent.getSchedule());
 	}
 
 	private void setPicture() {
@@ -147,6 +148,16 @@ public class EventDetailActivity extends WTBaseDetailActivity {
 		ArrayList<Activity> data = new ArrayList<Activity>(1);
 		mEvent.setLike(getLike());
 		mEvent.setCanLike(!isCanLike());
+		data.add(mEvent);
+		ActivityFactory factory = new ActivityFactory(null);
+		factory.saveObjects(this, data, false);
+	}
+	
+	@Override
+	protected void updateDB() {
+		ArrayList<Activity> data = new ArrayList<Activity>(1);
+		mEvent.setLike(getSchedule());
+		mEvent.setCanLike(isbSchedule());
 		data.add(mEvent);
 		ActivityFactory factory = new ActivityFactory(null);
 		factory.saveObjects(this, data, false);
