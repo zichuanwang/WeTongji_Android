@@ -34,10 +34,9 @@ import android.text.TextUtils;
  * 
  */
 public class HttpClient {
-	private static final String TAG = "HttpClient";
 	// Constant values
-	private static final int CONNECT_TIMEOUT = 10 * 1000;
-	private static final int READ_TIMEOUT = 10 * 1000;
+	private static final int CONNECT_TIMEOUT = 15 * 1000;
+	private static final int READ_TIMEOUT = 15 * 1000;
 	private static final int UPLOAD_FILE_READ_TIMEOUT = 5 * 15 * 1000;
 	private static final String API_DOMAIN = "http://we.tongji.edu.cn/api/call";
 
@@ -224,15 +223,7 @@ public class HttpClient {
 			outStream.writeBytes(lineEnd);
 
 			outStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-			/*BufferedReader in = new BufferedReader(new InputStreamReader(
-					urlConnection.getInputStream()));
-			String inputLine;
-
-			while ((inputLine = in.readLine()) != null) {
-//				tv.append(inputLine);
-			}*/
-
+			
 			// close streams
 			fileInputStream.close();
 			outStream.flush();
@@ -248,7 +239,6 @@ public class HttpClient {
 
 		try {
 			iStatus = urlConnection.getResponseCode();
-			WTUtility.log(TAG, "Response Code: " + iStatus);
 		} catch (IOException e) {
 			urlConnection.disconnect();
 			e.printStackTrace();

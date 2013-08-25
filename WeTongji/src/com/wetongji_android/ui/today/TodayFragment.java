@@ -152,7 +152,7 @@ public class TodayFragment extends SherlockFragment {
 		gvFeatures = (GridView) view.findViewById(R.id.gv_today_features);
 		Bundle bundle = ApiHelper.getInstance(context).getHome();
 
-		if (!WTUtility.isWifi(context)) {
+		/*if (!WTUtility.isWifi(context)) {
 			if (previousResultStr == null)
 				previousResultStr = getDatabaseData();
 			this.executeLoader(previousResultStr);
@@ -160,6 +160,17 @@ public class TodayFragment extends SherlockFragment {
 			getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle,
 					new NetwordLoaderCallbacks());
 		} else {
+			this.executeLoader(previousResultStr);
+		}*/
+		
+		if(WTUtility.isConnect(context) && (previousResultStr == null)) {
+			getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle,
+					new NetwordLoaderCallbacks());
+		} else {
+			if(previousResultStr == null) {
+				previousResultStr = getDatabaseData();
+			}
+			
 			this.executeLoader(previousResultStr);
 		}
 	}
@@ -234,8 +245,15 @@ public class TodayFragment extends SherlockFragment {
 			if (result.getResponseCode() == 0) {
 				executeLoader(result.getStrResponseCon());
 				insertToDatabase(previousResultStr);
-			} else
+			} else if(result.getResponseCode() == 408) {
+				view.findViewById(R.id.pb_today_activities).setVisibility(View.GONE);
+				view.findViewById(R.id.pb_today_information).setVisibility(View.GONE);
+				view.findViewById(R.id.pb_today_features).setVisibility(View.GONE);
+				Toast.makeText(context, getResources().getString(R.string.text_error_check_network), 
+						Toast.LENGTH_SHORT).show();
+			} else {
 				executeLoader(getDatabaseData());
+			}
 		}
 
 		@Override
