@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
@@ -65,8 +66,8 @@ public class EventDetailActivity extends WTBaseDetailActivity {
 		mAq.id(R.id.img_event_detail_org_avatar).image(
 				mEvent.getOrganizerAvatar(), false, true, 0,
 				R.drawable.image_place_holder, null, AQuery.FADE_IN, 1.0f);
-		ImageView ivOrganizer = (ImageView) findViewById(R.id.img_event_detail_org_avatar);
-		ivOrganizer.setOnClickListener(new OnClickListener() {
+		RelativeLayout rlOrganizer = (RelativeLayout) findViewById(R.id.rl_event_detail_org);
+		rlOrganizer.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(EventDetailActivity.this,

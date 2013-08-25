@@ -70,11 +70,13 @@
 	 	style="@style/EventDetailOrganization"/>
    
 	<RelativeLayout
+	    android:id="@id/rl_event_detail_org"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_marginLeft="10dp"
 	    android:layout_marginRight="10dp"
-	    android:layout_marginBottom="3dp">
+	    android:layout_marginBottom="3dp"
+	    android:clickable="true">
 	    
 	    <ImageView 
 	        android:id="@id/img_event_detail_org_avatar"
@@ -87,7 +89,6 @@
 	        android:layout_marginLeft="1dp"
 	        android:padding="1dp"
 	        android:background="@drawable/image_cover"
-	        android:clickable="true"
 	        android:contentDescription="@string/img_content_description"/>
 	    
 	    <TextView 
