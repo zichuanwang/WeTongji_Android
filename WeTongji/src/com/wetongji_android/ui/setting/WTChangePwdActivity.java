@@ -20,6 +20,7 @@ import android.widget.ToggleButton;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -64,6 +65,17 @@ public class WTChangePwdActivity extends SherlockFragmentActivity implements
 		btnConfirm.setOnCheckedChangeListener(this);
 	}
 	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+		}
+		
+		return super.onOptionsItemSelected(item);
+	}
+
 	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle arg1) {
 		return new NetworkLoader(this, HttpMethod.Get, arg1);

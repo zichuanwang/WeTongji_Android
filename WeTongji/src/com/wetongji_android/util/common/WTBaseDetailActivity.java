@@ -469,7 +469,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	
 	@Override
 	public void setTitle(CharSequence title) {
-		TextView tvTitle = (TextView) findViewById(R.id.text_actionbar_titile);
+		TextView tvTitle = (TextView) findViewById(R.id.text_actionbar_title);
 		tvTitle.setText(title);
 	}
 	

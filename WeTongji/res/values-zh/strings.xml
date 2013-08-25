@@ -12,7 +12,7 @@
     <string name="title_activity_authenticator">AuthenticatorActivity</string>
     <string name="title_mainmenu_today">Today</string>
     <string name="title_mainmenu_news">News</string>
-    <string name="title_mainmenu_events">Events</string>
+    <string name="title_mainmenu_events">Activities</string>
     <string name="title_mainmenu_now">Now</string>
     <string name="title_mainmenu_search">Search</string>
     <string name="title_mainmenu_billboard">Billboard</string>
@@ -48,7 +48,7 @@
     <string name="text_today_now">Now</string>
     <string name="text_today">Today</string>
     <string name="text_news">News</string>
-    <string name="text_events">Events</string>
+    <string name="text_events">Activities</string>
     <string name="text_features">Features</string>
     <!-- imageview content description -->
     <string name="img_content_description">ImageView</string>
@@ -76,7 +76,7 @@
     <string name="text_confirm_terms_of_use">By tapping Next you are indicating that you have 
 read and agree to the <u><b>Term of Use</b></u></string>
     <string name="text_menu_reload">Reload</string>
-    <string name="text_event_channel_id_1">Lecture</string>
+    <string name="text_event_channel_id_1">Academics</string>
     <string name="text_event_channel_id_2">Competition</string>
     <string name="text_event_channel_id_3">Entertainment</string>
     <string name="text_event_channel_id_4">Enterprise</string>
@@ -84,7 +84,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="text_news_category_2">Administrative Affairs</string>
     <string name="text_news_category_3">Club News</string>
     <string name="text_news_category_4">Local Recommendation</string>
-    <string name="text_people">People</string>
+    <string name="text_people">Stars</string>
     <string name="text_most_popular_account">Most Popluar Account</string>
     <string name="text_u_like_this_activity">You have liked this activity</string>
     <string name="text_u_like_this_information">You have liked this information</string>
@@ -107,8 +107,8 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="profile_section_phone">Phone</string>
     <string name="profile_section_email">Email</string>
     <string name="things_i_like">THINGS I LIKE</string>
-    <string name="profile_section_events">Events</string>
-    <string name="profile_section_news">Informations</string>
+    <string name="profile_section_events">Activities</string>
+    <string name="profile_section_news">News</string>
     <string name="profile_section_people">People</string>
     <string name="profile_section_org">Organizations</string>
     <string name="profile_section_birthday">Birthday</string>
@@ -116,6 +116,8 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="profile_section_major">Major</string>    
     <string name="need_account_login">This Needs User Login</string>
     <string name="format_likes">%d Likes</string>
+    <string name="format_attend_course">%d Courses</string>
+    <string name="format_attend_activity">%d Items</string>
     <string name="text_banner_publisher_mask">\@%1$s</string>
     <string name="save_image">Store into Picture Folder</string>
     <string name="image_stored_at">Picture was stored at </string>
@@ -148,13 +150,13 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="search_tip_users">Search users for </string>
     <string name="search_tip_org">Search organizations for </string>
     <string name="search_tip_activity">Search activities for </string>
-    <string name="search_tip_news">Search information for</string>
+    <string name="search_tip_news">Search news for</string>
     <string name="search_tip_stars">Search stars for </string>
     <string name="search_tip_course">Search course for </string>
     <string name="type_users">User</string>
     <string name="type_org">Organization</string>
-    <string name="type_activities">Activity</string>
-    <string name="type_information">Information</string>
+    <string name="type_activities">Activities</string>
+    <string name="type_information">News</string>
     <string name="type_stars">Star</string>
     <string name="profile_button_text">Change Avatar</string>
     <string name="invite_friends">Invite Friends</string>
@@ -209,8 +211,8 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="pref_about">About</string>
 	<string name="pref_about_we">About WeTongji</string>
 	<string name="pref_general">General</string>
-	<string name="pref_log_out">登出</string>
-	<string name="setting_label">设置</string>
+	<string name="pref_log_out">Log out</string>
+	<string name="setting_label">Settings</string>
 	<string name="change_pwd_label">Change Password</string>
 	<!-- About part -->
 	<string name="about_rate_we">Rate WeTongji!</string>
@@ -238,7 +240,28 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="update_password_success">Update Password Success</string>
 	<string name="password_syntax_wrong">Password Syntax Wrong</string>
 	<string name="wetongji_version_number">WeTongji </string>
-	<string name="wetongji_all_rights">Copyright © 2012-2013 WeTongji.All Rights Reserved.</string>
+	<string name="wetongji_all_rights">Copyright © 2012&#8211;2013 WeTongji.All Rights Reserved.</string>
 	<string name="toast_no_market">Sorry, we can not find a market on your device</string>
 	<string name="share_wetongji">我正在使用 @WeTongji 。快去官网下载吧~ http://we.tongji.edu.cn</string>
+	
+	<!-- Friend -->
+	<string name="button_friend">Friend</string>
+	<string name="button_unfriend">UnFriend</string>
+		
+	<!-- Toast message -->
+	<string name="toast_like_success">Operation Success</string>
+	<string name="toast_like_failed">Operation failed</string>
+	<!-- Dialog part -->
+	<string name="publish_time">Publish time</string>
+	<string name="popularity">Popularity</string>
+	<string name="start_date">Activity start date</string>
+	<string name="share_person_title">Tongji University Every Week Person&#8212;</string>
+	<!-- ActionBar Title Part -->
+	<string name="title_today">Today</string>
+	<string name="title_news">News</string>
+	<string name="title_activity">Activities</string>
+	<string name="title_now">Now</string>
+	<string name="title_profile">Profile</string>
+	<string name="course_required_error">This course is Required</string>
+	<string name="title_change_pwd">Change Password</string>
 </resources>

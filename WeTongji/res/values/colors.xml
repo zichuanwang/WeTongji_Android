@@ -10,8 +10,8 @@
     <color name="btn_text_cab_done_shadow">#000000</color>
     <color name="et_text">#333333</color>
     <color name="et_text_hint">#8f8f8f</color>
-    <color name="vp_indicator_selected">#ffffff</color>
-    <color name="vp_indicator_bg">#4cffffff</color>
+    <color name="vp_indicator_selected">#0cc2cb</color>
+    <color name="vp_indicator_bg">#595959</color>
     <color name="text_slogan">#6a6a6a</color>
     <color name="vp_indicator_today_bg">#595959</color>
     <color name="vp_indicator_today">#0CC2CB</color>
@@ -87,4 +87,5 @@
     <color name="tv_friend_can_not_invite">#5f5f5f</color>
     <color name="dialog_bottom_bg">#f5f5f5</color>
     <color name="translucent_holo_blue">#b033b5e5</color>
+    <color name="intro_img_bg">#f0f0f0</color>
 </resources>

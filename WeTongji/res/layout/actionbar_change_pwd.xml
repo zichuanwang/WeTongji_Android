@@ -4,6 +4,17 @@
     android:layout_height="match_parent"
     android:layout_gravity="fill_horizontal" >
     
+    <TextView
+        style="@style/TextAppearance.Sherlock.Widget.ActionBar.Title" 
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical"
+        android:background="@drawable/selectable_background_wttheme"
+        android:layout_marginLeft="5dp"
+        android:text="@string/title_change_pwd"
+        android:textIsSelectable="false"/>
+    
     <ToggleButton
         android:id="@id/btn_on_confirm"
         android:layout_width="wrap_content"

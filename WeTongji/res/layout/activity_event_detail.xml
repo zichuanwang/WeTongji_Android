@@ -69,33 +69,46 @@
 	 	android:text="@string/text_evnet_detail_organization"
 	 	style="@style/EventDetailOrganization"/>
    
-	<LinearLayout
+	<RelativeLayout
+	    android:id="@id/rl_event_detail_org"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_marginLeft="10dp">
+	    android:layout_marginLeft="10dp"
+	    android:layout_marginRight="10dp"
+	    android:layout_marginBottom="3dp"
+	    android:clickable="true">
 	    
 	    <ImageView 
 	        android:id="@id/img_event_detail_org_avatar"
 	        android:layout_width="34dp"
 	        android:layout_height="34dp"
+	        android:layout_alignParentLeft="true"
 	        android:layout_marginRight="7dp"
 	        android:layout_marginTop="7dp"
-	        android:layout_marginBottom="7dp"
+	        android:layout_marginBottom="10dp"
 	        android:layout_marginLeft="1dp"
 	        android:padding="1dp"
 	        android:background="@drawable/image_cover"
-	        android:clickable="true"
 	        android:contentDescription="@string/img_content_description"/>
 	    
 	    <TextView 
 	        android:id="@id/text_event_detail_org_name"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_gravity="center_vertical"
+	        android:layout_centerVertical="true"
+	        android:layout_toRightOf="@id/img_event_detail_org_avatar"
 	        android:textIsSelectable="true"
 	        style="@style/EventDetailOrgName"/>
 	    
-	</LinearLayout>
+	    <ImageView 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:src="@drawable/ic_detail_right_arrow"
+	        android:contentDescription="@string/img_content_description"/>
+	    
+	</RelativeLayout>
 	<!-- END-organization-END -->
 
 	<LinearLayout 

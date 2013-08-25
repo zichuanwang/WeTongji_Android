@@ -69,6 +69,7 @@ public class ActivitiesLoader extends DbListLoader<Activity, Integer> {
 			if(count>1){
 				where.or(count);
 			}
+			
 			if(!args.getBoolean(QueryHelper.ARGS_HAS_EXPIRED)){
 				where.ge("End", new Date());
 				where.and(2);

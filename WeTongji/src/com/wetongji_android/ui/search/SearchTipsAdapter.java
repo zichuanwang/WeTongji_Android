@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class SearchTipsAdapter extends BaseAdapter {
-	private static final int COUNT = 7;
+	private static final int COUNT = 6;
 	
 	private String mTipAll;
 	private String mTipUser;
@@ -22,7 +22,6 @@ public class SearchTipsAdapter extends BaseAdapter {
 	private String mTipActivity;
 	private String mTipNews;
 	private String mTipStars;
-	private String mTipCourse;
 	
 	private String mKeywords = "";
 	
@@ -36,7 +35,6 @@ public class SearchTipsAdapter extends BaseAdapter {
 		mTipActivity = mFragment.getString(R.string.search_tip_activity);
 		mTipNews = mFragment.getString(R.string.search_tip_news);
 		mTipStars = mFragment.getString(R.string.search_tip_stars);
-		mTipCourse = mFragment.getString(R.string.search_tip_course);
 	}
 	
 	@Override
@@ -79,9 +77,6 @@ public class SearchTipsAdapter extends BaseAdapter {
 			break;
 		case 5:
 			sb.append(mTipStars);
-			break;
-		case 6:
-			sb.append(mTipCourse);
 			break;
 		}
 		sb.append(" ").append(mKeywords);

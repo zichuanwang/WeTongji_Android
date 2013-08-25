@@ -34,7 +34,10 @@
 	    android:layout_below="@id/friend_name"
 	    android:layout_alignLeft="@id/friend_name"
 	    android:layout_marginTop="10dp"
+	    android:singleLine="true"
+	    android:ellipsize="end"
 	    android:drawableLeft="@drawable/ic_profile_gender_male"
+	    android:drawablePadding="5dp"
 	    android:textIsSelectable="false"
 	    style="@style/FriendMajor"/>
 	

@@ -228,6 +228,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 					Bundle bundle = new Bundle();
 					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID,
 							mUser.getUID());
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_MODEL_TYPE, "Friend");
 					intent.putExtras(bundle);
 					startActivity(intent);
 					overridePendingTransition(R.anim.slide_right_in,

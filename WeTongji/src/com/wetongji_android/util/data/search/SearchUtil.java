@@ -12,7 +12,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.wetongji_android.data.Account;
 import com.wetongji_android.data.Activity;
-import com.wetongji_android.data.Course;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.data.Person;
 import com.wetongji_android.data.SearchResult;
@@ -89,7 +88,7 @@ public class SearchUtil {
 				result.setContent(user);
 				results.add(result);
 			}
-		} else if (key.equals("Courses")) {
+		} /*else if (key.equals("Courses")) {
 			for (int i = 0; i < array.length(); i++) {
 				SearchResult result = new SearchResult();
 				result.setType(4);
@@ -101,7 +100,7 @@ public class SearchUtil {
 				result.setContent(course);
 				results.add(result);
 			}
-		} else if (key.equals("Activities")) {
+		}*/ else if (key.equals("Activities")) {
 			for (int i = 0; i < array.length(); i++) {
 				SearchResult result = new SearchResult();
 				result.setType(5);

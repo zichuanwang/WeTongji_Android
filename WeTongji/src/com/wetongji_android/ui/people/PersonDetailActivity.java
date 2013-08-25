@@ -165,6 +165,8 @@ public class PersonDetailActivity extends SherlockFragmentActivity implements
 	}
 
 	private void setBackButton() {
+		TextView title = (TextView)findViewById(R.id.text_actionbar_title);
+		title.setText(getResources().getString(R.string.text_people));
 		LinearLayout ll = (LinearLayout) findViewById(R.id.detail_back);
 		ll.setOnClickListener(new OnClickListener() {
 			@Override

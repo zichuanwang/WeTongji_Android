@@ -26,7 +26,8 @@ public class QueryHelper {
 	public static final String ARGS_INFO_TYPE_THREE = "周边推荐";
 	public static final String ARGS_INFO_TYPE_FOUR = "校务信息";
 	
-	public static Bundle getActivitiesQueryArgs(String orderBy, boolean ascending, boolean hasExpired, boolean hasChannel1, boolean hasChannel2, boolean hasChannel3, boolean hasChannel4){
+	public static Bundle getActivitiesQueryArgs(String orderBy, boolean ascending, boolean hasExpired, 
+			boolean hasChannel1, boolean hasChannel2, boolean hasChannel3, boolean hasChannel4){
 		Bundle bundle=new Bundle();
 		bundle.putString(ARGS_ORDER_BY, orderBy);
 		bundle.putBoolean(ARGS_HAS_CHANNEL_1, hasChannel1);

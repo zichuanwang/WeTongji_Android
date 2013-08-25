@@ -41,6 +41,7 @@
     <item name="tv_event_detail_location" type="id">false</item>
     <item name="iv_event_detail_image" type="id">false</item>
     <item name="img_event_detail_org_avatar" type="id">false</item>
+    <item name="rl_event_detail_org" type="id">false</item>
     <item name="text_event_detail_org_name" type="id">false</item>
     <item name="tv_event_detail_content" type="id">false</item>
     <item name="tv_event_detail_friends" type="id">false</item>
@@ -290,7 +291,7 @@
     <item type="id" name="btn_sort_dialog_cancel">false</item>
     <item name="notificaion_login_area" type="id" />
     <item name="btn_notification_login" type="id"/>
-    <item name="text_actionbar_titile" type="id" />
+    <item name="text_actionbar_title" type="id" />
     
     <item name="menu_accountlist_reload" type="id">false</item>
     <item type="id" name="now_return_now_button"/>

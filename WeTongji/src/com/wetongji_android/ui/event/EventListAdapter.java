@@ -17,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -139,6 +140,7 @@ public class EventListAdapter extends EndlessListAdapter<Activity> implements Lo
 
 	@Override
 	public void onLoadFinished(Loader<List<Activity>> arg0, List<Activity> arg1) {
+		Log.v("db size", "" + arg1.size());
 		if (arg1 != null && arg1.size() != 0) {
 			getData().addAll(arg1);
 			setIsLoadingData(false);
@@ -154,6 +156,7 @@ public class EventListAdapter extends EndlessListAdapter<Activity> implements Lo
 	}
 	
 	public void loadDataFromDB(Bundle bundle) {
+		Log.v("loader", "from db");
 		mFragment.getLoaderManager().initLoader(WTApplication.ACTIVITIES_LOADER, bundle, this);
 		setIsLoadingData(true);
 	}

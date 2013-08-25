@@ -215,7 +215,7 @@ public class ProfileFragment extends WTBaseFragment implements
 		if (!TextUtils.isEmpty(mUser.getWords())) {
 			mTvWords.setText("\"" + mUser.getWords() + "\"");
 		}
-		int gendarRid = mUser.getGender().equals("��") ? R.drawable.ic_profile_gender_male
+		int gendarRid = mUser.getGender().equals("男") ? R.drawable.ic_profile_gender_male
 				: R.drawable.ic_profile_gender_female;
 		Drawable gendarDrawable = getResources().getDrawable(gendarRid);
 		mTvCollege.setCompoundDrawablesWithIntrinsicBounds(gendarDrawable,
@@ -225,6 +225,9 @@ public class ProfileFragment extends WTBaseFragment implements
 		mTvFriendsNum.setText(String.format(fmt, mUser.getFriendCount()));
 
 		String format = getResources().getString(R.string.format_likes);
+		String fmtCourse = getResources().getString(R.string.format_attend_course);
+		String fmtActivity = getResources().getString(R.string.format_attend_activity);
+		
 		mTvEventsLikes.setText(String.format(format, mUser.getLikeCount()
 				.getActivity()));
 		mTvNewsLikes.setText(String.format(format, mUser.getLikeCount()
@@ -235,9 +238,9 @@ public class ProfileFragment extends WTBaseFragment implements
 				.getAccount()));
 		mTvUserLikes.setText(String.format(format, mUser.getLikeCount()
 				.getUser()));
-		mTvParActivities.setText(String.format(format, mUser.getScheduleCount()
+		mTvParActivities.setText(String.format(fmtActivity, mUser.getScheduleCount()
 				.getActivity()));
-		mTvParCourse.setText(String.format(format, mUser.getScheduleCount()
+		mTvParCourse.setText(String.format(fmtCourse, mUser.getScheduleCount()
 				.getCourse()));
 
 		((MainActivity) mActivity).getSupportActionBar().setTitle(

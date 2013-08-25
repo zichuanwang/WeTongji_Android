@@ -322,6 +322,7 @@ public class ApiHelper {
 		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
 		bundle.putString(API_ARGS_METHOD, "Activities.Get");
 		
+		Log.v("net select type", "" + channelIdsMask);
 		StringBuilder sbChannelId = new StringBuilder();
 		if((channelIdsMask & API_ARGS_CHANNEL_ACADEMIC_MASK) != 0) {
 			sbChannelId.append("1 ");
@@ -363,10 +364,11 @@ public class ApiHelper {
 			break;
 		}
 		
+		Log.v("net sort", sort);
 		if(!sort.equals("")) {
 			bundle.putString(API_ARGS_SORT, sort);
 		}
-		
+		Log.v("filter", "" + expire);
 		bundle.putString(API_ARGS_EXPIRE, expire ? String.valueOf(0) : String.valueOf(1));
 		return bundle;
 	}
@@ -542,8 +544,11 @@ public class ApiHelper {
 	
 	public Bundle getActivityByUser(String uid, int page, int channelIdsMask,
 			int sortType, boolean expire) {
-		Bundle bundle = getActivities(page, channelIdsMask, sortType, true);
-		bundle.putString(API_ARGS_USER_ID, uid);
+		Bundle bundle = getActivities(page, channelIdsMask, sortType, expire);
+		if(this.uid != uid) {
+			bundle.putString(API_ARGS_USER_ID, uid);
+		}
+		//bundle.putString(API_ARGS_USER_ID, uid);
 		bundle.remove(API_ARGS_METHOD);
 		bundle.putString(API_ARGS_METHOD, "Activities.Get.ByUser");
 		return bundle;
@@ -551,7 +556,7 @@ public class ApiHelper {
 	
 	public Bundle getActivityByAccount(String uid, int page, int channelIdsMask, 
 			int sortType, boolean expire) {
-		Bundle bundle = getActivities(page, channelIdsMask, sortType, true);
+		Bundle bundle = getActivities(page, channelIdsMask, sortType, expire);
 		bundle.putString(API_ARGS_ACCOUNT_ID, uid);
 		return bundle;
 	}
