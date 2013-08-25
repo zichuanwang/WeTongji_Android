@@ -429,8 +429,10 @@ public class ApiHelper {
 		return bundle;
 	}
 	
-	public Bundle getSchedule(Calendar begin, Calendar end){
-		Bundle bundle=new Bundle();
+	public Bundle getSchedule(int weekNum){
+		Calendar begin = DateParser.getWeekBegin(weekNum);
+		Calendar end = DateParser.getWeekEnd(weekNum);
+		Bundle bundle = new Bundle();
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "Schedule.Get");

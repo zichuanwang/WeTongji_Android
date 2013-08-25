@@ -12,6 +12,7 @@ import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.ui.main.NotificationHandler;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.HttpRequestResult;
@@ -23,7 +24,6 @@ import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,6 +46,7 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 	private int weekNumber;
 	private TextView tvWeekNumber;
 	private TextView tvNowTime;
+	private TextView tvWeek;
 	private ViewPager vpWeeks;
 	private NowPagerAdapter adapter;
 	
@@ -71,8 +72,11 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 		
-		selectedPage=0;
-		weekNumber=8;
+		selectedPage = 0;
+		weekNumber = DateParser.getWeekNumber();
+		if (weekNumber < 0) {
+			weekNumber = weekNumber * -1 - 20;
+		}
 		//apiHelper=ApiHelper.getInstance(mActivity);
 		//Bundle args=apiHelper.getTimetable();
 		//getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, args, this);
@@ -84,8 +88,11 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 		// Inflate the layout for this fragment
 		if(view==null){
 			view=inflater.inflate(R.layout.fragment_now, container, false);
-			tvWeekNumber=(TextView) view.findViewById(R.id.tv_now_week_number);
-			tvWeekNumber.setText(weekNumber+"");
+			
+			// set week number
+			setWeekNumber();
+			
+			tvWeek = (TextView) view.findViewById(R.id.tv_now_week);
 			vpWeeks=(ViewPager) view.findViewById(R.id.vp_weeks);
 			adapter=new NowPagerAdapter(this, vpWeeks);
 			vpWeeks.setAdapter(adapter);
@@ -141,7 +148,7 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 		
 		@Override
 		public void onPageScrollStateChanged(int state) {
-			if(state==ViewPager.SCROLL_STATE_IDLE){
+			if (state == ViewPager.SCROLL_STATE_IDLE) {
 				adapter.setContent(selectedPage);
 			}
 		}
@@ -152,14 +159,14 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 	
 		@Override
 		public void onPageSelected(int position) {
-			selectedPage=position;
-			if(position==NowPagerAdapter.PAGE_LEFT){
+			selectedPage = position;
+			if (position == NowPagerAdapter.PAGE_LEFT) {
 				weekNumber--;
-			}
-			else if(position==NowPagerAdapter.PAGE_RIGHT){
+			} else if (position == NowPagerAdapter.PAGE_RIGHT) {
 				weekNumber++;
 			}
-			tvWeekNumber.setText(weekNumber+"");
+			
+			setWeekNumber();
 		}
 	
 	}
@@ -168,6 +175,7 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 
 		@Override
 		public void onClick(View v) {
+			hideTime();
 			switch (v.getId()) {
 			case R.id.btn_now_next:
 				vpWeeks.setCurrentItem(NowPagerAdapter.PAGE_RIGHT, true);
@@ -204,10 +212,58 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 						}
 					}
 				});
+		
+		getActivity().findViewById(R.id.now_return_now_button).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				returnToNow();
+			}
+			
+		});
 	}
 
 	public void onResume() {
 		super.onResume();
 		NotificationHandler.getInstance().checkNotification();
+	}
+	
+	private void setWeekNumber() {
+		tvWeekNumber=(TextView) view.findViewById(R.id.tv_now_week_number);
+		tvWeek = (TextView) view.findViewById(R.id.tv_now_week);
+		if (weekNumber < 0) {
+			tvWeek.setVisibility(View.VISIBLE);
+			tvWeekNumber.setText(String.valueOf(weekNumber + DateParser.WEEK_COUNT_12_13 + 1));
+		} else if (weekNumber == 0){
+			tvWeek.setVisibility(View.GONE);
+			tvWeekNumber.setText(getString(R.string.now_summer_vacation));
+		} else if (weekNumber > 0 && weekNumber < 20) {
+			tvWeek.setVisibility(View.VISIBLE);
+			tvWeekNumber.setText(String.valueOf(weekNumber));
+		} else if (weekNumber >= 20) {
+			tvWeek.setVisibility(View.GONE);
+			tvWeekNumber.setText(getString(R.string.now_winter_vacation));
+		}
+	}
+	
+	private void returnToNow() {
+		hideTime();
+		
+		int weekNumberNow = DateParser.getWeekNumber();
+		if (weekNumberNow < 0) {
+			weekNumber = weekNumberNow * -1 - 20;
+		} else {
+			weekNumber = weekNumberNow;
+		}
+		
+		adapter.returnToNow(weekNumberNow);
+		setWeekNumber();
+	}
+	
+	private void hideTime() {
+		if (tvNowTime == null) {
+			tvNowTime = (TextView) view.findViewById(R.id.tv_now_time);
+		}
+		tvNowTime.setText(null);
 	}
 }

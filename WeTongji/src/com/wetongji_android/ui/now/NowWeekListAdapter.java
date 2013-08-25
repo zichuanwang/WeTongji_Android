@@ -26,13 +26,17 @@ import com.foound.widget.AmazingAdapter;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Event;
+import com.wetongji_android.data.Schedule;
+import com.wetongji_android.factory.ScheduleFactory;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.data.event.EventUtil;
 import com.wetongji_android.util.data.event.EventsLoader;
+import com.wetongji_android.util.data.loader.ScheduleLoader;
 
 public class NowWeekListAdapter extends AmazingAdapter implements
-		LoaderCallbacks<List<Event>> {
+		LoaderCallbacks<List<Schedule>> {
 
 	private LayoutInflater inflater;
 	private Context context;
@@ -40,16 +44,17 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 	private List<Pair<Date, List<Event>>> events;
 	private Date[] dates;
 	private Fragment fragment;
+	private int weekNum;
 
-	public NowWeekListAdapter(Fragment fragment, Calendar begin, Calendar end) {
+	public NowWeekListAdapter(Fragment fragment, int weekNum) {
 		this.fragment = fragment;
 		context = fragment.getActivity();
 		inflater = LayoutInflater.from(context);
 		listAq = new AQuery(context);
 		events = new ArrayList<Pair<Date, List<Event>>>();
-		this.fragment.getLoaderManager().initLoader(
-				WTApplication.EVENTS_LOADER,
-				QueryHelper.getEventsQueryArgs(begin, end), this);
+		this.weekNum = weekNum;
+		fragment.getLoaderManager().initLoader(
+				WTApplication.EVENTS_LOADER, null, this);
 	}
 
 	static class ViewHolder {
@@ -282,20 +287,34 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 	}
 
 	@Override
-	public Loader<List<Event>> onCreateLoader(int arg0, Bundle args) {
-		return new EventsLoader(context, args);
+	public Loader<List<Schedule>> onCreateLoader(int arg0, Bundle arg1) {
+		return new ScheduleLoader(context, weekNum);
 	}
 
 	@Override
-	public void onLoadFinished(Loader<List<Event>> arg0, List<Event> events) {
-		Log.v("event size", events.size() + "");
-		this.events.clear();
-		this.events.addAll(EventUtil.getSectionedEventList(events));
-		notifyDataSetChanged();
+	public void onLoadFinished(Loader<List<Schedule>> arg0, List<Schedule> result) {
+		if (!result.isEmpty() && result.get(0) != null) {
+			ScheduleFactory factory = new ScheduleFactory(fragment);
+			List<Event> eventList = factory.parseSchedule(weekNum, result.get(0).getJsonContent());
+			this.events.clear();
+			this.events.addAll(EventUtil.getSectionedEventList(eventList));
+			notifyDataSetChanged();
+		}
 	}
 
 	@Override
-	public void onLoaderReset(Loader<List<Event>> arg0) {
+	public void onLoaderReset(Loader<List<Schedule>> arg0) {
 	}
 
+	public int getNowPosition() {
+		int sectionPos = 0;
+		Date dateNow = new Date();
+		for (int i = 0; i < dates.length; i++) {
+			if (dateNow.before(dates[i]) || dateNow.equals(dates[i])) {
+				sectionPos = i;
+				break;
+			}
+		}
+		return getPositionForSection(sectionPos);
+	}
 }

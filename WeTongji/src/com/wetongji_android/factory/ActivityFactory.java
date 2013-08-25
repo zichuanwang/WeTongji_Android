@@ -65,6 +65,17 @@ public class ActivityFactory extends BaseFactory<Activity, Integer>{
 		}
 	}
 	
+	public List<Activity> parseObjects(String jsonStr){
+		String array = "";
+		try {
+			JSONObject outer = new JSONObject(jsonStr);
+			array = outer.getString("Activities");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return unserializeObjects(array);
+	}
+	
 	public int getNextPage() {
 		return nextPage;
 	}
