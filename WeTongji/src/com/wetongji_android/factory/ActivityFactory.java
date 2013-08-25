@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,7 +31,7 @@ public class ActivityFactory extends BaseFactory<Activity, Integer>{
 	
 	public List<Activity> createObjects(String jsonStr, boolean bRefresh) {
 		List<Activity> result=new ArrayList<Activity>();
-		
+		Log.v("refresh", "" + bRefresh);
 		try {
 			JSONObject outer=new JSONObject(jsonStr);
 			if(outer.has("NextPager")){

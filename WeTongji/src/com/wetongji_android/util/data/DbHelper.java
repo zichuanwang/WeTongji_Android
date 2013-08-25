@@ -20,6 +20,7 @@ import com.wetongji_android.data.SearchHistory;
 import com.wetongji_android.data.User;
 
 public class DbHelper extends OrmLiteSqliteOpenHelper {
+	
 	private static final String DB_NAME="wetongji.db";
 	private static final int DB_VERSION=2;
 	

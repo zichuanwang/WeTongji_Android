@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -103,6 +104,7 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 	
 	@Override
 	public Loader<Void> onCreateLoader(int arg0, Bundle args) {
+		Log.v("save", "store");
 		return new DbListSaver<T, ID>(context, clazz, list, args);
 	}
 
