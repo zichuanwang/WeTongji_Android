@@ -25,6 +25,17 @@
         android:scaleType="center"
         android:src="@drawable/notification_button"
         android:contentDescription="@string/img_content_description" />
+    
+    <ImageView
+        android:id="@id/now_return_now_button"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/notification_button"
+        android:scaleType="center"
+        android:src="@drawable/ab_now_now"
+        android:background="@drawable/selectable_background_wttheme"
+        android:contentDescription="@string/img_content_description" />
 
     <TextView
         style="@style/TextAppearance.Sherlock.Widget.ActionBar.Title"

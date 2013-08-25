@@ -16,6 +16,7 @@ import com.wetongji_android.data.Exam;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.data.Notification;
 import com.wetongji_android.data.Person;
+import com.wetongji_android.data.Schedule;
 import com.wetongji_android.data.SearchHistory;
 import com.wetongji_android.data.User;
 
@@ -40,6 +41,7 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTableIfNotExists(connSource, User.class);
 			TableUtils.createTableIfNotExists(connSource, SearchHistory.class);
 			TableUtils.createTableIfNotExists(connSource, Notification.class);
+			TableUtils.createTableIfNotExists(connSource, Schedule.class);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -58,6 +60,7 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.dropTable(connSource, User.class, false);
 			TableUtils.dropTable(connSource, SearchHistory.class, false);
 			TableUtils.dropTable(connSource, Notification.class, false);
+			TableUtils.dropTable(connSource, Schedule.class, false);
 			onCreate(db, connSource);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -78,6 +81,7 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.clearTable(getConnectionSource(), Person.class);
 			TableUtils.clearTable(getConnectionSource(), SearchHistory.class);
 			TableUtils.clearTable(getConnectionSource(), Notification.class);
+			TableUtils.clearTable(getConnectionSource(), Schedule.class);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

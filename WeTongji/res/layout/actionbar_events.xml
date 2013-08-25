@@ -34,6 +34,7 @@
         android:layout_toLeftOf="@id/notification_button"
         android:scaleType="center"
         android:src="@drawable/abs_event_reload"
+        android:background="@drawable/selectable_background_wttheme"
         android:contentDescription="@string/img_content_description" />
 	
     <TextView

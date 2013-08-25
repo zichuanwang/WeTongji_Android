@@ -294,4 +294,5 @@
     <item name="text_actionbar_title" type="id" />
     
     <item name="menu_accountlist_reload" type="id">false</item>
+    <item type="id" name="now_return_now_button"/>
 </resources>
