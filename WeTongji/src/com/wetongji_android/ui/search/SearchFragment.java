@@ -135,6 +135,7 @@ public class SearchFragment extends SherlockFragment implements
 					SearchHistory search = (SearchHistory) arg0
 							.getItemAtPosition(position);
 					doSearch(search.getType(), search.getKeywords());
+					mSearchView.setQuery(search.getKeywords(), false);
 				}
 			}
 		});
