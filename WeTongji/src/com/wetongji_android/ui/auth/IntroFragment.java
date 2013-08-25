@@ -59,24 +59,27 @@ public class IntroFragment extends Fragment implements ViewFactory {
 		super.onCreate(savedInstanceState);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 		rootView = inflater.inflate(R.layout.fragment_intro, container, false);
 		List<View> viewList = new ArrayList<View>();
 
-		switcher = (ImageSwitcher) rootView.findViewById(R.id.is_intro_bg);
+		/*switcher = (ImageSwitcher) rootView.findViewById(R.id.is_intro_bg);
 		switcher.setFactory(this);
 		Animation fadeIn = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in);
 		fadeIn.setDuration(1000);
 		Animation fadeOut = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_out);
 		fadeOut.setDuration(1000);
 		switcher.setInAnimation(fadeIn);
-		switcher.setOutAnimation(fadeOut);
+		switcher.setOutAnimation(fadeOut);*/
 
-		for (int i = 0; i != 4; i++) {
+		for (int i = 0; i < 3; i++) {
 			ImageView image = new ImageView(getActivity());
 			image = (ImageView) inflater.inflate(R.layout.page_intro, null);
+			//image.setBackgroundResource(BG_IMAGE_IDS[i]);
+			image.setBackgroundDrawable(getResources().getDrawable(BG_IMAGE_IDS[i]));
 			viewList.add(image);
 		}
 
@@ -86,7 +89,7 @@ public class IntroFragment extends Fragment implements ViewFactory {
 		indicator.setViewPager(viewPager, 0);
 		indicator.setFades(false);
 
-		handler.post(runnable);
+		//handler.post(runnable);
 		return rootView;
 	}
 

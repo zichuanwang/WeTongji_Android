@@ -5,14 +5,18 @@
     android:layout_height="match_parent"
     android:paddingTop="0dp"
     tools:context=".IntroFragment" >
+    
+    <!-- Header Section -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_alignTop="@+id/welcomeBottomLayout" >
+        
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true" >
+            
             <ImageView
                 android:id="@+id/iv_wt_logo"
                 android:layout_width="wrap_content"
@@ -21,6 +25,7 @@
                 android:layout_centerHorizontal="true"
                 android:contentDescription="@string/content_description_all"
                 android:src="@drawable/img_wt_logo" />
+            
             <TextView
                 android:id="@+id/tv_wt_slogan"
                 android:layout_width="wrap_content"
@@ -30,18 +35,16 @@
                 android:layout_marginTop="6dp"
                 android:text="@string/text_wt_slogan"
                 android:textColor="@color/text_slogan" />
+            
         </RelativeLayout>
+        
     </RelativeLayout>
+    
     <RelativeLayout
         android:id="@+id/welcomeBottomLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="100dp" >
-        <ImageSwitcher
-            android:id="@+id/is_intro_bg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true" />
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,7 +57,9 @@
             android:id="@+id/vp_guides"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentBottom="true"
+            android:background="@color/intro_img_bg" />
+        
         <com.viewpagerindicator.UnderlinePageIndicator
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/vp_indicator_guides"
@@ -64,4 +69,5 @@
             android:background="@color/vp_indicator_bg"
             app:selectedColor="@color/vp_indicator_selected" />
     </RelativeLayout>
+    
 </RelativeLayout>

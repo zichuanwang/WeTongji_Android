@@ -31,9 +31,11 @@ public class IntroActivity extends SherlockFragmentActivity implements OnChecked
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_authenticator);
+		//First we load the intro-fragment
 		getSupportFragmentManager().beginTransaction()
 			.add(R.id.auth_content_container, IntroFragment.newInstance())
 			.commit();
+		
 		setupActionBar();
 	}
 
