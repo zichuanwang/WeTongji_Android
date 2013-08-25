@@ -65,9 +65,9 @@ public class TodayGridEventAdapter extends TodayGridBaseAdapter<Activity> {
 					} else if(channel == 2) {
 						bundle.putInt(WTBaseFragment.BUNDLE_KEY_SELECT_TYPE, 2);
 					} else if(channel == 3) {
-						bundle.putInt(WTBaseFragment.BUNDLE_KEY_SELECT_TYPE, 8);
-					} else if(channel == 4) {
 						bundle.putInt(WTBaseFragment.BUNDLE_KEY_SELECT_TYPE, 4);
+					} else if(channel == 4) {
+						bundle.putInt(WTBaseFragment.BUNDLE_KEY_SELECT_TYPE, 8);
 					}
 					intent.putExtras(bundle);
 					context.startActivity(intent);

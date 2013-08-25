@@ -123,7 +123,9 @@ public class EventsFragment extends WTBaseFragment implements
 		cbActionExpired = (CheckBox) view.findViewById(R.id.cb_event_expired);
 		llActionSort.setOnClickListener(bottomActionItemClikListener);
 		llActionType.setOnClickListener(bottomActionItemClikListener);
-		readPreference();
+		if(mStartMode == StartMode.BASIC) {
+			readPreference();
+		}
 		cbActionExpired.setChecked(mFilterExpired);
 		cbActionExpired.setOnCheckedChangeListener(new OnTypeCheckedListener());
 
