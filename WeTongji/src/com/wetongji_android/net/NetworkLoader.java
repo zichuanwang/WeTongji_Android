@@ -47,7 +47,7 @@ public class NetworkLoader extends AsyncTaskLoader<HttpRequestResult>
 		} catch (WTException e) 
 		{
 			e.printStackTrace();
-			return new HttpRequestResult(200, "");
+			return new HttpRequestResult(408, "");
 		}
 	}
 
