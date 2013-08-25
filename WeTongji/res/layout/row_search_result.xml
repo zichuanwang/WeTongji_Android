@@ -41,7 +41,9 @@
 		    android:layout_height="wrap_content"
 		    android:layout_below="@id/search_result_name"
 		    android:layout_alignLeft="@id/search_result_name"
-		    android:layout_marginTop="10dp"
+		    android:layout_marginTop="8dp"
+		    android:ellipsize="end"
+		    android:maxLines="2"
 		    android:textIsSelectable="false"
 		    style="@style/FriendMajor"/>
 		

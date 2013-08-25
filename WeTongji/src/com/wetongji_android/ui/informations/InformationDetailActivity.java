@@ -40,6 +40,7 @@ public class InformationDetailActivity extends WTBaseDetailActivity {
 
 	private void initWidget() 
 	{
+		setTitle(getResources().getString(R.string.profile_section_new));
 		mAq = WTApplication.getInstance().getAq(this);
 		// Set the organization avatar
 		mAq.id(R.id.info_detail_avatar).image(mInfo.getOrganizerAvatar(), false, true,

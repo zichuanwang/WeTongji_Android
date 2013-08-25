@@ -490,6 +490,7 @@ public class EventsFragment extends WTBaseFragment implements
 		@Override
 		public void onClick(View view) {
 			if (view.getId() == R.id.btn_event_detail_invite) {
+				Log.v("click", "click");
 				openSortDialog();
 			} else if (view.getId() == R.id.btn_event_detail_friends) {
 				openTypeSelectDailog();
@@ -525,6 +526,7 @@ public class EventsFragment extends WTBaseFragment implements
 			checkedId = R.id.sort_rb_start_date;
 			break;
 		}
+		rgSort.check(checkedId);
 		rgSort.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -544,7 +546,6 @@ public class EventsFragment extends WTBaseFragment implements
 				writePreference();
 			}
 		});
-		rgSort.check(checkedId);
 		dialog.show();
 	}
 

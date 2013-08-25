@@ -49,12 +49,13 @@ public class AccountDetailActivity extends WTBaseDetailActivity {
 
 	private void setUpUI() {
 		Button button = (Button) findViewById(R.id.btn_profile_action);
-		button.setText("Contact");
+		button.setText(getResources().getString(R.string.account_contact));
 		button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				if(mAccount.getEmail().equals("")) {
-					
+					Toast.makeText(AccountDetailActivity.this, getResources().getString(R.string.account_no_email_error), 
+							Toast.LENGTH_SHORT).show();
 				} else {
 					Uri emailUri = Uri.parse("mailto:" + mAccount.getEmail());
 					Intent intent = new Intent(Intent.ACTION_SENDTO, emailUri);

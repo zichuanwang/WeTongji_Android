@@ -11,7 +11,7 @@
     <string name="title_activity_authenticator">AuthenticatorActivity</string>
     <string name="title_mainmenu_today">Today</string>
     <string name="title_mainmenu_news">News</string>
-    <string name="title_mainmenu_events">Events</string>
+    <string name="title_mainmenu_events">Activities</string>
     <string name="title_mainmenu_now">Now</string>
     <string name="title_mainmenu_search">Search</string>
     <string name="title_mainmenu_billboard">Billboard</string>
@@ -50,7 +50,7 @@
     <string name="text_today_now">Now</string>
     <string name="text_today">Today</string>
     <string name="text_news">News</string>
-    <string name="text_events">Events</string>
+    <string name="text_events">Activities</string>
     <string name="text_features">Features</string>
     <!-- imageview content description -->
     <string name="img_content_description">ImageView</string>
@@ -79,7 +79,7 @@
     <string name="text_confirm_terms_of_use">By tapping Next you are indicating that you have 
 read and agree to the <u><b>Term of Use</b></u></string>
     <string name="text_menu_reload">Reload</string>
-    <string name="text_event_channel_id_1">Lecture</string>
+    <string name="text_event_channel_id_1">Academics</string>
     <string name="text_event_channel_id_2">Competition</string>
     <string name="text_event_channel_id_3">Entertainment</string>
     <string name="text_event_channel_id_4">Enterprise</string>
@@ -87,7 +87,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="text_news_category_2">Administrative Affairs</string>
     <string name="text_news_category_3">Club News</string>
     <string name="text_news_category_4">Local Recommendation</string>
-    <string name="text_people">People</string>
+    <string name="text_people">Stars</string>
     <string name="text_most_popular_account">Most Popluar Account</string>
     <string name="text_u_like_this_activity">You have liked this activity</string>
     <string name="text_u_like_this_information">You have liked this information</string>
@@ -110,7 +110,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="profile_section_phone">Phone</string>
     <string name="profile_section_email">Email</string>
     <string name="things_i_like">THINGS I LIKE</string>
-    <string name="profile_section_events">Events</string>
+    <string name="profile_section_events">Activities</string>
     <string name="profile_section_persons">Star</string>
     <string name="profile_section_new">News</string>
     <string name="profile_section_org">Organizations</string>
@@ -120,6 +120,8 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="profile_section_major">Major</string>    
     <string name="need_account_login">This Needs User Login</string>
     <string name="format_likes">%d Likes</string>
+    <string name="format_attend_course">%d Courses</string>
+    <string name="format_attend_activity">%d Items</string>
     <string name="text_banner_publisher_mask">\@%1$s</string>
     <string name="save_image">Store into Picture Folder</string>
     <string name="image_stored_at">Picture was stored at </string>
@@ -154,13 +156,13 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="search_tip_users">Search users for </string>
     <string name="search_tip_org">Search organizations for </string>
     <string name="search_tip_activity">Search activities for </string>
-    <string name="search_tip_news">Search information for</string>
+    <string name="search_tip_news">Search news for</string>
     <string name="search_tip_stars">Search stars for </string>
     <string name="search_tip_course">Search course for </string>
     <string name="type_users">User</string>
     <string name="type_org">Organization</string>
-    <string name="type_activities">Activity</string>
-    <string name="type_information">Information</string>
+    <string name="type_activities">Activities</string>
+    <string name="type_information">News</string>
     <string name="type_stars">Star</string>
     <string name="type_courses">Course</string>
     <string name="profile_button_text">Change Avatar</string>
@@ -181,6 +183,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="account_detail_news">Club News</string>
     <string name="format_items">%d Items</string>
     <string name="account_contact">Contact</string>
+    <string name="account_no_email_error">Sorry, this account has no email</string>
     <string name="my_basic_information">My Basic Information</string>
     <string name="profile_section_phone">Phone</string>
     <string name="profile_section_motto">Motto</string>
@@ -280,4 +283,5 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="title_now">Now</string>
 	<string name="title_profile">Profile</string>
 	<string name="course_required_error">This course is Required</string>
+	<string name="title_change_pwd">Change Password</string>
 </resources>

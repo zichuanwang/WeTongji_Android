@@ -147,8 +147,8 @@ public class TodayFragment extends SherlockFragment {
 	}
 
 	private void setTodayGrids(View view) {
-		gvNews = (GridView) view.findViewById(R.id.gv_today_information);
 		gvEvents = (GridView) view.findViewById(R.id.gv_today_activities);
+		gvNews = (GridView) view.findViewById(R.id.gv_today_information);
 		gvFeatures = (GridView) view.findViewById(R.id.gv_today_features);
 		Bundle bundle = ApiHelper.getInstance(context).getHome();
 
@@ -176,18 +176,18 @@ public class TodayFragment extends SherlockFragment {
 		TodayBannerPagerAdapter bannerAdapter = new TodayBannerPagerAdapter(banners, context);
 		setTodayBanner(view, bannerAdapter);
 
-		TodayGridNewsAdapter newsAdapter = new TodayGridNewsAdapter(context, infomation);
-		view.findViewById(R.id.pb_today_information).setVisibility(View.GONE);
-		gvNews.setAdapter(newsAdapter);
-		gvNews.setVisibility(View.VISIBLE);
-		gvNews.setOnItemClickListener(newsAdapter);
-
 		TodayGridEventAdapter eventAdapter = new TodayGridEventAdapter(context, activities);
 		view.findViewById(R.id.pb_today_activities).setVisibility(View.GONE);
 		gvEvents.setAdapter(eventAdapter);
 		gvEvents.setOnItemClickListener(eventAdapter);
 		gvEvents.setVisibility(View.VISIBLE);
 
+		TodayGridNewsAdapter newsAdapter = new TodayGridNewsAdapter(context, infomation);
+		view.findViewById(R.id.pb_today_information).setVisibility(View.GONE);
+		gvNews.setAdapter(newsAdapter);
+		gvNews.setVisibility(View.VISIBLE);
+		gvNews.setOnItemClickListener(newsAdapter);
+		
 		TodayGridFeatureAdapter featureAdapter = new TodayGridFeatureAdapter(context, features);
 		view.findViewById(R.id.pb_today_features).setVisibility(View.GONE);
 		gvFeatures.setAdapter(featureAdapter);

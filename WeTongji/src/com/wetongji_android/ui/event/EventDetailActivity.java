@@ -40,6 +40,7 @@ public class EventDetailActivity extends WTBaseDetailActivity {
 	}
 
 	private void setUpUI() {
+		setTitle(getResources().getString(R.string.profile_section_events));
 		setPicture();
 
 		setTextViews();
@@ -75,6 +76,7 @@ public class EventDetailActivity extends WTBaseDetailActivity {
 						mEvent.getAccountDetails());
 				intent.putExtras(bundle);
 				startActivity(intent);
+				EventDetailActivity.this.overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
 			}
 		});
 

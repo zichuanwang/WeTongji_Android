@@ -11,7 +11,6 @@ import com.j256.ormlite.dao.Dao;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Notification;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.DbHelper;
 import com.wetongji_android.util.data.notification.NotificationsLoader;
 import com.wetongji_android.util.date.DateParser;
