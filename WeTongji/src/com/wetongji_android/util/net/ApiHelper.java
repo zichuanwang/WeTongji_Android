@@ -367,7 +367,7 @@ public class ApiHelper {
 			bundle.putString(API_ARGS_SORT, sort);
 		}
 		
-		bundle.putString(API_ARGS_EXPIRE, expire ? String.valueOf(1) : String.valueOf(0));
+		bundle.putString(API_ARGS_EXPIRE, expire ? String.valueOf(0) : String.valueOf(1));
 		return bundle;
 	}
 	

@@ -65,7 +65,7 @@ public class EventsFragment extends WTBaseFragment implements
 	private boolean mShouldRequest = true;
 
 	/** Sort preferences by default **/
-	private boolean mExpire = true;
+	private boolean mFilterExpired = false;
 	private int mSortType = 1;
 	private int mSelectedType = 15;
 
@@ -124,7 +124,7 @@ public class EventsFragment extends WTBaseFragment implements
 		llActionSort.setOnClickListener(bottomActionItemClikListener);
 		llActionType.setOnClickListener(bottomActionItemClikListener);
 		readPreference();
-		cbActionExpired.setChecked(mExpire);
+		cbActionExpired.setChecked(mFilterExpired);
 		cbActionExpired.setOnCheckedChangeListener(new OnTypeCheckedListener());
 
 		mListActivity = (ListView) view.findViewById(R.id.lst_events);
@@ -282,7 +282,7 @@ public class EventsFragment extends WTBaseFragment implements
 		mCurrentPage = 0;
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
 		Bundle args = apiHelper.getActivities(1, mSelectedType, mSortType,
-				mExpire);
+				mFilterExpired);
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT,
 				args, this);
 	}
@@ -292,7 +292,7 @@ public class EventsFragment extends WTBaseFragment implements
 		mAdapter.setIsLoadingData(true);
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
 		Bundle args = apiHelper.getActivities(page, mSelectedType, mSortType,
-				mExpire);
+				mFilterExpired);
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT,
 				args, this);
 	}
@@ -435,7 +435,7 @@ public class EventsFragment extends WTBaseFragment implements
 	private void readPreference() {
 		SharedPreferences sp = getActivity().getSharedPreferences(
 				SHARE_PREFERENCE_EVENT, Context.MODE_PRIVATE);
-		mExpire = sp.getBoolean(PREFERENCE_EVENT_EXPIRE, true);
+		mFilterExpired = sp.getBoolean(PREFERENCE_EVENT_EXPIRE, false);
 		mSortType = sp.getInt(PREFERENCE_EVENT_SORT,
 				ApiHelper.API_ARGS_SORT_BY_PUBLISH_DESC);
 		mSelectedType = sp.getInt(PREFERENCE_EVENT_TYPE, 15);
@@ -444,7 +444,7 @@ public class EventsFragment extends WTBaseFragment implements
 	private void writePreference() {
 		SharedPreferences.Editor edit = getActivity().getSharedPreferences(
 				SHARE_PREFERENCE_EVENT, Context.MODE_PRIVATE).edit();
-		edit.putBoolean(PREFERENCE_EVENT_EXPIRE, mExpire);
+		edit.putBoolean(PREFERENCE_EVENT_EXPIRE, mFilterExpired);
 		edit.putInt(PREFERENCE_EVENT_SORT, mSortType);
 		edit.putInt(PREFERENCE_EVENT_TYPE, mSelectedType);
 
@@ -472,7 +472,7 @@ public class EventsFragment extends WTBaseFragment implements
 		boolean hasCH4 = (mSelectedType & ApiHelper.API_ARGS_CHANNEL_EMPLOYMENT_MASK) != 0;
 
 		Bundle b = QueryHelper.getActivitiesQueryArgs(orderBy, assending,
-				mExpire, hasCH1, hasCH2, hasCH3, hasCH4);
+				mFilterExpired, hasCH1, hasCH2, hasCH3, hasCH4);
 		return b;
 	}
 
@@ -607,7 +607,7 @@ public class EventsFragment extends WTBaseFragment implements
 				}
 				break;
 			case R.id.cb_event_expired:
-				mExpire = buttonView.isChecked();
+				mFilterExpired = buttonView.isChecked();
 				refreshData();
 				break;
 			}
