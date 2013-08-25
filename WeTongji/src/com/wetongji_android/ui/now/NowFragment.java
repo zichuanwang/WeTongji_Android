@@ -74,6 +74,7 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 		
 		selectedPage = 0;
 		weekNumber = DateParser.getWeekNumber();
+		WTUtility.log("data", weekNumber + "weekNumber");
 		if (weekNumber < 0) {
 			weekNumber = weekNumber * -1 - 20;
 		}

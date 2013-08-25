@@ -58,7 +58,7 @@ public class DateParser {
         } else if (now >= DATE_13_SUMMER_START && now < DATE_13_14_START) {
         	weekCount = WEEK_NUMBER_SUMMER;
         } else {
-        	weekCount = (int) ((now - DATE_12_13_START) / MILLIS_WEEK + 1);
+        	weekCount = (int) ((now - DATE_13_14_START) / MILLIS_WEEK + 1);
         }
         
         if (weekCount > WEEK_NUMBER_WINTER) {
