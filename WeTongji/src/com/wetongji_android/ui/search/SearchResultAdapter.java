@@ -312,7 +312,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 		User user = (User) result.getContent();
 		holder.tvFriendName.setText(user.getName());
 		holder.tvFriendDepart.setText(user.getDepartment());
-		int gendarResourceId = user.getGender().equals("ÄÐ") ?
+		int gendarResourceId = user.getGender().equals("ç”·") ?
 				R.drawable.ic_profile_gender_male :
 				R.drawable.ic_profile_gender_female;
 		Drawable gendar = mContext.getResources().getDrawable(gendarResourceId);

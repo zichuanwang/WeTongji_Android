@@ -6,6 +6,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
@@ -116,6 +117,11 @@ public class FriendListAdapter extends EndlessListAdapter<User> implements
 		User user = getItem(position);
 		holder.tvFriendName.setText(user.getName());
 		holder.tvFriendDepart.setText(user.getDepartment());
+		int gendarRid = user.getGender().equals("男") ? R.drawable.ic_profile_gender_male
+				: R.drawable.ic_profile_gender_female;
+		Drawable gendarDrawable = mContext.getResources().getDrawable(gendarRid);
+		holder.tvFriendDepart.setCompoundDrawablesWithIntrinsicBounds(
+				gendarDrawable, null, null, null);
 		
 		//set the checkbox visibility
 		if(mContext instanceof FriendInviteActivity)

@@ -179,6 +179,7 @@
  	    <item name="android:textColor">@color/tv_info_detail_content</item>
  	    <item name="android:textSize">17sp</item>
  	    <item name="android:textStyle">normal</item>
+ 	    <item name="android:autoLink">all</item>
  	</style>
  	
  	<style name="InformationDetailLocation" parent="@style/TextWithShadow">
