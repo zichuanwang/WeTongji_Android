@@ -230,10 +230,10 @@ public class DateParser {
         		date = serverSourse.parse(TIME_2013_SUMMER_START);
         	} else if (weekNumber < 0) {
         		date = serverSourse.parse(TIME_12_13_START);
-        		date.setTime(date.getTime() - weekNumber * MILLIS_WEEK);
+        		date.setTime(date.getTime() - (weekNumber + 1) * MILLIS_WEEK);
         	} else if (weekNumber < 20 && weekNumber > 0) {
         		date = serverSourse.parse(TIME_13_14_START);
-        		date.setTime(date.getTime() + weekNumber * MILLIS_WEEK);
+        		date.setTime(date.getTime() + (weekNumber - 1) * MILLIS_WEEK);
         	} else {
         		date = serverSourse.parse(TIME_13_14_START);
         		date.setTime(date.getTime() + WEEK_COUNT_13_14 * MILLIS_WEEK);
@@ -250,16 +250,16 @@ public class DateParser {
 		Date date = new Date();
         try {
         	if (weekNumber == WEEK_NUMBER_SUMMER) {
-        		date = serverSourse.parse(TIME_2013_SUMMER_END);
+        		date = serverSourse.parse(TIME_2013_SUMMER_START + MILLIS_WEEK * 3);
         	} else if (weekNumber < 0) {
         		date = serverSourse.parse(TIME_12_13_START);
-        		date.setTime(date.getTime() + MILLIS_WEEK - weekNumber * MILLIS_WEEK);
+        		date.setTime(date.getTime() - weekNumber * MILLIS_WEEK);
         	} else if (weekNumber < 20 && weekNumber > 0) {
         		date = serverSourse.parse(TIME_13_14_START);
-        		date.setTime(date.getTime() + (weekNumber + 1) * MILLIS_WEEK);
+        		date.setTime(date.getTime() + weekNumber * MILLIS_WEEK);
         	} else {
         		date = serverSourse.parse(TIME_13_14_START);
-        		date.setTime(date.getTime() + (WEEK_COUNT_13_14 + 5) * MILLIS_WEEK);
+        		date.setTime(date.getTime() + (WEEK_COUNT_13_14 + 4) * MILLIS_WEEK);
         	}
         } catch (ParseException e) {
             e.printStackTrace();

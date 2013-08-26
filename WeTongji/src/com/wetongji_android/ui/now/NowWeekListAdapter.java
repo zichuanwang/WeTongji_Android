@@ -258,7 +258,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		TextView tvWeekDay = (TextView) view
 				.findViewById(R.id.tv_now_section_bar_week_day);
 		Date date = new Date();
-		/*if (dates != null) {
+		if (dates != null) {
 			date = dates[getSectionForPosition(position)];
 			tvWeekDay.setText(DateUtils.formatDateTime(context, date.getTime(),
 					DateUtils.FORMAT_SHOW_WEEKDAY));
@@ -273,8 +273,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 				tvWeekDay.setTextColor(context.getResources().getColor(
 						R.color.tv_text_now_section_bar_default));
 			}
-		}*/
-		tvWeekDay.setText("nihao");
+		}
 	}
 
 	@Override
@@ -296,9 +295,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 		if (!result.isEmpty() && result.get(0) != null) {
 			ScheduleFactory factory = new ScheduleFactory(fragment);
 			List<Event> eventList = factory.parseSchedule(weekNum, result.get(0).getJsonContent());
-			this.events.clear();
-			this.events.addAll(EventUtil.getSectionedEventList(eventList));
-			notifyDataSetChanged();
+			setRawData(eventList);
 		}
 	}
 
