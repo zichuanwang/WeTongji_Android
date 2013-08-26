@@ -10,6 +10,7 @@ import com.wetongji_android.R;
 
 import android.content.Context;
 import android.text.format.DateUtils;
+import android.util.Log;
 
 /**
  * 解析服务器返回日期和时间的工具类
@@ -144,7 +145,11 @@ public class DateParser {
 				DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_SHOW_TIME|DateUtils.FORMAT_24HOUR);
 		String timeEnd = DateUtils.formatDateTime(context, calEnd.getTimeInMillis(),
 				DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_SHOW_TIME|DateUtils.FORMAT_24HOUR);
-		
+	
+		Log.v("end time", timeEnd);
+		int location = timeEnd.lastIndexOf(" ");
+		Log.v("location", "" + location);
+		timeEnd = timeEnd.substring(location + 1, timeEnd.length());
 		StringBuilder sb = new StringBuilder(timeBegin);
 		sb.append(" - ").append(timeEnd);
 		return sb.toString();

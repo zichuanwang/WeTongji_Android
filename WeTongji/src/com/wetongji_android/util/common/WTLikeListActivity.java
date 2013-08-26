@@ -2,6 +2,7 @@ package com.wetongji_android.util.common;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
@@ -63,5 +64,15 @@ public class WTLikeListActivity extends SherlockFragmentActivity
 			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK) {
+			finish();
+			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+		}
+		
+		return super.onKeyDown(keyCode, event);
 	}
 }

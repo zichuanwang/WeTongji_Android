@@ -149,6 +149,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 					this.getResources().getString(
 							R.string.remove_friend_request), Toast.LENGTH_SHORT)
 					.show();
+			ibFriend.setText(R.string.button_unfriend);
 		}
 	}
 

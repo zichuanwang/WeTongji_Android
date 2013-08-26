@@ -23,7 +23,7 @@ import com.wetongji_android.R;
 public class IntroFragment extends Fragment {
 
 	private static final int[] BG_IMAGE_IDS = { R.drawable.img_intro_1, R.drawable.img_intro_2,
-			R.drawable.img_intro_3 };
+			R.drawable.img_intro_3, R.drawable.img_intro_4 };
 
 	private View rootView;
 	private ViewPager viewPager;
@@ -55,7 +55,7 @@ public class IntroFragment extends Fragment {
 		rootView = inflater.inflate(R.layout.fragment_intro, container, false);
 		List<View> viewList = new ArrayList<View>();
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < BG_IMAGE_IDS.length; i++) {
 			ImageView image = new ImageView(getActivity());
 			image = (ImageView) inflater.inflate(R.layout.page_intro, null);
 			image.setBackgroundResource(BG_IMAGE_IDS[i]);

@@ -111,10 +111,10 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="profile_section_email">Email</string>
     <string name="things_i_like">THINGS I LIKE</string>
     <string name="profile_section_events">Activities</string>
-    <string name="profile_section_persons">Star</string>
+    <string name="profile_section_persons">Stars</string>
     <string name="profile_section_new">News</string>
     <string name="profile_section_org">Organizations</string>
-    <string name="profile_section_user">User</string>
+    <string name="profile_section_user">Users</string>
     <string name="profile_section_birthday">Birthday</string>
     <string name="profile_section_student_no">Student NO.</string>
     <string name="profile_section_major">Major</string>    

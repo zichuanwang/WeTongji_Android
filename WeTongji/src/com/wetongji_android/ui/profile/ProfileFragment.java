@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -149,6 +150,18 @@ public class ProfileFragment extends WTBaseFragment implements
 		RelativeLayout rl = (RelativeLayout) mContentView
 				.findViewById(R.id.layout_profile_header);
 		int tH = (496 * 200 / 1080);
+		/*int originWidth = source.getWidth();
+		int originHeight = source.getHeight();
+		int width = 200;
+		
+		Log.v("source height + width", "" + originWidth + " " + originHeight);
+		if(width > originWidth) {
+			width = originWidth;
+		}
+		
+		if((100 + tH / 2) > originHeight) {
+			tH = 2 * originHeight - 200;
+		}*/
 		Bitmap bm = Bitmap.createBitmap(source, 0, (100 - tH / 2), 200, tH);
 		Bitmap bg = ImageUtil.fastblur(bm, 10);
 		rl.setBackgroundDrawable(new BitmapDrawable(getActivity()

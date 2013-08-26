@@ -1,7 +1,6 @@
 package com.wetongji_android.ui.now;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,10 +27,7 @@ import com.wetongji_android.data.Event;
 import com.wetongji_android.data.Schedule;
 import com.wetongji_android.factory.ScheduleFactory;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.common.WTUtility;
-import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.data.event.EventUtil;
-import com.wetongji_android.util.data.event.EventsLoader;
 import com.wetongji_android.util.data.loader.ScheduleLoader;
 
 public class NowWeekListAdapter extends AmazingAdapter implements
