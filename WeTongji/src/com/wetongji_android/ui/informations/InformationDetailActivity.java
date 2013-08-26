@@ -9,7 +9,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager.LayoutParams;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
@@ -42,9 +44,17 @@ public class InformationDetailActivity extends WTBaseDetailActivity {
 	{
 		setTitle(getResources().getString(R.string.profile_section_new));
 		mAq = WTApplication.getInstance().getAq(this);
+		if(mInfo.getCategory().equals("社团通告")) {
+			// Set the organization avatar
+			mAq.id(R.id.info_detail_avatar).image(mInfo.getOrganizerAvatar(), false, true,
+					0, R.drawable.image_place_holder, null, AQuery.FADE_IN, 1.0f);
+		} else {
+			ImageView ivAvatar = (ImageView)findViewById(R.id.info_detail_avatar);
+			ivAvatar.setVisibility(View.GONE);
+		}
 		// Set the organization avatar
-		mAq.id(R.id.info_detail_avatar).image(mInfo.getOrganizerAvatar(), false, true,
-				0, R.drawable.image_place_holder, null, AQuery.FADE_IN, 1.0f);
+		/*mAq.id(R.id.info_detail_avatar).image(mInfo.getOrganizerAvatar(), false, true,
+				0, R.drawable.image_place_holder, null, AQuery.FADE_IN, 1.0f);*/
 
 		Drawable drawable = getResources().getDrawable(
 				R.drawable.image_place_holder);
@@ -65,11 +75,19 @@ public class InformationDetailActivity extends WTBaseDetailActivity {
 
 		TextView tvTitle = (TextView) findViewById(R.id.info_detail_title);
 		TextView tvLocation = (TextView) findViewById(R.id.info_detail_location);
+		
 		TextView tvTime = (TextView) findViewById(R.id.info_detail_time);
 		TextView tvContent = (TextView) findViewById(R.id.info_detail_content);
 
 		tvTitle.setText(mInfo.getTitle());
-		tvLocation.setText(mInfo.getCategory());
+		if(mInfo.getCategory().equals("社团通告")) {
+			tvLocation.setText(mInfo.getTitle());
+		} else {
+			tvLocation.setText(mInfo.getSource());
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			params.setMargins((int) 1.5, 15, 0, 0);
+			tvLocation.setLayoutParams(params);
+		}
 		tvTime.setText(DateParser.parseDateForInformation(mInfo.getCreatedAt()));
 		tvContent.setText(mInfo.getContext());
 	}

@@ -23,8 +23,9 @@
 	    
 	    <RelativeLayout 
 	        android:layout_width="match_parent"
-		    android:layout_height="65dp"
+		    android:layout_height="62dp"
 		    android:layout_below="@id/info_detail_title"
+		    android:paddingLeft="15dp"
 		    android:background="@color/info_detail_brief_bg_two">
 	        
 	        <ImageView 
@@ -32,7 +33,6 @@
 	            android:layout_width="35dp"
 	            android:layout_height="35dp"
 	            android:layout_alignParentLeft="true"
-	            android:layout_marginLeft="15dp"
 	            android:layout_marginTop="13dp"
 	            android:src="@drawable/ab_event_share"
 	            android:contentDescription="@string/img_content_description"/>
