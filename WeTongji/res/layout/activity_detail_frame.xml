@@ -21,6 +21,7 @@
                 android:id="@id/detail_back"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
+                android:paddingRight="0dp"
                 android:background="@drawable/selectable_background_wttheme"
                 android:clickable="true" >
 
@@ -39,11 +40,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/abs__action_bar_icon_vertical_padding"
-                    android:layout_marginRight="8dip"
+                    android:layout_marginRight="2dip"
                     android:layout_marginTop="@dimen/abs__action_bar_icon_vertical_padding"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/img_content_description"
-                    android:padding="6dp"
+                    android:paddingLeft="6dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="6dp"
+                    android:paddingRight="2dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/img_wt_logo" />
             </LinearLayout>
@@ -53,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_toRightOf="@id/detail_back"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="1dp"
                 android:gravity="center_vertical"
                 style="@style/TextAppearance.Sherlock.Widget.ActionBar.Title"
                 android:background="@drawable/selectable_background_wttheme"
