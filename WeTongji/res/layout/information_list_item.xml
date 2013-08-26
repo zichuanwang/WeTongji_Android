@@ -31,6 +31,8 @@
 		    android:layout_marginTop="8dp"
 		   	android:layout_marginRight="13.3dp"
 		    android:textIsSelectable="false"
+		    android:maxLines="2"
+		    android:ellipsize="end"
 		    style="@style/InformationListTitle"/>
 		
 		<TextView 
@@ -42,6 +44,8 @@
 		    android:layout_marginTop="8dp"
 		    android:paddingBottom="8.3dp"
 		    android:textIsSelectable="false"
+		    android:singleLine="true"
+		    android:ellipsize="end"
 		    style="@style/InformationListDescription"/>
 		
 	</RelativeLayout>
