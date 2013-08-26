@@ -331,10 +331,10 @@ public class ApiHelper {
 			sbChannelId.append("2 ");
 		}
 		if((channelIdsMask & API_ARGS_CHANNEL_EMPLOYMENT_MASK) != 0) {
-			sbChannelId.append("3 ");
+			sbChannelId.append("4 ");
 		}
 		if((channelIdsMask & API_ARGS_CHANNEL_ENTERTAINMENT_MASK) != 0) {
-			sbChannelId.append("4 ");
+			sbChannelId.append("3 ");
 		}
 		if(channelIdsMask != 0) {
 			bundle.putString(API_ARGS_CHANNEL_IDS,

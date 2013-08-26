@@ -192,7 +192,12 @@ public class SearchFragment extends SherlockFragment implements
 			@Override
 			public boolean onMenuItemActionCollapse(MenuItem item) {
 				hideKeyboard();
-				((MainActivity) getActivity()).getSlidingMenu().toggle(true);
+				MainActivity mainActivity= (MainActivity) getActivity();
+				if (mainActivity.getSlidingMenu().isMenuShowing()) {
+					mainActivity.finish();
+				} else {
+					mainActivity.getSlidingMenu().toggle(true);
+				}
 				return false;
 			}
 		});
