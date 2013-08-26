@@ -131,7 +131,7 @@ public class InformationsFragment extends WTBaseFragment implements
 
 		setHasOptionsMenu(true);
 		getSherlockActivity().getSupportActionBar().setTitle(
-				R.string.search_type_information);
+				R.string.text_news);
 	}
 
 	@Override

@@ -216,8 +216,9 @@ OnScrollListener{
 		if(mStartMode != StartMode.LIKE) {
 			menu.clear();
 			inflater.inflate(R.menu.menu_people, menu);
-			getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
+		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSherlockActivity().getSupportActionBar().setTitle(R.string.text_people);
 	}
 
 	@Override
@@ -225,6 +226,9 @@ OnScrollListener{
 		switch (item.getItemId()) {
 		case R.id.menu_eventlist_reload:
 			refreshData();
+			break;
+		case android.R.id.home:
+			getActivity().finish();
 			break;
 		default:
 			return super.onOptionsItemSelected(item);

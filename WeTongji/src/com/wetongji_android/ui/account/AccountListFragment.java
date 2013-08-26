@@ -160,7 +160,7 @@ public class AccountListFragment extends WTBaseFragment implements
 		inflater.inflate(R.menu.menu_accountlist, menu);
 		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSherlockActivity().getSupportActionBar().setDisplayShowTitleEnabled(true);
-		getSherlockActivity().getSupportActionBar().setTitle("Accounts");
+		getSherlockActivity().getSupportActionBar().setTitle(R.string.type_org);
 	}
 
 	@Override
