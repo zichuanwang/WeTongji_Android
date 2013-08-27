@@ -390,7 +390,7 @@ public class InformationsFragment extends WTBaseFragment implements
 	}
 
 	private void openTypeDialog() {
-		final Dialog dialog = new Dialog(mActivity);
+		final Dialog dialog = new Dialog(mActivity, R.style.WTDialog);
 		dialog.setTitle(R.string.events_type_dialog_title);
 		dialog.setContentView(R.layout.dialog_news_type);
 		dialog.setCanceledOnTouchOutside(true);

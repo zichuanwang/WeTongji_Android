@@ -19,10 +19,9 @@
         	android:paddingBottom="8dp"
         	android:button="@null"
         	android:drawableRight="@drawable/btn_radio_holo_light"
-        	android:layout_marginRight="12dp"
-        	android:layout_marginLeft="8dp"
-        	style="@style/DialogTextStyle"
-        	/>
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp"
+        	style="@style/DialogTextStyle" />
         
         <View 
             android:layout_width="match_parent"
@@ -38,8 +37,8 @@
         	android:paddingBottom="8dp"
         	android:button="@null"
         	android:drawableRight="@drawable/btn_radio_holo_light"
-        	android:layout_marginRight="12dp"
-        	android:layout_marginLeft="8dp"
+        	android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp"
         	style="@style/DialogTextStyle"
         	/>
         
@@ -57,8 +56,8 @@
         	android:paddingBottom="8dp"
         	android:button="@null"
         	android:drawableRight="@drawable/btn_radio_holo_light"
-        	android:layout_marginRight="12dp"
-        	android:layout_marginLeft="8dp"
+        	android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp"
         	style="@style/DialogTextStyle"
         	/>
         
@@ -81,6 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_cancel"
+            android:textColor="#454545"
             android:textSize="12sp"/>
         
     </LinearLayout>
