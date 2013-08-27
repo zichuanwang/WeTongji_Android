@@ -95,7 +95,7 @@ public class TodayGridNewsAdapter extends TodayGridBaseAdapter<Information> {
 				holder.ivGridImage.setVisibility(View.VISIBLE);
 				AQuery aq = gridAq.recycle(convertView);
 				aq.id(holder.ivGridImage).image(info.getImages().get(0), true,
-						true, 300, 0, null, AQuery.FADE_IN_NETWORK, 1f);
+						true, 300, 0, null, AQuery.FADE_IN_NETWORK, 0f);
 
 				holder.ivGridImageMask.setVisibility(View.VISIBLE);
 

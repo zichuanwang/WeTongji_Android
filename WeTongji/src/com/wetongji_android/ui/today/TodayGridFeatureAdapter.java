@@ -94,7 +94,7 @@ public class TodayGridFeatureAdapter extends TodayGridBaseAdapter<Object> {
 				AQuery aq = gridAq.recycle(convertView);
 				String strImage = person.getImages().keySet().iterator().next();
 				aq.id(holder.ivGridImage).image(strImage,
-						true, true, 300, 0, null, AQuery.FADE_IN_NETWORK, 1f);
+						true, true, 300, 0, null, AQuery.FADE_IN_NETWORK, 0f);
 
 				holder.ivGridImageMask.setVisibility(View.VISIBLE);
 

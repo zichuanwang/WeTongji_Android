@@ -500,7 +500,7 @@ public class EventsFragment extends WTBaseFragment implements
 	};
 
 	private void openSortDialog() {
-		final Dialog dialog = new Dialog(getSherlockActivity());
+		final Dialog dialog = new Dialog(getSherlockActivity(), R.style.WTDialog);
 		dialog.setTitle(R.string.events_sort_dialog_title);
 		dialog.setContentView(R.layout.dialog_events_sort);
 		dialog.setCanceledOnTouchOutside(true);
@@ -550,7 +550,7 @@ public class EventsFragment extends WTBaseFragment implements
 	}
 
 	private void openTypeSelectDailog() {
-		final Dialog dialog = new Dialog(getSherlockActivity());
+		final Dialog dialog = new Dialog(getSherlockActivity(), R.style.WTDialog);
 		dialog.setTitle(R.string.events_type_dialog_title);
 		dialog.setContentView(R.layout.dialog_events_type);
 		dialog.setCanceledOnTouchOutside(true);

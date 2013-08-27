@@ -96,6 +96,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="5dp"
+                android:button="@null"
+                android:drawableLeft="@drawable/btn_check_holo_dark"
                 android:text="@string/menu_event_filter_expired" />
         </LinearLayout>
     </LinearLayout>
