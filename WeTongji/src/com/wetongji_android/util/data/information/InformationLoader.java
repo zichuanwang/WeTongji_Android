@@ -33,7 +33,6 @@ public class InformationLoader extends DbListLoader<Information, Integer>
 	@Override
 	public List<Information> loadInBackground() 
 	{
-		// TODO Auto-generated method stub
 		try 
 		{	
 			query = getInformationQuery(args);
@@ -47,7 +46,6 @@ public class InformationLoader extends DbListLoader<Information, Integer>
 			}
 		} catch (SQLException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

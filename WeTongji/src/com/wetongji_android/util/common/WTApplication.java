@@ -53,6 +53,7 @@ public class WTApplication extends Application
 	public static final int SEARCH_LOADER = 23;
 	public static final int NOTIFICCATOINS_SAVER = 31;
 	public static final int NOTIFICATIONS_LOADER = 13;
+	public static final int USER_PROFILE_SAVER = 32;
 	
 	// network loader IDs
 	public static final int NETWORK_LOADER_DEFAULT = 1;
