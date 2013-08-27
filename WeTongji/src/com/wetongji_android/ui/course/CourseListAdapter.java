@@ -11,9 +11,10 @@ import android.widget.TextView;
 
 import com.wetongji_android.R;
 import com.wetongji_android.data.Course;
+import com.wetongji_android.data.CourseInstance;
 import com.wetongji_android.ui.EndlessListAdapter;
 
-public class CourseListAdapter extends EndlessListAdapter<Course> {
+public class CourseListAdapter extends EndlessListAdapter<CourseInstance> {
 
 	private LayoutInflater mInflater;
 	private Context mContext;
@@ -33,7 +34,7 @@ public class CourseListAdapter extends EndlessListAdapter<Course> {
 	@Override
 	protected View doGetView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
-		Course course = getItem(position);
+		CourseInstance course = getItem(position);
 		
 		if (convertView == null) {
 			holder = new ViewHolder();
@@ -55,9 +56,9 @@ public class CourseListAdapter extends EndlessListAdapter<Course> {
 		} else {
 			holder.layoutCourseBg.setBackgroundResource(R.drawable.listview_selector_2);
 		}
-		holder.tvCourseTitle.setText(course.getTitle());
-		holder.tvTeacherName.setText(course.getTeacher());
+		holder.tvCourseTitle.setText("nohao");
+		holder.tvTeacherName.setText("wohao");
 		
-		return null;
+		return convertView;
 	}
 }

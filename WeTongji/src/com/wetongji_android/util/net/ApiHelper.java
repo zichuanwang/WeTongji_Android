@@ -568,12 +568,19 @@ public class ApiHelper {
 	}
 	
 	public Bundle getCourseByUser(String uid, int page) {
+		Calendar begin = DateParser.getWeekBegin(-1);
+		Calendar end = DateParser.getWeekEnd(-DateParser.WEEK_COUNT_13_14);
+		String b = DateParser.buildDateAndTime(begin);
+		String e = DateParser.buildDateAndTime(end);
+		Log.v("begin end", b + "" + e);
 		Bundle bundle = new Bundle();
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
-		bundle.putString(API_ARGS_USER_ID, uid);
-		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
-		bundle.putString(API_ARGS_METHOD, "CourseSections.Get.ByUser");
+		//bundle.putString(API_ARGS_USER_ID, uid);
+		//bundle.putString(API_ARGS_PAGE, String.valueOf(page));
+		bundle.putString(API_ARGS_METHOD, "Courses.Get.ByUser");
+		bundle.putString(API_ARGS_BEGIN, b);
+		bundle.putString(API_ARGS_END, e);
 		return bundle;
 	}
 	

@@ -5,6 +5,7 @@ import java.util.List;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
@@ -12,18 +13,18 @@ import android.widget.ListView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Course;
+import com.wetongji_android.data.CourseInstance;
 import com.wetongji_android.factory.CourseFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
+import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 public class CourseListActivity extends SherlockFragmentActivity 
 implements LoaderCallbacks<HttpRequestResult>, OnScrollListener{
-
-	public static final String BUNDLE_KEY_UID = "BUNDLE_KEY_UID";
 	
 	private ListView mLvCourses;
 	private CourseListAdapter mCourseAdapter;
@@ -34,7 +35,7 @@ implements LoaderCallbacks<HttpRequestResult>, OnScrollListener{
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		mUID = getIntent().getStringExtra(BUNDLE_KEY_UID);
+		mUID = getIntent().getStringExtra(WTBaseFragment.BUNDLE_KEY_UID);
 		setContentView(R.layout.activity_course_list);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -54,14 +55,17 @@ implements LoaderCallbacks<HttpRequestResult>, OnScrollListener{
 			HttpRequestResult result) {
 		if (result.getResponseCode() == 0) {
 			CourseFactory courseFactory = new CourseFactory();
-			List<Course> lstCourse = courseFactory.parseObjects(result
+			List<CourseInstance> lstCourse = courseFactory.parseCoursesForUser(result
 					.getStrResponseCon());
+			Log.v("course size", "" + lstCourse.size());
 			if (mIsRefresh) {
+				Log.v("clear", "clear");
 				mCurrentPage = 0;
 				mCourseAdapter.clear();
 			}
 			mCurrentPage ++;
 			mCourseAdapter.addAll(lstCourse);
+			mCourseAdapter.setIsLoadingData(false);
 		} else {
 			ExceptionToast.show(this, result.getResponseCode());
 		}

@@ -1,13 +1,8 @@
 package com.wetongji_android.ui.account;
 
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager.LoaderCallbacks;
-import android.support.v4.content.Loader;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,9 +18,7 @@ import com.wetongji_android.data.Account;
 import com.wetongji_android.ui.EndlessListAdapter;
 import com.wetongji_android.util.common.WTApplication;
 
-public class AccountListAdapter extends EndlessListAdapter<Account> implements
-		LoaderCallbacks<List<Account>> 
-{	
+public class AccountListAdapter extends EndlessListAdapter<Account> {	
 	private static final float LIST_THUMBNAILS_TARGET_WIDTH_FACTOR = 3;
 	private static int LIST_THUMBNAILS_TARGET_WIDTH = 300;
 	
@@ -61,21 +54,6 @@ public class AccountListAdapter extends EndlessListAdapter<Account> implements
 		if(dm.widthPixels <= 1080) {
 			LIST_THUMBNAILS_TARGET_WIDTH = (int)(dm.widthPixels / LIST_THUMBNAILS_TARGET_WIDTH_FACTOR);
 		}
-	}
-	
-	@Override
-	public Loader<List<Account>> onCreateLoader(int arg0, Bundle arg1) {
-		return null;
-	}
-
-	@Override
-	public void onLoadFinished(Loader<List<Account>> arg0, List<Account> arg1) {
-		
-	}
-
-	@Override
-	public void onLoaderReset(Loader<List<Account>> arg0) {
-		
 	}
 
 	@Override
