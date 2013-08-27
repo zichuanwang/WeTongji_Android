@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView.ScaleType;
 
 import com.androidquery.AQuery;
 import com.wetongji_android.R;
@@ -100,7 +101,7 @@ public class TodayGridEventAdapter extends TodayGridBaseAdapter<Activity> {
 				AQuery aq = gridAq.recycle(convertView);
 				aq.id(holder.ivGridImage).image(
 						activity.getImage(), true, true,
-						300, 0, null, AQuery.FADE_IN_NETWORK, 1f);
+						300, 0, null, AQuery.FADE_IN_NETWORK, 0f);
 
 				holder.ivGridImageMask.setVisibility(View.VISIBLE);
 
