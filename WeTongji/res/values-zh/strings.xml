@@ -235,7 +235,7 @@
 	<string name="password_error4">请确认密码</string>
 	<string name="update_password_success">密码修改成功</string>
 	<string name="password_syntax_wrong">密码格式错误</string>
-	<string name="wetongji_version_number">WeTongji </string>
+	<string name="wetongji_version_number">微同济 </string>
 	<string name="wetongji_all_rights">Copyright © 2012&#8211;2013 WeTongji.All Rights Reserved.</string>
 	<string name="toast_no_market">抱歉，你的手机上未发现应用市场</string>
 	<string name="share_wetongji">我正在使用 @WeTongji 。快去官网下载吧~ http://we.tongji.edu.cn</string>
@@ -264,4 +264,8 @@
 	<string name="action_audit">旁听</string>
 	<string name="action_attended">参加</string>
 	<string name="action_registered">必修</string>
+	
+    <string name="dialog_title_regitster_success">注册成功</string>
+    <string name="dialog_msg_need_to_active">在你可以成功登录之前你需要登录mail.tongji.edu.cn点击微同济发送给你的激活链接 </string>
+    <string name="msg_progress_registering">注册中……</string>
 </resources>
