@@ -151,6 +151,9 @@
     <item type="id" name="ll_friend_detail_part_events">false</item>
     <item type="id" name="tv_detail_friend_part_events">false</item>
     <item type="id" name="tv_detail_friend_part_events_num">false</item>
+    <item type="id" name="ll_friend_detail_part_course">false</item>
+    <item type="id" name="tv_detail_friend_part_courses">false</item>
+    <item type="id" name="tv_detail_friend_part_courses_num">false</item>
     <item type="id" name="ll_friend_detail_major">false</item>
     <item type="id" name="tv_friend_detail_major_title">false</item>
     <item type="id" name="tv_friend_detail_major">false</item>
@@ -295,4 +298,17 @@
     
     <item name="menu_accountlist_reload" type="id">false</item>
     <item type="id" name="now_return_now_button"/>
+    
+    <!-- Course Detail Part -->
+    <item name="course_detail_time_rl" type="id">false</item>
+    <item name="course_detail_type_rl" type="id">false</item>
+    <item name="course_detail_location_rl" type="id">false</item>
+    <item name="course_detail_time_title" type="id">false</item>
+    <item name="course_detail_type_title" type="id">false</item>
+    <item name="course_detail_location_title" type="id">false</item>
+    <item name="course_detail_time" type="id">false</item>
+    <item name="course_detail_type" type="id">false</item>
+    <item name="course_detail_location" type="id">false</item>
+    <item name="course_detail_total" type="id">false</item>
+    <item name="course_detail_time_label" type="id">false</item>
 </resources>

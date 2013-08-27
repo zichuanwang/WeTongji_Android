@@ -548,7 +548,6 @@ public class ApiHelper {
 		if(this.uid != uid) {
 			bundle.putString(API_ARGS_USER_ID, uid);
 		}
-		//bundle.putString(API_ARGS_USER_ID, uid);
 		bundle.remove(API_ARGS_METHOD);
 		bundle.putString(API_ARGS_METHOD, "Activities.Get.ByUser");
 		return bundle;
@@ -568,19 +567,18 @@ public class ApiHelper {
 	}
 	
 	public Bundle getCourseByUser(String uid, int page) {
-		Calendar begin = DateParser.getWeekBegin(-1);
-		Calendar end = DateParser.getWeekEnd(-DateParser.WEEK_COUNT_13_14);
-		String b = DateParser.buildDateAndTime(begin);
-		String e = DateParser.buildDateAndTime(end);
-		Log.v("begin end", b + "" + e);
+		String begin = DateParser.buildCourseBegin();
+		String end = DateParser.buildCourseEnd();
+		Log.v("begin end", begin + "" + end);
 		Bundle bundle = new Bundle();
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
-		//bundle.putString(API_ARGS_USER_ID, uid);
-		//bundle.putString(API_ARGS_PAGE, String.valueOf(page));
+		if(this.uid != uid) {
+			bundle.putString(API_ARGS_USER_ID, uid);
+		}
 		bundle.putString(API_ARGS_METHOD, "Courses.Get.ByUser");
-		bundle.putString(API_ARGS_BEGIN, b);
-		bundle.putString(API_ARGS_END, e);
+		bundle.putString(API_ARGS_BEGIN, begin);
+		bundle.putString(API_ARGS_END, end);
 		return bundle;
 	}
 	
