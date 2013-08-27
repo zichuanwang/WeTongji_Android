@@ -98,7 +98,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="channel_sort_publish_time_reverse_order">Publish Time Reverse</string>
     <string name="channel_sort_like">Like Reverse</string>
     <string name="channel_sort_publish_time_order">Publish Time</string>
-    <string name="share_from_we">"（分享自 @WeTongji）http://we.tongji.edu.cn/"</string>
+    <string name="share_from_we">"（share from @WeTongji）http://we.tongji.edu.cn/"</string>
     <string name="test_share">Share</string>
     <string name="profile_info">INFO</string>
     <string name="profile_personal_info">PERSONAL INFO</string>
@@ -131,7 +131,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="people_vol">Vol.%d</string>
     <string name="notification_title">Notifications</string>
     <string name="text_people_detail_title">TITLE</string>
-    <string name="share_person">【每周人物第%d期】</string>
+    <string name="share_person">(WeTongji Stars NO.%d)</string>
     <string name="no_account_error">Login in Please</string>
     <string name="no_friends_error">No Friends Attend</string>
     <string name="hint_search_in_wetongji">Search in WeTongji</string>
@@ -202,11 +202,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="events_sort_dialog_title">Sort by</string>
     <string name="events_type_dialog_title">Select types</string> 
     <string name="text_confirm">Confirm</string>   
-    <string-array name="events_sort_types">
-        <item >Publish Time</item>
-        <item >Popularity</item>
-        <item >Activity start date</item>
-    </string-array>
     <string name="profile_no_attend_events">You have no participated Activities</string>
     <string name="profile_no_attend_courses">You have no participated Courses</string>
 	<string name="profile_no_like_events">You have no liked events</string>
@@ -286,4 +281,8 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="now_summer_vacation">Summer Vacation</string>
 	<string name="now_winter_vacation">Winter Vacation</string>
 	<string name="title_change_pwd">Change Password</string>
+	
+	<string name="action_audit">AUDIT</string>
+	<string name="action_attended">ATTENDED</string>
+	<string name="action_registered">REGISTERED</string>
 </resources>

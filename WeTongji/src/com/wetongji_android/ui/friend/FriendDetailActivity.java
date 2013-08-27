@@ -86,8 +86,8 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		tvFriendWords = (TextView) findViewById(R.id.text_profile_words);
 		tvFriendWords.setText(mUser.getWords());
 		tvFriendDepartment = (TextView) findViewById(R.id.text_profile_gender);
-		int gendarRid = mUser.getGender().equals("男") ? R.drawable.ic_profile_gender_male
-				: R.drawable.ic_profile_gender_female;
+		int gendarRid = mUser.getGender().equals("男") ? R.drawable.ic_gender_male
+				: R.drawable.ic_gender_female;
 		Drawable gendarDrawable = getResources().getDrawable(gendarRid);
 		tvFriendDepartment.setCompoundDrawablesWithIntrinsicBounds(
 				gendarDrawable, null, null, null);
@@ -240,7 +240,8 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		        Intent emailIntent = new Intent(Intent.ACTION_SENDTO, emailUri);                                   
 		        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "WeTongji Android Feedbacks");
 		        try {
-		        	startActivity(emailIntent);
+		        	startActivity(Intent.createChooser(emailIntent, 
+							getString(R.string.title_choose_app_send_email)));
 		        } catch (ActivityNotFoundException e) {
 		        	Toast.makeText(FriendDetailActivity.this, R.string.toast_no_email_app, Toast.LENGTH_LONG).show();
 		        }

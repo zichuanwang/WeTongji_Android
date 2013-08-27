@@ -178,12 +178,12 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		mTextView = (TextView)findViewById(R.id.activity_detail_bottom_text);
 		if(modelType.equals("Course") && bSchedule)
 		{
-			mTextView.setText("AUDIT");
+			mTextView.setText(R.string.action_audit);
 		}else if(modelType.equals("Activity") && !bSchedule){
-			mTextView.setText("ATTENDED");
+			mTextView.setText(R.string.action_attended);
 			mTextView.setTextColor(getResources().getColor(R.color.tv_event_detail_location));
 		}else if(modelType.equals("Course") && !bSchedule){
-			mTextView.setText("REGISTERED");
+			mTextView.setText(R.string.action_registered);
 		}
 		mIvSchedule = (ImageView)findViewById(R.id.tv_event_detail_schedule);
 		if(!bSchedule){
@@ -209,9 +209,9 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	private void updateBottomActionBar(){
 		if(!bSchedule) {
 			if(modelType.equals("Course")){
-				mTextView.setText("REGISTERED");
+				mTextView.setText(R.string.action_registered);
 			}else{
-				mTextView.setText("ATTENDED");
+				mTextView.setText(R.string.action_attended);
 			}
 			mTextView.setTextColor(getResources().getColor(R.color.tv_event_detail_location));
 			mIvSchedule.setBackgroundDrawable(getResources().getDrawable(R.drawable.img_event_detail_attended));
@@ -220,7 +220,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 			mLayoutInvite.setOnClickListener(new BottomABClickListener());
 			mTvInvite.setTextColor(getResources().getColor(android.R.color.white));
 		} else {
-			mTextView.setText("ATTEND");
+			mTextView.setText(R.string.action_attended);
 			mTextView.setTextColor(getResources().getColor(android.R.color.white));
 			mIvSchedule.setBackgroundDrawable(getResources().getDrawable(R.drawable.img_event_detail_attend));
 			mLayoutAttend.setOnClickListener(new BottomABClickListener());

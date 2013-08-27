@@ -107,8 +107,13 @@ public class TodayBannerPagerAdapter extends PagerAdapter {
 					intent.putExtras(bundle);
 				}
 			} else {
+				String url = banner.getURL();
+				if (!url.contains("http")) {
+					StringBuilder sb = new StringBuilder("http://");
+					url = sb.append(url).toString();
+				}
 				intent = new Intent(Intent.ACTION_VIEW);  
-				intent.setData(Uri.parse(banner.getURL()));  
+				intent.setData(Uri.parse(url));  
 			}
 			
 			try {
