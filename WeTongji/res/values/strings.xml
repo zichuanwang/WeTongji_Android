@@ -143,13 +143,18 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="search_type_stars">stars</string>
     <string name="search_type_information">Information</string>
     <string name="search_history_clear">Clear History</string>
-    <string name="friend_activity_name">Users</string>
+    <string name="friend_activity_name">Friends</string>
     <string name="friend_detail_part_events">Participated Activities</string>
     <string name="friend_detail_about">About</string>
     <string name="friend_detail_major">Major</string>
     <string name="friend_detail_grade">Grade</string>
     <string name="friend_detail_email">Email</string>
     <string name="friend_detail_phone">Phone</string>
+    <string name="friend_detail_birth">Birthday</string>
+    <string name="friend_detail_student">Student NO</string>
+    <string name="friend_detail_sina">Sina Weibo</string>
+    <string name="friend_detail_qq">QQ</string>
+    <string name="friend_detail_dorm">Dorm</string>
     <string name="search_tip_all">Search all</string>
     <string name="search_tip_users">Search users for </string>
     <string name="search_tip_org">Search organizations for </string>
@@ -287,5 +292,5 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="now_time_semester12_13">12&#8211;13 </string>
 	<string name="now_time_semester13_14">13&#8211;14 </string>
 	
-	<string name="notification_want2b_friend">want to be your friend</string>
+	<string name="wants_to_add_friend">wants to add you as friend</string>
 </resources>

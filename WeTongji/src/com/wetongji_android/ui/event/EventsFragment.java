@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,6 +43,7 @@ import com.wetongji_android.util.data.QueryHelper;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
+import com.wetongji_android.util.net.HttpUtil;
 
 public class EventsFragment extends WTBaseFragment implements
 		LoaderCallbacks<HttpRequestResult>, OnScrollListener {
@@ -228,7 +228,6 @@ public class EventsFragment extends WTBaseFragment implements
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> arg0,
 			HttpRequestResult result) {
-		Log.v("loader finish", "finsh");
 		if (result.getResponseCode() == 0) {
 			if (mFactory == null) {
 				mFactory = new ActivityFactory(this);
@@ -276,7 +275,6 @@ public class EventsFragment extends WTBaseFragment implements
 	};
 
 	public void refreshData() {
-		Log.v("refresh", "data");
 		isRefresh = true;
 
 		mAdapter.clear();
@@ -314,11 +312,18 @@ public class EventsFragment extends WTBaseFragment implements
 	private void loadDataLiked(int page) {
 		isRefresh = false;
 		mAdapter.setIsLoadingData(true);
-		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle args = apiHelper.getLikedObjectsListWithModelType(page,
-				"Activity");
-		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT,
-				args, this);
+		
+		if(HttpUtil.isConnected(getActivity())) {
+			ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+			Bundle args = apiHelper.getLikedObjectsListWithModelType(page,
+					"Activity");
+			getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT,
+					args, this);
+		} else {
+			mAdapter.setIsLoadingData(false);
+			Toast.makeText(getActivity(), getResources().getString(R.string.text_error_check_network), 
+					Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	private void loadDataByAccount(int page) {
@@ -437,14 +442,12 @@ public class EventsFragment extends WTBaseFragment implements
 	 * descending, the expire is true and also we select all the type
 	 */
 	private void readPreference() {
-		Log.v("read", "preference");
 		SharedPreferences sp = getActivity().getSharedPreferences(
 				SHARE_PREFERENCE_EVENT, Context.MODE_PRIVATE);
 		mFilterExpired = sp.getBoolean(PREFERENCE_EVENT_EXPIRE, false);
 		mSortType = sp.getInt(PREFERENCE_EVENT_SORT,
 				ApiHelper.API_ARGS_SORT_BY_PUBLISH_DESC);
 		mSelectedType = sp.getInt(PREFERENCE_EVENT_TYPE, 15);
-		Log.v("query", "" + mSelectedType);
 	}
 
 	private void writePreference() {
@@ -464,15 +467,12 @@ public class EventsFragment extends WTBaseFragment implements
 		if (mSortType == ApiHelper.API_ARGS_SORT_BY_PUBLISH_DESC) {
 			orderBy = QueryHelper.ARGS_ORDER_BY_PUBLISH_TIME;
 			assending = false;
-			Log.v("query", "by publish descend");
 		} else if (mSortType == ApiHelper.API_ARGS_SORT_BY_LIKE_DESC) {
 			orderBy = QueryHelper.ARGS_ORDER_BY_LIKE;
 			assending = false;
-			Log.v("query", "by like descend");
 		} else if (mSortType == ApiHelper.API_ARGS_SORT_BY_PUBLISH_ASC) {
 			orderBy = QueryHelper.ARGS_ORDER_BY_PUBLISH_TIME;
 			assending = true;
-			Log.v("query", "by publish asc");
 		}
 
 		boolean hasCH1 = (mSelectedType & ApiHelper.API_ARGS_CHANNEL_ACADEMIC_MASK) != 0;
@@ -480,7 +480,6 @@ public class EventsFragment extends WTBaseFragment implements
 		boolean hasCH3 = (mSelectedType & ApiHelper.API_ARGS_CHANNEL_ENTERTAINMENT_MASK) != 0;
 		boolean hasCH4 = (mSelectedType & ApiHelper.API_ARGS_CHANNEL_EMPLOYMENT_MASK) != 0;
 
-		Log.v("query", "" + mFilterExpired);
 		Bundle b = QueryHelper.getActivitiesQueryArgs(orderBy, assending,
 				!mFilterExpired, hasCH1, hasCH2, hasCH3, hasCH4);
 		return b;
@@ -490,7 +489,6 @@ public class EventsFragment extends WTBaseFragment implements
 		@Override
 		public void onClick(View view) {
 			if (view.getId() == R.id.btn_event_detail_invite) {
-				Log.v("click", "click");
 				openSortDialog();
 			} else if (view.getId() == R.id.btn_event_detail_friends) {
 				openTypeSelectDailog();

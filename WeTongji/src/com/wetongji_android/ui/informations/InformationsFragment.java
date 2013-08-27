@@ -23,6 +23,7 @@ import com.wetongji_android.util.data.information.InformationUtil;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
+import com.wetongji_android.util.net.HttpUtil;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -231,11 +232,18 @@ public class InformationsFragment extends WTBaseFragment implements
 	private void loadDataLiked(int page) {
 		mAdapter.setLoadingData(true);
 		mAdapter.notifyMayHaveMorePages();
-		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
-		Bundle args = apiHelper.getLikedObjectsListWithModelType(page,
-				"Information");
-		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT,
-				args, this);
+		
+		if(HttpUtil.isConnected(mActivity)) {
+			ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
+			Bundle args = apiHelper.getLikedObjectsListWithModelType(page,
+					"Information");
+			getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_DEFAULT,
+					args, this);
+		} else {
+			mAdapter.setLoadingData(false);
+			Toast.makeText(mActivity, getResources().getString(R.string.text_error_check_network), 
+					Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	private void loadDataByAccount(int page) {

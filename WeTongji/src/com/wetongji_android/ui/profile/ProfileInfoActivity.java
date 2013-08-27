@@ -105,6 +105,7 @@ implements OnClickListener{
 			intent.putExtra(ProfileFragment.BUNDLE_MOTTO, mUser.getWords());
 			setResult(RESULT_OK, intent);
 			finish();
+			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
 			break;
 		}
 		case R.id.action_profile_edit: {
@@ -129,6 +130,7 @@ implements OnClickListener{
 			intent.putExtra(ProfileFragment.BUNDLE_MOTTO, mUser.getWords());
 			setResult(RESULT_OK, intent);
 			finish();
+			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
 			return true;
 		}
 		return super.onKeyUp(keyCode, event);
