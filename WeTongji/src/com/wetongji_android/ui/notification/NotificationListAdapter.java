@@ -174,7 +174,7 @@ public class NotificationListAdapter extends BaseAdapter implements
 		String title = notification.getTitle();
 		String from = notification.getFrom();
 		if(notification.getType() == 2) {
-			title = from + "想加你为好友";
+			title = from + mContext.getString(R.string.notification_want2b_friend);
 		}
 		SpannableString spanStr = new SpannableString(title);
 		spanStr.setSpan(new TextAppearanceSpan(mContext,
