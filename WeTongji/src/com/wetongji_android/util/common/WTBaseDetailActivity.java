@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.androidquery.AQuery;
+import com.flurry.android.FlurryAgent;
 import com.wetongji_android.R;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -78,6 +79,18 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 		super.onCreate(savedInstanceState);
 		this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		aq = WTApplication.getInstance().getAq(this);
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		FlurryAgent.onStartSession(this, WTApplication.FLURRY_API_KEY);
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		FlurryAgent.onEndSession(this);
 	}
 	
 	@Override

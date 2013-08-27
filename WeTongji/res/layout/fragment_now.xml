@@ -42,25 +42,25 @@
 	            android:textStyle="bold"/>
 	        
 	        <TextView 
-	            android:id="@+id/tv_now_week"
+	            android:id="@+id/tv_now_week_number"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_toRightOf="@+id/tv_now_time"
 	            android:layout_alignBaseline="@+id/tv_now_time"
 	            android:textIsSelectable="false"
+	            android:textColor="@color/tv_text_week_number"
+	            android:textSize="14sp"/>
+	        
+	         <TextView 
+	            android:id="@+id/tv_now_week"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_toRightOf="@+id/tv_now_week_number"
+	            android:layout_alignBaseline="@+id/tv_now_time"
+	            android:textIsSelectable="false"
 	            android:textColor="@color/tv_text_week"
 	            android:textSize="14sp"
 	            android:text="@string/text_week"/>
-	        
-	        <TextView 
-	            android:id="@+id/tv_now_week_number"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_toRightOf="@+id/tv_now_week"
-	            android:layout_alignBaseline="@+id/tv_now_time"
-	            android:textIsSelectable="false"
-	            android:textColor="@color/tv_text_week_number"
-	            android:textSize="14sp"/>
         
         </RelativeLayout>
         

@@ -122,12 +122,13 @@ public class RegisterFragment extends Fragment implements OnClickListener,
 		Bundle args = ApiHelper.getInstance(getActivity()).getUserActive(no,
 				password, name);
 		getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT,
-				args, this);
+				args, this).forceLoad();
 
 		if (progressDialog == null) {
 			progressDialog = new ProgressDialog(getActivity());
 			progressDialog
 					.setMessage(getString(R.string.msg_progress_registering));
+			progressDialog.show();
 		} else {
 			progressDialog.show();
 		}
@@ -166,6 +167,7 @@ public class RegisterFragment extends Fragment implements OnClickListener,
 		} else {
 			ExceptionToast.show(getActivity(), result.getResponseCode());
 		}
+		getLoaderManager().destroyLoader(arg0.getId());
 	}
 
 	@Override
