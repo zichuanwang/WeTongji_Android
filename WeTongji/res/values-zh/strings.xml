@@ -12,7 +12,7 @@
     <string name="title_mainmenu_today">今日</string>
     <string name="title_mainmenu_news">资讯</string>
     <string name="title_mainmenu_events">活动</string>
-    <string name="title_mainmenu_now">当前</string>
+    <string name="title_mainmenu_now">Now</string>
     <string name="title_mainmenu_search">搜索</string>
     <string name="title_mainmenu_billboard">Billboard</string>
     <string name="title_mainmenu_profile">个人</string>
@@ -44,14 +44,14 @@
     <string name="text_sign_up_log_in">注册/登录</string>
     <string name="content_description_all">Image</string>
     <string name="text_wt_slogan">校园尽在你手</string>
-    <string name="text_today_now">当前</string>
+    <string name="text_today_now">Now</string>
     <string name="text_today">今日</string>
     <string name="text_news">资讯</string>
     <string name="text_events">活动</string>
     <string name="text_features">推荐</string>
     <!-- imageview content description -->
     <string name="img_content_description">ImageView</string>
-    <string name="text_now_indicator">当前</string>
+    <string name="text_now_indicator">Now</string>
     <string name="text_friends_counter">%1$d 位好友 </string>
     <string name="text_tomorrow">明天</string>
     <string name="text_evnet_detail_organization">组织机构</string>
@@ -256,7 +256,7 @@
 	<string name="title_today">今日</string>
 	<string name="title_news">资讯</string>
 	<string name="title_activity">活动</string>
-	<string name="title_now">当前</string>
+	<string name="title_now">Now</string>
 	<string name="title_profile">个人</string>
 	<string name="course_required_error">这门课是必修课</string>
 	<string name="title_change_pwd">修改密码</string>
@@ -268,4 +268,7 @@
     <string name="dialog_title_regitster_success">注册成功</string>
     <string name="dialog_msg_need_to_active">在你可以成功登录之前你需要登录mail.tongji.edu.cn点击微同济发送给你的激活链接 </string>
     <string name="msg_progress_registering">注册中……</string>
+    
+    <string name="now_time_semester12_13">12&#8211;13 第</string>
+	<string name="now_time_semester13_14">13&#8211;14 第</string>
 </resources>
