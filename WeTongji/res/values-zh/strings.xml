@@ -123,7 +123,6 @@
     <string name="notification_title">通知</string>
     <string name="people_current_star">本期济人</string>
     <string name="people_vol">Vol.%d</string>
-    <string name="notification_title">通知</string>
     <string name="text_people_detail_title">标题</string>
     <string name="share_person">【每周人物第%d期】</string>
     <string name="no_account_error">请先登录</string>
@@ -175,9 +174,6 @@
     <string name="format_items">%d 个活动</string>
     <string name="account_contact">联系</string>
     <string name="my_basic_information">我的基本信息</string>
-    <string name="profile_section_phone">手机</string>
-    <string name="profile_section_motto">签名</string>
-    <string name="profile_section_email">邮箱</string>
     <string name="profile_section_qq">QQ</string>
     <string name="profile_section_weibo">新浪微博</string>
     <string name="profile_section_dorm">寝室</string>
@@ -185,7 +181,6 @@
     <string name="text_save_success">保存成功</string>
     <string name="title_activity_profile_info">我的资料</string>
     <string name="profile_basic_info">基本信息</string>
-    <string name="profile_personal_info">个人信息</string>
     <string name="profile_edit">编辑</string>
     <string name="title_choose_app_send_email">请选择发送方式 </string>
     <string name="msg_content_copied">内容已复制到剪贴板</string>
@@ -196,7 +191,7 @@
 	<string name="profile_no_like_information">你还没有喜欢过的资讯</string>
 	<string name="profile_no_like_people">你还没有喜欢过的用户</string>
 	<string name="profile_no_like_accounts">你还没有喜欢过的组织机构</string>
-	<string name="add_friend_request">添加好友请求以发送</string>
+	<string name="add_friend_request">添加好友请求已发送</string>
 	<string name="invite_request">邀请已发送</string>
 	<string name="remove_friend_request">移除好友成功</string>
 	<string name="no_results">没有结果</string>
@@ -272,4 +267,25 @@
     <string name="now_time_semester12_13">12&#8211;13 第</string>
 	<string name="now_time_semester13_14">13&#8211;14 第</string>
 	<string name="notification_want2b_friend">想添加你为好友</string>
+	
+	<string name="profile_section_persons">济人</string>
+	<string name="profile_section_new">资讯</string>
+	<string name="profile_section_user">用户</string>
+    <string name="no_friends_error">没有好友参加</string>
+    <string name="friend_detail_phone">手机</string>
+    <string name="type_courses">课程</string>
+    <string name="account_no_email_error">抱歉这个账号没有邮箱</string>
+    <string name="profile_no_attend_events">你没有参加过的活动</string>
+    <string name="profile_no_attend_courses">你没有参加过的课程</string>
+  	<string name="title_clearcache_progress_dialog">请稍等</string>
+  	<string name="msg_clearcache_progress_dialog">清除缓存&#8230;</string>
+	<string name="msg_progress_logout">清除用户信息&#8230;</string>
+	<string name="titile_terms_of_use">用户协议</string>
+	<string name="toast_no_email_app">抱歉，未找到邮件应用</string>
+	<string name="toast_no_msg_app">抱歉，未找到短信应用</string>
+	<string name="toast_no_phone_app">抱歉，未找到电话应用</string>
+	<string name="now_summer_vacation">暑假</string>
+	<string name="now_winter_vacation">寒假</string>
+	
+	
 </resources>

@@ -60,7 +60,6 @@
     <string name="text_evnet_detail_organization">ORGANIZATION</string>
     <string name="text_event_about">ABOUT</string>
     <string name="text_event_time_1">Time 1</string>
-    <string name="text_event_time_2">Time 2</string>
     <string name="text_week">WEEK</string>
     <string name="text_event_invite">INVITE</string>
     <string name="text_event_detail_friends">FRIENDS</string>
@@ -126,7 +125,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="save_image">Store into Picture Folder</string>
     <string name="image_stored_at">Picture was stored at </string>
     <string name="image_save_failed">Save Pictrue Failed</string>
-    <string name="notification_title">Notification</string>
     <string name="people_current_star">Current Star</string>
     <string name="people_vol">Vol.%d</string>
     <string name="notification_title">Notifications</string>
