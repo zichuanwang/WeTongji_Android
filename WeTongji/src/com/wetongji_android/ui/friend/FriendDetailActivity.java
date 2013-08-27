@@ -24,6 +24,7 @@ import com.wetongji_android.R;
 import com.wetongji_android.data.User;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.course.CourseListActivity;
 import com.wetongji_android.ui.event.EventsListActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
@@ -41,6 +42,8 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	private TextView tvFriendNum;
 	private RelativeLayout rlPartEvents;
 	private TextView tvEventsNum;
+	private RelativeLayout rlPartCourses;
+	private TextView tvCoursesNum;
 	private TextView tvMajor;
 	private TextView tvGrade;
 	private TextView tvEmail;
@@ -120,8 +123,14 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		rlPartEvents.setOnClickListener(new ClickListener());
 		tvEventsNum = (TextView) findViewById(R.id.tv_detail_friend_part_events_num);
 		sb.delete(0, sb.length());
-		sb.append(mUser.getScheduleCount().getActivity()).append(" Events");
+		sb.append(mUser.getScheduleCount().getActivity()).append(" Items");
 		tvEventsNum.setText(sb.toString());
+		rlPartCourses = (RelativeLayout) findViewById(R.id.ll_friend_detail_part_course);
+		rlPartCourses.setOnClickListener(new ClickListener());
+		tvCoursesNum = (TextView) findViewById(R.id.tv_detail_friend_part_courses_num);
+		sb.delete(0, sb.length());
+		sb.append(mUser.getScheduleCount().getCourse()).append(" Courses");
+		tvCoursesNum.setText(sb.toString());
 		tvMajor = (TextView) findViewById(R.id.tv_friend_detail_major);
 		tvMajor.setText(mUser.getMajor());
 		tvGrade = (TextView) findViewById(R.id.tv_friend_detail_grade);
@@ -260,6 +269,19 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 					startActivity(phoneIntent);
 				} catch (ActivityNotFoundException e) {
 					Toast.makeText(FriendDetailActivity.this, R.string.toast_no_email_app, Toast.LENGTH_LONG).show();
+				}
+			} else if(v.getId() == R.id.ll_friend_detail_part_course) {
+				if(mUser.getScheduleCount().getCourse() == 0) {
+					Toast.makeText(FriendDetailActivity.this, getResources().getString(R.string.profile_no_attend_events), 
+							Toast.LENGTH_SHORT).show();
+				} else {
+					Intent intent = new  Intent(FriendDetailActivity.this, CourseListActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(WTBaseFragment.BUNDLE_KEY_UID, mUser.getUID());
+					intent.putExtras(bundle);
+					startActivity(intent);
+					overridePendingTransition(R.anim.slide_right_in,
+							R.anim.slide_left_out);
 				}
 			}
 		}

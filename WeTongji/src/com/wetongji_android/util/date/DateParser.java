@@ -10,7 +10,6 @@ import com.wetongji_android.R;
 
 import android.content.Context;
 import android.text.format.DateUtils;
-import android.util.Log;
 
 /**
  * 解析日期的工具类
@@ -20,12 +19,16 @@ import android.util.Log;
 public class DateParser {
 	
 	// hard code the start time and week count of 2013-2014 semester
+	public static final String TIME_11_12_START = "2012-02-20T00:00:00+08:00";
+	public static final int WEEK_COUNT_11_12 = 19;
+	
 	public static final String TIME_13_14_START = "2013-09-09T00:00:00+08:00";
 	public static final int WEEK_COUNT_13_14 = 19;
 	
 	public static final String TIME_12_13_START = "2013-02-25T00:00:00+08:00";
 	public static final int WEEK_COUNT_12_13 = 19;
 	
+	public static final String TIME_2012_SUMMER_START = "2012-07-01T00:00:00+08:00";
 	public static final String TIME_2013_SUMMER_START = "2013-07-08T00:00:00+08:00";
 	public static final String TIME_2013_SUMMER_END = "2013-09-08T23:59:59+08:00";
 	
@@ -146,9 +149,7 @@ public class DateParser {
 		String timeEnd = DateUtils.formatDateTime(context, calEnd.getTimeInMillis(),
 				DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_SHOW_TIME|DateUtils.FORMAT_24HOUR);
 	
-		Log.v("end time", timeEnd);
 		int location = timeEnd.lastIndexOf(" ");
-		Log.v("location", "" + location);
 		timeEnd = timeEnd.substring(location + 1, timeEnd.length());
 		StringBuilder sb = new StringBuilder(timeBegin);
 		sb.append(" - ").append(timeEnd);
@@ -271,5 +272,77 @@ public class DateParser {
         }
         cal.setTime(date);
 		return cal;
+	}
+	
+	public static String buildCourseBegin() {
+		Calendar calendar = Calendar.getInstance();
+		Calendar calStartOne = Calendar.getInstance();
+		Calendar calEndOne = Calendar.getInstance();
+		Calendar calStartTwo = Calendar.getInstance();
+		Calendar calEndTwo = Calendar.getInstance();
+		Date date = new Date();
+		
+		try {
+			date = serverSourse.parse(TIME_12_13_START);
+			calStartOne.setTime(date);
+			date.setTime(date.getTime() + WEEK_COUNT_12_13 * MILLIS_WEEK);
+			calEndOne.setTime(date);
+			date = serverSourse.parse(TIME_13_14_START);
+			calStartTwo.setTime(date);
+			date = serverSourse.parse(TIME_13_14_START);
+    		date.setTime(date.getTime() + WEEK_COUNT_13_14 * MILLIS_WEEK);
+    		calEndTwo.setTime(date);
+    		
+    		if(calendar.after(calStartOne) && calendar.before(calEndOne)) {
+    			return buildDateAndTime(calStartOne);
+    		} else if(calendar.after(calStartTwo) && calendar.before(calEndTwo)) {
+    			return buildDateAndTime(calStartTwo);
+    		} else if(calendar.after(calEndOne) && calendar.before(calStartTwo)) {
+    			date = serverSourse.parse(TIME_2013_SUMMER_START);
+    			calendar.setTime(date);
+    			return buildDateAndTime(calStartTwo);
+    		}
+    		
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public static String buildCourseEnd() {
+		Calendar calendar = Calendar.getInstance();
+		Calendar calStartOne = Calendar.getInstance();
+		Calendar calEndOne = Calendar.getInstance();
+		Calendar calStartTwo = Calendar.getInstance();
+		Calendar calEndTwo = Calendar.getInstance();
+		Date date = new Date();
+		
+		try {
+			date = serverSourse.parse(TIME_12_13_START);
+			calStartOne.setTime(date);
+			date.setTime(date.getTime() + WEEK_COUNT_12_13 * MILLIS_WEEK);
+			calEndOne.setTime(date);
+			date = serverSourse.parse(TIME_13_14_START);
+			calStartTwo.setTime(date);
+			date = serverSourse.parse(TIME_13_14_START);
+    		date.setTime(date.getTime() + WEEK_COUNT_13_14 * MILLIS_WEEK);
+    		calEndTwo.setTime(date);
+    		
+    		if(calendar.after(calStartOne) && calendar.before(calEndOne)) {
+    			return buildDateAndTime(calEndOne);
+    		} else if(calendar.after(calStartTwo) && calendar.before(calEndTwo)) {
+    			return buildDateAndTime(calEndTwo);
+    		} else if(calendar.after(calEndOne) && calendar.before(calStartTwo)) {
+    			date = serverSourse.parse(TIME_2013_SUMMER_END);
+    			calendar.setTime(date);
+    			return buildDateAndTime(calStartTwo);
+    		}
+    		
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 }

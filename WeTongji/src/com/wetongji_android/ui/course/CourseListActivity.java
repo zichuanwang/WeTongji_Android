@@ -2,18 +2,23 @@ package com.wetongji_android.ui.course;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Course;
-import com.wetongji_android.data.CourseInstance;
 import com.wetongji_android.factory.CourseFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -39,8 +44,22 @@ implements LoaderCallbacks<HttpRequestResult>, OnScrollListener{
 		setContentView(R.layout.activity_course_list);
 		
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getSupportActionBar().setTitle(R.string.profile_section_participated_course);
 		mLvCourses = (ListView) findViewById(R.id.lv_my_courses);
 		mCourseAdapter = new CourseListAdapter(this, mLvCourses);
+		mLvCourses.setAdapter(mCourseAdapter);
+		mLvCourses.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Course course = mCourseAdapter.getItem(arg2);
+				Bundle bundle = new Bundle();
+				Intent intent = new Intent(CourseListActivity.this, CourseDetailActivity.class);
+				bundle.putParcelable(CourseDetailActivity.BUNDLE_COURSE, course);
+				intent.putExtras(bundle);
+				startActivity(intent);
+			}
+		});
 		
 		loadMoreData(1);
 	}
@@ -53,13 +72,13 @@ implements LoaderCallbacks<HttpRequestResult>, OnScrollListener{
 	@Override
 	public void onLoadFinished(Loader<HttpRequestResult> loader,
 			HttpRequestResult result) {
+		getSupportLoaderManager().destroyLoader(WTApplication.NETWORK_LOADER_DEFAULT);
 		if (result.getResponseCode() == 0) {
 			CourseFactory courseFactory = new CourseFactory();
-			List<CourseInstance> lstCourse = courseFactory.parseCoursesForUser(result
+			List<Course> lstCourse = courseFactory.parseCoursesForUser(result
 					.getStrResponseCon());
 			Log.v("course size", "" + lstCourse.size());
 			if (mIsRefresh) {
-				Log.v("clear", "clear");
 				mCurrentPage = 0;
 				mCourseAdapter.clear();
 			}
@@ -93,5 +112,26 @@ implements LoaderCallbacks<HttpRequestResult>, OnScrollListener{
 		getSupportLoaderManager().restartLoader(
 				WTApplication.NETWORK_LOADER_DEFAULT, args, this);
 		
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()) {
+		case android.R.id.home:
+			finish();
+			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+		}
+		
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK) {
+			finish();
+			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+		}
+		
+		return super.onKeyDown(keyCode, event);
 	}
 }
