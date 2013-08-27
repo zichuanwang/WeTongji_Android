@@ -20,10 +20,9 @@
    
     <RelativeLayout 
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_marginBottom="5dp"
         android:layout_marginLeft="5dip"
         android:layout_marginRight="5.0dp"
         android:padding="1.5dip"
@@ -34,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-        	android:layout_marginTop="3dp"
+        	android:layout_marginTop="6dp"
             style="@style/EventLstTitle"
             />
         
@@ -53,6 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2.5dp"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
             style="@style/EventLstLocation"
             />
         
