@@ -144,6 +144,11 @@
     <string name="friend_detail_major">专业</string>
     <string name="friend_detail_grade">性别</string>
     <string name="friend_detail_email">邮箱</string>
+    <string name="friend_detail_birth">生日</string>
+    <string name="friend_detail_student">学号</string>
+    <string name="friend_detail_sina">微博</string>
+    <string name="friend_detail_qq">QQ</string>
+    <string name="friend_detail_dorm">宿舍</string>
     <string name="search_tip_all">搜索所有</string>
     <string name="search_tip_users">搜索用户 </string>
     <string name="search_tip_org">搜索组织机构 </string>

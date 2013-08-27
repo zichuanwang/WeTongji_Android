@@ -152,6 +152,11 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="friend_detail_grade">Grade</string>
     <string name="friend_detail_email">Email</string>
     <string name="friend_detail_phone">Phone</string>
+    <string name="friend_detail_birth">Birthday</string>
+    <string name="friend_detail_student">Student NO</string>
+    <string name="friend_detail_sina">Sina Weibo</string>
+    <string name="friend_detail_qq">QQ</string>
+    <string name="friend_detail_dorm">Dorm</string>
     <string name="search_tip_all">Search all</string>
     <string name="search_tip_users">Search users for </string>
     <string name="search_tip_org">Search organizations for </string>

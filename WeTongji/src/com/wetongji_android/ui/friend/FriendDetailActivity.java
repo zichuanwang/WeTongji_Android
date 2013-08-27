@@ -1,5 +1,9 @@
 package com.wetongji_android.ui.friend;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -29,6 +33,7 @@ import com.wetongji_android.ui.event.EventsListActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTBaseFragment;
+import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.image.ImageUtil;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
@@ -45,9 +50,13 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	private RelativeLayout rlPartCourses;
 	private TextView tvCoursesNum;
 	private TextView tvMajor;
-	private TextView tvGrade;
 	private TextView tvEmail;
 	private TextView tvPhone;
+	private TextView tvBirth;
+	private TextView tvStudent;
+	private TextView tvSina;
+	private TextView tvQQ;
+	private TextView tvDorm;
 	
 	private User mUser;
 	private AQuery mAq;
@@ -83,6 +92,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		setImagePath(avatar);
 	}
 
+	@SuppressLint("SimpleDateFormat")
 	private void initWidget() {
 		setTitle(mUser.getName());
 		mAq = WTApplication.getInstance().getAq(this);
@@ -133,12 +143,21 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		tvCoursesNum.setText(sb.toString());
 		tvMajor = (TextView) findViewById(R.id.tv_friend_detail_major);
 		tvMajor.setText(mUser.getMajor());
-		tvGrade = (TextView) findViewById(R.id.tv_friend_detail_grade);
-		tvGrade.setText(mUser.getYear());
 		tvEmail = (TextView) findViewById(R.id.tv_friend_detail_email);
 		tvEmail.setText(mUser.getEmail());
 		tvPhone = (TextView)findViewById(R.id.tv_friend_detail_phone);
 		tvPhone.setText(mUser.getPhone());
+		tvBirth = (TextView)findViewById(R.id.tv_friend_detail_birth);
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		tvBirth.setText(format.format(DateParser.parseDateAndTime(mUser.getBirthday())));
+		tvStudent = (TextView)findViewById(R.id.tv_friend_detail_student);
+		tvStudent.setText(mUser.getNO());
+		tvSina = (TextView)findViewById(R.id.tv_friend_detail_sina);
+		tvSina.setText(mUser.getSinaWeibo());
+		tvQQ = (TextView)findViewById(R.id.tv_friend_detail_qq);
+		tvQQ.setText(mUser.getQQ());
+		tvDorm = (TextView)findViewById(R.id.tv_friend_detail_dorm);
+		tvDorm.setText(mUser.getRoom());
 		ImageView ivEmail = (ImageView) findViewById(R.id.img_send_email);
 		ivEmail.setOnClickListener(new ClickListener());
 		ImageView ivMsg = (ImageView) findViewById(R.id.img_send_msg);

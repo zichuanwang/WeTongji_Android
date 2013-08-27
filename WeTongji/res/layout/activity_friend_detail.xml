@@ -179,7 +179,85 @@
             android:layout_marginLeft="11.3dp"
             android:layout_marginRight="11.3dp"
             android:background="@color/profile_divider" />
+		
+        <!-- Birthday -->
+        <RelativeLayout
+            android:id="@id/ll_friend_detail_birth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="false"
+            android:paddingBottom="12dp" >
 
+            <TextView
+                android:id="@id/tv_friend_detail_birth_title"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/friend_detail_birth" />
+
+            <TextView
+                android:id="@id/tv_friend_detail_birth"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_friend_detail_birth_title"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin" />
+        
+        <!-- Student NO -->
+        <RelativeLayout
+            android:id="@id/ll_friend_detail_student"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="false"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/tv_friend_detail_student_title"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/friend_detail_student" />
+
+            <TextView
+                android:id="@id/tv_friend_detail_student"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_friend_detail_student_title"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin" />
+        
         <!-- Major -->
 
         <RelativeLayout
@@ -208,46 +286,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_friend_detail_major_title"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="3dp"
-                android:textIsSelectable="false" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:background="@color/profile_divider_thin" />
-
-        <!-- Grade -->
-
-        <RelativeLayout
-            android:id="@id/ll_friend_detail_grade"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="11.3dp"
-            android:layout_marginRight="11.3dp"
-            android:background="@drawable/selectable_background_wttheme"
-            android:clickable="false"
-            android:paddingBottom="12dp" >
-
-            <TextView
-                android:id="@id/tv_friend_detail_grade_title"
-                style="@style/ProfileFriendList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="7dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/friend_detail_grade" />
-
-            <TextView
-                android:id="@id/tv_friend_detail_grade"
-                style="@style/ProfileFriendNum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_friend_detail_grade_title"
                 android:layout_marginLeft="7dp"
                 android:layout_marginTop="3dp"
                 android:textIsSelectable="false" />
@@ -374,6 +412,125 @@
                     android:src="@drawable/ic_message" />
                 
             </LinearLayout>
+            
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin"
+            android:visibility="visible" />
+        
+        <!-- Weibo -->
+        <RelativeLayout
+            android:id="@id/ll_friend_detail_sina"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="false"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/tv_friend_detail_sina_title"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/friend_detail_sina" />
+
+            <TextView
+                android:id="@id/tv_friend_detail_sina"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_friend_detail_sina_title"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin" />
+        
+        <!-- QQ -->
+        <RelativeLayout
+            android:id="@id/ll_friend_detail_qq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="false"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/tv_friend_detail_qq_title"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/friend_detail_qq" />
+
+            <TextView
+                android:id="@id/tv_friend_detail_qq"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_friend_detail_qq_title"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@color/profile_divider_thin" />
+        
+        <!-- Dorm -->
+        <RelativeLayout
+            android:id="@id/ll_friend_detail_dorm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="11.3dp"
+            android:layout_marginRight="11.3dp"
+            android:background="@drawable/selectable_background_wttheme"
+            android:clickable="false"
+            android:paddingBottom="12dp" >
+
+            <TextView
+                android:id="@id/tv_friend_detail_dorm_title"
+                style="@style/ProfileFriendList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/friend_detail_dorm" />
+
+            <TextView
+                android:id="@id/tv_friend_detail_dorm"
+                style="@style/ProfileFriendNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_friend_detail_dorm_title"
+                android:layout_marginLeft="7dp"
+                android:layout_marginTop="3dp"
+                android:textIsSelectable="false" />
         </RelativeLayout>
 
         <View
@@ -382,8 +539,8 @@
             android:layout_marginBottom="14.7dp"
             android:layout_marginLeft="11.3dp"
             android:layout_marginRight="11.3dp"
-            android:background="@color/profile_divider_thin"
-            android:visibility="visible" />
+            android:background="@color/profile_divider_thin" />
+        
     </LinearLayout>
 
 </LinearLayout>

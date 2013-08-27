@@ -102,7 +102,7 @@ public class AccountListAdapter extends EndlessListAdapter<Account> {
 	        else {
 	        	mShouldDelayAq.id(holder.ivEventThumb).image(strUrl, true, true,
 	        			LIST_THUMBNAILS_TARGET_WIDTH, R.drawable.event_list_thumbnail_place_holder,
-	        			null, AQuery.FADE_IN_NETWORK, 1.33f);
+	        			null, AQuery.FADE_IN_NETWORK, 1f);
 	        }
 		}
 		else{

@@ -169,6 +169,22 @@
     <item type="id" name="ll_friend_detail_phone">false</item>
     <item type="id" name="tv_friend_detail_phone_title">false</item>
     <item type="id" name="tv_friend_detail_phone">false</item>
+    <item type="id" name="ll_friend_detail_birth">false</item>
+    <item type="id" name="tv_friend_detail_birth_title">false</item>
+    <item type="id" name="tv_friend_detail_birth">false</item>
+    <item type="id" name="ll_friend_detail_student">false</item>
+    <item type="id" name="tv_friend_detail_student_title">false</item>
+    <item type="id" name="tv_friend_detail_student">false</item>
+    <item type="id" name="ll_friend_detail_sina">false</item>
+    <item type="id" name="tv_friend_detail_sina_title">false</item>
+    <item type="id" name="tv_friend_detail_sina">false</item>
+    <item type="id" name="ll_friend_detail_qq">false</item>
+    <item type="id" name="tv_friend_detail_qq_title">false</item>
+    <item type="id" name="tv_friend_detail_qq">false</item>
+    <item type="id" name="ll_friend_detail_dorm">false</item>
+    <item type="id" name="tv_friend_detail_dorm_title">false</item>
+    <item type="id" name="tv_friend_detail_dorm">false</item>
+    <!-- Search Part -->
     <item name="text_search_tip" type="id" />
     <item type="id" name="ll_search_tip">false</item>
     <item type="id" name="lst_search_tips">false</item>
