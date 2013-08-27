@@ -173,13 +173,16 @@ public class NotificationListAdapter extends BaseAdapter implements
 		Notification notification = mListNotifications.get(arg0);
 		String title = notification.getTitle();
 		String from = notification.getFrom();
+		if(notification.getType() == 2) {
+			title = from + "想加你为好友";
+		}
 		SpannableString spanStr = new SpannableString(title);
 		spanStr.setSpan(new TextAppearanceSpan(mContext,
 				R.style.NotificationItemFrom), 0, from.length(),
 				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		spanStr.setSpan(new TextAppearanceSpan(mContext,
 				R.style.NotificationItemContent), from.length(),
-				title.length() - 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+				title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		holder.tv_notification_content.setText(spanStr,
 				TextView.BufferType.SPANNABLE);
 		holder.tv_notification_time.setText(DateParser

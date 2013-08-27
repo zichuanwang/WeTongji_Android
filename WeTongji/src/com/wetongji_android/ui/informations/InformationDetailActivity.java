@@ -52,10 +52,7 @@ public class InformationDetailActivity extends WTBaseDetailActivity {
 			ImageView ivAvatar = (ImageView)findViewById(R.id.info_detail_avatar);
 			ivAvatar.setVisibility(View.GONE);
 		}
-		// Set the organization avatar
-		/*mAq.id(R.id.info_detail_avatar).image(mInfo.getOrganizerAvatar(), false, true,
-				0, R.drawable.image_place_holder, null, AQuery.FADE_IN, 1.0f);*/
-
+	
 		Drawable drawable = getResources().getDrawable(
 				R.drawable.image_place_holder);
 		Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
@@ -81,7 +78,7 @@ public class InformationDetailActivity extends WTBaseDetailActivity {
 
 		tvTitle.setText(mInfo.getTitle());
 		if(mInfo.getCategory().equals("社团通告")) {
-			tvLocation.setText(mInfo.getTitle());
+			tvLocation.setText(mInfo.getOrganizer());
 		} else {
 			tvLocation.setText(mInfo.getSource());
 			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);

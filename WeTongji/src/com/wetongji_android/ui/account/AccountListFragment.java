@@ -121,7 +121,7 @@ public class AccountListFragment extends WTBaseFragment implements
 		
 		getSherlockActivity().getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSherlockActivity().getSupportActionBar().setDisplayShowTitleEnabled(true);
-		getSherlockActivity().getSupportActionBar().setTitle("Accounts");
+		getSherlockActivity().getSupportActionBar().setTitle(R.string.profile_section_org);
 	}
 
 	private void loadDataLiked(int page)
