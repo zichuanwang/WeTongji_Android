@@ -1,7 +1,6 @@
 package com.wetongji_android.ui.friend;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
@@ -177,7 +176,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 					this.getResources().getString(
 							R.string.remove_friend_request), Toast.LENGTH_SHORT)
 					.show();
-			ibFriend.setText(R.string.button_unfriend);
+			ibFriend.setText(R.string.button_friend);
 		}
 	}
 
@@ -205,6 +204,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 			} else {
 				bIsFriend = true;
 			}
+			
 			showToast();
 		}
 	}
