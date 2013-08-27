@@ -91,6 +91,8 @@ public class NowPagerAdapter extends PagerAdapter {
 		default:
 			nowWeekList = (AmazingListView) inflater.inflate(
 					R.layout.page_now_week, null);
+			
+			listAdapter.setWeekNumber(weekNum);
 			nowWeekList.setAdapter(listAdapter);
 			View pinnedHeader = LayoutInflater.from(context).inflate(
 					R.layout.section_bar_now, nowWeekList, false);
@@ -151,7 +153,10 @@ public class NowPagerAdapter extends PagerAdapter {
 		if (pageScrolledTo != PAGE_MIDDILE) {
 			setCalendars(pageScrolledTo);
 			
-			WTUtility.log("data", "weekNum" + weekNum);
+			// load from db
+			listAdapter.setWeekNumber(weekNum);
+			
+			WTUtility.log("data", "weekNum-PagerAdapter" + weekNum);
 			Bundle args = ApiHelper.getInstance(context).getSchedule(weekNum);
 			fragment.getLoaderManager()
 					.restartLoader(WTApplication.NETWORK_LOADER_1, args, callbacks).forceLoad();
@@ -199,7 +204,9 @@ public class NowPagerAdapter extends PagerAdapter {
 			} else {
 				ExceptionToast.show(context, result.getResponseCode());
 			}
-			viewPager.setCurrentItem(PAGE_MIDDILE, false);
+			if (viewPager.getCurrentItem() != PAGE_MIDDILE) {
+				viewPager.setCurrentItem(PAGE_MIDDILE, false);
+			}
 		}
 
 		@Override
@@ -231,9 +238,9 @@ public class NowPagerAdapter extends PagerAdapter {
 
 	}
 	
-	public void returnToNow(int weekNum) {
-		listAdapter = new NowWeekListAdapter(fragment, weekNum);
-		nowWeekList.setAdapter(listAdapter);
+	public void returnToNow() {
+		weekNum = DateParser.getWeekNumber();
+		listAdapter.setWeekNumber(weekNum);
 		Bundle args = ApiHelper.getInstance(context).getSchedule(weekNum);
 		fragment.getLoaderManager()
 				.initLoader(WTApplication.NETWORK_LOADER_1, args, callbacks)

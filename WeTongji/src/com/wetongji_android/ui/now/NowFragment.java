@@ -91,7 +91,7 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 			view=inflater.inflate(R.layout.fragment_now, container, false);
 			
 			// set week number
-			setWeekNumber();
+			setTimeTextView();
 			
 			tvWeek = (TextView) view.findViewById(R.id.tv_now_week);
 			vpWeeks=(ViewPager) view.findViewById(R.id.vp_weeks);
@@ -167,7 +167,7 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 				weekNumber++;
 			}
 			
-			setWeekNumber();
+			setTimeTextView();
 		}
 	
 	}
@@ -229,18 +229,20 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 		NotificationHandler.getInstance().checkNotification();
 	}
 	
-	private void setWeekNumber() {
+	private void setTimeTextView() {
 		tvWeekNumber=(TextView) view.findViewById(R.id.tv_now_week_number);
 		tvWeek = (TextView) view.findViewById(R.id.tv_now_week);
 		if (weekNumber < 0) {
 			tvWeek.setVisibility(View.VISIBLE);
-			tvWeekNumber.setText(String.valueOf(weekNumber + DateParser.WEEK_COUNT_12_13 + 1));
+			tvWeekNumber.setText(getString(R.string.now_time_semester12_13) 
+					 + String.valueOf(weekNumber + DateParser.WEEK_COUNT_12_13 + 1));
 		} else if (weekNumber == 0){
 			tvWeek.setVisibility(View.GONE);
 			tvWeekNumber.setText(getString(R.string.now_summer_vacation));
 		} else if (weekNumber > 0 && weekNumber < 20) {
 			tvWeek.setVisibility(View.VISIBLE);
-			tvWeekNumber.setText(String.valueOf(weekNumber));
+			tvWeekNumber.setText(getString(R.string.now_time_semester13_14)
+					+ String.valueOf(weekNumber));
 		} else if (weekNumber >= 20) {
 			tvWeek.setVisibility(View.GONE);
 			tvWeekNumber.setText(getString(R.string.now_winter_vacation));
@@ -249,16 +251,16 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 	
 	private void returnToNow() {
 		hideTime();
+		weekNumber = DateParser.getWeekNumber();
 		
-		int weekNumberNow = DateParser.getWeekNumber();
-		if (weekNumberNow < 0) {
-			weekNumber = weekNumberNow * -1 - 20;
-		} else {
-			weekNumber = weekNumberNow;
+		WTUtility.log("data", "return to " + weekNumber);
+		
+		if (weekNumber < 0) {
+			weekNumber = weekNumber * -1 - 20;
 		}
+		setTimeTextView();
 		
-		adapter.returnToNow(weekNumberNow);
-		setWeekNumber();
+		adapter.returnToNow();
 	}
 	
 	private void hideTime() {
@@ -266,5 +268,9 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 			tvNowTime = (TextView) view.findViewById(R.id.tv_now_time);
 		}
 		tvNowTime.setText(null);
+	}
+	
+	public void showCourse() {
+		vpWeeks.setCurrentItem(NowPagerAdapter.PAGE_MIDDILE, false);
 	}
 }

@@ -290,4 +290,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="action_audit">AUDIT</string>
 	<string name="action_attended">ATTENDED</string>
 	<string name="action_registered">REGISTERED</string>
+	
+	<string name="now_time_semester12_13">12&#8211;13 </string>
+	<string name="now_time_semester13_14">13&#8211;14 </string>
 </resources>
