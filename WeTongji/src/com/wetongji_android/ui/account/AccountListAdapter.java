@@ -79,9 +79,9 @@ public class AccountListAdapter extends EndlessListAdapter<Account> {
 		
 		//Set background color
 		if(position % 2 != 0) {
-			holder.llEventRow.setBackgroundResource(R.drawable.listview_selector_1);
-		}else {
 			holder.llEventRow.setBackgroundResource(R.drawable.listview_selector_2);
+		}else {
+			holder.llEventRow.setBackgroundResource(R.drawable.listview_selector_1);
 		}
 		
 		Account event = getItem(position);

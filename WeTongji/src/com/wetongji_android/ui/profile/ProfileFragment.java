@@ -1,5 +1,7 @@
 package com.wetongji_android.ui.profile;
 
+import java.util.List;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,6 +15,7 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,10 +45,12 @@ import com.wetongji_android.ui.main.NotificationHandler;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseFragment;
 import com.wetongji_android.util.common.WTLikeListActivity;
+import com.wetongji_android.util.data.user.UserLoader;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.image.ImageUtil;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
+import com.wetongji_android.util.net.HttpUtil;
 
 public class ProfileFragment extends WTBaseFragment implements
 		LoaderCallbacks<HttpRequestResult> {
@@ -100,11 +105,19 @@ public class ProfileFragment extends WTBaseFragment implements
 
 		switch (getCurrentState(savedInstanceState)) {
 		case FIRST_TIME_START:
-			getLoaderManager()
+			if(HttpUtil.isConnected(mActivity)) {
+				Log.v("network", "load");
+				getLoaderManager()
 					.initLoader(WTApplication.USER_LOADER, null, this);
+			} else {
+				getLoaderManager()
+					.initLoader(WTApplication.USER_LOADER, null, new LoaderDB());
+			}
 			break;
 		case SCREEN_ROTATE:
+			break;
 		case ACTIVITY_DESTROY_AND_CREATE:
+			Log.v("here", "here");
 			mUser = savedInstanceState.getParcelable(BUNDLE_USER);
 			setWidgets();
 			break;
@@ -149,18 +162,6 @@ public class ProfileFragment extends WTBaseFragment implements
 		RelativeLayout rl = (RelativeLayout) mContentView
 				.findViewById(R.id.layout_profile_header);
 		int tH = (496 * 200 / 1080);
-		/*int originWidth = source.getWidth();
-		int originHeight = source.getHeight();
-		int width = 200;
-		
-		Log.v("source height + width", "" + originWidth + " " + originHeight);
-		if(width > originWidth) {
-			width = originWidth;
-		}
-		
-		if((100 + tH / 2) > originHeight) {
-			tH = 2 * originHeight - 200;
-		}*/
 		Bitmap bm = Bitmap.createBitmap(source, 0, (100 - tH / 2), 200, tH);
 		Bitmap bg = ImageUtil.fastblur(bm, 10);
 		rl.setBackgroundDrawable(new BitmapDrawable(getActivity()
@@ -381,6 +382,31 @@ public class ProfileFragment extends WTBaseFragment implements
 		return intent;
 	}
 
+	class LoaderDB implements LoaderCallbacks<List<User>> {
+
+		@Override
+		public Loader<List<User>> onCreateLoader(int arg0, Bundle arg1) {
+			return new UserLoader(mActivity);
+		}
+
+		@Override
+		public void onLoadFinished(Loader<List<User>> arg0, List<User> arg1) {
+			if(arg1 != null && arg1.size() > 0) {
+				mUser = arg1.get(0);
+				setWidgets();
+				setAvatarFromUrl();
+			} else {
+				
+			}
+		}
+
+		@Override
+		public void onLoaderReset(Loader<List<User>> arg0) {
+			
+		}
+		
+	}
+	
 	class ClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
