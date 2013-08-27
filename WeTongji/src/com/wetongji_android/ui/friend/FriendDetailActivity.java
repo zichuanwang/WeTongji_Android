@@ -141,7 +141,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		sb.append(mUser.getScheduleCount().getCourse()).append(" Courses");
 		tvCoursesNum.setText(sb.toString());
 		tvMajor = (TextView) findViewById(R.id.tv_friend_detail_major);
-		tvMajor.setText(mUser.getMajor());
+		tvMajor.setText("(" + mUser.getYear() + ")" + mUser.getMajor());
 		tvEmail = (TextView) findViewById(R.id.tv_friend_detail_email);
 		tvEmail.setText(mUser.getEmail());
 		tvPhone = (TextView)findViewById(R.id.tv_friend_detail_phone);

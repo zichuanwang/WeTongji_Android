@@ -82,7 +82,7 @@
     <string name="text_news_category_2">校务信息</string>
     <string name="text_news_category_3">组织动态</string>
     <string name="text_news_category_4">周边推荐</string>
-    <string name="text_people">济人</string>
+    <string name="text_people">每周人物</string>
     <string name="text_most_popular_account">组织机构</string>
     <string name="text_u_like_this_activity">你已经喜欢了这个活动</string>
     <string name="text_u_like_this_information">你已经喜欢了这条新闻</string>
@@ -138,7 +138,7 @@
     <string name="search_type_stars">济人</string>
     <string name="search_type_information">资讯</string>
     <string name="search_history_clear">清除搜索历史</string>
-    <string name="friend_activity_name">用户</string>
+    <string name="friend_activity_name">好友</string>
     <string name="friend_detail_part_events">参加过的活动</string>
     <string name="friend_detail_about">相关信息</string>
     <string name="friend_detail_major">专业</string>
