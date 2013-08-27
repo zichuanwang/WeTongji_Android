@@ -1,5 +1,7 @@
 package com.wetongji_android.factory;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -9,12 +11,17 @@ import org.json.JSONObject;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import com.google.gson.Gson;
 import com.wetongji_android.data.Course;
+import com.wetongji_android.data.CourseInstance;
+import com.wetongji_android.data.Sections;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.course.CourseUtil;
 
 public class CourseFactory extends BaseFactory<Course, Integer> {
 
+	private Gson gson = new Gson();
+	
 	public CourseFactory(Fragment fragment) {
 		super(fragment, Course.class, WTApplication.COURSES_SAVER);
 	}
@@ -92,7 +99,7 @@ public class CourseFactory extends BaseFactory<Course, Integer> {
 				course.setPoint((float) jsonCourse.getDouble("Point"));
 				course.setTitle(jsonCourse.getString("Name"));
 				course.setTeacher(jsonCourse.getString("Teacher"));
-				course.setLocation(jsonCourse.getString("Location"));
+				course.setLocation(jsonCourse.optString("Location"));
 				course.setRequired(jsonCourse.getString("Required"));
 				String strDay = jsonCourse.getString("Day");
 				int startSection = jsonCourse.getInt("SectionStart");
@@ -131,4 +138,44 @@ public class CourseFactory extends BaseFactory<Course, Integer> {
 		return list;
 	}
 
+	public List<CourseInstance> parseCoursesForUser(String jsonStr) {
+		List<CourseInstance> list = new ArrayList<CourseInstance>();
+		
+		try {
+			JSONObject outer = new JSONObject(jsonStr);
+			JSONArray array = outer.getJSONArray("Courses");
+			for(int i = 0; i != array.length(); i++) {
+				CourseInstance course = new CourseInstance();
+				JSONObject json = array.getJSONObject(i);
+				course.setAudit(json.getBoolean("IsAudit"));
+				course.setBegin(new Date());
+				course.setCanLike(json.getBoolean("CanLike"));
+				course.setCanSchedule(json.getBoolean("CanSchedule"));
+				course.setEnd(new Date());
+				course.setFriendsCount(json.getInt("FriendsCount"));
+				course.setHours(json.getInt("Hours"));
+				course.setId(1);
+				course.setLike(json.getInt("Like"));
+				course.setName(json.getString("Name"));
+				course.setNO(json.getString("NO"));
+				course.setPoint(json.getString("Point"));
+				course.setRequired(json.getString("Required"));
+				course.setTeacher(json.getString("Teacher"));
+				course.setTitle(json.getString("Name"));
+				course.setUNO(json.getString("UNO"));
+				JSONArray sect = json.getJSONArray("Sections");
+				ArrayList<Sections> sections = new ArrayList<Sections>();
+				for(int j = 0; j < sect.length(); j++) {
+					sections.add(gson.fromJson(sect.getJSONObject(j).toString(), Sections.class));
+				}
+				course.setSections(sections);
+				course.setLocation(sect.getJSONObject(0).getString("Location"));
+				list.add(course);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 }

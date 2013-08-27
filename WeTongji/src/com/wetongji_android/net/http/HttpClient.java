@@ -38,8 +38,8 @@ public class HttpClient {
 	private static final int CONNECT_TIMEOUT = 15 * 1000;
 	private static final int READ_TIMEOUT = 15 * 1000;
 	private static final int UPLOAD_FILE_READ_TIMEOUT = 5 * 15 * 1000;
-	private static final String API_DOMAIN = "http://we.tongji.edu.cn/api/call";
-
+	//private static final String API_DOMAIN = "http://we.tongji.edu.cn/api/call";
+	private static final String API_DOMAIN = "http://leiz.name:8080/api/call";
 	private static final String HTTP_TIMEOUT = "HttpTimeout";
 	
 	private static final String UPLOAD_FILE_NAME = "upload_avatar.jpg";

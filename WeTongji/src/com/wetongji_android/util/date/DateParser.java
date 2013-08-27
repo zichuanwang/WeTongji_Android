@@ -13,7 +13,7 @@ import android.text.format.DateUtils;
 import android.util.Log;
 
 /**
- * 解析服务器返回日期和时间的工具类
+ * 瑙ｆ瀽鏃ユ湡鐨勫伐鍏风被
  * @author John
  *
  */
