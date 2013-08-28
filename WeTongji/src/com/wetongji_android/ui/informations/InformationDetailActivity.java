@@ -75,11 +75,15 @@ public class InformationDetailActivity extends WTBaseDetailActivity implements O
 					.getDrawable(R.drawable.ticket_icon);
 			tvTitle.setCompoundDrawablesWithIntrinsicBounds(ticket, null, null, null);
 			
+			TextView contact = (TextView) findViewById(R.id.info_detail_ticket_contact);
 			if (!TextUtils.isEmpty(mInfo.getContact())) {
-				((TextView) findViewById(R.id.info_detail_ticket_contact))
-					.setText(mInfo.getContact());
+				Drawable ticketPhone = getResources()
+						.getDrawable(R.drawable.local_contact_icon);
+				contact.setText(mInfo.getContact());
+				contact.setCompoundDrawablesRelativeWithIntrinsicBounds(ticketPhone, null, null, null);
 			} else {
-				findViewById(R.id.info_detail_ticket_contact).setVisibility(View.GONE);
+				contact.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null);
+				contact.setVisibility(View.GONE);
 			}
 			
 		} else {
