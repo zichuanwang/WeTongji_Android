@@ -80,9 +80,9 @@ public class InformationDetailActivity extends WTBaseDetailActivity implements O
 				Drawable ticketPhone = getResources()
 						.getDrawable(R.drawable.local_contact_icon);
 				contact.setText(mInfo.getContact());
-				contact.setCompoundDrawablesRelativeWithIntrinsicBounds(ticketPhone, null, null, null);
+				//contact.setCompoundDrawablesRelativeWithIntrinsicBounds(ticketPhone, null, null, null);
 			} else {
-				contact.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null);
+				//contact.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null);
 				contact.setVisibility(View.GONE);
 			}
 			
@@ -90,10 +90,10 @@ public class InformationDetailActivity extends WTBaseDetailActivity implements O
 			findViewById(R.id.title_info_bar).setVisibility(View.GONE);
 			tvTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
 		}
-		if (!TextUtils.isEmpty(mInfo.getLocation())) {
-			((TextView) findViewById(R.id.info_detail_location)).setText(mInfo.getLocation());
+		if(!TextUtils.isEmpty(mInfo.getLocation())) {
+			((TextView)findViewById(R.id.ticket_detail_location)).setText(mInfo.getLocation());
 		} else {
-			findViewById(R.id.info_detail_location).setVisibility(View.GONE);
+			findViewById(R.id.ticket_detail_location).setVisibility(View.GONE);
 		}
 
 		tvTitle.setText(mInfo.getTitle());
