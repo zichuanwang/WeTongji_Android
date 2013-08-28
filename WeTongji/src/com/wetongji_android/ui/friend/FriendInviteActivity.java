@@ -111,6 +111,8 @@ public class FriendInviteActivity extends SherlockFragmentActivity implements
 			Toast.makeText(this, getResources().getString(R.string.invite_request), Toast.LENGTH_SHORT).show();
 			finish();
 			overridePendingTransition(R.anim.slide_left_in, R.anim.slide_right_out);
+		} else {
+			Toast.makeText(this, getResources().getString(R.string.text_error_check_network), Toast.LENGTH_SHORT).show();
 		}
 	}
 

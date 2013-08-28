@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@drawable/bg_app_base" >
+
+    <EditText
+        android:id="@id/tv_student_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="8dp"
+        android:hint="@string/text_student_id"
+        android:inputType="number"
+        android:textColor="@color/et_text"
+        android:textColorHint="@color/et_text_hint"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@id/tv_student_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/tv_student_id"
+        android:layout_marginTop="6dp"
+        android:hint="@string/text_name"
+        android:inputType="text"
+        android:textColor="@color/et_text"
+        android:textColorHint="@color/et_text_hint"
+        android:textSize="18sp" />
+
+    <TextView
+   		style="@style/ResetPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_student_name"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:text="@string/reset_password" />
+
+</RelativeLayout>

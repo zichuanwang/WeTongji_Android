@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="fill_horizontal" >
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp"
+        android:layout_centerVertical="true"
+        android:text="@string/forget_title"
+        style="@style/ForgetTitle" />
+    
+    <ToggleButton
+        android:id="@id/btn_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        android:background="@drawable/btn_cab_done_reversed_wttheme"
+        android:textOn="@string/submit_title"
+        android:textOff="@string/submit_title"
+        android:textSize="16sp"
+        android:textColor="@drawable/actionbar_right_button"
+        android:shadowColor="#33000000"
+        android:shadowDx="0"
+        android:shadowDy="1"
+        android:shadowRadius="1"/>
+
+</RelativeLayout>

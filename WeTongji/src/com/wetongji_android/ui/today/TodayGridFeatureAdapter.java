@@ -117,9 +117,13 @@ public class TodayGridFeatureAdapter extends TodayGridBaseAdapter<Object> {
 
 	private void getAccountView(Account account, View convertView) {
 		if (account != null) {
+			holder.ivGridImage.setVisibility(View.VISIBLE);
+			AQuery aq = gridAq.recycle(convertView);
+			String strImage = account.getImage();
+			aq.id(holder.ivGridImage).image(strImage,
+					true, true, 300, 0, null, AQuery.FADE_IN_NETWORK, 0f);
 			holder.tvGridTitle.setText(R.string.text_most_popular_account);
 			holder.tvGridContent.setText(account.getDisplay());
-			holder.ivGridImage.setVisibility(View.GONE);
 			holder.ivGridImageMask.setVisibility(View.GONE);
 			holder.tvGridTitle
 					.setBackgroundResource(R.drawable.bg_today_grid_title_no_image);

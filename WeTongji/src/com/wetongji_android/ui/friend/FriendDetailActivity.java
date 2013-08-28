@@ -62,12 +62,15 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 
 	private boolean bIsFriend;
 
+	private BitmapDrawable mBmDefaultThumbnails;
+	
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 
 		receiveData();
-
+		mBmDefaultThumbnails = (BitmapDrawable)getResources().getDrawable(R.drawable.default_avatar);
+		
 		setContentView(R.layout.activity_friend_detail);
 
 		initWidget();
@@ -113,15 +116,19 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		}
 		ibFriend.setOnClickListener(new ClickListener());
 		// Set Avatar
-		mAq.id(R.id.img_profile_avatar).image(mUser.getAvatar(), true, true, 0,
-				0, new BitmapAjaxCallback() {
-					@Override
-					protected void callback(String url, ImageView iv,
-							Bitmap bm, AjaxStatus status) {
-						iv.setImageBitmap(bm);
-						setHeadBluredBg(bm);
-					}
-				});
+		if(mUser.getAvatar().equals("")) {
+			mAq.id(R.id.img_profile_avatar).image(mBmDefaultThumbnails);
+		} else {
+			mAq.id(R.id.img_profile_avatar).image(mUser.getAvatar(), true, true, 0,
+					0, new BitmapAjaxCallback() {
+						@Override
+						protected void callback(String url, ImageView iv,
+								Bitmap bm, AjaxStatus status) {
+							iv.setImageBitmap(bm);
+							setHeadBluredBg(bm);
+						}
+					});
+		}
 		rlFriendList = (RelativeLayout) findViewById(R.id.ll_friend_detail_list);
 		rlFriendList.setOnClickListener(new ClickListener());
 		tvFriendNum = (TextView) findViewById(R.id.tv_detail_friend_num);

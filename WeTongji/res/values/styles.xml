@@ -337,4 +337,22 @@
  	    <item name="android:textColor">#454545</item>
  	</style>
  	
+ 	<style name="ForgetPassword">
+ 	    <item name="android:textSize">14sp</item>
+ 	    <item name="android:textStyle">bold</item>
+ 	    <item name="android:textColor">#373737</item>
+ 	</style>
+ 	
+ 	<style name="ResetPassword">
+ 	    <item name="android:textSize">14sp</item>
+ 	    <item name="android:textStyle">normal</item>
+ 	    <item name="android:textColor">#373737</item>
+ 	</style>
+ 	
+ 	<style name="ForgetTitle">
+ 	    <item name="android:textSize">16sp</item>
+ 	    <item name="android:textStyle">normal</item>
+ 	    <item name="android:textColor">#797979</item>
+ 	</style>
+ 	
 </resources>

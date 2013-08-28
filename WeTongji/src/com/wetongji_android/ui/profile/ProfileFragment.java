@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -93,6 +92,8 @@ public class ProfileFragment extends WTBaseFragment implements
 
 	private OnClickListener mClickListener = new ClickListener();
 
+	private BitmapDrawable mBmDefaultThumbnails;
+	
 	public static ProfileFragment newInstance() {
 		ProfileFragment fragment = new ProfileFragment();
 
@@ -106,7 +107,6 @@ public class ProfileFragment extends WTBaseFragment implements
 		switch (getCurrentState(savedInstanceState)) {
 		case FIRST_TIME_START:
 			if(HttpUtil.isConnected(mActivity)) {
-				Log.v("network", "load");
 				getLoaderManager()
 					.initLoader(WTApplication.USER_LOADER, null, this);
 			} else {
@@ -117,7 +117,6 @@ public class ProfileFragment extends WTBaseFragment implements
 		case SCREEN_ROTATE:
 			break;
 		case ACTIVITY_DESTROY_AND_CREATE:
-			Log.v("here", "here");
 			mUser = savedInstanceState.getParcelable(BUNDLE_USER);
 			setWidgets();
 			break;
@@ -129,6 +128,7 @@ public class ProfileFragment extends WTBaseFragment implements
 		super.onCreate(savedInstanceState);
 
 		setHasOptionsMenu(true);
+		mBmDefaultThumbnails = (BitmapDrawable)getResources().getDrawable(R.drawable.default_avatar);
 	}
 
 	@Override
@@ -263,15 +263,20 @@ public class ProfileFragment extends WTBaseFragment implements
 	private void setAvatarFromUrl() {
 		String strUrl = mUser.getAvatar() != null ? mUser.getAvatar() : "";
 		AQuery aq = WTApplication.getInstance().getAq(getActivity());
-		aq.id(R.id.img_profile_avatar).image(strUrl, true, true, 0, 0,
-				new BitmapAjaxCallback() {
-					@Override
-					protected void callback(String url, ImageView iv,
-							Bitmap bm, AjaxStatus status) {
-						iv.setImageBitmap(bm);
-						setHeadBluredBg(bm);
-					}
-				});
+		
+		if(strUrl.equals("")) {
+			aq.id(R.id.img_profile_avatar).image(mBmDefaultThumbnails);
+		} else {
+			aq.id(R.id.img_profile_avatar).image(strUrl, true, true, 0, 0,
+					new BitmapAjaxCallback() {
+						@Override
+						protected void callback(String url, ImageView iv,
+								Bitmap bm, AjaxStatus status) {
+							iv.setImageBitmap(bm);
+							setHeadBluredBg(bm);
+						}
+					});
+		}
 	}
 
 	@Override

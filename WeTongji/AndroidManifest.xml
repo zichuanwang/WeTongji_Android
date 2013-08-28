@@ -169,6 +169,10 @@
             android:name="com.wetongji_android.ui.setting.WTTermsOfUseActivity"
             android:label="@string/titile_terms_of_use">
         </activity>
+        
+        <activity 
+            android:name="com.wetongji_android.util.common.WTForgetPwdActivity"
+            android:label="@string/forget_title"></activity>
     </application>
 
 </manifest>

@@ -20,7 +20,6 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 /**
  * @author John
@@ -144,7 +143,6 @@ public class ApiHelper {
 	
 	private void putLoginArgs(Bundle bundle){
 		if(!TextUtils.isEmpty(session)){
-			Log.v("session", "not null");
 			bundle.putString(API_ARGS_SESSION, session);
 			bundle.putString(API_ARGS_UID, uid);
 		}else
@@ -322,7 +320,6 @@ public class ApiHelper {
 		bundle.putString(API_ARGS_PAGE, String.valueOf(page));
 		bundle.putString(API_ARGS_METHOD, "Activities.Get");
 		
-		Log.v("net select type", "" + channelIdsMask);
 		StringBuilder sbChannelId = new StringBuilder();
 		if((channelIdsMask & API_ARGS_CHANNEL_ACADEMIC_MASK) != 0) {
 			sbChannelId.append("1 ");
@@ -364,11 +361,9 @@ public class ApiHelper {
 			break;
 		}
 		
-		Log.v("net sort", sort);
 		if(!sort.equals("")) {
 			bundle.putString(API_ARGS_SORT, sort);
 		}
-		Log.v("filter", "" + expire);
 		bundle.putString(API_ARGS_EXPIRE, expire ? String.valueOf(0) : String.valueOf(1));
 		return bundle;
 	}
@@ -569,7 +564,6 @@ public class ApiHelper {
 	public Bundle getCourseByUser(String uid, int page) {
 		String begin = DateParser.buildCourseBegin();
 		String end = DateParser.buildCourseEnd();
-		Log.v("begin end", begin + "" + end);
 		Bundle bundle = new Bundle();
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
@@ -702,6 +696,15 @@ public class ApiHelper {
 		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "Course.Invite.Reject");
 		bundle.putString(API_ARGS_ID, invitaionId);
+		return bundle;
+	}
+	
+	public Bundle forgetPassword(String id, String name) {
+		Bundle bundle = new Bundle();
+		putBasicArgs(bundle);
+		bundle.putString(API_ARGS_METHOD, "User.Reset.Password");
+		bundle.putString(API_ARGS_NO, id);
+		bundle.putString(API_ARGS_NAME, name);
 		return bundle;
 	}
 }

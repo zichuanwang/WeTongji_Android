@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView.ScaleType;
 
 import com.androidquery.AQuery;
 import com.wetongji_android.R;

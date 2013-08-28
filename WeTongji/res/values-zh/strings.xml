@@ -291,4 +291,10 @@
 	<string name="now_summer_vacation">暑假</string>
 	<string name="now_winter_vacation">寒假</string>
 	<string name="wants_to_add_friend">想加你为好友</string>
+	<string name="forget_password"><u>忘记密码?</u></string>
+	<string name="reset_password">提供您的学号与姓名来重置您的微同济密码</string>
+	<string name="submit_title">提交</string>
+	<string name="forget_title">忘记密码</string>
+	<string name="reset_pwd_success">重置密码成功</string>
+	<string name="text_name">姓名</string>
 </resources>

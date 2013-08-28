@@ -1,9 +1,11 @@
 package com.wetongji_android.ui.auth;
 
 import com.wetongji_android.R;
+import com.wetongji_android.util.common.WTForgetPwdActivity;
 import com.wetongji_android.util.exception.ExceptionToast;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass. Activities that
@@ -32,6 +35,7 @@ public class LoginFragment extends Fragment implements OnClickListener{
 	private EditText etPassword;
 	private Button btnLogin;
 	private Button btnCreateAccount;
+	private TextView tvForgetPassword;
 	
 	/**
 	 * Use this factory method to create a new instance of this fragment using
@@ -74,6 +78,9 @@ public class LoginFragment extends Fragment implements OnClickListener{
 		btnCreateAccount=(Button) view.findViewById(R.id.btn_create_account);
 		btnLogin.setOnClickListener(this);
 		btnCreateAccount.setOnClickListener(this);
+		tvForgetPassword = (TextView)view.findViewById(R.id.tv_forget_password);
+		tvForgetPassword.setOnClickListener(this);
+		
 		if(!TextUtils.isEmpty(mUsername)){
 			etUsername.setText(mUsername);
 		}
@@ -107,6 +114,12 @@ public class LoginFragment extends Fragment implements OnClickListener{
 				.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_left_out)
 				.add(R.id.auth_content_container, fragment, AuthActivity.TAG_REGISTER_FRAGMENT)
 				.commit();
+		break;
+		case R.id.tv_forget_password:
+			Intent intent = new Intent(getActivity(), WTForgetPwdActivity.class);
+			startActivity(intent);
+			getActivity().overridePendingTransition(R.anim.slide_right_in, R.anim.slide_left_out);
+		break;
 		}
 	}
 

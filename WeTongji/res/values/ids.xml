@@ -327,4 +327,8 @@
     <item name="course_detail_location" type="id">false</item>
     <item name="course_detail_total" type="id">false</item>
     <item name="course_detail_time_label" type="id">false</item>
+    <item name="tv_forget_password" type="id">false</item>
+    <item name="tv_student_id" type="id">false</item>
+    <item name="tv_student_name" type="id">false</item>
+    <item name="btn_submit" type="id">false</item>
 </resources>
