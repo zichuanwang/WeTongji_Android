@@ -102,7 +102,7 @@
             android:background="@drawable/bg_app_base" >
 
             <!-- main content -->
-            <ScrollView
+            <com.wetongji_android.ui.widgets.WTScrollViewWithVP
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
@@ -128,7 +128,7 @@
                     </LinearLayout>
                     
                 </LinearLayout>
-            </ScrollView>
+            </com.wetongji_android.ui.widgets.WTScrollViewWithVP>
 
             <!-- actionbar shadow -->
             <LinearLayout
