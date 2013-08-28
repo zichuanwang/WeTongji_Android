@@ -356,6 +356,12 @@ public class ProfileFragment extends WTBaseFragment implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return super.onOptionsItemSelected(item);
 	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		NotificationHandler.getInstance().checkNotification();
+	}
 
 	public void updateMotto(String strNewMotto) {
 		if (strNewMotto != null && !strNewMotto.equals(mUser.getWords())) {

@@ -219,6 +219,13 @@ public class EventsFragment extends WTBaseFragment implements
 		activityList.setItems(mAdapter.getData());
 		outState.putSerializable(BUNDLE_KEY_ACTIVITY_LIST, activityList);
 	}
+	
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		NotificationHandler.getInstance().checkNotification();
+	}
 
 	@Override
 	public Loader<HttpRequestResult> onCreateLoader(int id, Bundle args) {
