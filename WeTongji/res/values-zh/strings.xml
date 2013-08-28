@@ -297,4 +297,5 @@
 	<string name="forget_title">忘记密码</string>
 	<string name="reset_pwd_success">重置密码成功</string>
 	<string name="text_name">姓名</string>
+	<string name="text_no_more_data">没有更多了</string>
 </resources>

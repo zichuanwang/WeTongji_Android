@@ -298,4 +298,5 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="submit_title">Submit</string>
 	<string name="forget_title">Forget Password</string>
 	<string name="reset_pwd_success">Reset Password Success</string>
+	<string name="text_no_more_data">No more data</string>
 </resources>

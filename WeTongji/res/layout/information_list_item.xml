@@ -30,6 +30,7 @@
 		    android:layout_below="@id/information_list_item_type"
 		    android:layout_marginTop="8dp"
 		   	android:layout_marginRight="13.3dp"
+		   	android:drawablePadding="4dp"
 		    android:textIsSelectable="false"
 		    android:maxLines="2"
 		    android:ellipsize="end"

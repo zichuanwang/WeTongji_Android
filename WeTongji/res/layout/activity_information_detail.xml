@@ -1,82 +1,118 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
-	android:background="#ffffff">
-	
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/title_info_bar"
+        android:layout_width="match_parent"
+        android:layout_height="26.6dp"
+        android:background="@drawable/information_detail_ticket_info_bg"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/information_ticket_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16.5dp"
+            android:textColor="#ffffff"
+            android:textSize="10.6sp" />
+    </LinearLayout>
+
     <!-- Brief Part Relativelayout -->
-	<RelativeLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:background="@drawable/info_detail_brief_shadow">
-	    
-	   <TextView 
-		  android:id="@id/info_detail_title"
-		  android:layout_width="267dp"
-		  android:layout_height="wrap_content"
-		  android:layout_alignParentTop="true"
-		  android:layout_marginLeft="16.5dp"
-		  android:layout_marginTop="16.5dp"
-		  android:layout_marginBottom="16.5dp"
-		  android:textIsSelectable="true"			      
-		  style="@style/InformationDetailTitle"/>
-	    
-	    <RelativeLayout 
-	        android:layout_width="match_parent"
-		    android:layout_height="62dp"
-		    android:layout_below="@id/info_detail_title"
-		    android:paddingLeft="15dp"
-		    android:background="@color/info_detail_brief_bg_two">
-	        
-	        <ImageView 
-	            android:id="@id/info_detail_avatar"
-	            android:layout_width="35dp"
-	            android:layout_height="35dp"
-	            android:layout_alignParentLeft="true"
-	            android:layout_marginTop="13dp"
-	            android:src="@drawable/ab_event_share"
-	            android:contentDescription="@string/img_content_description"/>
-	        
-	        <TextView 
-	            android:id="@id/info_detail_location"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_toRightOf="@id/info_detail_avatar"
-	            android:layout_marginLeft="8.5dp"
-	            android:layout_marginTop="15dp"
-	            android:textIsSelectable="true"
-	            style="@style/InformationDetailLocation"/>
-	        
-	        <TextView 
-	            android:id="@id/info_detail_time"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@id/info_detail_location"
-	            android:layout_below="@id/info_detail_location"
-	            android:layout_marginTop="2dp"
-	            android:textIsSelectable="true"
-	            style="@style/InformationDetailTime"/>
-	        
-	    </RelativeLayout>
-	    
-	</RelativeLayout> 
-	
-	<ImageView 
-	    android:id="@id/info_detail_image"
-	    android:layout_width="match_parent"
-	    android:layout_height="218dp"
-	    android:layout_marginTop="17dp"
-	    android:layout_marginLeft="15dp"
-	    android:layout_marginRight="15dp"
-	    android:scaleType="centerCrop"
-	    android:contentDescription="@string/img_content_description"/>
-	
-	<TextView 
-	    android:id="@id/info_detail_content"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:textIsSelectable="true"
-	    android:layout_margin="14dp"
-	    style="@style/InformationDetailContent"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/info_detail_brief_shadow" >
+
+        <TextView
+            android:id="@id/info_detail_title"
+            style="@style/InformationDetailTitle"
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="16.5dp"
+            android:layout_marginTop="16.5dp"
+            android:drawablePadding="4dp"
+            android:textIsSelectable="true" />
+
+        <TextView
+            android:id="@+id/info_detail_ticket_contact"
+            style="@style/InformationDetailTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16.5dp"
+            android:layout_below="@id/info_detail_title"
+            android:layout_marginTop="6dp"
+            android:drawableLeft="@drawable/local_contact_icon" />
+
+        <TextView
+            android:id="@+id/ticket_detail_location"
+            style="@style/InformationDetailLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/info_detail_ticket_contact"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="15dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_below="@id/ticket_detail_location"
+            android:background="@color/info_detail_brief_bg_two"
+            android:paddingLeft="15dp" >
+
+            <ImageView
+                android:id="@id/info_detail_avatar"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="13dp"
+                android:contentDescription="@string/img_content_description"
+                android:src="@drawable/ab_event_share" />
+
+            <TextView
+                android:id="@id/info_detail_location"
+                style="@style/InformationDetailLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8.5dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@id/info_detail_avatar"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@id/info_detail_time"
+                style="@style/InformationDetailTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/info_detail_location"
+                android:layout_below="@id/info_detail_location"
+                android:layout_marginTop="2dp"
+                android:textIsSelectable="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@id/info_detail_image"
+        android:layout_width="match_parent"
+        android:layout_height="218dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="17dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/img_content_description"
+        android:scaleType="fitStart" />
+
+    <TextView
+        android:id="@id/info_detail_content"
+        style="@style/InformationDetailContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:textIsSelectable="true" />
 
 </LinearLayout>

@@ -86,8 +86,7 @@ public class AccountListAdapter extends EndlessListAdapter<Account> {
 		
 		Account event = getItem(position);
 		
-		holder.tvEventTitle.setText(event.getTitle());
-		
+		holder.tvEventTitle.setText(event.getDisplay());
 		holder.tvEventDescription.setText(event.getDescription());
 		
 		// Set thumbnails
