@@ -1,12 +1,14 @@
 package com.wetongji_android.ui.informations;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,18 +19,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.viewpagerindicator.UnderlinePageIndicator;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.factory.InformationFactory;
+import com.wetongji_android.ui.people.PersonDetailActivity;
+import com.wetongji_android.ui.people.PersonDetailPicPagerAdapter;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTFullScreenActivity;
 import com.wetongji_android.util.date.DateParser;
 
-public class InformationDetailActivity extends WTBaseDetailActivity {
+public class InformationDetailActivity extends WTBaseDetailActivity implements OnClickListener{
 
 	private Information mInfo;
 	private AQuery mAq;
+	private ViewPager vpPics;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -54,29 +60,15 @@ public class InformationDetailActivity extends WTBaseDetailActivity {
 			ivAvatar.setVisibility(View.GONE);
 		}
 
-		Drawable drawable = getResources().getDrawable(
-				R.drawable.image_place_holder);
-		Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-		if (mInfo.getImages().size() != 0
-				&& !mInfo.getImages().get(0)
-						.equals(WTApplication.MISSING_IMAGE_URL)) {
-			mAq.id(R.id.info_detail_image).image(mInfo.getImages().get(0),
-					false, true, 0, R.drawable.image_place_holder, bitmap,
-					AQuery.FADE_IN, 0f);
-		} else {
-			mAq.id(R.id.info_detail_image).visibility(View.GONE);
-		}
-
-		ImageView detailImage = (ImageView) findViewById(R.id.info_detail_image);
-		detailImage.setOnClickListener(new OnPicClickListener());
-
 		TextView tvTitle = (TextView) findViewById(R.id.info_detail_title);
 		TextView tvLocation = (TextView) findViewById(R.id.info_detail_location);
 
 		TextView tvTime = (TextView) findViewById(R.id.info_detail_time);
 		TextView tvContent = (TextView) findViewById(R.id.info_detail_content);
 		TextView tvTicketInfo = (TextView) findViewById(R.id.information_ticket_info);
-
+		
+		setImages();
+		
 		if (!TextUtils.isEmpty(mInfo.getTicketService())) {
 			tvTicketInfo.setText(mInfo.getTicketService());
 			Drawable ticket = getResources()
@@ -112,6 +104,28 @@ public class InformationDetailActivity extends WTBaseDetailActivity {
 		}
 		tvTime.setText(DateParser.parseDateForInformation(mInfo.getCreatedAt()));
 		tvContent.setText(mInfo.getContext());
+	}
+
+	private void setImages() {
+		vpPics = (ViewPager) findViewById(R.id.vp_information_images);
+		UnderlinePageIndicator indicator = (UnderlinePageIndicator) findViewById(R.id.vp_indicator_infor);
+		List<String> urls = mInfo.getImages();
+		if (urls == null || urls.isEmpty()) {
+			vpPics.setVisibility(View.GONE);
+			indicator.setVisibility(View.GONE);
+			return;
+		}
+		List<View> lstImageViews = new ArrayList<View>();
+		for(int i = 0; i < urls.size(); i++) {
+			lstImageViews.add(this.getLayoutInflater().inflate(R.layout.page_information_pic, null));
+			lstImageViews.get(i).setOnClickListener(this);
+		}
+		InfoDetailPicPagerAdapter adapter = new InfoDetailPicPagerAdapter(
+				urls, this, lstImageViews);
+		vpPics.setAdapter(adapter);
+		
+		indicator.setViewPager(vpPics);
+		indicator.setFades(false);
 	}
 
 	private void receiveInformation() {
@@ -173,5 +187,31 @@ public class InformationDetailActivity extends WTBaseDetailActivity {
 		data.add(mInfo);
 		InformationFactory factory = new InformationFactory(null);
 		factory.saveObjects(this, data, false);
+	}
+
+	@Override
+	public void onClick(View view) {
+		Intent intent = new Intent(InformationDetailActivity.this,
+				WTFullScreenActivity.class);
+		Bundle bundle = new Bundle();
+		String url = mInfo.getImages().get(vpPics.getCurrentItem());
+		bundle.putString(WTBaseDetailActivity.IMAGE_URL, url);
+		Bitmap bitmapTemp = mAq.getCachedImage(url);
+		if (bitmapTemp != null) {
+			bundle.putInt(WTBaseDetailActivity.IMAGE_WIDTH, bitmapTemp.getWidth());
+			bundle.putInt(WTBaseDetailActivity.IMAGE_HEIGHT, bitmapTemp.getHeight());
+		} else {
+			Drawable drawable = getResources().getDrawable(
+					R.drawable.image_place_holder);
+			Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+			bundle.putInt(WTBaseDetailActivity.IMAGE_WIDTH, bitmap.getWidth());
+			bundle.putInt(WTBaseDetailActivity.IMAGE_HEIGHT, bitmap.getHeight());
+		}
+
+		intent.putExtras(bundle);
+		startActivity(intent);
+		this.overridePendingTransition(
+				R.anim.slide_right_in, R.anim.slide_left_out);
+
 	}
 }
