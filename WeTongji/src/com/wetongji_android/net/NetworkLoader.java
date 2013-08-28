@@ -63,7 +63,7 @@ public class NetworkLoader extends AsyncTaskLoader<HttpRequestResult>
 		super.onCanceled(data);
 		if (data == null) {
 			data = new HttpRequestResult(444, "");
-			deliverResult(data);
+			//deliverResult(data);
 		}
 	}
 }

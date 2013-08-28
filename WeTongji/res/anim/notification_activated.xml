@@ -2,18 +2,18 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <scale
-        android:duration="1500"
+        android:duration="1600"
         android:fromXScale="0.3"
         android:fromYScale="0.3"
         android:pivotX="50%"
         android:pivotY="50%"
         android:repeatCount="infinite"
-        android:toXScale="2.4"
-        android:toYScale="2.4" />
+        android:toXScale="2.2"
+        android:toYScale="2.2" />
 
     <alpha
-        android:duration="1500"
+        android:duration="1600"
         android:fromAlpha="1.0"
         android:repeatCount="infinite"
-        android:toAlpha="0.0" />
+        android:toAlpha="0.1" />
 </set>

@@ -446,7 +446,7 @@ public class ApiHelper {
 	public Bundle getHome(){
 		Bundle bundle=new Bundle();
 		putBasicArgs(bundle);
-		//putLoginArgs(bundle);
+		putLoginArgs(bundle);
 		bundle.putString(API_ARGS_METHOD, "Home");
 		return bundle;
 	}
