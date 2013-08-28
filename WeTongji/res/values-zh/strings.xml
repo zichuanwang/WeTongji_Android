@@ -105,7 +105,7 @@
     <string name="profile_section_phone">手机</string>
     <string name="profile_section_email">邮箱</string>
     <string name="things_i_like">我喜欢过的</string>
-    <string name="profile_section_events">活动</string>
+    <string name="profile_section_events">活动详情</string>
     <string name="profile_section_news">资讯</string>
     <string name="profile_section_people">济人</string>
     <string name="profile_section_org">组织机构</string>
@@ -175,7 +175,7 @@
     <string name="course_section_time_type">类型</string>
     <string name="course_section_location">地点</string>
     <string name="account_detail_activities">活动</string>
-    <string name="account_detail_news">组织动态</string>
+    <string name="account_detail_news">社团通告</string>
     <string name="format_items">%d 个活动</string>
     <string name="account_contact">联系</string>
     <string name="my_basic_information">我的基本信息</string>
@@ -273,7 +273,7 @@
 	<string name="now_time_semester13_14">13&#8211;14 第</string>
 	
 	<string name="profile_section_persons">济人</string>
-	<string name="profile_section_new">资讯</string>
+	<string name="profile_section_new">资讯详情</string>
 	<string name="profile_section_user">用户</string>
     <string name="no_friends_error">没有好友参加</string>
     <string name="friend_detail_phone">手机</string>

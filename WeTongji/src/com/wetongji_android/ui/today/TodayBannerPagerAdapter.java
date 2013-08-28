@@ -1,5 +1,6 @@
 package com.wetongji_android.ui.today;
 
+import java.util.Collections;
 import java.util.List;
 
 import android.content.ActivityNotFoundException;
@@ -33,6 +34,7 @@ public class TodayBannerPagerAdapter extends PagerAdapter {
 
 	public TodayBannerPagerAdapter(List<Banner> banners, Context context) {
 		inflater = LayoutInflater.from(context);
+		Collections.reverse(banners);
 		this.banners = banners;
 		aq = new AQuery(context);
 		this.context = context;

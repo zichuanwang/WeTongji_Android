@@ -1,7 +1,6 @@
 package com.wetongji_android.ui.now;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import android.content.Context;
@@ -48,7 +47,6 @@ public class NowPagerAdapter extends PagerAdapter {
 	private NowWeekListAdapter listAdapter;
 	private AmazingListView nowWeekList;
 	private PageNetworkLoaderCallbacks callbacks;
-	private Calendar begin, end, min, max;
 	private final Context context;
 	private int weekNum;
 	private boolean scrollToNow;
@@ -60,18 +58,11 @@ public class NowPagerAdapter extends PagerAdapter {
 		inflater = fragment.getActivity().getLayoutInflater();
 		this.viewPager = viewPager;
 
-		min = begin = DateParser.getFirstDayOfWeek();
-		max = end = DateParser.getLastDayOfWeek();
-
 		weekNum = DateParser.getWeekNumber();
-
 		listAdapter = new NowWeekListAdapter(fragment, weekNum);
 		callbacks = new PageNetworkLoaderCallbacks();
 
-		Bundle args = ApiHelper.getInstance(context).getSchedule(weekNum);
-		fragment.getLoaderManager()
-				.initLoader(WTApplication.NETWORK_LOADER_1, args, callbacks)
-				.forceLoad();
+		loadScheduleFromServer();
 
 	}
 
@@ -156,11 +147,19 @@ public class NowPagerAdapter extends PagerAdapter {
 			// load from db
 			listAdapter.setWeekNumber(weekNum);
 			
-			WTUtility.log("data", "weekNum-PagerAdapter" + weekNum);
+			loadScheduleFromServer();
+		}
+	}
+
+	private void loadScheduleFromServer() {
+		if (WTUtility.isConnect(context)) {
 			Bundle args = ApiHelper.getInstance(context).getSchedule(weekNum);
 			fragment.getLoaderManager()
-					.restartLoader(WTApplication.NETWORK_LOADER_1, args, callbacks).forceLoad();
+			.restartLoader(WTApplication.NETWORK_LOADER_1, args, callbacks).forceLoad();
+		} else {
+			((NowFragment) fragment).showCourse();
 		}
+		
 	}
 
 	private class PageNetworkLoaderCallbacks implements
@@ -185,16 +184,10 @@ public class NowPagerAdapter extends PagerAdapter {
 					WTApplication.NETWORK_LOADER_1);
 			if (result.getResponseCode() == 0) {
 				List<Event> events = new ArrayList<Event>();
-				if (begin.equals(DateParser.getFirstDayOfWeek())) {
-					events = new ArrayList<Event>(
-							scheduleFactory.createSchedule(weekNum,
-									result.getStrResponseCon()));
-				} else {
-					events = new ArrayList<Event>(
-							scheduleFactory.createSchedule(weekNum,
-									result.getStrResponseCon()));
-				}
-				WTUtility.log("newwork event size", events.size() + "");
+				events = new ArrayList<Event>(
+						scheduleFactory.createSchedule(weekNum,
+								result.getStrResponseCon()));
+				
 				listAdapter.setRawData(events);
 				
 				if (scrollToNow) {

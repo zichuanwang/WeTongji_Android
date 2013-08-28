@@ -27,7 +27,6 @@ import com.wetongji_android.data.Event;
 import com.wetongji_android.data.Schedule;
 import com.wetongji_android.factory.ScheduleFactory;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.event.EventUtil;
 import com.wetongji_android.util.data.loader.ScheduleLoader;
 
@@ -284,7 +283,6 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 	@Override
 	public Loader<List<Schedule>> onCreateLoader(int arg0, Bundle arg1) {
 		
-		WTUtility.log("data", "weekNum-listAdapter:" + weekNum);
 		return new ScheduleLoader(context, weekNum);
 	}
 
@@ -294,7 +292,6 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 			ScheduleFactory factory = new ScheduleFactory(fragment);
 			List<Event> eventList = factory.parseSchedule(weekNum, result.get(0).getJsonContent());
 			
-			WTUtility.log("data", "Now-db-size" + eventList.size());
 			if (eventList.size() != 0) {
 				((NowFragment)fragment).showCourse();
 				setRawData(eventList);
@@ -320,6 +317,7 @@ public class NowWeekListAdapter extends AmazingAdapter implements
 	
 	public void setWeekNumber(int weekNumber) {
 		this.weekNum = weekNumber;
+		setRawData(new ArrayList<Event>(0));
 		fragment.getLoaderManager().restartLoader(
 				WTApplication.EVENTS_LOADER, null, this);
 	}

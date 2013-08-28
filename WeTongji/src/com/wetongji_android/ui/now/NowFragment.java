@@ -12,7 +12,6 @@ import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.ui.main.NotificationHandler;
 import com.wetongji_android.util.common.WTApplication;
-import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.date.DateParser;
 import com.wetongji_android.util.exception.ExceptionToast;
 import com.wetongji_android.util.net.HttpRequestResult;
@@ -74,7 +73,6 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 		
 		selectedPage = 0;
 		weekNumber = DateParser.getWeekNumber();
-		WTUtility.log("data", weekNumber + "weekNumber");
 		if (weekNumber < 0) {
 			weekNumber = weekNumber * -1 - 20;
 		}
@@ -252,8 +250,6 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 	private void returnToNow() {
 		hideTime();
 		weekNumber = DateParser.getWeekNumber();
-		
-		WTUtility.log("data", "return to " + weekNumber);
 		
 		if (weekNumber < 0) {
 			weekNumber = weekNumber * -1 - 20;

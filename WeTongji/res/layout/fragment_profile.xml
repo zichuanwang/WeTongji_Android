@@ -261,7 +261,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginLeft="48.3dp"
                         android:layout_marginTop="12dp"
-                        android:text="@string/profile_section_events" />
+                        android:text="@string/title_mainmenu_events" />
 
                     <TextView
                         android:id="@id/text_profile_events_num"
@@ -308,7 +308,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginLeft="48.3dp"
                         android:layout_marginTop="12dp"
-                        android:text="@string/profile_section_new"
+                        android:text="@string/title_mainmenu_news"
                         style="@style/ProfileFriendList"/>
 
                     <TextView
