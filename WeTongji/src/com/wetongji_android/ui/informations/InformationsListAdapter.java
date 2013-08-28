@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -130,7 +132,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 					notifyDataSetChanged();
 				}else{
 					notifyNoMorePages();
-					Toast.makeText(mContext, "No More Data", Toast.LENGTH_SHORT).show();
+					Toast.makeText(mContext, R.string.text_no_more_data, Toast.LENGTH_SHORT).show();
 				}
 			}
 			
@@ -187,6 +189,13 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		}else
 		{
 			holder.rl_item.setBackgroundResource(R.drawable.listview_selector_2);
+		}
+		if (information.getCategory().equals("周边推荐")
+				&& !TextUtils.isEmpty(information.getTicketService())) {
+			Drawable ticket = mContext.getResources().getDrawable(R.drawable.ticket_icon);
+			holder.tv_title.setCompoundDrawablesWithIntrinsicBounds(ticket, null, null, null);
+		} else {
+			holder.tv_title.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
 		}
 		holder.tv_type.setText(information.getCategory());
 		holder.tv_title.setText(information.getTitle());
