@@ -3,10 +3,12 @@ package com.wetongji_android.ui.informations;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
@@ -23,6 +25,7 @@ import com.viewpagerindicator.UnderlinePageIndicator;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Information;
 import com.wetongji_android.factory.InformationFactory;
+import com.wetongji_android.ui.friend.FriendDetailActivity;
 import com.wetongji_android.ui.people.PersonDetailActivity;
 import com.wetongji_android.ui.people.PersonDetailPicPagerAdapter;
 import com.wetongji_android.util.common.WTApplication;
@@ -30,7 +33,8 @@ import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.common.WTFullScreenActivity;
 import com.wetongji_android.util.date.DateParser;
 
-public class InformationDetailActivity extends WTBaseDetailActivity implements OnClickListener{
+public class InformationDetailActivity extends WTBaseDetailActivity implements
+		OnClickListener {
 
 	private Information mInfo;
 	private AQuery mAq;
@@ -66,25 +70,27 @@ public class InformationDetailActivity extends WTBaseDetailActivity implements O
 		TextView tvTime = (TextView) findViewById(R.id.info_detail_time);
 		TextView tvContent = (TextView) findViewById(R.id.info_detail_content);
 		TextView tvTicketInfo = (TextView) findViewById(R.id.information_ticket_info);
-		
+
 		setImages();
-		
+
 		if (!TextUtils.isEmpty(mInfo.getTicketService())) {
 			tvTicketInfo.setText(mInfo.getTicketService());
 			findViewById(R.id.icon_ticket).setVisibility(View.VISIBLE);
 			TextView contact = (TextView) findViewById(R.id.info_detail_ticket_contact);
 			if (!TextUtils.isEmpty(mInfo.getContact())) {
 				contact.setText(mInfo.getContact());
+				contact.setCompoundDrawablesWithIntrinsicBounds(
+						R.drawable.local_contact_icon, 0, 0, 0);
+				contact.setOnClickListener(new OnPicClickListener());
 			} else {
-				contact.setCompoundDrawables(null, null, null, null);
 				contact.setVisibility(View.GONE);
 			}
-			
 		} else {
 			findViewById(R.id.title_info_bar).setVisibility(View.GONE);
 		}
-		if(!TextUtils.isEmpty(mInfo.getLocation())) {
-			((TextView)findViewById(R.id.ticket_detail_location)).setText(mInfo.getLocation());
+		if (!TextUtils.isEmpty(mInfo.getLocation())) {
+			((TextView) findViewById(R.id.ticket_detail_location))
+					.setText(mInfo.getLocation());
 		} else {
 			findViewById(R.id.ticket_detail_location).setVisibility(View.GONE);
 		}
@@ -108,20 +114,21 @@ public class InformationDetailActivity extends WTBaseDetailActivity implements O
 		UnderlinePageIndicator indicator = (UnderlinePageIndicator) findViewById(R.id.vp_indicator_infor);
 		List<String> urls = mInfo.getImages();
 		if (urls == null || urls.size() == 0) {
-			
+
 			vpPics.setVisibility(View.GONE);
 			indicator.setVisibility(View.GONE);
 			return;
 		}
 		List<View> lstImageViews = new ArrayList<View>();
-		for(int i = 0; i < urls.size(); i++) {
-			lstImageViews.add(this.getLayoutInflater().inflate(R.layout.page_information_pic, null));
+		for (int i = 0; i < urls.size(); i++) {
+			lstImageViews.add(this.getLayoutInflater().inflate(
+					R.layout.page_information_pic, null));
 			lstImageViews.get(i).setOnClickListener(this);
 		}
-		InfoDetailPicPagerAdapter adapter = new InfoDetailPicPagerAdapter(
-				urls, this, lstImageViews);
+		InfoDetailPicPagerAdapter adapter = new InfoDetailPicPagerAdapter(urls,
+				this, lstImageViews);
 		vpPics.setAdapter(adapter);
-		
+
 		indicator.setViewPager(vpPics);
 		indicator.setFades(false);
 	}
@@ -143,27 +150,14 @@ public class InformationDetailActivity extends WTBaseDetailActivity implements O
 	private class OnPicClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
-			Intent intent = new Intent(InformationDetailActivity.this,
-					WTFullScreenActivity.class);
-			Bundle bundle = new Bundle();
-			bundle.putString(IMAGE_URL, mInfo.getImages().get(0));
-
-			Bitmap bitmapTemp = mAq.getCachedImage(mInfo.getImages().get(0));
-			if (bitmapTemp != null) {
-				bundle.putInt(IMAGE_WIDTH, bitmapTemp.getWidth());
-				bundle.putInt(IMAGE_HEIGHT, bitmapTemp.getHeight());
-			} else {
-				Drawable drawable = getResources().getDrawable(
-						R.drawable.image_place_holder);
-				Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-				bundle.putInt(IMAGE_WIDTH, bitmap.getWidth());
-				bundle.putInt(IMAGE_HEIGHT, bitmap.getHeight());
+			Uri phoneUri = Uri.parse("tel:" + mInfo.getContact());
+			Intent phoneIntent = new Intent(Intent.ACTION_CALL, phoneUri);
+			try {
+				startActivity(phoneIntent);
+			} catch (ActivityNotFoundException e) {
+				Toast.makeText(InformationDetailActivity.this,
+						R.string.toast_no_email_app, Toast.LENGTH_LONG).show();
 			}
-
-			intent.putExtras(bundle);
-			startActivity(intent);
-			InformationDetailActivity.this.overridePendingTransition(
-					R.anim.slide_right_in, R.anim.slide_left_out);
 		}
 	}
 
@@ -196,8 +190,10 @@ public class InformationDetailActivity extends WTBaseDetailActivity implements O
 		bundle.putString(WTBaseDetailActivity.IMAGE_URL, url);
 		Bitmap bitmapTemp = mAq.getCachedImage(url);
 		if (bitmapTemp != null) {
-			bundle.putInt(WTBaseDetailActivity.IMAGE_WIDTH, bitmapTemp.getWidth());
-			bundle.putInt(WTBaseDetailActivity.IMAGE_HEIGHT, bitmapTemp.getHeight());
+			bundle.putInt(WTBaseDetailActivity.IMAGE_WIDTH,
+					bitmapTemp.getWidth());
+			bundle.putInt(WTBaseDetailActivity.IMAGE_HEIGHT,
+					bitmapTemp.getHeight());
 		} else {
 			Drawable drawable = getResources().getDrawable(
 					R.drawable.image_place_holder);
@@ -208,8 +204,8 @@ public class InformationDetailActivity extends WTBaseDetailActivity implements O
 
 		intent.putExtras(bundle);
 		startActivity(intent);
-		this.overridePendingTransition(
-				R.anim.slide_right_in, R.anim.slide_left_out);
+		this.overridePendingTransition(R.anim.slide_right_in,
+				R.anim.slide_left_out);
 
 	}
 }
