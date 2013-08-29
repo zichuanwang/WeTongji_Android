@@ -136,7 +136,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="search">Search</string>
     <string name="search_history_title">Search History</string>
     <string name="search_type_all">all</string>
-    <string name="search_type_people">people</string>
+    <string name="search_type_people">user</string>
     <string name="search_type_organizations">organizations</string>
     <string name="search_type_news">news</string>
     <string name="search_type_activities">activities</string>

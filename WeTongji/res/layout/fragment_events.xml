@@ -13,7 +13,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@color/eventlst_divider"
-            android:dividerHeight="0.33dp" />
+            android:dividerHeight="0.33dp"
+            android:layout_above="@id/events_list_space" />
+        
+        <View
+            android:id="@id/events_list_space"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"/>
         
     </RelativeLayout>
 

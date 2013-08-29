@@ -126,6 +126,8 @@ public class EventsFragment extends WTBaseFragment implements
 		llActionType.setOnClickListener(bottomActionItemClikListener);
 		if(mStartMode == StartMode.BASIC) {
 			readPreference();
+		} else {
+			view.findViewById(R.id.events_list_space).setVisibility(View.GONE);
 		}
 		cbActionExpired.setChecked(mFilterExpired);
 		cbActionExpired.setOnCheckedChangeListener(new OnTypeCheckedListener());

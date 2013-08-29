@@ -332,4 +332,5 @@
     <item name="tv_student_name" type="id">false</item>
     <item name="btn_submit" type="id">false</item>
     <item name="icon_ticket" type="id"/>
+    <item name="events_list_space" type="id" />
 </resources>

@@ -130,7 +130,7 @@
     <string name="search">搜索</string>
     <string name="search_history_title">搜索历史</string>
     <string name="search_type_all">所有</string>
-    <string name="search_type_people">济人</string>
+    <string name="search_type_people">用户</string>
     <string name="search_type_organizations">组织机构</string>
     <string name="search_type_news">资讯</string>
     <string name="search_type_activities">活动</string>
