@@ -11,7 +11,7 @@
         <ListView
             android:id="@+id/lst_events"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:divider="@color/eventlst_divider"
             android:dividerHeight="0.33dp"
             android:layout_above="@id/events_list_space" />
