@@ -331,4 +331,5 @@
     <item name="tv_student_id" type="id">false</item>
     <item name="tv_student_name" type="id">false</item>
     <item name="btn_submit" type="id">false</item>
+    <item name="icon_ticket" type="id"/>
 </resources>

@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -159,6 +160,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		TextView tv_title;
 		TextView tv_description;
 		RelativeLayout rl_item;
+		ImageView iv_ticketIcon;
 	}
 	
 	@Override
@@ -174,6 +176,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 			holder.tv_title = (TextView)convertView.findViewById(R.id.information_list_item_title);
 			holder.tv_description = (TextView)convertView.findViewById(R.id.information_list_item_description);
 			holder.rl_item = (RelativeLayout)convertView.findViewById(R.id.information_list_item);
+			holder.iv_ticketIcon = (ImageView) convertView.findViewById(R.id.icon_ticket);
 			convertView.setTag(holder);
 		}else
 		{
@@ -192,10 +195,9 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		}
 		if (information.getCategory().equals("周边推荐")
 				&& !TextUtils.isEmpty(information.getTicketService())) {
-			Drawable ticket = mContext.getResources().getDrawable(R.drawable.ticket_icon);
-			holder.tv_title.setCompoundDrawablesWithIntrinsicBounds(ticket, null, null, null);
+			holder.iv_ticketIcon.setVisibility(View.VISIBLE);
 		} else {
-			holder.tv_title.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+			holder.iv_ticketIcon.setVisibility(View.GONE);
 		}
 		holder.tv_type.setText(information.getCategory());
 		holder.tv_title.setText(information.getTitle());

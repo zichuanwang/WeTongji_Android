@@ -71,24 +71,17 @@ public class InformationDetailActivity extends WTBaseDetailActivity implements O
 		
 		if (!TextUtils.isEmpty(mInfo.getTicketService())) {
 			tvTicketInfo.setText(mInfo.getTicketService());
-			Drawable ticket = getResources()
-					.getDrawable(R.drawable.ticket_icon);
-			tvTitle.setCompoundDrawablesWithIntrinsicBounds(ticket, null, null, null);
-			
+			findViewById(R.id.icon_ticket).setVisibility(View.VISIBLE);
 			TextView contact = (TextView) findViewById(R.id.info_detail_ticket_contact);
 			if (!TextUtils.isEmpty(mInfo.getContact())) {
-				Drawable ticketPhone = getResources()
-						.getDrawable(R.drawable.local_contact_icon);
 				contact.setText(mInfo.getContact());
-				//contact.setCompoundDrawablesRelativeWithIntrinsicBounds(ticketPhone, null, null, null);
 			} else {
-				//contact.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null);
+				contact.setCompoundDrawables(null, null, null, null);
 				contact.setVisibility(View.GONE);
 			}
 			
 		} else {
 			findViewById(R.id.title_info_bar).setVisibility(View.GONE);
-			tvTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
 		}
 		if(!TextUtils.isEmpty(mInfo.getLocation())) {
 			((TextView)findViewById(R.id.ticket_detail_location)).setText(mInfo.getLocation());
@@ -114,7 +107,8 @@ public class InformationDetailActivity extends WTBaseDetailActivity implements O
 		vpPics = (ViewPager) findViewById(R.id.vp_information_images);
 		UnderlinePageIndicator indicator = (UnderlinePageIndicator) findViewById(R.id.vp_indicator_infor);
 		List<String> urls = mInfo.getImages();
-		if (urls == null || urls.isEmpty()) {
+		if (urls == null || urls.size() == 0) {
+			
 			vpPics.setVisibility(View.GONE);
 			indicator.setVisibility(View.GONE);
 			return;

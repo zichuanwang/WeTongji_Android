@@ -27,25 +27,41 @@
         android:layout_height="wrap_content"
         android:background="@drawable/info_detail_brief_shadow" >
 
-        <TextView
-            android:id="@id/info_detail_title"
-            style="@style/InformationDetailTitle"
-            android:layout_width="267dp"
+        <LinearLayout
+            android:id="@+id/info_title_bar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="16.5dp"
-            android:layout_marginTop="16.5dp"
-            android:drawablePadding="4dp"
-            android:textIsSelectable="true" />
+            android:layout_marginTop="13dp" >
+            
+            <ImageView
+                android:id="@+id/icon_ticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="4dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ticket_icon"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@id/info_detail_title"
+                style="@style/InformationDetailTitle"
+                android:layout_width="267dp"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/info_detail_ticket_contact"
             style="@style/InformationDetailTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/info_detail_title"
+            android:layout_below="@id/info_title_bar"
             android:layout_marginLeft="16.5dp"
-            android:layout_marginTop="6dp" />
+            android:layout_marginTop="6dp"
+            android:drawableLeft="@drawable/local_contact_icon" />
 
         <TextView
             android:id="@+id/ticket_detail_location"
@@ -95,10 +111,9 @@
         </RelativeLayout>
     </RelativeLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="222dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="-3dp"
         android:orientation="vertical" >
 
@@ -107,9 +122,9 @@
             android:layout_width="match_parent"
             android:layout_height="218dp"
             android:layout_gravity="center_horizontal"
-        	android:layout_marginLeft="15dp"
-        	android:layout_marginRight="15dp"
-        	android:layout_marginTop="0dp" />
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="0dp" />
 
         <com.viewpagerindicator.UnderlinePageIndicator
             xmlns:app="http://schemas.android.com/apk/res-auto"

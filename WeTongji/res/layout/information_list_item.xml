@@ -2,52 +2,65 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
-    
-    <include 
-        layout="@layout/information_list_header"/>
-    
+    android:orientation="vertical" >
+
+    <include layout="@layout/information_list_header" />
+
     <RelativeLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:id="@id/information_list_item">
-	    
-		<TextView 
-		    android:id="@id/information_list_item_type"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_alignParentTop="true"
-		    android:layout_marginTop="8.3dp"
-		    android:layout_marginLeft="13.3dp"
-		    android:textIsSelectable="false"
-		    style="@style/InformationListType"/>
-		
-		<TextView 
-		    android:id="@id/information_list_item_title"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_alignLeft="@id/information_list_item_type"
-		    android:layout_below="@id/information_list_item_type"
-		    android:layout_marginTop="8dp"
-		   	android:layout_marginRight="13.3dp"
-		   	android:drawablePadding="4dp"
-		    android:textIsSelectable="false"
-		    android:maxLines="2"
-		    android:ellipsize="end"
-		    style="@style/InformationListTitle"/>
-		
-		<TextView 
-		    android:id="@id/information_list_item_description"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_alignLeft="@id/information_list_item_type"
-		    android:layout_below="@id/information_list_item_title"
-		    android:layout_marginTop="8dp"
-		    android:paddingBottom="8.3dp"
-		    android:textIsSelectable="false"
-		    android:singleLine="true"
-		    android:ellipsize="end"
-		    style="@style/InformationListDescription"/>
-		
-	</RelativeLayout>
+        android:id="@id/information_list_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@id/information_list_item_type"
+            style="@style/InformationListType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="13.3dp"
+            android:layout_marginTop="8.3dp"
+            android:textIsSelectable="false" />
+
+        <LinearLayout
+            android:id="@+id/information_list_item_title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="13.3dp"
+            android:layout_below="@id/information_list_item_type"
+            android:layout_marginLeft="13.3dp"
+            android:layout_marginTop="5dp" >
+
+            <ImageView
+                android:id="@id/icon_ticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="4dp"
+                android:src="@drawable/ticket_icon"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@id/information_list_item_title"
+                style="@style/InformationListTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textIsSelectable="false" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@id/information_list_item_description"
+            style="@style/InformationListDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/information_list_item_type"
+            android:layout_below="@id/information_list_item_title_bar"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:paddingBottom="8.3dp"
+            android:singleLine="true"
+            android:textIsSelectable="false" />
+    </RelativeLayout>
+
 </LinearLayout>
