@@ -16,6 +16,7 @@ import com.wetongji_android.data.Information;
 import com.wetongji_android.data.Person;
 import com.wetongji_android.data.SearchResult;
 import com.wetongji_android.data.User;
+import com.wetongji_android.util.common.WTApplication;
 
 import android.util.Pair;
 
@@ -76,7 +77,8 @@ public class SearchUtil {
 				result.setContent(account);
 				results.add(result);
 			}
-		} else if (key.equals("Users")) {
+		// **** Only Login User can search user
+		} else if (key.equals("Users") && WTApplication.getInstance().hasAccount) {
 			for (int i = 0; i < array.length(); i++) {
 				SearchResult result = new SearchResult();
 				result.setType(3);

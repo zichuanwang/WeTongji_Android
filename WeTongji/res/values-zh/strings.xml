@@ -107,7 +107,7 @@
     <string name="things_i_like">我喜欢过的</string>
     <string name="profile_section_events">活动详情</string>
     <string name="profile_section_news">资讯</string>
-    <string name="profile_section_people">济人</string>
+    <string name="profile_section_people">每周人物</string>
     <string name="profile_section_org">组织机构</string>
     <string name="profile_section_birthday">生日</string>
     <string name="profile_section_student_no">学号</string>
@@ -134,7 +134,7 @@
     <string name="search_type_organizations">组织机构</string>
     <string name="search_type_news">资讯</string>
     <string name="search_type_activities">活动</string>
-    <string name="search_type_stars">济人</string>
+    <string name="search_type_stars">每周人物</string>
     <string name="search_type_information">资讯</string>
     <string name="search_history_clear">清除搜索历史</string>
     <string name="friend_activity_name">好友</string>
@@ -159,7 +159,7 @@
     <string name="type_org">组织机构</string>
     <string name="type_activities">活动</string>
     <string name="type_information">资讯</string>
-    <string name="type_stars">济人</string>
+    <string name="type_stars">每周人物</string>
     <string name="profile_button_text">设置头像</string>
     <string name="invite_friends">邀请好友</string>
     <string name="invite_title">邀请</string>
@@ -272,7 +272,7 @@
     <string name="now_time_semester12_13">12&#8211;13 第</string>
 	<string name="now_time_semester13_14">13&#8211;14 第</string>
 	
-	<string name="profile_section_persons">济人</string>
+	<string name="profile_section_persons">每周人物</string>
 	<string name="profile_section_new">资讯详情</string>
 	<string name="profile_section_user">用户</string>
     <string name="no_friends_error">没有好友参加</string>

@@ -192,7 +192,7 @@ public class SearchFragment extends SherlockFragment implements
 			@Override
 			public boolean onMenuItemActionCollapse(MenuItem item) {
 				hideKeyboard();
-				MainActivity mainActivity= (MainActivity) getActivity();
+				MainActivity mainActivity = (MainActivity) getActivity();
 				if (mainActivity.getSlidingMenu().isMenuShowing()) {
 					mainActivity.finish();
 				} else {
@@ -208,13 +208,22 @@ public class SearchFragment extends SherlockFragment implements
 	}
 
 	private void doSearch(int type, String content) {
+		/*
+		 * only login user can search user
+		 */
+		if (type == 1) {
+			Toast.makeText(getActivity(), R.string.text_error_request_login,
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
 		showProgress();
 		ApiHelper apiHelper = ApiHelper.getInstance(getActivity());
 		Bundle b = apiHelper.getSearchResult(type, content);
 		getLoaderManager().restartLoader(WTApplication.NETWORK_LOADER_SEARCH,
 				b, SearchFragment.this);
 		saveSearchHistory(type, content);
-		
+
 		hideKeyboard();
 	}
 
@@ -443,7 +452,7 @@ public class SearchFragment extends SherlockFragment implements
 		}
 		return true;
 	}
-	
+
 	private void hideKeyboard() {
 		InputMethodManager imm = (InputMethodManager) getActivity()
 				.getSystemService(Context.INPUT_METHOD_SERVICE);
