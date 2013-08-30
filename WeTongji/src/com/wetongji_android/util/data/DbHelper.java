@@ -23,9 +23,9 @@ import com.wetongji_android.data.UserProfile;
 
 public class DbHelper extends OrmLiteSqliteOpenHelper {
 	
-	private static final String DB_NAME="wetongji.db";
-	private static final int DB_VERSION=2;
-	
+	private static final String DB_NAME = "wetongji.db";
+	private static final int DB_VERSION = 2;
+
 	public DbHelper(Context context){
 		super(context, DB_NAME, null, DB_VERSION, R.raw.ormlite_config);
 	}
@@ -52,21 +52,25 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource connSource, int oldVersion,
 			int newVersion) {
-		try {
-			TableUtils.dropTable(connSource, Activity.class, false);
-			TableUtils.dropTable(connSource, Course.class, false);
-			TableUtils.dropTable(connSource, Exam.class, false);
-			TableUtils.dropTable(connSource, Event.class, false);
-			TableUtils.dropTable(connSource, Information.class, false);
-			TableUtils.dropTable(connSource, Person.class, false);
-			TableUtils.dropTable(connSource, User.class, false);
-			TableUtils.dropTable(connSource, SearchHistory.class, false);
-			TableUtils.dropTable(connSource, Notification.class, false);
-			TableUtils.dropTable(connSource, Schedule.class, false);
-			TableUtils.dropTable(connSource, UserProfile.class, false);
-			onCreate(db, connSource);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		
+		
+		if (oldVersion == 1) {
+			try {
+				TableUtils.dropTable(connSource, Activity.class, false);
+				TableUtils.dropTable(connSource, Course.class, false);
+				TableUtils.dropTable(connSource, Exam.class, false);
+				TableUtils.dropTable(connSource, Event.class, false);
+				TableUtils.dropTable(connSource, Information.class, false);
+				TableUtils.dropTable(connSource, Person.class, false);
+				TableUtils.dropTable(connSource, User.class, false);
+				TableUtils.dropTable(connSource, SearchHistory.class, false);
+				TableUtils.dropTable(connSource, Notification.class, false);
+				TableUtils.dropTable(connSource, Schedule.class, false);
+				TableUtils.dropTable(connSource, UserProfile.class, false);
+				onCreate(db, connSource);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -86,10 +90,10 @@ public class DbHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.clearTable(getConnectionSource(), Notification.class);
 			TableUtils.clearTable(getConnectionSource(), Schedule.class);
 			TableUtils.clearTable(getConnectionSource(), UserProfile.class);
+			TableUtils.dropTable(getConnectionSource(), User.class, false);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
 	}
-
 }
