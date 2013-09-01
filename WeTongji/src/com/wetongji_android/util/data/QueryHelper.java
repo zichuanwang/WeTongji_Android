@@ -21,10 +21,10 @@ public class QueryHelper {
 	public static final String ARGS_INFO_TYPE = "INFOTYPE";
 	public static final String ARGS_INFO_TYPE_ALL = "ALL";
 	public static final String ARGS_INFO_ORDER_BY = "CreatedAt";
-	public static final String ARGS_INFO_TYPE_ONE = "校园新闻";
-	public static final String ARGS_INFO_TYPE_TWO = "社团通告";
-	public static final String ARGS_INFO_TYPE_THREE = "周边推荐";
-	public static final String ARGS_INFO_TYPE_FOUR = "校务信息";
+	public static final String ARGS_INFO_TYPE_ONE = "鏍″洯鏂伴椈";
+	public static final String ARGS_INFO_TYPE_TWO = "绀惧洟閫氬憡";
+	public static final String ARGS_INFO_TYPE_THREE = "鍛ㄨ竟鎺ㄨ崘";
+	public static final String ARGS_INFO_TYPE_FOUR = "鏍″姟淇℃伅";
 	
 	public static Bundle getActivitiesQueryArgs(String orderBy, boolean ascending, boolean hasExpired, 
 			boolean hasChannel1, boolean hasChannel2, boolean hasChannel3, boolean hasChannel4){

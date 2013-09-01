@@ -9,43 +9,43 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
 public class WTTouchImageView extends ImageView{
-    static final int NONE = 0;// 表示当前没有状态
+    static final int NONE = 0;//
 
-    static final int DRAG = 1; // 表示当前处于移动状态
+    static final int DRAG = 1;
 
-    static final int ZOOM = 2; // 表示当前处于缩放状态
+    static final int ZOOM = 2; //
 
-    static final int BIGGER = 3; // 表示放大图片
+    static final int BIGGER = 3; //
 
-    static final int SMALLER = 4; // 表示缩小图片
+    static final int SMALLER = 4; //
 
-    private int mode = NONE; // mode用于标示当前处于什么状态
+    private int mode = NONE; //
 
-    private float beforeLenght; // 第一次触摸两点的距离
+    private float beforeLenght; //
 
-    private float afterLenght; // 移动后两点的距离
+    private float afterLenght; //
 
-    private float scale = 0.04f; // 缩放因子
+    private float scale = 0.04f; //
 
-    private int screenW;// 下面两句图片的移动范围，及ViewArea的范围，也就是linearLayout的范围，也就是屏幕方位（都是填满父控件属性）
+    private int screenW;//
 
     private int screenH;
 
-    private int start_x;// 开始触摸点
+    private int start_x;//
 
     private int start_y;
 
-    private int stop_x;// 结束触摸点
+    private int stop_x;
 
     private int stop_y;
 
-    private TranslateAnimation trans; // 回弹动画
+    private TranslateAnimation trans;
     
     final SherlockActivity SherlockActivity;
     
     long touchDownTime = 0;
 
-    public WTTouchImageView(Context context, int w, int h, SherlockActivity activity)// 这里传进来的w，h就是图片的移动范围
+    public WTTouchImageView(Context context, int w, int h, SherlockActivity activity)
     {
         super(context);
         this.setPadding(0, 0, 0, 0);
@@ -55,7 +55,6 @@ public class WTTouchImageView extends ImageView{
         SherlockActivity = activity;
     }
 
-    // 用来计算2个触摸点的距离
     private float spacing(MotionEvent event) {
         float x = event.getX(0) - event.getX(1);
         float y = event.getY(0) - event.getY(1);
@@ -66,19 +65,18 @@ public class WTTouchImageView extends ImageView{
     public boolean onTouchEvent(MotionEvent event) 
     {
         
-        switch (event.getAction() & MotionEvent.ACTION_MASK) {// MotionEvent.ACTION_MASK表示多点触控事件
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
         case MotionEvent.ACTION_DOWN:
             mode = DRAG;
-            stop_x = (int) event.getRawX();// 表示相对于屏幕左上角为原点的坐标
-            stop_y = (int) event.getRawY();// 同上
-            start_x = stop_x - this.getLeft();// 用(int)
-                                              // event.getX();一样,表示相对于当前点击Widget（控件）左上角的坐标，这里就是相对于自定义imageView左上角的坐标.建议用前者，如果不是全屏拖动，而是指定范围内，一样适用！
-            start_y = stop_y - this.getTop();// //用(int)
-                                             // event.getY();一样,this.getTop()表示其顶部相对于父控件的距离
+            stop_x = (int) event.getRawX();
+            stop_y = (int) event.getRawY();
+            start_x = stop_x - this.getLeft();
+
+            start_y = stop_y - this.getTop();
+
 
             if (event.getPointerCount() == 2)
                 beforeLenght = spacing(event);
-            //  保存按下的时间
             touchDownTime = System.currentTimeMillis();
             
             
@@ -91,7 +89,6 @@ public class WTTouchImageView extends ImageView{
             break;
         case MotionEvent.ACTION_UP:
             
-         // 如果点击时间不超过0.3秒则判断为点击
             if(System.currentTimeMillis() - touchDownTime < 300) {
                 if(SherlockActivity.getSupportActionBar().isShowing()) {
                     SherlockActivity.getSupportActionBar().hide();
@@ -106,7 +103,6 @@ public class WTTouchImageView extends ImageView{
             {
                 if (this.getTop() < 0) {
                     disY = getTop();
-                    // layout(left , top, right,bottom)函数表示设置view的位置。
                     this.layout(this.getLeft(), 0, this.getRight(),
                             0 + this.getHeight());
 
@@ -152,12 +148,10 @@ public class WTTouchImageView extends ImageView{
                 }
 
             }
-            // 如果图片缩放到宽高任意一个小于100，那么自动放大，直到大于100.
             while (getHeight() < 100 || getWidth() < 100) {
 
                 setScale(scale, BIGGER);
             }
-            // 根据disX和disY的偏移量采用移动动画回弹归位，动画时间为500毫秒。
             if (disX != 0 || disY != 0) {
                 trans = new TranslateAnimation(disX, 0, disY, 0);
                 trans.setDuration(500);
@@ -172,7 +166,6 @@ public class WTTouchImageView extends ImageView{
         case MotionEvent.ACTION_MOVE:
 
             if (mode == DRAG) {
-                // 执行拖动事件的时，不断变换自定义imageView的位置从而达到拖动效果
                 this.setPosition(stop_x - start_x, stop_y - start_y, stop_x
                         + this.getWidth() - start_x,
                         stop_y - start_y + this.getHeight());
@@ -186,14 +179,13 @@ public class WTTouchImageView extends ImageView{
                     if (gapLenght == 0) {
                         break;
                     }
-                    // 图片宽度（也就是自定义imageView）必须大于70才可以缩放
                     else if (Math.abs(gapLenght) > 5f && getWidth() > 70) {
                         if (gapLenght > 0) {
                             this.setScale(scale, BIGGER);
                         } else {
                             this.setScale(scale, SMALLER);
                         }
-                        beforeLenght = afterLenght; // 这句不能少。
+                        beforeLenght = afterLenght;
                     }
                 }
             }
@@ -205,7 +197,6 @@ public class WTTouchImageView extends ImageView{
     private void setScale(float temp, int flag) {
 
         if (flag == BIGGER) {
-            // setFrame(left , top, right,bottom)函数表示改变当前view的框架，也就是大小。
             this.setFrame(this.getLeft() - (int) (temp * this.getWidth()),
                     this.getTop() - (int) (temp * this.getHeight()),
                     this.getRight() + (int) (temp * this.getWidth()),

@@ -23,10 +23,10 @@ public class WTFullScreenPicArea extends LinearLayout {
     
     //private DisplayMetrics dm;
 
-    // resId为图片资源id
+    // resId为图片锟斤拷源id
     @SuppressWarnings("deprecation")
 	public WTFullScreenPicArea(Context context, String url, AQuery aq, int width, int height,
-            SherlockActivity sherlockActivity) { // 第二个参数是图片的资源ID，当然也可以用别的方式获取图片
+            SherlockActivity sherlockActivity) {
         /*
          * dm = new DisplayMetrics();
          * ((Activity)context).getWindowManager().getDefaultDisplay
@@ -46,17 +46,16 @@ public class WTFullScreenPicArea extends LinearLayout {
         imgDisplayH = ((Activity) context).getWindowManager()
                 .getDefaultDisplay().getHeight();
 
-        touchView = new WTTouchImageView(context, imgDisplayW, imgDisplayH, mSherlockActivity);// 这句就是自定义ImageView
+        touchView = new WTTouchImageView(context, imgDisplayW, imgDisplayH, mSherlockActivity);
         //touchView.setImageDrawable(drawable);
         
-        touchView.setImageBitmap(aq.getCachedImage(url));// 给自定义imageView设置要显示的图片
+        touchView.setImageBitmap(aq.getCachedImage(url));
         
         touchView.setFocusable(false);
         
         imgW = width;
         imgH = height;
         
-        // 图片第一次加载进来，判断图片大小从而确定第一次图片的显示方式。
         int layout_w = imgW > imgDisplayW ? imgDisplayW : imgW;
         int layout_h = imgH > imgDisplayH ? imgDisplayH : imgH;
 

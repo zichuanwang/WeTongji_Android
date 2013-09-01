@@ -164,7 +164,7 @@ pip-log.txt
 ._.DS_Store
 
 # built application files
-*.apk
+
 *.ap_
 
 # files for the dex VM
@@ -203,3 +203,6 @@ library/SlidingMenu/project.properties
 
 #test folder
 WeTongji/src/com/wetongji_android/test
+out/production
+out/res-cache
+out/test
