@@ -297,6 +297,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="reset_password">Providing your Student ID and name to reset your WeTongji password</string>
 	<string name="submit_title">Submit</string>
 	<string name="forget_title">Forget Password</string>
-	<string name="reset_pwd_success">Reset Password Success</string>
+	<string name="reset_pwd_success">Rest link has been sent to your inbox of mail.tongji.edu.cn</string>
 	<string name="text_no_more_data">No more data</string>
 </resources>

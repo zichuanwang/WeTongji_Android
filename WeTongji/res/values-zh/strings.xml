@@ -295,7 +295,7 @@
 	<string name="reset_password">提供您的学号与姓名来重置您的微同济密码</string>
 	<string name="submit_title">提交</string>
 	<string name="forget_title">忘记密码</string>
-	<string name="reset_pwd_success">重置密码成功</string>
+	<string name="reset_pwd_success">密码重置链接已经发送到你的同济邮箱</string>
 	<string name="text_name">姓名</string>
 	<string name="text_no_more_data">没有更多了</string>
 </resources>
