@@ -64,6 +64,7 @@
                 android:textIsSelectable="false" />
 
             <LinearLayout
+                android:id="@+id/share_button"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_alignParentRight="true"
@@ -146,6 +147,7 @@
 
         <!-- Like checkbox -->
         <LinearLayout
+            android:id="@+id/like_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

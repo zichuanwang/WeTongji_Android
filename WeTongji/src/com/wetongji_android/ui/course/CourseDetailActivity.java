@@ -1,24 +1,27 @@
 package com.wetongji_android.ui.course;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.androidquery.util.AQUtility;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Course;
 import com.wetongji_android.data.Sections;
 import com.wetongji_android.factory.CourseFactory;
 import com.wetongji_android.util.common.WTBaseDetailActivity;
 import com.wetongji_android.util.date.DateParser;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class CourseDetailActivity extends WTBaseDetailActivity {
 
@@ -49,6 +52,13 @@ public class CourseDetailActivity extends WTBaseDetailActivity {
 	}
 
 	private void setUpUI() {
+        // hide like bar
+        findViewById(R.id.like_bar).setVisibility(View.GONE);
+        LinearLayout shareBar = (LinearLayout) findViewById(R.id.share_button);
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) shareBar.getLayoutParams();
+        lp.setMargins(0, 0, 0, 0);
+        shareBar.setLayoutParams(lp);
+
 		TextView tvTitle = (TextView) findViewById(R.id.text_course_detail_title);
 		TextView tvTime = (TextView) findViewById(R.id.text_course_detail_time);
 		TextView tvLocation = (TextView) findViewById(R.id.text_course_detail_location);
