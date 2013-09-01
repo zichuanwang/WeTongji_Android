@@ -37,6 +37,8 @@ import android.widget.ImageView;
 import com.viewpagerindicator.PageIndicator;
 import com.wetongji_android.R;
 
+import static android.os.Build.*;
+
 public class PagerContainer extends FrameLayout implements OnPageChangeListener {
 
 	private ViewPager mPager;
@@ -67,7 +69,9 @@ public class PagerContainer extends FrameLayout implements OnPageChangeListener 
 		// 3.x/4.x
 		// You need to set this value here if using hardware acceleration in an
 		// application targeted at these releases.
-		setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        if (VERSION.SDK_INT > 10) {
+            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        }
 	}
 
 	@Override
