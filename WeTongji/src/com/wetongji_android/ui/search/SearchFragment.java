@@ -211,7 +211,7 @@ public class SearchFragment extends SherlockFragment implements
 		/*
 		 * only login user can search user
 		 */
-		if (type == 1) {
+		if (type == 1 && !WTApplication.getInstance().hasAccount) {
 			Toast.makeText(getActivity(), R.string.text_error_request_login,
 					Toast.LENGTH_SHORT).show();
 			return;
