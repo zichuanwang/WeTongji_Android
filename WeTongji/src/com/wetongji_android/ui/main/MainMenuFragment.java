@@ -23,7 +23,7 @@ import com.wetongji_android.ui.auth.AuthActivity;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.ui.now.NowFragment;
-import com.wetongji_android.ui.oa.OaFragment;
+import com.wetongji_android.ui.webview.WebviewFragment;
 import com.wetongji_android.ui.profile.ProfileFragment;
 import com.wetongji_android.ui.search.SearchFragment;
 import com.wetongji_android.ui.setting.WTSettingActivity;
@@ -40,13 +40,14 @@ public class MainMenuFragment extends Fragment {
 	private static final int MAIN_MENU_ICON_RES[] = { R.drawable.ic_main_today,
 			R.drawable.ic_main_news, R.drawable.ic_main_events,
 			R.drawable.ic_main_now, R.drawable.ic_main_search, R.drawable.ic_main_profile,
-            R.drawable.ic_main_now };
+            R.drawable.ic_main_now, R.drawable.ic_main_now };
 
 	private static final int MAIN_MENU_ICON_SELECTED_RES[] = {
 			R.drawable.ic_main_today_pressed, R.drawable.ic_main_news_pressed,
 			R.drawable.ic_main_events_pressed, R.drawable.ic_main_now_pressed,
 			R.drawable.ic_main_search_pressed,
 			R.drawable.ic_main_profile_pressed,
+            R.drawable.ic_main_now_pressed,
             R.drawable.ic_main_now_pressed };
 
 	private static final int MAIN_MENU_TEXT_RES[] = {
@@ -54,7 +55,8 @@ public class MainMenuFragment extends Fragment {
 			R.string.title_mainmenu_events, R.string.title_mainmenu_now,
 			R.string.title_mainmenu_search, 
 			R.string.title_mainmenu_profile,
-            R.string.title_mainmenu_oa };
+            R.string.title_mainmenu_oa,
+            R.string.title_mainmenu_library };
 
 	private int mCurrentItemNu = 0;
 	private MainMenuListAdapter mMenuListAdapter;
@@ -190,11 +192,20 @@ public class MainMenuFragment extends Fragment {
 				break;
             case 6:
                 if (WTApplication.getInstance().hasAccount) {
-                    newContent = OaFragment.newInstance();
+                    Bundle data = new Bundle();
+                    data.putString("title", "OA System");
+                    data.putString("url", "http://wapoa.tongji.edu.cn/");
+                    newContent = WebviewFragment.newInstance(data);
                 } else {
                     startActivity(new Intent(getActivity(), AuthActivity.class));
                     return;
                 }
+                break;
+            case 7:
+                Bundle data = new Bundle();
+                data.putString("title", "My Library");
+                data.putString("url", "http://www.lib.tongji.edu.cn/m/index.action");
+                newContent = WebviewFragment.newInstance(data);
                 break;
 			default:
 				newContent = null;
