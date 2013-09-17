@@ -23,6 +23,7 @@ import com.wetongji_android.ui.auth.AuthActivity;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.ui.now.NowFragment;
+import com.wetongji_android.ui.oa.OaFragment;
 import com.wetongji_android.ui.profile.ProfileFragment;
 import com.wetongji_android.ui.search.SearchFragment;
 import com.wetongji_android.ui.setting.WTSettingActivity;
@@ -38,19 +39,22 @@ public class MainMenuFragment extends Fragment {
 	public static final String KEY_MAIN_MENU_TEXT = "text";
 	private static final int MAIN_MENU_ICON_RES[] = { R.drawable.ic_main_today,
 			R.drawable.ic_main_news, R.drawable.ic_main_events,
-			R.drawable.ic_main_now, R.drawable.ic_main_search, R.drawable.ic_main_profile, };
+			R.drawable.ic_main_now, R.drawable.ic_main_search, R.drawable.ic_main_profile,
+            R.drawable.ic_main_now };
 
 	private static final int MAIN_MENU_ICON_SELECTED_RES[] = {
 			R.drawable.ic_main_today_pressed, R.drawable.ic_main_news_pressed,
 			R.drawable.ic_main_events_pressed, R.drawable.ic_main_now_pressed,
 			R.drawable.ic_main_search_pressed,
-			R.drawable.ic_main_profile_pressed, };
+			R.drawable.ic_main_profile_pressed,
+            R.drawable.ic_main_now_pressed };
 
 	private static final int MAIN_MENU_TEXT_RES[] = {
 			R.string.title_mainmenu_today, R.string.title_mainmenu_news,
 			R.string.title_mainmenu_events, R.string.title_mainmenu_now,
 			R.string.title_mainmenu_search, 
-			R.string.title_mainmenu_profile, };
+			R.string.title_mainmenu_profile,
+            R.string.title_mainmenu_oa };
 
 	private int mCurrentItemNu = 0;
 	private MainMenuListAdapter mMenuListAdapter;
@@ -184,6 +188,14 @@ public class MainMenuFragment extends Fragment {
 					return;
 				}
 				break;
+            case 6:
+                if (WTApplication.getInstance().hasAccount) {
+                    newContent = OaFragment.newInstance();
+                } else {
+                    startActivity(new Intent(getActivity(), AuthActivity.class));
+                    return;
+                }
+                break;
 			default:
 				newContent = null;
 				break;
