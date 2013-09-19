@@ -60,6 +60,8 @@ public class ProfileFragment extends WTBaseFragment implements
 
 	public static final String BUNDLE_MOTTO = "BUNDLE_MOTTO";
 
+    private boolean loadCompleted;
+
 	private User mUser;
 	private String mStrImgLocalPath;
 	private View mContentView;
@@ -106,6 +108,7 @@ public class ProfileFragment extends WTBaseFragment implements
 
 		switch (getCurrentState(savedInstanceState)) {
 		case FIRST_TIME_START:
+            loadCompleted = false;
 			if(HttpUtil.isConnected(mActivity)) {
 				getLoaderManager()
 					.initLoader(WTApplication.USER_LOADER, null, this);
@@ -325,6 +328,9 @@ public class ProfileFragment extends WTBaseFragment implements
 		if (result.getResponseCode() != 0) {
 			ExceptionToast.show(getActivity(), result.getResponseCode());
 		}
+        else {
+            loadCompleted = true;
+        }
 	}
 
 	@Override
@@ -421,6 +427,9 @@ public class ProfileFragment extends WTBaseFragment implements
 	class ClickListener implements OnClickListener {
 		@Override
 		public void onClick(View v) {
+            if (!loadCompleted) {
+                return;
+            }
 			if (v.getId() == R.id.ll_profile_friend_list) {
 				if (mUser.getFriendCount() == 0) {
 					Toast.makeText(
