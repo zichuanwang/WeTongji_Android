@@ -191,7 +191,8 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 	private void setHeadBluredBg(Bitmap resource) {
 		RelativeLayout rl = (RelativeLayout) findViewById(R.id.layout_profile_header);
 		int tH = (496 * 200 / 1080);
-		Bitmap bm = Bitmap.createBitmap(resource, 0, (100 - tH / 2), 200, tH);
+        int gw = resource.getWidth();
+		Bitmap bm = Bitmap.createBitmap(resource, 0, 0, Math.min(200, gw) , tH);
 		Bitmap bg = ImageUtil.fastblur(bm, 10);
 		rl.setBackgroundDrawable(new BitmapDrawable(getResources(), bg));
 	}
