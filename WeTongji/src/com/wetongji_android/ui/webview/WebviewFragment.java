@@ -82,9 +82,11 @@ public class WebviewFragment extends WTBaseFragment {
 
     private void initWebView() {
         wvOaMain.getSettings().setJavaScriptEnabled(true);
-        wvOaMain.loadUrl(data.getString("url"));
         wvOaMain.getSettings().setSupportZoom(true);
         wvOaMain.getSettings().setBuiltInZoomControls(true);
+        if (data.getString("title") == "My Library") {
+            wvOaMain.setInitialScale(150); // Good for eyes! Simida!
+        }
         wvOaMain.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         wvOaMain.setHorizontalScrollbarOverlay(true);
         wvOaMain.setWebViewClient(new WebViewClient() {
@@ -94,6 +96,7 @@ public class WebviewFragment extends WTBaseFragment {
                 return true;
             }
         });
+        wvOaMain.loadUrl(data.getString("url"));
     }
 
     @Override
