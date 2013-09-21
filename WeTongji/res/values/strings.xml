@@ -18,6 +18,7 @@
     <string name="title_mainmenu_profile">Profile</string>
     <string name="title_mainmenu_oa">OA System</string>
     <string name="title_mainmenu_library">My Library</string>
+    <string name="title_mainmenu_assistant">Assistant</string>
     <string name="text_student_id">Student ID</string>
     <string name="text_password">Password</string>
     <string name="text_name">Name</string>
@@ -284,6 +285,7 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="title_profile">Profile</string>
     <string name="title_oa">OA System</string>
     <string name="title_library">My Library</string>
+    <string name="title_assistant">Assistant</string>
 	<string name="course_required_error">This course is Required</string>
 	<string name="now_summer_vacation">Summer Vacation</string>
 	<string name="now_winter_vacation">Winter Vacation</string>
