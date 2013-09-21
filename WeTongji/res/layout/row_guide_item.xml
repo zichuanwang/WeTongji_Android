@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical" >
+
+    <RelativeLayout
+            android:id="@id/information_list_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+        <LinearLayout
+                android:id="@+id/information_list_item_title_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="13.3dp"
+                android:layout_marginLeft="13.3dp"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/guide_item_title"
+                    style="@style/InformationListTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textIsSelectable="false"
+                    android:text="Title"/>
+
+            <TextView
+                    android:id="@+id/guide_item_description"
+                    style="@style/InformationListDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:paddingBottom="8.3dp"
+                    android:singleLine="true"
+                    android:textIsSelectable="false"
+                    android:text="summary"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_information_header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:background="#ffffff">
+    
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/information_list_header"/>
+    
+    <TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingTop="4dp"
+	    android:paddingBottom="4dp"
+	    android:paddingLeft="12dp"
+	    android:id="@+id/guide_header_text"
+	    android:textIsSelectable="false"
+        android:text="GuideTitle"
+	    style="@style/InformationListHeaderText">
+    </TextView>
+    
+</FrameLayout>

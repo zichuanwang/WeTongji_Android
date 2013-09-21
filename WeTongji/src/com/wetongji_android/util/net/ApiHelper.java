@@ -540,7 +540,7 @@ public class ApiHelper {
 	public Bundle getActivityByUser(String uid, int page, int channelIdsMask,
 			int sortType, boolean expire) {
 		Bundle bundle = getActivities(page, channelIdsMask, sortType, expire);
-		if(this.uid != uid) {
+		if(!this.uid.equals(uid)) {
 			bundle.putString(API_ARGS_USER_ID, uid);
 		}
 		bundle.remove(API_ARGS_METHOD);
@@ -567,7 +567,7 @@ public class ApiHelper {
 		Bundle bundle = new Bundle();
 		putBasicArgs(bundle);
 		putLoginArgs(bundle);
-		if(this.uid != uid) {
+		if(!this.uid.equals(uid)) {
 			bundle.putString(API_ARGS_USER_ID, uid);
 		}
 		bundle.putString(API_ARGS_METHOD, "Courses.Get.ByUser");

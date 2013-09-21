@@ -164,7 +164,7 @@
 
         <!-- Assistant : guide -->
         <activity
-                android:name="com.wetongji_android.ui.guide.GuideActivity"
+                android:name=".ui.guide.GuideListActivity"
                 android:label="Guide">
         </activity>
         
