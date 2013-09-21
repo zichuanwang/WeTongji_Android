@@ -56,7 +56,17 @@ public class MainMenuFragment extends Fragment {
             R.string.title_mainmenu_assistant,
             R.string.title_mainmenu_profile };
 
-	private int mCurrentItemNu = 0;
+    // 改变了菜单项，记得修改这里！
+    private static final int POS_TODAY = 0;
+    private static final int POS_NEWS = 1;
+    private static final int POS_EVENTS = 2;
+    private static final int POS_NOW = 3;
+    private static final int POS_SEARCH = 4;
+    private static final int POS_ASSISTANT = 5;
+    private static final int POS_PROFILE = 6;
+
+
+    private int mCurrentItemNu = 0;
 	private MainMenuListAdapter mMenuListAdapter;
 
 	@Override
@@ -94,7 +104,7 @@ public class MainMenuFragment extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (mCurrentItemNu == 5) {
+		if (mCurrentItemNu == POS_PROFILE) {
 			switchFragment(ProfileFragment.newInstance());
 			mMenuListAdapter.notifyDataSetChanged();
 		}
@@ -160,16 +170,16 @@ public class MainMenuFragment extends Fragment {
 				return ;
 			}
 			switch (position) {
-			case 0:
+			case POS_TODAY:
 				newContent = TodayFragment.newInstance();
 				break;
-			case 1:
+			case POS_NEWS:
 				newContent = InformationsFragment.newInstance(StartMode.BASIC, null);
 				break;
-			case 2:
+			case POS_EVENTS:
 				newContent = EventsFragment.newInstance(StartMode.BASIC, null);
 				break;
-			case 3:
+			case POS_NOW:
 				if (WTApplication.getInstance().hasAccount) {
 					newContent = NowFragment.newInstance();
 				} else {
@@ -177,13 +187,13 @@ public class MainMenuFragment extends Fragment {
 					return;
 				}
 				break;
-			case 4:
+			case POS_SEARCH:
 				newContent = SearchFragment.newInstance();
 				break;
-            case 5:
+            case POS_ASSISTANT:
                 newContent = AssistantFragment.newInstance();
                 break;
-            case 6:
+            case POS_PROFILE:
                     if (WTApplication.getInstance().hasAccount) {
                         newContent = ProfileFragment.newInstance();
                     } else {
