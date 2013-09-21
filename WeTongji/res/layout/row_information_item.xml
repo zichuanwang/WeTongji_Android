@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <include layout="@layout/information_list_header" />
+    <include layout="@layout/row_information_header" />
 
     <RelativeLayout
         android:id="@id/information_list_item"

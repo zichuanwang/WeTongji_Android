@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -171,7 +170,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		if(convertView == null)
 		{
 			holder = new ViewHolder();
-			convertView = mInflater.inflate(R.layout.information_list_item, parent, false);
+			convertView = mInflater.inflate(R.layout.row_information_item, parent, false);
 			holder.tv_type = (TextView)convertView.findViewById(R.id.information_list_item_type);
 			holder.tv_title = (TextView)convertView.findViewById(R.id.information_list_item_title);
 			holder.tv_description = (TextView)convertView.findViewById(R.id.information_list_item_description);

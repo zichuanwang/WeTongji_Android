@@ -6,7 +6,7 @@
     android:orientation="vertical" >
     
     <include 
-        layout="@layout/information_list_header"/>
+        layout="@layout/row_information_header"/>
     
     <RelativeLayout
 	    android:id="@id/search_result_item"

@@ -119,7 +119,7 @@ public class SearchFragment extends SherlockFragment implements
 		mResultAdapter = new SearchResultAdapter(this);
 		mLvSearchResult.setAdapter(mResultAdapter);
 		mLvSearchResult.setPinnedHeaderView(inflater.inflate(
-				R.layout.information_list_header, mLvSearchResult, false));
+				R.layout.row_information_header, mLvSearchResult, false));
 		mLvSearchResult.setOnItemClickListener(mOnResultClickListener);
 		mAdapter = new SearchHistoryAdapter(this);
 		mLvSearchHistory.setAdapter(mAdapter);

@@ -13,6 +13,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
+import com.wetongji_android.ui.guide.GuideActivity;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.ui.main.NotificationHandler;
 import com.wetongji_android.ui.webview.WebViewActivity;
@@ -75,6 +76,16 @@ public class AssistantFragment extends WTBaseFragment {
                 bundle.putString("title", getResources().getString(R.string.title_library));
                 bundle.putString("url", "http://www.lib.tongji.edu.cn/m/index.action");
                 intent.putExtras(bundle);
+                startActivity(intent);
+                mActivity.overridePendingTransition(R.anim.slide_right_in,
+                        R.anim.slide_left_out);
+            }
+        });
+
+        btnGuide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mActivity, GuideActivity.class);
                 startActivity(intent);
                 mActivity.overridePendingTransition(R.anim.slide_right_in,
                         R.anim.slide_left_out);

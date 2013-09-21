@@ -155,7 +155,7 @@ public class InformationsFragment extends WTBaseFragment implements
 		mInflater = LayoutInflater.from(mActivity);
 		mListNews = (AmazingListView) mView.findViewById(R.id.lst_information);
 		mListNews.setPinnedHeaderView(mInflater.inflate(
-				R.layout.information_list_header, mListNews, false));
+				R.layout.row_information_header, mListNews, false));
 		mAdapter = new InformationsListAdapter(this, mListNews);
 		mListNews.setAdapter(mAdapter);
 		mListNews.setLoadingView(mInflater.inflate(

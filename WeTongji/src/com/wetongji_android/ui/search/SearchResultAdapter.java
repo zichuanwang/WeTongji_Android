@@ -153,7 +153,7 @@ public class SearchResultAdapter extends AmazingAdapter {
 		
 		switch (result.getType()) {
 			case 1:
-				convertView = mInflater.inflate(R.layout.information_list_item,
+				convertView = mInflater.inflate(R.layout.row_information_item,
 						parent, false);
 				holder.tvInfoTitle = (TextView) convertView
 						.findViewById(R.id.information_list_item_title);

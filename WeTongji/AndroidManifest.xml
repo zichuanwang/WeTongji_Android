@@ -156,9 +156,16 @@
             android:label="@string/setting_label">
         </activity>
 
+        <!-- Assistant : webview -->
         <activity
                 android:name="com.wetongji_android.ui.webview.WebViewActivity"
                 android:label="WebView">
+        </activity>
+
+        <!-- Assistant : guide -->
+        <activity
+                android:name="com.wetongji_android.ui.guide.GuideActivity"
+                android:label="Guide">
         </activity>
         
         <activity 

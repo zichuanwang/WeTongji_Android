@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-    <include layout="@layout/information_list_header" />
+    <include layout="@layout/row_information_header" />
 
     <include layout="@layout/row_my_courses"/>
 
