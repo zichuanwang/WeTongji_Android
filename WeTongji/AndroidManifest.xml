@@ -155,6 +155,11 @@
             android:name="com.wetongji_android.ui.setting.WTSettingActivity"
             android:label="@string/setting_label">
         </activity>
+
+        <activity
+                android:name="com.wetongji_android.ui.webview.WebViewActivity"
+                android:label="WebView">
+        </activity>
         
         <activity 
             android:name="com.wetongji_android.ui.setting.WTChangePwdActivity"

@@ -28,14 +28,14 @@ public class MainActivity extends UpdateBaseActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		NotificationHandler.init(this);
 
-		if (savedInstanceState != null)
-			mContent = getSupportFragmentManager().getFragment(
-					savedInstanceState, "mContent");
-		
-		mContent = TodayFragment.newInstance();
+		if (savedInstanceState != null) {
+			mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
+        } else {
+            mContent = TodayFragment.newInstance();
+        }
 
 		// set the above view
 		setContentView(R.layout.content_frame);
@@ -44,7 +44,7 @@ public class MainActivity extends UpdateBaseActivity {
 
 		setSlidingMenu();
 	}
-	
+
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -56,8 +56,8 @@ public class MainActivity extends UpdateBaseActivity {
 		super.onStop();
 		FlurryAgent.onEndSession(this);
 	}
-	
-	public void finish(){
+
+    public void finish(){
 		super.finish();
 		TodayFragment.previousResultStr=null;
 	}
@@ -82,7 +82,7 @@ public class MainActivity extends UpdateBaseActivity {
 					NotificationHandler.getInstance().finish();
 				}
 			}
-			
+
 		});
 
 		// set left menu
@@ -121,21 +121,21 @@ public class MainActivity extends UpdateBaseActivity {
 
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		
+
 		if (resultCode != RESULT_OK)  {
-			return;  
+			return;
 		}
-        switch (requestCode) 
-        {  
-            case PHOTO_PICKED_WITH_DATA: 
-            {    
+        switch (requestCode)
+        {
+            case PHOTO_PICKED_WITH_DATA:
+            {
             	Uri selectedImage = data.getData();
             	doCropPhoto(selectedImage, mUriTemp);
-                break;  
+                break;
             }
             case CAMERA_WITH_DATA:
             {
@@ -156,8 +156,8 @@ public class MainActivity extends UpdateBaseActivity {
             	fragment.updateMotto(data.getStringExtra(ProfileFragment.BUNDLE_MOTTO));
             	break;
             }
-            	
-        }  
+
+        }
 	}
 
 	public void switchContent(Fragment fragment) {
@@ -192,7 +192,7 @@ public class MainActivity extends UpdateBaseActivity {
 			return false;
 		}
 	}
-	
+
 	public void showRightMenu()
 	{
 		if(getSlidingMenu().isSecondaryMenuShowing())
@@ -203,7 +203,7 @@ public class MainActivity extends UpdateBaseActivity {
 			showSecondaryMenu();
 		}
 	}
-	
+
 	public void showLeftMenu() {
 		if (getSlidingMenu().isShown()) {
 			getSlidingMenu().showContent();
@@ -211,7 +211,7 @@ public class MainActivity extends UpdateBaseActivity {
 			showMenu();
 		}
 	}
-	
+
 	public void doClickProfile() {
 		ProfileFragment f = (ProfileFragment) mContent;
 		startActivityForResult(f.getSeeProfileIntent(this), ProfileFragment.REQUEST_CODE_PROFILE);
