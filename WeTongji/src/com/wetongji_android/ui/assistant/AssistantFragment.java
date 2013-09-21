@@ -67,6 +67,20 @@ public class AssistantFragment extends WTBaseFragment {
             }
         });
 
+        btnLibrary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mActivity, WebViewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("title", getResources().getString(R.string.title_library));
+                bundle.putString("url", "http://www.lib.tongji.edu.cn/m/index.action");
+                intent.putExtras(bundle);
+                startActivity(intent);
+                mActivity.overridePendingTransition(R.anim.slide_right_in,
+                        R.anim.slide_left_out);
+            }
+        });
+
 
         return mContentView;
     }

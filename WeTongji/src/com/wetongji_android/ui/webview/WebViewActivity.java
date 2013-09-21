@@ -17,8 +17,6 @@ import com.wetongji_android.R;
  */
 public class WebViewActivity extends SherlockFragmentActivity {
 
-    private View mContentView;
-
     private WebView wvOaMain;
     private ImageButton btnWvGoBack;
     private ImageButton btnWvGoForward;
@@ -37,13 +35,10 @@ public class WebViewActivity extends SherlockFragmentActivity {
 
         data = getIntent().getExtras();
         setTitle(data.getString("title"));
-    }
 
+        wvOaMain = (WebView) findViewById(R.id.oa_webView);
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mContentView = inflater.inflate(R.layout.activity_webview, null);
-
-        btnWvGoBack = (ImageButton) mContentView.findViewById(R.id.oa_btn_go_back);
+        btnWvGoBack = (ImageButton) findViewById(R.id.oa_btn_go_back);
         btnWvGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,7 +47,7 @@ public class WebViewActivity extends SherlockFragmentActivity {
                 }
             }
         });
-        btnWvGoForward = (ImageButton) mContentView.findViewById(R.id.oa_btn_go_forward);
+        btnWvGoForward = (ImageButton) findViewById(R.id.oa_btn_go_forward);
         btnWvGoForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +56,7 @@ public class WebViewActivity extends SherlockFragmentActivity {
                 }
             }
         });
-        btnWvRefresh = (ImageButton) mContentView.findViewById(R.id.oa_btn_refresh);
+        btnWvRefresh = (ImageButton) findViewById(R.id.oa_btn_refresh);
         btnWvRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,10 +64,10 @@ public class WebViewActivity extends SherlockFragmentActivity {
             }
         });
 
-        wvOaMain = (WebView) mContentView.findViewById(R.id.oa_webView);
         initWebView();
-        return mContentView;
     }
+
+
 
     private void initWebView() {
         wvOaMain.getSettings().setJavaScriptEnabled(true);
