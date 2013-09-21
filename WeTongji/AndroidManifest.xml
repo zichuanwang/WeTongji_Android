@@ -173,6 +173,7 @@
         <activity 
             android:name="com.wetongji_android.util.common.WTForgetPwdActivity"
             android:label="@string/forget_title"></activity>
+        <activity android:name=".ui.assistant.AssistantFragment"/>
     </application>
 
 </manifest>

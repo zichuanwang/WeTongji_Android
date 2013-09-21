@@ -19,11 +19,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.wetongji_android.R;
+import com.wetongji_android.ui.assistant.AssistantFragment;
 import com.wetongji_android.ui.auth.AuthActivity;
 import com.wetongji_android.ui.event.EventsFragment;
 import com.wetongji_android.ui.informations.InformationsFragment;
 import com.wetongji_android.ui.now.NowFragment;
-import com.wetongji_android.ui.webview.WebviewFragment;
 import com.wetongji_android.ui.profile.ProfileFragment;
 import com.wetongji_android.ui.search.SearchFragment;
 import com.wetongji_android.ui.setting.WTSettingActivity;
@@ -181,7 +181,7 @@ public class MainMenuFragment extends Fragment {
 				newContent = SearchFragment.newInstance();
 				break;
             case 5:
-                newContent = null;
+                newContent = AssistantFragment.newInstance();
                 break;
             case 6:
                     if (WTApplication.getInstance().hasAccount) {
