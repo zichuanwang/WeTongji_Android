@@ -33,22 +33,13 @@
         android:hint="@string/text_password"
         android:textColorHint="@color/et_text_hint"
         android:inputType="textPassword" />
-    
-    <TextView 
-        android:id="@id/tv_forget_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/et_password"
-        android:text="@string/forget_password"
-        android:clickable="true"
-        style="@style/ForgetPassword" />
+
     
     <Button 
         android:id="@+id/btn_login"
         android:layout_width="match_parent" 
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_forget_password"
+        android:layout_below="@id/et_password"
         android:layout_marginTop="10dp"
         android:text="@string/text_login"
         android:textSize="18sp"
@@ -73,5 +64,16 @@
         android:shadowDx="0"
         android:shadowDy="1"
         android:shadowRadius="1"/>
+    <TextView
+            android:id="@id/tv_forget_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/btn_create_account"
+            android:text="@string/forget_password"
+            android:clickable="true"
+            android:layout_marginTop="20dp"
+            style="@style/ForgetPassword" />
+
 
 </RelativeLayout>

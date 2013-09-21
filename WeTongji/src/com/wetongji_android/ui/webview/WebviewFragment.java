@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.actionbarsherlock.view.Menu;
@@ -25,9 +25,9 @@ public class WebviewFragment extends WTBaseFragment {
     private View mContentView;
 
     private WebView wvOaMain;
-    private Button btnWvGoBack;
-    private Button btnWvGoForward;
-    private Button btnWvRefresh;
+    private ImageButton btnWvGoBack;
+    private ImageButton btnWvGoForward;
+    private ImageButton btnWvRefresh;
 
     Bundle data;
 
@@ -47,9 +47,9 @@ public class WebviewFragment extends WTBaseFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mContentView = inflater.inflate(R.layout.fragment_oa, null);
+        mContentView = inflater.inflate(R.layout.fragment_webview, null);
 
-        btnWvGoBack = (Button) mContentView.findViewById(R.id.oa_btn_go_back);
+        btnWvGoBack = (ImageButton) mContentView.findViewById(R.id.oa_btn_go_back);
         btnWvGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +58,7 @@ public class WebviewFragment extends WTBaseFragment {
                 }
             }
         });
-        btnWvGoForward = (Button) mContentView.findViewById(R.id.oa_btn_go_forward);
+        btnWvGoForward = (ImageButton) mContentView.findViewById(R.id.oa_btn_go_forward);
         btnWvGoForward.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +67,7 @@ public class WebviewFragment extends WTBaseFragment {
                 }
             }
         });
-        btnWvRefresh = (Button) mContentView.findViewById(R.id.oa_btn_refresh);
+        btnWvRefresh = (ImageButton) mContentView.findViewById(R.id.oa_btn_refresh);
         btnWvRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
