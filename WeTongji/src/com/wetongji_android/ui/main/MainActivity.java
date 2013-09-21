@@ -57,6 +57,12 @@ public class MainActivity extends UpdateBaseActivity {
 		FlurryAgent.onEndSession(this);
 	}
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
     public void finish(){
 		super.finish();
 		TodayFragment.previousResultStr=null;
@@ -106,10 +112,24 @@ public class MainActivity extends UpdateBaseActivity {
 		getSupportFragmentManager().putFragment(outState, "mContent", mContent);
 	}
 
-	@Override
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
+        } else {
+            mContent = TodayFragment.newInstance();
+        }
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, mContent).commit();
+    }
+
+    @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return super.onCreateOptionsMenu(menu);
 	}
+
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
