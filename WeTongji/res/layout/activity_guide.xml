@@ -9,5 +9,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/guide_list"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"/>
+            android:layout_alignParentLeft="true"
+            android:divider="@null"/>
 </RelativeLayout>

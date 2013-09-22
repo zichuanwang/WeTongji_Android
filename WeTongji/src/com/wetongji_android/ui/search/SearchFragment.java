@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -459,4 +460,8 @@ public class SearchFragment extends SherlockFragment implements
 		imm.hideSoftInputFromWindow(mSearchView.getWindowToken(), 0);
 	}
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 }

@@ -1,46 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layout_guide_bg"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
+              android:layout_height="83.3dp"
               android:orientation="vertical" >
 
-    <RelativeLayout
-            android:id="@id/information_list_item"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:id="@+id/layout_guide_header"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentTop="true"
+                 android:clickable="false"
+                 android:focusable="false"
+            >
 
-        <LinearLayout
-                android:id="@+id/information_list_item_title_bar"
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/information_list_header"/>
+
+        <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="13.3dp"
-                android:layout_marginLeft="13.3dp"
-                android:layout_marginTop="5dp"
-                android:orientation="vertical">
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:id="@+id/guide_header_text"
+                android:textIsSelectable="false"
+                android:text="GuideTitle"
+                style="@style/InformationListHeaderText">
+        </TextView>
 
-            <TextView
-                    android:id="@+id/guide_item_title"
-                    style="@style/InformationListTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:textIsSelectable="false"
-                    android:text="Title"/>
+    </FrameLayout>
 
-            <TextView
-                    android:id="@+id/guide_item_description"
-                    style="@style/InformationListDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:paddingBottom="8.3dp"
-                    android:singleLine="true"
-                    android:textIsSelectable="false"
-                    android:text="summary"/>
-        </LinearLayout>
+    <TextView
+            android:id="@+id/guide_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="8dp"
+            style="@style/GuideTitle"
+            android:text="Title"/>
 
-
-    </RelativeLayout>
+    <TextView
+            android:id="@+id/guide_item_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="9dp"
+            style="@style/GuideSummary"
+            android:text="Summary"/>
 
 </LinearLayout>

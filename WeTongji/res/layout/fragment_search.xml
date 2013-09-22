@@ -3,8 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_app_base" >
-    
-    <TextView 
+
+
+    <TextView
         android:id="@id/text_search_history_title"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -58,5 +59,7 @@
         android:text="@string/no_results"
         android:visibility="gone"
         style="@style/SearchNoResult" />
+
+
 
 </RelativeLayout>

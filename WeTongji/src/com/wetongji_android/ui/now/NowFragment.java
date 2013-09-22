@@ -239,7 +239,7 @@ public class NowFragment extends SherlockFragment implements LoaderCallbacks<Htt
 			tvWeekNumber.setText(getString(R.string.now_summer_vacation));
 		} else if (weekNumber > 0 && weekNumber < 20) {
 			tvWeek.setVisibility(View.VISIBLE);
-			tvWeekNumber.setText(getString(R.string.now_time_semester13_14)
+			tvWeekNumber.setText(getString(R.string.now_time_semester13_14) + " "
 					+ String.valueOf(weekNumber));
 		} else if (weekNumber >= 20) {
 			tvWeek.setVisibility(View.GONE);

@@ -1,0 +1,191 @@
+[
+    {
+        "campus": "四平路校区"
+    },
+    {
+        "type": "metro",
+        "id": "line10",
+        "title": "地铁10号线",
+        "frequent_target": "虹桥机场；虹桥火车站；五角场；新天地；南京东路；上海图书馆；豫园",
+        "time_inteval_1": "新江湾城-航中路：05:30-21:55",
+        "time_inteval_2": "虹桥火车站-新江湾城：05:55-22:00",
+        "where": "四平路校区正门到同济大学站",
+        "cost": "3.00-6.00"
+    },
+    {
+        "type": "bus",
+        "id": "115",
+        "title": "115路公交",
+        "frequent_target": "上海火车站北广场；地铁3号线赤峰路站",
+        "time_inteval_1": "04:30-23:30",
+        "time_inteval_2": "05:00-23:30",
+        "where": "正门到同济大学站；南门到巴士一汽或赤峰路密云路站",
+        "cost": "2.00"
+    },
+    {
+        "type": "bus",
+        "id": "960",
+        "title": "960路公交",
+        "frequent_target": "复旦大学；上海财经大学",
+        "time_inteval_1": "05:00-22:00",
+        "time_inteval_2": "05:00-22:00",
+        "where": "正门到同济大学站；南门到巴士一汽或赤峰路密云路站；西门到密云路赤峰路站",
+        "cost": "2.00"
+    },
+    {
+        "type": "bus",
+        "id": "874",
+        "title": "874路公交",
+        "frequent_target": "上海理工大学",
+        "time_inteval_1": "06:20-20:40",
+        "time_inteval_2": "05:55-20:00",
+        "where": "正门到同济大学站；南门到巴士一汽或赤峰路密云路站",
+        "cost": "2.00"
+    },
+    {
+        "type": "bus",
+        "id": "beiankua",
+        "title": "北安跨线",
+        "frequent_target": "嘉定校区；地铁3号线曹杨路站",
+        "time_inteval_1": "06:00-20:50",
+        "time_inteval_2": "06:00-20:50",
+        "where": "北门到国康路国平路口站",
+        "cost": "分段计价"
+    },
+    {
+        "type": "bus",
+        "id": "937",
+        "title": "937路公交",
+        "frequent_target": "上海外国语大学；沪西校区；五角场",
+        "time_inteval_1": "05:30-22:30",
+        "time_inteval_2": "05:30-22:30",
+        "where": "南门到巴士一汽站",
+        "cost": "2.00"
+    },
+    {
+        "type": "bus",
+        "id": "123",
+        "title": "123路公交",
+        "frequent_target": "外滩；人民广场",
+        "time_inteval_1": "04:30-23:10",
+        "time_inteval_2": "05:00-23:30",
+        "where": "南门到巴士一汽或赤峰路密云路站",
+        "cost": "2.00"
+    },
+    {
+        "type": "bus",
+        "id": "817",
+        "title": "817路公交",
+        "frequent_target": "上海火车站北广场；五角场；地铁3号线赤峰路站",
+        "time_inteval_1": "05:45-21:30",
+        "time_inteval_2": "05:45-22:30",
+        "where": "正门到同济大学站；南门到巴士一汽或赤峰路密云路站",
+        "cost": "2.00"
+    },
+    {
+        "type": "bus",
+        "id": "310",
+        "title": "310路公交",
+        "frequent_target": "上海火车站北广场；新华医院",
+        "time_inteval_1": "00:15-04:05",
+        "time_inteval_2": "00:00-03:45",
+        "where": "正门到同济大学站；南门到巴士一汽站",
+        "cost": "2.00"
+    },
+    {
+        "type": "bus",
+        "id": "307",
+        "title": "307路公交",
+        "frequent_target": "五角场；南京东路；十六铺",
+        "time_inteval_1": "00:30-03:30",
+        "time_inteval_2": "00:27-03:30",
+        "where": "南门到巴士一汽站",
+        "cost": "2.00"
+    },
+    {
+        "campus": "嘉定校区"
+    },
+    {
+        "type": "bus",
+        "id": "beiankua",
+        "title": "北安跨线",
+        "frequent_target": "四平路校区；江桥；地铁3号线曹杨路站",
+        "time_inteval_1": "06:00-20:50",
+        "time_inteval_2": "006:00-20:50",
+        "where": "曹安路绿苑路站（嘉定校区正门）",
+        "cost": "分段计价"
+    },
+    {
+        "type": "bus",
+        "id": "beian",
+        "title": "北安线",
+        "frequent_target": "安亭镇；江桥；轨交11号线上海汽车城站",
+        "time_inteval_1": "04:30-20:30",
+        "time_inteval_2": "04:30-20:30",
+        "where": "曹安路绿苑路站（嘉定校区正门）",
+        "cost": "分段计价"
+    },
+    {
+        "type": "bus",
+        "id": "anting4",
+        "title": "安亭4路",
+        "frequent_target": "安亭老街；墨玉路；轨交11号线上海汽车城站",
+        "time_inteval_1": "7:15-18:15",
+        "time_inteval_2": "6:30-17:30",
+        "where": "曹安路绿苑路站（嘉定校区正门）",
+        "cost": "1.00"
+    },
+    {
+        "type": "bus",
+        "id": "luan",
+        "title": "陆安专线",
+        "frequent_target": "江桥；轨交11号线上海汽车城站",
+        "time_inteval_1": "05:45-18:00",
+        "time_inteval_2": "",
+        "where": "曹安路绿苑路站（嘉定校区正门）",
+        "cost": "分段计价"
+    },
+    {
+        "type": "metro",
+        "id": "metro11",
+        "title": "轨交11号线",
+        "frequent_target": "江苏路站；曹杨路站；上海西站",
+        "time_inteval_1": "往罗山路站方向:05:38-21:50",
+        "time_inteval_2": "往安亭站方向:05:48-22:38",
+        "where": "曹安路绿苑路站（嘉定校区正门）",
+        "cost": "分段计价"
+    },
+    {
+        "campus": "沪西校区"
+    },
+    {
+        "type": "metro",
+        "id": "metro11",
+        "title": "轨交11号线",
+        "frequent_target": "上海汽车城站；上海西站；曹杨路站",
+        "time_inteval_1": "往罗山路站方向:05:38-21:50",
+        "time_inteval_2": "往安亭站方向:05:48-22:38",
+        "where": "沪西校区正门",
+        "cost": "3.00-9.00"
+    },
+    {
+        "type": "bus",
+        "id": "744",
+        "title": "744路",
+        "frequent_target": "上海火车站",
+        "time_inteval_1": "05:30-22:30",
+        "time_inteval_2": "05:30-23:00",
+        "where": "交通路真南路站",
+        "cost": "分段计价"
+    },
+    {
+        "type": "bus",
+        "id": "937",
+        "title": "937路",
+        "frequent_target": "上海外国语大学；四平路校区；五角场",
+        "time_inteval_1": "05:30-22:30",
+        "time_inteval_2": "05:30-22:30",
+        "where": "真南路交通路站",
+        "cost": "2.00"
+    }
+]

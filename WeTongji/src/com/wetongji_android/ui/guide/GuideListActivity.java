@@ -1,13 +1,11 @@
 package com.wetongji_android.ui.guide;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.wetongji_android.R;
-import com.wetongji_android.ui.course.GuideListAdapter;
 
 /**
  * Created by leapoahead on 9/21/13.
@@ -44,8 +42,8 @@ public class GuideListActivity extends SherlockFragmentActivity {
     }
 
     private void setUpList() {
-        guideListAdapter = new GuideListAdapter(this);
         guideList = (ListView) findViewById(R.id.guide_list);
+        guideListAdapter = new GuideListAdapter(this, guideList);
         guideList.setAdapter(guideListAdapter);
     }
 
