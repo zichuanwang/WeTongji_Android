@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wetongji_android"
     android:versionCode="6"
-    android:versionName="3.0.0" >
+    android:versionName="3.1.0" >
 
     <uses-sdk
         android:minSdkVersion="9"
@@ -164,8 +164,12 @@
 
         <!-- Assistant : guide -->
         <activity
-                android:name=".ui.guide.GuideListActivity"
+                android:name="com.wetongji_android.ui.guide.GuideListActivity"
                 android:label="Guide">
+        </activity>
+        <activity
+                android:name="com.wetongji_android.ui.guide.GuideDetailActivity"
+                android:label="Guide Detail">
         </activity>
         
         <activity 

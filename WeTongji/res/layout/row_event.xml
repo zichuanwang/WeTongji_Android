@@ -35,6 +35,7 @@
             android:layout_alignParentTop="true"
         	android:layout_marginTop="6dp"
             style="@style/EventLstTitle"
+
             />
         
         <TextView

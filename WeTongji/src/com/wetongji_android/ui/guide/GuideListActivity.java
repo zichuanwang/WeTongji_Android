@@ -25,7 +25,7 @@ public class GuideListActivity extends SherlockFragmentActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setIcon(R.drawable.img_wt_logo);
 
-        setTitle("Traffic Guide");
+        setTitle(R.string.title_guide);
         setUpList();
     }
 

@@ -121,7 +121,7 @@
  	
  	<style name="InformationListTitle" parent="@style/TextWithShadow">
  	    <item name="android:textColor">@color/tv_infolist_title</item>
- 	    <item name="android:textSize">28sp</item>
+ 	    <item name="android:textSize">20sp</item>
  	    <item name="android:textStyle">bold</item>
  	</style>
  	

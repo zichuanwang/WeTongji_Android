@@ -284,8 +284,8 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="title_now">Now</string>
 	<string name="title_profile">Profile</string>
     <string name="title_oa">OA System</string>
-    <string name="title_library">My Library</string>
     <string name="title_assistant">Assistant</string>
+    <string name="title_guide">Traffic Guide</string>
 	<string name="course_required_error">This course is Required</string>
 	<string name="now_summer_vacation">Summer Vacation</string>
 	<string name="now_winter_vacation">Winter Vacation</string>
@@ -305,4 +305,12 @@ read and agree to the <u><b>Term of Use</b></u></string>
 	<string name="forget_title">Forget Password</string>
 	<string name="reset_pwd_success">Rest link has been sent to your inbox of mail.tongji.edu.cn</string>
 	<string name="text_no_more_data">No more data</string>
+
+
+    <string name="guide_detail">Details</string>
+    <string name="guide_detail_frequent_destinations">Frequent Destinations</string>
+    <string name="guide_detail_time_interval_1">Working time at the departure station</string>
+    <string name="guide_detail_time_interval_2">Working time at the terminal station</string>
+    <string name="guide_detail_cost">Cost</string>
+    <string name="guide_detail_frequent_entry">Frequent entry</string>
 </resources>

@@ -10,27 +10,30 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:id="@+id/tableLayout"
-            android:stretchColumns="0,2,4">
+            android:id="@+id/layout_assistant_table"
+            android:stretchColumns="0,2,4"
+            android:shrinkColumns="1,3"
+            >
 
         <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp">
 
+
             <Space
                     android:layout_width="0px"
                     android:layout_height="0px"
-                    android:layout_column="0"
-                    />
+                    android:layout_column="0"/>
 
             <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:minHeight="150dp"
+                    android:minWidth="150dp"
                     android:id="@+id/btn_assistant_oa"
                     android:background="@drawable/btn_assistant"
                     android:src="@drawable/ic_assistant_oa"
-                    android:layout_column="1"/>
+                    android:layout_column="1"
+                    />
 
             <Space
                     android:layout_width="0px"
@@ -38,9 +41,10 @@
                     android:layout_column="2"
                     />
 
+
             <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:minHeight="150dp"
+                    android:minWidth="150dp"
                     android:id="@+id/btn_assistant_library"
                     android:background="@drawable/btn_assistant"
                     android:src="@drawable/ic_assistant_library"
@@ -57,7 +61,9 @@
         <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp">
+                android:layout_marginTop="6dp"
+                android:layout_column="0"
+                >
 
             <Space
                     android:layout_width="0px"
@@ -66,8 +72,8 @@
                     />
 
             <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:minHeight="150dp"
+                    android:minWidth="150dp"
                     android:id="@+id/btn_assistant_tel"
                     android:background="@drawable/btn_assistant"
                     android:src="@drawable/ic_assistant_tel"
@@ -80,12 +86,13 @@
                     />
 
             <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:minHeight="150dp"
+                    android:minWidth="150dp"
                     android:id="@+id/btn_assistant_guide"
                     android:background="@drawable/btn_assistant"
                     android:src="@drawable/ic_assistant_guide"
-                    android:layout_column="3"/>
+                    android:layout_column="3"
+                    />
 
             <Space
                     android:layout_width="0px"

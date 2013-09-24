@@ -46,7 +46,9 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:textIsSelectable="false" />
+                android:textIsSelectable="false"
+                
+                />
         </LinearLayout>
 
         <TextView

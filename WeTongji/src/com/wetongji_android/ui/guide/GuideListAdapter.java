@@ -1,6 +1,8 @@
 package com.wetongji_android.ui.guide;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -113,7 +115,25 @@ public class GuideListAdapter extends BaseAdapter {
     public class GuideListOnClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            if (dataArray.get(i).getAsJsonObject().get("campus") != null) {
+                return;
+            }
 
+            Bundle dataBundle = new Bundle();
+            JsonObject dataObj = dataArray.get(i).getAsJsonObject();
+
+            dataBundle.putString("type", dataObj.get("type").getAsString());
+            dataBundle.putString("id", dataObj.get("id").getAsString());
+            dataBundle.putString("title", dataObj.get("title").getAsString());
+            dataBundle.putString("frequent_target", dataObj.get("frequent_target").getAsString());
+            dataBundle.putString("time_interval_1", dataObj.get("time_interval_1").getAsString());
+            dataBundle.putString("time_interval_2", dataObj.get("time_interval_2").getAsString());
+            dataBundle.putString("where", dataObj.get("where").getAsString());
+            dataBundle.putString("cost", dataObj.get("cost").getAsString());
+
+            Intent intent = new Intent(GuideListAdapter.this.context, GuideDetailActivity.class);
+            intent.putExtras(dataBundle);
+            context.startActivity(intent);
         }
     }
 

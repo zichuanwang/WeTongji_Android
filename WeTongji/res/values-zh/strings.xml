@@ -16,6 +16,7 @@
     <string name="title_mainmenu_search">搜索</string>
     <string name="title_mainmenu_billboard">Billboard</string>
     <string name="title_mainmenu_profile">个人</string>
+    <string name="title_mainmenu_assistant">校园助手</string>
     <string name="test">TestLogin</string>
     <string name="text_student_id">学号</string>
     <string name="text_password">密码</string>
@@ -258,6 +259,7 @@
 	<string name="title_activity">活动</string>
 	<string name="title_now">Now</string>
 	<string name="title_profile">个人</string>
+    <string name="title_assistant">校园助手</string>
 	<string name="course_required_error">这门课是必修课</string>
 	<string name="title_change_pwd">修改密码</string>
 	
@@ -298,4 +300,18 @@
 	<string name="reset_pwd_success">密码重置链接已经发送到你的同济邮箱</string>
 	<string name="text_name">姓名</string>
 	<string name="text_no_more_data">没有更多了</string>
+
+    <string name="guide_detail">详细介绍</string>
+    <string name="guide_detail_frequent_destinations">常去地点</string>
+    <string name="guide_detail_time_interval_bus_1">起点站首末班车时间</string>
+    <string name="guide_detail_time_interval_bus_2">终点站首末班车时间</string>
+    <string name="guide_detail_time_interval_metro_1">方向一首末班车时间</string>
+    <string name="guide_detail_time_interval_metro_2">方向二首末班车时间</string>
+    <string name="guide_detail_cost">票价</string>
+    <string name="guide_detail_frequent_entry">推荐上车点</string>
+
+    <!-- Assistant -->
+    <string name="title_library">移动图书馆</string>
+    <string name="title_oa">同济大学办公系统</string>
+    <string name="title_guide">校园出行指南</string>
 </resources>
