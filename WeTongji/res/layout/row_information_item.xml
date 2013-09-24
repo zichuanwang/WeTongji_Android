@@ -47,7 +47,7 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:textIsSelectable="false"
-                
+
                 />
         </LinearLayout>
 
