@@ -76,6 +76,7 @@ public class FriendListAdapter extends EndlessListAdapter<User> {
 			isSelected.put(i, false);
 		}
 	}
+
 	
 	@Override
 	protected View doGetView(int position, View convertView, ViewGroup parent) 
@@ -121,7 +122,9 @@ public class FriendListAdapter extends EndlessListAdapter<User> {
 		if(mContext instanceof FriendInviteActivity)
 		{
 			holder.cbFriendInvite.setVisibility(View.VISIBLE);
-			holder.cbFriendInvite.setChecked(false);
+            if (isSelected.size() == 0) {
+                holder.cbFriendInvite.setChecked(false);
+            }
 		}else
 		{
 			holder.cbFriendInvite.setVisibility(View.GONE);

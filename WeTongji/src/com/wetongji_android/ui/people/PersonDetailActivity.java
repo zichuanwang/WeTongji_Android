@@ -124,13 +124,8 @@ public class PersonDetailActivity extends SherlockFragmentActivity implements
 		TextView tvPersonContent = (TextView) findViewById(R.id.tv_person_detail_content);
 
 		tvPersonName.setText(mPerson.getName());
-		if (mIsCurrent) {
-			tvPersonVol.setTextColor(getResources().getColor(
-					R.color.tv_people_current_vol));
-		} else {
-			tvPersonVol.setText(String.format(getString(R.string.people_vol),
-					mPerson.getNO()));
-		}
+		tvPersonVol.setText(String.format(getString(R.string.people_vol),
+				mPerson.getNO()));
 		tvPersonWords.setText(mPerson.getWords());
 		tvPersonTitle.setText(mPerson.getJobTitle());
 		tvPersonContent.setText(mPerson.getDescription());

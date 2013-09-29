@@ -16,6 +16,7 @@ import com.wetongji_android.R;
 import com.wetongji_android.ui.guide.GuideListActivity;
 import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.ui.main.NotificationHandler;
+import com.wetongji_android.ui.tel.TelActivity;
 import com.wetongji_android.ui.webview.WebViewActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTBaseFragment;
@@ -76,6 +77,16 @@ public class AssistantFragment extends WTBaseFragment {
                 bundle.putString("title", getResources().getString(R.string.title_library));
                 bundle.putString("url", "http://www.lib.tongji.edu.cn/m/index.action");
                 intent.putExtras(bundle);
+                startActivity(intent);
+                mActivity.overridePendingTransition(R.anim.slide_right_in,
+                        R.anim.slide_left_out);
+            }
+        });
+
+        btnTel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mActivity, TelActivity.class);
                 startActivity(intent);
                 mActivity.overridePendingTransition(R.anim.slide_right_in,
                         R.anim.slide_left_out);

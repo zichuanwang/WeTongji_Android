@@ -171,6 +171,10 @@
                 android:name="com.wetongji_android.ui.guide.GuideDetailActivity"
                 android:label="Guide Detail">
         </activity>
+        <activity
+                android:name="com.wetongji_android.ui.tel.TelActivity"
+                android:label="Tels">
+        </activity>
         
         <activity 
             android:name="com.wetongji_android.ui.setting.WTChangePwdActivity"

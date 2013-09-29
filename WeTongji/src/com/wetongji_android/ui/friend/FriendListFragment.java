@@ -179,7 +179,8 @@ public class FriendListFragment extends WTBaseFragment implements
 			mAdapter.getData().clear();
 			mAdapter.addAll(users);
 			mAdapter.setIsLoadingData(false);
-		}else
+		}
+        else
 		{
 			
 		}

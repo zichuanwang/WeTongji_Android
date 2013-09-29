@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/layout_guide_bg"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/layout_tel_bg"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="vertical" >
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                 android:id="@+id/layout_guide_header"
+                 android:id="@+id/layout_tel_header"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:layout_alignParentTop="true"
@@ -26,7 +26,7 @@
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:paddingLeft="12dp"
-                android:id="@+id/guide_header_text"
+                android:id="@+id/tel_header_text"
                 android:textIsSelectable="false"
                 android:text="GuideTitle"
                 style="@style/InformationListHeaderText">
@@ -35,24 +35,38 @@
     </FrameLayout>
 
     <TextView
-            android:id="@+id/guide_item_title"
+            android:id="@+id/tel_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="12dp"
             android:layout_marginTop="11dp"
             android:layout_marginBottom="8dp"
             style="@style/GuideTitle"
-            android:text="Title"/>
+            android:text="Title"
+            android:layout_below="@id/layout_tel_header"/>
 
     <TextView
-            android:id="@+id/guide_item_summary"
+            android:id="@+id/tel_item_summary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="9dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginBottom="20dp"
             style="@style/GuideSummary"
-            android:text="Summary"/>
+            android:text="Summary"
+            android:layout_below="@id/tel_item_title"/>
 
-</LinearLayout>
+    <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tel_call"
+            android:layout_below="@id/layout_tel_header"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="18dp"
+
+            android:background="@null"
+            android:src="@drawable/ic_phone"/>
+
+</RelativeLayout>
