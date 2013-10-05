@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dorm_array">
+        <item>保密</item>
+        <item>四平路校区赤峰路后勤</item>
+        <item>四平路校区后勤公寓</item>
+        <item>四平路校区后勤公寓三相</item>
+        <item>四平路校区解放楼</item>
+        <item>四平路校区青年楼</item>
+        <item>四平路校区西北二楼</item>
+        <item>四平路校区西北三楼</item>
+        <item>四平路校区西北四楼</item>
+        <item>四平路校区西北五楼</item>
+        <item>四平路校区西北一楼</item>
+        <item>四平路校区西南八楼</item>
+        <item>四平路校区西南九楼</item>
+        <item>四平路校区西南七楼</item>
+        <item>四平路校区西南三楼</item>
+        <item>四平路校区西南十二楼</item>
+        <item>四平路校区西南十楼A楼</item>
+        <item>四平路校区西南十楼B楼</item>
+        <item>四平路校区西南十一楼</item>
+        <item>四平路校区西南一楼</item>
+        <item>四平路校区学三楼</item>
+        <item>四平路校区学四楼</item>
+        <item>四平路校区学五楼</item>
+        <item>四平路校区研究生公寓3</item>
+        <item>四平路校区研究生公寓4A</item>
+        <item>四平路校区研究生公寓4B</item>
+        <item>四平路校区研究生公寓5A</item>
+        <item>四平路校区研究生公寓5B</item>
+        <item>嘉定校区07号公寓</item>
+        <item>嘉定校区08号公寓</item>
+        <item>嘉定校区09号公寓</item>
+        <item>嘉定校区10号公寓</item>
+        <item>嘉定校区12号公寓</item>
+        <item>嘉定校区13号公寓</item>
+        <item>嘉定校区14号公寓</item>
+        <item>嘉定校区15号公寓</item>
+        <item>嘉定校区16号公寓</item>
+        <item>嘉定校区17号公寓</item>
+        <item>嘉定校区18号公寓</item>
+        <item>嘉定校区19号楼</item>
+        <item>嘉定校区20号楼</item>
+        <item>嘉定校区本科4</item>
+        <item>嘉定校区本科5</item>
+        <item>嘉定校区本科6</item>
+        <item>嘉定校区本科2</item>
+        <item>嘉定校区本科3</item>
+
+    </string-array>
+</resources>
