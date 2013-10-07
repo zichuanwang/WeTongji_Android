@@ -46,7 +46,7 @@ public class TodayGridNewsAdapter extends TodayGridBaseAdapter<Information> {
 				holder.tvGridTitle.setText(R.string.text_news_category_1);
 			} else if (strCategory.equals("校务信息")) {
 				holder.tvGridTitle.setText(R.string.text_news_category_2);
-			} else if (strCategory.equals("社团通告")) {
+			} else if (strCategory.equals("组织动态")) {
 				holder.tvGridTitle.setText(R.string.text_news_category_3);
 			} else if (strCategory.equals("周边推荐")) {
 				holder.tvGridTitle.setText(R.string.text_news_category_4);
@@ -61,7 +61,7 @@ public class TodayGridNewsAdapter extends TodayGridBaseAdapter<Information> {
 						bundle.putInt(WTBaseFragment.BUNDLE_KEY_SELECT_TYPE, 1);
 					} else if(strCategory.equals("校务信息")) {
 						bundle.putInt(WTBaseFragment.BUNDLE_KEY_SELECT_TYPE, 8);
-					} else if(strCategory.equals("社团通告")) {
+					} else if(strCategory.equals("组织动态")) {
 						bundle.putInt(WTBaseFragment.BUNDLE_KEY_SELECT_TYPE, 2);
 					} else if(strCategory.equals("周边推荐")) {
 						bundle.putInt(WTBaseFragment.BUNDLE_KEY_SELECT_TYPE, 4);

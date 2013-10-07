@@ -54,7 +54,7 @@ public class InformationDetailActivity extends WTBaseDetailActivity implements
 	private void initWidget() {
 		setTitle(getResources().getString(R.string.profile_section_new));
 		mAq = WTApplication.getInstance().getAq(this);
-		if (mInfo.getCategory().equals("社团通告")) {
+		if (mInfo.getCategory().equals("组织动态")) {
 			// Set the organization avatar
 			mAq.id(R.id.info_detail_avatar).image(mInfo.getOrganizerAvatar(),
 					false, true, 0, R.drawable.image_place_holder, null,
@@ -96,7 +96,7 @@ public class InformationDetailActivity extends WTBaseDetailActivity implements
 		}
 
 		tvTitle.setText(mInfo.getTitle());
-		if (mInfo.getCategory().equals("社团通告")) {
+		if (mInfo.getCategory().equals("组织动态")) {
 			tvLocation.setText(mInfo.getOrganizer());
 		} else {
 			tvLocation.setText(mInfo.getSource());

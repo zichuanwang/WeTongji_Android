@@ -85,8 +85,10 @@ public class TelListAdapter extends BaseAdapter {
 
         if (i % 2 != 0) {
             ((RelativeLayout)retView.findViewById(R.id.layout_tel_bg)).setBackgroundResource(R.drawable.listview_selector_1);
+            ((FrameLayout)retView.findViewById(R.id.layout_tel_header)).setBackgroundResource(R.drawable.listview_selector_2);
         } else {
             ((RelativeLayout)retView.findViewById(R.id.layout_tel_bg)).setBackgroundResource(R.drawable.listview_selector_2);
+            ((FrameLayout)retView.findViewById(R.id.layout_tel_header)).setBackgroundResource(R.drawable.listview_selector_1);
         }
 
         return retView;

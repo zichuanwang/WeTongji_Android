@@ -300,7 +300,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 				}
 			} else if(v.getId() == R.id.ll_friend_detail_part_course) {
 				if(mUser.getScheduleCount().getCourse() == 0) {
-					Toast.makeText(FriendDetailActivity.this, getResources().getString(R.string.profile_no_attend_events), 
+					Toast.makeText(FriendDetailActivity.this, getResources().getString(R.string.profile_no_attend_courses),
 							Toast.LENGTH_SHORT).show();
 				} else {
 					Intent intent = new  Intent(FriendDetailActivity.this, CourseListActivity.class);

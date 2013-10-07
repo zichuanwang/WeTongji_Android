@@ -22,7 +22,7 @@ public class QueryHelper {
 	public static final String ARGS_INFO_TYPE_ALL = "ALL";
 	public static final String ARGS_INFO_ORDER_BY = "CreatedAt";
 	public static final String ARGS_INFO_TYPE_ONE = "校园新闻";
-	public static final String ARGS_INFO_TYPE_TWO = "社团通告";
+	public static final String ARGS_INFO_TYPE_TWO = "组织动态";
 	public static final String ARGS_INFO_TYPE_THREE = "周边推荐";
 	public static final String ARGS_INFO_TYPE_FOUR = "校务信息";
 	

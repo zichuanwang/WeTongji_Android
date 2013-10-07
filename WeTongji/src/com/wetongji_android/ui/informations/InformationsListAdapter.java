@@ -200,7 +200,7 @@ public class InformationsListAdapter extends AmazingAdapter implements
 		}
 		holder.tv_type.setText(information.getCategory());
 		holder.tv_title.setText(information.getTitle());
-		if(information.getCategory().equals("社团通告")) {
+		if(information.getCategory().equals("组织动态")) {
 			holder.tv_description.setText(information.getContext());
 		} else {
 			holder.tv_description.setText(information.getSummary());
