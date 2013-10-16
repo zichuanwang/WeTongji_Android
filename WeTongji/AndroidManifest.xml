@@ -54,11 +54,16 @@
             android:name="com.wetongji_android.ui.welcome.WelcomeActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity
+                android:name="com.wetongji_android.ui.main.SplashActivity"
+                android:label="@string/app_name"
+                android:theme="@android:style/Theme.NoTitleBar"
+                android:noHistory="true">
+                    <intent-filter>
+                        <action android:name="android.intent.action.MAIN" />
+                        <category android:name="android.intent.category.LAUNCHER" />
+                    </intent-filter>
         </activity>
         <activity
             android:name="com.wetongji_android.ui.event.EventDetailActivity"
