@@ -307,6 +307,8 @@
     <string name="guide_detail_time_interval_bus_2">下行方向起点首末班车时间</string>
     <string name="guide_detail_time_interval_metro_1">方向一首末班车时间</string>
     <string name="guide_detail_time_interval_metro_2">方向二首末班车时间</string>
+    <string name="guide_detail_time_interval_special_1">方向一时刻表</string>
+    <string name="guide_detail_time_interval_special_2">方向二时刻表</string>
     <string name="guide_detail_cost">票价</string>
     <string name="guide_detail_frequent_entry">推荐上车点</string>
 

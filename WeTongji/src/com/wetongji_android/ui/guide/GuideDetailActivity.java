@@ -1,6 +1,7 @@
 package com.wetongji_android.ui.guide;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -51,20 +52,26 @@ public class GuideDetailActivity extends SherlockFragmentActivity {
         textWhere.setText(data.getString("where"));
         textCost.setText(data.getString("cost"));
 
-        int bannerId1 = getResources().getIdentifier("guide_" + data.getString("id") + "_1", "drawable", getPackageName());
-        imgBanner1.setImageResource(bannerId1);
-        int bannerId2 = getResources().getIdentifier("guide_"+data.getString("id")+"_2", "drawable", getPackageName());
-        imgBanner2.setImageResource(bannerId2);
+        if (data.getString("type").equals("special")) {
+            ((HorizontalScrollView) findViewById(R.id.guide_detail_scroll_1)).setVisibility(View.GONE);
+            ((HorizontalScrollView) findViewById(R.id.guide_detail_scroll_2)).setVisibility(View.GONE);
+        }
+        else {
+            int bannerId1 = getResources().getIdentifier("guide_" + data.getString("id") + "_1", "drawable", getPackageName());
+            imgBanner1.setImageResource(bannerId1);
+            int bannerId2 = getResources().getIdentifier("guide_"+data.getString("id")+"_2", "drawable", getPackageName());
+            imgBanner2.setImageResource(bannerId2);
+            hsBanner1 = (HorizontalScrollView) findViewById(R.id.guide_detail_scroll_1);
+            hsBanner1.setHorizontalScrollBarEnabled(false);
+            hsBanner2 = (HorizontalScrollView) findViewById(R.id.guide_detail_scroll_2);
+            hsBanner2.setHorizontalScrollBarEnabled(false);
+        }
+
 
         int timeIntervalTitleId1 = getResources().getIdentifier("guide_detail_time_interval_"+data.getString("type")+"_1", "string", getPackageName());
         textTimeIntervalTitle1.setText(getResources().getString(timeIntervalTitleId1));
         int timeIntervalTitleId2 = getResources().getIdentifier("guide_detail_time_interval_"+data.getString("type")+"_2", "string", getPackageName());
         textTimeIntervalTitle2.setText(getResources().getString(timeIntervalTitleId2));
-
-        hsBanner1 = (HorizontalScrollView) findViewById(R.id.guide_detail_scroll_1);
-        hsBanner1.setHorizontalScrollBarEnabled(false);
-        hsBanner2 = (HorizontalScrollView) findViewById(R.id.guide_detail_scroll_2);
-        hsBanner2.setHorizontalScrollBarEnabled(false);
     }
 
     @Override
