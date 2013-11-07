@@ -14,6 +14,7 @@ import com.flurry.android.FlurryAgent;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.SlidingMenu.OnOpenedListener;
 import com.wetongji_android.R;
+import com.wetongji_android.service.WeNotificationService;
 import com.wetongji_android.ui.notification.NotificationFragment;
 import com.wetongji_android.ui.now.NowFragment;
 import com.wetongji_android.ui.profile.ProfileFragment;
@@ -43,6 +44,9 @@ public class MainActivity extends UpdateBaseActivity {
 				.replace(R.id.content_frame, mContent).commit();
 
 		setSlidingMenu();
+
+        //TODO do not start notification service if the setting is off
+        startService(new Intent(this, WeNotificationService.class));
 	}
 
 	@Override

@@ -314,4 +314,5 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="guide_detail_time_interval_2">Working time at the terminal station</string>
     <string name="guide_detail_cost">Cost</string>
     <string name="guide_detail_frequent_entry">Frequent entry</string>
+    <string name="new_notification">New Notification</string>
 </resources>

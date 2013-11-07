@@ -317,4 +317,6 @@
     <string name="title_oa">同济大学办公系统</string>
     <string name="title_guide">校园出行指南</string>
     <string name="title_tel">校园黄页</string>
+
+    <string name="new_notification">有新通知</string>
 </resources>

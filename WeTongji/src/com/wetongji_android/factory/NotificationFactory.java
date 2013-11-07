@@ -26,35 +26,39 @@ public class NotificationFactory extends BaseFactory<Notification, Integer>{
 		super(fragment, Notification.class, WTApplication.EVENTS_SAVER);
 	}
 
+    public static List<Notification> parseObjects(String jsonStr) {
+        List<Notification> results = new ArrayList<Notification>();
+        int nextPage = 0;
+        try {
+            JSONObject data = new JSONObject(jsonStr);
+            nextPage = data.getInt("NextPager");
+            //setNextPage(nextPage);
+            JSONArray notifications = data.getJSONArray("Notifications");
+            for (int i = 0; i < notifications.length(); i++) {
+                results.add(createObject(notifications.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return results;
+    }
+
 	public List<Notification> createObjects(String jsonStr) {
-		List<Notification> results = new ArrayList<Notification>();
-		int nextPage = 0;
+        List<Notification> results = parseObjects(jsonStr);
+        list.clear();
+        for (int i = 0; i < results.size(); i++) {
+            if (!results.get(i).isIsConfirmed()) {
+                list.add(results.get(i));
+            }
+        }
 
-		try {
-			JSONObject data = new JSONObject(jsonStr);
-			nextPage = data.getInt("NextPager");
-			setNextPage(nextPage);
-			JSONArray notifications = data.getJSONArray("Notifications");
-			for (int i = 0; i < notifications.length(); i++) {
-				results.add(createObject(notifications.getJSONObject(i)));
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-
-		list.clear();
-		for (int i = 0; i < results.size(); i++) {
-			if (!results.get(i).isIsConfirmed()) {
-				list.add(results.get(i));
-			}
-		}
 		Bundle args = new Bundle();
 		args.putBoolean(ARG_NEED_TO_REFRESH, false);
 		fragment.getLoaderManager().initLoader(WTApplication.NOTIFICCATOINS_SAVER, args, this).forceLoad();
 		return results;
 	}
 
-	private Notification createObject(JSONObject json) {
+	public static Notification createObject(JSONObject json) {
 		Notification notification = new Notification();
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss")
 				.create();
