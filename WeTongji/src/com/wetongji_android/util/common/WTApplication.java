@@ -9,6 +9,8 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.wetongji_android.util.data.DbHelper;
 import java.io.File;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.app.Application;
 import android.content.SharedPreferences;
@@ -99,7 +101,8 @@ public class WTApplication extends Application {
 		dbHelper = OpenHelperManager.getHelper(this, DbHelper.class);
 
 		upDateDatabase();
-		hasAccount = false;
+        Account[] accounts = AccountManager.get(getApplicationContext()).getAccountsByType(ACCOUNT_TYPE);
+		hasAccount = accounts.length > 0;
 	}
 
 	private void upDateDatabase() {

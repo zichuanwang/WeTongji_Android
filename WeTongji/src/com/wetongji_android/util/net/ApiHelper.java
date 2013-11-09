@@ -133,7 +133,7 @@ public class ApiHelper {
 		Account[] accounts=am.getAccountsByType(WTApplication.ACCOUNT_TYPE);
 		if(accounts.length!=0){
 			Account wtAccount=accounts[0];
-			uid=am.getUserData(wtAccount, AccountManager.KEY_USERDATA);
+			uid = am.getUserData(wtAccount, AccountManager.KEY_USERDATA);
 		}
 	}
 	

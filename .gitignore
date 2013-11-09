@@ -206,3 +206,4 @@ WeTongji/src/com/wetongji_android/test
 out/production
 out/res-cache
 out/test
+.gradle

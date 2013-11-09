@@ -16,6 +16,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 /**
  * @author nankonami
@@ -35,7 +36,7 @@ public class HttpUtil
 	 */
 	public static String encodeUrl(Bundle params)
 	{
-		if(params == null)
+		if(params == null || params.isEmpty())
 			return "";
 		
 		StringBuilder sb = new StringBuilder();
@@ -45,6 +46,9 @@ public class HttpUtil
 		
 		for(String strKey : setKeys)
 		{
+            if (TextUtils.isEmpty(strKey)) {
+                continue;
+            }
 			if(bFirst)
 				bFirst = false;
 			else

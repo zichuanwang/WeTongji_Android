@@ -191,9 +191,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="account_contact">Contact</string>
     <string name="account_no_email_error">Sorry, this account has no email</string>
     <string name="my_basic_information">My Basic Information</string>
-    <string name="profile_section_phone">Phone</string>
-    <string name="profile_section_motto">Motto</string>
-    <string name="profile_section_email">Email</string>
     <string name="profile_section_qq">QQ</string>
     <string name="profile_section_weibo">Sina Weibo</string>
     <string name="profile_section_dorm">Dorm</string>
@@ -201,7 +198,6 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="text_save_success">Save success</string>
     <string name="title_activity_profile_info">MyProfile</string>
     <string name="profile_basic_info">BASIC INFO</string>
-    <string name="profile_personal_info">PERSONAL INFO</string>
     <string name="profile_edit">Edit</string>
     <string name="title_choose_app_send_email">Please choose an application to send email </string>
     <string name="msg_content_copied">The content has been copied</string>

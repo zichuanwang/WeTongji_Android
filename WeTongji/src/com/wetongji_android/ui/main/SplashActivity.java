@@ -7,6 +7,7 @@ import android.os.Handler;
 
 import com.wetongji_android.R;
 import com.wetongji_android.ui.welcome.WelcomeActivity;
+import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.version.UpdateBaseActivity;
 
 /**
@@ -19,6 +20,10 @@ public class SplashActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        // IMPORTANT Getting auth
+        ApiHelper.getInstance(this);
+
         new Handler().postDelayed(new Runnable() {
 
             /*
