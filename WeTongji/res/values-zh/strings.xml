@@ -319,4 +319,5 @@
     <string name="title_tel">校园黄页</string>
 
     <string name="new_notification">有新通知</string>
+    <string name="check_network">请检查你的网络状态</string>
 </resources>
