@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -117,9 +118,10 @@ public class TodayFragment extends SherlockFragment {
 
 			setTodayGrids(view);
 			setTodaySectionTitles(view);
-			Bundle args = QueryHelper.getEventQueryArgs(Calendar.getInstance());
+			//TODO:What's this?
+			/*Bundle args = QueryHelper.getEventQueryArgs(Calendar.getInstance());
 			getLoaderManager().initLoader(WTApplication.EVENT_LOADER, args, new DbLoaderCallbacks())
-					.forceLoad();
+					.forceLoad();*/
 		}
 		return view;
 	}
@@ -151,17 +153,6 @@ public class TodayFragment extends SherlockFragment {
 		gvNews = (GridView) view.findViewById(R.id.gv_today_information);
 		gvFeatures = (GridView) view.findViewById(R.id.gv_today_features);
 		Bundle bundle = ApiHelper.getInstance(context).getHome();
-
-		/*if (!WTUtility.isWifi(context)) {
-			if (previousResultStr == null)
-				previousResultStr = getDatabaseData();
-			this.executeLoader(previousResultStr);
-		} else if ((previousResultStr == null) && WTUtility.isWifi(context)) {
-			getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle,
-					new NetwordLoaderCallbacks());
-		} else {
-			this.executeLoader(previousResultStr);
-		}*/
 		
 		if(WTUtility.isConnect(context) && (previousResultStr == null)) {
 			getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle,
@@ -176,8 +167,16 @@ public class TodayFragment extends SherlockFragment {
 	}
 
 	public void executeLoader(String strResult) {
-		if (strResult == null)
+		//The database has no data
+		if (strResult == null) {
+			Toast.makeText(context, R.string.check_network, Toast.LENGTH_SHORT).show();
+			view.findViewById(R.id.pb_today_banner).setVisibility(View.GONE);
+			view.findViewById(R.id.pb_today_activities).setVisibility(View.GONE);
+			view.findViewById(R.id.pb_today_features).setVisibility(View.GONE);
+			view.findViewById(R.id.pb_today_information).setVisibility(View.GONE);
 			return;
+		}
+	
 		TodayFactory factory = new TodayFactory(TodayFragment.this);
 		List<Banner> banners = factory.createBanners(strResult);
 		List<Activity> activities = factory.createActivities(strResult);
