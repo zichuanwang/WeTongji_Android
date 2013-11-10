@@ -708,4 +708,8 @@ public class ApiHelper {
 		bundle.putString(API_ARGS_NAME, name);
 		return bundle;
 	}
+
+    public boolean hasSession() {
+        return TextUtils.isEmpty(session);
+    }
 }

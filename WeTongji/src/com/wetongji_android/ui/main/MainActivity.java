@@ -46,7 +46,9 @@ public class MainActivity extends UpdateBaseActivity {
 		setSlidingMenu();
 
         //TODO do not start notification service if the setting is off
-        startService(new Intent(this, WeNotificationService.class));
+        if (WTApplication.getInstance().hasAccount) {
+            startService(new Intent(this, WeNotificationService.class));
+        }
 	}
 
 	@Override

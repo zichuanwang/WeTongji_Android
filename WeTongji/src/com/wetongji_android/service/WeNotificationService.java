@@ -11,6 +11,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 
+import com.j256.ormlite.dao.Dao;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Notification;
 import com.wetongji_android.factory.NotificationFactory;
@@ -18,16 +19,19 @@ import com.wetongji_android.net.WTClient;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
+import com.wetongji_android.util.data.DbHelper;
 import com.wetongji_android.util.exception.WTException;
 import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 /**
  * Created by martian on 13-11-7.
  */
-public class WeNotificationService extends Service{
+public class WeNotificationService extends Service implements Callable<Void>{
     public static final int MSG_REFRSH_NOTIFICATION = 991;
 
     private static final int REQUEST_DELAY_WIFI = 60000;
@@ -39,7 +43,10 @@ public class WeNotificationService extends Service{
     private Handler mHandler;
     private Runnable mRunnable;
     private NotificationTask mTask;
-    private NotificationFactory mFactory;
+
+    private DbHelper mDbHelper;
+    private Dao<Notification, Integer> mDao;
+    private List<Notification> mNotifications;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -54,23 +61,33 @@ public class WeNotificationService extends Service{
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
+                ApiHelper apiHelper = ApiHelper.getInstance(WeNotificationService.this);
+                if (!apiHelper.hasSession()) {
+                    return;
+                }
                 if (msg.what == MSG_REFRSH_NOTIFICATION && WTApplication.getInstance().hasAccount) {
-                    Bundle bundle = ApiHelper.getInstance(WeNotificationService.this).getNotifications(true);
+                    Bundle bundle = apiHelper.getNotifications(true);
                     mTask = new NotificationTask(WeNotificationService.this);
                     WTUtility.executeAsyncTask(mTask, bundle);
                 }
             }
         };
-
         mRunnable = new StoppableRunnable();
+
+        mDbHelper = WTApplication.getInstance().getDbHelper();
+        try {
+            mDao = mDbHelper.getDao(Notification.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        // Start fetch notifications
-        mHandler.postDelayed(mRunnable, 1);
+        // Start fetch mNotifications
+        mHandler.postDelayed(mRunnable, 1000);
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -90,6 +107,17 @@ public class WeNotificationService extends Service{
             return REQUEST_DELAY_WIFI;
         }
         return REQUEST_DELAY_GPRS;
+    }
+
+    @Override
+    public Void call() throws Exception {
+        for (Notification notification : mNotifications) {
+            mDao.createOrUpdate(notification);
+
+        }
+
+        mNotifications.clear();
+        return null;
     }
 
     private class StoppableRunnable implements Runnable {
@@ -152,15 +180,14 @@ public class WeNotificationService extends Service{
 
         @Override
         protected void onPostExecute(HttpRequestResult result) {
-            //TODO Save notifications and tell create a notification
+            //TODO Save mNotifications and tell create a notification
             NotificationManager notifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            List<Notification> notifications;
             if (result.getResponseCode() == 0) {
-                notifications = NotificationFactory.parseObjects(result.getStrResponseCon());
+                mNotifications.addAll(NotificationFactory.parseObjects(result.getStrResponseCon()));
 
-                for (int i = 0; i < notifications.size(); i ++) {
+                for (int i = 0; i < mNotifications.size(); i ++) {
                     // Notification
-                    Notification notify = notifications.get(i);
+                    Notification notify = mNotifications.get(i);
 
                     NotificationCompat.Builder builder =
                             new NotificationCompat.Builder(WeNotificationService.this)
@@ -170,7 +197,22 @@ public class WeNotificationService extends Service{
                     notifyMgr.notify(notifyId, builder.build());
                     notifyId ++;
                 }
+
+                WTUtility.executeAsyncTask(new SaveNotificationTask());
             }
+        }
+    }
+
+    private class SaveNotificationTask extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                mDao.callBatchTasks(WeNotificationService.this);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 }
