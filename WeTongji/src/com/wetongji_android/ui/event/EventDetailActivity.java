@@ -84,8 +84,7 @@ public class EventDetailActivity extends WTBaseDetailActivity {
 		Drawable drawable = getResources().getDrawable(
 				R.drawable.image_place_holder);
 		Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
-		if (!mEvent.getImage().equals(WTApplication.MISSING_IMAGE_URL)
-				|| TextUtils.isEmpty(mEvent.getImage())) {
+		if (TextUtils.isEmpty(mEvent.getImage()) || !mEvent.getImage().equals(WTApplication.MISSING_IMAGE_URL)) {
 			mAq.id(R.id.iv_event_detail_image).image(mEvent.getImage(), false,
 					true, 0, AQuery.GONE, bitmap,
 					AQuery.FADE_IN, 0.41f);

@@ -1,6 +1,7 @@
 package com.wetongji_android.service;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
+import android.widget.Toast;
 
 import com.j256.ormlite.dao.Dao;
 import com.wetongji_android.R;
@@ -17,6 +20,7 @@ import com.wetongji_android.data.Notification;
 import com.wetongji_android.factory.NotificationFactory;
 import com.wetongji_android.net.WTClient;
 import com.wetongji_android.net.http.HttpMethod;
+import com.wetongji_android.ui.main.MainActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.DbHelper;
@@ -25,6 +29,7 @@ import com.wetongji_android.util.net.ApiHelper;
 import com.wetongji_android.util.net.HttpRequestResult;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -46,7 +51,7 @@ public class WeNotificationService extends Service implements Callable<Void>{
 
     private DbHelper mDbHelper;
     private Dao<Notification, Integer> mDao;
-    private List<Notification> mNotifications;
+    private List<Notification> mNotifications = new ArrayList<Notification>();
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -187,15 +192,8 @@ public class WeNotificationService extends Service implements Callable<Void>{
 
                 for (int i = 0; i < mNotifications.size(); i ++) {
                     // Notification
-                    Notification notify = mNotifications.get(i);
+                    createSysNotification(i, notifyMgr);
 
-                    NotificationCompat.Builder builder =
-                            new NotificationCompat.Builder(WeNotificationService.this)
-                                    .setSmallIcon(R.drawable.ic_launcher)
-                                    .setContentTitle(getString(R.string.new_notification))
-                                    .setContentText(notify.getTitle());
-                    notifyMgr.notify(notifyId, builder.build());
-                    notifyId ++;
                 }
 
                 WTUtility.executeAsyncTask(new SaveNotificationTask());
@@ -214,5 +212,30 @@ public class WeNotificationService extends Service implements Callable<Void>{
             }
             return null;
         }
+    }
+
+    private void createSysNotification(int notifyId, NotificationManager notifyMgr) {
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        resultIntent.putExtra(MainActivity.PARAM_CHECK_NOTIFICATION, true);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        // Adds the back stack
+        stackBuilder.addParentStack(MainActivity.class);
+        // Adds the Intent to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        // Gets a PendingIntent containing the entire back stack
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification notify = mNotifications.get(notifyId);
+
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(WeNotificationService.this)
+                        .setSmallIcon(R.drawable.ic_launcher)
+                        .setContentTitle(getString(R.string.new_notification))
+                        .setContentText(notify.getTitle())
+                        .setAutoCancel(true);
+        builder.setContentIntent(resultPendingIntent);
+        notifyMgr.notify(notifyId, builder.build());
+        notifyId ++;
     }
 }

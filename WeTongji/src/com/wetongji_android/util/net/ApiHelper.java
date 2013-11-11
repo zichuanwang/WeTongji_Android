@@ -710,6 +710,6 @@ public class ApiHelper {
 	}
 
     public boolean hasSession() {
-        return TextUtils.isEmpty(session);
+        return !TextUtils.isEmpty(session);
     }
 }

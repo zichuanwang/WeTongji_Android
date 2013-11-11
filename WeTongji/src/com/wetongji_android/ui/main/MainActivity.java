@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.widget.Toast;
@@ -25,6 +27,9 @@ import com.wetongji_android.util.version.UpdateBaseActivity;
 public class MainActivity extends UpdateBaseActivity {
 	private Fragment mContent;
 	public static final String PARAM_PREVIEW_WITHOUT_lOGIN = "previewWithoutLogin";
+    public static final String PARAM_CHECK_NOTIFICATION = "checknotificaiton";
+
+    public static final int MSG_SHOW_RIGHT_MENU = 993;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,25 @@ public class MainActivity extends UpdateBaseActivity {
         //TODO do not start notification service if the setting is off
         if (WTApplication.getInstance().hasAccount) {
             startService(new Intent(this, WeNotificationService.class));
+        }
+
+        if (getIntent().getBooleanExtra(PARAM_CHECK_NOTIFICATION, false)) {
+            // show right menu with a delay
+            final Handler handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    if (msg.what == MSG_SHOW_RIGHT_MENU) {
+                        showRightMenu();
+                    }
+                }
+            };
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    handler.sendEmptyMessage(MSG_SHOW_RIGHT_MENU);
+                }
+            }, 600);
+
         }
 	}
 
