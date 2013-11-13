@@ -16,6 +16,9 @@ import android.widget.Toast;
 
 import com.j256.ormlite.dao.Dao;
 import com.wetongji_android.R;
+import com.wetongji_android.data.Activity;
+import com.wetongji_android.data.Course;
+import com.wetongji_android.data.Event;
 import com.wetongji_android.data.Notification;
 import com.wetongji_android.factory.NotificationFactory;
 import com.wetongji_android.net.WTClient;
@@ -228,11 +231,20 @@ public class WeNotificationService extends Service implements Callable<Void>{
 
         Notification notify = mNotifications.get(notifyId);
 
+
+        String contentTitle = "";
+        if (notify.getType() == 1) {
+            contentTitle = ((Course)notify.getContent()).getTitle();
+        } else if (notify.getType() == 3) {
+            contentTitle = ((Activity)notify.getContent()).getTitle();
+        }
+        String notifyContent = notify.getTitle() + contentTitle;
+
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(WeNotificationService.this)
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle(getString(R.string.new_notification))
-                        .setContentText(notify.getTitle())
+                        .setContentText(notifyContent)
                         .setAutoCancel(true);
         builder.setContentIntent(resultPendingIntent);
         notifyMgr.notify(notifyId, builder.build());

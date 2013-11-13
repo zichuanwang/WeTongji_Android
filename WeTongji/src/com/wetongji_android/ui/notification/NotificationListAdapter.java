@@ -9,6 +9,9 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.ImageOptions;
 import com.j256.ormlite.dao.Dao;
 import com.wetongji_android.R;
+import com.wetongji_android.data.Activity;
+import com.wetongji_android.data.Course;
+import com.wetongji_android.data.Event;
 import com.wetongji_android.data.Notification;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.DbHelper;
@@ -24,6 +27,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -173,16 +177,32 @@ public class NotificationListAdapter extends BaseAdapter implements
 		Notification notification = mListNotifications.get(arg0);
 		String title = notification.getTitle();
 		String from = notification.getFrom();
+        String activityTitle = "";
 		if(notification.getType() == 2 && !notification.isIsConfirmed()) {
 			title = from + mContext.getResources().getString(R.string.wants_to_add_friend);
 		}
+        if (notification.getType() == 3) {
+            activityTitle = ((Activity)notification.getContent()).getTitle();
+            activityTitle = activityTitle == null ? "" : activityTitle;
+            title = from + title + activityTitle;
+        } else if (notification.getType() == 1) {
+            activityTitle = ((Course)notification.getContent()).getTitle();
+            activityTitle = activityTitle == null ? "" : activityTitle;
+            title = from + title + activityTitle;
+        }
+
 		SpannableString spanStr = new SpannableString(title);
 		spanStr.setSpan(new TextAppearanceSpan(mContext,
 				R.style.NotificationItemFrom), 0, from.length(),
 				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		spanStr.setSpan(new TextAppearanceSpan(mContext,
 				R.style.NotificationItemContent), from.length(),
-				title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+				title.length() - activityTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        if (notification.getType() == 3 || notification.getType() == 1) {
+            spanStr.setSpan(new TextAppearanceSpan(mContext, R.style.NotificationItemFrom),
+                    title.length() - activityTitle.length(), title.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
 		holder.tv_notification_content.setText(spanStr,
 				TextView.BufferType.SPANNABLE);
 		holder.tv_notification_time.setText(DateParser
