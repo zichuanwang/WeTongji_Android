@@ -48,13 +48,28 @@ public class WTSettingActivity extends SherlockFragmentActivity {
     private SharedPreferences sp;
 
     private IChangeInterval notifyService;
-    private long interval = 2 * 60000;
+
+    private Interval interval = Interval.NEVER;
+
+    public enum Interval {
+        NEVER(0, R.id.interval_never, 0), INTERVAL_45SEC(1, R.id.interval_45sec, 45000),
+        INTERVAL_2MIN(2, R.id.interval_2min, 2 * 60000), INTERVAL_5MIN(3, R.id.interval_5min, 5 * 60000),
+        INTERVAL_10MIN(4, R.id.interval_10min, 10 *60000);
+        public int id;
+        public int type;
+        public long value;
+        private Interval(int type, int id, long value) {
+            this.type = type;
+            this.id = id;
+            this.value = value;
+        }
+    }
 
     private ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             notifyService = (IChangeInterval)iBinder;
-            notifyService.setInterval(interval);
+            notifyService.setInterval(interval.value);
         }
 
         @Override
@@ -72,7 +87,7 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 		
 		initWidget();
 
-        if (interval != 0) {
+        if (interval.type != 0) {
             bindService(new Intent("com.wetongji_android.service.WeNotificationService"), serviceConnection,
                     BIND_AUTO_CREATE);
         }
@@ -95,7 +110,7 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 		btnLogOut = (Button) findViewById(R.id.btn_setting_log_out);
 		btnLogOut.setOnClickListener(clickListener);
 		llChangePwdArea = (LinearLayout) findViewById(R.id.ll_setting_change_pwd_area);
-        rlChangeInterval = (RelativeLayout) findViewById(R.id.ll_setting_change_interval_area);
+        rlChangeInterval = (RelativeLayout) findViewById(R.id.ll_setting_change_interval);
         rlChangeInterval.setOnClickListener(clickListener);
 
 		// check if the use is logined
@@ -115,31 +130,31 @@ public class WTSettingActivity extends SherlockFragmentActivity {
         // set interval value
         tvIntervalValue = (TextView) findViewById(R.id.text_setting_interval);
         sp = getSharedPreferences(PREFERENCES_FILE_NAME, MODE_PRIVATE);
-        int index = sp.getInt(PREFERENCE_INTERVAL, 0);
-        setInterval(index);
-        tvIntervalValue.setText(getResources().getStringArray(R.array.notification_interval_values)[index]);
+        int type = sp.getInt(PREFERENCE_INTERVAL, 0);
+        setInterval(type);
+        tvIntervalValue.setText(getResources().getStringArray(R.array.notification_interval_values)[type]);
 	}
 
     private void setInterval(int type) {
         switch (type) {
             case 0: {
-                interval = 0;
+                interval = Interval.NEVER;
                 break;
             }
             case 1: {
-                interval = 45000;
+                interval = Interval.INTERVAL_45SEC;
                 break;
             }
             case 2: {
-                interval = 2 * 60000;
+                interval = Interval.INTERVAL_2MIN;
                 break;
             }
             case 3: {
-                interval = 5 * 60000;
+                interval = Interval.INTERVAL_5MIN;
                 break;
             }
             case 4: {
-                interval = 10 * 60000;
+                interval = Interval.INTERVAL_10MIN;
                 break;
             }
         }
@@ -163,7 +178,7 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 				overridePendingTransition(R.anim.slide_right_in,
                         R.anim.slide_left_out);
 			} else if(v.getId() == R.id.ll_setting_change_interval) {
-                //TODO
+                openIntervalDialog();
             } else {
 				doLogout();
 			}
@@ -252,27 +267,46 @@ public class WTSettingActivity extends SherlockFragmentActivity {
     private void openIntervalDialog() {
         final Dialog dialog = new Dialog(this, R.style.WTDialog);
         dialog.setTitle(R.string.pref_notification_interval);
-        dialog.setContentView(R.layout.dialog_events_sort);
+        dialog.setContentView(R.layout.dialog_notification_interval);
         dialog.setCanceledOnTouchOutside(true);
-        RadioGroup rgInterval = (RadioGroup) dialog
-                .findViewById(R.id.rg_dialog_notify_interval);
-        int checkedId = sp.getInt(PREFERENCE_INTERVAL, 0);
-        rgInterval.check(checkedId);
+        RadioGroup rgInterval = (RadioGroup) dialog.findViewById(R.id.rg_dialog_notify_interval);
+
+        rgInterval.check(interval.id);
         rgInterval.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 SharedPreferences.Editor editor = sp.edit();
-                editor.putInt(PREFERENCE_INTERVAL, checkedId);
+                switch (checkedId) {
+                    case R.id.interval_never:
+                        interval = Interval.NEVER;
+                        break;
+                    case R.id.interval_45sec:
+                        interval = Interval.INTERVAL_45SEC;
+                        break;
+                    case R.id.interval_2min:
+                        interval = Interval.INTERVAL_2MIN;
+                        break;
+                    case R.id.interval_5min:
+                        interval = Interval.INTERVAL_5MIN;
+                        break;
+                    case R.id.interval_10min:
+                        interval = Interval.INTERVAL_10MIN;
+                        break;
+                }
+                editor.putInt(PREFERENCE_INTERVAL, interval.type);
                 editor.apply();
 
                 // set the Service
                 setInterval(checkedId);
-                if (interval == 0) {
+                if (interval.type == 0) {
                     stopService(new Intent(WTSettingActivity.this, WeNotificationService.class));
                 } else {
                     bindService(new Intent("com.wetongji_android.service.WeNotificationService"), serviceConnection,
                             BIND_AUTO_CREATE);
                 }
+
+                tvIntervalValue.setText(getResources().getStringArray(R.array.notification_interval_values)[interval.type]);
+                dialog.dismiss();
             }
         });
 
