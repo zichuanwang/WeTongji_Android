@@ -52,6 +52,9 @@
 
         <service android:name=".service.WeNotificationService"
                  android:enabled="true">
+            <intent-filter>
+                <action android:name="com.wetongji_android.service.WeNotificationService"/>
+            </intent-filter>
         </service>
 
         <activity

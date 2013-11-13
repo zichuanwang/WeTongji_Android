@@ -6,19 +6,18 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Binder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.widget.Toast;
 
 import com.j256.ormlite.dao.Dao;
 import com.wetongji_android.R;
 import com.wetongji_android.data.Activity;
 import com.wetongji_android.data.Course;
-import com.wetongji_android.data.Event;
 import com.wetongji_android.data.Notification;
 import com.wetongji_android.factory.NotificationFactory;
 import com.wetongji_android.net.WTClient;
@@ -39,7 +38,7 @@ import java.util.concurrent.Callable;
 /**
  * Created by martian on 13-11-7.
  */
-public class WeNotificationService extends Service implements Callable<Void>{
+public class WeNotificationService extends Service implements Callable<Void>, IChangeInterval {
     public static final int MSG_REFRSH_NOTIFICATION = 991;
 
     private static final int REQUEST_DELAY_WIFI = 60000;
@@ -47,6 +46,8 @@ public class WeNotificationService extends Service implements Callable<Void>{
     private static final int REQUEST_DELAY_NONE = 60000 * 10;
 
     int notifyId = 001;
+
+    private long mFetchInterval = 60000 * 2;
 
     private Handler mHandler;
     private Runnable mRunnable;
@@ -56,9 +57,11 @@ public class WeNotificationService extends Service implements Callable<Void>{
     private Dao<Notification, Integer> mDao;
     private List<Notification> mNotifications = new ArrayList<Notification>();
 
+    private ServiceBinder mServiceBinder = new ServiceBinder();
+
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return mServiceBinder;
     }
 
     @Override
@@ -111,10 +114,7 @@ public class WeNotificationService extends Service implements Callable<Void>{
         if (!WTUtility.isConnect(this)) {
             return REQUEST_DELAY_NONE;
         }
-        if (WTUtility.isWifi(this)) {
-            return REQUEST_DELAY_WIFI;
-        }
-        return REQUEST_DELAY_GPRS;
+        return (int)mFetchInterval;
     }
 
     @Override
@@ -126,6 +126,19 @@ public class WeNotificationService extends Service implements Callable<Void>{
 
         mNotifications.clear();
         return null;
+    }
+
+    @Override
+    public void setInterval(long millisecond) {
+        mFetchInterval = millisecond;
+    }
+
+    public class ServiceBinder extends Binder implements IChangeInterval {
+
+        @Override
+        public void setInterval(long millisecond) {
+            mFetchInterval = millisecond;
+        }
     }
 
     private class StoppableRunnable implements Runnable {

@@ -6,10 +6,13 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,6 +25,8 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.androidquery.util.AQUtility;
 import com.wetongji_android.R;
+import com.wetongji_android.service.IChangeInterval;
+import com.wetongji_android.service.WeNotificationService;
 import com.wetongji_android.ui.auth.AuthActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.DbHelper;
@@ -42,6 +47,22 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 
     private SharedPreferences sp;
 
+    private IChangeInterval notifyService;
+    private long interval = 2 * 60000;
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            notifyService = (IChangeInterval)iBinder;
+            notifyService.setInterval(interval);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            notifyService = null;
+        }
+    };
+
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -50,9 +71,21 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 		setContentView(R.layout.activity_setting);
 		
 		initWidget();
+
+        if (interval != 0) {
+            bindService(new Intent("com.wetongji_android.service.WeNotificationService"), serviceConnection,
+                    BIND_AUTO_CREATE);
+        }
+
 	}
 
-	private void initWidget() {
+    @Override
+    protected void onDestroy() {
+        unbindService(serviceConnection);
+        super.onDestroy();
+    }
+
+    private void initWidget() {
 		rlChangePwd = (RelativeLayout) findViewById(R.id.ll_setting_change_pwd);
 		rlChangePwd.setOnClickListener(clickListener);
 		rlClearCache = (RelativeLayout) findViewById(R.id.ll_setting_clear_cache);
@@ -83,8 +116,34 @@ public class WTSettingActivity extends SherlockFragmentActivity {
         tvIntervalValue = (TextView) findViewById(R.id.text_setting_interval);
         sp = getSharedPreferences(PREFERENCES_FILE_NAME, MODE_PRIVATE);
         int index = sp.getInt(PREFERENCE_INTERVAL, 0);
+        setInterval(index);
         tvIntervalValue.setText(getResources().getStringArray(R.array.notification_interval_values)[index]);
 	}
+
+    private void setInterval(int type) {
+        switch (type) {
+            case 0: {
+                interval = 0;
+                break;
+            }
+            case 1: {
+                interval = 45000;
+                break;
+            }
+            case 2: {
+                interval = 2 * 60000;
+                break;
+            }
+            case 3: {
+                interval = 5 * 60000;
+                break;
+            }
+            case 4: {
+                interval = 10 * 60000;
+                break;
+            }
+        }
+    }
 
 	private OnClickListener clickListener = new OnClickListener() {
 		@Override
@@ -207,7 +266,13 @@ public class WTSettingActivity extends SherlockFragmentActivity {
                 editor.apply();
 
                 // set the Service
-
+                setInterval(checkedId);
+                if (interval == 0) {
+                    stopService(new Intent(WTSettingActivity.this, WeNotificationService.class));
+                } else {
+                    bindService(new Intent("com.wetongji_android.service.WeNotificationService"), serviceConnection,
+                            BIND_AUTO_CREATE);
+                }
             }
         });
 
