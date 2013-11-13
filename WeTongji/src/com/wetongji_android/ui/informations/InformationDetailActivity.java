@@ -131,6 +131,9 @@ public class InformationDetailActivity extends WTBaseDetailActivity implements
 
 		indicator.setViewPager(vpPics);
 		indicator.setFades(false);
+        if (urls.size() == 1) {
+            indicator.setVisibility(View.GONE);
+        }
 	}
 
 	private void receiveInformation() {
