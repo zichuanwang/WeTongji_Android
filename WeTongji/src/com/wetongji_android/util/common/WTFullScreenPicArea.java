@@ -56,8 +56,8 @@ public class WTFullScreenPicArea extends LinearLayout {
         imgW = width;
         imgH = height;
         
-        int layout_w = imgW > imgDisplayW ? imgDisplayW : imgW;
-        int layout_h = imgH > imgDisplayH ? imgDisplayH : imgH;
+        int layout_w = imgDisplayW;
+        int layout_h = imgDisplayH;
 
         if (imgW >= imgH) {
             if (layout_w == imgDisplayW) {
