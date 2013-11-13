@@ -313,4 +313,18 @@ read and agree to the <u><b>Term of Use</b></u></string>
     <string name="new_notification">New Notification</string>
     
     <string name="check_network">Please Check your Network</string>
+
+    <string-array name="notification_interval_values">
+        <item>Never</item>
+        <item>45 sec</item>
+        <item>2 min</item>
+        <item>5 min</item>
+        <item>10 min</item>
+    </string-array>
+
+    <string name="interval_never">Never</string>
+    <string name="interval_45sec">45 sec</string>
+    <string name="interval_2min">2 min</string>
+    <string name="interval_5min">5 min</string>
+    <string name="interval_10min">10 min</string>
 </resources>

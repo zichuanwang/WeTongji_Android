@@ -162,8 +162,7 @@ public abstract class WTBaseDetailActivity extends SherlockFragmentActivity
 	
 	//Set up the bottom action bar event handling
 	@SuppressWarnings("deprecation")
-	private void setBottomActionBar()
-	{
+	private void setBottomActionBar() {
 		//Set the invite tab
 		mLayoutInvite = (LinearLayout)findViewById(R.id.btn_event_detail_invite);
 		mTvInvite = (TextView)findViewById(R.id.tv_event_detail_friends_invite);

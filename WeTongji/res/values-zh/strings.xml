@@ -320,4 +320,20 @@
 
     <string name="new_notification">有新通知</string>
     <string name="check_network">请检查你的网络状态</string>
+    <string name="pref_notification_interval">通知间隔</string>
+
+    <string-array name="notification_interval_values">
+        <item>从不</item>
+        <item>45秒</item>
+        <item>2分钟</item>
+        <item>5分钟</item>
+        <item>10分钟</item>
+    </string-array>
+
+    <string name="interval_never">从不</string>
+    <string name="interval_45sec">45秒</string>
+    <string name="interval_2min">2分钟</string>
+    <string name="interval_5min">5分钟</string>
+    <string name="interval_10min">10分钟</string>
+
 </resources>

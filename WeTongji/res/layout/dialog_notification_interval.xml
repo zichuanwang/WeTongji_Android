@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff" >
+
+    <RadioGroup
+        android:id="@+id/rg_dialog_notify_interval"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <RadioButton
+            android:text="@string/interval_never"
+            android:id="@+id/interval_never"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:button="@null"
+            android:drawableRight="@drawable/btn_radio_holo_light"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            style="@style/DialogTextStyle" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/eventlst_divider"/>
+
+        <RadioButton
+            android:text="@string/interval_45sec"
+            android:id="@+id/interval_45sec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:button="@null"
+            android:drawableRight="@drawable/btn_radio_holo_light"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            style="@style/DialogTextStyle"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/eventlst_divider"/>
+
+        <RadioButton
+            android:text="@string/interval_2min"
+            android:id="@+id/interval_2min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:button="@null"
+            android:drawableRight="@drawable/btn_radio_holo_light"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            style="@style/DialogTextStyle"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/eventlst_divider"/>
+
+        <RadioButton
+            android:text="@string/interval_5min"
+            android:id="@+id/interval_5min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:button="@null"
+            android:drawableRight="@drawable/btn_radio_holo_light"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            style="@style/DialogTextStyle"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/eventlst_divider"/>
+
+        <RadioButton
+            android:text="@string/interval_10min"
+            android:id="@+id/interval_10min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:button="@null"
+            android:drawableRight="@drawable/btn_radio_holo_light"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            style="@style/DialogTextStyle"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/eventlst_divider"/>
+    </RadioGroup>
+</RelativeLayout>

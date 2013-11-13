@@ -4,14 +4,17 @@ import java.io.File;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,14 +27,20 @@ import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.DbHelper;
 
 public class WTSettingActivity extends SherlockFragmentActivity {
+    private static final String PREFERENCES_FILE_NAME = "USER_CONFIG";
+    private static final String PREFERENCE_INTERVAL = "notification_interval";
 
 	private RelativeLayout rlChangePwd;
 	private RelativeLayout rlClearCache;
 	private RelativeLayout rlAboutWe;
+    private RelativeLayout rlChangeInterval;
 	private LinearLayout llChangePwdArea;
 	private Button btnLogOut;
 	private TextView tvCacheAmount;
+    private TextView tvIntervalValue;
 	private ProgressDialog progressDialog;
+
+    private SharedPreferences sp;
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -53,6 +62,8 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 		btnLogOut = (Button) findViewById(R.id.btn_setting_log_out);
 		btnLogOut.setOnClickListener(clickListener);
 		llChangePwdArea = (LinearLayout) findViewById(R.id.ll_setting_change_pwd_area);
+        rlChangeInterval = (RelativeLayout) findViewById(R.id.ll_setting_change_interval_area);
+        rlChangeInterval.setOnClickListener(clickListener);
 
 		// check if the use is logined
 		if (!WTApplication.getInstance().hasAccount) {
@@ -67,6 +78,12 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 		int cacheKBs = (int) getDirSize(cacheDir) / 1024;
 		tvCacheAmount.setText(getString(R.string.pref_clear_cache_summary,
 				cacheKBs));
+
+        // set interval value
+        tvIntervalValue = (TextView) findViewById(R.id.text_setting_interval);
+        sp = getSharedPreferences(PREFERENCES_FILE_NAME, MODE_PRIVATE);
+        int index = sp.getInt(PREFERENCE_INTERVAL, 0);
+        tvIntervalValue.setText(getResources().getStringArray(R.array.notification_interval_values)[index]);
 	}
 
 	private OnClickListener clickListener = new OnClickListener() {
@@ -85,8 +102,10 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 						WTAboutActivity.class);
 				startActivity(intent);
 				overridePendingTransition(R.anim.slide_right_in,
-						R.anim.slide_left_out);
-			} else {
+                        R.anim.slide_left_out);
+			} else if(v.getId() == R.id.ll_setting_change_interval) {
+                //TODO
+            } else {
 				doLogout();
 			}
 		}
@@ -170,4 +189,28 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 		}
 		
 	}
+
+    private void openIntervalDialog() {
+        final Dialog dialog = new Dialog(this, R.style.WTDialog);
+        dialog.setTitle(R.string.pref_notification_interval);
+        dialog.setContentView(R.layout.dialog_events_sort);
+        dialog.setCanceledOnTouchOutside(true);
+        RadioGroup rgInterval = (RadioGroup) dialog
+                .findViewById(R.id.rg_dialog_notify_interval);
+        int checkedId = sp.getInt(PREFERENCE_INTERVAL, 0);
+        rgInterval.check(checkedId);
+        rgInterval.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putInt(PREFERENCE_INTERVAL, checkedId);
+                editor.apply();
+
+                // set the Service
+
+            }
+        });
+
+        dialog.show();
+    }
 }
