@@ -1,10 +1,9 @@
 package com.wetongji_android.ui.friend;
 
-import java.util.HashMap;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -23,6 +22,8 @@ import com.wetongji_android.data.User;
 import com.wetongji_android.ui.EndlessListAdapter;
 import com.wetongji_android.util.common.WTApplication;
 
+import java.util.HashMap;
+
 public class FriendListAdapter extends EndlessListAdapter<User> {
 	private static final float LIST_THUMBNAILS_TARGET_WIDTH_FACTOR = 3;
 	private static int LIST_THUMBNAILS_TARGET_WIDTH = 300;
@@ -32,8 +33,6 @@ public class FriendListAdapter extends EndlessListAdapter<User> {
 	private AQuery mListAq;
 	private AQuery mShouldDelayAq;
 	private Fragment mFragment;
-	
-	private BitmapDrawable mBmDefaultThumbnails;
 	
 	private static HashMap<Integer, Boolean> isSelected;
 	
@@ -55,9 +54,7 @@ public class FriendListAdapter extends EndlessListAdapter<User> {
 		mInflater = LayoutInflater.from(mContext);
 		mFragment = fragment;
 		mListAq = WTApplication.getInstance().getAq(mFragment.getActivity());
-		mBmDefaultThumbnails = (BitmapDrawable) mContext.getResources()
-				.getDrawable(R.drawable.event_list_thumbnail_place_holder);
-		
+
 		WTApplication app = WTApplication.getInstance();
 		app.setActivity(fragment.getActivity());
 		DisplayMetrics dm = app.getDisplayMetrics();
@@ -137,16 +134,17 @@ public class FriendListAdapter extends EndlessListAdapter<User> {
 		{
 			if(mShouldDelayAq.shouldDelay(position, convertView, parent, strUrl))
 			{
-				mShouldDelayAq.id(holder.imgFriendAvatar).image(mBmDefaultThumbnails);
+                Drawable colorDrawable = new ColorDrawable(Color.argb(255, 201, 201, 201));
+				mShouldDelayAq.id(holder.imgFriendAvatar).image(colorDrawable);
 			}else
 			{
 				mShouldDelayAq.id(holder.imgFriendAvatar).image(strUrl, true, true,
-	        			LIST_THUMBNAILS_TARGET_WIDTH, R.drawable.event_list_thumbnail_place_holder,
-	        			null, AQuery.FADE_IN_NETWORK, 1.0f);
+	        			LIST_THUMBNAILS_TARGET_WIDTH, R.drawable.default_avatar,
+                        null, AQuery.FADE_IN_NETWORK, 1.0f);
 			}
 		}else
 		{
-			mShouldDelayAq.id(holder.imgFriendAvatar).image(mBmDefaultThumbnails);
+			mShouldDelayAq.id(holder.imgFriendAvatar).image(R.drawable.default_avatar);
 		}
 		
 		return convertView;
