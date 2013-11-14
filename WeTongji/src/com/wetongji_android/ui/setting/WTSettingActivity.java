@@ -32,8 +32,8 @@ import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.data.DbHelper;
 
 public class WTSettingActivity extends SherlockFragmentActivity {
-    private static final String PREFERENCES_FILE_NAME = "USER_CONFIG";
-    private static final String PREFERENCE_INTERVAL = "notification_interval";
+    public static final String PREFERENCES_FILE_NAME = "USER_CONFIG";
+    public static final String PREFERENCE_INTERVAL = "notification_interval";
 
 	private RelativeLayout rlChangePwd;
 	private RelativeLayout rlClearCache;
@@ -50,6 +50,7 @@ public class WTSettingActivity extends SherlockFragmentActivity {
     private IChangeInterval notifyService;
 
     private Interval interval = Interval.NEVER;
+    private int oldSetting;
 
     public enum Interval {
         NEVER(0, R.id.interval_never, 0), INTERVAL_45SEC(1, R.id.interval_45sec, 45000),
@@ -96,7 +97,9 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 
     @Override
     protected void onDestroy() {
-        unbindService(serviceConnection);
+        if (interval.type > 0) {
+            unbindService(serviceConnection);
+        }
         super.onDestroy();
     }
 
@@ -133,6 +136,7 @@ public class WTSettingActivity extends SherlockFragmentActivity {
         int type = sp.getInt(PREFERENCE_INTERVAL, 0);
         setInterval(type);
         tvIntervalValue.setText(getResources().getStringArray(R.array.notification_interval_values)[type]);
+        oldSetting = interval.type;
 	}
 
     private void setInterval(int type) {
@@ -276,6 +280,7 @@ public class WTSettingActivity extends SherlockFragmentActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 SharedPreferences.Editor editor = sp.edit();
+                oldSetting = interval.type;
                 switch (checkedId) {
                     case R.id.interval_never:
                         interval = Interval.NEVER;
@@ -300,9 +305,11 @@ public class WTSettingActivity extends SherlockFragmentActivity {
                 setInterval(checkedId);
                 if (interval.type == 0) {
                     stopService(new Intent(WTSettingActivity.this, WeNotificationService.class));
-                } else {
+                } else if (interval.type > 0 && oldSetting > 0) {
                     bindService(new Intent("com.wetongji_android.service.WeNotificationService"), serviceConnection,
                             BIND_AUTO_CREATE);
+                } else if (interval.type > 0 && oldSetting == 0) {
+                    startService(new Intent(WTSettingActivity.this, WeNotificationService.class));
                 }
 
                 tvIntervalValue.setText(getResources().getStringArray(R.array.notification_interval_values)[interval.type]);

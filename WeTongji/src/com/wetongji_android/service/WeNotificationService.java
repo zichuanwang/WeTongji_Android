@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.wetongji_android.factory.NotificationFactory;
 import com.wetongji_android.net.WTClient;
 import com.wetongji_android.net.http.HttpMethod;
 import com.wetongji_android.ui.main.MainActivity;
+import com.wetongji_android.ui.setting.WTSettingActivity;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.common.WTUtility;
 import com.wetongji_android.util.data.DbHelper;
@@ -67,6 +69,25 @@ public class WeNotificationService extends Service implements Callable<Void>, IC
     @Override
     public void onCreate() {
         super.onCreate();
+        SharedPreferences sp = getSharedPreferences(WTSettingActivity.PREFERENCES_FILE_NAME, MODE_PRIVATE);
+        int type = sp.getInt(WTSettingActivity.PREFERENCE_INTERVAL, 0);
+        switch (type) {
+            case 0:
+                mFetchInterval = WTSettingActivity.Interval.NEVER.value;
+                break;
+            case 1:
+                mFetchInterval = WTSettingActivity.Interval.INTERVAL_45SEC.value;
+                break;
+            case 2:
+                mFetchInterval = WTSettingActivity.Interval.INTERVAL_2MIN.value;
+                break;
+            case 3:
+                mFetchInterval = WTSettingActivity.Interval.INTERVAL_5MIN.value;
+                break;
+            case 4:
+                mFetchInterval = WTSettingActivity.Interval.INTERVAL_10MIN.value;
+                break;
+        }
         mHandler = new Handler() {
 
             @Override
@@ -201,7 +222,7 @@ public class WeNotificationService extends Service implements Callable<Void>, IC
 
         @Override
         protected void onPostExecute(HttpRequestResult result) {
-            //TODO Save mNotifications and tell create a notification
+            // Save mNotifications and tell create a notification
             NotificationManager notifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             if (result.getResponseCode() == 0) {
                 mNotifications.addAll(NotificationFactory.parseObjects(result.getStrResponseCon()));

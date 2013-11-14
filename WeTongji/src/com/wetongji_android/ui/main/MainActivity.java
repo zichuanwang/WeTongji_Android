@@ -1,6 +1,7 @@
 package com.wetongji_android.ui.main;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.wetongji_android.service.WeNotificationService;
 import com.wetongji_android.ui.notification.NotificationFragment;
 import com.wetongji_android.ui.now.NowFragment;
 import com.wetongji_android.ui.profile.ProfileFragment;
+import com.wetongji_android.ui.setting.WTSettingActivity;
 import com.wetongji_android.ui.today.TodayFragment;
 import com.wetongji_android.util.common.WTApplication;
 import com.wetongji_android.util.version.UpdateBaseActivity;
@@ -50,8 +52,10 @@ public class MainActivity extends UpdateBaseActivity {
 
 		setSlidingMenu();
 
-        //TODO do not start notification service if the setting is off
-        if (WTApplication.getInstance().hasAccount) {
+        //DO NOT start notification service if the setting is off or there is no account
+        SharedPreferences sp = getSharedPreferences(WTSettingActivity.PREFERENCES_FILE_NAME, MODE_PRIVATE);
+        int type = sp.getInt(WTSettingActivity.PREFERENCE_INTERVAL, 0);
+        if (WTApplication.getInstance().hasAccount && type > 0) {
             startService(new Intent(this, WeNotificationService.class));
         }
 
