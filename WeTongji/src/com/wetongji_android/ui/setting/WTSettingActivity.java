@@ -97,7 +97,7 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 
     @Override
     protected void onDestroy() {
-        if (interval.type > 0) {
+        if (interval.type > 0 && oldSetting > 0) {
             unbindService(serviceConnection);
         }
         super.onDestroy();
