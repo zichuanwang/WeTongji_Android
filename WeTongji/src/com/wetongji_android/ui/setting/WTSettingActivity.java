@@ -119,6 +119,7 @@ public class WTSettingActivity extends SherlockFragmentActivity {
 		// check if the use is logined
 		if (!WTApplication.getInstance().hasAccount) {
 			llChangePwdArea.setVisibility(View.GONE);
+            findViewById(R.id.ll_setting_change_interval_area).setVisibility(View.GONE);
 			btnLogOut.setText(R.string.text_login);
 			btnLogOut.setBackgroundResource(R.drawable.btn_default_holo_light);
 		}
