@@ -13,7 +13,7 @@ import android.support.v4.content.AsyncTaskLoader;
 public class DbListLoader<T, ID> extends AsyncTaskLoader<List<T>> {
 
 	protected Dao<T, ID> mDao = null;
-	private DbHelper dbHelper=null;
+	protected DbHelper dbHelper=null;
     private List<T> mData = null;
 
     public DbListLoader(Context context, Class<T> clazz)

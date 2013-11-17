@@ -183,7 +183,10 @@ public class Activity extends Event implements Serializable{
 		dest.writeString(OrganizerAvatar);
 		dest.writeString(Status);
 		dest.writeString(Image);
-		dest.writeLong(CreatedAt.getTime());
+
+        dest.writeInt((CreatedAt != null) ? 1 : 0);
+        dest.writeLong((CreatedAt != null) ? CreatedAt.getTime() : 0);
+
 		dest.writeString(Description);
 		dest.writeInt(Like);
 		dest.writeByte((byte)(CanLike?1:0));
@@ -201,7 +204,14 @@ public class Activity extends Event implements Serializable{
 		OrganizerAvatar=source.readString();
 		Status=source.readString();
 		Image=source.readString();
-		CreatedAt=new Date(source.readLong());
+
+		if (source.readInt() == 1) {
+            CreatedAt = new Date(source.readLong());
+        } else {
+            source.readLong();
+            CreatedAt = null;
+        }
+
 		Description=source.readString();
 		Like=source.readInt();
 		CanLike=source.readByte()==1;

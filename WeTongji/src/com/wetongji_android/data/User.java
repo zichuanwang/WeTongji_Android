@@ -14,11 +14,13 @@ public class User implements Parcelable, Serializable
 	 * 
 	 */
 	private static final long serialVersionUID = -2309411520291683279L;
+    @DatabaseField(generatedId = true, allowGeneratedIdInsert = true)
+    private int id;
 	@DatabaseField
 	private String NO;
 	@DatabaseField
 	private String Name;
-	@DatabaseField(id=true)
+	@DatabaseField
 	private String UID;
 	@DatabaseField
 	private String Phone;

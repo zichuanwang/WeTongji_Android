@@ -3,10 +3,7 @@ package com.wetongji_android.ui.notification;
 import java.util.List;
 
 import com.wetongji_android.R;
-import com.wetongji_android.data.Activity;
-import com.wetongji_android.data.Course;
 import com.wetongji_android.data.Notification;
-import com.wetongji_android.data.User;
 import com.wetongji_android.factory.NotificationFactory;
 import com.wetongji_android.net.NetworkLoader;
 import com.wetongji_android.net.http.HttpMethod;
@@ -139,7 +136,7 @@ public class NotificationFragment extends Fragment implements
 				Message msg = new Message();
 				msg.what = MSG_REFRSH_NOTIFICATION;
 				mHandler.sendMessage(msg);
-				mHandler.postDelayed(this, getReqeustDelay());
+				mHandler.postDelayed(this, getRequestDelay());
 				
 	            stop();
 			}
@@ -277,27 +274,28 @@ public class NotificationFragment extends Fragment implements
 		Intent intent = null;
 		Bundle bundle = new Bundle();
 		switch (notification.getType()) {
-		case 1:
+		case Notification.TYPE_COURSE_INVITE:
 			intent = new Intent(getActivity(), CourseDetailActivity.class);
-			bundle.putParcelable(EventsFragment.BUNDLE_KEY_ACTIVITY,
-					(Course) notification.getContent());
-			break;
-		case 2:
+			bundle.putParcelable(CourseDetailActivity.BUNDLE_COURSE,
+					notification.getCourse());
+            //TODO don't handle course
+            return;
+		case Notification.TYPE_FRIEND_INVITE:
 			intent = new Intent(getActivity(), FriendDetailActivity.class);
 			bundle.putParcelable(FriendListFragment.BUNDLE_KEY_USER,
-					(User) notification.getContent());
+					notification.getUser());
 			break;
-		case 3:
+		case Notification.TYPE_ACTIVITY_INVITE:
 			intent = new Intent(getActivity(), EventDetailActivity.class);
 			bundle.putParcelable(EventsFragment.BUNDLE_KEY_ACTIVITY,
-					(Activity) notification.getContent());
+					notification.getActivity());
 			break;
 		}
 		intent.putExtras(bundle);
 		startActivity(intent);
 	}
 	
-	private int getReqeustDelay() {
+	private int getRequestDelay() {
 		if (!WTUtility.isConnect(getActivity())) {
 			return REQUEST_DELAY_NONE;
 		}

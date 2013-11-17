@@ -267,10 +267,10 @@ public class WeNotificationService extends Service implements Callable<Void>, IC
 
 
         String contentTitle = "";
-        if (notify.getType() == 1) {
-            contentTitle = ((Course)notify.getContent()).getTitle();
-        } else if (notify.getType() == 3) {
-            contentTitle = ((Activity)notify.getContent()).getTitle();
+        if (notify.getType() == Notification.TYPE_COURSE_INVITE) {
+            contentTitle = notify.getCourse().getTitle();
+        } else if (notify.getType() == Notification.TYPE_ACTIVITY_INVITE) {
+            contentTitle = notify.getActivity().getTitle();
         }
         String notifyContent = notify.getTitle() + contentTitle;
 

@@ -46,15 +46,45 @@ public class NotificationFactory extends BaseFactory<Notification, Integer>{
 	public List<Notification> createObjects(String jsonStr) {
         List<Notification> results = parseObjects(jsonStr);
         list.clear();
+        List<Activity> activityList = new ArrayList<Activity>();
+        List<User> userList = new ArrayList<User>();
+        List<Course> courseList = new ArrayList<Course>();
+
         for (int i = 0; i < results.size(); i++) {
-            if (!results.get(i).isIsConfirmed()) {
-                list.add(results.get(i));
+            Notification notification = results.get(i);
+            if (!notification.isIsConfirmed()) {
+                int type = notification.getType();
+                if (type == Notification.TYPE_COURSE_INVITE) {
+                    courseList.add(notification.getCourse());
+                } else if (type == Notification.TYPE_FRIEND_INVITE) {
+                    userList.add(notification.getUser());
+                } else if (type == Notification.TYPE_ACTIVITY_INVITE) {
+                    activityList.add(notification.getActivity());
+                }
+                list.add(notification);
             }
+
         }
 
 		Bundle args = new Bundle();
 		args.putBoolean(ARG_NEED_TO_REFRESH, false);
 		fragment.getLoaderManager().initLoader(WTApplication.NOTIFICCATOINS_SAVER, args, this).forceLoad();
+
+        if (!userList.isEmpty()) {
+            UserFactory userFactory = new UserFactory(fragment);
+            userFactory.setList(userList);
+            fragment.getLoaderManager().initLoader(WTApplication.USER_SAVER, args, userFactory).forceLoad();
+        }
+        if (!courseList.isEmpty()) {
+            CourseFactory courseFactory = new CourseFactory(fragment);
+            courseFactory.setList(courseList);
+            fragment.getLoaderManager().initLoader(WTApplication.COURSES_SAVER, args, courseFactory).forceLoad();
+        }
+        if (!activityList.isEmpty()) {
+            ActivityFactory activityFactory = new ActivityFactory(fragment);
+            activityFactory.setList(activityList);
+            fragment.getLoaderManager().initLoader(WTApplication.ACTIVITIES_SAVER, args, activityFactory).forceLoad();
+        }
 		return results;
 	}
 
@@ -73,12 +103,12 @@ public class NotificationFactory extends BaseFactory<Notification, Integer>{
 			notification.setIsConfirmed(notification.getTitle().contains("已经接受"));
 
 			if (type.equals("CourseInvite")) {
-				notification.setType(1);
+				notification.setType(Notification.TYPE_COURSE_INVITE);
 				Course course = gson.fromJson(
 						detail.getString("CourseDetails"), Course.class);
-				notification.setContent(course);
+				notification.setCourse(course);
 			} else if (type.equals("FriendInvite")) {
-				notification.setType(2);
+				notification.setType(Notification.TYPE_FRIEND_INVITE);
 				User user;
 				if (!notification.isIsConfirmed()) {
 					user = gson.fromJson(detail.getString("UserDetails"),
@@ -87,12 +117,12 @@ public class NotificationFactory extends BaseFactory<Notification, Integer>{
 					user = gson.fromJson(detail.getString("ToUserDetails"),
 							User.class);
 				}
-				notification.setContent(user);
+				notification.setUser(user);
 			} else {
-				notification.setType(3);
+				notification.setType(Notification.TYPE_ACTIVITY_INVITE);
 				Activity activity = gson.fromJson(
 						detail.getString("ActivityDetails"), Activity.class);
-				notification.setContent(activity);
+				notification.setActivity(activity);
 			}
 			notification.setSentAt(detail.getString("SentAt").equals(
 					"null") ? null : DateParser.parseDateAndTime(detail

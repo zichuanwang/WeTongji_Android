@@ -113,4 +113,8 @@ public class BaseFactory<T, ID> implements LoaderCallbacks<Void>{
 	@Override
 	public void onLoaderReset(Loader<Void> arg0) {
 	}
+
+    public void setList(List<T> list) {
+        this.list = list;
+    }
 }

@@ -178,15 +178,15 @@ public class NotificationListAdapter extends BaseAdapter implements
 		String title = notification.getTitle();
 		String from = notification.getFrom();
         String activityTitle = "";
-		if(notification.getType() == 2 && !notification.isIsConfirmed()) {
+		if(notification.getType() == Notification.TYPE_FRIEND_INVITE && !notification.isIsConfirmed()) {
 			title = from + mContext.getResources().getString(R.string.wants_to_add_friend);
 		}
-        if (notification.getType() == 3) {
-            activityTitle = ((Activity)notification.getContent()).getTitle();
+        if (notification.getType() == Notification.TYPE_ACTIVITY_INVITE) {
+            activityTitle = notification.getActivity().getTitle();
             activityTitle = activityTitle == null ? "" : activityTitle;
             title = from + title + activityTitle;
-        } else if (notification.getType() == 1) {
-            activityTitle = ((Course)notification.getContent()).getTitle();
+        } else if (notification.getType() == Notification.TYPE_COURSE_INVITE) {
+            activityTitle = notification.getCourse().getTitle();
             activityTitle = activityTitle == null ? "" : activityTitle;
             title = from + title + activityTitle;
         }
@@ -198,7 +198,8 @@ public class NotificationListAdapter extends BaseAdapter implements
 		spanStr.setSpan(new TextAppearanceSpan(mContext,
 				R.style.NotificationItemContent), from.length(),
 				title.length() - activityTitle.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        if (notification.getType() == 3 || notification.getType() == 1) {
+        if (notification.getType() == Notification.TYPE_COURSE_INVITE ||
+                notification.getType() == Notification.TYPE_ACTIVITY_INVITE) {
             spanStr.setSpan(new TextAppearanceSpan(mContext, R.style.NotificationItemFrom),
                     title.length() - activityTitle.length(), title.length(),
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

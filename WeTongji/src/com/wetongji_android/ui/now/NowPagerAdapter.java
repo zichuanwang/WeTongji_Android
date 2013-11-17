@@ -222,7 +222,7 @@ public class NowPagerAdapter extends PagerAdapter {
 				intent.putExtras(bundle);
 			} else if (event instanceof Course) {
 				intent = new Intent(context, CourseDetailActivity.class);
-				bundle.putParcelable(CourseDetailActivity.BUNDLE_COURSE, event);
+				bundle.putParcelable(CourseDetailActivity.BUNDLE_COURSE, (Course)event);
 				intent.putExtras(bundle);
 			}
 

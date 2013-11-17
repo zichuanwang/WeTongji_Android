@@ -1,27 +1,29 @@
 package com.wetongji_android.data;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+
+import java.util.Date;
 
 public class Notification 
 {
+    /**
+     * Type:
+     * 1 CourseInvite
+     * 2 FriendInvite
+     * 3 ActivityInvite
+     * 4 FriendInviteConfirm
+     */
+    public static final int TYPE_COURSE_INVITE = 1;
+    public static final int TYPE_FRIEND_INVITE = 2;
+    public static final int TYPE_ACTIVITY_INVITE = 3;
+    public static final int TYPE_FRIEND_CONFIRM = 4;
+
 	@DatabaseField(id=true)
 	private int Id;
 	@DatabaseField
 	private String Title;
 	@DatabaseField
 	private String Description;
-	
-	/**
-	 * Type: 
-	 * 1 CourseInvite
-	 * 2 FriendInvite
-	 * 3 ActivityInvite
-	 * 4 FriendInviteConfirm
-	 */
 	@DatabaseField
 	private int Type;
 	@DatabaseField
@@ -40,8 +42,15 @@ public class Notification
 	private boolean IsAccepted;
 	@DatabaseField
 	private String Thumbnail;
-	@DatabaseField(dataType=DataType.SERIALIZABLE)
-	private Serializable Content;
+
+    // fields for content
+	@DatabaseField(foreign = true, foreignAutoCreate = true)
+	private Course course;
+    @DatabaseField(foreign = true, foreignAutoCreate = true)
+    private Activity activity;
+    @DatabaseField(foreign = true, foreignAutoCreate = true)
+    private User user;
+
 	@DatabaseField
 	private boolean IsConfirmed;
 	
@@ -170,14 +179,6 @@ public class Notification
 		IsAccepted = isAccepted;
 	}
 
-	public Serializable getContent() {
-		return Content;
-	}
-
-	public void setContent(Serializable content) {
-		Content = content;
-	}
-
 	public boolean isIsConfirmed() {
 		return IsConfirmed;
 	}
@@ -185,5 +186,28 @@ public class Notification
 	public void setIsConfirmed(boolean isConfirmed) {
 		IsConfirmed = isConfirmed;
 	}
-	
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

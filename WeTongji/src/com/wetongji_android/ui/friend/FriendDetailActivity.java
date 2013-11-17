@@ -101,7 +101,7 @@ public class FriendDetailActivity extends WTBaseDetailActivity implements
 		tvFriendWords = (TextView) findViewById(R.id.text_profile_words);
 		tvFriendWords.setText(mUser.getWords());
 		tvFriendDepartment = (TextView) findViewById(R.id.text_profile_gender);
-		int gendarRid = mUser.getGender().equals("ÄÐ") ? R.drawable.ic_gender_male
+		int gendarRid = mUser.getGender().equals("ç”·") ? R.drawable.ic_gender_male
 				: R.drawable.ic_gender_female;
 		Drawable gendarDrawable = getResources().getDrawable(gendarRid);
 		tvFriendDepartment.setCompoundDrawablesWithIntrinsicBounds(
