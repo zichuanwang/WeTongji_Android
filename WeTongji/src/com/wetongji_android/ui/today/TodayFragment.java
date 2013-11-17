@@ -49,6 +49,7 @@ public class TodayFragment extends SherlockFragment {
 
 	public static String previousResultStr = null;
 	private static SQLiteDatabase thedb = null;
+	private boolean refreshed = false;
 
 	private View view;
 	private Context context;
@@ -154,28 +155,39 @@ public class TodayFragment extends SherlockFragment {
 		gvFeatures = (GridView) view.findViewById(R.id.gv_today_features);
 		Bundle bundle = ApiHelper.getInstance(context).getHome();
 		
-		if(WTUtility.isConnect(context) && (previousResultStr == null)) {
+		//Get data from db first
+		previousResultStr = getDatabaseData();
+		if(previousResultStr == null) {
+			//The database has no data
+			if(WTUtility.isConnect(context)) {
+				//If the network is connected
+				getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, 
+						new NetworkLoaderCallbacks());
+			} else {
+				Toast.makeText(context, R.string.check_network, Toast.LENGTH_SHORT).show();
+				view.findViewById(R.id.pb_today_banner).setVisibility(View.GONE);
+				view.findViewById(R.id.pb_today_activities).setVisibility(View.GONE);
+				view.findViewById(R.id.pb_today_features).setVisibility(View.GONE);
+				view.findViewById(R.id.pb_today_information).setVisibility(View.GONE);
+			}
+		} else {
+			//The database has data
+			this.executeLoader(previousResultStr);
+		}
+		
+		/*if(WTUtility.isConnect(context) && (previousResultStr == null)) {
 			getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle,
-					new NetwordLoaderCallbacks());
+					new NetworkLoaderCallbacks());
 		} else {
 			if(previousResultStr == null) {
 				previousResultStr = getDatabaseData();
 			}
 			
 			this.executeLoader(previousResultStr);
-		}
+		}*/
 	}
 
 	public void executeLoader(String strResult) {
-		//The database has no data
-		if (strResult == null) {
-			Toast.makeText(context, R.string.check_network, Toast.LENGTH_SHORT).show();
-			view.findViewById(R.id.pb_today_banner).setVisibility(View.GONE);
-			view.findViewById(R.id.pb_today_activities).setVisibility(View.GONE);
-			view.findViewById(R.id.pb_today_features).setVisibility(View.GONE);
-			view.findViewById(R.id.pb_today_information).setVisibility(View.GONE);
-			return;
-		}
 	
 		TodayFactory factory = new TodayFactory(TodayFragment.this);
 		List<Banner> banners = factory.createBanners(strResult);
@@ -205,6 +217,12 @@ public class TodayFragment extends SherlockFragment {
 		gvFeatures.setVisibility(View.VISIBLE);
 
 		previousResultStr = strResult;
+		//Then if the network is connected we need to refresh the data
+		if(WTUtility.isConnect(context) && !refreshed) {
+			Bundle bundle = ApiHelper.getInstance(context).getHome();
+			getLoaderManager().initLoader(WTApplication.NETWORK_LOADER_DEFAULT, bundle, 
+					new NetworkLoaderCallbacks());
+		}
 	}
 
 	private void setTodayNowContent(Event event) {
@@ -232,7 +250,7 @@ public class TodayFragment extends SherlockFragment {
 
 	}
 
-	private class NetwordLoaderCallbacks implements LoaderCallbacks<HttpRequestResult> {
+	private class NetworkLoaderCallbacks implements LoaderCallbacks<HttpRequestResult> {
 
 		@Override
 		public Loader<HttpRequestResult> onCreateLoader(int arg0, Bundle args) {
@@ -242,6 +260,7 @@ public class TodayFragment extends SherlockFragment {
 		@Override
 		public void onLoadFinished(Loader<HttpRequestResult> arg0, HttpRequestResult result) {
 			if (result.getResponseCode() == 0) {
+				refreshed = true;
 				executeLoader(result.getStrResponseCon());
 				insertToDatabase(previousResultStr);
 			} else if(result.getResponseCode() == 408) {
